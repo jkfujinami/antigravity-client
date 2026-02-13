@@ -54,8 +54,8 @@ const SCALAR_ID_MAP: Record<number, string> = {
 
 async function generate() {
   const jsFiles = [
-    path.resolve(__dirname, "../../media_chat_formatted.js"),
-    path.resolve(__dirname, "../../extension_formatted.js"),
+    path.resolve(__dirname, "../media_chat_formatted.js"),
+    path.resolve(__dirname, "../extension_formatted.js"),
   ];
       const outDir = path.resolve(__dirname, "../src/proto_generated");
 

@@ -1,6 +1,7 @@
 
 import { AntigravityClient } from "./client.js";
 import { Cascade } from "./cascade.js";
+import { CortexStepStatus } from "./gen/exa/cortex_pb_pb.js";
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
@@ -12,12 +13,22 @@ interface CliState {
     client: AntigravityClient | null;
     cascade: Cascade | null;
     cascadeId: string | null;
+    isWaitingForApproval: boolean;
+    debugMode: boolean; // Debug flag
+
+    // Tracking for verbose output
+    lastStepCount: number;
+    lastStepStatuses: Map<number, number>;
 }
 
 const state: CliState = {
     client: null,
     cascade: null,
-    cascadeId: null
+    cascadeId: null,
+    isWaitingForApproval: false,
+    debugMode: false,
+    lastStepCount: 0,
+    lastStepStatuses: new Map()
 };
 
 // Utilities for colored output
@@ -35,13 +46,38 @@ const colors = {
     gray: "\x1b[90m",
 };
 
+// Global readline interface
+let rl: readline.Interface | null = null;
+const promptStr = `${colors.blue}antigravity>${colors.reset} `;
+
 function log(msg: string) {
     process.stdout.write(msg + '\n');
 }
 
+// Helper to ask question using a temporary readline or by pausing the main one
+async function askQuestion(query: string): Promise<string> {
+    if (rl) {
+        rl.pause(); // Pause main loop
+    }
+
+    const tempRl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+
+    return new Promise(resolve => {
+        tempRl.question(query, (answer) => {
+            tempRl.close();
+            if (rl) rl.resume();
+            resolve(answer);
+        });
+    });
+}
+
+
 // Main logic
 async function init() {
-    log(`${colors.cyan}--- Antigravity Interactive CLI v0.2 ---${colors.reset}`);
+    log(`${colors.cyan}--- Antigravity Interactive CLI v0.4 ---${colors.reset}`);
     log(`${colors.dim}Connecting to Language Server...${colors.reset}`);
 
     try {
@@ -57,13 +93,16 @@ async function init() {
         const savedId = fs.readFileSync(SESSION_FILE, 'utf-8').trim();
         if (savedId) {
             try {
-                // Ideally check validity here, for now just assume it exists
+                log(`${colors.yellow}↻ Resuming session: ${savedId}...${colors.reset}`);
                 state.cascade = state.client.getCascade(savedId);
+                // Verify
+                await state.cascade.getHistory();
                 state.cascadeId = savedId;
-                log(`${colors.yellow}↻ Resumed session: ${savedId}${colors.reset}`);
                 setupListeners(state.cascade);
+                log(`${colors.green}✔ Resumed.${colors.reset}`);
             } catch (e) {
-                log(`${colors.red}⚠ Failed to resume session ${savedId}${colors.reset}`);
+                log(`${colors.red}⚠ Failed to resume session ${savedId} (Expired?)${colors.reset}`);
+                state.cascade = null;
             }
         }
     }
@@ -72,7 +111,7 @@ async function init() {
         await startNewSession();
     }
 
-    repl();
+    initRepl();
 }
 
 async function startNewSession() {
@@ -84,6 +123,10 @@ async function startNewSession() {
         state.cascade.removeAllListeners();
     }
 
+    // Reset state tracking
+    state.lastStepCount = 0;
+    state.lastStepStatuses.clear();
+
     state.cascade = await state.client.startCascade();
     state.cascadeId = state.cascade.cascadeId;
     if (state.cascadeId) {
@@ -93,21 +136,209 @@ async function startNewSession() {
     }
 }
 
+function getStatusName(status: number): string {
+    switch (status) {
+        case CortexStepStatus.UNSPECIFIED: return "UNSPECIFIED";
+        case CortexStepStatus.PENDING: return "PENDING";
+        case CortexStepStatus.RUNNING: return "RUNNING";
+        case CortexStepStatus.DONE: return "DONE";
+        case CortexStepStatus.FAILED: return "FAILED";
+        case CortexStepStatus.CANCELLED: return "CANCELLED";
+        case CortexStepStatus.WAITING: return "WAITING";
+        default: return `UNKNOWN(${status})`;
+    }
+}
+
+function getStepDescription(step: any): string {
+    if (!step.step || !step.step.case) return "Unknown Step";
+
+    const type = step.step.case;
+    let details = "";
+
+    switch (type) {
+        case "runCommand":
+            details = step.step.value.commandLine || step.step.value.proposedCommandLine || "";
+            break;
+        case "writeToFile":
+             // Try to extract file path if available in encodedFiles or value
+             if (step.step.value.encodedFiles && step.step.value.encodedFiles.length > 0) {
+                 details = step.step.value.encodedFiles.map((f: any) => f.filePath).join(", ");
+             }
+             break;
+        case "viewFile":
+             details = step.step.value.filePath || "";
+             break;
+        case "plannerResponse":
+             details = "(Thinking/Response)";
+             break;
+        default:
+             details = "";
+    }
+
+    return `${type}${details ? `: ${details}` : ''}`;
+}
+
 function setupListeners(cascade: Cascade) {
+    // 0. General Update Handler for Verbose Logging
+    cascade.on('update', (s: any) => {
+        const trajectory = s.trajectory;
+        if (!trajectory || !trajectory.steps) return;
+
+        const steps = trajectory.steps;
+
+        // Check for new steps
+        if (steps.length > state.lastStepCount) {
+             for (let i = state.lastStepCount; i < steps.length; i++) {
+                 const step = steps[i];
+                 const desc = getStepDescription(step);
+                 // Only log significant steps (skip plannerResponse creating noise)
+                 if (step.step?.case !== 'plannerResponse') {
+                    log(`${colors.magenta}[Step ${i}] New: ${desc} (Status: ${getStatusName(step.status)})${colors.reset}`);
+                 }
+                 state.lastStepStatuses.set(i, step.status);
+             }
+             state.lastStepCount = steps.length;
+        }
+
+        // Check for status changes
+        steps.forEach((step: any, index: number) => {
+            const lastStatus = state.lastStepStatuses.get(index);
+            if (lastStatus !== undefined && lastStatus !== step.status) {
+                const desc = getStepDescription(step);
+                // Skip repetitive logs for plannerResponse or trivial status changes if needed
+                if (step.step?.case !== 'plannerResponse') {
+                    log(`${colors.magenta}[Step ${index}] Status: ${getStatusName(lastStatus)} -> ${getStatusName(step.status)} (${desc})${colors.reset}`);
+                }
+                state.lastStepStatuses.set(index, step.status);
+            }
+        });
+    });
+
     cascade.on('thinking', (ev: any) => {
-        process.stdout.write(`${colors.gray}${ev.delta}${colors.reset}`);
+        if (!state.isWaitingForApproval) {
+            process.stdout.write(`${colors.gray}${ev.delta}${colors.reset}`);
+        }
     });
 
     cascade.on('text', (ev: any) => {
-        process.stdout.write(ev.delta);
+        if (!state.isWaitingForApproval) {
+            process.stdout.write(ev.delta);
+        }
     });
 
     cascade.on('error', (err: any) => {
-        log(`${colors.red}Error: ${err}${colors.reset}`);
+        log(`${colors.red}\nError: ${err}${colors.reset}`);
+        if (!state.isWaitingForApproval) {
+            if (rl) rl.prompt();
+        }
     });
 
-    // Optional: Add 'done' detection if supported
-    // cascade.on('done', () => { ... });
+    // Debug Handler
+    cascade.on('raw_update', (ev: any) => {
+        if (state.debugMode) {
+             const timestamp = new Date().toISOString();
+             const diff = ev.diff;
+             const logEntry = `\n[${timestamp}] RAW UPDATE:\n` + JSON.stringify(diff, (key, value) => {
+                 if (key === 'windowId') return undefined;
+                 if (key === 'view' && value?.case === 'file') return '[File View Content]';
+                 if (typeof value === 'bigint') return value.toString();
+                 if (value && value.type === 'Buffer') return `[Binary: ${value.data.length} bytes]`;
+                 return value;
+            }, 2) + "\n\n";
+
+            try {
+                fs.appendFileSync(path.join(process.cwd(), 'debug_log.log'), logEntry);
+            } catch (err) {
+                 log(`${colors.red}Failed to write debug log: ${err}${colors.reset}`);
+            }
+        }
+    });
+
+    // 1. Output handler
+    cascade.on('command_output', (ev: any) => {
+        if (ev.outputType === 'stderr') {
+            process.stdout.write(`${colors.red}${ev.delta}${colors.reset}`);
+        } else {
+            process.stdout.write(ev.delta);
+        }
+    });
+
+    // 2. Interaction handler
+    cascade.on('interaction', async (ev: any) => {
+        const interaction = ev.interaction;
+
+        let cmd = ev.commandLine;
+        if (!cmd && interaction.interaction.value) {
+             cmd = interaction.interaction.value.proposedCommandLine;
+        }
+
+        if (interaction.interaction.case === "runCommand") {
+            process.stdout.write('\n'); // Clear line to ensure clean output
+
+            if (!cmd) {
+                 log(`${colors.red}[Error] Could not determine command line for step ${ev.stepIndex}${colors.reset}`);
+                 return;
+            }
+
+            if (ev.needsApproval) {
+                // Manual approval required behavior
+                await handleApproval(ev.stepIndex, cmd);
+            } else {
+                // Auto-run behavior
+                const currentStep = state.cascade?.state?.trajectory?.steps?.[ev.stepIndex];
+                const status = currentStep ? currentStep.status : CortexStepStatus.UNSPECIFIED;
+
+                log(`${colors.gray}[Auto-Run] Executing: ${cmd} (Status: ${status})${colors.reset}`);
+
+                // Only approve if PENDING
+                if (status === CortexStepStatus.PENDING) {
+                   try {
+                       await state.cascade?.approveCommand(ev.stepIndex, cmd);
+                   } catch (e) {
+                       log(`${colors.yellow}[Auto-Run Warning] Approval warning: ${e}${colors.reset}`);
+                   }
+                }
+            }
+        } else {
+            log(`${colors.yellow}Received unknown interaction: ${interaction.interaction.case}${colors.reset}`);
+        }
+    });
+
+    cascade.on('done', () => {
+        if (!state.isWaitingForApproval) {
+            process.stdout.write('\n');
+            if (rl) rl.prompt();
+        }
+    });
+}
+
+async function handleApproval(stepIndex: number, command: string) {
+    if (state.isWaitingForApproval) return; // Prevent re-entry if multiple come in fast
+    state.isWaitingForApproval = true;
+
+    log(`\n${colors.yellow}🔔 AI wants to execute command:${colors.reset}`);
+    log(`${colors.white}> ${command}${colors.reset}`);
+
+    const answer = await askQuestion(`${colors.yellow}Allow? [Y/n] > ${colors.reset}`);
+    const normalized = answer.trim().toLowerCase();
+
+    if (normalized === '' || normalized === 'y' || normalized === 'yes') {
+        try {
+            await state.cascade?.approveCommand(stepIndex, command);
+            log(`${colors.green}✔ Approved.${colors.reset}`);
+        } catch (e) {
+            log(`${colors.red}❌ Failed to approve: ${e}${colors.reset}`);
+        }
+    } else {
+        log(`${colors.red}✖ Skipped.${colors.reset}`);
+        // TODO: Implement rejectCommand(stepIndex) explicitly if server supports it
+    }
+
+    state.isWaitingForApproval = false;
+    // Re-prompt main loop
+    if (rl) {
+        rl.prompt();
+    }
 }
 
 async function handleCommand(cmd: string): Promise<boolean> {
@@ -121,9 +352,23 @@ async function handleCommand(cmd: string): Promise<boolean> {
             process.exit(0);
             return true;
 
+        case '/debug':
+             if (args[1] === 'on') {
+                 state.debugMode = true;
+                 log(`${colors.yellow}Debug mode ON. Logging to debug_log.log${colors.reset}`);
+             } else if (args[1] === 'off') {
+                 state.debugMode = false;
+                 log(`${colors.yellow}Debug mode OFF.${colors.reset}`);
+             } else {
+                 log(`Debug mode is currently: ${state.debugMode ? 'ON' : 'OFF'}`);
+             }
+             return true;
+
         case '/new':
         case '/reset':
             await startNewSession();
+            // Since we replaced the cascade object, we need to re-init prompt maybe?
+            // Actually setupListeners handles events.
             return true;
 
         case '/clear':
@@ -134,7 +379,7 @@ async function handleCommand(cmd: string): Promise<boolean> {
         case '/status':
             if (state.cascade) {
                 log(`Session ID: ${state.cascadeId}`);
-                log(`Status: ${state.cascade.state.status || 'UNKNOWN'}`);
+                log(`Status: Active`);
             } else {
                 log("No active session.");
             }
@@ -146,45 +391,54 @@ async function handleCommand(cmd: string): Promise<boolean> {
     }
 }
 
-function repl() {
-    const rl = readline.createInterface({
+function initRepl() {
+    rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
-        prompt: `${colors.blue}antigravity>${colors.reset} `
+        prompt: promptStr
     });
+
+    // Safety check
+    if (!rl) return;
 
     rl.prompt();
 
     rl.on('line', async (line) => {
         const input = line.trim();
         if (!input) {
-            rl.prompt();
+            if (rl) rl.prompt();
             return;
         }
 
         if (input.startsWith('/')) {
             await handleCommand(input);
-            rl.prompt();
+            if (rl) rl.prompt();
             return;
         }
 
         if (!state.cascade) {
             log(`${colors.red}No active session! Run /new${colors.reset}`);
-            rl.prompt();
+            if (rl) rl.prompt();
             return;
         }
 
-        process.stdout.write('\n'); // Newline before response
+        // If we are waiting for approval, we shouldn't be sending messages generally,
+        // but 'line' event handling here is mutually exclusive with askQuestion's tempRl usually
+        // if we pause correctly.
+        if (state.isWaitingForApproval) return;
+
+        process.stdout.write('\n'); // Newline before response flow starts
 
         try {
             await state.cascade.sendMessage(input);
         } catch (e) {
             log(`${colors.red}Error: ${e}${colors.reset}`);
         }
+    });
 
-        // Note: Response will stream asynchronously.
-        // We don't reprint prompt immediately to avoid messing up the stream.
-        // User can still type blindly if they want, but usually they wait.
+    rl.on('SIGINT', () => {
+        log("\nUse /exit to quit.");
+        if (rl) rl.prompt();
     });
 }
 
