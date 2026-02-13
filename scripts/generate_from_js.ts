@@ -54,10 +54,10 @@ const SCALAR_ID_MAP: Record<number, string> = {
 
 async function generate() {
   const jsFiles = [
-    path.resolve(__dirname, "../../../media_chat_formatted.js"),
-    path.resolve(__dirname, "../../../extension_formatted.js"),
+    path.resolve(__dirname, "../../media_chat_formatted.js"),
+    path.resolve(__dirname, "../../extension_formatted.js"),
   ];
-  const outDir = path.resolve(__dirname, "../proto_generated");
+      const outDir = path.resolve(__dirname, "../src/proto_generated");
 
   const messageMap = new Map<string, MessageDef>(); // varName -> MessageDef
   const enumMap = new Map<string, EnumDef>(); // varName -> EnumDef
@@ -174,8 +174,6 @@ function scanDefinitions(
                               const left = parent.left;
                               if (ts.isIdentifier(left)) {
                                  addMessage(left.text, fullName);
-                              } else if (ts.isVariableDeclaration(parent) && ts.isIdentifier(parent.name)) {
-                                 addMessage(parent.name.text, fullName);
                               }
                          } else if (ts.isVariableDeclaration(parent) && ts.isIdentifier(parent.name)) {
                               addMessage(parent.name.text, fullName);

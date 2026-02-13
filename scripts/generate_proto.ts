@@ -54,12 +54,12 @@ const UNRESOLVED_TYPE_MAP: Record<string, string> = {
 };
 
 async function generate() {
-  const jsonPath = path.resolve(__dirname, "../../../proto_types.json");
+  const jsonPath = path.resolve(__dirname, "../../proto_types.json");
   const jsFiles = [
-    path.resolve(__dirname, "../../../media_chat_formatted.js"),
-    path.resolve(__dirname, "../../../extension_formatted.js"),
+    path.resolve(__dirname, "../../media_chat_formatted.js"),
+    path.resolve(__dirname, "../../extension_formatted.js"),
   ];
-  const outDir = path.resolve(__dirname, "../proto_generated");
+  const outDir = path.resolve(__dirname, "../src/proto_generated");
 
   console.log(`Reading ${jsonPath}...`);
   if (!fs.existsSync(jsonPath)) {
