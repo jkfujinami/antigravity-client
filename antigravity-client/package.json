@@ -1,0 +1,29 @@
+{
+  "name": "antigravity-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cli": "tsx src/repl.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@bufbuild/buf": "^1.65.0",
+    "@bufbuild/protoc-gen-es": "^1.10.0",
+    "@connectrpc/protoc-gen-connect-es": "^1.6.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^25.2.3",
+    "fs-extra": "^11.3.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "^1.10.0",
+    "@connectrpc/connect": "^1.6.0",
+    "@connectrpc/connect-node": "^1.6.0"
+  }
+}
