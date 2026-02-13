@@ -1,0 +1,146 @@
+
+import { createPromiseClient, PromiseClient } from "@connectrpc/connect";
+import { createConnectTransport } from "@connectrpc/connect-node";
+import { AutoDetector } from "./autodetect.js";
+
+// Generated Imports from src/gen
+import { LanguageServerService } from "./gen/exa/language_server_pb_connect.js";
+import { Metadata, TextOrScopeItem, ModelOrAlias, Model, ConversationalPlannerMode } from "./gen/exa/codeium_common_pb_pb.js";
+import { StartCascadeRequest, SendUserCascadeMessageRequest, GetCascadeTrajectoryRequest } from "./gen/exa/language_server_pb_pb.js";
+import { StreamReactiveUpdatesRequest } from "./gen/exa/reactive_component_pb_pb.js";
+import { CascadeConfig, CascadePlannerConfig, CascadeConversationalPlannerConfig } from "./gen/exa/cortex_pb_pb.js";
+
+// Note: UnaryResponse might be needed depending on return types, but let's see what the service returns.
+import { CascadeTrajectorySummaries } from "./gen/exa/jetski_cortex_pb_pb.js"; // Added import
+
+
+interface ClientOptions {
+  autoDetect?: boolean;
+  port?: number;
+  csrfToken?: string;
+  workspacePath?: string;
+  apiKey?: string;
+}
+
+export class AntigravityClient {
+  private transport;
+  public lsClient: PromiseClient<typeof LanguageServerService>;
+  private csrfToken: string;
+  private apiKey: string;
+
+  private constructor(port: number, csrfToken: string, apiKey: string) {
+    this.csrfToken = csrfToken;
+    this.apiKey = apiKey;
+
+    // Connect RPC Transport (HTTP/2 + TLS)
+    this.transport = createConnectTransport({
+      baseUrl: `https://127.0.0.1:${port}`,
+      httpVersion: "2",
+      nodeOptions: {
+        rejectUnauthorized: false,
+      },
+      interceptors: [
+        (next) => async (req) => {
+          req.header.set("x-codeium-csrf-token", this.csrfToken);
+          return await next(req);
+        },
+      ],
+    });
+
+    this.lsClient = createPromiseClient(LanguageServerService, this.transport);
+  }
+
+  static async listServers(): Promise<any[]> {
+    const detector = new AutoDetector();
+    return await detector.findAllServers();
+  }
+
+  static async connect(options: ClientOptions = {}): Promise<AntigravityClient> {
+    let port = options.port;
+    let csrfToken = options.csrfToken;
+    let apiKey = options.apiKey || process.env.ANTIGRAVITY_API_KEY || "dummy-api-key";
+
+    if (!port || !csrfToken) {
+        const detector = new AutoDetector();
+        if (options.autoDetect !== false) {
+          const server = await detector.findBestServer(options.workspacePath);
+          port = server.httpsPort || server.httpPort;
+          csrfToken = server.csrfToken;
+          console.log(`[Client] Connected to LS (PID: ${server.pid}, Port: ${port})`);
+        } else {
+          throw new Error("Port and CSRF token required when autoDetect is false.");
+        }
+    }
+
+    return new AntigravityClient(port!, csrfToken!, apiKey);
+  }
+
+  async getUserStatus() {
+      const response = await this.lsClient.getUserStatus({});
+      return response;
+  }
+
+  async getModelStatuses() {
+      const response = await this.lsClient.getModelStatuses({});
+      return response;
+  }
+
+  async getWorkingDirectories() {
+      const response = await this.lsClient.getWorkingDirectories({});
+      return response;
+  }
+
+  async *getSummariesStream() {
+      const stream = this.lsClient.streamCascadeSummariesReactiveUpdates(
+          new StreamReactiveUpdatesRequest({
+              protocolVersion: 1,
+              id: "summaries",
+          })
+      );
+
+      for await (const res of stream) {
+          if (res.diff) {
+              const state = new CascadeTrajectorySummaries();
+              // Note: Ideally we should accumulate state, but for a quick check we'll return the diff-applied empty state
+              // Or better, let the caller handle state accumulation if they want full sync.
+              // For now, let's yield the raw diff for the test script to handle, or apply it to a fresh object.
+              // Given applyMessageDiff is not a method of the client, we might want to just yield the response and let the caller handle it.
+              // But to be consistent with getCascade, let's yield the raw response for now.
+              yield res;
+          }
+      }
+  }
+
+  async startCascade(modelName: string = "gemini-3-flash"): Promise<Cascade> {
+      const metadata = new Metadata({
+          apiKey: this.apiKey,
+          ideName: "vscode",
+          ideVersion: "1.107.0",
+          extensionName: "antigravity",
+          extensionVersion: "1.107.0",
+      });
+
+      const req = new StartCascadeRequest({
+          metadata,
+      });
+
+      const { cascadeId } = await this.lsClient.startCascade(req);
+      const cascade = new Cascade(cascadeId, this.lsClient, this.apiKey);
+
+      // Auto-start listening in background
+      cascade.listen();
+
+      return cascade;
+  }
+
+  /**
+   * Resumes an existing cascade by ID.
+   */
+  getCascade(cascadeId: string): Cascade {
+      const cascade = new Cascade(cascadeId, this.lsClient, this.apiKey);
+      cascade.listen();
+      return cascade;
+  }
+}
+
+import { Cascade } from "./cascade.js";

@@ -1,0 +1,386 @@
+syntax = "proto3";
+package google.internal.cloud.code.v1internal;
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+message BackupMessage { bytes data = 1; }
+
+message Credits {
+  Credits_CreditType credit_type = 1;
+  int64 credit_amount = 2;
+}
+
+message ReleaseChannel {
+  ReleaseChannel_ChannelType type = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message IneligibleTier {
+  IneligibleTier_IneligibleTierReasonCodes reason_code = 1;
+  string reason_message = 2;
+  string tier_id = 3;
+  string tier_name = 4;
+  string validation_error_message = 5;
+  string validation_url_link_text = 6;
+  string validation_url = 7;
+  string validation_learn_more_link_text = 8;
+  string validation_learn_more_url = 9;
+}
+
+message ClientMetadata {
+  ClientMetadata_IdeType ide_type = 1;
+  string ide_version = 2;
+  string plugin_version = 3;
+  ClientMetadata_Platform platform = 4;
+  string update_channel = 5;
+  string duet_project = 6;
+  ClientMetadata_PluginType plugin_type = 7;
+  string ide_name = 8;
+}
+
+message Project {
+  string id = 1;
+  string name = 2;
+  int64 project_number = 3;
+}
+
+message OnboardUserStatus {
+  OnboardUserStatus_StatusCode status_code = 1;
+  string display_message = 2;
+  string message_title = 4;
+}
+
+message UserTier {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  bool user_defined_cloudaicompanion_project = 4;
+  UserTier_PrivacyNotice privacy_notice = 5;
+  bool is_default = 6;
+  string upgrade_subscription_uri = 7;
+  string upgrade_subscription_text = 8;
+  string upgrade_button_text = 11;
+  string client_experience_tag = 12;
+  UserTier_UpgradeType upgrade_subscription_type = 9;
+  bool uses_gcp_tos = 13;
+  repeated Credits available_credits = 14;
+}
+
+message UserTier_PrivacyNotice {
+  bool show_notice = 1;
+  string notice_text = 2;
+  bool minor_notice = 4;
+}
+
+message GeminiCodeAssistSetting {
+  bool disable_telemetry = 1;
+  bool disable_feedback = 2;
+  RecitationPolicy recitation_policy = 3;
+  GeminiCodeAssistSetting_GroundingType grounding_type = 4;
+  bool secure_mode_enabled = 5;
+  McpSetting mcp_setting = 6;
+  TurboModeSetting turbo_mode_setting = 7;
+  BrowserSetting browser_setting = 8;
+  PreviewFeatureSetting preview_feature_setting = 9;
+  AgentSetting agent_setting = 10;
+  CliFeatureSetting cli_feature_setting = 11;
+}
+
+message RecitationPolicy {
+  bool disable_citations = 1;
+}
+
+message McpSetting {
+  bool mcp_enabled = 1;
+  string override_mcp_config_json = 2;
+}
+
+message TurboModeSetting {
+  bool terminal_auto_execution_enabled = 1;
+  bool browser_js_execution_enabled = 2;
+}
+
+message BrowserSetting {
+  bool browser_enabled = 1;
+  repeated string allowed_websites = 2;
+  repeated string denied_websites = 3;
+}
+
+message PreviewFeatureSetting {
+  bool preview_models_enabled = 1;
+}
+
+message AgentSetting {
+  repeated string agy_allowed_models = 1;
+}
+
+message CliFeatureSetting {
+  CliFeatureSetting_ExtensionsSetting extensions_setting = 1;
+  bool unmanaged_capabilities_enabled = 2;
+}
+
+message CliFeatureSetting_ExtensionsSetting {
+  bool extensions_enabled = 1;
+}
+
+message CodeAssistMetric {
+  google.protobuf.Timestamp timestamp = 1;
+  map<string, string> metric_metadata = 10;
+  oneof event {
+    InlineCompletionAccepted inline_completion_accepted = 2;
+    InlineCompletionOffered inline_completion_offered = 3;
+    ConversationOffered conversation_offered = 4;
+    GenerateCodeUI generate_code_ui = 5;
+    ConversationExplainUI conversation_explain_ui = 6;
+    ConversationGenerateTestUI conversation_generate_test_ui = 7;
+    ConversationInteraction conversation_interaction = 8;
+    AiCharactersReports ai_characters_reports = 9;
+  }
+}
+
+message InlineCompletionAccepted {
+  string trace_id = 1;
+  float score = 2;
+  int64 response_size = 3;
+  int64 response_lines = 4;
+  string language = 5;
+  InlineCompletionAccepted_CompletionMethod completion_method = 6;
+  int64 partial_accepted_characters = 7;
+  int64 partial_accepted_lines = 8;
+  int64 accepted_comment_lines = 10;
+  ActionStatus status = 9;
+  int64 response_accepted_index = 11;
+}
+
+message InlineCompletionOffered {
+  string trace_id = 1;
+  int64 result_count = 2;
+  string language = 3;
+  InlineCompletionOffered_CompletionMode completion_mode = 4;
+  google.protobuf.Duration display_length = 5;
+  ActionStatus status = 6;
+  InlineCompletionOffered_CompletionMethod completion_method = 7;
+  google.protobuf.Duration response_latency = 8;
+  int64 response_received_index = 9;
+}
+
+message ConversationOffered {
+  int64 citation_count = 1;
+  bool included_code = 2;
+  ActionStatus status = 3;
+  string trace_id = 4;
+  ConversationOffered_StreamingLatency streaming_latency = 5;
+  bool is_agentic = 6;
+  ConversationOffered_InitiationMethod initiation_method = 7;
+  string trajectory_id = 8;
+  string language = 9;
+}
+
+message ConversationOffered_StreamingLatency {
+  google.protobuf.Duration first_message_latency = 1;
+  google.protobuf.Duration total_latency = 2;
+}
+
+message ConversationInteraction {
+  string trace_id = 1;
+  ActionStatus status = 2;
+  ConversationInteraction_Interaction interaction = 3;
+  int64 accepted_lines = 4;
+  int64 removed_lines = 7;
+  string language = 5;
+  bool is_agentic = 6;
+  ConversationOffered_InitiationMethod initiation_method = 8;
+}
+
+message GenerateCodeUI {
+}
+
+message ConversationExplainUI {
+}
+
+message ConversationGenerateTestUI {
+}
+
+message AiCharactersReports {
+  repeated AiCharactersReport reports = 1;
+}
+
+message AiCharactersReport {
+  string language = 1;
+  AiCharactersReport_EditType edit_type = 2;
+  int64 total_chars = 3;
+  int64 whitespace_chars = 4;
+  int64 time_interval_index = 5;
+}
+
+message RecordCodeAssistMetricsRequest {
+  string project = 1;
+  string request_id = 2;
+  bytes metadata = 3;
+  repeated CodeAssistMetric metrics = 4;
+}
+
+message RecordClientEventRequest {
+  string project = 1;
+  bytes ide_type = 2;
+  CodeAssistMetric metric = 3;
+}
+
+enum Credits_CreditType {
+  CREDITS__CREDIT_TYPE_CREDIT_TYPE_UNSPECIFIED = 0;
+  CREDITS__CREDIT_TYPE_GOOGLE_ONE_AI = 1;
+}
+
+enum ReleaseChannel_ChannelType {
+  RELEASE_CHANNEL__CHANNEL_TYPE_UNKNOWN = 0;
+  RELEASE_CHANNEL__CHANNEL_TYPE_STABLE = 1;
+  RELEASE_CHANNEL__CHANNEL_TYPE_EXPERIMENTAL = 2;
+}
+
+enum LoadCodeAssistRequest_Mode {
+  LOAD_CODE_ASSIST_REQUEST__MODE_MODE_UNSPECIFIED = 0;
+  LOAD_CODE_ASSIST_REQUEST__MODE_FULL_ELIGIBILITY_CHECK = 1;
+  LOAD_CODE_ASSIST_REQUEST__MODE_HEALTH_CHECK = 2;
+}
+
+enum IneligibleTier_IneligibleTierReasonCodes {
+  INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_UNKNOWN = 0;
+  INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_INELIGIBLE_ACCOUNT = 1;
+  INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_UNKNOWN_LOCATION = 2;
+  INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_UNSUPPORTED_LOCATION = 3;
+  INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_RESTRICTED_NETWORK = 4;
+  INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_RESTRICTED_AGE = 5;
+  INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_NON_USER_ACCOUNT = 6;
+  INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_DASHER_USER = 7;
+  INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_BYOID_USER = 8;
+  INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_RESTRICTED_DASHER_USER = 9;
+  INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_VALIDATION_REQUIRED = 10;
+}
+
+enum ClientMetadata_IdeType {
+  CLIENT_METADATA__IDE_TYPE_IDE_UNSPECIFIED = 0;
+  CLIENT_METADATA__IDE_TYPE_VSCODE = 1;
+  CLIENT_METADATA__IDE_TYPE_INTELLIJ = 2;
+  CLIENT_METADATA__IDE_TYPE_VSCODE_CLOUD_WORKSTATION = 3;
+  CLIENT_METADATA__IDE_TYPE_INTELLIJ_CLOUD_WORKSTATION = 4;
+  CLIENT_METADATA__IDE_TYPE_CLOUD_SHELL = 5;
+  CLIENT_METADATA__IDE_TYPE_CIDER = 6;
+  CLIENT_METADATA__IDE_TYPE_CLOUD_RUN = 7;
+  CLIENT_METADATA__IDE_TYPE_ANDROID_STUDIO = 8;
+  CLIENT_METADATA__IDE_TYPE_ANTIGRAVITY = 9;
+  CLIENT_METADATA__IDE_TYPE_JETSKI = 10;
+  CLIENT_METADATA__IDE_TYPE_COLAB = 11;
+  CLIENT_METADATA__IDE_TYPE_FIREBASE = 12;
+  CLIENT_METADATA__IDE_TYPE_CHROME_DEVTOOLS = 13;
+  CLIENT_METADATA__IDE_TYPE_GEMINI_CLI = 14;
+}
+
+enum ClientMetadata_Platform {
+  CLIENT_METADATA__PLATFORM_PLATFORM_UNSPECIFIED = 0;
+  CLIENT_METADATA__PLATFORM_DARWIN_AMD64 = 1;
+  CLIENT_METADATA__PLATFORM_DARWIN_ARM64 = 2;
+  CLIENT_METADATA__PLATFORM_LINUX_AMD64 = 3;
+  CLIENT_METADATA__PLATFORM_LINUX_ARM64 = 4;
+  CLIENT_METADATA__PLATFORM_WINDOWS_AMD64 = 5;
+}
+
+enum ClientMetadata_PluginType {
+  CLIENT_METADATA__PLUGIN_TYPE_PLUGIN_UNSPECIFIED = 0;
+  CLIENT_METADATA__PLUGIN_TYPE_CLOUD_CODE = 1;
+  CLIENT_METADATA__PLUGIN_TYPE_GEMINI = 2;
+  CLIENT_METADATA__PLUGIN_TYPE_AIPLUGIN_INTELLIJ = 3;
+  CLIENT_METADATA__PLUGIN_TYPE_AIPLUGIN_STUDIO = 4;
+  CLIENT_METADATA__PLUGIN_TYPE_PANTHEON = 6;
+}
+
+enum OnboardUserStatus_StatusCode {
+  ONBOARD_USER_STATUS__STATUS_CODE_DEFAULT = 0;
+  ONBOARD_USER_STATUS__STATUS_CODE_NOTICE = 1;
+  ONBOARD_USER_STATUS__STATUS_CODE_WARNING = 2;
+}
+
+enum UserTier_UpgradeType {
+  USER_TIER__UPGRADE_TYPE_UPGRADE_TYPE_UNSPECIFIED = 0;
+  USER_TIER__UPGRADE_TYPE_GDP = 1;
+  USER_TIER__UPGRADE_TYPE_GOOGLE_ONE = 2;
+  USER_TIER__UPGRADE_TYPE_GDP_HELIUM = 3;
+  USER_TIER__UPGRADE_TYPE_GOOGLE_ONE_HELIUM = 4;
+}
+
+enum GeminiCodeAssistSetting_GroundingType {
+  GEMINI_CODE_ASSIST_SETTING__GROUNDING_TYPE_GROUNDING_TYPE_UNSPECIFIED = 0;
+  GEMINI_CODE_ASSIST_SETTING__GROUNDING_TYPE_GROUNDING_WITH_GOOGLE_SEARCH = 1;
+  GEMINI_CODE_ASSIST_SETTING__GROUNDING_TYPE_WEB_GROUNDING_FOR_ENTERPRISE = 2;
+}
+
+enum FetchAdminControlsResponse_GroundingType {
+  FETCH_ADMIN_CONTROLS_RESPONSE__GROUNDING_TYPE_GROUNDING_TYPE_UNSPECIFIED = 0;
+  FETCH_ADMIN_CONTROLS_RESPONSE__GROUNDING_TYPE_GROUNDING_WITH_GOOGLE_SEARCH = 1;
+  FETCH_ADMIN_CONTROLS_RESPONSE__GROUNDING_TYPE_WEB_GROUNDING_FOR_ENTERPRISE = 2;
+}
+
+enum ActionStatus {
+  ACTION_STATUS_UNSPECIFIED = 0;
+  ACTION_STATUS_NO_ERROR = 1;
+  ACTION_STATUS_ERROR_UNKNOWN = 2;
+  ACTION_STATUS_CANCELLED = 3;
+  ACTION_STATUS_EMPTY = 4;
+}
+
+enum InlineCompletionAccepted_CompletionMethod {
+  INLINE_COMPLETION_ACCEPTED__COMPLETION_METHOD_UNKNOWN = 0;
+  INLINE_COMPLETION_ACCEPTED__COMPLETION_METHOD_GENERATE_CODE = 1;
+  INLINE_COMPLETION_ACCEPTED__COMPLETION_METHOD_COMPLETE_CODE = 2;
+  INLINE_COMPLETION_ACCEPTED__COMPLETION_METHOD_TRANSFORM_CODE = 3;
+  INLINE_COMPLETION_ACCEPTED__COMPLETION_METHOD_AUTOMATIC_GENERATION = 4;
+}
+
+enum InlineCompletionOffered_CompletionMode {
+  INLINE_COMPLETION_OFFERED__COMPLETION_MODE_UNKNOWN = 0;
+  INLINE_COMPLETION_OFFERED__COMPLETION_MODE_LANGUAGE_CLIENT = 1;
+  INLINE_COMPLETION_OFFERED__COMPLETION_MODE_TYPEOVER = 2;
+  INLINE_COMPLETION_OFFERED__COMPLETION_MODE_TYPEOVER_NEWLINE = 3;
+  INLINE_COMPLETION_OFFERED__COMPLETION_MODE_TRANSFORM_CODE = 4;
+}
+
+enum InlineCompletionOffered_CompletionMethod {
+  INLINE_COMPLETION_OFFERED__COMPLETION_METHOD_COMPLETION_METHOD_UNKNOWN = 0;
+  INLINE_COMPLETION_OFFERED__COMPLETION_METHOD_COMPLETION_METHOD_GENERATE_CODE = 1;
+  INLINE_COMPLETION_OFFERED__COMPLETION_METHOD_COMPLETION_METHOD_COMPLETE_CODE = 2;
+  INLINE_COMPLETION_OFFERED__COMPLETION_METHOD_COMPLETION_METHOD_TRANSFORM_CODE = 3;
+  INLINE_COMPLETION_OFFERED__COMPLETION_METHOD_COMPLETION_METHOD_AUTOMATIC_GENERATION = 4;
+}
+
+enum ConversationOffered_InitiationMethod {
+  CONVERSATION_OFFERED__INITIATION_METHOD_INITIATION_METHOD_UNSPECIFIED = 0;
+  CONVERSATION_OFFERED__INITIATION_METHOD_TAB = 1;
+  CONVERSATION_OFFERED__INITIATION_METHOD_COMMAND = 2;
+  CONVERSATION_OFFERED__INITIATION_METHOD_AGENT = 3;
+}
+
+enum ConversationInteraction_Interaction {
+  CONVERSATION_INTERACTION__INTERACTION_UNKNOWN = 0;
+  CONVERSATION_INTERACTION__INTERACTION_THUMBSUP = 1;
+  CONVERSATION_INTERACTION__INTERACTION_THUMBSDOWN = 2;
+  CONVERSATION_INTERACTION__INTERACTION_COPY = 3;
+  CONVERSATION_INTERACTION__INTERACTION_INSERT = 4;
+  CONVERSATION_INTERACTION__INTERACTION_ACCEPT_CODE_BLOCK = 5;
+  CONVERSATION_INTERACTION__INTERACTION_ACCEPT_ALL = 6;
+  CONVERSATION_INTERACTION__INTERACTION_ACCEPT_FILE = 7;
+  CONVERSATION_INTERACTION__INTERACTION_DIFF = 8;
+  CONVERSATION_INTERACTION__INTERACTION_ACCEPT_RANGE = 9;
+}
+
+enum AiCharactersReport_EditType {
+  AI_CHARACTERS_REPORT__EDIT_TYPE_EDIT_TYPE_UNSPECIFIED = 0;
+  AI_CHARACTERS_REPORT__EDIT_TYPE_USER_ADD = 1;
+  AI_CHARACTERS_REPORT__EDIT_TYPE_PASTE = 2;
+  AI_CHARACTERS_REPORT__EDIT_TYPE_DELETE = 3;
+  AI_CHARACTERS_REPORT__EDIT_TYPE_OTHER = 4;
+  AI_CHARACTERS_REPORT__EDIT_TYPE_AI_COMPLETION = 5;
+  AI_CHARACTERS_REPORT__EDIT_TYPE_AI_COMPLETION_PARTIAL = 6;
+  AI_CHARACTERS_REPORT__EDIT_TYPE_AI_GENERATION = 7;
+  AI_CHARACTERS_REPORT__EDIT_TYPE_AI_GENERATION_PARTIAL = 8;
+}
