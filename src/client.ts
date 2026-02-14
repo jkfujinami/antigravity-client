@@ -5,14 +5,15 @@ import { AutoDetector } from "./autodetect.js";
 
 // Generated Imports from src/gen
 import { LanguageServerService } from "./gen/exa/language_server_pb_connect.js";
-import { Metadata, TextOrScopeItem, ModelOrAlias, Model, ConversationalPlannerMode } from "./gen/exa/codeium_common_pb_pb.js";
+import { Metadata, TextOrScopeItem, ModelOrAlias, Model, ModelAlias, ConversationalPlannerMode } from "./gen/exa/codeium_common_pb_pb.js";
 import { StartCascadeRequest, SendUserCascadeMessageRequest, GetCascadeTrajectoryRequest } from "./gen/exa/language_server_pb_pb.js";
 import { StreamReactiveUpdatesRequest } from "./gen/exa/reactive_component_pb_pb.js";
 import { CascadeConfig, CascadePlannerConfig, CascadeConversationalPlannerConfig } from "./gen/exa/cortex_pb_pb.js";
 
 // Note: UnaryResponse might be needed depending on return types, but let's see what the service returns.
-import { CascadeTrajectorySummaries } from "./gen/exa/jetski_cortex_pb_pb.js"; // Added import
-
+import { CascadeTrajectorySummaries } from "./gen/exa/jetski_cortex_pb_pb.js";
+import { Cascade } from "./cascade.js";
+import { ServerInfo } from "./autodetect.js";
 
 interface ClientOptions {
   autoDetect?: boolean;
@@ -21,6 +22,8 @@ interface ClientOptions {
   workspacePath?: string;
   apiKey?: string;
 }
+
+export { ServerInfo };
 
 export class AntigravityClient {
   private transport;
@@ -50,11 +53,17 @@ export class AntigravityClient {
     this.lsClient = createPromiseClient(LanguageServerService, this.transport);
   }
 
-  static async listServers(): Promise<any[]> {
+  /**
+   * Returns all running Language Server processes. (Low-level API)
+   */
+  static async listServers(): Promise<ServerInfo[]> {
     const detector = new AutoDetector();
     return await detector.findAllServers();
   }
 
+  /**
+   * Standard connection method. (High-level API)
+   */
   static async connect(options: ClientOptions = {}): Promise<AntigravityClient> {
     let port = options.port;
     let csrfToken = options.csrfToken;
@@ -75,6 +84,21 @@ export class AntigravityClient {
     return new AntigravityClient(port!, csrfToken!, apiKey);
   }
 
+  /**
+   * Connect using a specific ServerInfo object. (Low-level API)
+   */
+  static async connectWithServer(server: ServerInfo, apiKey?: string): Promise<AntigravityClient> {
+     const port = server.httpsPort || server.httpPort;
+     const token = server.csrfToken;
+     const finalApiKey = apiKey || process.env.ANTIGRAVITY_API_KEY || "dummy-api-key";
+
+     if (!port) {
+         throw new Error(`Server at PID ${server.pid} does not have a valid port.`);
+     }
+
+     return new AntigravityClient(port, token, finalApiKey);
+  }
+
   async getUserStatus() {
       const response = await this.lsClient.getUserStatus({});
       return response;
@@ -83,6 +107,44 @@ export class AntigravityClient {
   async getModelStatuses() {
       const response = await this.lsClient.getModelStatuses({});
       return response;
+  }
+
+  /**
+   * Returns a structured map of available models from UserStatus.
+   */
+  async getAvailableModels(): Promise<Record<string, any>> {
+      const userStatus = await this.getUserStatus();
+      const configs = userStatus.userStatus?.cascadeModelConfigData?.clientModelConfigs || [];
+
+      const models: Record<string, any> = {};
+
+      configs.forEach((m: any) => {
+          const label = m.label;
+          const choice = m.modelOrAlias?.choice;
+
+          if (!label || !choice) return;
+
+          const info: any = {
+              label: label,
+              isPremium: m.isPremium,
+              isRecommended: m.isRecommended,
+              disabled: m.disabled,
+          };
+
+          if (choice.case === "model") {
+              info.model = Model[choice.value];
+              info.modelId = choice.value;
+          } else if (choice.case === "alias") {
+              info.alias = ModelAlias[choice.value];
+              info.aliasId = choice.value;
+          }
+
+          // Use label as key, removing special characters for cleaner keys
+          const key = label.replace(/\s+/g, '_').replace(/[()]/g, '');
+          models[key] = info;
+      });
+
+      return models;
   }
 
   async getWorkingDirectories() {
@@ -143,4 +205,4 @@ export class AntigravityClient {
   }
 }
 
-import { Cascade } from "./cascade.js";
+
