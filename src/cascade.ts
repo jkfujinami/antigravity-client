@@ -12,9 +12,11 @@ import {
     CascadeUserInteraction,
     CascadeRunCommandInteraction,
     FilePermissionInteraction,
+    CascadeOpenBrowserUrlInteraction,
     RequestedInteraction,
     CortexStepStatus,
     CascadeRunStatus,
+    PermissionScope,
 } from "./gen/exa/cortex_pb_pb.js";
 import { StreamReactiveUpdatesRequest } from "./gen/exa/reactive_component_pb_pb.js";
 import {
@@ -127,7 +129,8 @@ export class Cascade extends EventEmitter {
             // We wait for PENDING or RUNNING before emitting interaction events.
             const isInteractiveState =
                 status === CortexStepStatus.PENDING ||
-                status === CortexStepStatus.RUNNING;
+                status === CortexStepStatus.RUNNING ||
+                status === CortexStepStatus.WAITING;
 
             if (isInteractiveState && step.requestedInteraction && step.requestedInteraction.interaction.case && !this.emittedInteractions.has(index)) {
 
@@ -142,8 +145,12 @@ export class Cascade extends EventEmitter {
                     commandLine = runCommand.proposedCommandLine || runCommand.commandLine;
                 }
 
-                // If autoRun is true, the server handles it, so NO approval needed from client.
-                const needsApproval = !autoRun;
+                // If autoRun is true, normally server handles it.
+                // However, if status is WAITING, reliable interaction is required.
+                let needsApproval = !autoRun;
+                if (status === CortexStepStatus.WAITING) {
+                    needsApproval = true;
+                }
 
                 this.emittedInteractions.add(index);
                 this.emit("interaction", {
@@ -287,22 +294,67 @@ export class Cascade extends EventEmitter {
     }
 
     /**
-     * Approves a command execution proposed by the AI.
+     * Approves a command execution request.
      */
-    async approveCommand(stepIndex: number, commandLine: string) {
-        // Validation: Ensure the step is actually a RunCommand interaction
-        const step = this.state.trajectory?.steps[stepIndex];
-        // Warning logic can be refined, but mainly we want to just send the approval
+    async approveCommand(stepIndex: number, proposedCommandLine: string, submittedCommandLine?: string) {
+        const trajectoryId = this.state.trajectory?.trajectoryId || this.cascadeId;
 
         const req = new HandleCascadeUserInteractionRequest({
             cascadeId: this.cascadeId,
             interaction: new CascadeUserInteraction({
-                trajectoryId: this.cascadeId,
+                trajectoryId: trajectoryId,
                 stepIndex,
                 interaction: {
                     case: "runCommand",
                     value: new CascadeRunCommandInteraction({
-                        proposedCommandLine: commandLine,
+                        proposedCommandLine: proposedCommandLine,
+                        submittedCommandLine: submittedCommandLine || proposedCommandLine,
+                        confirm: true,
+                    })
+                }
+            })
+        });
+
+        await this.lsClient.handleCascadeUserInteraction(req);
+    }
+
+    /**
+     * Approves a file permission request.
+     */
+    async approveFilePermission(stepIndex: number, absolutePathUri: string, scope: PermissionScope = PermissionScope.ONCE) {
+        const trajectoryId = this.state.trajectory?.trajectoryId || this.cascadeId;
+        const req = new HandleCascadeUserInteractionRequest({
+            cascadeId: this.cascadeId,
+            interaction: new CascadeUserInteraction({
+                trajectoryId: trajectoryId,
+                stepIndex,
+                interaction: {
+                    case: "filePermission",
+                    value: new FilePermissionInteraction({
+                        absolutePathUri: absolutePathUri,
+                        scope,
+                        allow: true,
+                    })
+                }
+            })
+        });
+
+        await this.lsClient.handleCascadeUserInteraction(req);
+    }
+
+    /**
+     * Approves an open browser URL request.
+     */
+    async approveOpenBrowserUrl(stepIndex: number) {
+        const trajectoryId = this.state.trajectory?.trajectoryId || this.cascadeId;
+        const req = new HandleCascadeUserInteractionRequest({
+            cascadeId: this.cascadeId,
+            interaction: new CascadeUserInteraction({
+                trajectoryId: trajectoryId,
+                stepIndex,
+                interaction: {
+                    case: "openBrowserUrl",
+                    value: new CascadeOpenBrowserUrlInteraction({
                         confirm: true,
                     })
                 }
@@ -319,11 +371,12 @@ export class Cascade extends EventEmitter {
          const interactionOneof: any = {};
          interactionOneof.case = interactionCase;
          interactionOneof.value = interactionValue;
+         const trajectoryId = this.state.trajectory?.trajectoryId || this.cascadeId;
 
          const req = new HandleCascadeUserInteractionRequest({
             cascadeId: this.cascadeId,
             interaction: new CascadeUserInteraction({
-                trajectoryId: this.cascadeId,
+                trajectoryId: trajectoryId,
                 stepIndex,
                 interaction: interactionOneof
             })
