@@ -4,6 +4,12 @@ A TypeScript client library and CLI tool for interacting with the **Antigravity 
 
 このライブラリは、AI エージェントと直接やり取りするためのフル機能を備えた SDK です。本家 IDE 拡張機能と同じプロトコルを使用して、独自の自動化や UI を構築できます。
 
+## ⚠️ 免責事項 (Disclaimer)
+
+- **非公式ライブラリ**: 本プロジェクトは個人による非公式な実装であり、Google DeepMind または Google 社とは一切関係ありません。
+- **無保証**: 本ソフトウェアの使用によって生じた直接的・間接的な損害（データの損失、システムの停止、セキュリティリスク等）について、開発者は一切の責任を負いません。
+- **利用規約**: 本ライブラリを使用する際は、Antigravity (Google AI) の利用規約を遵守してください。
+
 ---
 
 ## 1. クライアント基本 (`AntigravityClient`)
@@ -34,7 +40,7 @@ A TypeScript client library and CLI tool for interacting with the **Antigravity 
   会話のサマリー履歴更新を reactive stream として取得します。
 
 ### セッション開始
-- **`startCascade(modelName?: string): Promise<Cascade>`**
+- **`startCascade(): Promise<Cascade>`**
   新しいチャットセッションを開始します。
 - **`getCascade(cascadeId: string): Promise<Cascade>`**
   既存のセッションを再開します。

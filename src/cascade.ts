@@ -263,7 +263,7 @@ export class Cascade extends EventEmitter {
                     requestedModel: new ModelOrAlias({
                         choice: {
                             case: "model",
-                            value: options.model || Model.PLACEHOLDER_M18 // Gemini 3 Flash
+                            value: options.model || Model.PLACEHOLDER_M18
                         }
                     })
                 })

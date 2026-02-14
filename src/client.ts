@@ -173,7 +173,7 @@ export class AntigravityClient {
       }
   }
 
-  async startCascade(modelName: string = "gemini-3-flash"): Promise<Cascade> {
+  async startCascade(): Promise<Cascade> {
       const metadata = new Metadata({
           apiKey: this.apiKey,
           ideName: "vscode",
