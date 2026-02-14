@@ -1,7 +1,10 @@
 
 import { AntigravityClient } from "./client.js";
 import { Cascade } from "./cascade.js";
-import { CortexStepStatus } from "./gen/exa/cortex_pb_pb.js";
+import {
+    CortexStepStatus,
+    PermissionScope
+} from "./gen/exa/cortex_pb_pb.js";
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
@@ -142,8 +145,8 @@ function getStatusName(status: number): string {
         case CortexStepStatus.PENDING: return "PENDING";
         case CortexStepStatus.RUNNING: return "RUNNING";
         case CortexStepStatus.DONE: return "DONE";
-        case CortexStepStatus.FAILED: return "FAILED";
-        case CortexStepStatus.CANCELLED: return "CANCELLED";
+        case CortexStepStatus.ERROR: return "ERROR";
+        case CortexStepStatus.CANCELED: return "CANCELED";
         case CortexStepStatus.WAITING: return "WAITING";
         default: return `UNKNOWN(${status})`;
     }
@@ -266,41 +269,66 @@ function setupListeners(cascade: Cascade) {
     // 2. Interaction handler
     cascade.on('interaction', async (ev: any) => {
         const interaction = ev.interaction;
+        const type = interaction.interaction.case;
+        const stepIndex = ev.stepIndex;
+        const step = state.cascade?.state?.trajectory?.steps?.[stepIndex];
 
-        let cmd = ev.commandLine;
-        if (!cmd && interaction.interaction.value) {
-             cmd = interaction.interaction.value.proposedCommandLine;
+        process.stdout.write('\n'); // Clear line
+
+        if (state.debugMode) {
+             log(`${colors.gray}[Debug] Interaction: ${type} (Step ${stepIndex})${colors.reset}`);
         }
 
-        if (interaction.interaction.case === "runCommand") {
-            process.stdout.write('\n'); // Clear line to ensure clean output
-
-            if (!cmd) {
-                 log(`${colors.red}[Error] Could not determine command line for step ${ev.stepIndex}${colors.reset}`);
-                 return;
-            }
-
-            if (ev.needsApproval) {
-                // Manual approval required behavior
-                await handleApproval(ev.stepIndex, cmd);
-            } else {
-                // Auto-run behavior
-                const currentStep = state.cascade?.state?.trajectory?.steps?.[ev.stepIndex];
-                const status = currentStep ? currentStep.status : CortexStepStatus.UNSPECIFIED;
-
-                log(`${colors.gray}[Auto-Run] Executing: ${cmd} (Status: ${status})${colors.reset}`);
-
-                // Only approve if PENDING
-                if (status === CortexStepStatus.PENDING) {
-                   try {
-                       await state.cascade?.approveCommand(ev.stepIndex, cmd);
-                   } catch (e) {
-                       log(`${colors.yellow}[Auto-Run Warning] Approval warning: ${e}${colors.reset}`);
-                   }
+        switch (type) {
+            case "runCommand": {
+                const cmd = ev.commandLine;
+                if (!cmd) {
+                     log(`${colors.red}[Error] No command line found for step ${stepIndex}${colors.reset}`);
+                     return;
                 }
+
+                if (ev.needsApproval) {
+                    await handleRequest(
+                        "Run Command",
+                        cmd,
+                        async () => await state.cascade?.approveCommand(stepIndex, cmd, cmd)
+                    );
+                } else {
+                    log(`${colors.gray}[Auto-Run] Executing: ${cmd}${colors.reset}`);
+                }
+                break;
             }
-        } else {
-            log(`${colors.yellow}Received unknown interaction: ${interaction.interaction.case}${colors.reset}`);
+
+            case "filePermission": {
+                const val = interaction.interaction.value;
+                const pathUri = val.absolutePathUri;
+
+                await handlePermissionRequest(
+                    "File Permission",
+                    `Access: ${pathUri}`,
+                    async (scope) => await state.cascade?.approveFilePermission(stepIndex, pathUri, scope)
+                );
+                break;
+            }
+
+            case "openBrowserUrl": {
+                // URL is in the step, not the interaction
+                let url = "Unknown URL";
+                if (step && step.step?.case === "openBrowserUrl") {
+                    url = step.step.value.url;
+                }
+
+                await handleRequest(
+                    "Open Browser",
+                    `URL: ${url}`,
+                    async () => await state.cascade?.approveOpenBrowserUrl(stepIndex)
+                );
+                break;
+            }
+
+            default:
+                log(`${colors.yellow}Received unhandled interaction: ${type}${colors.reset}`);
+                break;
         }
     });
 
@@ -312,33 +340,69 @@ function setupListeners(cascade: Cascade) {
     });
 }
 
-async function handleApproval(stepIndex: number, command: string) {
-    if (state.isWaitingForApproval) return; // Prevent re-entry if multiple come in fast
+async function handleRequest(title: string, details: string, approveAction: () => Promise<void>) {
+    if (state.isWaitingForApproval) return; // Simple debounce/blocking
     state.isWaitingForApproval = true;
 
-    log(`\n${colors.yellow}🔔 AI wants to execute command:${colors.reset}`);
-    log(`${colors.white}> ${command}${colors.reset}`);
+    log(`\n${colors.yellow}🔔 AI Request: ${title}${colors.reset}`);
+    log(`${colors.white}> ${details}${colors.reset}`);
 
     const answer = await askQuestion(`${colors.yellow}Allow? [Y/n] > ${colors.reset}`);
     const normalized = answer.trim().toLowerCase();
 
     if (normalized === '' || normalized === 'y' || normalized === 'yes') {
         try {
-            await state.cascade?.approveCommand(stepIndex, command);
+            await approveAction();
             log(`${colors.green}✔ Approved.${colors.reset}`);
         } catch (e) {
             log(`${colors.red}❌ Failed to approve: ${e}${colors.reset}`);
         }
     } else {
-        log(`${colors.red}✖ Skipped.${colors.reset}`);
-        // TODO: Implement rejectCommand(stepIndex) explicitly if server supports it
+        log(`${colors.red}✖ Skipped (Denied).${colors.reset}`);
     }
 
     state.isWaitingForApproval = false;
-    // Re-prompt main loop
-    if (rl) {
-        rl.prompt();
+    if (rl) rl.prompt();
+}
+
+/**
+ * Specialized handler for file permissions allowing scope selection.
+ */
+async function handlePermissionRequest(title: string, details: string, approveAction: (scope: PermissionScope) => Promise<void>) {
+    if (state.isWaitingForApproval) return;
+    state.isWaitingForApproval = true;
+
+    log(`\n${colors.yellow}🔔 AI Request: ${title}${colors.reset}`);
+    log(`${colors.white}> ${details}${colors.reset}`);
+
+    log(`${colors.white}Options:${colors.reset}`);
+    log(`  [1] Allow Once`);
+    log(`  [2] Allow This Conversation`);
+    log(`  [n] Deny`);
+
+    const answer = await askQuestion(`${colors.yellow}Selection [1/2/n] > ${colors.reset}`);
+    const normalized = answer.trim().toLowerCase();
+
+    let scope: PermissionScope | null = null;
+    if (normalized === '1' || normalized === '') {
+        scope = PermissionScope.ONCE;
+    } else if (normalized === '2') {
+        scope = PermissionScope.CONVERSATION;
     }
+
+    if (scope !== null) {
+        try {
+            await approveAction(scope);
+            log(`${colors.green}✔ Approved (${scope === PermissionScope.ONCE ? "Once" : "Conversation"}).${colors.reset}`);
+        } catch (e) {
+            log(`${colors.red}❌ Failed to approve: ${e}${colors.reset}`);
+        }
+    } else {
+        log(`${colors.red}✖ Skipped (Denied).${colors.reset}`);
+    }
+
+    state.isWaitingForApproval = false;
+    if (rl) rl.prompt();
 }
 
 async function handleCommand(cmd: string): Promise<boolean> {
