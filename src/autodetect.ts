@@ -7,7 +7,7 @@ const execAsync = promisify(exec);
 export interface ServerInfo {
   pid: number;
   httpPort: number;       // The port from --extension_server_port (HTTP/JSON)
-  httpsPort?: number;     // The port for Connect RPC (HTTP/2 + TLS, fd 25)
+  httpsPort?: number;     // The port for Connect RPC (HTTP/2 + TLS)
   csrfToken: string;
   workspaceId: string;
   startTime: Date;
@@ -56,7 +56,7 @@ export class AutoDetector {
     }
 
     if (!targetServer.httpsPort) {
-        console.warn(`[AutoDetector] Warning: Could not determine HTTPS port (fd 25) for PID ${targetServer.pid}. RPC might fail.`);
+        console.warn(`[AutoDetector] Warning: Could not determine HTTPS port for PID ${targetServer.pid}. RPC might fail.`);
     }
 
     return targetServer;
@@ -110,24 +110,27 @@ export class AutoDetector {
   }
 
   /**
-   * Finds the HTTPS port (Connect RPC endpoint) for the given PID using FD 25.
+   * Finds the HTTPS port (Connect RPC endpoint) for the given PID.
+   * LS opens ports in order: HTTPS -> HTTP -> LSP, so lowest FD = HTTPS.
    */
   private async findHttpsPort(pid: number): Promise<number | null> {
     try {
-      // Look for FD 25 specifically: `lsof -nP -a -p PID -d 25`
-      // Mac lsof output format: COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
-      // Example: language_ 91642 fujinami   25u  IPv4 ...  TCP 127.0.0.1:51389 (LISTEN)
-      const { stdout } = await execAsync(`lsof -nP -a -p ${pid} -d 25`);
+      const { stdout } = await execAsync(`lsof -nP -iTCP -sTCP:LISTEN -a -p ${pid}`);
+      const lines = stdout.trim().split("\n").filter(l => l.includes("LISTEN"));
 
-      // Extract IP:PORT from the end
-      // 127.0.0.1:51389 (LISTEN)
-      const match = stdout.match(/(?:127\.0\.0\.1|\[::1\]|\*):(\d+)\s+\(LISTEN\)/);
-      if (match) {
-          return parseInt(match[1], 10);
+      const entries: { fd: number; port: number }[] = [];
+      for (const line of lines) {
+        const fdMatch = line.match(/\s+(\d+)u\s+IPv/);
+        const portMatch = line.match(/:(\d+)\s+\(LISTEN\)/);
+        if (fdMatch && portMatch) {
+          entries.push({ fd: parseInt(fdMatch[1], 10), port: parseInt(portMatch[1], 10) });
+        }
       }
-      return null;
+
+      if (entries.length === 0) return null;
+      entries.sort((a, b) => a.fd - b.fd);
+      return entries[0].port;
     } catch (e) {
-      // lsof returns 1 if no descriptors found
       return null;
     }
   }

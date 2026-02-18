@@ -2,6 +2,12 @@
 import { createPromiseClient, PromiseClient } from "@connectrpc/connect";
 import { createConnectTransport } from "@connectrpc/connect-node";
 import { AutoDetector } from "./autodetect.js";
+import { Launcher, type LauncherOptions } from "./server/launcher.js";
+import { readAuthStatus } from "./server/auth-reader.js";
+
+function resolveApiKey(explicit?: string): string {
+    return explicit || process.env.ANTIGRAVITY_API_KEY || readAuthStatus().apiKey || "";
+}
 
 // Generated Imports from src/gen
 import { LanguageServerService } from "./gen/exa/language_server_pb_connect.js";
@@ -67,7 +73,7 @@ export class AntigravityClient {
   static async connect(options: ClientOptions = {}): Promise<AntigravityClient> {
     let port = options.port;
     let csrfToken = options.csrfToken;
-    let apiKey = options.apiKey || process.env.ANTIGRAVITY_API_KEY || "dummy-api-key";
+    let apiKey = resolveApiKey(options.apiKey);
 
     if (!port || !csrfToken) {
         const detector = new AutoDetector();
@@ -90,13 +96,30 @@ export class AntigravityClient {
   static async connectWithServer(server: ServerInfo, apiKey?: string): Promise<AntigravityClient> {
      const port = server.httpsPort || server.httpPort;
      const token = server.csrfToken;
-     const finalApiKey = apiKey || process.env.ANTIGRAVITY_API_KEY || "dummy-api-key";
+     const finalApiKey = resolveApiKey(apiKey);
 
      if (!port) {
          throw new Error(`Server at PID ${server.pid} does not have a valid port.`);
      }
 
      return new AntigravityClient(port, token, finalApiKey);
+  }
+
+  /**
+   * Launch an independent LS and connect to it. (Standalone mode)
+   * No running Antigravity IDE required — starts its own LS process.
+   *
+   * Returns a client with a `launcher` property for lifecycle management.
+   * Call `client.launcher.stop()` when done.
+   */
+  static async launch(options: LauncherOptions = {}): Promise<AntigravityClient & { launcher: Launcher }> {
+      const launcher = await Launcher.start(options);
+      const client = new AntigravityClient(
+          launcher.httpsPort,
+          launcher.csrfToken,
+          resolveApiKey()
+      );
+      return Object.assign(client, { launcher });
   }
 
   async getUserStatus() {
