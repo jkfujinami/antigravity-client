@@ -50,15 +50,15 @@ await client.launcher.stop();
 
 ```
 ┌──────────────────┐       ┌───────────────────────┐       ┌─────────────┐
-│  Your App / CLI  │──────>│  Language Server (LS)  │<──────│  Google API  │
-│  (SDK Client)    │ gRPC  │  (Go binary)           │ HTTPS │              │
+│  Your App / CLI  │──────>│  Language Server (LS) │<──────│  Google API │
+│  (SDK Client)    │ gRPC  │  (Go binary)          │ HTTPS │             │
 └──────────────────┘       └───────────────────────┘       └─────────────┘
                                    ▲
                                    │ Connect RPC
-                           ┌───────────────────────┐
+                           ┌────────────────────────┐
                            │ Mock Extension Server  │
                            │ (OAuth token provider) │
-                           └───────────────────────┘
+                           └────────────────────────┘
 ```
 
 - **方法 1**: SDK が既存の LS プロセス（Antigravity IDE が起動したもの）を自動検出して接続
