@@ -154,6 +154,11 @@ message GetChatMessageRequest_EnterpriseExternalModelConfig {
   int32 max_input_tokens = 3;
 }
 
+message ChatExperimentStatus {
+  exa.codeium_common_pb.ExperimentKey experiment_key = 1;
+  bool enabled = 2;
+}
+
 message IndexMap_IndexList {
   repeated int32 indices = 1;
 }
@@ -190,11 +195,6 @@ message RunToolResponse {
 message RunToolResponse_Status {
   int32 code = 1;
   string status_message = 2;
-}
-
-message ChatExperimentStatus {
-  exa.codeium_common_pb.ExperimentKey experiment_key = 1;
-  bool enabled = 2;
 }
 
 message ChatMessagePrompt {

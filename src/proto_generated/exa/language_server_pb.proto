@@ -528,6 +528,8 @@ message StartCascadeRequest {
   exa.jetski_cortex_pb.BaseTrajectoryIdentifier base_trajectory_identifier = 3;
   exa.cortex_pb.CortexTrajectorySource source = 4;
   exa.cortex_pb.CortexTrajectoryType trajectory_type = 5;
+  exa.cortex_pb.AgentScriptItem agent_script_item = 6;
+  string cascade_id = 7;
   exa.codeium_common_pb.Metadata metadata = 1;
   exa.codeium_common_pb.ExperimentConfig experiment_config = 2;
 }
@@ -538,6 +540,7 @@ message StartCascadeResponse {
 
 message GetCascadeTrajectoryRequest {
   string cascade_id = 1;
+  ClientTrajectoryVerbosity verbosity = 2;
 }
 
 message GetCascadeTrajectoryResponse {
@@ -566,6 +569,7 @@ message GetUserTrajectoryResponse {
 message GetCascadeTrajectoryStepsRequest {
   string cascade_id = 1;
   uint32 step_offset = 2;
+  ClientTrajectoryVerbosity verbosity = 3;
 }
 
 message GetCascadeTrajectoryStepsResponse {
@@ -604,14 +608,12 @@ message CancelCascadeStepsRequest {
 message CancelCascadeStepsResponse {
 }
 
-message AgentScriptCommandSpec {
-  string command = 1;
-  repeated string args = 2;
+message SkipBrowserSubagentRequest {
+  string cascade_id = 1;
+  int32 step_index = 2;
 }
 
-message AgentScriptPythonSpec {
-  string main_py_path_uri = 1;
-  string requirements_txt_path_uri = 2;
+message SkipBrowserSubagentResponse {
 }
 
 message SendUserCascadeMessageRequest {
@@ -624,13 +626,13 @@ message SendUserCascadeMessageRequest {
   repeated exa.codeium_common_pb.FileComment file_comments = 13;
   repeated exa.codeium_common_pb.Media media = 14;
   exa.cortex_pb.CascadeConfig cascade_config = 5;
-  AgentScriptItem agent_script_item = 15;
   exa.codeium_common_pb.ExperimentConfig experiment_config = 4;
   bool blocking = 8;
   repeated gemini_coder.Step additional_steps = 9;
   exa.chat_client_server_pb.ChatClientRequestStreamClientType client_type = 11;
   bool propagate_error = 16;
   exa.cortex_pb.CortexStepPlannerResponse planner_response = 17;
+  AgentMessageOrigin message_origin = 18;
 }
 
 message SendUserCascadeMessageResponse {
@@ -914,6 +916,24 @@ message ListMcpResourcesResponse {
   repeated exa.codeium_common_pb.McpResourceItem resources = 1;
 }
 
+message ListMcpPromptsRequest {
+}
+
+message ListMcpPromptsResponse {
+  repeated exa.cortex_pb.McpPromptSpec prompts = 1;
+}
+
+message GetMcpPromptRequest {
+  string server_name = 1;
+  string name = 2;
+  map<string, string> arguments = 3;
+}
+
+message GetMcpPromptResponse {
+  string description = 1;
+  repeated exa.codeium_common_pb.McpPromptMessage messages = 2;
+}
+
 message UpdateEnterpriseExperimentsFromUrlRequest {
   string portal_url = 1;
 }
@@ -1162,6 +1182,7 @@ message OAuthTokenInfo {
   string token_type = 2;
   string refresh_token = 3;
   google.protobuf.Timestamp expiry = 4;
+  bool is_gcp_tos = 6;
 }
 
 message CreateReplayWorkspaceResponse {
@@ -1318,16 +1339,42 @@ message GetModelResponseResponse {
 message GetAgentScriptsRequest {
 }
 
-message AgentScriptItem {
-  string name = 1;
-  oneof source {
-    AgentScriptCommandSpec command_spec = 3;
-    AgentScriptPythonSpec python_spec = 4;
-  }
+message GetAgentScriptsResponse {
+  repeated exa.cortex_pb.AgentScriptItem agent_scripts = 1;
 }
 
-message GetAgentScriptsResponse {
-  repeated AgentScriptItem agent_scripts = 1;
+message SaveAgentScriptCommandSpecRequest {
+  string name = 1;
+  bool save_to_workspace = 2;
+  bool overwrite = 3;
+  exa.cortex_pb.AgentScriptCommandSpec command_spec = 4;
+}
+
+message SaveAgentScriptCommandSpecResponse {
+  bool created = 1;
+  exa.cortex_pb.AgentScriptItem agent_script = 2;
+}
+
+message ListCustomizationPathsByFileRequest {
+  exa.codeium_common_pb.RefreshCustomizationType type = 1;
+  bool is_global = 2;
+}
+
+message ListCustomizationPathsByFileResponse {
+  map<string, CustomizationPathsList> paths_files = 1;
+}
+
+message CustomizationPathsList {
+  repeated string paths = 1;
+}
+
+message UpdateCustomizationPathsFileRequest {
+  string file_path = 1;
+  repeated string paths = 2;
+  CustomizationPathsOperation operation = 3;
+}
+
+message UpdateCustomizationPathsFileResponse {
 }
 
 message ProvideCompletionFeedbackRequest {
@@ -1467,6 +1514,19 @@ enum EditorThemeType {
   EDITOR_THEME_TYPE_HIGH_CONTRAST_LIGHT = 4;
 }
 
+enum ClientTrajectoryVerbosity {
+  CLIENT_TRAJECTORY_VERBOSITY_UNSPECIFIED = 0;
+  CLIENT_TRAJECTORY_VERBOSITY_DEBUG = 1;
+  CLIENT_TRAJECTORY_VERBOSITY_PROD_UI = 2;
+}
+
+enum AgentMessageOrigin {
+  AGENT_MESSAGE_ORIGIN_UNSPECIFIED = 0;
+  AGENT_MESSAGE_ORIGIN_IDE = 1;
+  AGENT_MESSAGE_ORIGIN_SDK_EXECUTABLE = 2;
+  AGENT_MESSAGE_ORIGIN_SUBAGENT = 3;
+}
+
 enum CodeRevertActionType {
   CODE_REVERT_ACTION_TYPE_UNSPECIFIED = 0;
   CODE_REVERT_ACTION_TYPE_MODIFY = 1;
@@ -1488,6 +1548,13 @@ enum FileType {
   FILE_TYPE_FILE = 1;
   FILE_TYPE_DIRECTORY = 2;
   FILE_TYPE_SYMLINK = 3;
+}
+
+enum CustomizationPathsOperation {
+  CUSTOMIZATION_PATHS_OPERATION_UNSPECIFIED = 0;
+  CUSTOMIZATION_PATHS_OPERATION_ADD = 1;
+  CUSTOMIZATION_PATHS_OPERATION_REMOVE = 2;
+  CUSTOMIZATION_PATHS_OPERATION_SET = 3;
 }
 
 service LanguageServerService {
@@ -1552,6 +1619,7 @@ service LanguageServerService {
   rpc StartCascade(StartCascadeRequest) returns (StartCascadeResponse);
   rpc CancelCascadeInvocation(CancelCascadeInvocationRequest) returns (CancelCascadeInvocationResponse);
   rpc CancelCascadeSteps(CancelCascadeStepsRequest) returns (CancelCascadeStepsResponse);
+  rpc SkipBrowserSubagent(SkipBrowserSubagentRequest) returns (SkipBrowserSubagentResponse);
   rpc GetCascadeModelConfigData(GetCascadeModelConfigDataRequest) returns (exa.codeium_common_pb.CascadeModelConfigData);
   rpc SendUserCascadeMessage(SendUserCascadeMessageRequest) returns (SendUserCascadeMessageResponse);
   rpc SignalExecutableIdle(SignalExecutableIdleRequest) returns (SignalExecutableIdleResponse);
@@ -1589,9 +1657,13 @@ service LanguageServerService {
   rpc GetAllRules(GetAllRulesRequest) returns (GetAllRulesResponse);
   rpc GetAllSkills(GetAllSkillsRequest) returns (GetAllSkillsResponse);
   rpc ListMcpResources(ListMcpResourcesRequest) returns (ListMcpResourcesResponse);
+  rpc ListMcpPrompts(ListMcpPromptsRequest) returns (ListMcpPromptsResponse);
+  rpc GetMcpPrompt(GetMcpPromptRequest) returns (GetMcpPromptResponse);
   rpc UpdateEnterpriseExperimentsFromUrl(UpdateEnterpriseExperimentsFromUrlRequest) returns (UpdateEnterpriseExperimentsFromUrlResponse);
   rpc ImportFromCursor(ImportFromCursorRequest) returns (ImportFromCursorResponse);
   rpc CreateCustomizationFile(CreateCustomizationFileRequest) returns (CreateCustomizationFileResponse);
+  rpc ListCustomizationPathsByFile(ListCustomizationPathsByFileRequest) returns (ListCustomizationPathsByFileResponse);
+  rpc UpdateCustomizationPathsFile(UpdateCustomizationPathsFileRequest) returns (UpdateCustomizationPathsFileResponse);
   rpc GetTeamOrganizationalControls(GetTeamOrganizationalControlsRequest) returns (GetTeamOrganizationalControlsResponse);
   rpc RecordUserGrep(RecordUserGrepRequest) returns (RecordUserGrepResponse);
   rpc CreateTrajectoryShare(CreateTrajectoryShareRequest) returns (CreateTrajectoryShareResponse);
@@ -1608,6 +1680,7 @@ service LanguageServerService {
   rpc InstallCascadePlugin(InstallCascadePluginRequest) returns (InstallCascadePluginResponse);
   rpc GetCascadePluginById(GetCascadePluginByIdRequest) returns (GetCascadePluginByIdResponse);
   rpc GetAgentScripts(GetAgentScriptsRequest) returns (GetAgentScriptsResponse);
+  rpc SaveAgentScriptCommandSpec(SaveAgentScriptCommandSpecRequest) returns (SaveAgentScriptCommandSpecResponse);
   rpc RecordLints(RecordLintsRequest) returns (RecordLintsResponse);
   rpc ReplayGroundTruthTrajectory(ReplayGroundTruthTrajectoryRequest) returns (ReplayGroundTruthTrajectoryResponse);
   rpc CreateReplayWorkspace(CreateReplayWorkspaceRequest) returns (CreateReplayWorkspaceResponse);

@@ -46,128 +46,6 @@ export class BackupMessage extends Message<BackupMessage> {
 }
 
 /**
- * @generated from message exa.jetski_cortex_pb.CascadeState
- */
-export class CascadeState extends Message<CascadeState> {
-  /**
-   * @generated from field: string cascade_id = 1;
-   */
-  cascadeId = "";
-
-  /**
-   * @generated from field: gemini_coder.Trajectory trajectory = 2;
-   */
-  trajectory?: Trajectory;
-
-  /**
-   * @generated from field: exa.cortex_pb.CascadeRunStatus status = 3;
-   */
-  status = CascadeRunStatus.UNSPECIFIED;
-
-  /**
-   * @generated from field: exa.cortex_pb.CascadeRunStatus executable_status = 7;
-   */
-  executableStatus = CascadeRunStatus.UNSPECIFIED;
-
-  /**
-   * @generated from field: exa.cortex_pb.CascadeRunStatus executor_loop_status = 8;
-   */
-  executorLoopStatus = CascadeRunStatus.UNSPECIFIED;
-
-  /**
-   * @generated from field: exa.cortex_pb.ExecutorMetadata executor_metadata = 4;
-   */
-  executorMetadata?: ExecutorMetadata;
-
-  /**
-   * @generated from field: repeated gemini_coder.Step queued_steps = 5;
-   */
-  queuedSteps: Step[] = [];
-
-  /**
-   * @generated from field: repeated exa.cortex_pb.ArtifactSnapshot artifact_snapshots = 6;
-   */
-  artifactSnapshots: ArtifactSnapshot[] = [];
-
-  constructor(data?: PartialMessage<CascadeState>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.jetski_cortex_pb.CascadeState";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "trajectory", kind: "message", T: Trajectory },
-    { no: 3, name: "status", kind: "enum", T: proto3.getEnumType(CascadeRunStatus) },
-    { no: 7, name: "executable_status", kind: "enum", T: proto3.getEnumType(CascadeRunStatus) },
-    { no: 8, name: "executor_loop_status", kind: "enum", T: proto3.getEnumType(CascadeRunStatus) },
-    { no: 4, name: "executor_metadata", kind: "message", T: ExecutorMetadata },
-    { no: 5, name: "queued_steps", kind: "message", T: Step, repeated: true },
-    { no: 6, name: "artifact_snapshots", kind: "message", T: ArtifactSnapshot, repeated: true },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeState {
-    return new CascadeState().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CascadeState {
-    return new CascadeState().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CascadeState {
-    return new CascadeState().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: CascadeState | PlainMessage<CascadeState> | undefined, b: CascadeState | PlainMessage<CascadeState> | undefined): boolean {
-    return proto3.util.equals(CascadeState, a, b);
-  }
-}
-
-/**
- * @generated from message exa.jetski_cortex_pb.ImplicitTrajectory
- */
-export class ImplicitTrajectory extends Message<ImplicitTrajectory> {
-  /**
-   * @generated from field: gemini_coder.Trajectory trajectory = 1;
-   */
-  trajectory?: Trajectory;
-
-  /**
-   * @generated from field: exa.cortex_pb.TrajectoryScope trajectory_scope = 5;
-   */
-  trajectoryScope?: TrajectoryScope;
-
-  constructor(data?: PartialMessage<ImplicitTrajectory>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.jetski_cortex_pb.ImplicitTrajectory";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "trajectory", kind: "message", T: Trajectory },
-    { no: 5, name: "trajectory_scope", kind: "message", T: TrajectoryScope },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ImplicitTrajectory {
-    return new ImplicitTrajectory().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ImplicitTrajectory {
-    return new ImplicitTrajectory().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ImplicitTrajectory {
-    return new ImplicitTrajectory().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: ImplicitTrajectory | PlainMessage<ImplicitTrajectory> | undefined, b: ImplicitTrajectory | PlainMessage<ImplicitTrajectory> | undefined): boolean {
-    return proto3.util.equals(ImplicitTrajectory, a, b);
-  }
-}
-
-/**
  * @generated from message exa.jetski_cortex_pb.BaseTrajectoryIdentifier
  */
 export class BaseTrajectoryIdentifier extends Message<BaseTrajectoryIdentifier> {
@@ -451,6 +329,49 @@ export class CascadeTrajectorySummary extends Message<CascadeTrajectorySummary> 
 }
 
 /**
+ * @generated from message exa.jetski_cortex_pb.ImplicitTrajectory
+ */
+export class ImplicitTrajectory extends Message<ImplicitTrajectory> {
+  /**
+   * @generated from field: gemini_coder.Trajectory trajectory = 1;
+   */
+  trajectory?: Trajectory;
+
+  /**
+   * @generated from field: exa.cortex_pb.TrajectoryScope trajectory_scope = 5;
+   */
+  trajectoryScope?: TrajectoryScope;
+
+  constructor(data?: PartialMessage<ImplicitTrajectory>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.ImplicitTrajectory";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "trajectory", kind: "message", T: Trajectory },
+    { no: 5, name: "trajectory_scope", kind: "message", T: TrajectoryScope },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ImplicitTrajectory {
+    return new ImplicitTrajectory().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ImplicitTrajectory {
+    return new ImplicitTrajectory().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ImplicitTrajectory {
+    return new ImplicitTrajectory().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ImplicitTrajectory | PlainMessage<ImplicitTrajectory> | undefined, b: ImplicitTrajectory | PlainMessage<ImplicitTrajectory> | undefined): boolean {
+    return proto3.util.equals(ImplicitTrajectory, a, b);
+  }
+}
+
+/**
  * @generated from message exa.jetski_cortex_pb.CascadeTrajectorySummaries
  */
 export class CascadeTrajectorySummaries extends Message<CascadeTrajectorySummaries> {
@@ -484,6 +405,85 @@ export class CascadeTrajectorySummaries extends Message<CascadeTrajectorySummari
 
   static equals(a: CascadeTrajectorySummaries | PlainMessage<CascadeTrajectorySummaries> | undefined, b: CascadeTrajectorySummaries | PlainMessage<CascadeTrajectorySummaries> | undefined): boolean {
     return proto3.util.equals(CascadeTrajectorySummaries, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.CascadeState
+ */
+export class CascadeState extends Message<CascadeState> {
+  /**
+   * @generated from field: string cascade_id = 1;
+   */
+  cascadeId = "";
+
+  /**
+   * @generated from field: gemini_coder.Trajectory trajectory = 2;
+   */
+  trajectory?: Trajectory;
+
+  /**
+   * @generated from field: exa.cortex_pb.CascadeRunStatus status = 3;
+   */
+  status = CascadeRunStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.cortex_pb.CascadeRunStatus executable_status = 7;
+   */
+  executableStatus = CascadeRunStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.cortex_pb.CascadeRunStatus executor_loop_status = 8;
+   */
+  executorLoopStatus = CascadeRunStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.cortex_pb.ExecutorMetadata executor_metadata = 4;
+   */
+  executorMetadata?: ExecutorMetadata;
+
+  /**
+   * @generated from field: repeated gemini_coder.Step queued_steps = 5;
+   */
+  queuedSteps: Step[] = [];
+
+  /**
+   * @generated from field: repeated exa.cortex_pb.ArtifactSnapshot artifact_snapshots = 6;
+   */
+  artifactSnapshots: ArtifactSnapshot[] = [];
+
+  constructor(data?: PartialMessage<CascadeState>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.CascadeState";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "trajectory", kind: "message", T: Trajectory },
+    { no: 3, name: "status", kind: "enum", T: proto3.getEnumType(CascadeRunStatus) },
+    { no: 7, name: "executable_status", kind: "enum", T: proto3.getEnumType(CascadeRunStatus) },
+    { no: 8, name: "executor_loop_status", kind: "enum", T: proto3.getEnumType(CascadeRunStatus) },
+    { no: 4, name: "executor_metadata", kind: "message", T: ExecutorMetadata },
+    { no: 5, name: "queued_steps", kind: "message", T: Step, repeated: true },
+    { no: 6, name: "artifact_snapshots", kind: "message", T: ArtifactSnapshot, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeState {
+    return new CascadeState().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CascadeState {
+    return new CascadeState().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CascadeState {
+    return new CascadeState().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CascadeState | PlainMessage<CascadeState> | undefined, b: CascadeState | PlainMessage<CascadeState> | undefined): boolean {
+    return proto3.util.equals(CascadeState, a, b);
   }
 }
 

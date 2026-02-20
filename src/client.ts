@@ -202,7 +202,7 @@ export class AntigravityClient {
           ideName: "vscode",
           ideVersion: "1.107.0",
           extensionName: "antigravity",
-          extensionVersion: "1.107.0",
+          extensionVersion: "0.2.0",
       });
 
       const req = new StartCascadeRequest({

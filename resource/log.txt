@@ -1,0 +1,3256 @@
+📖 Old schema を解析中...
+   /Users/fujinami/github/antigravity-client/resource/chat_formatted.old.js
+   /Users/fujinami/github/antigravity-client/resource/extension_formatted.old.js
+   → 455 messages, 217 enums, 0 services
+
+📖 New schema を解析中...
+   /Users/fujinami/github/antigravity-client/resource/chat_formatted.js
+   /Users/fujinami/github/antigravity-client/resource/extension_formatted.js
+   → 1192 messages, 237 enums, 3 services
+
+[1m════════════════════════════════════════════════════════════[0m
+[1m[36m  Proto Schema Diff Report[0m
+[1m════════════════════════════════════════════════════════════[0m
+
+[1m📦 Messages[0m
+  [32m[NEW][0m     exa.codeium_common_pb.CompletionConfiguration
+  [32m[NEW][0m     exa.codeium_common_pb.ActionPointer
+  [32m[NEW][0m     exa.codeium_common_pb.PromptAnnotationRange
+  [32m[NEW][0m     exa.codeium_common_pb.EditorOptions
+  [32m[NEW][0m     exa.codeium_common_pb.ErrorTrace
+  [32m[NEW][0m     exa.codeium_common_pb.Event
+  [32m[NEW][0m     exa.codeium_common_pb.Citation
+  [32m[NEW][0m     exa.codeium_common_pb.MockResponseData
+  [32m[NEW][0m     exa.codeium_common_pb.UserStatus
+  [32m[NEW][0m     exa.codeium_common_pb.CompletionByDateEntry
+  [32m[NEW][0m     exa.codeium_common_pb.CompletionByLanguageEntry
+  [32m[NEW][0m     exa.codeium_common_pb.ChatStats
+  [32m[NEW][0m     exa.codeium_common_pb.CommandStats
+  [32m[NEW][0m     exa.codeium_common_pb.UserSettings
+  [32m[NEW][0m     exa.codeium_common_pb.CompletionExample
+  [32m[NEW][0m     exa.codeium_common_pb.Viewport
+  [32m[NEW][0m     exa.codeium_common_pb.McpResourceContent
+  [32m[NEW][0m     exa.codeium_common_pb.McpPromptMessage
+  [32m[NEW][0m     exa.codeium_common_pb.McpPromptArgument
+  [32m[NEW][0m     exa.codeium_common_pb.McpPromptScopeItem
+  [32m[NEW][0m     exa.codeium_common_pb.Status
+  [32m[NEW][0m     exa.codeium_common_pb.DocumentPosition
+  [32m[NEW][0m     exa.codeium_common_pb.SuperCompleteFilterReason
+  [32m[NEW][0m     exa.codeium_common_pb.CodeDiagnostic
+  [32m[NEW][0m     exa.codeium_common_pb.IntellisenseSuggestion
+  [32m[NEW][0m     exa.codeium_common_pb.DocumentLinesElement
+  [32m[NEW][0m     exa.codeium_common_pb.TerminalShellCommandStreamChunk
+  [32m[NEW][0m     exa.codeium_common_pb.TerminalShellCommand
+  [32m[NEW][0m     exa.codeium_common_pb.TerminalCommandData
+  [32m[NEW][0m     exa.codeium_common_pb.WebDocsOption
+  [32m[NEW][0m     exa.codeium_common_pb.TeamConfig
+  [32m[NEW][0m     exa.codeium_common_pb.McpServerTemplate
+  [32m[NEW][0m     exa.codeium_common_pb.McpServerCommand
+  [32m[NEW][0m     exa.codeium_common_pb.UnleashContext
+  [32m[NEW][0m     exa.codeium_common_pb.BrowserStateSnapshot
+  [32m[NEW][0m     exa.codeium_common_pb.ArtifactFullFileTarget
+  [32m[NEW][0m     exa.chat_pb.ChatExperimentStatus
+  [32m[NEW][0m     exa.context_module_pb.CodeContextItemWithRetrievalMetadata
+  [32m[NEW][0m     exa.cortex_pb.WorkflowSpec
+  [32m[NEW][0m     exa.cortex_pb.AgentScriptCommandSpec
+  [32m[NEW][0m     exa.cortex_pb.AgentScriptPythonSpec
+  [32m[NEW][0m     exa.cortex_pb.AgentScriptConfigPath
+  [32m[NEW][0m     exa.cortex_pb.AgentScriptItem
+  [32m[NEW][0m     exa.cortex_pb.CortexTrajectoryMetadata
+  [32m[NEW][0m     exa.cortex_pb.CortexTrajectoryReference
+  [32m[NEW][0m     exa.cortex_pb.ImplicitTrajectoryDescription
+  [32m[NEW][0m     exa.cortex_pb.InjectedResponseMetadata
+  [32m[NEW][0m     exa.cortex_pb.CortexStepGeneratorMetadata
+  [32m[NEW][0m     exa.cortex_pb.MessagePromptMetadata
+  [32m[NEW][0m     exa.cortex_pb.CortexStepMetadata
+  [32m[NEW][0m     exa.cortex_pb.FileAccessPermission
+  [32m[NEW][0m     exa.cortex_pb.TrajectoryPermissions
+  [32m[NEW][0m     exa.cortex_pb.SourceTrajectoryStepInfo
+  [32m[NEW][0m     exa.cortex_pb.UserStepAnnotations
+  [32m[NEW][0m     exa.cortex_pb.TrajectoryScope
+  [32m[NEW][0m     exa.cortex_pb.MessageConfig
+  [32m[NEW][0m     exa.cortex_pb.InvokeSubagentToolConfig
+  [32m[NEW][0m     exa.cortex_pb.LowLevelToolsConfig
+  [32m[NEW][0m     exa.cortex_pb.ToolOverrideConfig
+  [32m[NEW][0m     exa.cortex_pb.NotebookEditToolConfig
+  [32m[NEW][0m     exa.cortex_pb.SkillSet
+  [32m[NEW][0m     exa.cortex_pb.SkillsConfig
+  [32m[NEW][0m     exa.cortex_pb.CodingAgentConfig
+  [32m[NEW][0m     exa.cortex_pb.CustomAgentSpec
+  [32m[NEW][0m     exa.cortex_pb.RequestedInteraction
+  [32m[NEW][0m     exa.cortex_pb.CascadeUserInteraction
+  [32m[NEW][0m     exa.cortex_pb.CortexStepKIInsertion
+  [32m[NEW][0m     exa.cortex_pb.CortexStepDummy
+  [32m[NEW][0m     exa.cortex_pb.CortexStepFinish
+  [32m[NEW][0m     exa.cortex_pb.CortexStepPlanInput
+  [32m[NEW][0m     exa.cortex_pb.ArtifactSnapshot
+  [32m[NEW][0m     exa.cortex_pb.CortexStepCheckpoint
+  [32m[NEW][0m     exa.cortex_pb.CheckpointConfig
+  [32m[NEW][0m     exa.cortex_pb.CortexStepMquery
+  [32m[NEW][0m     exa.cortex_pb.ReplacementChunkInfo
+  [32m[NEW][0m     exa.cortex_pb.CortexStepCodeAction
+  [32m[NEW][0m     exa.cortex_pb.CortexStepFileChange
+  [32m[NEW][0m     exa.cortex_pb.CortexStepMove
+  [32m[NEW][0m     exa.cortex_pb.CortexStepEphemeralMessage
+  [32m[NEW][0m     exa.cortex_pb.CortexStepConversationHistory
+  [32m[NEW][0m     exa.cortex_pb.CortexStepKnowledgeArtifacts
+  [32m[NEW][0m     exa.cortex_pb.CortexStepProposeCode
+  [32m[NEW][0m     exa.cortex_pb.CortexStepGitCommit
+  [32m[NEW][0m     exa.cortex_pb.GrepSearchResult
+  [32m[NEW][0m     exa.cortex_pb.CortexStepFind
+  [32m[NEW][0m     exa.cortex_pb.CortexStepViewFile
+  [32m[NEW][0m     exa.cortex_pb.ListDirectoryResult
+  [32m[NEW][0m     exa.cortex_pb.CortexStepListDirectory
+  [32m[NEW][0m     exa.cortex_pb.CortexStepDeleteDirectory
+  [32m[NEW][0m     exa.cortex_pb.CortexStepCompileDiagnostic
+  [32m[NEW][0m     exa.cortex_pb.CortexStepCompile
+  [32m[NEW][0m     exa.cortex_pb.CortexStepCompileApplet
+  [32m[NEW][0m     exa.cortex_pb.CortexStepInstallAppletDependencies
+  [32m[NEW][0m     exa.cortex_pb.CortexStepInstallAppletPackage
+  [32m[NEW][0m     exa.cortex_pb.CortexStepSetUpFirebase
+  [32m[NEW][0m     exa.cortex_pb.SetUpFirebaseAppConfig
+  [32m[NEW][0m     exa.cortex_pb.CortexStepRestartDevServer
+  [32m[NEW][0m     exa.cortex_pb.CortexStepDeployFirebase
+  [32m[NEW][0m     exa.cortex_pb.CortexStepShellExec
+  [32m[NEW][0m     exa.cortex_pb.CortexStepLintApplet
+  [32m[NEW][0m     exa.cortex_pb.CortexStepDefineNewEnvVariable
+  [32m[NEW][0m     exa.cortex_pb.CortexStepWriteBlob
+  [32m[NEW][0m     exa.cortex_pb.CortexStepFileBreakdown
+  [32m[NEW][0m     exa.cortex_pb.CortexStepViewCodeItem
+  [32m[NEW][0m     exa.cortex_pb.CortexStepWriteToFile
+  [32m[NEW][0m     exa.cortex_pb.CortexStepSearchKnowledgeBase
+  [32m[NEW][0m     exa.cortex_pb.CortexStepLookupKnowledgeBase
+  [32m[NEW][0m     exa.cortex_pb.CortexStepSuggestedResponses
+  [32m[NEW][0m     exa.cortex_pb.CortexStepErrorMessage
+  [32m[NEW][0m     exa.cortex_pb.RunCommandOutput
+  [32m[NEW][0m     exa.cortex_pb.CortexStepRunCommand
+  [32m[NEW][0m     exa.cortex_pb.CortexStepReadUrlContent
+  [32m[NEW][0m     exa.cortex_pb.CortexStepViewContentChunk
+  [32m[NEW][0m     exa.cortex_pb.CortexStepSearchWeb
+  [32m[NEW][0m     exa.cortex_pb.CortexStepClipboard
+  [32m[NEW][0m     exa.cortex_pb.ExecutorMetadata
+  [32m[NEW][0m     exa.cortex_pb.CortexStepLintDiff
+  [32m[NEW][0m     exa.cortex_pb.BrainEntry
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrainUpdate
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserSubagent
+  [32m[NEW][0m     exa.cortex_pb.KnowledgeConfig
+  [32m[NEW][0m     exa.cortex_pb.CortexStepKnowledgeGeneration
+  [32m[NEW][0m     exa.cortex_pb.CortexStepOpenBrowserUrl
+  [32m[NEW][0m     exa.cortex_pb.CortexStepExecuteBrowserJavaScript
+  [32m[NEW][0m     exa.cortex_pb.CortexStepReadBrowserPage
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserGetDom
+  [32m[NEW][0m     exa.cortex_pb.CortexStepListBrowserPages
+  [32m[NEW][0m     exa.cortex_pb.CortexStepCaptureBrowserScreenshot
+  [32m[NEW][0m     exa.cortex_pb.CortexStepClickBrowserPixel
+  [32m[NEW][0m     exa.cortex_pb.CortexStepAddAnnotation
+  [32m[NEW][0m     exa.cortex_pb.CortexStepCaptureBrowserConsoleLogs
+  [32m[NEW][0m     exa.cortex_pb.CortexMemory
+  [32m[NEW][0m     exa.cortex_pb.CortexStepMemory
+  [32m[NEW][0m     exa.cortex_pb.CortexStepRetrieveMemory
+  [32m[NEW][0m     exa.cortex_pb.McpServerSpec
+  [32m[NEW][0m     exa.cortex_pb.CortexStepMcpTool
+  [32m[NEW][0m     exa.cortex_pb.McpResource
+  [32m[NEW][0m     exa.cortex_pb.McpPromptSpec
+  [32m[NEW][0m     exa.cortex_pb.CortexStepListResources
+  [32m[NEW][0m     exa.cortex_pb.CortexStepReadResource
+  [32m[NEW][0m     exa.cortex_pb.CortexStepToolCallProposal
+  [32m[NEW][0m     exa.cortex_pb.CortexStepToolCallChoice
+  [32m[NEW][0m     exa.cortex_pb.CortexStepTrajectoryChoice
+  [32m[NEW][0m     exa.cortex_pb.McpServerState
+  [32m[NEW][0m     exa.cortex_pb.EphemeralMessagesConfig
+  [32m[NEW][0m     exa.cortex_pb.RevertMetadata
+  [32m[NEW][0m     exa.cortex_pb.CortexStepRunExtensionCode
+  [32m[NEW][0m     exa.cortex_pb.CortexStepProposalFeedback
+  [32m[NEW][0m     exa.cortex_pb.TrajectoryDescription
+  [32m[NEW][0m     exa.cortex_pb.CortexStepTrajectorySearch
+  [32m[NEW][0m     exa.cortex_pb.CortexStepReadTerminal
+  [32m[NEW][0m     exa.cortex_pb.TaskResolutionOpenPr
+  [32m[NEW][0m     exa.cortex_pb.CortexStepCodeSearch
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserInput
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserMoveMouse
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserSelectOption
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserScroll
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserScrollUp
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserScrollDown
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserClickElement
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserListNetworkRequests
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserGetNetworkRequest
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserMouseUp
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserMouseDown
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserRefreshPage
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserPressKey
+  [32m[NEW][0m     exa.cortex_pb.CortexStepGenerateImage
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserResizeWindow
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserDragPixelToPixel
+  [32m[NEW][0m     exa.cortex_pb.CortexStepTaskBoundary
+  [32m[NEW][0m     exa.cortex_pb.CortexStepNotifyUser
+  [32m[NEW][0m     exa.cortex_pb.CodeAcknowledgementInfo
+  [32m[NEW][0m     exa.cortex_pb.CortexStepCodeAcknowledgement
+  [32m[NEW][0m     exa.cortex_pb.InternalSearchResults
+  [32m[NEW][0m     exa.cortex_pb.CortexStepInternalSearch
+  [32m[NEW][0m     exa.cortex_pb.ArtifactReviewState
+  [32m[NEW][0m     exa.cortex_pb.CortexStepSystemMessage
+  [32m[NEW][0m     exa.cortex_pb.CortexStepWait
+  [32m[NEW][0m     exa.cortex_pb.CortexStepAgencyToolCall
+  [32m[NEW][0m     exa.cortex_pb.CortexStepWorkspaceAPI
+  [32m[NEW][0m     exa.cortex_pb.GenericStepResult
+  [32m[NEW][0m     exa.cortex_pb.CortexStepInvokeSubagent
+  [32m[NEW][0m     exa.cortex_pb.CortexStepGeneric
+  [32m[NEW][0m     exa.reactive_component_pb.StreamReactiveUpdatesRequest
+  [32m[NEW][0m     exa.reactive_component_pb.StreamReactiveUpdatesResponse
+  [32m[NEW][0m     exa.reactive_component_pb.TestProto
+  [32m[NEW][0m     exa.reactive_component_pb.MessageDiff
+  [32m[NEW][0m     exa.reactive_component_pb.FieldDiff
+  [32m[NEW][0m     exa.reactive_component_pb.RepeatedDiff
+  [32m[NEW][0m     exa.reactive_component_pb.MapDiff
+  [32m[NEW][0m     exa.reactive_component_pb.MapKeyDiff
+  [32m[NEW][0m     exa.reactive_component_pb.SingularValue
+  [32m[NEW][0m     gemini_coder.ConversationState
+  [32m[NEW][0m     gemini_coder.Trajectory
+  [32m[NEW][0m     gemini_coder.Step
+  [32m[NEW][0m     exa.jetski_cortex_pb.BaseTrajectoryIdentifier
+  [32m[NEW][0m     exa.jetski_cortex_pb.CortexTrajectoryStepWithIndex
+  [32m[NEW][0m     exa.jetski_cortex_pb.ConversationAnnotations
+  [32m[NEW][0m     exa.jetski_cortex_pb.CascadeTrajectorySummary
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.RelevantCodeContext
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.IntentRelevance
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.CodeContextItemChange
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.FileChange
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.Intent
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.CodeChangeWithContext
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.GitCommit
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.CodeContextItemWithClassification
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.RetrieverInfo
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.RetrievalMetrics
+  [32m[NEW][0m     exa.cascade_plugins_pb.CascadePluginLocalConfig
+  [32m[NEW][0m     exa.cascade_plugins_pb.CascadePluginCommand
+  [32m[NEW][0m     exa.cascade_plugins_pb.CascadePluginCommandTemplate
+  [32m[NEW][0m     exa.cascade_plugins_pb.CascadePluginCommandVariable
+  [32m[NEW][0m     exa.cascade_plugins_pb.CascadePluginRemoteConfig
+  [32m[NEW][0m     exa.cascade_plugins_pb.CascadePluginRemoteConfigTemplate
+  [32m[NEW][0m     exa.language_server_pb.HandleStreamingCommandRequest
+  [32m[NEW][0m     exa.language_server_pb.HandleStreamingCommandResponse
+  [32m[NEW][0m     exa.language_server_pb.MultilineConfig
+  [32m[NEW][0m     exa.language_server_pb.ProvideCompletionFeedbackResponse
+  [32m[NEW][0m     exa.language_server_pb.HeartbeatRequest
+  [32m[NEW][0m     exa.language_server_pb.HeartbeatResponse
+  [32m[NEW][0m     exa.language_server_pb.GetStatusRequest
+  [32m[NEW][0m     exa.language_server_pb.GetStatusResponse
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeModelConfigsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeModelConfigsResponse
+  [32m[NEW][0m     exa.language_server_pb.GetTeamOrganizationalControlsResponse
+  [32m[NEW][0m     exa.language_server_pb.GetMcpServerTemplatesRequest
+  [32m[NEW][0m     exa.language_server_pb.GetMcpServerTemplatesResponse
+  [32m[NEW][0m     exa.language_server_pb.GetCommandModelConfigsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetCommandModelConfigsResponse
+  [32m[NEW][0m     exa.language_server_pb.RecordEventRequest
+  [32m[NEW][0m     exa.language_server_pb.RecordEventResponse
+  [32m[NEW][0m     exa.language_server_pb.GetTranscriptionResponse
+  [32m[NEW][0m     exa.language_server_pb.RegisterGdmUserRequest
+  [32m[NEW][0m     exa.language_server_pb.RegisterGdmUserResponse
+  [32m[NEW][0m     exa.language_server_pb.MigrateApiKeyRequest
+  [32m[NEW][0m     exa.language_server_pb.MigrateApiKeyResponse
+  [32m[NEW][0m     exa.language_server_pb.WellSupportedLanguagesRequest
+  [32m[NEW][0m     exa.language_server_pb.WellSupportedLanguagesResponse
+  [32m[NEW][0m     exa.language_server_pb.RecordSearchDocOpenRequest
+  [32m[NEW][0m     exa.language_server_pb.RecordSearchDocOpenResponse
+  [32m[NEW][0m     exa.language_server_pb.RecordSearchResultsViewRequest
+  [32m[NEW][0m     exa.language_server_pb.RecordSearchResultsViewResponse
+  [32m[NEW][0m     exa.language_server_pb.RefreshContextForIdeActionResponse
+  [32m[NEW][0m     exa.language_server_pb.RecordChatFeedbackRequest
+  [32m[NEW][0m     exa.language_server_pb.RecordChatFeedbackResponse
+  [32m[NEW][0m     exa.language_server_pb.RecordChatPanelSessionRequest
+  [32m[NEW][0m     exa.language_server_pb.RecordChatPanelSessionResponse
+  [32m[NEW][0m     exa.language_server_pb.GetUserAnalyticsSummaryRequest
+  [32m[NEW][0m     exa.language_server_pb.GetUserAnalyticsSummaryResponse
+  [32m[NEW][0m     exa.language_server_pb.GetUserStatusRequest
+  [32m[NEW][0m     exa.language_server_pb.GetUserStatusResponse
+  [32m[NEW][0m     exa.language_server_pb.GetProfileDataRequest
+  [32m[NEW][0m     exa.language_server_pb.GetProfileDataResponse
+  [32m[NEW][0m     exa.language_server_pb.GetChangelogRequest
+  [32m[NEW][0m     exa.language_server_pb.GetChangelogResponse
+  [32m[NEW][0m     exa.language_server_pb.ExitRequest
+  [32m[NEW][0m     exa.language_server_pb.ExitResponse
+  [32m[NEW][0m     exa.language_server_pb.State
+  [32m[NEW][0m     exa.language_server_pb.RequestInfo
+  [32m[NEW][0m     exa.language_server_pb.LatencyInfo
+  [32m[NEW][0m     exa.language_server_pb.Suffix
+  [32m[NEW][0m     exa.language_server_pb.CompletionPart
+  [32m[NEW][0m     exa.language_server_pb.CompletionItem
+  [32m[NEW][0m     exa.language_server_pb.AddTrackedWorkspaceRequest
+  [32m[NEW][0m     exa.language_server_pb.AddTrackedWorkspaceResponse
+  [32m[NEW][0m     exa.language_server_pb.RemoveTrackedWorkspaceRequest
+  [32m[NEW][0m     exa.language_server_pb.RemoveTrackedWorkspaceResponse
+  [32m[NEW][0m     exa.language_server_pb.GetWorkspaceEditStateRequest
+  [32m[NEW][0m     exa.language_server_pb.WorkspaceEditState
+  [32m[NEW][0m     exa.language_server_pb.GetWorkspaceEditStateResponse
+  [32m[NEW][0m     exa.language_server_pb.BranchInfo
+  [32m[NEW][0m     exa.language_server_pb.RepoInfo
+  [32m[NEW][0m     exa.language_server_pb.GetRepoInfosRequest
+  [32m[NEW][0m     exa.language_server_pb.GetRepoInfosResponse
+  [32m[NEW][0m     exa.language_server_pb.GetWorkspaceInfosRequest
+  [32m[NEW][0m     exa.language_server_pb.WorkspaceInfo
+  [32m[NEW][0m     exa.language_server_pb.GetWorkspaceInfosResponse
+  [32m[NEW][0m     exa.language_server_pb.SetWorkingDirectoriesRequest
+  [32m[NEW][0m     exa.language_server_pb.SetWorkingDirectoriesResponse
+  [32m[NEW][0m     exa.language_server_pb.GetWorkingDirectoriesRequest
+  [32m[NEW][0m     exa.language_server_pb.GetWorkingDirectoriesResponse
+  [32m[NEW][0m     exa.language_server_pb.CreateWorktreeRequest
+  [32m[NEW][0m     exa.language_server_pb.CreateWorktreeResponse
+  [32m[NEW][0m     exa.language_server_pb.GenerateCommitMessageRequest
+  [32m[NEW][0m     exa.language_server_pb.CommitMessageData
+  [32m[NEW][0m     exa.language_server_pb.GenerateCommitMessageResponse
+  [32m[NEW][0m     exa.language_server_pb.RecordCommitMessageSaveRequest
+  [32m[NEW][0m     exa.language_server_pb.RecordCommitMessageSaveResponse
+  [32m[NEW][0m     exa.language_server_pb.UpdatePRForWorktreeRequest
+  [32m[NEW][0m     exa.language_server_pb.UpdatePRForWorktreeResponse
+  [32m[NEW][0m     exa.language_server_pb.GetUserSettingsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetUserSettingsResponse
+  [32m[NEW][0m     exa.language_server_pb.SetUserSettingsRequest
+  [32m[NEW][0m     exa.language_server_pb.SetUserSettingsResponse
+  [32m[NEW][0m     exa.language_server_pb.GetDebugDiagnosticsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetDebugDiagnosticsResponse
+  [32m[NEW][0m     exa.language_server_pb.CodeRange
+  [32m[NEW][0m     exa.language_server_pb.GetMatchingContextScopeItemsResponse
+  [32m[NEW][0m     exa.language_server_pb.SetupUniversitySandboxRequest
+  [32m[NEW][0m     exa.language_server_pb.SetupUniversitySandboxResponse
+  [32m[NEW][0m     exa.language_server_pb.UnifiedDiffChange
+  [32m[NEW][0m     exa.language_server_pb.ResetOnboardingResponse
+  [32m[NEW][0m     exa.language_server_pb.SkipOnboardingRequest
+  [32m[NEW][0m     exa.language_server_pb.SkipOnboardingResponse
+  [32m[NEW][0m     exa.language_server_pb.GetUserTrajectoryDebugRequest
+  [32m[NEW][0m     exa.language_server_pb.GetUserTrajectoryDebugResponse
+  [32m[NEW][0m     exa.language_server_pb.SupercompletePromptTrajectory
+  [32m[NEW][0m     exa.language_server_pb.GetUserTrajectoryDescriptionsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetUserTrajectoryDescriptionsResponse
+  [32m[NEW][0m     exa.language_server_pb.ForceBackgroundResearchRefreshRequest
+  [32m[NEW][0m     exa.language_server_pb.ForceBackgroundResearchRefreshResponse
+  [32m[NEW][0m     exa.language_server_pb.ReplayGroundTruthTrajectoryRequest
+  [32m[NEW][0m     exa.language_server_pb.ReplayGroundTruthTrajectoryResponse
+  [32m[NEW][0m     exa.language_server_pb.InitializeCascadePanelStateRequest
+  [32m[NEW][0m     exa.language_server_pb.InitializeCascadePanelStateResponse
+  [32m[NEW][0m     exa.language_server_pb.StartCascadeRequest
+  [32m[NEW][0m     exa.language_server_pb.StartCascadeResponse
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeTrajectoryRequest
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeTrajectoryResponse
+  [32m[NEW][0m     exa.language_server_pb.GetArtifactSnapshotsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetArtifactSnapshotsResponse
+  [32m[NEW][0m     exa.language_server_pb.GetUserTrajectoryRequest
+  [32m[NEW][0m     exa.language_server_pb.GetUserTrajectoryResponse
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeTrajectoryStepsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeTrajectoryStepsResponse
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeTrajectoryGeneratorMetadataRequest
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeTrajectoryGeneratorMetadataResponse
+  [32m[NEW][0m     exa.language_server_pb.GetAllCascadeTrajectoriesRequest
+  [32m[NEW][0m     exa.language_server_pb.GetAllCascadeTrajectoriesResponse
+  [32m[NEW][0m     exa.language_server_pb.CancelCascadeInvocationRequest
+  [32m[NEW][0m     exa.language_server_pb.CancelCascadeInvocationResponse
+  [32m[NEW][0m     exa.language_server_pb.CancelCascadeStepsRequest
+  [32m[NEW][0m     exa.language_server_pb.CancelCascadeStepsResponse
+  [32m[NEW][0m     exa.language_server_pb.SkipBrowserSubagentRequest
+  [32m[NEW][0m     exa.language_server_pb.SkipBrowserSubagentResponse
+  [32m[NEW][0m     exa.language_server_pb.SendUserCascadeMessageRequest
+  [32m[NEW][0m     exa.language_server_pb.SendUserCascadeMessageResponse
+  [32m[NEW][0m     exa.language_server_pb.SignalExecutableIdleRequest
+  [32m[NEW][0m     exa.language_server_pb.SignalExecutableIdleResponse
+  [32m[NEW][0m     exa.language_server_pb.SendAllQueuedMessagesRequest
+  [32m[NEW][0m     exa.language_server_pb.SendAllQueuedMessagesResponse
+  [32m[NEW][0m     exa.language_server_pb.DeleteQueuedUserInputStepRequest
+  [32m[NEW][0m     exa.language_server_pb.DeleteQueuedUserInputStepResponse
+  [32m[NEW][0m     exa.language_server_pb.SaveMediaAsArtifactRequest
+  [32m[NEW][0m     exa.language_server_pb.SaveMediaAsArtifactResponse
+  [32m[NEW][0m     exa.language_server_pb.DeleteMediaArtifactRequest
+  [32m[NEW][0m     exa.language_server_pb.DeleteMediaArtifactResponse
+  [32m[NEW][0m     exa.language_server_pb.RevertToCascadeStepRequest
+  [32m[NEW][0m     exa.language_server_pb.RevertToCascadeStepResponse
+  [32m[NEW][0m     exa.language_server_pb.CodeEditRevertPreview
+  [32m[NEW][0m     exa.language_server_pb.GetRevertPreviewRequest
+  [32m[NEW][0m     exa.language_server_pb.GetRevertPreviewResponse
+  [32m[NEW][0m     exa.language_server_pb.RecordUserStepSnapshotRequest
+  [32m[NEW][0m     exa.language_server_pb.RecordUserStepSnapshotResponse
+  [32m[NEW][0m     exa.language_server_pb.HandleCascadeUserInteractionRequest
+  [32m[NEW][0m     exa.language_server_pb.HandleCascadeUserInteractionResponse
+  [32m[NEW][0m     exa.language_server_pb.AcknowledgeCascadeCodeEditRequest
+  [32m[NEW][0m     exa.language_server_pb.AcknowledgeCascadeCodeEditResponse
+  [32m[NEW][0m     exa.language_server_pb.CodeAcknowledgementRequestInfo
+  [32m[NEW][0m     exa.language_server_pb.AcknowledgeCodeActionStepRequest
+  [32m[NEW][0m     exa.language_server_pb.AcknowledgeCodeActionStepResponse
+  [32m[NEW][0m     exa.language_server_pb.GetCodeValidationStatesRequest
+  [32m[NEW][0m     exa.language_server_pb.GetCodeValidationStatesResponse
+  [32m[NEW][0m     exa.language_server_pb.ValidationState
+  [32m[NEW][0m     exa.language_server_pb.DeleteCascadeTrajectoryRequest
+  [32m[NEW][0m     exa.language_server_pb.DeleteCascadeTrajectoryResponse
+  [32m[NEW][0m     exa.language_server_pb.ResolveOutstandingStepsRequest
+  [32m[NEW][0m     exa.language_server_pb.ResolveOutstandingStepsResponse
+  [32m[NEW][0m     exa.language_server_pb.StreamTerminalShellCommandResponse
+  [32m[NEW][0m     exa.language_server_pb.GetWebDocsOptionsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetWebDocsOptionsResponse
+  [32m[NEW][0m     exa.language_server_pb.UpdateDevExperimentsRequest
+  [32m[NEW][0m     exa.language_server_pb.UpdateDevExperimentsResponse
+  [32m[NEW][0m     exa.language_server_pb.SetBaseExperimentsRequest
+  [32m[NEW][0m     exa.language_server_pb.SetBaseExperimentsResponse
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeModelConfigDataRequest
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeMemoriesRequest
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeMemoriesResponse
+  [32m[NEW][0m     exa.language_server_pb.GetModelStatusesRequest
+  [32m[NEW][0m     exa.language_server_pb.GetModelStatusesResponse
+  [32m[NEW][0m     exa.language_server_pb.DeleteCascadeMemoryRequest
+  [32m[NEW][0m     exa.language_server_pb.DeleteCascadeMemoryResponse
+  [32m[NEW][0m     exa.language_server_pb.UpdateCascadeMemoryRequest
+  [32m[NEW][0m     exa.language_server_pb.UpdateCascadeMemoryResponse
+  [32m[NEW][0m     exa.language_server_pb.GetUserMemoriesRequest
+  [32m[NEW][0m     exa.language_server_pb.GetUserMemoriesResponse
+  [32m[NEW][0m     exa.language_server_pb.UpdateConversationAnnotationsResponse
+  [32m[NEW][0m     exa.language_server_pb.RefreshMcpServersRequest
+  [32m[NEW][0m     exa.language_server_pb.RefreshMcpServersResponse
+  [32m[NEW][0m     exa.language_server_pb.GetMcpServerStatesRequest
+  [32m[NEW][0m     exa.language_server_pb.GetMcpServerStatesResponse
+  [32m[NEW][0m     exa.language_server_pb.GetAllWorkflowsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetAllWorkflowsResponse
+  [32m[NEW][0m     exa.language_server_pb.GetAllCustomAgentConfigsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetAllCustomAgentConfigsResponse
+  [32m[NEW][0m     exa.language_server_pb.CopyBuiltinWorkflowToWorkspaceRequest
+  [32m[NEW][0m     exa.language_server_pb.CopyBuiltinWorkflowToWorkspaceResponse
+  [32m[NEW][0m     exa.language_server_pb.GetAllRulesRequest
+  [32m[NEW][0m     exa.language_server_pb.GetAllRulesResponse
+  [32m[NEW][0m     exa.language_server_pb.GetAllSkillsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetAllSkillsResponse
+  [32m[NEW][0m     exa.language_server_pb.ListMcpResourcesRequest
+  [32m[NEW][0m     exa.language_server_pb.ListMcpResourcesResponse
+  [32m[NEW][0m     exa.language_server_pb.ListMcpPromptsRequest
+  [32m[NEW][0m     exa.language_server_pb.ListMcpPromptsResponse
+  [32m[NEW][0m     exa.language_server_pb.GetMcpPromptRequest
+  [32m[NEW][0m     exa.language_server_pb.GetMcpPromptResponse
+  [32m[NEW][0m     exa.language_server_pb.UpdateEnterpriseExperimentsFromUrlRequest
+  [32m[NEW][0m     exa.language_server_pb.UpdateEnterpriseExperimentsFromUrlResponse
+  [32m[NEW][0m     exa.language_server_pb.ImportFromCursorRequest
+  [32m[NEW][0m     exa.language_server_pb.ImportFromCursorResponse
+  [32m[NEW][0m     exa.language_server_pb.CreateCustomizationFileRequest
+  [32m[NEW][0m     exa.language_server_pb.CreateCustomizationFileResponse
+  [32m[NEW][0m     exa.language_server_pb.SendActionToChatPanelRequest
+  [32m[NEW][0m     exa.language_server_pb.SendActionToChatPanelResponse
+  [32m[NEW][0m     exa.language_server_pb.RecordUserGrepRequest
+  [32m[NEW][0m     exa.language_server_pb.RecordUserGrepResponse
+  [32m[NEW][0m     exa.language_server_pb.GetUnleashDataRequest
+  [32m[NEW][0m     exa.language_server_pb.GetUnleashDataResponse
+  [32m[NEW][0m     exa.language_server_pb.ShouldEnableUnleashRequest
+  [32m[NEW][0m     exa.language_server_pb.ShouldEnableUnleashResponse
+  [32m[NEW][0m     exa.language_server_pb.GetPatchAndCodeChangeRequest
+  [32m[NEW][0m     exa.language_server_pb.GetPatchAndCodeChangeResponse
+  [32m[NEW][0m     exa.language_server_pb.ConvertTrajectoryToMarkdownRequest
+  [32m[NEW][0m     exa.language_server_pb.ConvertTrajectoryToMarkdownResponse
+  [32m[NEW][0m     exa.language_server_pb.CopyTrajectoryRequest
+  [32m[NEW][0m     exa.language_server_pb.CopyTrajectoryResponse
+  [32m[NEW][0m     exa.language_server_pb.LoadTrajectoryRequest
+  [32m[NEW][0m     exa.language_server_pb.LoadTrajectoryResponse
+  [32m[NEW][0m     exa.language_server_pb.CreateTrajectoryShareRequest
+  [32m[NEW][0m     exa.language_server_pb.CreateTrajectoryShareResponse
+  [32m[NEW][0m     exa.language_server_pb.GetAvailableCascadePluginsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetAvailableCascadePluginsResponse
+  [32m[NEW][0m     exa.language_server_pb.InstallCascadePluginRequest
+  [32m[NEW][0m     exa.language_server_pb.InstallCascadePluginResponse
+  [32m[NEW][0m     exa.language_server_pb.GetCascadePluginByIdRequest
+  [32m[NEW][0m     exa.language_server_pb.GetCascadePluginByIdResponse
+  [32m[NEW][0m     exa.language_server_pb.RecordLintsRequest
+  [32m[NEW][0m     exa.language_server_pb.RecordLintsResponse
+  [32m[NEW][0m     exa.language_server_pb.StatUriRequest
+  [32m[NEW][0m     exa.language_server_pb.StatUriResponse
+  [32m[NEW][0m     exa.language_server_pb.SetBrowserOpenConversationRequest
+  [32m[NEW][0m     exa.language_server_pb.SetBrowserOpenConversationResponse
+  [32m[NEW][0m     exa.language_server_pb.GetBrowserOpenConversationRequest
+  [32m[NEW][0m     exa.language_server_pb.GetBrowserOpenConversationResponse
+  [32m[NEW][0m     exa.language_server_pb.RecordInteractiveCascadeFeedbackRequest
+  [32m[NEW][0m     exa.language_server_pb.RecordInteractiveCascadeFeedbackResponse
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeNuxesRequest
+  [32m[NEW][0m     exa.language_server_pb.GetCascadeNuxesResponse
+  [32m[NEW][0m     exa.language_server_pb.GetStaticExperimentStatusRequest
+  [32m[NEW][0m     exa.language_server_pb.GetStaticExperimentStatusResponse
+  [32m[NEW][0m     exa.language_server_pb.RecordAnalyticsEventRequest
+  [32m[NEW][0m     exa.language_server_pb.RecordAnalyticsEventResponse
+  [32m[NEW][0m     exa.language_server_pb.GetTermsOfServiceRequest
+  [32m[NEW][0m     exa.language_server_pb.GetTermsOfServiceResponse
+  [32m[NEW][0m     exa.language_server_pb.AcceptTermsOfServiceRequest
+  [32m[NEW][0m     exa.language_server_pb.AcceptTermsOfServiceResponse
+  [32m[NEW][0m     exa.language_server_pb.DumpFlightRecorderRequest
+  [32m[NEW][0m     exa.language_server_pb.DumpFlightRecorderResponse
+  [32m[NEW][0m     exa.language_server_pb.DumpPprofRequest
+  [32m[NEW][0m     exa.language_server_pb.DumpPprofResponse
+  [32m[NEW][0m     exa.language_server_pb.OAuthTokenInfo
+  [32m[NEW][0m     exa.language_server_pb.CreateReplayWorkspaceResponse
+  [32m[NEW][0m     exa.language_server_pb.LoadReplayConversationRequest
+  [32m[NEW][0m     exa.language_server_pb.LoadReplayConversationResponse
+  [32m[NEW][0m     exa.language_server_pb.ListPagesRequest
+  [32m[NEW][0m     exa.language_server_pb.ListPagesResponse
+  [32m[NEW][0m     exa.language_server_pb.BrowserValidateCascadeOrCancelOverlayRequest
+  [32m[NEW][0m     exa.language_server_pb.BrowserValidateCascadeOrCancelOverlayResponse
+  [32m[NEW][0m     exa.language_server_pb.SmartFocusConversationRequest
+  [32m[NEW][0m     exa.language_server_pb.SmartFocusConversationResponse
+  [32m[NEW][0m     exa.language_server_pb.OpenUrlRequest
+  [32m[NEW][0m     exa.language_server_pb.OpenUrlResponse
+  [32m[NEW][0m     exa.language_server_pb.FocusUserPageRequest
+  [32m[NEW][0m     exa.language_server_pb.FocusUserPageResponse
+  [32m[NEW][0m     exa.language_server_pb.AddToBrowserWhitelistRequest
+  [32m[NEW][0m     exa.language_server_pb.AddToBrowserWhitelistResponse
+  [32m[NEW][0m     exa.language_server_pb.CaptureConsoleLogsRequest
+  [32m[NEW][0m     exa.language_server_pb.CaptureConsoleLogsResponse
+  [32m[NEW][0m     exa.language_server_pb.StartScreenRecordingRequest
+  [32m[NEW][0m     exa.language_server_pb.StartScreenRecordingResponse
+  [32m[NEW][0m     exa.language_server_pb.SaveScreenRecordingRequest
+  [32m[NEW][0m     exa.language_server_pb.SaveScreenRecordingResponse
+  [32m[NEW][0m     exa.language_server_pb.GetBrowserWhitelistFilePathRequest
+  [32m[NEW][0m     exa.language_server_pb.GetBrowserWhitelistFilePathResponse
+  [32m[NEW][0m     exa.language_server_pb.GetAllBrowserWhitelistedUrlsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetAllBrowserWhitelistedUrlsResponse
+  [32m[NEW][0m     exa.language_server_pb.CaptureScreenshotRequest
+  [32m[NEW][0m     exa.language_server_pb.CaptureScreenshotResponse
+  [32m[NEW][0m     exa.language_server_pb.SmartOpenBrowserRequest
+  [32m[NEW][0m     exa.language_server_pb.SmartOpenBrowserResponse
+  [32m[NEW][0m     exa.language_server_pb.SimulateSegFaultRequest
+  [32m[NEW][0m     exa.language_server_pb.SimulateSegFaultResponse
+  [32m[NEW][0m     exa.language_server_pb.HandleScreenRecordingRequest
+  [32m[NEW][0m     exa.language_server_pb.HandleScreenRecordingResponse
+  [32m[NEW][0m     exa.language_server_pb.PatchStats
+  [32m[NEW][0m     exa.language_server_pb.GetRevisionArtifactRequest
+  [32m[NEW][0m     exa.language_server_pb.GetRevisionArtifactResponse
+  [32m[NEW][0m     exa.language_server_pb.GetModelResponseRequest
+  [32m[NEW][0m     exa.language_server_pb.GetModelResponseResponse
+  [32m[NEW][0m     exa.language_server_pb.GetAgentScriptsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetAgentScriptsResponse
+  [32m[NEW][0m     exa.language_server_pb.SaveAgentScriptCommandSpecRequest
+  [32m[NEW][0m     exa.language_server_pb.SaveAgentScriptCommandSpecResponse
+  [32m[NEW][0m     exa.language_server_pb.ListCustomizationPathsByFileRequest
+  [32m[NEW][0m     exa.language_server_pb.ListCustomizationPathsByFileResponse
+  [32m[NEW][0m     exa.language_server_pb.CustomizationPathsList
+  [32m[NEW][0m     exa.language_server_pb.UpdateCustomizationPathsFileRequest
+  [32m[NEW][0m     exa.language_server_pb.UpdateCustomizationPathsFileResponse
+  [32m[NEW][0m     exa.codeium_common_pb.GRPCStatus
+  [32m[NEW][0m     exa.codeium_common_pb.WorkingDirectoryInfo
+  [32m[NEW][0m     exa.jetski_cortex_pb.ImplicitTrajectory
+  [32m[NEW][0m     exa.jetski_cortex_pb.CascadeTrajectorySummaries
+  [32m[NEW][0m     exa.cascade_plugins_pb.GetAvailableCascadePluginsRequest
+  [32m[NEW][0m     exa.unified_state_sync_pb.Row
+  [32m[NEW][0m     exa.unified_state_sync_pb.AppliedUpdate
+  [32m[NEW][0m     exa.unified_state_sync_pb.UpdateRequest
+  [32m[NEW][0m     exa.unified_state_sync_pb.RepeatedString
+  [32m[NEW][0m     exa.extension_server_pb.ConversationPickerRequest
+  [32m[NEW][0m     exa.extension_server_pb.FocusEditorWindow
+  [32m[NEW][0m     exa.codeium_common_pb.TeamOrganizationalControls
+  [32m[NEW][0m     exa.codeium_common_pb.ModelOrAlias
+  [32m[NEW][0m     exa.codeium_common_pb.PromptStageLatency
+  [32m[NEW][0m     exa.codeium_common_pb.Completion
+  [32m[NEW][0m     exa.codeium_common_pb.CompletionLatencyInfo
+  [32m[NEW][0m     exa.codeium_common_pb.Embedding
+  [32m[NEW][0m     exa.codeium_common_pb.Metadata
+  [32m[NEW][0m     exa.codeium_common_pb.WorkspacePath
+  [32m[NEW][0m     exa.codeium_common_pb.WorkspaceStats
+  [32m[NEW][0m     exa.codeium_common_pb.FunctionInfo
+  [32m[NEW][0m     exa.codeium_common_pb.TeamsFeaturesMetadata
+  [32m[NEW][0m     exa.codeium_common_pb.PerforceDepotInfo
+  [32m[NEW][0m     exa.codeium_common_pb.CompletionStatistics
+  [32m[NEW][0m     exa.codeium_common_pb.ChatStatsByModelEntry
+  [32m[NEW][0m     exa.codeium_common_pb.CascadeNUXConfig
+  [32m[NEW][0m     exa.codeium_common_pb.ModelFeatures
+  [32m[NEW][0m     exa.codeium_common_pb.ModelInfo
+  [32m[NEW][0m     exa.codeium_common_pb.ApiProviderConfigMap
+  [32m[NEW][0m     exa.codeium_common_pb.ModelStatusInfo
+  [32m[NEW][0m     exa.codeium_common_pb.CciWithSubrange
+  [32m[NEW][0m     exa.codeium_common_pb.ChatToolCall
+  [32m[NEW][0m     exa.codeium_common_pb.TextOrScopeItem
+  [32m[NEW][0m     exa.codeium_common_pb.Rule
+  [32m[NEW][0m     exa.codeium_common_pb.LanguageServerDiagnostics
+  [32m[NEW][0m     exa.codeium_common_pb.IndexerDbStats
+  [32m[NEW][0m     exa.codeium_common_pb.ModelUsageStats
+  [32m[NEW][0m     exa.codeium_common_pb.KnowledgeBaseChunk
+  [32m[NEW][0m     exa.codeium_common_pb.AntigravityDeployment
+  [32m[NEW][0m     exa.codeium_common_pb.MetricsMetadata
+  [32m[NEW][0m     exa.codeium_common_pb.ModelNotification
+  [32m[NEW][0m     exa.codeium_common_pb.ModelNotificationExperimentPayload
+  [32m[NEW][0m     exa.codeium_common_pb.LspReference
+  [32m[NEW][0m     exa.codeium_common_pb.CodeAnnotation
+  [32m[NEW][0m     exa.codeium_common_pb.ThirdPartyWebSearchConfig
+  [32m[NEW][0m     exa.codeium_common_pb.MetricsSamplingConfig
+  [32m[NEW][0m     exa.codeium_common_pb.ExtraMetadata
+  [32m[NEW][0m     exa.chat_client_server_pb.StartChatClientRequestStreamRequest
+  [32m[NEW][0m     exa.chat_client_server_pb.ChatClientRequest
+  [32m[NEW][0m     exa.diff_action_pb.DiffList
+  [32m[NEW][0m     exa.chat_pb.ChatMessagePrompt
+  [32m[NEW][0m     exa.chat_pb.PromptCacheOptions
+  [32m[NEW][0m     exa.chat_pb.GetChatMessageRequest
+  [32m[NEW][0m     exa.chat_pb.IndexMap
+  [32m[NEW][0m     exa.chat_pb.Example
+  [32m[NEW][0m     exa.chat_pb.RunToolRequest
+  [32m[NEW][0m     exa.context_module_pb.CodeContextProviderMetadata
+  [32m[NEW][0m     exa.context_module_pb.ContextModuleStateStats
+  [32m[NEW][0m     exa.context_module_pb.ContextModuleResult
+  [32m[NEW][0m     exa.index_pb.GetRepositoriesFilter
+  [32m[NEW][0m     exa.index_pb.RemoteIndexStats
+  [32m[NEW][0m     exa.index_pb.RepositoryFilter
+  [32m[NEW][0m     exa.index_pb.ScoredContextItem
+  [32m[NEW][0m     exa.index_pb.IndexStats
+  [32m[NEW][0m     exa.index_pb.IndexerEvent.Deletion
+  [32m[NEW][0m     exa.opensearch_clients_pb.UserInfo
+  [32m[NEW][0m     exa.opensearch_clients_pb.ForwardResult
+  [32m[NEW][0m     exa.opensearch_clients_pb.CommonDocument
+  [32m[NEW][0m     exa.opensearch_clients_pb.ConnectorConfig
+  [32m[NEW][0m     exa.opensearch_clients_pb.ConnectorAdditionalParams
+  [32m[NEW][0m     exa.opensearch_clients_pb.DocumentTypeCount
+  [32m[NEW][0m     exa.opensearch_clients_pb.JobState
+  [32m[NEW][0m     exa.opensearch_clients_pb.SlackMessagePayload
+  [32m[NEW][0m     exa.cortex_pb.PlanInput
+  [32m[NEW][0m     exa.cortex_pb.PlanDebugInfo
+  [32m[NEW][0m     exa.cortex_pb.PlanConfig
+  [32m[NEW][0m     exa.cortex_pb.WorkspaceInitializationData
+  [32m[NEW][0m     exa.cortex_pb.AritfactInitializationData
+  [32m[NEW][0m     exa.cortex_pb.LogArtifactsConfig
+  [32m[NEW][0m     exa.cortex_pb.AutoCommandConfig
+  [32m[NEW][0m     exa.cortex_pb.CascadeDeployInteraction
+  [32m[NEW][0m     exa.cortex_pb.CascadeBrowserActionInteraction
+  [32m[NEW][0m     exa.cortex_pb.CascadeSendCommandInputInteractionSpec
+  [32m[NEW][0m     exa.cortex_pb.CortexStepGrepSearch
+  [32m[NEW][0m     exa.cortex_pb.CortexStepUserInput
+  [32m[NEW][0m     exa.cortex_pb.CortexStepPlannerResponse
+  [32m[NEW][0m     exa.cortex_pb.CortexStepSendCommandInput
+  [32m[NEW][0m     exa.cortex_pb.CortexStepCheckDeployStatus
+  [32m[NEW][0m     exa.cortex_pb.TaskDelta
+  [32m[NEW][0m     exa.cortex_pb.CascadePanelState
+  [32m[NEW][0m     exa.cortex_pb.CortexStepCommandStatus
+  [32m[NEW][0m     exa.cortex_pb.ViewedFileTrackerConfig
+  [32m[NEW][0m     exa.cortex_pb.ViewFileStepCreationOptions
+  [32m[NEW][0m     exa.cortex_pb.CortexStepPostPrReview
+  [32m[NEW][0m     exa.cortex_pb.CortexStepManagerFeedback
+  [32m[NEW][0m     exa.cortex_pb.CortexStepViewFileOutline
+  [32m[NEW][0m     exa.cortex_pb.CortexStepFindAllReferences
+  [32m[NEW][0m     exa.cortex_pb.CodeSearchMatch
+  [32m[NEW][0m     exa.cortex_pb.CortexStepBrowserMouseWheel
+  [32m[NEW][0m     exa.jetski_cortex_pb.CascadeState
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.RetrieverClassification
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.InstructionWithId
+  [32m[NEW][0m     exa.cascade_plugins_pb.CascadePluginTemplate
+  [32m[NEW][0m     exa.language_server_pb.ProvideCompletionFeedbackRequest
+  [32m[NEW][0m     exa.language_server_pb.GetTeamOrganizationalControlsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetTranscriptionRequest
+  [32m[NEW][0m     exa.language_server_pb.RefreshContextForIdeActionRequest
+  [32m[NEW][0m     exa.language_server_pb.GetMatchingContextScopeItemsRequest
+  [32m[NEW][0m     exa.language_server_pb.CodeTheme
+  [32m[NEW][0m     exa.language_server_pb.OnboardingItemState
+  [32m[NEW][0m     exa.language_server_pb.ResetOnboardingRequest
+  [32m[NEW][0m     exa.language_server_pb.ConversationTagList
+  [32m[NEW][0m     exa.language_server_pb.UpdateConversationAnnotationsRequest
+  [32m[NEW][0m     exa.language_server_pb.CreateReplayWorkspaceRequest
+  [32m[NEW][0m     exa.unified_state_sync_pb.Topic
+  [32m[NEW][0m     exa.unified_state_sync_pb.OptionalString
+  [32m[NEW][0m     exa.extension_server_pb.IsAgentManagerEnabledRequest
+  [32m[NEW][0m     exa.extension_server_pb.IsAgentManagerEnabledResponse
+  [32m[NEW][0m     exa.extension_server_pb.ConversationPickerResponse
+  [32m[NEW][0m     exa.extension_server_pb.StartAudioRecordingRequest
+  [32m[NEW][0m     exa.extension_server_pb.EndAudioRecordingRequest
+  [32m[NEW][0m     exa.extension_server_pb.EndAudioRecordingResponse
+  [32m[NEW][0m     exa.extension_server_pb.StartAudioRecordingResponse
+  [32m[NEW][0m     exa.extension_server_pb.GetCurrentAudioRecordingRequest
+  [32m[NEW][0m     exa.extension_server_pb.GetCurrentAudioRecordingResponse
+  [32m[NEW][0m     exa.extension_server_pb.LanguageServerStartedRequest
+  [32m[NEW][0m     exa.extension_server_pb.LanguageServerStartedResponse
+  [32m[NEW][0m     exa.extension_server_pb.OpenSettingRequest
+  [32m[NEW][0m     exa.extension_server_pb.OpenSettingResponse
+  [32m[NEW][0m     exa.extension_server_pb.OpenFilePointerRequest
+  [32m[NEW][0m     exa.extension_server_pb.OpenFilePointerResponse
+  [32m[NEW][0m     exa.extension_server_pb.InsertCodeAtCursorRequest
+  [32m[NEW][0m     exa.extension_server_pb.InsertCodeAtCursorResponse
+  [32m[NEW][0m     exa.extension_server_pb.EventMetadataRecord
+  [32m[NEW][0m     exa.extension_server_pb.LogEventRequest
+  [32m[NEW][0m     exa.extension_server_pb.LogEventResponse
+  [32m[NEW][0m     exa.extension_server_pb.CheckTerminalShellSupportRequest
+  [32m[NEW][0m     exa.extension_server_pb.CheckTerminalShellSupportResponse
+  [32m[NEW][0m     exa.extension_server_pb.ExecuteCommandRequest
+  [32m[NEW][0m     exa.extension_server_pb.ShowTerminalRequest
+  [32m[NEW][0m     exa.extension_server_pb.ShowTerminalResponse
+  [32m[NEW][0m     exa.extension_server_pb.OpenVirtualFileRequest
+  [32m[NEW][0m     exa.extension_server_pb.OpenVirtualFileResponse
+  [32m[NEW][0m     exa.extension_server_pb.SaveDocumentRequest
+  [32m[NEW][0m     exa.extension_server_pb.SaveDocumentResponse
+  [32m[NEW][0m     exa.extension_server_pb.ReadTerminalRequest
+  [32m[NEW][0m     exa.extension_server_pb.ReadTerminalResponse
+  [32m[NEW][0m     exa.extension_server_pb.OpenTerminalRequest
+  [32m[NEW][0m     exa.extension_server_pb.OpenTerminalResponse
+  [32m[NEW][0m     exa.extension_server_pb.SendTerminalInputRequest
+  [32m[NEW][0m     exa.extension_server_pb.SendTerminalInputResponse
+  [32m[NEW][0m     exa.extension_server_pb.TerminateCommandRequest
+  [32m[NEW][0m     exa.extension_server_pb.TerminateCommandResponse
+  [32m[NEW][0m     exa.extension_server_pb.GetLintErrorsRequest
+  [32m[NEW][0m     exa.extension_server_pb.GetLintErrorsRequest.AwaitNewLintsConfig
+  [32m[NEW][0m     exa.extension_server_pb.GetLintErrorsResponse
+  [32m[NEW][0m     exa.extension_server_pb.OpenDiffZonesRequest
+  [32m[NEW][0m     exa.extension_server_pb.OpenDiffZonesResponse
+  [32m[NEW][0m     exa.extension_server_pb.OpenExternalUrlRequest
+  [32m[NEW][0m     exa.extension_server_pb.OpenExternalUrlResponse
+  [32m[NEW][0m     exa.extension_server_pb.HandleAsyncPostMessageRequest
+  [32m[NEW][0m     exa.extension_server_pb.HandleAsyncPostMessageResponse
+  [32m[NEW][0m     exa.extension_server_pb.PlaySoundRequest
+  [32m[NEW][0m     exa.extension_server_pb.PlaySoundResponse
+  [32m[NEW][0m     exa.extension_server_pb.OpenAntigravityRulesFileRequest
+  [32m[NEW][0m     exa.extension_server_pb.OpenAntigravityRulesFileResponse
+  [32m[NEW][0m     exa.extension_server_pb.OpenPluginPageRequest
+  [32m[NEW][0m     exa.extension_server_pb.OpenPluginPageResponse
+  [32m[NEW][0m     exa.extension_server_pb.OpenPluginConfigModalRequest
+  [32m[NEW][0m     exa.extension_server_pb.OpenPluginConfigModalResponse
+  [32m[NEW][0m     exa.extension_server_pb.TerminalResearchResultRequest
+  [32m[NEW][0m     exa.extension_server_pb.TerminalResearchResultResponse
+  [32m[NEW][0m     exa.extension_server_pb.OpenConfigurePluginsPageRequest
+  [32m[NEW][0m     exa.extension_server_pb.OpenConfigurePluginsPageResponse
+  [32m[NEW][0m     exa.extension_server_pb.WriteCascadeEditRequest
+  [32m[NEW][0m     exa.extension_server_pb.WriteCascadeEditResponse
+  [32m[NEW][0m     exa.extension_server_pb.EditNotebookRequest
+  [32m[NEW][0m     exa.extension_server_pb.EditNotebookRequest.Cell
+  [32m[NEW][0m     exa.extension_server_pb.EditNotebookResponse
+  [32m[NEW][0m     exa.extension_server_pb.EditNotebookResponse.ModifiedCell
+  [32m[NEW][0m     exa.extension_server_pb.ReadNotebookRequest
+  [32m[NEW][0m     exa.extension_server_pb.ReadNotebookResponse
+  [32m[NEW][0m     exa.extension_server_pb.OpenConversationWorkspaceQuickPickRequest
+  [32m[NEW][0m     exa.extension_server_pb.OpenConversationWorkspaceQuickPickResponse
+  [32m[NEW][0m     exa.extension_server_pb.FindAllReferencesRequest
+  [32m[NEW][0m     exa.extension_server_pb.FindAllReferencesResponse
+  [32m[NEW][0m     exa.extension_server_pb.GetDefinitionRequest
+  [32m[NEW][0m     exa.extension_server_pb.GetDefinitionRequestItem
+  [32m[NEW][0m     exa.extension_server_pb.GetDefinitionResponse
+  [32m[NEW][0m     exa.extension_server_pb.GetDefinitionResponseItem
+  [32m[NEW][0m     exa.extension_server_pb.HandleProposeCodeExtensionVerificationRequest
+  [32m[NEW][0m     exa.extension_server_pb.HandleProposeCodeExtensionVerificationResponse
+  [32m[NEW][0m     exa.extension_server_pb.UpdateCascadeTrajectorySummariesRequest
+  [32m[NEW][0m     exa.extension_server_pb.UpdateCascadeTrajectorySummariesResponse
+  [32m[NEW][0m     exa.extension_server_pb.RunExtensionCodeRequest
+  [32m[NEW][0m     exa.extension_server_pb.RunExtensionCodeResponse
+  [32m[NEW][0m     exa.extension_server_pb.AddAnnotationRequest
+  [32m[NEW][0m     exa.extension_server_pb.AddAnnotationResponse
+  [32m[NEW][0m     exa.extension_server_pb.RemoveAnnotationRequest
+  [32m[NEW][0m     exa.extension_server_pb.RemoveAnnotationResponse
+  [32m[NEW][0m     exa.extension_server_pb.ShowAnnotationRequest
+  [32m[NEW][0m     exa.extension_server_pb.ShowAnnotationResponse
+  [32m[NEW][0m     exa.extension_server_pb.UpdateDetailedViewWithCascadeInputRequest
+  [32m[NEW][0m     exa.extension_server_pb.UpdateDetailedViewWithCascadeInputResponse
+  [32m[NEW][0m     exa.extension_server_pb.GetSecretValueRequest
+  [32m[NEW][0m     exa.extension_server_pb.GetSecretValueResponse
+  [32m[NEW][0m     exa.extension_server_pb.StoreSecretValueRequest
+  [32m[NEW][0m     exa.extension_server_pb.StoreSecretValueResponse
+  [32m[NEW][0m     exa.extension_server_pb.GetBrowserOnboardingPortRequest
+  [32m[NEW][0m     exa.extension_server_pb.GetBrowserOnboardingPortResponse
+  [32m[NEW][0m     exa.extension_server_pb.GetChromeDevtoolsMcpUrlRequest
+  [32m[NEW][0m     exa.extension_server_pb.GetChromeDevtoolsMcpUrlResponse
+  [32m[NEW][0m     exa.extension_server_pb.FocusManagerWindow
+  [32m[NEW][0m     exa.extension_server_pb.FocusIDEWindowRequest
+  [32m[NEW][0m     exa.extension_server_pb.FocusIDEWindowResponse
+  [32m[NEW][0m     exa.extension_server_pb.LaunchBrowserRequest
+  [32m[NEW][0m     exa.extension_server_pb.LaunchBrowserResponse
+  [32m[NEW][0m     exa.extension_server_pb.RestartUserStatusUpdaterRequest
+  [32m[NEW][0m     exa.extension_server_pb.RestartUserStatusUpdaterResponse
+  [32m[NEW][0m     exa.extension_server_pb.RecordErrorRequest
+  [32m[NEW][0m     exa.extension_server_pb.RecordErrorResponse
+  [32m[NEW][0m     exa.extension_server_pb.SubscribeToUnifiedStateSyncTopicRequest
+  [32m[NEW][0m     exa.extension_server_pb.UnifiedStateSyncUpdate
+  [32m[NEW][0m     exa.extension_server_pb.PushUnifiedStateSyncUpdateRequest
+  [32m[NEW][0m     exa.extension_server_pb.PushUnifiedStateSyncUpdateResponse
+  [32m[NEW][0m     exa.extension_server_pb.BroadcastConversationDeletionRequest
+  [32m[NEW][0m     exa.extension_server_pb.BroadcastConversationDeletionResponse
+  [32m[NEW][0m     exa.extension_server_pb.FetchMCPAuthTokenRequest
+  [32m[NEW][0m     exa.extension_server_pb.FetchMCPAuthTokenResponse
+  [31m[REMOVED][0m google.internal.cloud.code.v1internal.GeminiCodeAssistSetting
+  [31m[REMOVED][0m exa.cortex_pb.McpResourceContent
+  [33m[CHANGED][0m google.protobuf.FileDescriptorSet
+    [33m~ field 1: T_var: Et → gt[0m
+  [33m[CHANGED][0m google.protobuf.FileDescriptorProto
+    [33m~ field 4: T_var: gt → yt[0m
+    [33m~ field 5: T_var: Ct → kt[0m
+    [33m~ field 6: T_var: It → St[0m
+    [33m~ field 7: T_var: St → xt[0m
+    [33m~ field 8: T_var: Ot → Ct[0m
+    [33m~ field 9: T_var: Ht → Gt[0m
+    [33m~ field 14: T_var: Qe → $e[0m
+  [33m[CHANGED][0m google.protobuf.DescriptorProto
+    [33m~ field 2: T_var: St → xt[0m
+    [33m~ field 6: T_var: St → xt[0m
+    [33m~ field 3: T_var: gt → yt[0m
+    [33m~ field 4: T_var: Ct → kt[0m
+    [33m~ field 5: T_var: yt → _t[0m
+    [33m~ field 8: T_var: wt → vt[0m
+    [33m~ field 7: T_var: bt → Nt[0m
+    [33m~ field 9: T_var: At → Et[0m
+  [33m[CHANGED][0m google.protobuf.DescriptorProto.ExtensionRange
+    [33m~ field 3: T_var: Tt → At[0m
+  [33m[CHANGED][0m google.protobuf.ExtensionRangeOptions
+    [33m~ field 999: T_var: Ut → Ft[0m
+    [33m~ field 2: T_var: kt → Tt[0m
+    [33m~ field 50: T_var: jt → Ut[0m
+    [33m~ field 3: T_var: et → Qe[0m
+  [33m[CHANGED][0m google.protobuf.FieldDescriptorProto
+    [33m~ field 4: T_var: nt → tt[0m
+    [33m~ field 5: T_var: tt → et[0m
+    [33m~ field 8: T_var: Rt → It[0m
+  [33m[CHANGED][0m google.protobuf.OneofDescriptorProto
+    [33m~ field 2: T_var: Lt → Pt[0m
+  [33m[CHANGED][0m google.protobuf.EnumDescriptorProto
+    [33m~ field 2: T_var: Nt → bt[0m
+    [33m~ field 3: T_var: Pt → Mt[0m
+    [33m~ field 4: T_var: xt → wt[0m
+  [33m[CHANGED][0m google.protobuf.EnumValueDescriptorProto
+    [33m~ field 3: T_var: Dt → Lt[0m
+  [33m[CHANGED][0m google.protobuf.ServiceDescriptorProto
+    [33m~ field 2: T_var: vt → Rt[0m
+    [33m~ field 3: T_var: Bt → Dt[0m
+  [33m[CHANGED][0m google.protobuf.MethodDescriptorProto
+    [33m~ field 4: T_var: Ft → Bt[0m
+  [33m[CHANGED][0m google.protobuf.FileOptions
+    [33m~ field 9: T_var: rt → nt[0m
+    [33m~ field 50: T_var: jt → Ut[0m
+    [33m~ field 999: T_var: Ut → Ft[0m
+  [33m[CHANGED][0m google.protobuf.MessageOptions
+    [33m~ field 12: T_var: jt → Ut[0m
+    [33m~ field 999: T_var: Ut → Ft[0m
+  [33m[CHANGED][0m google.protobuf.FieldOptions
+    [33m~ field 1: T_var: at → rt[0m
+    [33m~ field 6: T_var: it → at[0m
+    [33m~ field 19: T_var: ot → it[0m
+    [33m~ field 20: T_var: Mt → Ot[0m
+    [33m~ field 21: T_var: jt → Ut[0m
+    [33m~ field 999: T_var: Ut → Ft[0m
+  [33m[CHANGED][0m google.protobuf.FieldOptions.EditionDefault
+    [33m~ field 3: T_var: Qe → $e[0m
+  [33m[CHANGED][0m google.protobuf.OneofOptions
+    [33m~ field 1: T_var: jt → Ut[0m
+    [33m~ field 999: T_var: Ut → Ft[0m
+  [33m[CHANGED][0m google.protobuf.EnumOptions
+    [33m~ field 7: T_var: jt → Ut[0m
+    [33m~ field 999: T_var: Ut → Ft[0m
+  [33m[CHANGED][0m google.protobuf.EnumValueOptions
+    [33m~ field 2: T_var: jt → Ut[0m
+    [33m~ field 999: T_var: Ut → Ft[0m
+  [33m[CHANGED][0m google.protobuf.ServiceOptions
+    [33m~ field 34: T_var: jt → Ut[0m
+    [33m~ field 999: T_var: Ut → Ft[0m
+  [33m[CHANGED][0m google.protobuf.MethodOptions
+    [33m~ field 34: T_var: lt → ot[0m
+    [33m~ field 35: T_var: jt → Ut[0m
+    [33m~ field 999: T_var: Ut → Ft[0m
+  [33m[CHANGED][0m google.protobuf.UninterpretedOption
+    [33m~ field 2: T_var: Jt → jt[0m
+  [33m[CHANGED][0m google.protobuf.FeatureSet
+    [33m~ field 1: T_var: ct → lt[0m
+    [33m~ field 2: T_var: ut → ct[0m
+    [33m~ field 4: T_var: mt → ut[0m
+    [33m~ field 5: T_var: pt → mt[0m
+    [33m~ field 6: T_var: ft → pt[0m
+  [33m[CHANGED][0m google.protobuf.FeatureSetDefaults
+    [33m~ field 1: T_var: Gt → qt[0m
+    [33m~ field 4: T_var: Qe → $e[0m
+    [33m~ field 5: T_var: Qe → $e[0m
+  [33m[CHANGED][0m google.protobuf.FeatureSetDefaults.FeatureSetEditionDefault
+    [33m~ field 3: T_var: Qe → $e[0m
+    [33m~ field 2: T_var: jt → Ut[0m
+  [33m[CHANGED][0m google.protobuf.SourceCodeInfo
+    [33m~ field 1: T_var: Vt → Ht[0m
+  [33m[CHANGED][0m google.protobuf.GeneratedCodeInfo
+    [33m~ field 1: T_var: Yt → Wt[0m
+  [33m[CHANGED][0m google.protobuf.GeneratedCodeInfo.Annotation
+    [33m~ field 5: T_var: ht → ft[0m
+  [33m[CHANGED][0m google.protobuf.Value
+    [33m~ field 1: T_var: Kt → Yt[0m
+    [33m~ field 5: T_var: tn → en[0m
+    [33m~ field 6: T_var: rn → nn[0m
+  [33m[CHANGED][0m google.protobuf.ListValue
+    [33m~ field 1: T_var: nn → tn[0m
+  [33m[CHANGED][0m google.protobuf.compiler.CodeGeneratorRequest
+    [33m~ field 15: T_var: Et → gt[0m
+    [33m~ field 17: T_var: Et → gt[0m
+    [33m~ field 3: T_var: fn → pn[0m
+  [33m[CHANGED][0m google.protobuf.compiler.CodeGeneratorResponse
+    [33m~ field 15: T_var: Tn → An[0m
+  [33m[CHANGED][0m google.protobuf.compiler.CodeGeneratorResponse.File
+    [33m~ field 16: T_var: Wt → Vt[0m
+  [33m[CHANGED][0m google.protobuf.Type
+    [33m~ field 2: T_var: wn → vn[0m
+    [33m~ field 4: T_var: Nn → bn[0m
+    [33m~ field 5: T_var: kn → Tn[0m
+    [33m~ field 6: T_var: gn → yn[0m
+  [33m[CHANGED][0m google.protobuf.Field
+    [33m~ field 1: T_var: yn → _n[0m
+    [33m~ field 2: T_var: An → En[0m
+    [33m~ field 9: T_var: Nn → bn[0m
+  [33m[CHANGED][0m google.protobuf.Enum
+    [33m~ field 2: T_var: xn → wn[0m
+    [33m~ field 3: T_var: Nn → bn[0m
+    [33m~ field 4: T_var: kn → Tn[0m
+    [33m~ field 5: T_var: gn → yn[0m
+  [33m[CHANGED][0m google.protobuf.EnumValue
+    [33m~ field 3: T_var: Nn → bn[0m
+  [33m[CHANGED][0m google.protobuf.Option
+    [33m~ field 2: T_var: $t → Zt[0m
+  [33m[CHANGED][0m google.protobuf.Api
+    [33m~ field 2: T_var: vn → Rn[0m
+    [33m~ field 3: T_var: Nn → bn[0m
+    [33m~ field 5: T_var: kn → Tn[0m
+    [33m~ field 6: T_var: On → Cn[0m
+    [33m~ field 7: T_var: gn → yn[0m
+  [33m[CHANGED][0m google.protobuf.Method
+    [33m~ field 6: T_var: Nn → bn[0m
+    [33m~ field 7: T_var: gn → yn[0m
+  [33m[CHANGED][0m google.rpc.Status
+    [33m~ field 3: T_var: $t → Zt[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.Credits
+    [32m+ field 1: credit_type (enum)[0m
+    [32m+ field 2: credit_amount (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.ReleaseChannel
+    [32m+ field 1: type (enum)[0m
+    [32m+ field 2: name (scalar)[0m
+    [32m+ field 3: description (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.IneligibleTier
+    [32m+ field 1: reason_code (enum)[0m
+    [32m+ field 2: reason_message (scalar)[0m
+    [32m+ field 3: tier_id (scalar)[0m
+    [32m+ field 4: tier_name (scalar)[0m
+    [32m+ field 5: validation_error_message (scalar)[0m
+    [32m+ field 6: validation_url_link_text (scalar)[0m
+    [32m+ field 7: validation_url (scalar)[0m
+    [32m+ field 8: validation_learn_more_link_text (scalar)[0m
+    [32m+ field 9: validation_learn_more_url (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.ClientMetadata
+    [32m+ field 1: ide_type (enum)[0m
+    [32m+ field 2: ide_version (scalar)[0m
+    [32m+ field 3: plugin_version (scalar)[0m
+    [32m+ field 4: platform (enum)[0m
+    [32m+ field 5: update_channel (scalar)[0m
+    [32m+ field 6: duet_project (scalar)[0m
+    [32m+ field 7: plugin_type (enum)[0m
+    [32m+ field 8: ide_name (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.Project
+    [32m+ field 1: id (scalar)[0m
+    [32m+ field 2: name (scalar)[0m
+    [32m+ field 3: project_number (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.OnboardUserStatus
+    [32m+ field 1: status_code (enum)[0m
+    [32m+ field 2: display_message (scalar)[0m
+    [32m+ field 4: message_title (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.UserTier
+    [32m+ field 1: id (scalar)[0m
+    [32m+ field 2: name (scalar)[0m
+    [32m+ field 3: description (scalar)[0m
+    [32m+ field 4: user_defined_cloudaicompanion_project (scalar)[0m
+    [32m+ field 5: privacy_notice (message)[0m
+    [32m+ field 6: is_default (scalar)[0m
+    [32m+ field 7: upgrade_subscription_uri (scalar)[0m
+    [32m+ field 8: upgrade_subscription_text (scalar)[0m
+    [32m+ field 11: upgrade_button_text (scalar)[0m
+    [32m+ field 12: client_experience_tag (scalar)[0m
+    [32m+ field 9: upgrade_subscription_type (enum)[0m
+    [32m+ field 13: uses_gcp_tos (scalar)[0m
+    [32m+ field 14: available_credits (message)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.UserTier.PrivacyNotice
+    [32m+ field 1: show_notice (scalar)[0m
+    [32m+ field 2: notice_text (scalar)[0m
+    [32m+ field 4: minor_notice (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.McpSetting
+    [32m+ field 1: mcp_enabled (scalar)[0m
+    [32m+ field 2: override_mcp_config_json (scalar)[0m
+    [32m+ field 3: mcp_config_json (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.TurboModeSetting
+    [32m+ field 1: terminal_auto_execution_enabled (scalar)[0m
+    [32m+ field 2: browser_js_execution_enabled (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.BrowserSetting
+    [32m+ field 1: browser_enabled (scalar)[0m
+    [32m+ field 2: allowed_websites (scalar)[0m
+    [32m+ field 3: denied_websites (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.PreviewFeatureSetting
+    [32m+ field 1: preview_models_enabled (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.AgentSetting
+    [32m+ field 1: agy_allowed_models (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.CliFeatureSetting
+    [32m+ field 1: extensions_setting (message)[0m
+    [32m+ field 2: unmanaged_capabilities_enabled (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.CliFeatureSetting.ExtensionsSetting
+    [32m+ field 1: extensions_enabled (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.CompletionsRequest
+    [32m+ field 1: configuration (message)[0m
+    [32m+ field 2: prompt (scalar)[0m
+    [32m+ field 26: serialized_prompt (scalar)[0m
+    [32m+ field 21: context_prompt (scalar)[0m
+    [32m+ field 25: uid (scalar)[0m
+    [32m+ field 8: prompt_element_ranges (message)[0m
+    [32m+ field 9: prompt_element_kind_infos (message)[0m
+    [32m+ field 11: prompt_latency_ms (scalar)[0m
+    [32m+ field 12: prompt_stage_latencies (message)[0m
+    [32m+ field 20: num_tokenized_bytes (scalar)[0m
+    [32m+ field 3: editor_language (scalar)[0m
+    [32m+ field 4: language (enum)[0m
+    [32m+ field 5: absolute_path_uri_for_telemetry (scalar)[0m
+    [32m+ field 6: relative_path_for_telemetry (scalar)[0m
+    [32m+ field 13: workspace_uri_for_telemetry (scalar)[0m
+    [32m+ field 7: experiment_features_json (scalar)[0m
+    [32m+ field 19: experiment_variant_json (scalar)[0m
+    [32m+ field 10: model (enum)[0m
+    [32m+ field 14: has_line_suffix (scalar)[0m
+    [32m+ field 15: should_inline_fim (scalar)[0m
+    [32m+ field 16: repository (message)[0m
+    [32m+ field 17: model_tag (scalar)[0m
+    [32m+ field 18: experiment_tags (scalar)[0m
+    [32m+ field 22: eval_suffix (scalar)[0m
+    [32m+ field 23: prompt_annotation_ranges (message)[0m
+    [32m+ field 24: supports_packed_streaming_completion_maps (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.PromptElementRange
+    [32m+ field 1: kind (enum)[0m
+    [32m+ field 2: byte_offset_start (scalar)[0m
+    [32m+ field 3: byte_offset_end (scalar)[0m
+    [32m+ field 4: token_offset_start (scalar)[0m
+    [32m+ field 5: token_offset_end (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ExperimentWithVariant
+    [32m+ field 1: key (enum)[0m
+    [32m+ field 5: key_string (scalar)[0m
+    [32m+ field 6: disabled (scalar)[0m
+    [32m+ field 2: string (scalar)[0m
+    [32m+ field 3: json (scalar)[0m
+    [32m+ field 4: csv (scalar)[0m
+    [32m+ field 7: source (enum)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ExperimentConfig
+    [32m+ field 6: experiments (message)[0m
+    [32m+ field 1: force_enable_experiments (enum)[0m
+    [32m+ field 2: force_disable_experiments (enum)[0m
+    [32m+ field 3: force_enable_experiments_with_variants (message)[0m
+    [32m+ field 4: force_enable_experiment_strings (scalar)[0m
+    [32m+ field 5: force_disable_experiment_strings (scalar)[0m
+    [32m+ field 7: dev_mode (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.PromptElementKindInfo
+    [32m+ field 1: kind (enum)[0m
+    [32m+ field 2: experiment_key (enum)[0m
+    [32m+ field 3: enabled (scalar)[0m
+    [32m+ field 4: num_considered (scalar)[0m
+    [32m+ field 5: num_included (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.StreamingCompletionInfo
+    [32m+ field 1: completion_ids (scalar)[0m
+    [32m+ field 2: max_tokens (scalar)[0m
+    [32m+ field 3: temperature (scalar)[0m
+    [32m+ field 4: top_k (scalar)[0m
+    [32m+ field 5: top_p (scalar)[0m
+    [32m+ field 6: stop_patterns (scalar)[0m
+    [32m+ field 7: prompt_length (scalar)[0m
+    [32m+ field 9: prompt_id (scalar)[0m
+    [32m+ field 8: model_tag (scalar)[0m
+    [32m+ field 10: completions_request (message)[0m
+    [32m+ field 11: eval_suffix_info (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.SingleModelCompletionProfile
+    [32m+ field 1: total_prefill_pass_time (scalar)[0m
+    [32m+ field 2: avg_prefill_pass_time (scalar)[0m
+    [32m+ field 3: num_prefill_passes (scalar)[0m
+    [32m+ field 7: total_spec_copy_pass_time (scalar)[0m
+    [32m+ field 8: avg_spec_copy_pass_time (scalar)[0m
+    [32m+ field 9: num_spec_copy_passes (scalar)[0m
+    [32m+ field 4: total_generation_pass_time (scalar)[0m
+    [32m+ field 5: avg_generation_pass_time (scalar)[0m
+    [32m+ field 6: num_generation_passes (scalar)[0m
+    [32m+ field 10: total_model_time (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.CompletionProfile
+    [32m+ field 1: model_profile (message)[0m
+    [32m+ field 2: draft_model_profile (message)[0m
+    [32m+ field 3: time_to_first_prefill_pass (scalar)[0m
+    [32m+ field 4: time_to_first_token (scalar)[0m
+    [32m+ field 5: total_completion_time (scalar)[0m
+    [32m+ field 6: model_usage (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.StreamingCompletion
+    [32m+ field 1: decoded_token (scalar)[0m
+    [32m+ field 2: token (scalar)[0m
+    [32m+ field 3: probability (scalar)[0m
+    [32m+ field 4: adjusted_probability (scalar)[0m
+    [32m+ field 9: logprob (scalar)[0m
+    [32m+ field 5: completion_finished (scalar)[0m
+    [32m+ field 6: stop (scalar)[0m
+    [32m+ field 7: stop_reason (enum)[0m
+    [32m+ field 8: attribution_statuses (map)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.StreamingCompletionMap
+    [32m+ field 1: completions (map)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.PackedStreamingCompletionMaps
+    [32m+ field 1: completion_maps (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.StreamingEvalSuffixInfo
+    [32m+ field 1: per_token_log_likelihoods (scalar)[0m
+    [32m+ field 2: is_greedy (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.CitationMetadata
+    [32m+ field 1: citations (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.Recitation
+    [32m+ field 1: citation (message)[0m
+    [32m+ field 2: content (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.RecitationMetadata
+    [32m+ field 1: recitations (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.EmbeddingMetadata
+    [32m+ field 1: node_name (scalar)[0m
+    [32m+ field 2: start_line (scalar)[0m
+    [32m+ field 3: end_line (scalar)[0m
+    [32m+ field 4: embed_type (enum)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.QuotaInfo
+    [32m+ field 1: remaining_fraction (scalar)[0m
+    [32m+ field 2: reset_time (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ClientModelConfig
+    [32m+ field 1: label (scalar)[0m
+    [32m+ field 2: model_or_alias (message)[0m
+    [32m+ field 3: credit_multiplier (scalar)[0m
+    [32m+ field 13: pricing_type (enum)[0m
+    [32m+ field 4: disabled (scalar)[0m
+    [32m+ field 5: supports_images (scalar)[0m
+    [32m+ field 6: supports_legacy (scalar)[0m
+    [32m+ field 7: is_premium (scalar)[0m
+    [32m+ field 8: beta_warning_message (scalar)[0m
+    [32m+ field 9: is_beta (scalar)[0m
+    [32m+ field 10: provider (enum)[0m
+    [32m+ field 11: is_recommended (scalar)[0m
+    [32m+ field 12: allowed_tiers (enum)[0m
+    [32m+ field 14: description (scalar)[0m
+    [32m+ field 15: quota_info (message)[0m
+    [32m+ field 16: tag_title (scalar)[0m
+    [32m+ field 17: tag_description (scalar)[0m
+    [32m+ field 18: supported_mime_types (map)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.DefaultOverrideModelConfig
+    [32m+ field 1: model_or_alias (message)[0m
+    [32m+ field 2: version_id (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ClientModelSort
+    [32m+ field 1: name (scalar)[0m
+    [32m+ field 2: groups (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ClientModelGroup
+    [32m+ field 1: group_name (scalar)[0m
+    [32m+ field 2: model_labels (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.CascadeModelConfigData
+    [32m+ field 1: client_model_configs (message)[0m
+    [32m+ field 2: client_model_sorts (message)[0m
+    [32m+ field 3: default_override_model_config (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.AllowedModelConfig
+    [32m+ field 1: model_or_alias (message)[0m
+    [32m+ field 2: credit_multiplier (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.PlanInfo
+    [32m+ field 1: teams_tier (enum)[0m
+    [32m+ field 2: plan_name (scalar)[0m
+    [32m+ field 3: has_autocomplete_fast_mode (scalar)[0m
+    [32m+ field 4: allow_sticky_premium_models (scalar)[0m
+    [32m+ field 5: has_forge_access (scalar)[0m
+    [32m+ field 11: disable_code_snippet_telemetry (scalar)[0m
+    [32m+ field 15: allow_premium_command_models (scalar)[0m
+    [32m+ field 23: has_tab_to_jump (scalar)[0m
+    [32m+ field 6: max_num_premium_chat_messages (scalar)[0m
+    [32m+ field 7: max_num_chat_input_tokens (scalar)[0m
+    [32m+ field 8: max_custom_chat_instruction_characters (scalar)[0m
+    [32m+ field 9: max_num_pinned_context_items (scalar)[0m
+    [32m+ field 10: max_local_index_size (scalar)[0m
+    [32m+ field 26: max_unclaimed_sites (scalar)[0m
+    [32m+ field 12: monthly_prompt_credits (scalar)[0m
+    [32m+ field 13: monthly_flow_credits (scalar)[0m
+    [32m+ field 14: monthly_flex_credit_purchase_amount (scalar)[0m
+    [32m+ field 17: is_teams (scalar)[0m
+    [32m+ field 16: is_enterprise (scalar)[0m
+    [32m+ field 18: can_buy_more_credits (scalar)[0m
+    [32m+ field 19: cascade_web_search_enabled (scalar)[0m
+    [32m+ field 20: can_customize_app_icon (scalar)[0m
+    [32m+ field 22: cascade_can_auto_run_commands (scalar)[0m
+    [32m+ field 25: can_generate_commit_messages (scalar)[0m
+    [32m+ field 27: knowledge_base_enabled (scalar)[0m
+    [32m+ field 21: cascade_allowed_models_config (message)[0m
+    [32m+ field 24: default_team_config (message)[0m
+    [32m+ field 28: can_share_conversations (scalar)[0m
+    [32m+ field 29: can_allow_cascade_in_background (scalar)[0m
+    [32m+ field 30: default_team_features (map)[0m
+    [32m+ field 31: browser_enabled (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.TopUpStatus
+    [32m+ field 1: top_up_transaction_status (enum)[0m
+    [32m+ field 2: top_up_enabled (scalar)[0m
+    [32m+ field 3: monthly_top_up_amount (scalar)[0m
+    [32m+ field 4: top_up_spent (scalar)[0m
+    [32m+ field 5: top_up_increment (scalar)[0m
+    [32m+ field 6: top_up_criteria_met (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.PlanStatus
+    [32m+ field 1: plan_info (message)[0m
+    [32m+ field 2: plan_start (message)[0m
+    [32m+ field 3: plan_end (message)[0m
+    [32m+ field 8: available_prompt_credits (scalar)[0m
+    [32m+ field 9: available_flow_credits (scalar)[0m
+    [32m+ field 4: available_flex_credits (scalar)[0m
+    [32m+ field 7: used_flex_credits (scalar)[0m
+    [32m+ field 5: used_flow_credits (scalar)[0m
+    [32m+ field 6: used_prompt_credits (scalar)[0m
+    [32m+ field 10: top_up_status (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.GitRepoInfo
+    [32m+ field 1: name (scalar)[0m
+    [32m+ field 2: owner (scalar)[0m
+    [32m+ field 5: repo_name (scalar)[0m
+    [32m+ field 3: commit (scalar)[0m
+    [32m+ field 4: version_alias (scalar)[0m
+    [32m+ field 6: scm_provider (enum)[0m
+    [32m+ field 7: base_git_url (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.CodeContextItem
+    [32m+ field 1: absolute_path_migrate_me_to_uri (scalar)[0m
+    [32m+ field 16: absolute_uri (scalar)[0m
+    [32m+ field 2: workspace_paths (message)[0m
+    [32m+ field 3: node_name (scalar)[0m
+    [32m+ field 4: node_lineage (scalar)[0m
+    [32m+ field 5: start_line (scalar)[0m
+    [32m+ field 12: start_col (scalar)[0m
+    [32m+ field 6: end_line (scalar)[0m
+    [32m+ field 13: end_col (scalar)[0m
+    [32m+ field 7: context_type (enum)[0m
+    [32m+ field 10: language (enum)[0m
+    [32m+ field 11: snippet_by_type (map)[0m
+    [32m+ field 14: repo_info (message)[0m
+    [32m+ field 15: file_content_hash (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.SnippetWithWordCount
+    [32m+ field 1: snippet (scalar)[0m
+    [32m+ field 2: word_count_by_splitter (map)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.WordCount
+    [32m+ field 1: word_count_map (map)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.Repository
+    [32m+ field 1: computed_name (scalar)[0m
+    [32m+ field 2: git_origin_url (scalar)[0m
+    [32m+ field 3: git_upstream_url (scalar)[0m
+    [32m+ field 4: reported_name (scalar)[0m
+    [32m+ field 5: model_name (scalar)[0m
+    [32m+ field 6: submodule_url (scalar)[0m
+    [32m+ field 7: submodule_path (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ApiProviderConfig
+    [32m+ field 1: weight (scalar)[0m
+    [32m+ field 2: cache_ttl_minutes (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ContextSubrange
+    [32m+ field 1: snippet_type (enum)[0m
+    [32m+ field 2: start_offset (scalar)[0m
+    [32m+ field 3: end_offset (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.PathScopeItem
+    [32m+ field 1: absolute_path_migrate_me_to_uri (scalar)[0m
+    [32m+ field 5: absolute_uri (scalar)[0m
+    [32m+ field 2: workspace_relative_paths_migrate_me_to_workspace_uris (map)[0m
+    [32m+ field 6: workspace_uris_to_relative_paths (map)[0m
+    [32m+ field 3: num_files (scalar)[0m
+    [32m+ field 4: num_bytes (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.FileLineRange
+    [32m+ field 1: absolute_uri (scalar)[0m
+    [32m+ field 2: start_line (scalar)[0m
+    [32m+ field 3: end_line (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.TextBlock
+    [32m+ field 1: content (scalar)[0m
+    [32m+ field 2: file_line_range (message)[0m
+    [32m+ field 3: label (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.RepositoryScopeItem
+    [32m+ field 1: repo_info (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.RepositoryPathScopeItem
+    [32m+ field 1: repo_info (message)[0m
+    [32m+ field 2: relative_path (scalar)[0m
+    [32m+ field 3: is_dir (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.KnowledgeBaseScopeItem
+    [32m+ field 1: document_id (scalar)[0m
+    [32m+ field 7: index (enum)[0m
+    [32m+ field 8: document_type (enum)[0m
+    [32m+ field 3: display_name (scalar)[0m
+    [32m+ field 4: description (scalar)[0m
+    [32m+ field 5: display_source (scalar)[0m
+    [32m+ field 6: url (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ConsoleLogLine
+    [32m+ field 1: timestamp_str (scalar)[0m
+    [32m+ field 2: type (scalar)[0m
+    [32m+ field 3: output (scalar)[0m
+    [32m+ field 4: location (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ConsoleLogScopeItem
+    [32m+ field 1: lines (message)[0m
+    [32m+ field 2: server_address (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.DOMElementScopeItem
+    [32m+ field 1: tag_name (scalar)[0m
+    [32m+ field 2: outer_html (scalar)[0m
+    [32m+ field 3: id (scalar)[0m
+    [32m+ field 4: react_component_name (scalar)[0m
+    [32m+ field 5: file_line_range (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.DOMNode
+    [32m+ field 1: is_visible (scalar)[0m
+    [32m+ field 2: element (message)[0m
+    [32m+ field 3: text (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.DOMNode.ElementNode
+    [32m+ field 1: tag_name (scalar)[0m
+    [32m+ field 2: xpath (scalar)[0m
+    [32m+ field 3: children (scalar)[0m
+    [32m+ field 4: attributes (map)[0m
+    [32m+ field 5: is_interactive (scalar)[0m
+    [32m+ field 6: is_top_element (scalar)[0m
+    [32m+ field 7: highlight_index (scalar)[0m
+    [32m+ field 8: central_x (scalar)[0m
+    [32m+ field 9: central_y (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.DOMNode.TextNode
+    [32m+ field 1: text (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.DOMTree
+    [32m+ field 1: root_id (scalar)[0m
+    [32m+ field 2: map (map)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.RecipeScopeItem
+    [32m+ field 1: recipe_id (scalar)[0m
+    [32m+ field 2: title (scalar)[0m
+    [32m+ field 3: description (scalar)[0m
+    [32m+ field 4: system_prompt (scalar)[0m
+    [32m+ field 5: uri (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.RuleScopeItem
+    [32m+ field 1: rule_path (scalar)[0m
+    [32m+ field 2: rule_name (scalar)[0m
+    [32m+ field 3: description (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.McpResourceItem
+    [32m+ field 1: uri (scalar)[0m
+    [32m+ field 2: name (scalar)[0m
+    [32m+ field 3: description (scalar)[0m
+    [32m+ field 4: mime_type (scalar)[0m
+    [32m+ field 5: server_name (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.BrowserPageScopeItem
+    [32m+ field 1: url (scalar)[0m
+    [32m+ field 2: title (scalar)[0m
+    [32m+ field 3: visible_text_content (scalar)[0m
+    [32m+ field 4: page_id (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.BrowserCodeBlockScopeItem
+    [32m+ field 1: url (scalar)[0m
+    [32m+ field 2: title (scalar)[0m
+    [32m+ field 3: code_content (scalar)[0m
+    [32m+ field 4: language (enum)[0m
+    [32m+ field 5: context_text (scalar)[0m
+    [32m+ field 6: page_id (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.BrowserTextScopeItem
+    [32m+ field 1: url (scalar)[0m
+    [32m+ field 2: visible_text (scalar)[0m
+    [32m+ field 3: page_id (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ConversationScopeItem
+    [32m+ field 1: id (scalar)[0m
+    [32m+ field 2: title (scalar)[0m
+    [32m+ field 3: last_modified_time (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.UserActivityScopeItem
+    [32m+ field 1: id (scalar)[0m
+    [32m+ field 2: branch (scalar)[0m
+    [32m+ field 3: current (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.TerminalScopeItem
+    [32m+ field 1: process_id (scalar)[0m
+    [32m+ field 2: name (scalar)[0m
+    [32m+ field 3: last_command (scalar)[0m
+    [32m+ field 4: selectionContent (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ContextScopeItem
+    [32m+ field 1: file (message)[0m
+    [32m+ field 2: directory (message)[0m
+    [32m+ field 3: repository (message)[0m
+    [32m+ field 4: code_context (message)[0m
+    [32m+ field 6: cci_with_subrange (message)[0m
+    [32m+ field 7: repository_path (message)[0m
+    [32m+ field 8: slack (message)[0m
+    [32m+ field 9: github (message)[0m
+    [32m+ field 10: file_line_range (message)[0m
+    [32m+ field 11: text_block (message)[0m
+    [32m+ field 12: jira (message)[0m
+    [32m+ field 13: google_drive (message)[0m
+    [32m+ field 14: console_log (message)[0m
+    [32m+ field 15: dom_element (message)[0m
+    [32m+ field 16: recipe (message)[0m
+    [32m+ field 17: knowledge (message)[0m
+    [32m+ field 18: rule (message)[0m
+    [32m+ field 19: mcp_resource (message)[0m
+    [32m+ field 20: browser_page (message)[0m
+    [32m+ field 21: browser_code_block (message)[0m
+    [32m+ field 22: browser_text (message)[0m
+    [32m+ field 23: conversation (message)[0m
+    [32m+ field 24: user_activity (message)[0m
+    [32m+ field 25: terminal (message)[0m
+    [32m+ field 26: mcp_prompt (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ContextScope
+    [32m+ field 1: items (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.NodeExecutionRecord
+    [32m+ field 1: node_name (scalar)[0m
+    [32m+ field 2: start_time (message)[0m
+    [32m+ field 3: end_time (message)[0m
+    [32m+ field 5: graph_state_json (scalar)[0m
+    [32m+ field 6: graph_state_json_num_bytes (scalar)[0m
+    [32m+ field 4: subgraph_execution (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.GraphExecutionState
+    [32m+ field 1: current (message)[0m
+    [32m+ field 2: history (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.Guideline
+    [32m+ field 1: items (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.GuidelineItem
+    [32m+ field 1: guideline (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ChatNodeConfig
+    [32m+ field 1: model (enum)[0m
+    [32m+ field 2: max_input_tokens (scalar)[0m
+    [32m+ field 3: temperature (scalar)[0m
+    [32m+ field 4: max_output_tokens (scalar)[0m
+    [32m+ field 5: order_snippets_by_file (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.MQueryConfig
+    [32m+ field 1: should_batch_ccis (scalar)[0m
+    [32m+ field 2: max_tokens_per_subrange (scalar)[0m
+    [32m+ field 3: num_parser_workers (scalar)[0m
+    [32m+ field 4: num_workers_per_distributed_scorer (scalar)[0m
+    [32m+ field 5: verbose (scalar)[0m
+    [32m+ field 6: ignore_extensions (scalar)[0m
+    [32m+ field 7: ignore_directory_stubs (scalar)[0m
+    [32m+ field 8: min_token_space_for_context (scalar)[0m
+    [32m+ field 9: max_target_files (scalar)[0m
+    [32m+ field 10: top_cci_count (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.CompletionDelta
+    [32m+ field 1: delta_text (scalar)[0m
+    [32m+ field 12: delta_raw_generation (scalar)[0m
+    [32m+ field 2: delta_tokens (scalar)[0m
+    [32m+ field 3: stop_reason (enum)[0m
+    [32m+ field 4: usage (message)[0m
+    [32m+ field 5: delta_tool_calls (message)[0m
+    [32m+ field 6: delta_thinking (scalar)[0m
+    [32m+ field 7: delta_signature (scalar)[0m
+    [32m+ field 8: thinking_redacted (scalar)[0m
+    [32m+ field 11: citation_metadata (message)[0m
+    [32m+ field 13: trace_id (scalar)[0m
+    [32m+ field 14: stop_message (scalar)[0m
+    [32m+ field 15: consumed_credits (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.Range
+    [32m+ field 1: start_offset (scalar)[0m
+    [32m+ field 2: end_offset (scalar)[0m
+    [32m+ field 3: start_position (message)[0m
+    [32m+ field 4: end_position (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.Document
+    [32m+ field 1: absolute_path_migrate_me_to_uri (scalar)[0m
+    [32m+ field 12: absolute_uri (scalar)[0m
+    [32m+ field 2: relative_path_migrate_me_to_workspace_uri (scalar)[0m
+    [32m+ field 13: workspace_uri (scalar)[0m
+    [32m+ field 3: text (scalar)[0m
+    [32m+ field 4: editor_language (scalar)[0m
+    [32m+ field 5: language (enum)[0m
+    [32m+ field 6: cursor_offset (scalar)[0m
+    [32m+ field 8: cursor_position (message)[0m
+    [32m+ field 7: line_ending (scalar)[0m
+    [32m+ field 9: visible_range (message)[0m
+    [32m+ field 10: is_cutoff_start (scalar)[0m
+    [32m+ field 11: is_cutoff_end (scalar)[0m
+    [32m+ field 14: lines_cutoff_start (scalar)[0m
+    [32m+ field 15: lines_cutoff_end (scalar)[0m
+    [32m+ field 16: timestamp (message)[0m
+    [32m+ field 17: is_dirty (scalar)[0m
+    [32m+ field 18: is_synthetic (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.PinnedContextConfig
+    [32m+ field 1: match_repo_name (scalar)[0m
+    [32m+ field 2: match_path (scalar)[0m
+    [32m+ field 3: pinned_contexts (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.PinnedContext
+    [32m+ field 1: repository_path (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.RepositoryPath
+    [32m+ field 1: remote_repo_name (scalar)[0m
+    [32m+ field 2: version (scalar)[0m
+    [32m+ field 3: relative_path (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.LocalSqliteFaissDbStats
+    [32m+ field 1: faiss_state_stats (message)[0m
+    [32m+ field 2: total_item_count (scalar)[0m
+    [32m+ field 3: quantized (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.FaissStateStats
+    [32m+ field 1: embedding_source (enum)[0m
+    [32m+ field 2: workspace (scalar)[0m
+    [32m+ field 3: item_count (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.DocumentQuery
+    [32m+ field 1: text (scalar)[0m
+    [32m+ field 2: cursor_offset (scalar)[0m
+    [32m+ field 3: start_line (scalar)[0m
+    [32m+ field 4: end_line (scalar)[0m
+    [32m+ field 5: use_character_position (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.DocumentOutlineElement
+    [32m+ field 1: code_context_item (message)[0m
+    [32m+ field 2: document_lines_element (message)[0m
+    [32m+ field 3: text (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.DocumentOutline
+    [32m+ field 1: elements (message)[0m
+    [32m+ field 2: start_index (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.KnowledgeBaseItem
+    [32m+ field 1: document_id (scalar)[0m
+    [32m+ field 3: url (scalar)[0m
+    [32m+ field 4: title (scalar)[0m
+    [32m+ field 5: timestamp (message)[0m
+    [32m+ field 6: chunks (message)[0m
+    [32m+ field 7: summary (scalar)[0m
+    [32m+ field 9: dom_tree (message)[0m
+    [32m+ field 8: image (message)[0m
+    [32m+ field 10: media (message)[0m
+    [32m+ field 2: text (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.KnowledgeBaseItemWithMetadata
+    [32m+ field 1: knowledge_base_item (message)[0m
+    [32m+ field 2: score (scalar)[0m
+    [32m+ field 3: index_name (scalar)[0m
+    [32m+ field 4: document_source_name (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.KnowledgeBaseGroup
+    [32m+ field 1: description (scalar)[0m
+    [32m+ field 2: item (message)[0m
+    [32m+ field 3: children (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ImageData
+    [32m+ field 1: base64_data (scalar)[0m
+    [32m+ field 2: mime_type (scalar)[0m
+    [32m+ field 3: caption (scalar)[0m
+    [32m+ field 4: uri (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.Blobref
+    [32m+ field 1: blob_id (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.Media
+    [32m+ field 1: mime_type (scalar)[0m
+    [32m+ field 4: description (scalar)[0m
+    [32m+ field 2: inline_data (scalar)[0m
+    [32m+ field 3: blobref (message)[0m
+    [32m+ field 5: uri (scalar)[0m
+    [32m+ field 6: thumbnail (scalar)[0m
+    [32m+ field 7: duration_seconds (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.TextData
+    [32m+ field 1: text (scalar)[0m
+    [32m+ field 2: mime_type (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.MarkdownChunk
+    [32m+ field 1: headers (message)[0m
+    [32m+ field 2: text (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.MarkdownChunk.MarkdownHeader
+    [32m+ field 1: type (enum)[0m
+    [32m+ field 2: text (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.TerminalShellCommandHeader
+    [32m+ field 7: metadata (message)[0m
+    [32m+ field 1: terminal_id (scalar)[0m
+    [32m+ field 2: shell_pid (scalar)[0m
+    [32m+ field 3: command_line (scalar)[0m
+    [32m+ field 4: cwd (scalar)[0m
+    [32m+ field 5: start_time (message)[0m
+    [32m+ field 6: source (enum)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.TerminalShellCommandData
+    [32m+ field 1: raw_data (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.TerminalShellCommandTrailer
+    [32m+ field 1: exit_code (scalar)[0m
+    [32m+ field 2: end_time (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.DeployTarget
+    [32m+ field 1: deployment_provider (enum)[0m
+    [32m+ field 2: is_sandbox (scalar)[0m
+    [32m+ field 3: provider_team_id (scalar)[0m
+    [32m+ field 4: provider_team_slug (scalar)[0m
+    [32m+ field 5: domain (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.WebAppDeploymentConfig
+    [32m+ field 1: project_id (scalar)[0m
+    [32m+ field 2: framework (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.McpCommandTemplate
+    [32m+ field 1: command (scalar)[0m
+    [32m+ field 2: args (scalar)[0m
+    [32m+ field 3: env (map)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.McpCommandVariable
+    [32m+ field 1: name (scalar)[0m
+    [32m+ field 2: title (scalar)[0m
+    [32m+ field 3: description (scalar)[0m
+    [32m+ field 4: link (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.McpServerConfig
+    [32m+ field 1: server_id (scalar)[0m
+    [32m+ field 2: local (message)[0m
+    [32m+ field 3: remote (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.McpLocalServer
+    [32m+ field 1: command (scalar)[0m
+    [32m+ field 2: args (scalar)[0m
+    [32m+ field 3: env (map)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.McpRemoteServer
+    [32m+ field 1: type (scalar)[0m
+    [32m+ field 2: url (scalar)[0m
+    [32m+ field 3: headers (map)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.BrowserPageMetadata
+    [32m+ field 1: url (scalar)[0m
+    [32m+ field 2: page_id (scalar)[0m
+    [32m+ field 3: page_title (scalar)[0m
+    [32m+ field 4: viewport_width (scalar)[0m
+    [32m+ field 5: viewport_height (scalar)[0m
+    [32m+ field 9: page_height (scalar)[0m
+    [32m+ field 6: favicon_url (scalar)[0m
+    [32m+ field 8: device_pixel_ratio (scalar)[0m
+    [32m+ field 7: last_visited_time (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.BrowserClickInteraction
+    [32m+ field 1: viewport_scroll_x (scalar)[0m
+    [32m+ field 2: viewport_scroll_y (scalar)[0m
+    [32m+ field 3: click_x (scalar)[0m
+    [32m+ field 4: click_y (scalar)[0m
+    [32m+ field 5: target_element_tag_name (scalar)[0m
+    [32m+ field 6: target_element_x_path (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.BrowserScrollInteraction
+    [32m+ field 1: viewport_scroll_x (scalar)[0m
+    [32m+ field 2: viewport_scroll_y (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.MetricsRecord
+    [32m+ field 1: name (scalar)[0m
+    [32m+ field 9: metadata (message)[0m
+    [32m+ field 2: value (scalar)[0m
+    [32m+ field 3: details (map)[0m
+    [32m+ field 6: error (scalar)[0m
+    [32m+ field 7: trajectory_id (scalar)[0m
+    [32m+ field 4: lower_better (scalar)[0m
+    [32m+ field 5: is_bool (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.TextSelection
+    [32m+ field 1: content (scalar)[0m
+    [32m+ field 2: start_line (scalar)[0m
+    [32m+ field 3: end_line (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ArtifactImageSelection
+    [32m+ field 1: cropped_image (message)[0m
+    [32m+ field 2: x (scalar)[0m
+    [32m+ field 3: y (scalar)[0m
+    [32m+ field 4: width (scalar)[0m
+    [32m+ field 5: height (scalar)[0m
+    [32m+ field 6: cropped_media (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ArtifactSelection
+    [32m+ field 1: text_selection (message)[0m
+    [32m+ field 2: image_selection (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ArtifactSelectionTarget
+    [32m+ field 1: selections (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ArtifactComment
+    [32m+ field 1: artifact_uri (scalar)[0m
+    [32m+ field 5: full_file (message)[0m
+    [32m+ field 6: selections (message)[0m
+    [32m+ field 4: comment (scalar)[0m
+    [32m+ field 7: approval_status (enum)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ArtifactMetadata
+    [32m+ field 1: artifact_type (enum)[0m
+    [32m+ field 2: summary (scalar)[0m
+    [32m+ field 3: created_at (message)[0m
+    [32m+ field 4: updated_at (message)[0m
+    [32m+ field 5: version (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.DiffCommentInfo
+    [32m+ field 1: original_selection (message)[0m
+    [32m+ field 2: modified_selection (message)[0m
+    [32m+ field 3: comment (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.FileDiffComment
+    [32m+ field 1: file_uri (scalar)[0m
+    [32m+ field 3: diff_comment_infos (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.FileCommentInfo
+    [32m+ field 1: comment (scalar)[0m
+    [32m+ field 2: selection (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.FileComment
+    [32m+ field 1: file_uri (scalar)[0m
+    [32m+ field 2: file_comment_infos (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.SamplingStrategyUniform
+    [32m+ field 1: sampling_rate (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.SamplingStrategyGeneratorMetadataAware
+    [32m+ field 1: target_sampling_rate (scalar)[0m
+    [32m+ field 2: baseline_sampling_rate (scalar)[0m
+    [32m+ field 3: start_generator_metadata_index (scalar)[0m
+    [32m+ field 4: end_generator_metadata_index (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.PromptSectionJudgeConfig
+    [32m+ field 1: enabled (scalar)[0m
+    [32m+ field 2: sampling_config (message)[0m
+    [32m+ field 3: judge_model (enum)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.UserStepJudgeConfig
+    [32m+ field 1: enabled (scalar)[0m
+    [32m+ field 2: sampling_config (message)[0m
+    [32m+ field 3: judge_model (enum)[0m
+    [32m+ field 4: max_tokens (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.PlanningModeJudgeConfig
+    [32m+ field 1: enabled (scalar)[0m
+    [32m+ field 2: sampling_config (message)[0m
+    [32m+ field 3: judge_model (enum)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.Point2
+    [32m+ field 1: x (scalar)[0m
+    [32m+ field 2: y (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.Experiment
+    [32m+ field 1: key (scalar)[0m
+    [32m+ field 2: enabled (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.AnalyticsEventMetadata
+    [32m+ field 1: event_type (scalar)[0m
+    [32m+ field 2: extra (message)[0m
+    [32m+ field 3: experiments (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ErrorTraceMetadata
+    [32m+ field 1: error_trace (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ObservabilityData
+    [32m+ field 1: type (scalar)[0m
+    [32m+ field 2: non_sensitive_data (message)[0m
+    [32m+ field 3: sensitive_data (message)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.LogEvent
+    [32m+ field 1: event_time_ms (scalar)[0m
+    [32m+ field 6: source_extension (scalar)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ClientInfo
+    [32m+ field 1: client_type (scalar)[0m
+  [33m[CHANGED][0m exa.diff_action_pb.UnifiedDiff
+    [32m+ field 3: lines (message)[0m
+  [33m[CHANGED][0m exa.diff_action_pb.UnifiedDiff.UnifiedDiffLine
+    [32m+ field 1: text (scalar)[0m
+    [32m+ field 2: type (enum)[0m
+  [33m[CHANGED][0m exa.diff_action_pb.DiffBlock
+    [32m+ field 1: start_line (scalar)[0m
+    [32m+ field 2: end_line (scalar)[0m
+    [32m+ field 3: unified_diff (message)[0m
+  [33m[CHANGED][0m exa.diff_action_pb.CharacterDiffChange
+    [32m+ field 1: text (scalar)[0m
+    [32m+ field 2: type (enum)[0m
+  [33m[CHANGED][0m exa.diff_action_pb.CharacterDiff
+    [32m+ field 1: changes (message)[0m
+  [33m[CHANGED][0m exa.diff_action_pb.ComboDiffLine
+    [32m+ field 1: text (scalar)[0m
+    [32m+ field 2: type (enum)[0m
+    [32m+ field 3: character_diff (message)[0m
+  [33m[CHANGED][0m exa.diff_action_pb.ComboDiff
+    [32m+ field 1: lines (message)[0m
+  [33m[CHANGED][0m exa.chat_pb.CodeBlockInfo
+    [32m+ field 1: raw_source (scalar)[0m
+    [32m+ field 2: start_line (scalar)[0m
+    [32m+ field 3: start_col (scalar)[0m
+    [32m+ field 4: end_line (scalar)[0m
+    [32m+ field 5: end_col (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.ChatMetrics
+    [32m+ field 1: response_stream_latency_ms (scalar)[0m
+    [32m+ field 2: refresh_context_latency_ms (scalar)[0m
+    [32m+ field 3: should_get_local_context_for_chat_latency_ms (scalar)[0m
+    [32m+ field 4: should_get_local_context_for_chat (scalar)[0m
+    [32m+ field 5: compute_change_events_latency_ms (scalar)[0m
+    [32m+ field 6: context_to_chat_prompt_latency_ms (scalar)[0m
+    [32m+ field 7: num_prompt_tokens (scalar)[0m
+    [32m+ field 8: num_system_prompt_tokens (scalar)[0m
+    [32m+ field 16: num_input_tokens (scalar)[0m
+    [32m+ field 9: start_timestamp (message)[0m
+    [32m+ field 10: end_timestamp (message)[0m
+    [32m+ field 11: active_document_absolute_path (scalar)[0m
+    [32m+ field 12: last_active_code_context_item (message)[0m
+    [32m+ field 13: num_indexed_files (scalar)[0m
+    [32m+ field 14: num_indexed_code_context_items (scalar)[0m
+    [32m+ field 15: model (enum)[0m
+  [33m[CHANGED][0m exa.chat_pb.IntentGeneric
+    [32m+ field 1: text (scalar)[0m
+    [32m+ field 2: items (message)[0m
+  [33m[CHANGED][0m exa.chat_pb.IntentCodeBlockRefactor
+    [32m+ field 1: code_block_info (message)[0m
+    [32m+ field 2: language (enum)[0m
+    [32m+ field 3: file_path_migrate_me_to_uri (scalar)[0m
+    [32m+ field 5: uri (scalar)[0m
+    [32m+ field 4: refactor_description (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.IntentGenerateCode
+    [32m+ field 1: instruction (scalar)[0m
+    [32m+ field 2: language (enum)[0m
+    [32m+ field 3: file_path_migrate_me_to_uri (scalar)[0m
+    [32m+ field 5: uri (scalar)[0m
+    [32m+ field 4: line_number (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.IntentFastApply
+    [32m+ field 1: diff_outline (scalar)[0m
+    [32m+ field 2: language (enum)[0m
+    [32m+ field 3: old_code (message)[0m
+  [33m[CHANGED][0m exa.chat_pb.ChatMessageIntent
+    [32m+ field 1: generic (message)[0m
+    [32m+ field 6: code_block_refactor (message)[0m
+    [32m+ field 9: generate_code (message)[0m
+    [32m+ field 13: fast_apply (message)[0m
+    [32m+ field 12: num_tokens (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.ChatMessageActionEdit
+    [32m+ field 1: file_path_migrate_me_to_uri (scalar)[0m
+    [32m+ field 6: uri (scalar)[0m
+    [32m+ field 2: diff (message)[0m
+    [32m+ field 3: language (enum)[0m
+    [32m+ field 4: text_pre (scalar)[0m
+    [32m+ field 5: text_post (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.ChatMessageActionGeneric
+    [32m+ field 1: text (scalar)[0m
+    [32m+ field 2: display_text (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.ChatMessageStatusContextRelevancy
+    [32m+ field 1: is_loading (scalar)[0m
+    [32m+ field 2: is_relevant (scalar)[0m
+    [32m+ field 3: query_suggestions (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.ChatMessageStatus
+    [32m+ field 1: context_relevancy (message)[0m
+  [33m[CHANGED][0m exa.chat_pb.ChatMessageError
+    [32m+ field 1: text (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.ChatMessageAction
+    [32m+ field 1: generic (message)[0m
+    [32m+ field 3: edit (message)[0m
+    [32m+ field 5: search (message)[0m
+    [32m+ field 2: num_tokens (scalar)[0m
+    [32m+ field 4: context_items (message)[0m
+    [32m+ field 6: latest_intent (enum)[0m
+    [32m+ field 7: generation_stats (message)[0m
+    [32m+ field 8: knowledge_base_items (message)[0m
+  [33m[CHANGED][0m exa.chat_pb.ChatMessage
+    [32m+ field 1: message_id (scalar)[0m
+    [32m+ field 2: source (enum)[0m
+    [32m+ field 3: timestamp (message)[0m
+    [32m+ field 4: conversation_id (scalar)[0m
+    [32m+ field 5: intent (message)[0m
+    [32m+ field 6: action (message)[0m
+    [32m+ field 7: error (message)[0m
+    [32m+ field 8: status (message)[0m
+    [32m+ field 9: in_progress (scalar)[0m
+    [32m+ field 10: request (message)[0m
+    [32m+ field 11: redact (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.ChatToolDefinition
+    [32m+ field 1: name (scalar)[0m
+    [32m+ field 2: description (scalar)[0m
+    [32m+ field 3: json_schema_string (scalar)[0m
+    [32m+ field 4: strict (scalar)[0m
+    [32m+ field 5: attribution_field_names (scalar)[0m
+    [32m+ field 6: server_name (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.ChatToolChoice
+    [32m+ field 1: option_name (scalar)[0m
+    [32m+ field 2: tool_name (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.GetChatMessageRequest.EnterpriseExternalModelConfig
+    [32m+ field 2: max_output_tokens (scalar)[0m
+    [32m+ field 3: max_input_tokens (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.IndexMap.IndexList
+    [32m+ field 1: indices (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.Message
+    [32m+ field 1: role (scalar)[0m
+    [32m+ field 2: chunks (message)[0m
+  [33m[CHANGED][0m exa.chat_pb.Chunk
+    [32m+ field 3: text (scalar)[0m
+    [32m+ field 4: image (message)[0m
+    [32m+ field 10: trainable (enum)[0m
+  [33m[CHANGED][0m exa.chat_pb.Image
+    [32m+ field 5: value (message)[0m
+    [32m+ field 3: height_px (scalar)[0m
+    [32m+ field 4: width_px (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.FileData
+    [32m+ field 3: content (scalar)[0m
+    [32m+ field 2: mime_type (scalar)[0m
+  [33m[CHANGED][0m exa.chat_pb.RunToolResponse
+    [32m+ field 1: response (scalar)[0m
+    [32m+ field 2: status (message)[0m
+  [33m[CHANGED][0m exa.chat_pb.RunToolResponse.Status
+    [32m+ field 1: code (scalar)[0m
+    [32m+ field 2: status_message (scalar)[0m
+  [33m[CHANGED][0m exa.context_module_pb.ContextChangeActiveDocument
+    [32m+ field 1: document (message)[0m
+  [33m[CHANGED][0m exa.context_module_pb.ContextChangeCursorPosition
+    [32m+ field 2: document (message)[0m
+  [33m[CHANGED][0m exa.context_module_pb.ContextChangeChatMessageReceived
+    [32m+ field 1: chat_messages (message)[0m
+  [33m[CHANGED][0m exa.context_module_pb.ContextChangeOpenDocuments
+    [32m+ field 1: other_open_documents (message)[0m
+  [33m[CHANGED][0m exa.context_module_pb.ContextChangeOracleItems
+    [32m+ field 1: oracle_items (message)[0m
+  [33m[CHANGED][0m exa.context_module_pb.ContextChangePinnedContext
+    [32m+ field 1: pinned_scope (message)[0m
+    [32m+ field 2: mentioned_scope (message)[0m
+  [33m[CHANGED][0m exa.context_module_pb.ContextChangePinnedGuideline
+    [32m+ field 1: guideline (message)[0m
+  [33m[CHANGED][0m exa.context_module_pb.ContextChangeActiveNode
+    [32m+ field 1: active_node (message)[0m
+    [32m+ field 2: document (message)[0m
+    [32m+ field 3: actual_node_change (scalar)[0m
+  [33m[CHANGED][0m exa.context_module_pb.RetrievedCodeContextItemMetadata
+    [32m+ field 1: context_sources (enum)[0m
+    [32m+ field 2: context_type (enum)[0m
+    [32m+ field 3: scorer (scalar)[0m
+    [32m+ field 4: score (scalar)[0m
+    [32m+ field 5: provider_metadata (map)[0m
+    [32m+ field 6: is_in_pinned_scope (scalar)[0m
+  [33m[CHANGED][0m exa.context_module_pb.CciWithSubrangeWithRetrievalMetadata
+    [32m+ field 1: cci_with_subrange (message)[0m
+    [32m+ field 2: metadata (message)[0m
+  [33m[CHANGED][0m exa.context_module_pb.CodeContextItemIndexStats
+    [32m+ field 1: all_ccis_bytes (scalar)[0m
+    [32m+ field 2: num_ccis_tracked (scalar)[0m
+    [32m+ field 3: term_frequency_map_bytes (scalar)[0m
+    [32m+ field 4: num_terms_tracked (scalar)[0m
+    [32m+ field 5: file_to_cci_map_bytes (scalar)[0m
+    [32m+ field 6: num_files_tracked (scalar)[0m
+    [32m+ field 7: last_modified_bytes (scalar)[0m
+    [32m+ field 8: hash_map_bytes (scalar)[0m
+  [33m[CHANGED][0m exa.context_module_pb.LocalNodeState
+    [32m+ field 1: current_node (message)[0m
+    [32m+ field 2: closest_above_node (message)[0m
+    [32m+ field 3: closest_below_node (message)[0m
+  [33m[CHANGED][0m exa.chat_client_server_pb.AddCascadeInputRequest
+    [32m+ field 1: items (message)[0m
+    [32m+ field 2: images (message)[0m
+    [32m+ field 3: media (message)[0m
+  [33m[CHANGED][0m exa.chat_client_server_pb.SendActionToChatPanelRequest
+    [32m+ field 1: action_type (scalar)[0m
+    [32m+ field 2: payload (scalar)[0m
+  [33m[CHANGED][0m exa.chat_client_server_pb.RefreshCustomizationRequest
+    [32m+ field 1: config_type (enum)[0m
+  [33m[CHANGED][0m exa.index_pb.IndexDbVersion
+    [32m+ field 1: version (scalar)[0m
+    [32m+ field 2: enterprise_version (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.IndexBuildConfig
+    [32m+ field 2: db_version (message)[0m
+    [32m+ field 3: cci_timeout_secs (scalar)[0m
+    [32m+ field 4: index_mode (enum)[0m
+  [33m[CHANGED][0m exa.index_pb.RepositoryConfig
+    [32m+ field 1: git_url (scalar)[0m
+    [32m+ field 2: scm_provider (enum)[0m
+    [32m+ field 3: auto_index_config (message)[0m
+    [32m+ field 4: store_snippets (scalar)[0m
+    [32m+ field 5: whitelisted_groups (scalar)[0m
+    [32m+ field 6: use_github_app (scalar)[0m
+    [32m+ field 7: auth_uid (scalar)[0m
+    [32m+ field 9: email (scalar)[0m
+    [32m+ field 8: service_key_id (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.RepositoryConfig.AutoIndexConfig
+    [32m+ field 1: branch_name (scalar)[0m
+    [32m+ field 2: interval (message)[0m
+    [32m+ field 3: max_num_auto_indexes (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.IndexConfig
+    [32m+ field 1: prune_time (message)[0m
+    [32m+ field 2: prune_interval (message)[0m
+    [32m+ field 3: enable_prune (scalar)[0m
+    [32m+ field 4: enable_smallest_repo_first (scalar)[0m
+    [32m+ field 5: enable_round_robin (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.VectorIndexStats
+    [32m+ field 1: num_embeddings (scalar)[0m
+    [32m+ field 2: index_bytes_count (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.ProgressBar
+    [32m+ field 1: progress (scalar)[0m
+    [32m+ field 2: text (scalar)[0m
+    [32m+ field 3: remaining_time (message)[0m
+  [33m[CHANGED][0m exa.index_pb.Index
+    [32m+ field 1: id (scalar)[0m
+    [32m+ field 2: repo_name (scalar)[0m
+    [32m+ field 3: workspace (scalar)[0m
+    [32m+ field 4: repo_info (message)[0m
+    [32m+ field 5: created_at (message)[0m
+    [32m+ field 6: updated_at (message)[0m
+    [32m+ field 13: scheduled_at (message)[0m
+    [32m+ field 7: status (enum)[0m
+    [32m+ field 8: status_detail (scalar)[0m
+    [32m+ field 9: auto_indexed (scalar)[0m
+    [32m+ field 12: has_snippets (scalar)[0m
+    [32m+ field 15: auth_uid (scalar)[0m
+    [32m+ field 16: email (scalar)[0m
+    [32m+ field 14: repo_stats (message)[0m
+    [32m+ field 10: indexing_progress (map)[0m
+    [32m+ field 11: index_stats (message)[0m
+  [33m[CHANGED][0m exa.index_pb.Index.RepoStats
+    [32m+ field 1: size (scalar)[0m
+    [32m+ field 2: file_count (scalar)[0m
+    [32m+ field 3: size_no_ignore (scalar)[0m
+    [32m+ field 4: file_count_no_ignore (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.Repository
+    [32m+ field 1: repo_name (scalar)[0m
+    [32m+ field 2: config (message)[0m
+    [32m+ field 4: created_at (message)[0m
+    [32m+ field 5: updated_at (message)[0m
+    [32m+ field 6: last_used_at (message)[0m
+    [32m+ field 3: latest_index (message)[0m
+  [33m[CHANGED][0m exa.index_pb.RequestIndexVersion
+    [32m+ field 1: commit (scalar)[0m
+    [32m+ field 2: branch (scalar)[0m
+    [32m+ field 3: version_alias (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.ManagementMetadata
+    [32m+ field 1: auth_token (scalar)[0m
+    [32m+ field 2: auth_uid (scalar)[0m
+    [32m+ field 3: service_key (scalar)[0m
+    [32m+ field 4: force_target_public_index (scalar)[0m
+    [32m+ field 5: force_team_id (scalar)[0m
+    [32m+ field 6: service_key_id (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.IndexerEvent.Untrack
+    [32m+ field 1: absolute_uri (scalar)[0m
+    [32m+ field 2: paths (message)[0m
+    [32m+ field 3: workspace_uri (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.IndexerEvent.Update
+    [32m+ field 1: absolute_uri (scalar)[0m
+    [32m+ field 2: paths (message)[0m
+    [32m+ field 3: mod_time (message)[0m
+    [32m+ field 4: add_workspace_info (message)[0m
+  [33m[CHANGED][0m exa.index_pb.IndexerEvent.Update.AddWorkspaceInfo
+    [32m+ field 1: add_workspace_uid (scalar)[0m
+    [32m+ field 2: add_workspace_queue_uid (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.IndexerEvent.AddWorkspace
+    [32m+ field 1: add_workspace_uid (scalar)[0m
+    [32m+ field 2: add_workspace_queue_uid (scalar)[0m
+    [32m+ field 3: workspace_uri (scalar)[0m
+    [32m+ field 4: num_files (scalar)[0m
+    [32m+ field 5: size (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.IndexerEvent.RemoveWorkspace
+    [32m+ field 1: workspace_uri (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.IndexerEvent.IgnoreWorkspace
+    [32m+ field 1: workspace_uri (scalar)[0m
+  [33m[CHANGED][0m exa.index_pb.IndexerEvent.AddCommit
+    [32m+ field 1: sha (scalar)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.TimeRange
+    [32m+ field 1: start (message)[0m
+    [32m+ field 2: end (message)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.GithubUser
+    [32m+ field 1: auth_uid (scalar)[0m
+    [32m+ field 2: username (scalar)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.CommonDocumentWithScore
+    [32m+ field 1: document (message)[0m
+    [32m+ field 2: score (scalar)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.ConnectorConfigSlack
+    [32m+ field 3: include_channel_ids (scalar)[0m
+    [32m+ field 4: exclude_channel_ids (scalar)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.ConnectorConfigGoogleDrive
+    [32m+ field 2: include_drive_ids (scalar)[0m
+    [32m+ field 3: exclude_drive_ids (scalar)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.ConnectorInternalConfig
+    [32m+ field 1: slack (message)[0m
+    [32m+ field 2: github (message)[0m
+    [32m+ field 3: google_drive (message)[0m
+    [32m+ field 4: jira (message)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.ConnectorInternalConfigSlack
+    [32m+ field 2: client_id (scalar)[0m
+    [32m+ field 3: client_secret (scalar)[0m
+    [32m+ field 1: signing_secret (scalar)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.GithubRepoConfig
+    [32m+ field 1: organization (scalar)[0m
+    [32m+ field 2: repository (scalar)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.ConnectorInternalConfigGithub
+    [32m+ field 1: installation_id (scalar)[0m
+    [32m+ field 2: repo_configs (message)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.ConnectorInternalConfigJira
+    [32m+ field 1: webhook_id (scalar)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.ConnectorAdditionalParamsSlack
+    [32m+ field 1: client_id (scalar)[0m
+    [32m+ field 2: client_secret (scalar)[0m
+    [32m+ field 3: signing_secret (scalar)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.ConnectorAdditionalParamsGithub
+    [32m+ field 1: installation_id (scalar)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.ConnectorState
+    [32m+ field 1: connector (enum)[0m
+    [32m+ field 2: initialized (scalar)[0m
+    [32m+ field 3: config (message)[0m
+    [32m+ field 4: document_type_counts (message)[0m
+    [32m+ field 5: last_indexed_at (message)[0m
+    [32m+ field 6: unhealthy_since (message)[0m
+    [32m+ field 7: last_configured_at (message)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.SlackChannelPayload
+    [32m+ field 1: type (scalar)[0m
+    [32m+ field 2: channel_id (scalar)[0m
+    [32m+ field 4: channel_name (scalar)[0m
+    [32m+ field 7: description (scalar)[0m
+    [32m+ field 8: team_id (scalar)[0m
+    [32m+ field 9: is_private_channel (scalar)[0m
+  [33m[CHANGED][0m exa.opensearch_clients_pb.SlackPayload
+    [32m+ field 13: message (message)[0m
+    [32m+ field 14: channel (message)[0m
+  [33m[CHANGED][0m exa.browser_pb.AgentMousePosition
+    [32m+ field 1: x (scalar)[0m
+    [32m+ field 2: y (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexPlanSummaryComponent
+    [32m+ field 1: text (scalar)[0m
+    [32m+ field 2: citation (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CodingStepState
+    [32m+ field 1: plan_id (scalar)[0m
+    [32m+ field 2: goal (scalar)[0m
+    [32m+ field 3: action_states (message)[0m
+    [32m+ field 7: outlines (message)[0m
+    [32m+ field 8: summary_components (message)[0m
+    [32m+ field 9: post_summary_text (scalar)[0m
+    [32m+ field 4: plan_fully_generated (scalar)[0m
+    [32m+ field 5: plan_finished (scalar)[0m
+    [32m+ field 6: debug_info (message)[0m
+    [32m+ field 10: plan_summary_confirmed (scalar)[0m
+    [32m+ field 11: plan_summary_fully_generated (scalar)[0m
+    [32m+ field 12: cci_list (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexPlanState
+    [32m+ field 1: steps (message)[0m
+    [32m+ field 2: outlines (message)[0m
+    [32m+ field 3: current_step_index (scalar)[0m
+    [32m+ field 4: debug_info (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexStepOutline
+    [32m+ field 1: step_number (scalar)[0m
+    [32m+ field 2: action_name (scalar)[0m
+    [32m+ field 3: json_args (scalar)[0m
+    [32m+ field 4: parent_step_numbers (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexStepState
+    [32m+ field 1: coding (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexResearchState
+    [32m+ field 1: total_retrieved_count (scalar)[0m
+    [32m+ field 2: top_retrieved_items (message)[0m
+    [32m+ field 3: debug_info (message)[0m
+    [32m+ field 4: full_cci_list (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ResearchDebugInfo
+    [32m+ field 1: query (scalar)[0m
+    [32m+ field 2: files_scanned (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexWorkflowState
+    [32m+ field 6: request_source (enum)[0m
+    [32m+ field 1: goal (scalar)[0m
+    [32m+ field 2: plan_input (message)[0m
+    [32m+ field 3: research_state (message)[0m
+    [32m+ field 4: plan_state (message)[0m
+    [32m+ field 5: error (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ActionSpec
+    [32m+ field 1: command (message)[0m
+    [32m+ field 2: create_file (message)[0m
+    [32m+ field 4: delete_file (message)[0m
+    [32m+ field 3: parent_step_indices (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ActionSpecCreateFile
+    [32m+ field 1: instruction (scalar)[0m
+    [32m+ field 2: path (message)[0m
+    [32m+ field 3: reference_ccis (message)[0m
+    [32m+ field 4: overwrite (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ActionSpecDeleteFile
+    [32m+ field 1: path (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.LineRangeTarget
+    [32m+ field 1: absolute_uri (scalar)[0m
+    [32m+ field 2: start_line (scalar)[0m
+    [32m+ field 3: end_line (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CommandContentTarget
+    [32m+ field 1: content (scalar)[0m
+    [32m+ field 2: absolute_uri (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ReplacementChunk
+    [32m+ field 1: target_content (scalar)[0m
+    [32m+ field 2: replacement_content (scalar)[0m
+    [32m+ field 3: allow_multiple (scalar)[0m
+    [32m+ field 4: target_has_carriage_return (scalar)[0m
+    [32m+ field 5: context_lines (scalar)[0m
+    [32m+ field 6: start_line (scalar)[0m
+    [32m+ field 7: end_line (scalar)[0m
+    [32m+ field 11: acknowledgement_type (enum)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ActionSpecCommand
+    [32m+ field 1: instruction (scalar)[0m
+    [32m+ field 9: replacement_chunks (message)[0m
+    [32m+ field 2: is_edit (scalar)[0m
+    [32m+ field 8: use_fast_apply (scalar)[0m
+    [32m+ field 3: code_context (message)[0m
+    [32m+ field 4: file (message)[0m
+    [32m+ field 6: cci_with_subrange (message)[0m
+    [32m+ field 7: line_range (message)[0m
+    [32m+ field 10: content_target (message)[0m
+    [32m+ field 5: reference_ccis (message)[0m
+    [32m+ field 11: classification (scalar)[0m
+    [32m+ field 12: importance (enum)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ActionState
+    [32m+ field 5: step_id (scalar)[0m
+    [32m+ field 1: status (enum)[0m
+    [32m+ field 2: spec (message)[0m
+    [32m+ field 3: result (message)[0m
+    [32m+ field 4: error (scalar)[0m
+    [32m+ field 6: step_version (scalar)[0m
+    [32m+ field 7: plan_version (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ActionResult
+    [32m+ field 1: edit (message)[0m
+    [32m+ field 2: apply_existing_result (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ActionDebugInfo
+    [32m+ field 1: entries (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ActionDebugInfo.DebugInfoEntry
+    [32m+ field 1: key (scalar)[0m
+    [32m+ field 2: value (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ActionResultEdit
+    [32m+ field 1: absolute_path_migrate_me_to_uri (scalar)[0m
+    [32m+ field 2: diff (message)[0m
+    [32m+ field 3: context_prefix (scalar)[0m
+    [32m+ field 4: context_suffix (scalar)[0m
+    [32m+ field 5: debug_info (message)[0m
+    [32m+ field 12: prompt_id (scalar)[0m
+    [32m+ field 6: completion_id (scalar)[0m
+    [32m+ field 7: file_content_hash (scalar)[0m
+    [32m+ field 8: absolute_uri (scalar)[0m
+    [32m+ field 9: result_ccis (message)[0m
+    [32m+ field 10: original_content (scalar)[0m
+    [32m+ field 11: create_file (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.RetrievalStatus
+    [32m+ field 1: total_retrieved_count (scalar)[0m
+    [32m+ field 2: top_retrieved_items (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexPlanConfig
+    [32m+ field 1: model_config (message)[0m
+    [32m+ field 2: max_nominal_continuations (scalar)[0m
+    [32m+ field 3: max_error_continuations (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.WorkspaceInitializationDataGit
+    [32m+ field 1: metadata (message)[0m
+    [32m+ field 2: merge_base_commit_hash (scalar)[0m
+    [32m+ field 3: merge_base_head_patch_string (scalar)[0m
+    [32m+ field 4: head_working_patch_string (scalar)[0m
+    [32m+ field 5: workspace_stats (message)[0m
+    [32m+ field 6: repo_is_public (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.WorkspaceInitializationDataPiper
+    [32m+ field 1: workspace_folder_absolute_uri (scalar)[0m
+    [32m+ field 2: base_cl (scalar)[0m
+    [32m+ field 5: base_changelist (scalar)[0m
+    [32m+ field 4: citc_snapshot_id (scalar)[0m
+    [32m+ field 3: file_diffs (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.FileDiff
+    [32m+ field 1: depot_path (scalar)[0m
+    [32m+ field 2: add (message)[0m
+    [32m+ field 3: remove (message)[0m
+    [32m+ field 4: modify (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.FileDiffAdd
+    [32m+ field 1: content (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.FileDiffModify
+    [32m+ field 1: diff (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexWorkspaceMetadata
+    [32m+ field 1: workspace_folder_absolute_uri (scalar)[0m
+    [32m+ field 2: git_root_absolute_uri (scalar)[0m
+    [32m+ field 3: repository (message)[0m
+    [32m+ field 4: branch_name (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.SectionJudgeCriteria
+    [32m+ field 1: name (scalar)[0m
+    [32m+ field 2: description (scalar)[0m
+    [32m+ field 3: weight (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.PromptSectionMetadata
+    [32m+ field 1: source_type (enum)[0m
+    [32m+ field 2: template_key (scalar)[0m
+    [32m+ field 3: is_internal (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.PromptSection
+    [32m+ field 1: title (scalar)[0m
+    [32m+ field 2: content (scalar)[0m
+    [32m+ field 3: criteria (message)[0m
+    [32m+ field 4: metadata (message)[0m
+    [32m+ field 5: dynamic_content (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.RetryInfo
+    [32m+ field 1: sherlog_link (scalar)[0m
+    [32m+ field 2: usage (message)[0m
+    [32m+ field 3: error (scalar)[0m
+    [32m+ field 4: trace_id (scalar)[0m
+    [32m+ field 5: retry_reason (enum)[0m
+    [32m+ field 6: consumed_credits (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ChatModelMetadata
+    [32m+ field 1: system_prompt (scalar)[0m
+    [32m+ field 2: message_prompts (message)[0m
+    [32m+ field 10: message_metadata (message)[0m
+    [32m+ field 3: model (enum)[0m
+    [32m+ field 4: usage (message)[0m
+    [32m+ field 5: model_cost (scalar)[0m
+    [32m+ field 6: last_cache_index (scalar)[0m
+    [32m+ field 7: tool_choice (message)[0m
+    [32m+ field 8: tools (message)[0m
+    [32m+ field 9: chat_start_metadata (message)[0m
+    [32m+ field 11: time_to_first_token (message)[0m
+    [32m+ field 12: streaming_duration (message)[0m
+    [32m+ field 13: credit_cost (scalar)[0m
+    [32m+ field 14: retries (scalar)[0m
+    [32m+ field 15: completion_config (message)[0m
+    [32m+ field 16: prompt_sections (message)[0m
+    [32m+ field 17: retry_infos (message)[0m
+    [32m+ field 18: consumed_credits (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ContextWindowMetadata
+    [32m+ field 1: estimated_tokens_used (scalar)[0m
+    [32m+ field 2: truncation_reason (enum)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CacheBreakpointMetadata
+    [32m+ field 1: index (scalar)[0m
+    [32m+ field 2: options (message)[0m
+    [32m+ field 3: content_checksum (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ChatStartMetadata
+    [32m+ field 4: created_at (message)[0m
+    [32m+ field 1: start_step_index (scalar)[0m
+    [32m+ field 2: checkpoint_index (scalar)[0m
+    [32m+ field 3: steps_covered_by_checkpoint (scalar)[0m
+    [32m+ field 5: latest_stable_message_index (scalar)[0m
+    [32m+ field 6: cache_breakpoints (message)[0m
+    [32m+ field 7: system_prompt_cache (message)[0m
+    [32m+ field 8: time_since_last_invocation (message)[0m
+    [32m+ field 9: cache_request (message)[0m
+    [32m+ field 10: context_window_metadata (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CacheRequestOptions
+    [32m+ field 1: enabled (scalar)[0m
+    [32m+ field 2: cache_breakpoint_indices (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.SnapshotMetadata
+    [32m+ field 1: user (scalar)[0m
+    [32m+ field 2: workspace_id (scalar)[0m
+    [32m+ field 3: snapshot_version (scalar)[0m
+    [32m+ field 4: workspace_type (enum)[0m
+  [33m[CHANGED][0m exa.cortex_pb.StatusTransition
+    [32m+ field 1: updated_status (enum)[0m
+    [32m+ field 2: timestamp (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexStepInternalMetadata
+    [32m+ field 1: status_transitions (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.StructuredErrorPart
+    [32m+ field 1: text (scalar)[0m
+    [32m+ field 2: file_uri (scalar)[0m
+    [32m+ field 3: directory_uri (scalar)[0m
+    [32m+ field 4: url (scalar)[0m
+    [32m+ field 5: code_text (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexErrorDetails
+    [32m+ field 1: user_error_message (scalar)[0m
+    [32m+ field 9: model_error_message (scalar)[0m
+    [32m+ field 8: structured_error_parts (message)[0m
+    [32m+ field 2: short_error (scalar)[0m
+    [32m+ field 3: full_error (scalar)[0m
+    [32m+ field 4: is_benign (scalar)[0m
+    [32m+ field 7: error_code (scalar)[0m
+    [32m+ field 5: details (scalar)[0m
+    [32m+ field 6: error_id (scalar)[0m
+    [32m+ field 10: rpc_error_details (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.UserStepSnapshot
+    [32m+ field 1: name (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeExecutorConfig
+    [32m+ field 1: disable_async (scalar)[0m
+    [32m+ field 2: max_generator_invocations (scalar)[0m
+    [32m+ field 3: terminal_step_types (enum)[0m
+    [32m+ field 5: hold_for_valid_checkpoint (scalar)[0m
+    [32m+ field 6: hold_for_valid_checkpoint_timeout (scalar)[0m
+    [32m+ field 7: research_only (scalar)[0m
+    [32m+ field 8: use_aggressive_snapshotting (scalar)[0m
+    [32m+ field 9: require_finish_tool (scalar)[0m
+    [32m+ field 10: max_forced_invocations (scalar)[0m
+    [32m+ field 11: queue_all_steps (scalar)[0m
+    [32m+ field 12: store_gen_svc_request (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ForcedBrainUpdateConfig
+    [32m+ field 1: update_sample_rate (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.DynamicBrainUpdateConfig
+    [32m+ field 1: use_aggressive_prompt (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeConfig
+    [32m+ field 1: planner_config (message)[0m
+    [32m+ field 2: checkpoint_config (message)[0m
+    [32m+ field 3: executor_config (message)[0m
+    [32m+ field 4: trajectory_conversion_config (message)[0m
+    [32m+ field 6: apply_model_default_override (scalar)[0m
+    [32m+ field 7: conversation_history_config (message)[0m
+    [32m+ field 8: split_dynamic_prompt_sections (scalar)[0m
+    [32m+ field 9: message_config (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.TrajectoryConversionConfig
+    [32m+ field 3: group_tools_with_planner_response (scalar)[0m
+    [32m+ field 5: wrap_tool_responses (scalar)[0m
+    [32m+ field 6: log_artifacts_config (message)[0m
+    [32m+ field 7: append_ephemeral_to_previous_tool_result (scalar)[0m
+    [32m+ field 8: disable_step_id (scalar)[0m
+    [32m+ field 9: use_raw_user_message (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeConversationalPlannerConfig
+    [32m+ field 4: planner_mode (enum)[0m
+    [32m+ field 5: eval_mode (scalar)[0m
+    [32m+ field 14: agentic_mode (scalar)[0m
+    [32m+ field 15: prompt_combination_name (scalar)[0m
+    [32m+ field 16: conversation_history_config (message)[0m
+    [32m+ field 17: override_workspace_dir_experimental_use_only (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.SectionOverrideConfig
+    [32m+ field 1: mode (enum)[0m
+    [32m+ field 2: content (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.MqueryToolConfig
+    [32m+ field 1: m_query_config (message)[0m
+    [32m+ field 2: m_query_model (enum)[0m
+    [32m+ field 3: max_tokens_per_m_query (scalar)[0m
+    [32m+ field 4: num_items_full_source (scalar)[0m
+    [32m+ field 5: max_lines_per_snippet (scalar)[0m
+    [32m+ field 6: enable_search_in_file_tool (scalar)[0m
+    [32m+ field 7: allow_access_gitignore (scalar)[0m
+    [32m+ field 8: disable_semantic_codebase_search (scalar)[0m
+    [32m+ field 9: force_disable (scalar)[0m
+    [32m+ field 10: enterprise_config (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.NotifyUserConfig
+    [32m+ field 1: artifact_review_mode (enum)[0m
+  [33m[CHANGED][0m exa.cortex_pb.GrepToolConfig
+    [32m+ field 1: max_grep_results (scalar)[0m
+    [32m+ field 2: include_cci_in_result (scalar)[0m
+    [32m+ field 3: num_full_source_ccis (scalar)[0m
+    [32m+ field 4: max_bytes_per_cci (scalar)[0m
+    [32m+ field 5: enterprise_config (message)[0m
+    [32m+ field 6: allow_access_gitignore (scalar)[0m
+    [32m+ field 7: use_code_search (scalar)[0m
+    [32m+ field 8: disable_fallback_to_local_execution (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.FindToolConfig
+    [32m+ field 1: max_find_results (scalar)[0m
+    [32m+ field 2: fd_path (scalar)[0m
+    [32m+ field 3: use_code_search (scalar)[0m
+    [32m+ field 4: disable_fallback_to_local_execution (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CodeSearchToolConfig
+    [32m+ field 1: cs_path (scalar)[0m
+    [32m+ field 2: use_eval_tag (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.InternalSearchToolConfig
+    [32m+ field 1: max_results (scalar)[0m
+    [32m+ field 2: max_content_length (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ListDirToolConfig
+    [32m+ field 1: enterprise_config (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.RunCommandToolConfig
+    [32m+ field 1: max_chars_command_stdout (scalar)[0m
+    [32m+ field 2: force_disable (scalar)[0m
+    [32m+ field 3: auto_command_config (message)[0m
+    [32m+ field 4: enable_ide_terminal_execution (scalar)[0m
+    [32m+ field 5: shell_name (scalar)[0m
+    [32m+ field 6: shell_path (scalar)[0m
+    [32m+ field 7: max_timeout_ms (scalar)[0m
+    [32m+ field 9: enterprise_config (message)[0m
+    [32m+ field 10: shell_setup_script (scalar)[0m
+    [32m+ field 11: forbid_search_commands (scalar)[0m
+    [32m+ field 8: enable_midterm_output_processor (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.KnowledgeBaseSearchToolConfig
+    [32m+ field 1: max_tokens_per_knowledge_base_search (scalar)[0m
+    [32m+ field 2: prompt_fraction (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.FastApplyFallbackConfig
+    [32m+ field 1: enabled (scalar)[0m
+    [32m+ field 2: prompt_unchanged_threshold (scalar)[0m
+    [32m+ field 3: content_view_radius_lines (scalar)[0m
+    [32m+ field 4: content_edit_radius_lines (scalar)[0m
+    [32m+ field 5: fast_apply_model (enum)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ReplaceContentToolConfig
+    [32m+ field 1: max_fuzzy_edit_distance_fraction (scalar)[0m
+    [32m+ field 2: allow_partial_replacement_success (scalar)[0m
+    [32m+ field 3: view_file_recency_max_distance (scalar)[0m
+    [32m+ field 4: enable_fuzzy_sandwich_match (scalar)[0m
+    [32m+ field 5: fast_apply_fallback_config (message)[0m
+    [32m+ field 6: tool_variant (enum)[0m
+    [32m+ field 8: show_triggered_memories (scalar)[0m
+    [32m+ field 9: disable_allow_multiple (scalar)[0m
+    [32m+ field 10: use_line_range (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CodeToolConfig
+    [32m+ field 1: disable_extensions (scalar)[0m
+    [32m+ field 2: apply_edits (scalar)[0m
+    [32m+ field 3: use_replace_content_edit_tool (scalar)[0m
+    [32m+ field 4: replace_content_tool_config (message)[0m
+    [32m+ field 5: auto_fix_lints_config (message)[0m
+    [32m+ field 6: allow_edit_gitignore (scalar)[0m
+    [32m+ field 7: enterprise_config (message)[0m
+    [32m+ field 8: override_allow_action_on_unsaved_file (scalar)[0m
+    [32m+ field 9: skip_replace_content_validation (scalar)[0m
+    [32m+ field 10: use_replace_content_propose_code (scalar)[0m
+    [32m+ field 11: only_show_incremental_diff_zone (scalar)[0m
+    [32m+ field 12: file_allowlist (scalar)[0m
+    [32m+ field 17: dir_allowlist (scalar)[0m
+    [32m+ field 13: classify_edit (scalar)[0m
+    [32m+ field 14: run_proposal_extension_verifier (scalar)[0m
+    [32m+ field 15: skip_await_lint_errors (scalar)[0m
+    [32m+ field 16: provide_importance (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.IntentToolConfig
+    [32m+ field 1: intent_model (enum)[0m
+    [32m+ field 2: max_context_tokens (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ViewFileToolConfig
+    [32m+ field 7: allow_view_gitignore (scalar)[0m
+    [32m+ field 8: split_outline_tool (scalar)[0m
+    [32m+ field 13: show_triggered_memories (scalar)[0m
+    [32m+ field 12: enterprise_config (message)[0m
+    [32m+ field 14: max_lines_per_view (scalar)[0m
+    [32m+ field 15: include_line_numbers (scalar)[0m
+    [32m+ field 16: dir_allowlist (scalar)[0m
+    [32m+ field 9: max_total_outline_bytes (scalar)[0m
+    [32m+ field 11: max_bytes_per_outline_item (scalar)[0m
+    [32m+ field 10: show_full_file_bytes (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.SuggestedResponseConfig
+    [32m+ field 1: force_disable (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.SearchWebToolConfig
+    [32m+ field 1: force_disable (scalar)[0m
+    [32m+ field 2: third_party_config (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.MemoryToolConfig
+    [32m+ field 1: force_disable (scalar)[0m
+    [32m+ field 2: disable_auto_generate_memories (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.McpToolConfig
+    [32m+ field 1: force_disable (scalar)[0m
+    [32m+ field 2: max_output_bytes (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.AutoFixLintsConfig
+    [32m+ field 1: enabled (scalar)[0m
+    [32m+ field 2: notifying_prompt (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CaptureBrowserScreenshotToolConfig
+    [32m+ field 1: enable_saving (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.DOMExtractionConfig
+    [32m+ field 1: include_coordinates (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.BrowserSubagentContextConfig
+    [32m+ field 1: type (enum)[0m
+    [32m+ field 2: max_chars (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.BrowserSubagentToolConfig
+    [32m+ field 1: mode (enum)[0m
+    [32m+ field 2: browser_subagent_model (enum)[0m
+    [32m+ field 3: use_detailed_converter (scalar)[0m
+    [32m+ field 4: suggested_max_tool_calls (scalar)[0m
+    [32m+ field 5: disable_onboarding (scalar)[0m
+    [32m+ field 6: subagent_reminder_mode (message)[0m
+    [32m+ field 7: max_context_tokens (scalar)[0m
+    [32m+ field 8: context_config (message)[0m
+    [32m+ field 9: dom_extraction_config (message)[0m
+    [32m+ field 10: disable_screenshot (scalar)[0m
+    [32m+ field 11: low_level_tools_config (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.SubagentReminderMode
+    [32m+ field 1: verify_screenshots (message)[0m
+    [32m+ field 2: verify_completeness (message)[0m
+    [32m+ field 3: custom (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.BrowserCustomReminderMode
+    [32m+ field 1: reminder (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ClickFeedbackConfig
+    [32m+ field 12: enabled (scalar)[0m
+    [32m+ field 7: red (scalar)[0m
+    [32m+ field 8: green (scalar)[0m
+    [32m+ field 9: blue (scalar)[0m
+    [32m+ field 10: alpha (scalar)[0m
+    [32m+ field 5: display_color (scalar)[0m
+    [32m+ field 11: radius (scalar)[0m
+    [32m+ field 13: feedback_type (enum)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ClickBrowserPixelToolConfig
+    [32m+ field 1: click_feedback (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.BrowserStateDiffingConfig
+    [32m+ field 1: capture_agent_action_diffs (scalar)[0m
+    [32m+ field 2: include_dom_tree_in_diffs (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.BrowserGetNetworkRequestToolConfig
+    [32m+ field 1: enabled (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.BrowserWindowSize
+    [32m+ field 1: width_px (scalar)[0m
+    [32m+ field 2: height_px (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.BrowserListNetworkRequestsToolConfig
+    [32m+ field 1: enabled (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.AntigravityBrowserToolConfig
+    [32m+ field 1: enabled (scalar)[0m
+    [32m+ field 2: auto_run_decision (enum)[0m
+    [32m+ field 3: capture_browser_screenshot (message)[0m
+    [32m+ field 4: browser_subagent (message)[0m
+    [32m+ field 5: click_browser_pixel (message)[0m
+    [32m+ field 10: browser_state_diffing_config (message)[0m
+    [32m+ field 18: browser_list_network_requests_tool_config (message)[0m
+    [32m+ field 19: browser_get_network_request_tool_config (message)[0m
+    [32m+ field 6: tool_set_mode (enum)[0m
+    [32m+ field 7: disable_open_url (scalar)[0m
+    [32m+ field 9: is_eval_mode (scalar)[0m
+    [32m+ field 11: browser_js_execution_policy (enum)[0m
+    [32m+ field 12: disable_actuation_overlay (scalar)[0m
+    [32m+ field 13: variable_wait_tool (scalar)[0m
+    [32m+ field 8: browser_js_auto_run_policy (enum)[0m
+    [32m+ field 14: initial_browser_window_size (message)[0m
+    [32m+ field 15: dom_extraction_config (message)[0m
+    [32m+ field 16: disable_workspace_api (scalar)[0m
+    [32m+ field 17: open_page_in_background (scalar)[0m
+    [32m+ field 20: use_antigravity_as_browser_prompting (scalar)[0m
+    [32m+ field 21: enable_refresh_tool (scalar)[0m
+    [32m+ field 22: disable_read_browser_page (scalar)[0m
+    [32m+ field 23: use_extended_timeout (scalar)[0m
+    [32m+ field 24: log_timeout_errors_instead_of_sentry (scalar)[0m
+    [32m+ field 25: skip_permission_checks (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.TrajectorySearchToolConfig
+    [32m+ field 1: force_disable (scalar)[0m
+    [32m+ field 2: conversations_enabled (scalar)[0m
+    [32m+ field 3: user_activities_enabled (scalar)[0m
+    [32m+ field 4: max_scored_chunks (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.EnterpriseToolConfig
+    [32m+ field 1: enforce_workspace_validation (scalar)[0m
+    [32m+ field 2: custom_workspace (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ViewCodeItemToolConfig
+    [32m+ field 1: max_num_items (scalar)[0m
+    [32m+ field 2: max_bytes_per_item (scalar)[0m
+    [32m+ field 3: allow_access_gitignore (scalar)[0m
+    [32m+ field 4: enterprise_config (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CommandStatusToolConfig
+    [32m+ field 1: use_delta (scalar)[0m
+    [32m+ field 2: max_output_characters (scalar)[0m
+    [32m+ field 3: min_output_characters (scalar)[0m
+    [32m+ field 4: max_wait_duration_seconds (scalar)[0m
+    [32m+ field 5: output_stabilization_duration_seconds (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ReadKnowledgeBaseItemToolConfig
+    [32m+ field 1: enabled (scalar)[0m
+    [32m+ field 2: knowledge_base_items (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ToolDescriptionOverrideMap
+    [32m+ field 1: descriptions (map)[0m
+    [32m+ field 2: tool_overrides (map)[0m
+  [33m[CHANGED][0m exa.cortex_pb.TaskBoundaryToolConfig
+    [32m+ field 1: minimum_predicted_task_size (scalar)[0m
+    [32m+ field 2: target_status_update_frequency (scalar)[0m
+    [32m+ field 3: no_active_task_soft_reminder_tool_threshold (scalar)[0m
+    [32m+ field 4: no_active_task_strict_reminder_tool_threshold (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.FinishToolConfig
+    [32m+ field 1: result_json_schema_string (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.WorkspaceAPIToolConfig
+    [32m+ field 1: read_only (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeToolConfig
+    [32m+ field 1: mquery (message)[0m
+    [32m+ field 2: code (message)[0m
+    [32m+ field 3: intent (message)[0m
+    [32m+ field 4: grep (message)[0m
+    [32m+ field 5: find (message)[0m
+    [32m+ field 8: run_command (message)[0m
+    [32m+ field 9: knowledge_base_search (message)[0m
+    [32m+ field 10: view_file (message)[0m
+    [32m+ field 11: suggested_response (message)[0m
+    [32m+ field 13: search_web (message)[0m
+    [32m+ field 14: memory (message)[0m
+    [32m+ field 16: mcp (message)[0m
+    [32m+ field 19: list_dir (message)[0m
+    [32m+ field 20: view_code_item (message)[0m
+    [32m+ field 21: read_knowledge_base_item (message)[0m
+    [32m+ field 23: command_status (message)[0m
+    [32m+ field 25: antigravity_browser (message)[0m
+    [32m+ field 28: trajectory_search (message)[0m
+    [32m+ field 31: code_search (message)[0m
+    [32m+ field 32: internal_search (message)[0m
+    [32m+ field 33: notify_user (message)[0m
+    [32m+ field 34: browser_subagent (message)[0m
+    [32m+ field 35: task_boundary (message)[0m
+    [32m+ field 36: finish (message)[0m
+    [32m+ field 37: workspace_api (message)[0m
+    [32m+ field 38: notebook_edit (message)[0m
+    [32m+ field 39: invoke_subagent (message)[0m
+    [32m+ field 22: description_override_map (message)[0m
+    [32m+ field 29: disable_simple_research_tools (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ModelOutputRetryConfig
+    [32m+ field 1: max_retries (scalar)[0m
+    [32m+ field 3: forbid_tool_use (scalar)[0m
+    [32m+ field 4: force_tool_name (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ModelAPIRetryConfig
+    [32m+ field 1: max_retries (scalar)[0m
+    [32m+ field 2: initial_sleep_duration_ms (scalar)[0m
+    [32m+ field 3: exponential_multiplier (scalar)[0m
+    [32m+ field 4: include_error_feedback (scalar)[0m
+    [32m+ field 5: range (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.PlannerRetryConfig
+    [32m+ field 1: model_output_retry (message)[0m
+    [32m+ field 2: api_retry (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CodeAcknowledgementConverterConfig
+    [32m+ field 1: show_to_model_on_written_feedback (scalar)[0m
+    [32m+ field 2: show_to_model_on_rejection (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.StepStringConverterConfig
+    [32m+ field 1: code_acknowledgement (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.AgenticModeConfig
+    [32m+ field 1: inject_artifact_reminder_threshold_map (map)[0m
+    [32m+ field 2: disable_artifact_reminders (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CustomAgentSystemPromptConfig
+    [32m+ field 1: include_workspace_prompt (scalar)[0m
+    [32m+ field 2: include_mcp_server_prompt (scalar)[0m
+    [32m+ field 3: include_artifact_instructions (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CustomAgentConfig
+    [32m+ field 1: system_prompt_sections (message)[0m
+    [32m+ field 2: tool_names (scalar)[0m
+    [32m+ field 6: system_prompt_config (message)[0m
+    [32m+ field 7: skills_config (message)[0m
+    [32m+ field 8: agent_path (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CustomPromptSection
+    [32m+ field 1: prompt_section (message)[0m
+    [32m+ field 2: insert_after_section (scalar)[0m
+    [32m+ field 3: insert_before_section (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.PromptSectionCustomizationConfig
+    [32m+ field 1: remove_prompt_sections (scalar)[0m
+    [32m+ field 2: add_prompt_sections (message)[0m
+    [32m+ field 3: append_prompt_sections (message)[0m
+    [32m+ field 4: replace_prompt_sections (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.WorkspacePaths
+    [32m+ field 1: absolute_paths (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CustomizationConfig
+    [32m+ field 1: customization_server_url (scalar)[0m
+    [32m+ field 2: tool_names (scalar)[0m
+    [32m+ field 3: pre_invocation_hook_names (scalar)[0m
+    [32m+ field 4: post_invocation_hook_names (scalar)[0m
+    [32m+ field 5: mcp_servers (message)[0m
+    [32m+ field 6: trajectory_to_chat_message_override (scalar)[0m
+    [32m+ field 8: pre_tool_hook_names (scalar)[0m
+    [32m+ field 9: post_tool_hook_names (scalar)[0m
+    [32m+ field 10: user_active_workspaces (scalar)[0m
+    [32m+ field 11: workspace_paths (message)[0m
+    [32m+ field 12: skip_tool_name_prefix (scalar)[0m
+    [32m+ field 13: skip_tool_description_prefix (scalar)[0m
+    [32m+ field 14: stop_hook_names (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadePlannerConfig
+    [32m+ field 2: conversational (message)[0m
+    [32m+ field 26: google (message)[0m
+    [32m+ field 36: cider (message)[0m
+    [32m+ field 39: custom_agent (message)[0m
+    [32m+ field 40: custom_agent_config_absolute_uri (scalar)[0m
+    [32m+ field 42: customization_config (message)[0m
+    [32m+ field 41: prompt_section_customization_config (message)[0m
+    [32m+ field 13: tool_config (message)[0m
+    [32m+ field 31: step_string_converter_config (message)[0m
+    [32m+ field 1: plan_model (enum)[0m
+    [32m+ field 15: requested_model (message)[0m
+    [32m+ field 28: model_name (scalar)[0m
+    [32m+ field 27: custom_model_info_override (message)[0m
+    [32m+ field 6: max_output_tokens (scalar)[0m
+    [32m+ field 7: no_tool_explanation (scalar)[0m
+    [32m+ field 33: no_tool_summary (scalar)[0m
+    [32m+ field 14: truncation_threshold_tokens (scalar)[0m
+    [32m+ field 21: ephemeral_messages_config (message)[0m
+    [32m+ field 25: show_all_errors (scalar)[0m
+    [32m+ field 30: retry_config (message)[0m
+    [32m+ field 32: knowledge_config (message)[0m
+    [32m+ field 35: agentic_mode_config (message)[0m
+    [32m+ field 37: no_wait_for_previous_tools (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeRunCommandInteraction
+    [32m+ field 1: confirm (scalar)[0m
+    [32m+ field 2: proposed_command_line (scalar)[0m
+    [32m+ field 3: submitted_command_line (scalar)[0m
+    [32m+ field 4: sandbox_override (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeOpenBrowserUrlInteraction
+    [32m+ field 1: confirm (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeRunExtensionCodeInteraction
+    [32m+ field 1: confirm (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeExecuteBrowserJavaScriptInteraction
+    [32m+ field 1: confirm (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeCaptureBrowserScreenshotInteraction
+    [32m+ field 1: confirm (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeClickBrowserPixelInteraction
+    [32m+ field 1: confirm (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeOpenBrowserSetupInteraction
+    [32m+ field 1: confirm (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeConfirmBrowserSetupInteraction
+    [32m+ field 1: confirm (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeSendCommandInputInteraction
+    [32m+ field 1: confirm (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeReadUrlContentInteraction
+    [32m+ field 1: confirm (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeMcpInteraction
+    [32m+ field 1: confirm (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.FilePermissionInteraction
+    [32m+ field 1: allow (scalar)[0m
+    [32m+ field 2: scope (enum)[0m
+    [32m+ field 3: absolute_path_uri (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeDeployInteractionSpec
+    [32m+ field 1: deploy_target_options (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.FilePermissionInteractionSpec
+    [32m+ field 1: absolute_path_uri (scalar)[0m
+    [32m+ field 2: is_directory (scalar)[0m
+    [32m+ field 3: block_reason (enum)[0m
+  [33m[CHANGED][0m exa.cortex_pb.KnowledgeReference
+    [32m+ field 1: file_path (scalar)[0m
+    [32m+ field 2: conversation_id (scalar)[0m
+    [32m+ field 3: url (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.KnowledgeReferences
+    [32m+ field 1: references (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.FastApplyFallbackInfo
+    [32m+ field 1: fallback_attempted (scalar)[0m
+    [32m+ field 2: fallback_error (scalar)[0m
+    [32m+ field 3: fast_apply_result (message)[0m
+    [32m+ field 4: heuristic_failure (enum)[0m
+    [32m+ field 5: fast_apply_prompt (scalar)[0m
+    [32m+ field 6: num_fast_apply_edits_masked (scalar)[0m
+    [32m+ field 7: fallback_match_had_no_diff (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.PlanEntryDeltaSummary
+    [32m+ field 1: items_added (scalar)[0m
+    [32m+ field 2: items_completed (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.BrainEntryDeltaSummary
+    [32m+ field 1: plan (message)[0m
+    [32m+ field 2: task (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.BrainEntryDelta
+    [32m+ field 1: before (message)[0m
+    [32m+ field 2: after (message)[0m
+    [32m+ field 3: absolute_path_uri (scalar)[0m
+    [32m+ field 4: summary (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.TaskEntryDeltaSummary
+    [32m+ field 1: deltas (message)[0m
+    [32m+ field 2: items_added (scalar)[0m
+    [32m+ field 3: items_pruned (scalar)[0m
+    [32m+ field 4: items_deleted (scalar)[0m
+    [32m+ field 5: items_updated (scalar)[0m
+    [32m+ field 6: items_moved (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexMemoryMetadata
+    [32m+ field 1: created_at (message)[0m
+    [32m+ field 2: last_modified (message)[0m
+    [32m+ field 3: last_accessed (message)[0m
+    [32m+ field 4: tags (scalar)[0m
+    [32m+ field 5: user_triggered (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexMemoryText
+    [32m+ field 1: content (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexMemoryScope
+    [32m+ field 1: global_scope (message)[0m
+    [32m+ field 2: local_scope (message)[0m
+    [32m+ field 3: all_scope (message)[0m
+    [32m+ field 4: project_scope (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexMemoryLocalScope
+    [32m+ field 2: corpus_names (scalar)[0m
+    [32m+ field 3: base_dir_uris (scalar)[0m
+    [32m+ field 1: repo_base_dir_uri (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexMemoryProjectScope
+    [32m+ field 1: file_path (scalar)[0m
+    [32m+ field 7: absolute_file_path (scalar)[0m
+    [32m+ field 2: base_dir_uris (scalar)[0m
+    [32m+ field 3: corpus_names (scalar)[0m
+    [32m+ field 4: trigger (enum)[0m
+    [32m+ field 5: description (scalar)[0m
+    [32m+ field 6: globs (scalar)[0m
+    [32m+ field 8: priority (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CodeStepCreationOptions
+    [32m+ field 1: diff_block_separation_threshold (scalar)[0m
+    [32m+ field 2: handle_deletions (scalar)[0m
+    [32m+ field 3: handle_creations (scalar)[0m
+    [32m+ field 4: include_original_content (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.UserGrepStepCreationOptions
+    [32m+ field 1: num_search_events (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.RunCommandStepCreationOptions
+    [32m+ field 1: max_commands (scalar)[0m
+    [32m+ field 2: max_command_age (message)[0m
+    [32m+ field 3: per_command_max_bytes_output (scalar)[0m
+    [32m+ field 4: total_max_bytes_output (scalar)[0m
+    [32m+ field 5: include_running (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.LintDiffStepCreationOptions
+    [32m+ field 1: max_lint_inserts (scalar)[0m
+    [32m+ field 2: min_required_lint_duration (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.BrowserStepCreationOptions
+    [32m+ field 1: max_browser_interactions (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.McpServerInfo
+    [32m+ field 1: name (scalar)[0m
+    [32m+ field 2: version (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.StepRenderInfo
+    [32m+ field 1: title (scalar)[0m
+    [32m+ field 2: markdown (scalar)[0m
+    [32m+ field 3: metadata (map)[0m
+  [33m[CHANGED][0m exa.cortex_pb.HeuristicPrompt
+    [32m+ field 1: heuristic (scalar)[0m
+    [32m+ field 2: prompt (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.TaskResolution
+    [32m+ field 1: open_pr (message)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CodeSearchResults
+    [32m+ field 1: path (scalar)[0m
+    [32m+ field 4: matches (message)[0m
+    [32m+ field 5: changelist (scalar)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ConversationHistoryConfig
+    [32m+ field 1: enabled (scalar)[0m
+    [32m+ field 2: max_conversations (scalar)[0m
+    [32m+ field 3: max_title_chars (scalar)[0m
+    [32m+ field 4: max_user_intent_chars (scalar)[0m
+    [32m+ field 5: max_conversation_logs_chars (scalar)[0m
+    [32m+ field 6: max_artifact_summary_chars (scalar)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.CodeAssistMetric
+    [33m~ field 1: T_var: Timestamp → lXe[0m
+    [33m~ field 2: T_var: g → AUt[0m
+    [33m~ field 3: T_var: h → TUt[0m
+    [33m~ field 4: T_var: f → xUt[0m
+    [33m~ field 5: T_var: I → wUt[0m
+    [33m~ field 6: T_var: _ → bUt[0m
+    [33m~ field 7: T_var: y → SUt[0m
+    [33m~ field 8: T_var: C → kUt[0m
+    [33m~ field 9: T_var: S → RUt[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.InlineCompletionAccepted
+    [33m~ field 6: T_var: s → pUt[0m
+    [33m~ field 9: T_var: i → mUt[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.InlineCompletionOffered
+    [33m~ field 4: T_var: a → fUt[0m
+    [33m~ field 5: T_var: Duration → cXe[0m
+    [33m~ field 6: T_var: i → mUt[0m
+    [33m~ field 7: T_var: c → hUt[0m
+    [33m~ field 8: T_var: Duration → cXe[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.ConversationOffered
+    [33m~ field 3: T_var: i → mUt[0m
+    [33m~ field 5: T_var: E → vUt[0m
+    [33m~ field 7: T_var: l → gUt[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.ConversationOffered.StreamingLatency
+    [33m~ field 1: T_var: Duration → cXe[0m
+    [33m~ field 2: T_var: Duration → cXe[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.ConversationInteraction
+    [33m~ field 2: T_var: i → mUt[0m
+    [33m~ field 3: T_var: u → yUt[0m
+    [33m~ field 8: T_var: l → gUt[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.AiCharactersReports
+    [33m~ field 1: T_var: undefined → CUt[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.AiCharactersReport
+    [33m~ field 2: T_var: d → _Ut[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.RecitationPolicy
+    [32m+ field 1: disable_citations (scalar)[0m
+
+[1m📋 Enums[0m
+  [32m[NEW][0m     exa.cortex_pb.MessagePriority
+  [32m[NEW][0m     exa.reactive_component_pb.TestEnum
+  [32m[NEW][0m     gemini_coder.ExecutionStatus
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.RelevanceReason
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.DescriptionType
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.IntentType
+  [32m[NEW][0m     exa.code_edit.code_edit_pb.RetrieverType
+  [32m[NEW][0m     exa.language_server_pb.IdeAction
+  [32m[NEW][0m     exa.language_server_pb.CodeiumState
+  [32m[NEW][0m     exa.language_server_pb.CompletionPartType
+  [32m[NEW][0m     exa.language_server_pb.UnifiedDiffChangeType
+  [32m[NEW][0m     exa.language_server_pb.EditorThemeType
+  [32m[NEW][0m     exa.language_server_pb.ClientTrajectoryVerbosity
+  [32m[NEW][0m     exa.language_server_pb.AgentMessageOrigin
+  [32m[NEW][0m     exa.language_server_pb.CodeRevertActionType
+  [32m[NEW][0m     exa.language_server_pb.CustomizationFileType
+  [32m[NEW][0m     exa.language_server_pb.FileType
+  [32m[NEW][0m     exa.language_server_pb.CustomizationPathsOperation
+  [32m[NEW][0m     exa.extension_server_pb.ActiveEditorType
+  [32m[NEW][0m     exa.extension_server_pb.SoundType
+  [32m[NEW][0m     exa.extension_server_pb.EditNotebookOperation
+  [31m[REMOVED][0m google.internal.cloud.code.v1internal.GeminiCodeAssistSetting.GroundingType
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.IneligibleTier.IneligibleTierReasonCodes
+    [32m+ GOOGLE_TOS_NOT_SUPPORTED_BY_CLIENT = 11[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexTrajectorySource
+    [32m+ CORTEX_TRAJECTORY_SOURCE_SUBAGENT = 16[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexStepType
+    [32m+ CORTEX_STEP_TYPE_INVOKE_SUBAGENT = 127[0m
+    [32m+ CORTEX_STEP_TYPE_WRITE_BLOB = 128[0m
+
+[1m🔌 Services[0m
+  [32m[NEW][0m     exa.chat_client_server_pb.ChatClientServerService
+  [32m[NEW][0m     exa.extension_server_pb.ExtensionServerService
+  [32m[NEW][0m     exa.language_server_pb.LanguageServerService
+
+[2m────────────────────────────────────────[0m
+[2mMessages: +739 -2 ~406[0m
+[2mEnums:    +21 -1 ~3[0m
+[2mServices: +3 -0 ~0[0m
+
+[1m════════════════════════════════════════════════════════════[0m
+[1m[35m  SDK Impact Analysis[0m
+[1m════════════════════════════════════════════════════════════[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "code_action" (no=10) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "code_action" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "git_commit" (no=11) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "git_commit" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "grep_search" (no=13) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "grep_search" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "view_code_item" (no=22) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "view_code_item" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "error_message" (no=24) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "error_message" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "run_command" (no=28) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "run_command" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "suggested_responses" (no=36) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "suggested_responses" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "command_status" (no=37) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "command_status" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "read_url_content" (no=40) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "read_url_content" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "view_content_chunk" (no=41) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "view_content_chunk" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "search_web" (no=42) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "search_web" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "mcp_tool" (no=47) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "mcp_tool" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "view_file_outline" (no=58) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "view_file_outline" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "list_resources" (no=62) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "list_resources" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "read_resource" (no=63) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "read_resource" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "lint_diff" (no=64) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "lint_diff" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "open_browser_url" (no=67) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "open_browser_url" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "trajectory_search" (no=72) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "trajectory_search" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "execute_browser_javascript" (no=73) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "execute_browser_javascript" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "list_browser_pages" (no=74) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "list_browser_pages" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "capture_browser_screenshot" (no=75) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "capture_browser_screenshot" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "click_browser_pixel" (no=76) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "click_browser_pixel" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "read_terminal" (no=77) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "read_terminal" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "capture_browser_console_logs" (no=78) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "capture_browser_console_logs" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "read_browser_page" (no=79) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "read_browser_page" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_get_dom" (no=80) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_get_dom" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "code_search" (no=85) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "code_search" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_input" (no=86) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_input" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_move_mouse" (no=87) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_move_mouse" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_select_option" (no=88) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_select_option" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_scroll_up" (no=89) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_scroll_up" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_scroll_down" (no=90) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_scroll_down" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_click_element" (no=91) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_click_element" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_list_network_requests" (no=137) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_list_network_requests" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_get_network_request" (no=138) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_get_network_request" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_press_key" (no=92) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_press_key" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "task_boundary" (no=93) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "task_boundary" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "notify_user" (no=94) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "notify_user" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "code_acknowledgement" (no=95) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "code_acknowledgement" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "internal_search" (no=96) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "internal_search" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_subagent" (no=97) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_subagent" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "knowledge_generation" (no=102) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "knowledge_generation" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "generate_image" (no=104) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "generate_image" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_scroll" (no=101) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_scroll" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_resize_window" (no=109) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_resize_window" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_drag_pixel_to_pixel" (no=110) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_drag_pixel_to_pixel" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_mouse_wheel" (no=125) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_mouse_wheel" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_mouse_up" (no=134) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_mouse_up" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_mouse_down" (no=135) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_mouse_down" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "browser_refresh_page" (no=139) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_refresh_page" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "conversation_history" (no=111) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "conversation_history" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "knowledge_artifacts" (no=112) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "knowledge_artifacts" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "send_command_input" (no=113) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "send_command_input" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "system_message" (no=114) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "system_message" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "ki_insertion" (no=129) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "ki_insertion" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "workspace_api" (no=136) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "workspace_api" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "invoke_subagent" (no=143) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "invoke_subagent" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "compile_applet" (no=106) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "compile_applet" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "install_applet_dependencies" (no=107) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "install_applet_dependencies" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "install_applet_package" (no=108) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "install_applet_package" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "set_up_firebase" (no=121) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "set_up_firebase" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "restart_dev_server" (no=123) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "restart_dev_server" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "deploy_firebase" (no=124) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "deploy_firebase" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "lint_applet" (no=126) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "lint_applet" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "shell_exec" (no=127) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "shell_exec" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "define_new_env_variable" (no=128) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "define_new_env_variable" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "write_blob" (no=142) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "write_blob" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "agency_tool_call" (no=116) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "agency_tool_call" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "user_input" (no=19) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "user_input" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "planner_response" (no=20) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "planner_response" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "view_file" (no=14) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "view_file" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "list_directory" (no=15) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "list_directory" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "delete_directory" (no=105) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "delete_directory" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "file_change" (no=98) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "file_change" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "ephemeral_message" (no=103) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "ephemeral_message" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "plan_input" (no=8) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "plan_input" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "file_breakdown" (no=21) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "file_breakdown" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "write_to_file" (no=23) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "write_to_file" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "propose_code" (no=32) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "propose_code" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "search_knowledge_base" (no=35) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "search_knowledge_base" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "lookup_knowledge_base" (no=39) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "lookup_knowledge_base" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "manager_feedback" (no=48) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "manager_feedback" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "tool_call_proposal" (no=49) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "tool_call_proposal" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "tool_call_choice" (no=50) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "tool_call_choice" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "trajectory_choice" (no=52) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "trajectory_choice" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "check_deploy_status" (no=59) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "check_deploy_status" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "post_pr_review" (no=60) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "post_pr_review" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "find_all_references" (no=65) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "find_all_references" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "brain_update" (no=66) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "brain_update" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "run_extension_code" (no=68) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "run_extension_code" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "add_annotation" (no=70) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "add_annotation" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "proposal_feedback" (no=71) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "proposal_feedback" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM Step.step oneof に未分類のケース "retrieve_memory" (no=43) が新しく追加されました
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "retrieve_memory" のカテゴリを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "deploy" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "run_command" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "open_browser_url" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "run_extension_code" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "execute_browser_javascript" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "capture_browser_screenshot" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "click_browser_pixel" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "browser_action" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "open_browser_setup" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "confirm_browser_setup" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "send_command_input" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "read_url_content" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟡 MEDIUM RequestedInteraction.interaction oneof に新ケース "file_permission" が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: buildApprovalRequest() のスイッチに新しいケースを追加してください[0m
+
+  🟢 LOW exa.cortex_pb.FilePermissionInteractionSpec に新フィールド "absolute_path_uri" (no=1) が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest filePermission case)[0m
+    [2mAction: 新フィールドの利用を検討 (ファイルパーミッション承認)[0m
+
+  🟢 LOW exa.cortex_pb.FilePermissionInteractionSpec に新フィールド "is_directory" (no=2) が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest filePermission case)[0m
+    [2mAction: 新フィールドの利用を検討 (ファイルパーミッション承認)[0m
+
+  🟢 LOW exa.cortex_pb.FilePermissionInteractionSpec に新フィールド "block_reason" (no=3) が追加されました
+    [2mFile: cascade.ts (buildApprovalRequest filePermission case)[0m
+    [2mAction: 新フィールドの利用を検討 (ファイルパーミッション承認)[0m
+
+[33m  ⚡ HIGH 影響はありません。106 件の MEDIUM 影響を確認してください[0m
+

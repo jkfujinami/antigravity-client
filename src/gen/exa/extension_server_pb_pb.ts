@@ -58,6 +58,50 @@ proto3.util.setEnumType(SoundType, "exa.extension_server_pb.SoundType", [
 ]);
 
 /**
+ * @generated from enum exa.extension_server_pb.EditNotebookOperation
+ */
+export enum EditNotebookOperation {
+  /**
+   * @generated from enum value: EDIT_NOTEBOOK_OPERATION_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: EDIT_NOTEBOOK_OPERATION_INSERT_AFTER = 1;
+   */
+  INSERT_AFTER = 1,
+
+  /**
+   * @generated from enum value: EDIT_NOTEBOOK_OPERATION_INSERT_BEFORE = 2;
+   */
+  INSERT_BEFORE = 2,
+
+  /**
+   * @generated from enum value: EDIT_NOTEBOOK_OPERATION_REPLACE_CELLS = 3;
+   */
+  REPLACE_CELLS = 3,
+
+  /**
+   * @generated from enum value: EDIT_NOTEBOOK_OPERATION_DELETE_CELLS = 4;
+   */
+  DELETE_CELLS = 4,
+
+  /**
+   * @generated from enum value: EDIT_NOTEBOOK_OPERATION_OVERWRITE_NOTEBOOK = 5;
+   */
+  OVERWRITE_NOTEBOOK = 5,
+}
+// Retrieve enum metadata with: proto3.getEnumType(EditNotebookOperation)
+proto3.util.setEnumType(EditNotebookOperation, "exa.extension_server_pb.EditNotebookOperation", [
+  { no: 0, name: "EDIT_NOTEBOOK_OPERATION_UNSPECIFIED" },
+  { no: 1, name: "EDIT_NOTEBOOK_OPERATION_INSERT_AFTER" },
+  { no: 2, name: "EDIT_NOTEBOOK_OPERATION_INSERT_BEFORE" },
+  { no: 3, name: "EDIT_NOTEBOOK_OPERATION_REPLACE_CELLS" },
+  { no: 4, name: "EDIT_NOTEBOOK_OPERATION_DELETE_CELLS" },
+  { no: 5, name: "EDIT_NOTEBOOK_OPERATION_OVERWRITE_NOTEBOOK" },
+]);
+
+/**
  * @generated from message exa.extension_server_pb.BackupMessage
  */
 export class BackupMessage extends Message<BackupMessage> {
@@ -2445,6 +2489,306 @@ export class WriteCascadeEditResponse extends Message<WriteCascadeEditResponse> 
 
   static equals(a: WriteCascadeEditResponse | PlainMessage<WriteCascadeEditResponse> | undefined, b: WriteCascadeEditResponse | PlainMessage<WriteCascadeEditResponse> | undefined): boolean {
     return proto3.util.equals(WriteCascadeEditResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.extension_server_pb.EditNotebookRequest
+ */
+export class EditNotebookRequest extends Message<EditNotebookRequest> {
+  /**
+   * @generated from field: string absolute_path_uri = 1;
+   */
+  absolutePathUri = "";
+
+  /**
+   * @generated from field: exa.extension_server_pb.EditNotebookOperation operation = 2;
+   */
+  operation = EditNotebookOperation.UNSPECIFIED;
+
+  /**
+   * @generated from field: string anchor_cell_id = 3;
+   */
+  anchorCellId = "";
+
+  /**
+   * @generated from field: int32 anchor_cell_index = 4;
+   */
+  anchorCellIndex = 0;
+
+  /**
+   * @generated from field: repeated exa.extension_server_pb.EditNotebookRequest_Cell cells = 5;
+   */
+  cells: EditNotebookRequest_Cell[] = [];
+
+  /**
+   * @generated from field: int32 delete_count = 6;
+   */
+  deleteCount = 0;
+
+  constructor(data?: PartialMessage<EditNotebookRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.extension_server_pb.EditNotebookRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "absolute_path_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "operation", kind: "enum", T: proto3.getEnumType(EditNotebookOperation) },
+    { no: 3, name: "anchor_cell_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "anchor_cell_index", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 5, name: "cells", kind: "message", T: EditNotebookRequest_Cell, repeated: true },
+    { no: 6, name: "delete_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EditNotebookRequest {
+    return new EditNotebookRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EditNotebookRequest {
+    return new EditNotebookRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EditNotebookRequest {
+    return new EditNotebookRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EditNotebookRequest | PlainMessage<EditNotebookRequest> | undefined, b: EditNotebookRequest | PlainMessage<EditNotebookRequest> | undefined): boolean {
+    return proto3.util.equals(EditNotebookRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.extension_server_pb.EditNotebookRequest_Cell
+ */
+export class EditNotebookRequest_Cell extends Message<EditNotebookRequest_Cell> {
+  /**
+   * @generated from field: string kind = 1;
+   */
+  kind = "";
+
+  /**
+   * @generated from field: string content = 2;
+   */
+  content = "";
+
+  constructor(data?: PartialMessage<EditNotebookRequest_Cell>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.extension_server_pb.EditNotebookRequest_Cell";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "kind", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EditNotebookRequest_Cell {
+    return new EditNotebookRequest_Cell().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EditNotebookRequest_Cell {
+    return new EditNotebookRequest_Cell().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EditNotebookRequest_Cell {
+    return new EditNotebookRequest_Cell().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EditNotebookRequest_Cell | PlainMessage<EditNotebookRequest_Cell> | undefined, b: EditNotebookRequest_Cell | PlainMessage<EditNotebookRequest_Cell> | undefined): boolean {
+    return proto3.util.equals(EditNotebookRequest_Cell, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.extension_server_pb.EditNotebookResponse
+ */
+export class EditNotebookResponse extends Message<EditNotebookResponse> {
+  /**
+   * @generated from field: repeated exa.extension_server_pb.EditNotebookResponse_ModifiedCell modified_cells = 1;
+   */
+  modifiedCells: EditNotebookResponse_ModifiedCell[] = [];
+
+  /**
+   * @generated from field: int32 total_cell_count = 2;
+   */
+  totalCellCount = 0;
+
+  constructor(data?: PartialMessage<EditNotebookResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.extension_server_pb.EditNotebookResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "modified_cells", kind: "message", T: EditNotebookResponse_ModifiedCell, repeated: true },
+    { no: 2, name: "total_cell_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EditNotebookResponse {
+    return new EditNotebookResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EditNotebookResponse {
+    return new EditNotebookResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EditNotebookResponse {
+    return new EditNotebookResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EditNotebookResponse | PlainMessage<EditNotebookResponse> | undefined, b: EditNotebookResponse | PlainMessage<EditNotebookResponse> | undefined): boolean {
+    return proto3.util.equals(EditNotebookResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.extension_server_pb.EditNotebookResponse_ModifiedCell
+ */
+export class EditNotebookResponse_ModifiedCell extends Message<EditNotebookResponse_ModifiedCell> {
+  /**
+   * @generated from field: string cell_id = 1;
+   */
+  cellId = "";
+
+  /**
+   * @generated from field: string kind = 2;
+   */
+  kind = "";
+
+  /**
+   * @generated from field: string content = 3;
+   */
+  content = "";
+
+  /**
+   * @generated from field: int32 index = 4;
+   */
+  index = 0;
+
+  constructor(data?: PartialMessage<EditNotebookResponse_ModifiedCell>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.extension_server_pb.EditNotebookResponse_ModifiedCell";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "cell_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "kind", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "index", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EditNotebookResponse_ModifiedCell {
+    return new EditNotebookResponse_ModifiedCell().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EditNotebookResponse_ModifiedCell {
+    return new EditNotebookResponse_ModifiedCell().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EditNotebookResponse_ModifiedCell {
+    return new EditNotebookResponse_ModifiedCell().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EditNotebookResponse_ModifiedCell | PlainMessage<EditNotebookResponse_ModifiedCell> | undefined, b: EditNotebookResponse_ModifiedCell | PlainMessage<EditNotebookResponse_ModifiedCell> | undefined): boolean {
+    return proto3.util.equals(EditNotebookResponse_ModifiedCell, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.extension_server_pb.ReadNotebookRequest
+ */
+export class ReadNotebookRequest extends Message<ReadNotebookRequest> {
+  /**
+   * @generated from field: string absolute_path_uri = 1;
+   */
+  absolutePathUri = "";
+
+  /**
+   * @generated from field: repeated int32 cell_indices = 2;
+   */
+  cellIndices: number[] = [];
+
+  /**
+   * @generated from field: repeated string cell_ids = 3;
+   */
+  cellIds: string[] = [];
+
+  constructor(data?: PartialMessage<ReadNotebookRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.extension_server_pb.ReadNotebookRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "absolute_path_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "cell_indices", kind: "scalar", T: 5 /* ScalarType.INT32 */, repeated: true },
+    { no: 3, name: "cell_ids", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReadNotebookRequest {
+    return new ReadNotebookRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ReadNotebookRequest {
+    return new ReadNotebookRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ReadNotebookRequest {
+    return new ReadNotebookRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ReadNotebookRequest | PlainMessage<ReadNotebookRequest> | undefined, b: ReadNotebookRequest | PlainMessage<ReadNotebookRequest> | undefined): boolean {
+    return proto3.util.equals(ReadNotebookRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.extension_server_pb.ReadNotebookResponse
+ */
+export class ReadNotebookResponse extends Message<ReadNotebookResponse> {
+  /**
+   * @generated from field: string flattened_content = 1;
+   */
+  flattenedContent = "";
+
+  /**
+   * @generated from field: int32 read_cell_count = 2;
+   */
+  readCellCount = 0;
+
+  constructor(data?: PartialMessage<ReadNotebookResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.extension_server_pb.ReadNotebookResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "flattened_content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "read_cell_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReadNotebookResponse {
+    return new ReadNotebookResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ReadNotebookResponse {
+    return new ReadNotebookResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ReadNotebookResponse {
+    return new ReadNotebookResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ReadNotebookResponse | PlainMessage<ReadNotebookResponse> | undefined, b: ReadNotebookResponse | PlainMessage<ReadNotebookResponse> | undefined): boolean {
+    return proto3.util.equals(ReadNotebookResponse, a, b);
   }
 }
 
