@@ -34,6 +34,18 @@ import {
 import { Trajectory, Step } from "./gen/gemini_coder_pb.js";
 import { applyMessageDiff } from "./reactive/apply.js";
 import { CascadeState } from "./gen/exa/jetski_cortex_pb_pb.js";
+import {
+    CascadeStep,
+    toStepStatus,
+    toRunStatus,
+    type ApprovalRequest,
+    type StepNewEvent,
+    type StepUpdateEvent,
+    type TextDeltaEvent,
+    type ThinkingDeltaEvent,
+    type CommandOutputEvent,
+    type StatusChangeEvent,
+} from "./types.js";
 
 export interface CascadeEvent {
     type: "text" | "thinking" | "status" | "error" | "done" | "update" | "interaction" | "command_output" | "raw_update";
@@ -56,10 +68,15 @@ export class Cascade extends EventEmitter {
     private isListening = false;
     private lastEmittedText: Record<number, string> = {};
     private lastEmittedThinking: Record<number, string> = {};
-    private lastEmittedStdout: Record<number, string> = {}; // Track stdout
-    private lastEmittedStderr: Record<number, string> = {}; // Track stderr
+    private lastEmittedStdout: Record<number, string> = {};
+    private lastEmittedStderr: Record<number, string> = {};
     private emittedInteractions = new Set<number>();
     private lastStatus: CascadeRunStatus = CascadeRunStatus.UNSPECIFIED;
+
+    // High-level event tracking (Phase 2: step tracking internalized from repl.ts)
+    private _lastStepCount: number = 0;
+    private _stepStatusMap: Map<number, CortexStepStatus> = new Map();
+    private _lastCascadeStatus: CascadeRunStatus = CascadeRunStatus.UNSPECIFIED;
 
     constructor(
         public readonly cascadeId: string,
@@ -111,126 +128,352 @@ export class Cascade extends EventEmitter {
     private emitEvents() {
         this.emit("update", this.state);
 
-        // Check for turn completion (transition to IDLE)
-        if (this.state.status === CascadeRunStatus.IDLE && this.lastStatus !== CascadeRunStatus.IDLE) {
-            // If we transitioned to IDLE, it usually means the turn is complete.
-            this.emit("done");
-        }
-        this.lastStatus = this.state.status;
+        this.emitStatusChange();
 
         if (!this.state.trajectory?.steps) return;
 
-        this.state.trajectory.steps.forEach((step: Step, index: number) => {
+        this.emitStepEvents();
+        this.emitApprovalRequests();
+        this.emitCommandOutputDeltas();
+        this.emitTextDeltas();
+    }
+
+    // ── Status Change ──
+
+    private emitStatusChange() {
+        const currentStatus = this.state.status;
+
+        // Legacy done event (compatibility)
+        if (currentStatus === CascadeRunStatus.IDLE && this.lastStatus !== CascadeRunStatus.IDLE) {
+            this.emit("done");
+        }
+        this.lastStatus = currentStatus;
+
+        // New high-level event
+        if (currentStatus !== this._lastCascadeStatus) {
+            const prev = this._lastCascadeStatus;
+            this._lastCascadeStatus = currentStatus;
+            this.emit("status_change", {
+                status: toRunStatus(currentStatus),
+                previousStatus: toRunStatus(prev),
+            } satisfies StatusChangeEvent);
+        }
+    }
+
+    // ── Step Tracking ──
+
+    private emitStepEvents() {
+        const steps = this.state.trajectory!.steps;
+
+        // Detect new steps
+        if (steps.length > this._lastStepCount) {
+            for (let i = this._lastStepCount; i < steps.length; i++) {
+                const step = steps[i];
+                if (!step) continue;
+                this._stepStatusMap.set(i, step.status);
+                this.emit("step:new", {
+                    step: new CascadeStep(step, i),
+                } satisfies StepNewEvent);
+            }
+            this._lastStepCount = steps.length;
+        }
+
+        // Detect status changes
+        steps.forEach((step: Step, index: number) => {
+            if (!step) return;
+            const prevStatus = this._stepStatusMap.get(index);
+            if (prevStatus !== undefined && prevStatus !== step.status) {
+                this.emit("step:update", {
+                    step: new CascadeStep(step, index),
+                    previousStatus: toStepStatus(prevStatus),
+                } satisfies StepUpdateEvent);
+            }
+            this._stepStatusMap.set(index, step.status);
+        });
+    }
+
+    // ── Approval Requests ──
+
+    private emitApprovalRequests() {
+        const steps = this.state.trajectory!.steps;
+
+        steps.forEach((step: Step, index: number) => {
             if (!step) return;
 
-            // --- 1. Interactions ---
             const status = step.status;
-            // WAITING state (9) is often transient or not ready for interaction.
-            // We wait for PENDING or RUNNING before emitting interaction events.
             const isInteractiveState =
                 status === CortexStepStatus.PENDING ||
                 status === CortexStepStatus.RUNNING ||
                 status === CortexStepStatus.WAITING;
 
-            if (isInteractiveState && step.requestedInteraction && step.requestedInteraction.interaction.case && !this.emittedInteractions.has(index)) {
+            if (!isInteractiveState) return;
+            if (!step.requestedInteraction?.interaction?.case) return;
+            if (this.emittedInteractions.has(index)) return;
 
-                let autoRun = false;
-                let commandLine = "";
+            // Compute autoRun / needsApproval / commandLine for legacy event
+            let autoRun = false;
+            let commandLine = "";
+            const runCommand = (step as any).runCommand ||
+                               (step.step?.case === "runCommand" ? step.step.value : null);
+            if (runCommand) {
+                autoRun = runCommand.shouldAutoRun;
+                commandLine = runCommand.proposedCommandLine || runCommand.commandLine;
+            }
+            let needsApproval = !autoRun;
+            if (status === CortexStepStatus.WAITING) {
+                needsApproval = true;
+            }
 
-                const runCommand = (step as any).runCommand ||
-                                   (step.step?.case === "runCommand" ? step.step.value : null);
+            this.emittedInteractions.add(index);
 
-                if (runCommand) {
-                    autoRun = runCommand.shouldAutoRun;
-                    commandLine = runCommand.proposedCommandLine || runCommand.commandLine;
-                }
+            // Legacy event (compatibility)
+            this.emit("interaction", {
+                type: "interaction",
+                interaction: step.requestedInteraction,
+                stepIndex: index,
+                autoRun,
+                needsApproval,
+                commandLine
+            });
 
-                // If autoRun is true, normally server handles it.
-                // However, if status is WAITING, reliable interaction is required.
-                let needsApproval = !autoRun;
-                if (status === CortexStepStatus.WAITING) {
-                    needsApproval = true;
-                }
+            // New high-level event
+            const request = this.buildApprovalRequest(step, index, autoRun, needsApproval, commandLine);
+            if (request) {
+                this.emit("approval:needed", request);
+            }
+        });
+    }
 
-                this.emittedInteractions.add(index);
-                this.emit("interaction", {
-                    type: "interaction",
-                    interaction: step.requestedInteraction,
-                    stepIndex: index,
+    private buildApprovalRequest(
+        step: Step,
+        stepIndex: number,
+        autoRun: boolean,
+        needsApproval: boolean,
+        commandLine: string
+    ): ApprovalRequest | null {
+        const interaction = step.requestedInteraction!;
+        const interactionCase = interaction.interaction.case;
+        const cascadeStep = new CascadeStep(step, stepIndex);
+        const cascade = this;
+
+        switch (interactionCase) {
+            case "runCommand":
+                return {
+                    type: "run_command",
+                    description: `Run Command: ${commandLine}`,
+                    stepIndex,
+                    step: cascadeStep,
                     autoRun,
                     needsApproval,
-                    commandLine
-                });
+                    commandLine,
+                    async approve() {
+                        await cascade.approveCommand(stepIndex, commandLine, commandLine);
+                    },
+                    async deny() { /* no-op */ },
+                };
+
+            case "filePermission": {
+                const spec = interaction.interaction.value as any;
+                const pathUri: string = spec.absolutePathUri || "";
+                const isDir: boolean = spec.isDirectory || false;
+                return {
+                    type: "file_permission",
+                    description: `File Access: ${pathUri}${isDir ? " (directory)" : ""}`,
+                    stepIndex,
+                    step: cascadeStep,
+                    autoRun: false,
+                    needsApproval: true,
+                    filePath: pathUri,
+                    isDirectory: isDir,
+                    async approve(scope?: "once" | "conversation") {
+                        const permScope = scope === "conversation"
+                            ? PermissionScope.CONVERSATION
+                            : PermissionScope.ONCE;
+                        await cascade.approveFilePermission(stepIndex, pathUri, permScope);
+                    },
+                    async deny() { /* no-op */ },
+                };
             }
 
-            // --- 2. RunCommand Output (Stdout/Stderr) ---
+            case "openBrowserUrl": {
+                let url = "Unknown URL";
+                if (step.step?.case === "openBrowserUrl") {
+                    url = (step.step.value as any).url || url;
+                }
+                return {
+                    type: "open_browser_url",
+                    description: `Open Browser: ${url}`,
+                    stepIndex,
+                    step: cascadeStep,
+                    autoRun: false,
+                    needsApproval: true,
+                    url,
+                    async approve() {
+                        await cascade.approveOpenBrowserUrl(stepIndex);
+                    },
+                    async deny() { /* no-op */ },
+                };
+            }
+
+            case "executeBrowserJavascript":
+            case "captureBrowserScreenshot":
+            case "clickBrowserPixel":
+            case "browserAction":
+            case "openBrowserSetup":
+            case "confirmBrowserSetup":
+                return {
+                    type: "browser_action",
+                    description: `Browser Action: ${interactionCase}`,
+                    stepIndex,
+                    step: cascadeStep,
+                    autoRun: false,
+                    needsApproval: true,
+                    async approve() {
+                        await cascade.sendInteraction(stepIndex, interactionCase!, interaction.interaction.value);
+                    },
+                    async deny() { /* no-op */ },
+                };
+
+            case "sendCommandInput":
+                return {
+                    type: "send_command_input",
+                    description: `Send Command Input`,
+                    stepIndex,
+                    step: cascadeStep,
+                    autoRun: false,
+                    needsApproval: true,
+                    async approve() {
+                        await cascade.sendInteraction(stepIndex, interactionCase!, interaction.interaction.value);
+                    },
+                    async deny() { /* no-op */ },
+                };
+
+            case "mcp":
+                return {
+                    type: "mcp",
+                    description: `MCP Tool Interaction`,
+                    stepIndex,
+                    step: cascadeStep,
+                    autoRun: false,
+                    needsApproval: true,
+                    async approve() {
+                        await cascade.sendInteraction(stepIndex, interactionCase!, interaction.interaction.value);
+                    },
+                    async deny() { /* no-op */ },
+                };
+
+            default:
+                return {
+                    type: "other",
+                    description: `Unknown Interaction: ${interactionCase}`,
+                    stepIndex,
+                    step: cascadeStep,
+                    autoRun: false,
+                    needsApproval: true,
+                    async approve() {
+                        if (interactionCase) {
+                            await cascade.sendInteraction(stepIndex, interactionCase, interaction.interaction.value);
+                        }
+                    },
+                    async deny() { /* no-op */ },
+                };
+        }
+    }
+
+    // ── Command Output Deltas ──
+
+    private emitCommandOutputDeltas() {
+        const steps = this.state.trajectory!.steps;
+
+        steps.forEach((step: Step, index: number) => {
+            if (!step) return;
             const runCommandPlain = (step as any).runCommand ||
                                     (step.step?.case === "runCommand" ? step.step.value : null);
+            if (!runCommandPlain) return;
 
-            if (runCommandPlain) {
-                const stdout = runCommandPlain.stdout || "";
-                const stderr = runCommandPlain.stderr || "";
+            const stdout = runCommandPlain.stdout || "";
+            const stderr = runCommandPlain.stderr || "";
 
-                // Stdout Delta
-                const lastStdout = this.lastEmittedStdout[index] || "";
-                if (stdout.length > lastStdout.length) {
-                    const delta = stdout.substring(lastStdout.length);
-                    this.emit("command_output", {
-                        type: "command_output",
-                        text: stdout,
-                        delta,
-                        outputType: "stdout",
-                        stepIndex: index
-                    });
-                    this.lastEmittedStdout[index] = stdout;
-                }
-
-                // Stderr Delta
-                const lastStderr = this.lastEmittedStderr[index] || "";
-                if (stderr.length > lastStderr.length) {
-                    const delta = stderr.substring(lastStderr.length);
-                    this.emit("command_output", {
-                        type: "command_output",
-                        text: stderr,
-                        delta,
-                        outputType: "stderr",
-                        stepIndex: index
-                    });
-                    this.lastEmittedStderr[index] = stderr;
-                }
+            // Stdout delta
+            const lastStdout = this.lastEmittedStdout[index] || "";
+            if (stdout.length > lastStdout.length) {
+                const delta = stdout.substring(lastStdout.length);
+                // Legacy event (compatibility)
+                this.emit("command_output", {
+                    type: "command_output",
+                    text: stdout,
+                    delta,
+                    outputType: "stdout",
+                    stepIndex: index
+                });
+                this.lastEmittedStdout[index] = stdout;
             }
 
-            // --- 3. Text/Thinking ---
-            // Fix: properly check for plannerResponse and access fields safely
-            if (step.step?.case === "plannerResponse") {
-                const planner = step.step.value as any;
-                // 'planner' is the plannerResponse message or object
-                const response = planner.response || "";
-                const thinking = planner.thinking || "";
+            // Stderr delta
+            const lastStderr = this.lastEmittedStderr[index] || "";
+            if (stderr.length > lastStderr.length) {
+                const delta = stderr.substring(lastStderr.length);
+                // Legacy event (compatibility)
+                this.emit("command_output", {
+                    type: "command_output",
+                    text: stderr,
+                    delta,
+                    outputType: "stderr",
+                    stepIndex: index
+                });
+                this.lastEmittedStderr[index] = stderr;
+            }
+        });
+    }
 
-                // Text Delta
-                const lastText = this.lastEmittedText[index] || "";
-                if (response.length > lastText.length) {
-                    const delta = response.substring(lastText.length);
-                    this.emit("text", {
-                        text: response,
-                        delta,
-                        stepIndex: index
-                    });
-                    this.lastEmittedText[index] = response;
-                }
+    // ── Text / Thinking Deltas ──
 
-                // Thinking Delta
-                const lastThinking = this.lastEmittedThinking[index] || "";
-                if (thinking.length > lastThinking.length) {
-                    const delta = thinking.substring(lastThinking.length);
-                    this.emit("thinking", {
-                        text: thinking,
-                        delta,
-                        stepIndex: index
-                    });
-                    this.lastEmittedThinking[index] = thinking;
-                }
+    private emitTextDeltas() {
+        const steps = this.state.trajectory!.steps;
+
+        steps.forEach((step: Step, index: number) => {
+            if (!step) return;
+            if (step.step?.case !== "plannerResponse") return;
+            const planner = step.step.value as any;
+            const response = planner.response || "";
+            const thinking = planner.thinking || "";
+
+            // Text Delta
+            const lastText = this.lastEmittedText[index] || "";
+            if (response.length > lastText.length) {
+                const delta = response.substring(lastText.length);
+                // Legacy event (compatibility)
+                this.emit("text", {
+                    text: response,
+                    delta,
+                    stepIndex: index
+                });
+                // New high-level event
+                this.emit("text:delta", {
+                    delta,
+                    fullText: response,
+                    stepIndex: index,
+                } satisfies TextDeltaEvent);
+                this.lastEmittedText[index] = response;
+            }
+
+            // Thinking Delta
+            const lastThinking = this.lastEmittedThinking[index] || "";
+            if (thinking.length > lastThinking.length) {
+                const delta = thinking.substring(lastThinking.length);
+                // Legacy event (compatibility)
+                this.emit("thinking", {
+                    text: thinking,
+                    delta,
+                    stepIndex: index
+                });
+                // New high-level event
+                this.emit("thinking:delta", {
+                    delta,
+                    fullText: thinking,
+                    stepIndex: index,
+                } satisfies ThinkingDeltaEvent);
+                this.lastEmittedThinking[index] = thinking;
             }
         });
     }
@@ -241,7 +484,7 @@ export class Cascade extends EventEmitter {
             ideName: "vscode",
             ideVersion: "1.107.0",
             extensionName: "antigravity",
-            extensionVersion: "1.107.0",
+            extensionVersion: "0.2.0",
         });
 
         const req = new SendUserCascadeMessageRequest({

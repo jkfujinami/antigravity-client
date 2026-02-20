@@ -1,10 +1,13 @@
 
 import { AntigravityClient } from "./client.js";
 import { Cascade } from "./cascade.js";
-import {
-    CortexStepStatus,
-    PermissionScope
-} from "./gen/exa/cortex_pb_pb.js";
+import type {
+    ApprovalRequest,
+    StepNewEvent,
+    StepUpdateEvent,
+    TextDeltaEvent,
+    ThinkingDeltaEvent,
+} from "./types.js";
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
@@ -17,11 +20,7 @@ interface CliState {
     cascade: Cascade | null;
     cascadeId: string | null;
     isWaitingForApproval: boolean;
-    debugMode: boolean; // Debug flag
-
-    // Tracking for verbose output
-    lastStepCount: number;
-    lastStepStatuses: Map<number, number>;
+    debugMode: boolean;
 }
 
 const state: CliState = {
@@ -30,8 +29,6 @@ const state: CliState = {
     cascadeId: null,
     isWaitingForApproval: false,
     debugMode: false,
-    lastStepCount: 0,
-    lastStepStatuses: new Map()
 };
 
 // Utilities for colored output
@@ -80,7 +77,7 @@ async function askQuestion(query: string): Promise<string> {
 
 // Main logic
 async function init() {
-    log(`${colors.cyan}--- Antigravity Interactive CLI v0.4 ---${colors.reset}`);
+    log(`${colors.cyan}--- Antigravity Interactive CLI v0.5 ---${colors.reset}`);
     log(`${colors.dim}Connecting to Language Server...${colors.reset}`);
 
     try {
@@ -126,10 +123,6 @@ async function startNewSession() {
         state.cascade.removeAllListeners();
     }
 
-    // Reset state tracking
-    state.lastStepCount = 0;
-    state.lastStepStatuses.clear();
-
     state.cascade = await state.client.startCascade();
     state.cascadeId = state.cascade.cascadeId;
     if (state.cascadeId) {
@@ -139,95 +132,64 @@ async function startNewSession() {
     }
 }
 
-function getStatusName(status: number): string {
-    switch (status) {
-        case CortexStepStatus.UNSPECIFIED: return "UNSPECIFIED";
-        case CortexStepStatus.PENDING: return "PENDING";
-        case CortexStepStatus.RUNNING: return "RUNNING";
-        case CortexStepStatus.DONE: return "DONE";
-        case CortexStepStatus.ERROR: return "ERROR";
-        case CortexStepStatus.CANCELED: return "CANCELED";
-        case CortexStepStatus.WAITING: return "WAITING";
-        default: return `UNKNOWN(${status})`;
-    }
-}
-
-function getStepDescription(step: any): string {
-    if (!step.step || !step.step.case) return "Unknown Step";
-
-    const type = step.step.case;
-    let details = "";
-
-    switch (type) {
-        case "runCommand":
-            details = step.step.value.commandLine || step.step.value.proposedCommandLine || "";
-            break;
-        case "writeToFile":
-             // Try to extract file path if available in encodedFiles or value
-             if (step.step.value.encodedFiles && step.step.value.encodedFiles.length > 0) {
-                 details = step.step.value.encodedFiles.map((f: any) => f.filePath).join(", ");
-             }
-             break;
-        case "viewFile":
-             details = step.step.value.filePath || "";
-             break;
-        case "plannerResponse":
-             details = "(Thinking/Response)";
-             break;
-        default:
-             details = "";
-    }
-
-    return `${type}${details ? `: ${details}` : ''}`;
-}
-
 function setupListeners(cascade: Cascade) {
-    // 0. General Update Handler for Verbose Logging
-    cascade.on('update', (s: any) => {
-        const trajectory = s.trajectory;
-        if (!trajectory || !trajectory.steps) return;
+    // ── Step Tracking (via high-level events from SDK) ──
 
-        const steps = trajectory.steps;
-
-        // Check for new steps
-        if (steps.length > state.lastStepCount) {
-             for (let i = state.lastStepCount; i < steps.length; i++) {
-                 const step = steps[i];
-                 const desc = getStepDescription(step);
-                 // Only log significant steps (skip plannerResponse creating noise)
-                 if (step.step?.case !== 'plannerResponse') {
-                    log(`${colors.magenta}[Step ${i}] New: ${desc} (Status: ${getStatusName(step.status)})${colors.reset}`);
-                 }
-                 state.lastStepStatuses.set(i, step.status);
-             }
-             state.lastStepCount = steps.length;
+    cascade.on('step:new', (ev: StepNewEvent) => {
+        // Only log significant steps (skip plannerResponse to reduce noise)
+        if (ev.step.category !== 'response') {
+            log(`${colors.magenta}[Step ${ev.step.index}] New: ${ev.step.description} (${ev.step.status})${colors.reset}`);
         }
-
-        // Check for status changes
-        steps.forEach((step: any, index: number) => {
-            const lastStatus = state.lastStepStatuses.get(index);
-            if (lastStatus !== undefined && lastStatus !== step.status) {
-                const desc = getStepDescription(step);
-                // Skip repetitive logs for plannerResponse or trivial status changes if needed
-                if (step.step?.case !== 'plannerResponse') {
-                    log(`${colors.magenta}[Step ${index}] Status: ${getStatusName(lastStatus)} -> ${getStatusName(step.status)} (${desc})${colors.reset}`);
-                }
-                state.lastStepStatuses.set(index, step.status);
-            }
-        });
     });
 
-    cascade.on('thinking', (ev: any) => {
+    cascade.on('step:update', (ev: StepUpdateEvent) => {
+        if (ev.step.category !== 'response') {
+            log(`${colors.magenta}[Step ${ev.step.index}] ${ev.previousStatus} -> ${ev.step.status} (${ev.step.description})${colors.reset}`);
+        }
+    });
+
+    // ── Text / Thinking Streaming ──
+
+    cascade.on('text:delta', (ev: TextDeltaEvent) => {
+        if (!state.isWaitingForApproval) {
+            process.stdout.write(ev.delta);
+        }
+    });
+
+    cascade.on('thinking:delta', (ev: ThinkingDeltaEvent) => {
         if (!state.isWaitingForApproval) {
             process.stdout.write(`${colors.gray}${ev.delta}${colors.reset}`);
         }
     });
 
-    cascade.on('text', (ev: any) => {
-        if (!state.isWaitingForApproval) {
+    // ── Command Output ──
+
+    cascade.on('command_output', (ev: any) => {
+        if (ev.outputType === 'stderr') {
+            process.stdout.write(`${colors.red}${ev.delta}${colors.reset}`);
+        } else {
             process.stdout.write(ev.delta);
         }
     });
+
+    // ── Approval Requests (via high-level event from SDK) ──
+
+    cascade.on('approval:needed', async (request: ApprovalRequest) => {
+        if (!request.needsApproval) {
+            log(`${colors.gray}[Auto-Run] ${request.description}${colors.reset}`);
+            return;
+        }
+
+        process.stdout.write('\n');
+
+        if (request.type === "file_permission") {
+            await handlePermissionRequest(request);
+        } else {
+            await handleSimpleApproval(request);
+        }
+    });
+
+    // ── Error ──
 
     cascade.on('error', (err: any) => {
         log(`${colors.red}\nError: ${err}${colors.reset}`);
@@ -236,7 +198,17 @@ function setupListeners(cascade: Cascade) {
         }
     });
 
-    // Debug Handler
+    // ── Done ──
+
+    cascade.on('done', () => {
+        if (!state.isWaitingForApproval) {
+            process.stdout.write('\n');
+            if (rl) rl.prompt();
+        }
+    });
+
+    // ── Debug Handler ──
+
     cascade.on('raw_update', (ev: any) => {
         if (state.debugMode) {
              const timestamp = new Date().toISOString();
@@ -256,125 +228,39 @@ function setupListeners(cascade: Cascade) {
             }
         }
     });
-
-    // 1. Output handler
-    cascade.on('command_output', (ev: any) => {
-        if (ev.outputType === 'stderr') {
-            process.stdout.write(`${colors.red}${ev.delta}${colors.reset}`);
-        } else {
-            process.stdout.write(ev.delta);
-        }
-    });
-
-    // 2. Interaction handler
-    cascade.on('interaction', async (ev: any) => {
-        const interaction = ev.interaction;
-        const type = interaction.interaction.case;
-        const stepIndex = ev.stepIndex;
-        const step = state.cascade?.state?.trajectory?.steps?.[stepIndex];
-
-        process.stdout.write('\n'); // Clear line
-
-        if (state.debugMode) {
-             log(`${colors.gray}[Debug] Interaction: ${type} (Step ${stepIndex})${colors.reset}`);
-        }
-
-        switch (type) {
-            case "runCommand": {
-                const cmd = ev.commandLine;
-                if (!cmd) {
-                     log(`${colors.red}[Error] No command line found for step ${stepIndex}${colors.reset}`);
-                     return;
-                }
-
-                if (ev.needsApproval) {
-                    await handleRequest(
-                        "Run Command",
-                        cmd,
-                        async () => await state.cascade?.approveCommand(stepIndex, cmd, cmd)
-                    );
-                } else {
-                    log(`${colors.gray}[Auto-Run] Executing: ${cmd}${colors.reset}`);
-                }
-                break;
-            }
-
-            case "filePermission": {
-                const val = interaction.interaction.value;
-                const pathUri = val.absolutePathUri;
-
-                await handlePermissionRequest(
-                    "File Permission",
-                    `Access: ${pathUri}`,
-                    async (scope) => await state.cascade?.approveFilePermission(stepIndex, pathUri, scope)
-                );
-                break;
-            }
-
-            case "openBrowserUrl": {
-                // URL is in the step, not the interaction
-                let url = "Unknown URL";
-                if (step && step.step?.case === "openBrowserUrl") {
-                    url = step.step.value.url;
-                }
-
-                await handleRequest(
-                    "Open Browser",
-                    `URL: ${url}`,
-                    async () => await state.cascade?.approveOpenBrowserUrl(stepIndex)
-                );
-                break;
-            }
-
-            default:
-                log(`${colors.yellow}Received unhandled interaction: ${type}${colors.reset}`);
-                break;
-        }
-    });
-
-    cascade.on('done', () => {
-        if (!state.isWaitingForApproval) {
-            process.stdout.write('\n');
-            if (rl) rl.prompt();
-        }
-    });
 }
 
-async function handleRequest(title: string, details: string, approveAction: () => Promise<void>) {
-    if (state.isWaitingForApproval) return; // Simple debounce/blocking
+// ── Approval Handlers ──
+
+async function handleSimpleApproval(request: ApprovalRequest) {
+    if (state.isWaitingForApproval) return;
     state.isWaitingForApproval = true;
 
-    log(`\n${colors.yellow}🔔 AI Request: ${title}${colors.reset}`);
-    log(`${colors.white}> ${details}${colors.reset}`);
+    log(`\n${colors.yellow}🔔 ${request.description}${colors.reset}`);
 
     const answer = await askQuestion(`${colors.yellow}Allow? [Y/n] > ${colors.reset}`);
     const normalized = answer.trim().toLowerCase();
 
     if (normalized === '' || normalized === 'y' || normalized === 'yes') {
         try {
-            await approveAction();
+            await request.approve();
             log(`${colors.green}✔ Approved.${colors.reset}`);
         } catch (e) {
-            log(`${colors.red}❌ Failed to approve: ${e}${colors.reset}`);
+            log(`${colors.red}❌ Failed: ${e}${colors.reset}`);
         }
     } else {
-        log(`${colors.red}✖ Skipped (Denied).${colors.reset}`);
+        log(`${colors.red}✖ Denied.${colors.reset}`);
     }
 
     state.isWaitingForApproval = false;
     if (rl) rl.prompt();
 }
 
-/**
- * Specialized handler for file permissions allowing scope selection.
- */
-async function handlePermissionRequest(title: string, details: string, approveAction: (scope: PermissionScope) => Promise<void>) {
+async function handlePermissionRequest(request: ApprovalRequest) {
     if (state.isWaitingForApproval) return;
     state.isWaitingForApproval = true;
 
-    log(`\n${colors.yellow}🔔 AI Request: ${title}${colors.reset}`);
-    log(`${colors.white}> ${details}${colors.reset}`);
-
+    log(`\n${colors.yellow}🔔 ${request.description}${colors.reset}`);
     log(`${colors.white}Options:${colors.reset}`);
     log(`  [1] Allow Once`);
     log(`  [2] Allow This Conversation`);
@@ -383,27 +269,29 @@ async function handlePermissionRequest(title: string, details: string, approveAc
     const answer = await askQuestion(`${colors.yellow}Selection [1/2/n] > ${colors.reset}`);
     const normalized = answer.trim().toLowerCase();
 
-    let scope: PermissionScope | null = null;
     if (normalized === '1' || normalized === '') {
-        scope = PermissionScope.ONCE;
-    } else if (normalized === '2') {
-        scope = PermissionScope.CONVERSATION;
-    }
-
-    if (scope !== null) {
         try {
-            await approveAction(scope);
-            log(`${colors.green}✔ Approved (${scope === PermissionScope.ONCE ? "Once" : "Conversation"}).${colors.reset}`);
+            await request.approve("once");
+            log(`${colors.green}✔ Approved (Once).${colors.reset}`);
         } catch (e) {
-            log(`${colors.red}❌ Failed to approve: ${e}${colors.reset}`);
+            log(`${colors.red}❌ Failed: ${e}${colors.reset}`);
+        }
+    } else if (normalized === '2') {
+        try {
+            await request.approve("conversation");
+            log(`${colors.green}✔ Approved (Conversation).${colors.reset}`);
+        } catch (e) {
+            log(`${colors.red}❌ Failed: ${e}${colors.reset}`);
         }
     } else {
-        log(`${colors.red}✖ Skipped (Denied).${colors.reset}`);
+        log(`${colors.red}✖ Denied.${colors.reset}`);
     }
 
     state.isWaitingForApproval = false;
     if (rl) rl.prompt();
 }
+
+// ── Slash Commands ──
 
 async function handleCommand(cmd: string): Promise<boolean> {
     const args = cmd.trim().split(/\s+/);
@@ -431,8 +319,6 @@ async function handleCommand(cmd: string): Promise<boolean> {
         case '/new':
         case '/reset':
             await startNewSession();
-            // Since we replaced the cascade object, we need to re-init prompt maybe?
-            // Actually setupListeners handles events.
             return true;
 
         case '/clear':
@@ -454,6 +340,8 @@ async function handleCommand(cmd: string): Promise<boolean> {
             return true;
     }
 }
+
+// ── REPL ──
 
 function initRepl() {
     rl = readline.createInterface({
@@ -486,9 +374,6 @@ function initRepl() {
             return;
         }
 
-        // If we are waiting for approval, we shouldn't be sending messages generally,
-        // but 'line' event handling here is mutually exclusive with askQuestion's tempRl usually
-        // if we pause correctly.
         if (state.isWaitingForApproval) return;
 
         process.stdout.write('\n'); // Newline before response flow starts

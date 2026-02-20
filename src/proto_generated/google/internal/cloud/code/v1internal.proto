@@ -74,27 +74,10 @@ message UserTier_PrivacyNotice {
   bool minor_notice = 4;
 }
 
-message GeminiCodeAssistSetting {
-  bool disable_telemetry = 1;
-  bool disable_feedback = 2;
-  RecitationPolicy recitation_policy = 3;
-  GeminiCodeAssistSetting_GroundingType grounding_type = 4;
-  bool secure_mode_enabled = 5;
-  McpSetting mcp_setting = 6;
-  TurboModeSetting turbo_mode_setting = 7;
-  BrowserSetting browser_setting = 8;
-  PreviewFeatureSetting preview_feature_setting = 9;
-  AgentSetting agent_setting = 10;
-  CliFeatureSetting cli_feature_setting = 11;
-}
-
-message RecitationPolicy {
-  bool disable_citations = 1;
-}
-
 message McpSetting {
   bool mcp_enabled = 1;
   string override_mcp_config_json = 2;
+  string mcp_config_json = 3;
 }
 
 message TurboModeSetting {
@@ -215,6 +198,10 @@ message AiCharactersReport {
   int64 time_interval_index = 5;
 }
 
+message RecitationPolicy {
+  bool disable_citations = 1;
+}
+
 message RecordCodeAssistMetricsRequest {
   string project = 1;
   string request_id = 2;
@@ -257,6 +244,7 @@ enum IneligibleTier_IneligibleTierReasonCodes {
   INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_BYOID_USER = 8;
   INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_RESTRICTED_DASHER_USER = 9;
   INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_VALIDATION_REQUIRED = 10;
+  INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_GOOGLE_TOS_NOT_SUPPORTED_BY_CLIENT = 11;
 }
 
 enum ClientMetadata_IdeType {
@@ -307,12 +295,6 @@ enum UserTier_UpgradeType {
   USER_TIER__UPGRADE_TYPE_GOOGLE_ONE = 2;
   USER_TIER__UPGRADE_TYPE_GDP_HELIUM = 3;
   USER_TIER__UPGRADE_TYPE_GOOGLE_ONE_HELIUM = 4;
-}
-
-enum GeminiCodeAssistSetting_GroundingType {
-  GEMINI_CODE_ASSIST_SETTING__GROUNDING_TYPE_GROUNDING_TYPE_UNSPECIFIED = 0;
-  GEMINI_CODE_ASSIST_SETTING__GROUNDING_TYPE_GROUNDING_WITH_GOOGLE_SEARCH = 1;
-  GEMINI_CODE_ASSIST_SETTING__GROUNDING_TYPE_WEB_GROUNDING_FOR_ENTERPRISE = 2;
 }
 
 enum FetchAdminControlsResponse_GroundingType {

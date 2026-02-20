@@ -136,6 +136,11 @@ export enum IneligibleTier_IneligibleTierReasonCodes {
    * @generated from enum value: INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_VALIDATION_REQUIRED = 10;
    */
   VALIDATION_REQUIRED = 10,
+
+  /**
+   * @generated from enum value: INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_GOOGLE_TOS_NOT_SUPPORTED_BY_CLIENT = 11;
+   */
+  GOOGLE_TOS_NOT_SUPPORTED_BY_CLIENT = 11,
 }
 // Retrieve enum metadata with: proto3.getEnumType(IneligibleTier_IneligibleTierReasonCodes)
 proto3.util.setEnumType(IneligibleTier_IneligibleTierReasonCodes, "google.internal.cloud.code.v1internal.IneligibleTier_IneligibleTierReasonCodes", [
@@ -150,6 +155,7 @@ proto3.util.setEnumType(IneligibleTier_IneligibleTierReasonCodes, "google.intern
   { no: 8, name: "INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_BYOID_USER" },
   { no: 9, name: "INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_RESTRICTED_DASHER_USER" },
   { no: 10, name: "INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_VALIDATION_REQUIRED" },
+  { no: 11, name: "INELIGIBLE_TIER__INELIGIBLE_TIER_REASON_CODES_GOOGLE_TOS_NOT_SUPPORTED_BY_CLIENT" },
 ]);
 
 /**
@@ -400,32 +406,6 @@ proto3.util.setEnumType(UserTier_UpgradeType, "google.internal.cloud.code.v1inte
   { no: 2, name: "USER_TIER__UPGRADE_TYPE_GOOGLE_ONE" },
   { no: 3, name: "USER_TIER__UPGRADE_TYPE_GDP_HELIUM" },
   { no: 4, name: "USER_TIER__UPGRADE_TYPE_GOOGLE_ONE_HELIUM" },
-]);
-
-/**
- * @generated from enum google.internal.cloud.code.v1internal.GeminiCodeAssistSetting_GroundingType
- */
-export enum GeminiCodeAssistSetting_GroundingType {
-  /**
-   * @generated from enum value: GEMINI_CODE_ASSIST_SETTING__GROUNDING_TYPE_GROUNDING_TYPE_UNSPECIFIED = 0;
-   */
-  GROUNDING_TYPE_UNSPECIFIED = 0,
-
-  /**
-   * @generated from enum value: GEMINI_CODE_ASSIST_SETTING__GROUNDING_TYPE_GROUNDING_WITH_GOOGLE_SEARCH = 1;
-   */
-  GROUNDING_WITH_GOOGLE_SEARCH = 1,
-
-  /**
-   * @generated from enum value: GEMINI_CODE_ASSIST_SETTING__GROUNDING_TYPE_WEB_GROUNDING_FOR_ENTERPRISE = 2;
-   */
-  WEB_GROUNDING_FOR_ENTERPRISE = 2,
-}
-// Retrieve enum metadata with: proto3.getEnumType(GeminiCodeAssistSetting_GroundingType)
-proto3.util.setEnumType(GeminiCodeAssistSetting_GroundingType, "google.internal.cloud.code.v1internal.GeminiCodeAssistSetting_GroundingType", [
-  { no: 0, name: "GEMINI_CODE_ASSIST_SETTING__GROUNDING_TYPE_GROUNDING_TYPE_UNSPECIFIED" },
-  { no: 1, name: "GEMINI_CODE_ASSIST_SETTING__GROUNDING_TYPE_GROUNDING_WITH_GOOGLE_SEARCH" },
-  { no: 2, name: "GEMINI_CODE_ASSIST_SETTING__GROUNDING_TYPE_WEB_GROUNDING_FOR_ENTERPRISE" },
 ]);
 
 /**
@@ -1318,140 +1298,6 @@ export class UserTier_PrivacyNotice extends Message<UserTier_PrivacyNotice> {
 }
 
 /**
- * @generated from message google.internal.cloud.code.v1internal.GeminiCodeAssistSetting
- */
-export class GeminiCodeAssistSetting extends Message<GeminiCodeAssistSetting> {
-  /**
-   * @generated from field: bool disable_telemetry = 1;
-   */
-  disableTelemetry = false;
-
-  /**
-   * @generated from field: bool disable_feedback = 2;
-   */
-  disableFeedback = false;
-
-  /**
-   * @generated from field: google.internal.cloud.code.v1internal.RecitationPolicy recitation_policy = 3;
-   */
-  recitationPolicy?: RecitationPolicy;
-
-  /**
-   * @generated from field: google.internal.cloud.code.v1internal.GeminiCodeAssistSetting_GroundingType grounding_type = 4;
-   */
-  groundingType = GeminiCodeAssistSetting_GroundingType.GROUNDING_TYPE_UNSPECIFIED;
-
-  /**
-   * @generated from field: bool secure_mode_enabled = 5;
-   */
-  secureModeEnabled = false;
-
-  /**
-   * @generated from field: google.internal.cloud.code.v1internal.McpSetting mcp_setting = 6;
-   */
-  mcpSetting?: McpSetting;
-
-  /**
-   * @generated from field: google.internal.cloud.code.v1internal.TurboModeSetting turbo_mode_setting = 7;
-   */
-  turboModeSetting?: TurboModeSetting;
-
-  /**
-   * @generated from field: google.internal.cloud.code.v1internal.BrowserSetting browser_setting = 8;
-   */
-  browserSetting?: BrowserSetting;
-
-  /**
-   * @generated from field: google.internal.cloud.code.v1internal.PreviewFeatureSetting preview_feature_setting = 9;
-   */
-  previewFeatureSetting?: PreviewFeatureSetting;
-
-  /**
-   * @generated from field: google.internal.cloud.code.v1internal.AgentSetting agent_setting = 10;
-   */
-  agentSetting?: AgentSetting;
-
-  /**
-   * @generated from field: google.internal.cloud.code.v1internal.CliFeatureSetting cli_feature_setting = 11;
-   */
-  cliFeatureSetting?: CliFeatureSetting;
-
-  constructor(data?: PartialMessage<GeminiCodeAssistSetting>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "google.internal.cloud.code.v1internal.GeminiCodeAssistSetting";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "disable_telemetry", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 2, name: "disable_feedback", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 3, name: "recitation_policy", kind: "message", T: RecitationPolicy },
-    { no: 4, name: "grounding_type", kind: "enum", T: proto3.getEnumType(GeminiCodeAssistSetting_GroundingType) },
-    { no: 5, name: "secure_mode_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 6, name: "mcp_setting", kind: "message", T: McpSetting },
-    { no: 7, name: "turbo_mode_setting", kind: "message", T: TurboModeSetting },
-    { no: 8, name: "browser_setting", kind: "message", T: BrowserSetting },
-    { no: 9, name: "preview_feature_setting", kind: "message", T: PreviewFeatureSetting },
-    { no: 10, name: "agent_setting", kind: "message", T: AgentSetting },
-    { no: 11, name: "cli_feature_setting", kind: "message", T: CliFeatureSetting },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GeminiCodeAssistSetting {
-    return new GeminiCodeAssistSetting().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GeminiCodeAssistSetting {
-    return new GeminiCodeAssistSetting().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GeminiCodeAssistSetting {
-    return new GeminiCodeAssistSetting().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: GeminiCodeAssistSetting | PlainMessage<GeminiCodeAssistSetting> | undefined, b: GeminiCodeAssistSetting | PlainMessage<GeminiCodeAssistSetting> | undefined): boolean {
-    return proto3.util.equals(GeminiCodeAssistSetting, a, b);
-  }
-}
-
-/**
- * @generated from message google.internal.cloud.code.v1internal.RecitationPolicy
- */
-export class RecitationPolicy extends Message<RecitationPolicy> {
-  /**
-   * @generated from field: bool disable_citations = 1;
-   */
-  disableCitations = false;
-
-  constructor(data?: PartialMessage<RecitationPolicy>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "google.internal.cloud.code.v1internal.RecitationPolicy";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "disable_citations", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecitationPolicy {
-    return new RecitationPolicy().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RecitationPolicy {
-    return new RecitationPolicy().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RecitationPolicy {
-    return new RecitationPolicy().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: RecitationPolicy | PlainMessage<RecitationPolicy> | undefined, b: RecitationPolicy | PlainMessage<RecitationPolicy> | undefined): boolean {
-    return proto3.util.equals(RecitationPolicy, a, b);
-  }
-}
-
-/**
  * @generated from message google.internal.cloud.code.v1internal.McpSetting
  */
 export class McpSetting extends Message<McpSetting> {
@@ -1465,6 +1311,11 @@ export class McpSetting extends Message<McpSetting> {
    */
   overrideMcpConfigJson = "";
 
+  /**
+   * @generated from field: string mcp_config_json = 3;
+   */
+  mcpConfigJson = "";
+
   constructor(data?: PartialMessage<McpSetting>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1475,6 +1326,7 @@ export class McpSetting extends Message<McpSetting> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "mcp_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 2, name: "override_mcp_config_json", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "mcp_config_json", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): McpSetting {
@@ -2421,6 +2273,43 @@ export class AiCharactersReport extends Message<AiCharactersReport> {
 
   static equals(a: AiCharactersReport | PlainMessage<AiCharactersReport> | undefined, b: AiCharactersReport | PlainMessage<AiCharactersReport> | undefined): boolean {
     return proto3.util.equals(AiCharactersReport, a, b);
+  }
+}
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.RecitationPolicy
+ */
+export class RecitationPolicy extends Message<RecitationPolicy> {
+  /**
+   * @generated from field: bool disable_citations = 1;
+   */
+  disableCitations = false;
+
+  constructor(data?: PartialMessage<RecitationPolicy>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.RecitationPolicy";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "disable_citations", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecitationPolicy {
+    return new RecitationPolicy().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RecitationPolicy {
+    return new RecitationPolicy().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RecitationPolicy {
+    return new RecitationPolicy().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RecitationPolicy | PlainMessage<RecitationPolicy> | undefined, b: RecitationPolicy | PlainMessage<RecitationPolicy> | undefined): boolean {
+    return proto3.util.equals(RecitationPolicy, a, b);
   }
 }
 

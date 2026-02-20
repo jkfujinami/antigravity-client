@@ -645,6 +645,49 @@ export class CciWithSubrangeWithRetrievalMetadata extends Message<CciWithSubrang
 }
 
 /**
+ * @generated from message exa.context_module_pb.CodeContextItemWithRetrievalMetadata
+ */
+export class CodeContextItemWithRetrievalMetadata extends Message<CodeContextItemWithRetrievalMetadata> {
+  /**
+   * @generated from field: exa.codeium_common_pb.CodeContextItem code_context_item = 1;
+   */
+  codeContextItem?: CodeContextItem;
+
+  /**
+   * @generated from field: exa.context_module_pb.RetrievedCodeContextItemMetadata metadata = 2;
+   */
+  metadata?: RetrievedCodeContextItemMetadata;
+
+  constructor(data?: PartialMessage<CodeContextItemWithRetrievalMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.context_module_pb.CodeContextItemWithRetrievalMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "code_context_item", kind: "message", T: CodeContextItem },
+    { no: 2, name: "metadata", kind: "message", T: RetrievedCodeContextItemMetadata },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CodeContextItemWithRetrievalMetadata {
+    return new CodeContextItemWithRetrievalMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CodeContextItemWithRetrievalMetadata {
+    return new CodeContextItemWithRetrievalMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CodeContextItemWithRetrievalMetadata {
+    return new CodeContextItemWithRetrievalMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CodeContextItemWithRetrievalMetadata | PlainMessage<CodeContextItemWithRetrievalMetadata> | undefined, b: CodeContextItemWithRetrievalMetadata | PlainMessage<CodeContextItemWithRetrievalMetadata> | undefined): boolean {
+    return proto3.util.equals(CodeContextItemWithRetrievalMetadata, a, b);
+  }
+}
+
+/**
  * @generated from message exa.context_module_pb.CodeContextItemIndexStats
  */
 export class CodeContextItemIndexStats extends Message<CodeContextItemIndexStats> {
@@ -769,49 +812,6 @@ export class LocalNodeState extends Message<LocalNodeState> {
 
   static equals(a: LocalNodeState | PlainMessage<LocalNodeState> | undefined, b: LocalNodeState | PlainMessage<LocalNodeState> | undefined): boolean {
     return proto3.util.equals(LocalNodeState, a, b);
-  }
-}
-
-/**
- * @generated from message exa.context_module_pb.CodeContextItemWithRetrievalMetadata
- */
-export class CodeContextItemWithRetrievalMetadata extends Message<CodeContextItemWithRetrievalMetadata> {
-  /**
-   * @generated from field: exa.codeium_common_pb.CodeContextItem code_context_item = 1;
-   */
-  codeContextItem?: CodeContextItem;
-
-  /**
-   * @generated from field: exa.context_module_pb.RetrievedCodeContextItemMetadata metadata = 2;
-   */
-  metadata?: RetrievedCodeContextItemMetadata;
-
-  constructor(data?: PartialMessage<CodeContextItemWithRetrievalMetadata>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.context_module_pb.CodeContextItemWithRetrievalMetadata";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "code_context_item", kind: "message", T: CodeContextItem },
-    { no: 2, name: "metadata", kind: "message", T: RetrievedCodeContextItemMetadata },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CodeContextItemWithRetrievalMetadata {
-    return new CodeContextItemWithRetrievalMetadata().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CodeContextItemWithRetrievalMetadata {
-    return new CodeContextItemWithRetrievalMetadata().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CodeContextItemWithRetrievalMetadata {
-    return new CodeContextItemWithRetrievalMetadata().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: CodeContextItemWithRetrievalMetadata | PlainMessage<CodeContextItemWithRetrievalMetadata> | undefined, b: CodeContextItemWithRetrievalMetadata | PlainMessage<CodeContextItemWithRetrievalMetadata> | undefined): boolean {
-    return proto3.util.equals(CodeContextItemWithRetrievalMetadata, a, b);
   }
 }
 

@@ -57,6 +57,11 @@ message CciWithSubrangeWithRetrievalMetadata {
   RetrievedCodeContextItemMetadata metadata = 2;
 }
 
+message CodeContextItemWithRetrievalMetadata {
+  exa.codeium_common_pb.CodeContextItem code_context_item = 1;
+  RetrievedCodeContextItemMetadata metadata = 2;
+}
+
 message CodeContextItemIndexStats {
   int64 all_ccis_bytes = 1;
   int64 num_ccis_tracked = 2;
@@ -72,11 +77,6 @@ message LocalNodeState {
   exa.codeium_common_pb.CodeContextItem current_node = 1;
   exa.codeium_common_pb.CodeContextItem closest_above_node = 2;
   exa.codeium_common_pb.CodeContextItem closest_below_node = 3;
-}
-
-message CodeContextItemWithRetrievalMetadata {
-  exa.codeium_common_pb.CodeContextItem code_context_item = 1;
-  RetrievedCodeContextItemMetadata metadata = 2;
 }
 
 message CodeContextProviderMetadata {

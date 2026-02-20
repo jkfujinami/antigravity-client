@@ -267,6 +267,43 @@ message WriteCascadeEditRequest {
 message WriteCascadeEditResponse {
 }
 
+message EditNotebookRequest {
+  string absolute_path_uri = 1;
+  EditNotebookOperation operation = 2;
+  string anchor_cell_id = 3;
+  int32 anchor_cell_index = 4;
+  repeated EditNotebookRequest_Cell cells = 5;
+  int32 delete_count = 6;
+}
+
+message EditNotebookRequest_Cell {
+  string kind = 1;
+  string content = 2;
+}
+
+message EditNotebookResponse {
+  repeated EditNotebookResponse_ModifiedCell modified_cells = 1;
+  int32 total_cell_count = 2;
+}
+
+message EditNotebookResponse_ModifiedCell {
+  string cell_id = 1;
+  string kind = 2;
+  string content = 3;
+  int32 index = 4;
+}
+
+message ReadNotebookRequest {
+  string absolute_path_uri = 1;
+  repeated int32 cell_indices = 2;
+  repeated string cell_ids = 3;
+}
+
+message ReadNotebookResponse {
+  string flattened_content = 1;
+  int32 read_cell_count = 2;
+}
+
 message OpenConversationWorkspaceQuickPickRequest {
   string cascade_id = 1;
   repeated string workspace_uris = 2;
@@ -472,6 +509,15 @@ enum SoundType {
   SOUND_TYPE_CASCADE_DONE = 1;
 }
 
+enum EditNotebookOperation {
+  EDIT_NOTEBOOK_OPERATION_UNSPECIFIED = 0;
+  EDIT_NOTEBOOK_OPERATION_INSERT_AFTER = 1;
+  EDIT_NOTEBOOK_OPERATION_INSERT_BEFORE = 2;
+  EDIT_NOTEBOOK_OPERATION_REPLACE_CELLS = 3;
+  EDIT_NOTEBOOK_OPERATION_DELETE_CELLS = 4;
+  EDIT_NOTEBOOK_OPERATION_OVERWRITE_NOTEBOOK = 5;
+}
+
 service ExtensionServerService {
   rpc LanguageServerStarted(LanguageServerStartedRequest) returns (LanguageServerStartedResponse);
   rpc OpenSetting(OpenSettingRequest) returns (OpenSettingResponse);
@@ -501,6 +547,8 @@ service ExtensionServerService {
   rpc GetDefinition(GetDefinitionRequest) returns (GetDefinitionResponse);
   rpc TerminalResearchResult(TerminalResearchResultRequest) returns (TerminalResearchResultResponse);
   rpc WriteCascadeEdit(WriteCascadeEditRequest) returns (WriteCascadeEditResponse);
+  rpc EditNotebook(EditNotebookRequest) returns (EditNotebookResponse);
+  rpc ReadNotebook(ReadNotebookRequest) returns (ReadNotebookResponse);
   rpc StartAudioRecording(StartAudioRecordingRequest) returns (StartAudioRecordingResponse);
   rpc EndAudioRecording(EndAudioRecordingRequest) returns (EndAudioRecordingResponse);
   rpc GetCurrentAudioRecording(GetCurrentAudioRecordingRequest) returns (GetCurrentAudioRecordingResponse);

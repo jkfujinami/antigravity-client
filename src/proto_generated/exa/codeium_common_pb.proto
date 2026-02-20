@@ -35,12 +35,45 @@ message CompletionsRequest {
   bool supports_packed_streaming_completion_maps = 24;
 }
 
+message CompletionConfiguration {
+  uint64 num_completions = 1;
+  uint64 max_tokens = 2;
+  uint64 max_newlines = 3;
+  double min_log_probability = 4;
+  double temperature = 5;
+  double first_temperature = 6;
+  uint64 top_k = 7;
+  double top_p = 8;
+  repeated string stop_patterns = 9;
+  uint64 seed = 10;
+  double fim_eot_prob_threshold = 11;
+  bool use_fim_eot_threshold = 12;
+  bool do_not_score_stop_tokens = 13;
+  bool sqrt_len_normalized_log_prob_score = 14;
+  bool last_message_is_partial = 15;
+  bool return_logprob = 16;
+  bool disable_parallel_tool_calls = 17;
+}
+
 message PromptElementRange {
   PromptElementKind kind = 1;
   uint64 byte_offset_start = 2;
   uint64 byte_offset_end = 3;
   uint64 token_offset_start = 4;
   uint64 token_offset_end = 5;
+}
+
+message ActionPointer {
+  string cortex_plan_id = 1;
+  string code_plan_id = 2;
+  int32 action_index = 3;
+}
+
+message PromptAnnotationRange {
+  PromptAnnotationKind kind = 1;
+  uint64 byte_offset_start = 2;
+  uint64 byte_offset_end = 3;
+  string suffix = 4;
 }
 
 message ExperimentWithVariant {
@@ -134,6 +167,38 @@ message StreamingEvalSuffixInfo {
   bool is_greedy = 2;
 }
 
+message EditorOptions {
+  uint64 tab_size = 1;
+  bool insert_spaces = 2;
+  bool disable_autocomplete_in_comments = 3;
+}
+
+message ErrorTrace {
+  string error_id = 1;
+  int64 timestamp_unix_ms = 2;
+  string stacktrace = 3;
+  bool recovered = 4;
+  string full_stderr = 5;
+  string ide_name = 6;
+  string ide_version = 7;
+  string os = 8;
+  bool is_dev = 9;
+}
+
+message Event {
+  EventType event_type = 1;
+  string event_json = 2;
+  int64 timestamp_unix_ms = 3;
+}
+
+message Citation {
+  int32 start_index = 1;
+  int32 end_index = 2;
+  string uri = 3;
+  string title = 4;
+  string license = 5;
+}
+
 message CitationMetadata {
   repeated Citation citations = 1;
 }
@@ -152,6 +217,10 @@ message EmbeddingMetadata {
   uint32 start_line = 2;
   uint32 end_line = 3;
   EmbedType embed_type = 4;
+}
+
+message MockResponseData {
+  repeated Completion completions = 1;
 }
 
 message QuotaInfo {
@@ -262,6 +331,31 @@ message PlanStatus {
   TopUpStatus top_up_status = 10;
 }
 
+message UserStatus {
+  bool pro = 1;
+  bool disable_telemetry = 2;
+  string name = 3;
+  bool ignore_chat_telemetry_setting = 4;
+  string team_id = 5;
+  UserTeamStatus team_status = 6;
+  string email = 7;
+  repeated UserFeatures user_features = 9;
+  repeated TeamsFeatures teams_features = 8;
+  repeated Permission permissions = 11;
+  PlanInfo plan_info = 12;
+  PlanStatus plan_status = 13;
+  bool has_used_antigravity = 31;
+  int64 user_used_prompt_credits = 28;
+  int64 user_used_flow_credits = 29;
+  bool has_fingerprint_set = 30;
+  TeamConfig team_config = 32;
+  CascadeModelConfigData cascade_model_config_data = 33;
+  bool accepted_latest_terms_of_service = 34;
+  string g1_tier = 35;
+  google.internal.cloud.code.v1internal.UserTier user_tier = 36;
+  bool user_data_collection_force_disabled = 37;
+}
+
 message GitRepoInfo {
   string name = 1;
   string owner = 2;
@@ -308,9 +402,127 @@ message Repository {
   string submodule_path = 7;
 }
 
+message CompletionByDateEntry {
+  google.protobuf.Timestamp timestamp = 1;
+  CompletionStatistics completion_statistics = 2;
+}
+
+message CompletionByLanguageEntry {
+  Language language = 1;
+  CompletionStatistics completion_statistics = 2;
+}
+
+message ChatStats {
+  uint64 chats_sent = 1;
+  uint64 chats_received = 2;
+  uint64 chats_accepted = 3;
+  uint64 chats_inserted_at_cursor = 4;
+  uint64 chats_applied = 5;
+  uint64 chat_loc_used = 6;
+  uint64 chat_code_blocks_used = 7;
+  uint64 function_explain_count = 8;
+  uint64 function_docstring_count = 9;
+  uint64 function_refactor_count = 10;
+  uint64 code_block_explain_count = 11;
+  uint64 code_block_refactor_count = 12;
+  uint64 problem_explain_count = 13;
+  uint64 function_unit_tests_count = 14;
+  uint32 active_developer_days = 15;
+}
+
+message CommandStats {
+  uint64 num_commands = 1;
+  uint64 num_commands_accepted = 2;
+  uint64 num_commands_rejected = 3;
+  uint64 num_edits = 4;
+  uint64 num_generations = 5;
+  uint64 loc_added = 6;
+  uint64 loc_removed = 7;
+  uint64 bytes_added = 8;
+  uint64 bytes_removed = 9;
+  uint64 loc_selected = 10;
+  uint64 bytes_selected = 11;
+  map<string, uint64> num_commands_by_source = 12;
+}
+
+message UserSettings {
+  bool open_most_recent_chat_conversation = 1;
+  Model last_selected_model = 2;
+  ThemePreference theme_preference = 3;
+  RememberLastModelSelection remember_last_model_selection = 7;
+  AutocompleteSpeed autocomplete_speed = 6;
+  string last_selected_model_name = 8;
+  Model last_selected_cascade_model = 9;
+  ModelOrAlias last_selected_cascade_model_or_alias = 30;
+  ConversationalPlannerMode cascade_planner_mode = 13;
+  Model last_model_override = 46;
+  string last_model_default_override_version_id = 58;
+  repeated string cascade_allowed_commands = 14;
+  repeated string cascade_denied_commands = 15;
+  bool cascade_web_search_disabled = 18;
+  TabEnabled tab_enabled = 67;
+  bool disable_selection_popup = 21;
+  bool disable_explain_problem_inlay_hint = 22;
+  bool disable_inlay_hint_shortcuts = 23;
+  bool disable_open_cascade_on_reload = 24;
+  bool disable_auto_open_edited_files = 25;
+  bool disable_tab_to_jump = 26;
+  CascadeCommandsAutoExecution cascade_auto_execution_policy = 27;
+  string last_selected_cascade_id = 28;
+  bool explain_and_fix_in_current_conversation = 29;
+  bool allow_cascade_access_gitignore_files = 31;
+  bool allow_agent_access_non_workspace_files = 79;
+  bool disable_cascade_auto_fix_lints = 32;
+  DetectAndUseProxy detect_and_use_proxy = 34;
+  bool disable_tab_to_import = 35;
+  bool use_clipboard_for_completions = 36;
+  bool disable_highlight_after_accept = 37;
+  bool disable_auto_generate_memories = 39;
+  bool enable_sounds_for_special_events = 40;
+  bool enable_tab_sounds = 41;
+  bool allow_cascade_in_background = 42;
+  TabToJump tab_to_jump = 43;
+  CascadeWebSearchTool cascade_web_search = 44;
+  bool enable_terminal_completion = 45;
+  bool is_snoozed = 55;
+  bool disable_cascade_in_background = 48;
+  repeated string custom_workspace = 50;
+  PlanMode global_plan_mode_preference = 54;
+  repeated ClientModelConfig cached_cascade_model_configs = 52;
+  repeated ClientModelSort cached_cascade_model_sorts = 53;
+  CascadeRunExtensionCode cascade_run_extension_code = 56;
+  CascadeRunExtensionCodeAutoRun cascade_run_extension_code_auto_run = 57;
+  CascadeInputAutocomplete cascade_input_autocomplete = 65;
+  AutoContinueOnMaxGeneratorInvocations auto_continue_on_max_generator_invocations = 59;
+  repeated string recently_used_cascade_models = 61;
+  AnnotationsConfig annotations_config = 63;
+  repeated string relative_working_dir_paths = 66;
+  map<string, ModelInfo> custom_models = 68;
+  bool disable_code_snippet_telemetry = 69;
+  PlanningMode planning_mode = 70;
+  AgentBrowserTools agent_browser_tools = 71;
+  ArtifactReviewMode artifact_review_mode = 72;
+  bool allow_tab_access_gitignore_files = 75;
+  string browser_chrome_path = 76;
+  string browser_user_profile_path = 77;
+  int32 browser_cdp_port = 78;
+  bool demo_mode_enabled = 80;
+  BrowserJsExecutionPolicy browser_js_execution_policy = 81;
+  bool secure_mode_enabled = 82;
+}
+
 message ApiProviderConfig {
   uint32 weight = 1;
   uint32 cache_ttl_minutes = 2;
+}
+
+message CompletionExample {
+  string uid = 1;
+  string completion_id = 2;
+  string file_path = 3;
+  string short_prefix = 4;
+  string completion_text = 5;
+  string short_suffix = 6;
 }
 
 message ContextSubrange {
@@ -411,6 +623,13 @@ message DOMTree {
   map<string, DOMNode> map = 2;
 }
 
+message Viewport {
+  int32 x = 1;
+  int32 y = 2;
+  int32 width = 3;
+  int32 height = 4;
+}
+
 message RecipeScopeItem {
   string recipe_id = 1;
   string title = 2;
@@ -431,6 +650,39 @@ message McpResourceItem {
   string description = 3;
   string mime_type = 4;
   string server_name = 5;
+}
+
+message McpResourceContent {
+  string uri = 1;
+  oneof data {
+    TextData text = 2;
+    ImageData image = 3;
+    Media media_content = 4;
+  }
+}
+
+message McpPromptMessage {
+  string role = 1;
+  oneof content {
+    string text = 2;
+    Media media = 3;
+    McpResourceContent resource = 4;
+  }
+}
+
+message McpPromptArgument {
+  string name = 1;
+  string description = 2;
+  bool required = 3;
+}
+
+message McpPromptScopeItem {
+  string server_name = 1;
+  string name = 2;
+  string description = 3;
+  repeated McpPromptArgument arguments = 4;
+  map<string, string> argument_values = 5;
+  repeated McpPromptMessage messages = 6;
 }
 
 message BrowserPageScopeItem {
@@ -500,6 +752,7 @@ message ContextScopeItem {
     ConversationScopeItem conversation = 23;
     UserActivityScopeItem user_activity = 24;
     TerminalScopeItem terminal = 25;
+    McpPromptScopeItem mcp_prompt = 26;
   }
 }
 
@@ -563,6 +816,17 @@ message CompletionDelta {
   CitationMetadata citation_metadata = 11;
   string trace_id = 13;
   string stop_message = 14;
+  repeated google.internal.cloud.code.v1internal.Credits consumed_credits = 15;
+}
+
+message Status {
+  StatusLevel level = 1;
+  string message = 2;
+}
+
+message DocumentPosition {
+  uint64 row = 1;
+  uint64 col = 2;
 }
 
 message Range {
@@ -624,6 +888,40 @@ message FaissStateStats {
 }
 
 message PostgresDbStats {
+}
+
+message SuperCompleteFilterReason {
+  string reason = 1;
+}
+
+message CodeDiagnostic {
+  Range range = 1;
+  string message = 2;
+  string severity = 3;
+  string source = 4;
+  string uri = 5;
+  string id = 6;
+  Language language = 7;
+  int64 score = 8;
+}
+
+message IntellisenseSuggestion {
+  Range range = 1;
+  string text = 2;
+  string label = 3;
+  string label_detail = 4;
+  string description = 5;
+  string detail = 6;
+  string documentation = 7;
+  string kind = 8;
+  bool selected = 9;
+}
+
+message DocumentLinesElement {
+  DocumentQuery document_query = 1;
+  repeated CodeContextItem overlapped_code_context_items = 2;
+  uint32 first_element_suffix_overlap = 3;
+  uint32 last_element_prefix_overlap = 4;
 }
 
 message DocumentQuery {
@@ -730,6 +1028,35 @@ message TerminalShellCommandTrailer {
   google.protobuf.Timestamp end_time = 2;
 }
 
+message TerminalShellCommandStreamChunk {
+  oneof value {
+    TerminalShellCommandHeader header = 1;
+    TerminalShellCommandData data = 2;
+    TerminalShellCommandTrailer trailer = 3;
+  }
+}
+
+message TerminalShellCommand {
+  string id = 10;
+  uint32 shell_pid = 1;
+  string command_line = 2;
+  string cwd = 3;
+  bytes output = 4;
+  int32 exit_code = 5;
+  google.protobuf.Timestamp start_time = 6;
+  google.protobuf.Timestamp end_time = 7;
+  google.protobuf.Timestamp last_updated_time = 11;
+  TerminalShellCommandStatus status = 8;
+  TerminalShellCommandSource source = 9;
+}
+
+message TerminalCommandData {
+  string terminal_id = 1;
+  string platform = 2;
+  string cwd = 3;
+  string shell_name = 4;
+}
+
 message DeployTarget {
   DeploymentProvider deployment_provider = 1;
   bool is_sandbox = 2;
@@ -738,9 +1065,59 @@ message DeployTarget {
   string domain = 5;
 }
 
+message WebDocsOption {
+  string label = 1;
+  repeated string synonyms = 4;
+  bool is_featured = 5;
+  oneof value {
+    string docs_url = 2;
+    string docs_search_domain = 3;
+  }
+}
+
+message TeamConfig {
+  string team_id = 1;
+  int32 user_prompt_credit_cap = 2;
+  int32 user_flow_credit_cap = 3;
+  bool auto_provision_cascade_seat = 4;
+  bool allow_mcp_servers = 5;
+  bool allow_auto_run_commands = 7;
+  int32 max_unclaimed_sites = 9;
+  bool allow_app_deployments = 10;
+  bool allow_sandbox_app_deployments = 19;
+  bool allow_teams_app_deployments = 20;
+  int32 max_new_sites_per_day = 11;
+  bool allow_github_reviews = 12;
+  bool allow_github_description_edits = 13;
+  string pull_request_review_guidelines = 14;
+  string pull_request_description_guidelines = 16;
+  bool disable_tool_calls = 15;
+  bool allow_individual_level_analytics = 17;
+  bool allow_conversation_sharing = 18;
+  int32 pull_request_review_rate_limit = 21;
+  bool allow_attribution = 22;
+  repeated McpServerConfig allowed_mcp_servers = 23;
+  bool allow_github_auto_reviews = 24;
+  bool allow_browser_experimental_features = 25;
+  bool disable_tool_call_execution_outside_workspace = 26;
+}
+
 message WebAppDeploymentConfig {
   string project_id = 1;
   string framework = 2;
+}
+
+message McpServerTemplate {
+  string title = 1;
+  string id = 2;
+  string link = 3;
+  string description = 4;
+  map<string, McpServerCommand> commands = 5;
+}
+
+message McpServerCommand {
+  McpCommandTemplate template = 1;
+  repeated McpCommandVariable variables = 2;
 }
 
 message McpCommandTemplate {
@@ -776,12 +1153,25 @@ message McpRemoteServer {
   map<string, string> headers = 3;
 }
 
+message UnleashContext {
+  string user_id = 1;
+  string session_id = 2;
+  map<string, string> properties = 3;
+}
+
+message BrowserStateSnapshot {
+  google.protobuf.Timestamp timestamp = 1;
+  string user_active_page_id = 2;
+  repeated BrowserPageMetadata pages = 3;
+}
+
 message BrowserPageMetadata {
   string url = 1;
   string page_id = 2;
   string page_title = 3;
   uint32 viewport_width = 4;
   uint32 viewport_height = 5;
+  uint32 page_height = 9;
   string favicon_url = 6;
   float device_pixel_ratio = 8;
   google.protobuf.Timestamp last_visited_time = 7;
@@ -810,6 +1200,11 @@ message MetricsRecord {
   string trajectory_id = 7;
   bool lower_better = 4;
   bool is_bool = 5;
+}
+
+message ArtifactFullFileTarget {
+  ImageData image = 1;
+  Media media = 2;
 }
 
 message TextSelection {
@@ -942,333 +1337,6 @@ message ClientInfo {
   int32 client_type = 1;
 }
 
-message ActionPointer {
-  string cortex_plan_id = 1;
-  string code_plan_id = 2;
-  int32 action_index = 3;
-}
-
-message PromptAnnotationRange {
-  PromptAnnotationKind kind = 1;
-  uint64 byte_offset_start = 2;
-  uint64 byte_offset_end = 3;
-  string suffix = 4;
-}
-
-message EditorOptions {
-  uint64 tab_size = 1;
-  bool insert_spaces = 2;
-  bool disable_autocomplete_in_comments = 3;
-}
-
-message ErrorTrace {
-  string error_id = 1;
-  int64 timestamp_unix_ms = 2;
-  string stacktrace = 3;
-  bool recovered = 4;
-  string full_stderr = 5;
-  string ide_name = 6;
-  string ide_version = 7;
-  string os = 8;
-  bool is_dev = 9;
-}
-
-message Event {
-  EventType event_type = 1;
-  string event_json = 2;
-  int64 timestamp_unix_ms = 3;
-}
-
-message Citation {
-  int32 start_index = 1;
-  int32 end_index = 2;
-  string uri = 3;
-  string title = 4;
-  string license = 5;
-}
-
-message MockResponseData {
-  repeated Completion completions = 1;
-}
-
-message UserStatus {
-  bool pro = 1;
-  bool disable_telemetry = 2;
-  string name = 3;
-  bool ignore_chat_telemetry_setting = 4;
-  string team_id = 5;
-  UserTeamStatus team_status = 6;
-  string email = 7;
-  repeated UserFeatures user_features = 9;
-  repeated TeamsFeatures teams_features = 8;
-  repeated Permission permissions = 11;
-  PlanInfo plan_info = 12;
-  PlanStatus plan_status = 13;
-  bool has_used_antigravity = 31;
-  int64 user_used_prompt_credits = 28;
-  int64 user_used_flow_credits = 29;
-  bool has_fingerprint_set = 30;
-  TeamConfig team_config = 32;
-  CascadeModelConfigData cascade_model_config_data = 33;
-  bool accepted_latest_terms_of_service = 34;
-  string g1_tier = 35;
-  google.internal.cloud.code.v1internal.UserTier user_tier = 36;
-  bool user_data_collection_force_disabled = 37;
-}
-
-message CompletionByDateEntry {
-  google.protobuf.Timestamp timestamp = 1;
-  CompletionStatistics completion_statistics = 2;
-}
-
-message CompletionByLanguageEntry {
-  Language language = 1;
-  CompletionStatistics completion_statistics = 2;
-}
-
-message ChatStats {
-  uint64 chats_sent = 1;
-  uint64 chats_received = 2;
-  uint64 chats_accepted = 3;
-  uint64 chats_inserted_at_cursor = 4;
-  uint64 chats_applied = 5;
-  uint64 chat_loc_used = 6;
-  uint64 chat_code_blocks_used = 7;
-  uint64 function_explain_count = 8;
-  uint64 function_docstring_count = 9;
-  uint64 function_refactor_count = 10;
-  uint64 code_block_explain_count = 11;
-  uint64 code_block_refactor_count = 12;
-  uint64 problem_explain_count = 13;
-  uint64 function_unit_tests_count = 14;
-  uint32 active_developer_days = 15;
-}
-
-message CommandStats {
-  uint64 num_commands = 1;
-  uint64 num_commands_accepted = 2;
-  uint64 num_commands_rejected = 3;
-  uint64 num_edits = 4;
-  uint64 num_generations = 5;
-  uint64 loc_added = 6;
-  uint64 loc_removed = 7;
-  uint64 bytes_added = 8;
-  uint64 bytes_removed = 9;
-  uint64 loc_selected = 10;
-  uint64 bytes_selected = 11;
-  map<string, uint64> num_commands_by_source = 12;
-}
-
-message UserSettings {
-  bool open_most_recent_chat_conversation = 1;
-  Model last_selected_model = 2;
-  ThemePreference theme_preference = 3;
-  RememberLastModelSelection remember_last_model_selection = 7;
-  AutocompleteSpeed autocomplete_speed = 6;
-  string last_selected_model_name = 8;
-  Model last_selected_cascade_model = 9;
-  ModelOrAlias last_selected_cascade_model_or_alias = 30;
-  ConversationalPlannerMode cascade_planner_mode = 13;
-  Model last_model_override = 46;
-  string last_model_default_override_version_id = 58;
-  repeated string cascade_allowed_commands = 14;
-  repeated string cascade_denied_commands = 15;
-  bool cascade_web_search_disabled = 18;
-  TabEnabled tab_enabled = 67;
-  bool disable_selection_popup = 21;
-  bool disable_explain_problem_inlay_hint = 22;
-  bool disable_inlay_hint_shortcuts = 23;
-  bool disable_open_cascade_on_reload = 24;
-  bool disable_auto_open_edited_files = 25;
-  bool disable_tab_to_jump = 26;
-  CascadeCommandsAutoExecution cascade_auto_execution_policy = 27;
-  string last_selected_cascade_id = 28;
-  bool explain_and_fix_in_current_conversation = 29;
-  bool allow_cascade_access_gitignore_files = 31;
-  bool allow_agent_access_non_workspace_files = 79;
-  bool disable_cascade_auto_fix_lints = 32;
-  DetectAndUseProxy detect_and_use_proxy = 34;
-  bool disable_tab_to_import = 35;
-  bool use_clipboard_for_completions = 36;
-  bool disable_highlight_after_accept = 37;
-  bool disable_auto_generate_memories = 39;
-  bool enable_sounds_for_special_events = 40;
-  bool enable_tab_sounds = 41;
-  bool allow_cascade_in_background = 42;
-  TabToJump tab_to_jump = 43;
-  CascadeWebSearchTool cascade_web_search = 44;
-  bool enable_terminal_completion = 45;
-  bool is_snoozed = 55;
-  bool disable_cascade_in_background = 48;
-  repeated string custom_workspace = 50;
-  PlanMode global_plan_mode_preference = 54;
-  repeated ClientModelConfig cached_cascade_model_configs = 52;
-  repeated ClientModelSort cached_cascade_model_sorts = 53;
-  CascadeRunExtensionCode cascade_run_extension_code = 56;
-  CascadeRunExtensionCodeAutoRun cascade_run_extension_code_auto_run = 57;
-  CascadeInputAutocomplete cascade_input_autocomplete = 65;
-  AutoContinueOnMaxGeneratorInvocations auto_continue_on_max_generator_invocations = 59;
-  repeated string recently_used_cascade_models = 61;
-  AnnotationsConfig annotations_config = 63;
-  repeated string relative_working_dir_paths = 66;
-  map<string, ModelInfo> custom_models = 68;
-  bool disable_code_snippet_telemetry = 69;
-  PlanningMode planning_mode = 70;
-  AgentBrowserTools agent_browser_tools = 71;
-  ArtifactReviewMode artifact_review_mode = 72;
-  bool allow_tab_access_gitignore_files = 75;
-  string browser_chrome_path = 76;
-  string browser_user_profile_path = 77;
-  int32 browser_cdp_port = 78;
-  bool demo_mode_enabled = 80;
-  BrowserJsExecutionPolicy browser_js_execution_policy = 81;
-  bool secure_mode_enabled = 82;
-}
-
-message CompletionExample {
-  string uid = 1;
-  string completion_id = 2;
-  string file_path = 3;
-  string short_prefix = 4;
-  string completion_text = 5;
-  string short_suffix = 6;
-}
-
-message Status {
-  StatusLevel level = 1;
-  string message = 2;
-}
-
-message DocumentPosition {
-  uint64 row = 1;
-  uint64 col = 2;
-}
-
-message SuperCompleteFilterReason {
-  string reason = 1;
-}
-
-message CodeDiagnostic {
-  Range range = 1;
-  string message = 2;
-  string severity = 3;
-  string source = 4;
-  string uri = 5;
-  string id = 6;
-  Language language = 7;
-  int64 score = 8;
-}
-
-message IntellisenseSuggestion {
-  Range range = 1;
-  string text = 2;
-  string label = 3;
-  string label_detail = 4;
-  string description = 5;
-  string detail = 6;
-  string documentation = 7;
-  string kind = 8;
-  bool selected = 9;
-}
-
-message DocumentLinesElement {
-  DocumentQuery document_query = 1;
-  repeated CodeContextItem overlapped_code_context_items = 2;
-  uint32 first_element_suffix_overlap = 3;
-  uint32 last_element_prefix_overlap = 4;
-}
-
-message TerminalShellCommandStreamChunk {
-  oneof value {
-    TerminalShellCommandHeader header = 1;
-    TerminalShellCommandData data = 2;
-    TerminalShellCommandTrailer trailer = 3;
-  }
-}
-
-message TerminalShellCommand {
-  string id = 10;
-  uint32 shell_pid = 1;
-  string command_line = 2;
-  string cwd = 3;
-  bytes output = 4;
-  int32 exit_code = 5;
-  google.protobuf.Timestamp start_time = 6;
-  google.protobuf.Timestamp end_time = 7;
-  google.protobuf.Timestamp last_updated_time = 11;
-  TerminalShellCommandStatus status = 8;
-  TerminalShellCommandSource source = 9;
-}
-
-message TerminalCommandData {
-  string terminal_id = 1;
-  string platform = 2;
-  string cwd = 3;
-  string shell_name = 4;
-}
-
-message WebDocsOption {
-  string label = 1;
-  repeated string synonyms = 4;
-  bool is_featured = 5;
-  oneof value {
-    string docs_url = 2;
-    string docs_search_domain = 3;
-  }
-}
-
-message TeamConfig {
-  string team_id = 1;
-  int32 user_prompt_credit_cap = 2;
-  int32 user_flow_credit_cap = 3;
-  bool auto_provision_cascade_seat = 4;
-  bool allow_mcp_servers = 5;
-  bool allow_auto_run_commands = 7;
-  int32 max_unclaimed_sites = 9;
-  bool allow_app_deployments = 10;
-  bool allow_sandbox_app_deployments = 19;
-  bool allow_teams_app_deployments = 20;
-  int32 max_new_sites_per_day = 11;
-  bool allow_github_reviews = 12;
-  bool allow_github_description_edits = 13;
-  string pull_request_review_guidelines = 14;
-  string pull_request_description_guidelines = 16;
-  bool disable_tool_calls = 15;
-  bool allow_individual_level_analytics = 17;
-  bool allow_conversation_sharing = 18;
-  int32 pull_request_review_rate_limit = 21;
-  bool allow_attribution = 22;
-  repeated McpServerConfig allowed_mcp_servers = 23;
-  bool allow_github_auto_reviews = 24;
-  bool allow_browser_experimental_features = 25;
-  bool disable_tool_call_execution_outside_workspace = 26;
-}
-
-message McpServerTemplate {
-  string title = 1;
-  string id = 2;
-  string link = 3;
-  string description = 4;
-  map<string, McpServerCommand> commands = 5;
-}
-
-message McpServerCommand {
-  McpCommandTemplate template = 1;
-  repeated McpCommandVariable variables = 2;
-}
-
-message UnleashContext {
-  string user_id = 1;
-  string session_id = 2;
-  map<string, string> properties = 3;
-}
-
-message BrowserStateSnapshot {
-  google.protobuf.Timestamp timestamp = 1;
-  string user_active_page_id = 2;
-  repeated BrowserPageMetadata pages = 3;
-}
-
 message GRPCStatus {
   int32 code = 1;
   string message = 2;
@@ -1279,31 +1347,6 @@ message WorkingDirectoryInfo {
   string relative_path = 2;
   WorkingDirectoryStatus status = 3;
   string error = 4;
-}
-
-message ArtifactFullFileTarget {
-  ImageData image = 1;
-  Media media = 2;
-}
-
-message CompletionConfiguration {
-  uint64 num_completions = 1;
-  uint64 max_tokens = 2;
-  uint64 max_newlines = 3;
-  double min_log_probability = 4;
-  double temperature = 5;
-  double first_temperature = 6;
-  uint64 top_k = 7;
-  double top_p = 8;
-  repeated string stop_patterns = 9;
-  uint64 seed = 10;
-  double fim_eot_prob_threshold = 11;
-  bool use_fim_eot_threshold = 12;
-  bool do_not_score_stop_tokens = 13;
-  bool sqrt_len_normalized_log_prob_score = 14;
-  bool last_message_is_partial = 15;
-  bool return_logprob = 16;
-  bool disable_parallel_tool_calls = 17;
 }
 
 message TeamOrganizationalControls {
@@ -1500,6 +1543,7 @@ message ModelInfo {
   ToolFormatterType tool_formatter_type = 15;
   int32 thinking_budget = 16;
   int32 min_thinking_budget = 17;
+  bool use_ccpa_for_eval = 18;
 }
 
 message ApiProviderConfigMap {
@@ -1525,6 +1569,7 @@ message ChatToolCall {
   string invalid_json_err = 5;
   string thought_signature = 6;
   bytes thinking_signature = 7;
+  string original_arguments_json = 8;
 }
 
 message TextOrScopeItem {

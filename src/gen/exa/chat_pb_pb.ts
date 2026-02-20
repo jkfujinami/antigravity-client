@@ -1287,6 +1287,49 @@ export class GetChatMessageRequest_EnterpriseExternalModelConfig extends Message
 }
 
 /**
+ * @generated from message exa.chat_pb.ChatExperimentStatus
+ */
+export class ChatExperimentStatus extends Message$1<ChatExperimentStatus> {
+  /**
+   * @generated from field: exa.codeium_common_pb.ExperimentKey experiment_key = 1;
+   */
+  experimentKey = ExperimentKey.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool enabled = 2;
+   */
+  enabled = false;
+
+  constructor(data?: PartialMessage<ChatExperimentStatus>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.chat_pb.ChatExperimentStatus";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "experiment_key", kind: "enum", T: proto3.getEnumType(ExperimentKey) },
+    { no: 2, name: "enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatExperimentStatus {
+    return new ChatExperimentStatus().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ChatExperimentStatus {
+    return new ChatExperimentStatus().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ChatExperimentStatus {
+    return new ChatExperimentStatus().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ChatExperimentStatus | PlainMessage<ChatExperimentStatus> | undefined, b: ChatExperimentStatus | PlainMessage<ChatExperimentStatus> | undefined): boolean {
+    return proto3.util.equals(ChatExperimentStatus, a, b);
+  }
+}
+
+/**
  * @generated from message exa.chat_pb.IndexMap_IndexList
  */
 export class IndexMap_IndexList extends Message$1<IndexMap_IndexList> {
@@ -1597,49 +1640,6 @@ export class RunToolResponse_Status extends Message$1<RunToolResponse_Status> {
 
   static equals(a: RunToolResponse_Status | PlainMessage<RunToolResponse_Status> | undefined, b: RunToolResponse_Status | PlainMessage<RunToolResponse_Status> | undefined): boolean {
     return proto3.util.equals(RunToolResponse_Status, a, b);
-  }
-}
-
-/**
- * @generated from message exa.chat_pb.ChatExperimentStatus
- */
-export class ChatExperimentStatus extends Message$1<ChatExperimentStatus> {
-  /**
-   * @generated from field: exa.codeium_common_pb.ExperimentKey experiment_key = 1;
-   */
-  experimentKey = ExperimentKey.UNSPECIFIED;
-
-  /**
-   * @generated from field: bool enabled = 2;
-   */
-  enabled = false;
-
-  constructor(data?: PartialMessage<ChatExperimentStatus>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.chat_pb.ChatExperimentStatus";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "experiment_key", kind: "enum", T: proto3.getEnumType(ExperimentKey) },
-    { no: 2, name: "enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatExperimentStatus {
-    return new ChatExperimentStatus().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ChatExperimentStatus {
-    return new ChatExperimentStatus().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ChatExperimentStatus {
-    return new ChatExperimentStatus().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: ChatExperimentStatus | PlainMessage<ChatExperimentStatus> | undefined, b: ChatExperimentStatus | PlainMessage<ChatExperimentStatus> | undefined): boolean {
-    return proto3.util.equals(ChatExperimentStatus, a, b);
   }
 }
 

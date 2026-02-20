@@ -7,22 +7,6 @@ import "google/protobuf/timestamp.proto";
 
 message BackupMessage { bytes data = 1; }
 
-message CascadeState {
-  string cascade_id = 1;
-  gemini_coder.Trajectory trajectory = 2;
-  exa.cortex_pb.CascadeRunStatus status = 3;
-  exa.cortex_pb.CascadeRunStatus executable_status = 7;
-  exa.cortex_pb.CascadeRunStatus executor_loop_status = 8;
-  exa.cortex_pb.ExecutorMetadata executor_metadata = 4;
-  repeated gemini_coder.Step queued_steps = 5;
-  repeated exa.cortex_pb.ArtifactSnapshot artifact_snapshots = 6;
-}
-
-message ImplicitTrajectory {
-  gemini_coder.Trajectory trajectory = 1;
-  exa.cortex_pb.TrajectoryScope trajectory_scope = 5;
-}
-
 message BaseTrajectoryIdentifier {
   oneof identifier {
     string cascade_id = 1;
@@ -62,6 +46,22 @@ message CascadeTrajectorySummary {
   ConversationAnnotations annotations = 15;
 }
 
+message ImplicitTrajectory {
+  gemini_coder.Trajectory trajectory = 1;
+  exa.cortex_pb.TrajectoryScope trajectory_scope = 5;
+}
+
 message CascadeTrajectorySummaries {
   map<string, CascadeTrajectorySummary> summaries = 1;
+}
+
+message CascadeState {
+  string cascade_id = 1;
+  gemini_coder.Trajectory trajectory = 2;
+  exa.cortex_pb.CascadeRunStatus status = 3;
+  exa.cortex_pb.CascadeRunStatus executable_status = 7;
+  exa.cortex_pb.CascadeRunStatus executor_loop_status = 8;
+  exa.cortex_pb.ExecutorMetadata executor_metadata = 4;
+  repeated gemini_coder.Step queued_steps = 5;
+  repeated exa.cortex_pb.ArtifactSnapshot artifact_snapshots = 6;
 }
