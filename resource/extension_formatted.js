@@ -225708,4 +225708,4 @@ value:!0}
 )}
 )();
 
-//# sourceMappingURL=https://main.vscode-cdn.net/sourcemaps/c9b91c281ca4919466bd32a6ea2fcdab11102259/extensions/antigravity/dist/extension.js.map
+//# sourceMappingURL=https://main.vscode-cdn.net/sourcemaps/c19fdcaaf941f1ddd45860bfe2449ac40a3164c2/extensions/antigravity/dist/extension.js.map

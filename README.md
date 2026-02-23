@@ -24,7 +24,7 @@ import { AntigravityClient } from "antigravity-client";
 
 const client = await AntigravityClient.connect();
 const status = await client.getUserStatus();
-console.log(status.userStatus?.name); // "カワハギうなぎ"
+console.log(status.userStatus?.name); 
 ```
 
 ### 方法 2: 独立 LS を起動して接続（IDE 不要）

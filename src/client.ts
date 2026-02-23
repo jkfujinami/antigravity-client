@@ -12,8 +12,8 @@ function resolveApiKey(explicit?: string): string {
 // Generated Imports from src/gen
 import { LanguageServerService } from "./gen/exa/language_server_pb_connect.js";
 import { Metadata, TextOrScopeItem, ModelOrAlias, Model, ModelAlias, ConversationalPlannerMode } from "./gen/exa/codeium_common_pb_pb.js";
-import { StartCascadeRequest, SendUserCascadeMessageRequest, GetCascadeTrajectoryRequest } from "./gen/exa/language_server_pb_pb.js";
-import { StreamReactiveUpdatesRequest } from "./gen/exa/reactive_component_pb_pb.js";
+import { StartCascadeRequest, SendUserCascadeMessageRequest, GetCascadeTrajectoryRequest, GetUserStatusResponse, GetModelStatusesResponse, GetWorkingDirectoriesResponse } from "./gen/exa/language_server_pb_pb.js";
+import { StreamReactiveUpdatesRequest, StreamReactiveUpdatesResponse } from "./gen/exa/reactive_component_pb_pb.js";
 import { CascadeConfig, CascadePlannerConfig, CascadeConversationalPlannerConfig } from "./gen/exa/cortex_pb_pb.js";
 
 // Note: UnaryResponse might be needed depending on return types, but let's see what the service returns.
@@ -21,12 +21,52 @@ import { CascadeTrajectorySummaries } from "./gen/exa/jetski_cortex_pb_pb.js";
 import { Cascade } from "./cascade.js";
 import { ServerInfo } from "./autodetect.js";
 
-interface ClientOptions {
+/**
+ * Options for connecting to an existing Antigravity Language Server.
+ */
+export interface ClientOptions {
+  /**
+   * If true, automatically scans running processes to find an active Antigravity Language Server.
+   * If false, you MUST provide `port` and `csrfToken` manually.
+   * @default true
+   */
   autoDetect?: boolean;
+
+  /**
+   * The HTTP/HTTPS port the Language Server is listening on.
+   * Required if `autoDetect` is false.
+   */
   port?: number;
+
+  /**
+   * The CSRF token required to authenticate with the Language Server.
+   * Required if `autoDetect` is false.
+   */
   csrfToken?: string;
+
+  /**
+   * Optional. If provided during auto-detection, it will prioritize finding a Language Server
+   * that is serving this specific workspace path.
+   */
   workspacePath?: string;
+
+  /**
+   * Optional. Your Antigravity API key.
+   * If not provided, it will try to read from `process.env.ANTIGRAVITY_API_KEY`,
+   * and fallback to reading the saved credentials from `~/.codeium/auth.json`.
+   */
   apiKey?: string;
+}
+
+export interface ModelInfo {
+  label: string;
+  isPremium: boolean;
+  isRecommended: boolean;
+  disabled: boolean;
+  model?: string;
+  modelId?: number;
+  alias?: string;
+  aliasId?: number;
 }
 
 export { ServerInfo };
@@ -122,12 +162,12 @@ export class AntigravityClient {
       return Object.assign(client, { launcher });
   }
 
-  async getUserStatus() {
+  async getUserStatus(): Promise<GetUserStatusResponse> {
       const response = await this.lsClient.getUserStatus({});
       return response;
   }
 
-  async getModelStatuses() {
+  async getModelStatuses(): Promise<GetModelStatusesResponse> {
       const response = await this.lsClient.getModelStatuses({});
       return response;
   }
@@ -135,11 +175,11 @@ export class AntigravityClient {
   /**
    * Returns a structured map of available models from UserStatus.
    */
-  async getAvailableModels(): Promise<Record<string, any>> {
+  async getAvailableModels(): Promise<Record<string, ModelInfo>> {
       const userStatus = await this.getUserStatus();
       const configs = userStatus.userStatus?.cascadeModelConfigData?.clientModelConfigs || [];
 
-      const models: Record<string, any> = {};
+      const models: Record<string, ModelInfo> = {};
 
       configs.forEach((m: any) => {
           const label = m.label;
@@ -147,11 +187,11 @@ export class AntigravityClient {
 
           if (!label || !choice) return;
 
-          const info: any = {
+          const info: ModelInfo = {
               label: label,
-              isPremium: m.isPremium,
-              isRecommended: m.isRecommended,
-              disabled: m.disabled,
+              isPremium: !!m.isPremium,
+              isRecommended: !!m.isRecommended,
+              disabled: !!m.disabled,
           };
 
           if (choice.case === "model") {
@@ -170,12 +210,12 @@ export class AntigravityClient {
       return models;
   }
 
-  async getWorkingDirectories() {
+  async getWorkingDirectories(): Promise<GetWorkingDirectoriesResponse> {
       const response = await this.lsClient.getWorkingDirectories({});
       return response;
   }
 
-  async *getSummariesStream() {
+  async *getSummariesStream(): AsyncGenerator<StreamReactiveUpdatesResponse, void, unknown> {
       const stream = this.lsClient.streamCascadeSummariesReactiveUpdates(
           new StreamReactiveUpdatesRequest({
               protocolVersion: 1,
@@ -200,7 +240,7 @@ export class AntigravityClient {
       const metadata = new Metadata({
           apiKey: this.apiKey,
           ideName: "vscode",
-          ideVersion: "1.107.0",
+          ideVersion: "1.18.4",
           extensionName: "antigravity",
           extensionVersion: "0.2.0",
       });
