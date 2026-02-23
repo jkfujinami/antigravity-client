@@ -22,7 +22,7 @@ export interface MetadataOptions {
 export function createMetadataBinary(options: MetadataOptions = {}): Uint8Array {
     const metadata = new Metadata({
         ideName: options.ideName ?? "vscode",
-        ideVersion: options.ideVersion ?? "1.107.0",
+        ideVersion: options.ideVersion ?? "1.18.4",
         extensionName: options.extensionName ?? "antigravity",
         extensionVersion: options.extensionVersion ?? "0.2.0",
         apiKey: options.apiKey ?? "",

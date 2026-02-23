@@ -482,7 +482,7 @@ export class Cascade extends EventEmitter {
         const metadata = new Metadata({
             apiKey: this.apiKey,
             ideName: "vscode",
-            ideVersion: "1.107.0",
+            ideVersion: "1.18.4 ",
             extensionName: "antigravity",
             extensionVersion: "0.2.0",
         });
