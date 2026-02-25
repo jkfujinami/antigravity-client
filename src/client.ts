@@ -12,7 +12,7 @@ function resolveApiKey(explicit?: string): string {
 // Generated Imports from src/gen
 import { LanguageServerService } from "./gen/exa/language_server_pb_connect.js";
 import { Metadata, TextOrScopeItem, ModelOrAlias, Model, ModelAlias, ConversationalPlannerMode } from "./gen/exa/codeium_common_pb_pb.js";
-import { StartCascadeRequest, SendUserCascadeMessageRequest, GetCascadeTrajectoryRequest, GetUserStatusResponse, GetModelStatusesResponse, GetWorkingDirectoriesResponse } from "./gen/exa/language_server_pb_pb.js";
+import { StartCascadeRequest, SendUserCascadeMessageRequest, GetCascadeTrajectoryRequest, GetUserStatusResponse, GetModelStatusesResponse, GetWorkingDirectoriesResponse, AddTrackedWorkspaceRequest } from "./gen/exa/language_server_pb_pb.js";
 import { StreamReactiveUpdatesRequest, StreamReactiveUpdatesResponse } from "./gen/exa/reactive_component_pb_pb.js";
 import { CascadeConfig, CascadePlannerConfig, CascadeConversationalPlannerConfig } from "./gen/exa/cortex_pb_pb.js";
 
@@ -213,6 +213,16 @@ export class AntigravityClient {
   async getWorkingDirectories(): Promise<GetWorkingDirectoriesResponse> {
       const response = await this.lsClient.getWorkingDirectories({});
       return response;
+  }
+
+  /**
+   * Explictly tell the Language Server to track a workspace directory.
+   */
+  async addTrackedWorkspace(workspacePath: string): Promise<void> {
+      await this.lsClient.addTrackedWorkspace(new AddTrackedWorkspaceRequest({
+          workspace: workspacePath,
+          isPassiveWorkspace: false
+      }));
   }
 
   async *getSummariesStream(): AsyncGenerator<StreamReactiveUpdatesResponse, void, unknown> {
