@@ -28,6 +28,14 @@ import {
 } from "../gen/exa/extension_server_pb_pb.js";
 import { SmartFocusConversationResponse } from "../gen/exa/language_server_pb_pb.js";
 import { Topic, Row } from "../gen/exa/unified_state_sync_pb_pb.js";
+import {
+    TerminalShellCommandStreamChunk,
+    TerminalShellCommandHeader,
+    TerminalShellCommandData,
+    TerminalShellCommandTrailer,
+    TerminalShellCommandSource
+} from "../gen/exa/codeium_common_pb_pb.js";
+import { Timestamp } from "@bufbuild/protobuf";
 import * as http from "http";
 import { EventEmitter } from "events";
 import { spawn } from "child_process";
@@ -164,6 +172,92 @@ export class MockExtensionServer extends EventEmitter {
 
                 pushUnifiedStateSyncUpdate() {
                     return new PushUnifiedStateSyncUpdateResponse();
+                },
+
+                async *executeCommand(req) {
+                    if (self.verbose) console.log(`[MockExtSrv] ExecuteCommand requested: ${req.commandLine} in ${req.cwd}`);
+                    yield new TerminalShellCommandStreamChunk({
+                        value: {
+                            case: "header",
+                            value: new TerminalShellCommandHeader({
+                                terminalId: req.terminalId || "mock-term",
+                                commandLine: req.commandLine,
+                                cwd: req.cwd,
+                                shellPid: 0,
+                                startTime: Timestamp.fromDate(new Date()),
+                                source: TerminalShellCommandSource.CASCADE,
+                            })
+                        }
+                    });
+
+                    let proc;
+                    try {
+                        proc = spawn(req.commandLine, [], {
+                            cwd: req.cwd || process.cwd(),
+                            shell: true,
+                        });
+                    } catch (e: any) {
+                        console.error("[MockExtSrv] Error spawning executeCommand:", e);
+                        yield new TerminalShellCommandStreamChunk({
+                            value: {
+                                case: "trailer",
+                                value: new TerminalShellCommandTrailer({
+                                    exitCode: 1,
+                                    endTime: Timestamp.fromDate(new Date())
+                                })
+                            }
+                        });
+                        return;
+                    }
+
+                    const queue: Buffer[] = [];
+                    let resolveNext: (() => void) | null = null;
+                    let finished = false;
+                    let exitCode = 0;
+
+                    const pushData = (data: Buffer) => {
+                        queue.push(data);
+                        if (resolveNext) resolveNext();
+                    };
+
+                    proc.stdout.on("data", pushData);
+                    proc.stderr.on("data", pushData);
+                    proc.on("error", (err: any) => {
+                        pushData(Buffer.from(`\nError: ${err.message}`));
+                    });
+
+                    proc.on("close", (code) => {
+                        exitCode = code || 0;
+                        finished = true;
+                        if (resolveNext) resolveNext();
+                    });
+
+                    while (!finished || queue.length > 0) {
+                        if (queue.length > 0) {
+                            const data = queue.shift()!;
+                            yield new TerminalShellCommandStreamChunk({
+                                value: {
+                                    case: "data",
+                                    value: new TerminalShellCommandData({
+                                        rawData: new Uint8Array(data)
+                                    })
+                                }
+                            });
+                        } else {
+                            await new Promise<void>(resolve => { resolveNext = resolve; });
+                            resolveNext = null;
+                        }
+                    }
+
+                    yield new TerminalShellCommandStreamChunk({
+                        value: {
+                            case: "trailer",
+                            value: new TerminalShellCommandTrailer({
+                                exitCode: exitCode,
+                                endTime: Timestamp.fromDate(new Date())
+                            })
+                        }
+                    });
                 },
 
                 smartFocusConversation() {
