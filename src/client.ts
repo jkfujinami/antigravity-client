@@ -250,7 +250,7 @@ export class AntigravityClient {
       const metadata = new Metadata({
           apiKey: this.apiKey,
           ideName: "vscode",
-          ideVersion: "1.18.4",
+          ideVersion: "1.107.0",
           extensionName: "antigravity",
           extensionVersion: "0.2.0",
       });
@@ -266,6 +266,14 @@ export class AntigravityClient {
       cascade.listen();
 
       return cascade;
+  }
+
+  async getMcpServerStates(): Promise<import("./gen/exa/language_server_pb_pb.js").GetMcpServerStatesResponse> {
+      return this.lsClient.getMcpServerStates({});
+  }
+
+  async refreshMcpServers(): Promise<import("./gen/exa/language_server_pb_pb.js").RefreshMcpServersResponse> {
+      return this.lsClient.refreshMcpServers({});
   }
 
   /**

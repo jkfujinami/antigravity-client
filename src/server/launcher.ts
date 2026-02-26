@@ -19,6 +19,11 @@ import { MockExtensionServer, type LsInfo } from "./mock-extension-server.js";
 import { createMetadataBinary } from "./metadata.js";
 import { readAuthData, type AuthData } from "./auth-reader.js";
 import type { ServerInfo } from "../autodetect.js";
+import { createPromiseClient } from "@connectrpc/connect";
+import { createConnectTransport } from "@connectrpc/connect-node";
+import { LanguageServerService } from "../gen/exa/language_server_pb_connect.js";
+import { SetUserSettingsRequest } from "../gen/exa/language_server_pb_pb.js";
+import { UserSettings, AgentBrowserTools, BrowserJsExecutionPolicy } from "../gen/exa/codeium_common_pb_pb.js";
 
 const DEFAULT_LS_BINARY = path.join(
     "/Applications/Antigravity.app/Contents/Resources/app/extensions/antigravity/bin",
@@ -40,6 +45,8 @@ export interface LauncherOptions {
     authData?: AuthData;
     /** Gemini config directory */
     geminiDir?: string;
+    /** Chrome DevTools Protocol port (default: 9222) */
+    cdpPort?: number;
     /** Verbose logging */
     verbose?: boolean;
 }
@@ -119,6 +126,7 @@ export class Launcher extends EventEmitter {
             port: 0, // Random port
             authData,
             verbose,
+            cdpPort: options.cdpPort,
         });
 
         const resolvedOptions = { lsBinaryPath, csrfToken, workspaceId, cloudCodeEndpoint, geminiDir, verbose };
@@ -130,6 +138,12 @@ export class Launcher extends EventEmitter {
         // Start mock server
         const mockPort = await mockServer.start();
         if (verbose) console.log(`[Launcher] Mock Extension Server on port ${mockPort}`);
+
+        // Pre-launch Chrome with CDP before starting LS
+        // This ensures browser_liveness_utils.go finds a responsive CDP endpoint immediately.
+        if (verbose) console.log(`[Launcher] Pre-launching CDP Chrome...`);
+        const browserOk = await mockServer.ensureBrowserReady();
+        if (verbose) console.log(`[Launcher] Chrome pre-launch: ${browserOk ? 'OK' : 'FAILED (browser features may not work)'}`);
 
         // Wait for LS to report its ports
         const lsInfoPromise = new Promise<LsInfo>((resolve) => {
@@ -159,12 +173,23 @@ export class Launcher extends EventEmitter {
         launcher.lsProcess.stdin!.write(metadataBin);
         launcher.lsProcess.stdin!.end();
 
-        // Handle LS output
-        launcher.lsProcess.stderr?.on("data", (data: Buffer) => {
+        // Handle LS output and save it to a raw log file for debugging
+        const logFile = "/Users/fujinami/workspace/Agent/ls_combined.log";
+        try {
+            fs.appendFileSync(logFile, `\n--- LS Started at ${new Date().toISOString()} (PID: ${launcher.lsProcess.pid}) ---\n`);
+        } catch (e) { }
+
+        const logToDisk = (data: Buffer, prefix: string) => {
             const line = data.toString();
-            if (verbose) process.stderr.write(`[LS] ${line}`);
+            try {
+                fs.appendFileSync(logFile, `[${prefix}] ${line}`);
+            } catch (e) { }
+            if (verbose) process.stderr.write(`[LS:${prefix}] ${line}`);
             launcher.emit("log", line);
-        });
+        };
+
+        launcher.lsProcess.stdout?.on("data", (data) => logToDisk(data, "STDOUT"));
+        launcher.lsProcess.stderr?.on("data", (data) => logToDisk(data, "STDERR"));
 
         launcher.lsProcess.on("exit", (code) => {
             launcher._running = false;
@@ -182,6 +207,38 @@ export class Launcher extends EventEmitter {
 
         if (verbose) {
             console.log(`[Launcher] LS ready - HTTPS:${launcher.httpsPort} HTTP:${launcher.httpPort} LSP:${launcher.lspPort}`);
+        }
+
+        // Inject browser settings into the LS via SetUserSettings RPC
+        try {
+            const transport = createConnectTransport({
+                baseUrl: `https://127.0.0.1:${launcher.httpsPort}`,
+                httpVersion: "2",
+                nodeOptions: { rejectUnauthorized: false },
+                interceptors: [
+                    (next) => async (req) => {
+                        req.header.set("x-codeium-csrf-token", csrfToken);
+                        return await next(req);
+                    },
+                ],
+            });
+            const lsClient = createPromiseClient(LanguageServerService, transport);
+
+            const browserSettings = new UserSettings({
+                agentBrowserTools: AgentBrowserTools.ENABLED,
+                browserCdpPort: mockServer.browserReady ? (options.cdpPort ?? 9222) : 0,
+                browserChromePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                browserUserProfilePath: path.join(os.homedir(), ".gemini", "antigravity-browser-profile"),
+                browserJsExecutionPolicy: BrowserJsExecutionPolicy.TURBO,
+            });
+
+            await lsClient.setUserSettings(new SetUserSettingsRequest({
+                userSettings: browserSettings,
+            }));
+
+            if (verbose) console.log(`[Launcher] ✅ Browser settings injected: agentBrowserTools=ENABLED, cdpPort=${browserSettings.browserCdpPort}, jsPolicy=TURBO`);
+        } catch (e) {
+            console.warn(`[Launcher] ⚠️ Failed to inject browser settings:`, e);
         }
 
         return launcher;
