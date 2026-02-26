@@ -1,0 +1,556 @@
+syntax = "proto3";
+package exa.extension_server_pb;
+
+import "exa/codeium_common_pb/codeium_common.proto";
+import "exa/gemini_coder/proto/trajectory.proto";
+import "exa/jetski_cortex_pb/jetski_cortex.proto";
+import "exa/language_server_pb/language_server.proto";
+import "exa/unified_state_sync_pb/unified_state_sync.proto";
+
+enum ActiveEditorType {
+  ACTIVE_EDITOR_TYPE_UNSPECIFIED = 0;
+  ACTIVE_EDITOR_TYPE_TEXT_EDITOR = 1;
+  ACTIVE_EDITOR_TYPE_TERMINAL = 2;
+}
+
+enum SoundType {
+  SOUND_TYPE_UNSPECIFIED = 0;
+  SOUND_TYPE_CASCADE_DONE = 1;
+}
+
+enum EditNotebookOperation {
+  EDIT_NOTEBOOK_OPERATION_UNSPECIFIED = 0;
+  EDIT_NOTEBOOK_OPERATION_INSERT_AFTER = 1;
+  EDIT_NOTEBOOK_OPERATION_INSERT_BEFORE = 2;
+  EDIT_NOTEBOOK_OPERATION_REPLACE_CELLS = 3;
+  EDIT_NOTEBOOK_OPERATION_DELETE_CELLS = 4;
+  EDIT_NOTEBOOK_OPERATION_OVERWRITE_NOTEBOOK = 5;
+}
+
+message IsAgentManagerEnabledRequest {
+}
+
+message IsAgentManagerEnabledResponse {
+  bool enabled = 1;
+}
+
+message ConversationPickerRequest {
+  exa.jetski_cortex_pb.CascadeTrajectorySummaries summaries = 1;
+  string current_cascade_id = 2;
+  string current_workspace_normalized_path = 3;
+  string current_workspace_uri = 4;
+}
+
+message ConversationPickerResponse {
+  string chat_message = 1;
+  string selected_cascade_id = 2;
+  repeated string deleted_cascade_ids = 3;
+}
+
+message StartAudioRecordingRequest {
+}
+
+message EndAudioRecordingRequest {
+}
+
+message EndAudioRecordingResponse {
+  string transcription = 1;
+}
+
+message StartAudioRecordingResponse {
+}
+
+message GetCurrentAudioRecordingRequest {
+}
+
+message GetCurrentAudioRecordingResponse {
+  float average_volume = 2;
+}
+
+message LanguageServerStartedRequest {
+  int32 https_port = 1;
+  int32 lsp_port = 2;
+  string csrf_token = 4;
+  int32 http_port = 5;
+}
+
+message LanguageServerStartedResponse {
+}
+
+message OpenSettingRequest {
+  string setting_id = 1;
+}
+
+message OpenSettingResponse {
+}
+
+message OpenFilePointerRequest {
+  string file_uri = 1;
+  int32 start_line = 2;
+  int32 start_col = 3;
+  int32 end_line = 4;
+  int32 end_col = 5;
+  bool is_cascade_diff = 6;
+}
+
+message OpenFilePointerResponse {
+}
+
+message InsertCodeAtCursorRequest {
+  string text = 1;
+  exa.extension_server_pb.ActiveEditorType editor_type = 2;
+}
+
+message InsertCodeAtCursorResponse {
+}
+
+message EventMetadataRecord {
+  string key = 1;
+  string value = 2;
+}
+
+message LogEventRequest {
+  exa.codeium_common_pb.ProductEventType event = 1;
+  string event_string = 3;
+  repeated exa.extension_server_pb.EventMetadataRecord metadata = 2;
+}
+
+message LogEventResponse {
+}
+
+message CheckTerminalShellSupportRequest {
+}
+
+message CheckTerminalShellSupportResponse {
+  bool has_shell_integration = 1;
+  string shell_name = 2;
+  string shell_path = 3;
+}
+
+message ExecuteCommandRequest {
+  string command_line = 5;
+  string cwd = 3;
+  string terminal_id = 4;
+  bool sandbox_override = 6;
+}
+
+message ShowTerminalRequest {
+  string terminal_id = 1;
+}
+
+message ShowTerminalResponse {
+}
+
+message OpenVirtualFileRequest {
+  string text = 1;
+  bool show_markdown_preview = 2;
+}
+
+message OpenVirtualFileResponse {
+}
+
+message SaveDocumentRequest {
+  string uri = 1;
+}
+
+message SaveDocumentResponse {
+}
+
+message ReadTerminalRequest {
+  string process_id = 1;
+}
+
+message ReadTerminalResponse {
+  string contents = 1;
+}
+
+message OpenTerminalRequest {
+  string process_id = 1;
+}
+
+message OpenTerminalResponse {
+}
+
+message SendTerminalInputRequest {
+  string terminal_id = 1;
+  string input = 2;
+}
+
+message SendTerminalInputResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message TerminateCommandRequest {
+  string terminal_id = 1;
+}
+
+message TerminateCommandResponse {
+}
+
+message GetLintErrorsRequest {
+  message AwaitNewLintsConfig {
+    string acknowledger_id = 1;
+    int32 timeout_ms = 2;
+    int32 grace_period_ms = 3;
+    bool include_saved = 4;
+  }
+
+  exa.extension_server_pb.GetLintErrorsRequest.AwaitNewLintsConfig await_new_lints_config = 1;
+}
+
+message GetLintErrorsResponse {
+  repeated exa.codeium_common_pb.CodeDiagnostic lint_errors = 1;
+  repeated exa.codeium_common_pb.CodeDiagnostic persistent_lint_errors = 2;
+}
+
+message OpenDiffZonesRequest {
+  string cascade_id = 1;
+  repeated exa.language_server_pb.ValidationState validation_states = 2;
+  bool write_new_state = 3;
+  repeated uint32 step_indices = 4;
+  string trace_id = 5;
+}
+
+message OpenDiffZonesResponse {
+}
+
+message OpenExternalUrlRequest {
+  string url = 1;
+  bool use_ide_browser = 2;
+}
+
+message OpenExternalUrlResponse {
+}
+
+message HandleAsyncPostMessageRequest {
+  string message_type = 1;
+  string message_content = 2;
+}
+
+message HandleAsyncPostMessageResponse {
+  string response_content = 1;
+}
+
+message PlaySoundRequest {
+  exa.extension_server_pb.SoundType sound_type = 1;
+}
+
+message PlaySoundResponse {
+}
+
+message OpenAntigravityRulesFileRequest {
+  bool is_workspace_rules = 1;
+}
+
+message OpenAntigravityRulesFileResponse {
+}
+
+message OpenPluginPageRequest {
+  string plugin_id = 4;
+}
+
+message OpenPluginPageResponse {
+}
+
+message OpenPluginConfigModalRequest {
+  string plugin_id = 3;
+}
+
+message OpenPluginConfigModalResponse {
+}
+
+message TerminalResearchResultRequest {
+  gemini_coder.Step last_step = 1;
+}
+
+message TerminalResearchResultResponse {
+}
+
+message OpenConfigurePluginsPageRequest {
+}
+
+message OpenConfigurePluginsPageResponse {
+}
+
+message WriteCascadeEditRequest {
+  string uri = 1;
+  string target_content = 2;
+}
+
+message WriteCascadeEditResponse {
+}
+
+message EditNotebookRequest {
+  message Cell {
+    string kind = 1;
+    string content = 2;
+  }
+
+  string absolute_path_uri = 1;
+  exa.extension_server_pb.EditNotebookOperation operation = 2;
+  string anchor_cell_id = 3;
+  int32 anchor_cell_index = 4;
+  repeated exa.extension_server_pb.EditNotebookRequest.Cell cells = 5;
+  int32 delete_count = 6;
+}
+
+message EditNotebookResponse {
+  message ModifiedCell {
+    string cell_id = 1;
+    string kind = 2;
+    string content = 3;
+    int32 index = 4;
+  }
+
+  repeated exa.extension_server_pb.EditNotebookResponse.ModifiedCell modified_cells = 1;
+  int32 total_cell_count = 2;
+}
+
+message ReadNotebookRequest {
+  string absolute_path_uri = 1;
+  repeated int32 cell_indices = 2;
+  repeated string cell_ids = 3;
+}
+
+message ReadNotebookResponse {
+  string flattened_content = 1;
+  int32 read_cell_count = 2;
+}
+
+message OpenConversationWorkspaceQuickPickRequest {
+  string cascade_id = 1;
+  repeated string workspace_uris = 2;
+}
+
+message OpenConversationWorkspaceQuickPickResponse {
+  bool open_in_current_window = 1;
+}
+
+message FindAllReferencesRequest {
+  string file_uri = 1;
+  string symbol = 2;
+  uint32 line = 3;
+  uint32 occurrence_index = 4;
+}
+
+message FindAllReferencesResponse {
+  repeated exa.codeium_common_pb.LspReference references = 1;
+}
+
+message GetDefinitionRequest {
+  repeated exa.extension_server_pb.GetDefinitionRequestItem request = 1;
+}
+
+message GetDefinitionRequestItem {
+  string file_uri = 1;
+  exa.codeium_common_pb.DocumentPosition position = 2;
+  string line_content = 3;
+}
+
+message GetDefinitionResponse {
+  repeated exa.extension_server_pb.GetDefinitionResponseItem response = 1;
+}
+
+message GetDefinitionResponseItem {
+  repeated exa.codeium_common_pb.LspReference definitions = 1;
+  exa.codeium_common_pb.GRPCStatus status = 2;
+}
+
+message HandleProposeCodeExtensionVerificationRequest {
+  gemini_coder.Step step = 1;
+}
+
+message HandleProposeCodeExtensionVerificationResponse {
+}
+
+message UpdateCascadeTrajectorySummariesRequest {
+  exa.jetski_cortex_pb.CascadeTrajectorySummaries summaries = 1;
+}
+
+message UpdateCascadeTrajectorySummariesResponse {
+}
+
+message RunExtensionCodeRequest {
+  string code = 1;
+}
+
+message RunExtensionCodeResponse {
+  string output = 1;
+}
+
+message UpdateDetailedViewWithCascadeInputRequest {
+  exa.language_server_pb.HandleStreamingCommandRequest request = 1;
+  exa.language_server_pb.HandleStreamingCommandResponse response = 2;
+}
+
+message UpdateDetailedViewWithCascadeInputResponse {
+}
+
+message GetSecretValueRequest {
+  string key = 1;
+}
+
+message GetSecretValueResponse {
+  string value = 1;
+}
+
+message StoreSecretValueRequest {
+  string key = 1;
+  string value = 2;
+}
+
+message StoreSecretValueResponse {
+}
+
+message GetBrowserOnboardingPortRequest {
+}
+
+message GetBrowserOnboardingPortResponse {
+  uint32 port = 1;
+}
+
+message GetChromeDevtoolsMcpUrlRequest {
+}
+
+message GetChromeDevtoolsMcpUrlResponse {
+  string url = 1;
+}
+
+message FocusManagerWindow {
+  string cascade_id = 1;
+}
+
+message FocusEditorWindow {
+  string cascade_id = 1;
+}
+
+message FocusIDEWindowRequest {
+  oneof window_type {
+    exa.extension_server_pb.FocusEditorWindow editor = 1;
+    exa.extension_server_pb.FocusManagerWindow manager = 2;
+  }
+}
+
+message FocusIDEWindowResponse {
+}
+
+message LaunchBrowserRequest {
+  string extension_path = 1;
+  bool launch_in_foreground = 2;
+}
+
+message LaunchBrowserResponse {
+  string cdp_address = 1;
+}
+
+message RestartUserStatusUpdaterRequest {
+}
+
+message RestartUserStatusUpdaterResponse {
+}
+
+message RecordErrorRequest {
+  exa.codeium_common_pb.ErrorTrace error_trace = 1;
+}
+
+message RecordErrorResponse {
+}
+
+message SubscribeToUnifiedStateSyncTopicRequest {
+  string topic = 1;
+}
+
+message UnifiedStateSyncUpdate {
+  oneof update_type {
+    exa.unified_state_sync_pb.Topic initial_state = 1;
+    exa.unified_state_sync_pb.AppliedUpdate applied_update = 2;
+  }
+}
+
+message PushUnifiedStateSyncUpdateRequest {
+  exa.unified_state_sync_pb.UpdateRequest update = 1;
+}
+
+message PushUnifiedStateSyncUpdateResponse {
+}
+
+message BroadcastConversationDeletionRequest {
+  string deleted_cascade_id = 1;
+}
+
+message BroadcastConversationDeletionResponse {
+}
+
+message FetchMCPAuthTokenRequest {
+  message HeadersEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  string server_url = 1;
+  string url = 2;
+  int32 status = 3;
+  string status_text = 4;
+  repeated exa.extension_server_pb.FetchMCPAuthTokenRequest.HeadersEntry headers = 5;
+  string body = 6;
+}
+
+message FetchMCPAuthTokenResponse {
+  string token = 1;
+}
+
+service ExtensionServerService {
+  rpc LanguageServerStarted(exa.extension_server_pb.LanguageServerStartedRequest) returns (exa.extension_server_pb.LanguageServerStartedResponse);
+  rpc OpenSetting(exa.extension_server_pb.OpenSettingRequest) returns (exa.extension_server_pb.OpenSettingResponse);
+  rpc OpenFilePointer(exa.extension_server_pb.OpenFilePointerRequest) returns (exa.extension_server_pb.OpenFilePointerResponse);
+  rpc InsertCodeAtCursor(exa.extension_server_pb.InsertCodeAtCursorRequest) returns (exa.extension_server_pb.InsertCodeAtCursorResponse);
+  rpc LogEvent(exa.extension_server_pb.LogEventRequest) returns (exa.extension_server_pb.LogEventResponse);
+  rpc CheckTerminalShellSupport(exa.extension_server_pb.CheckTerminalShellSupportRequest) returns (exa.extension_server_pb.CheckTerminalShellSupportResponse);
+  rpc ExecuteCommand(exa.extension_server_pb.ExecuteCommandRequest) returns (stream exa.codeium_common_pb.TerminalShellCommandStreamChunk);
+  rpc ShowTerminal(exa.extension_server_pb.ShowTerminalRequest) returns (exa.extension_server_pb.ShowTerminalResponse);
+  rpc SendTerminalInput(exa.extension_server_pb.SendTerminalInputRequest) returns (exa.extension_server_pb.SendTerminalInputResponse);
+  rpc TerminateCommand(exa.extension_server_pb.TerminateCommandRequest) returns (exa.extension_server_pb.TerminateCommandResponse);
+  rpc OpenVirtualFile(exa.extension_server_pb.OpenVirtualFileRequest) returns (exa.extension_server_pb.OpenVirtualFileResponse);
+  rpc SaveDocument(exa.extension_server_pb.SaveDocumentRequest) returns (exa.extension_server_pb.SaveDocumentResponse);
+  rpc ReadTerminal(exa.extension_server_pb.ReadTerminalRequest) returns (exa.extension_server_pb.ReadTerminalResponse);
+  rpc OpenTerminal(exa.extension_server_pb.OpenTerminalRequest) returns (exa.extension_server_pb.OpenTerminalResponse);
+  rpc GetLintErrors(exa.extension_server_pb.GetLintErrorsRequest) returns (exa.extension_server_pb.GetLintErrorsResponse);
+  rpc OpenDiffZones(exa.extension_server_pb.OpenDiffZonesRequest) returns (exa.extension_server_pb.OpenDiffZonesResponse);
+  rpc OpenExternalUrl(exa.extension_server_pb.OpenExternalUrlRequest) returns (exa.extension_server_pb.OpenExternalUrlResponse);
+  rpc HandleAsyncPostMessage(exa.extension_server_pb.HandleAsyncPostMessageRequest) returns (exa.extension_server_pb.HandleAsyncPostMessageResponse);
+  rpc PlaySound(exa.extension_server_pb.PlaySoundRequest) returns (exa.extension_server_pb.PlaySoundResponse);
+  rpc OpenAntigravityRulesFile(exa.extension_server_pb.OpenAntigravityRulesFileRequest) returns (exa.extension_server_pb.OpenAntigravityRulesFileResponse);
+  rpc OpenPluginPage(exa.extension_server_pb.OpenPluginPageRequest) returns (exa.extension_server_pb.OpenPluginPageResponse);
+  rpc OpenPluginConfigModal(exa.extension_server_pb.OpenPluginConfigModalRequest) returns (exa.extension_server_pb.OpenPluginConfigModalResponse);
+  rpc OpenConfigurePluginsPage(exa.extension_server_pb.OpenConfigurePluginsPageRequest) returns (exa.extension_server_pb.OpenConfigurePluginsPageResponse);
+  rpc OpenConversationWorkspaceQuickPick(exa.extension_server_pb.OpenConversationWorkspaceQuickPickRequest) returns (exa.extension_server_pb.OpenConversationWorkspaceQuickPickResponse);
+  rpc FindAllReferences(exa.extension_server_pb.FindAllReferencesRequest) returns (exa.extension_server_pb.FindAllReferencesResponse);
+  rpc GetDefinition(exa.extension_server_pb.GetDefinitionRequest) returns (exa.extension_server_pb.GetDefinitionResponse);
+  rpc TerminalResearchResult(exa.extension_server_pb.TerminalResearchResultRequest) returns (exa.extension_server_pb.TerminalResearchResultResponse);
+  rpc WriteCascadeEdit(exa.extension_server_pb.WriteCascadeEditRequest) returns (exa.extension_server_pb.WriteCascadeEditResponse);
+  rpc EditNotebook(exa.extension_server_pb.EditNotebookRequest) returns (exa.extension_server_pb.EditNotebookResponse);
+  rpc ReadNotebook(exa.extension_server_pb.ReadNotebookRequest) returns (exa.extension_server_pb.ReadNotebookResponse);
+  rpc StartAudioRecording(exa.extension_server_pb.StartAudioRecordingRequest) returns (exa.extension_server_pb.StartAudioRecordingResponse);
+  rpc EndAudioRecording(exa.extension_server_pb.EndAudioRecordingRequest) returns (exa.extension_server_pb.EndAudioRecordingResponse);
+  rpc GetCurrentAudioRecording(exa.extension_server_pb.GetCurrentAudioRecordingRequest) returns (exa.extension_server_pb.GetCurrentAudioRecordingResponse);
+  rpc HandleProposeCodeExtensionVerification(exa.extension_server_pb.HandleProposeCodeExtensionVerificationRequest) returns (exa.extension_server_pb.HandleProposeCodeExtensionVerificationResponse);
+  rpc UpdateCascadeTrajectorySummaries(exa.extension_server_pb.UpdateCascadeTrajectorySummariesRequest) returns (exa.extension_server_pb.UpdateCascadeTrajectorySummariesResponse);
+  rpc RunExtensionCode(exa.extension_server_pb.RunExtensionCodeRequest) returns (exa.extension_server_pb.RunExtensionCodeResponse);
+  rpc UpdateDetailedViewWithCascadeInput(exa.extension_server_pb.UpdateDetailedViewWithCascadeInputRequest) returns (exa.extension_server_pb.UpdateDetailedViewWithCascadeInputResponse);
+  rpc GetSecretValue(exa.extension_server_pb.GetSecretValueRequest) returns (exa.extension_server_pb.GetSecretValueResponse);
+  rpc StoreSecretValue(exa.extension_server_pb.StoreSecretValueRequest) returns (exa.extension_server_pb.StoreSecretValueResponse);
+  rpc LaunchBrowser(exa.extension_server_pb.LaunchBrowserRequest) returns (exa.extension_server_pb.LaunchBrowserResponse);
+  rpc RestartUserStatusUpdater(exa.extension_server_pb.RestartUserStatusUpdaterRequest) returns (exa.extension_server_pb.RestartUserStatusUpdaterResponse);
+  rpc ShowConversationPicker(exa.extension_server_pb.ConversationPickerRequest) returns (exa.extension_server_pb.ConversationPickerResponse);
+  rpc GetBrowserOnboardingPort(exa.extension_server_pb.GetBrowserOnboardingPortRequest) returns (exa.extension_server_pb.GetBrowserOnboardingPortResponse);
+  rpc GetChromeDevtoolsMcpUrl(exa.extension_server_pb.GetChromeDevtoolsMcpUrlRequest) returns (exa.extension_server_pb.GetChromeDevtoolsMcpUrlResponse);
+  rpc FocusIDEWindow(exa.extension_server_pb.FocusIDEWindowRequest) returns (exa.extension_server_pb.FocusIDEWindowResponse);
+  rpc SmartFocusConversation(exa.language_server_pb.SmartFocusConversationRequest) returns (exa.language_server_pb.SmartFocusConversationResponse);
+  rpc IsAgentManagerEnabled(exa.extension_server_pb.IsAgentManagerEnabledRequest) returns (exa.extension_server_pb.IsAgentManagerEnabledResponse);
+  rpc RecordError(exa.extension_server_pb.RecordErrorRequest) returns (exa.extension_server_pb.RecordErrorResponse);
+  rpc SubscribeToUnifiedStateSyncTopic(exa.extension_server_pb.SubscribeToUnifiedStateSyncTopicRequest) returns (stream exa.extension_server_pb.UnifiedStateSyncUpdate);
+  rpc PushUnifiedStateSyncUpdate(exa.extension_server_pb.PushUnifiedStateSyncUpdateRequest) returns (exa.extension_server_pb.PushUnifiedStateSyncUpdateResponse);
+  rpc BroadcastConversationDeletion(exa.extension_server_pb.BroadcastConversationDeletionRequest) returns (exa.extension_server_pb.BroadcastConversationDeletionResponse);
+  rpc FetchMCPAuthToken(exa.extension_server_pb.FetchMCPAuthTokenRequest) returns (exa.extension_server_pb.FetchMCPAuthTokenResponse);
+}

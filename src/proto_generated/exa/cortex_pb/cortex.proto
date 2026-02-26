@@ -1,0 +1,3498 @@
+syntax = "proto3";
+package exa.cortex_pb;
+
+import "exa/browser_pb/browser.proto";
+import "exa/chat_client_server_pb/chat_client_server.proto";
+import "exa/chat_pb/chat.proto";
+import "exa/codeium_common_pb/codeium_common.proto";
+import "exa/context_module_pb/context_module.proto";
+import "exa/diff_action_pb/diff_action.proto";
+import "exa/google/internal/cloud/code/v1internal/credits.proto";
+import "exa/opensearch_clients_pb/opensearch_clients.proto";
+
+enum InteractiveCascadeEditImportance {
+  INTERACTIVE_CASCADE_EDIT_IMPORTANCE_UNSPECIFIED = 0;
+  INTERACTIVE_CASCADE_EDIT_IMPORTANCE_LOW = 1;
+  INTERACTIVE_CASCADE_EDIT_IMPORTANCE_MEDIUM = 2;
+  INTERACTIVE_CASCADE_EDIT_IMPORTANCE_HIGH = 3;
+}
+
+enum ActionStatus {
+  ACTION_STATUS_UNSPECIFIED = 0;
+  ACTION_STATUS_ERROR = 1;
+  ACTION_STATUS_INITIALIZED = 2;
+  ACTION_STATUS_PREPARING = 3;
+  ACTION_STATUS_PREPARED = 4;
+  ACTION_STATUS_APPLYING = 5;
+  ACTION_STATUS_APPLIED = 6;
+  ACTION_STATUS_REJECTED = 7;
+}
+
+enum PlanStatus {
+  PLAN_STATUS_UNSPECIFIED = 0;
+  PLAN_STATUS_INITIALIZED = 1;
+  PLAN_STATUS_PLANNING = 2;
+  PLAN_STATUS_PLANNED = 3;
+  PLAN_STATUS_ERROR = 4;
+}
+
+enum CortexRequestSource {
+  CORTEX_REQUEST_SOURCE_UNSPECIFIED = 0;
+  CORTEX_REQUEST_SOURCE_CASCADE = 1;
+  CORTEX_REQUEST_SOURCE_USER_IMPLICIT = 2;
+}
+
+enum WorkspaceType {
+  WORKSPACE_TYPE_UNSPECIFIED = 0;
+  WORKSPACE_TYPE_GIT = 1;
+  WORKSPACE_TYPE_PIPER = 2;
+  WORKSPACE_TYPE_FIG = 3;
+  WORKSPACE_TYPE_JJ_PIPER = 4;
+  WORKSPACE_TYPE_JJ_GIT = 5;
+}
+
+enum CortexTrajectorySource {
+  CORTEX_TRAJECTORY_SOURCE_UNSPECIFIED = 0;
+  CORTEX_TRAJECTORY_SOURCE_CASCADE_CLIENT = 1;
+  CORTEX_TRAJECTORY_SOURCE_EXPLAIN_PROBLEM = 2;
+  CORTEX_TRAJECTORY_SOURCE_REFACTOR_FUNCTION = 3;
+  CORTEX_TRAJECTORY_SOURCE_EVAL = 4;
+  CORTEX_TRAJECTORY_SOURCE_EVAL_TASK = 5;
+  CORTEX_TRAJECTORY_SOURCE_ASYNC_PRR = 6;
+  CORTEX_TRAJECTORY_SOURCE_ASYNC_CF = 7;
+  CORTEX_TRAJECTORY_SOURCE_ASYNC_SL = 8;
+  CORTEX_TRAJECTORY_SOURCE_ASYNC_PRD = 9;
+  CORTEX_TRAJECTORY_SOURCE_ASYNC_CM = 10;
+  CORTEX_TRAJECTORY_SOURCE_INTERACTIVE_CASCADE = 12;
+  CORTEX_TRAJECTORY_SOURCE_REPLAY = 13;
+  CORTEX_TRAJECTORY_SOURCE_SDK = 15;
+  CORTEX_TRAJECTORY_SOURCE_SUBAGENT = 16;
+}
+
+enum CortexTrajectoryType {
+  CORTEX_TRAJECTORY_TYPE_UNSPECIFIED = 0;
+  CORTEX_TRAJECTORY_TYPE_USER_MAINLINE = 1;
+  CORTEX_TRAJECTORY_TYPE_USER_GRANULAR = 2;
+  CORTEX_TRAJECTORY_TYPE_SUPERCOMPLETE = 3;
+  CORTEX_TRAJECTORY_TYPE_CASCADE = 4;
+  CORTEX_TRAJECTORY_TYPE_CHECKPOINT = 6;
+  CORTEX_TRAJECTORY_TYPE_APPLIER = 11;
+  CORTEX_TRAJECTORY_TYPE_TOOL_CALL_PROPOSAL = 12;
+  CORTEX_TRAJECTORY_TYPE_TRAJECTORY_CHOICE = 13;
+  CORTEX_TRAJECTORY_TYPE_LLM_JUDGE = 14;
+  CORTEX_TRAJECTORY_TYPE_INTERACTIVE_CASCADE = 17;
+  CORTEX_TRAJECTORY_TYPE_BRAIN_UPDATE = 16;
+  CORTEX_TRAJECTORY_TYPE_BROWSER = 20;
+  CORTEX_TRAJECTORY_TYPE_KNOWLEDGE_GENERATION = 21;
+}
+
+enum CortexTrajectoryReferenceType {
+  CORTEX_TRAJECTORY_REFERENCE_TYPE_UNSPECIFIED = 0;
+  CORTEX_TRAJECTORY_REFERENCE_TYPE_PRUNE = 1;
+  CORTEX_TRAJECTORY_REFERENCE_TYPE_FORK = 2;
+}
+
+enum RetryReason {
+  RETRY_REASON_UNSPECIFIED = 0;
+  RETRY_REASON_API_RETRYABLE = 1;
+  RETRY_REASON_MODEL_CORRECTABLE = 2;
+  RETRY_REASON_NON_RECOVERABLE = 3;
+}
+
+enum TruncationReason {
+  TRUNCATION_REASON_UNSPECIFIED = 0;
+  TRUNCATION_REASON_PROMPT_CACHE_TTL_EXPIRED = 1;
+  TRUNCATION_REASON_MAX_TOKEN_LIMIT = 2;
+}
+
+enum CortexStepSource {
+  CORTEX_STEP_SOURCE_UNSPECIFIED = 0;
+  CORTEX_STEP_SOURCE_MODEL = 2;
+  CORTEX_STEP_SOURCE_USER_IMPLICIT = 3;
+  CORTEX_STEP_SOURCE_USER_EXPLICIT = 4;
+  CORTEX_STEP_SOURCE_SYSTEM = 5;
+  CORTEX_STEP_SOURCE_SYSTEM_SDK = 6;
+}
+
+enum CortexStepCreditReason {
+  CORTEX_STEP_CREDIT_REASON_UNSPECIFIED = 0;
+  CORTEX_STEP_CREDIT_REASON_LINT_FIXING_DISCOUNT = 1;
+}
+
+enum ExecutionAsyncLevel {
+  EXECUTION_ASYNC_LEVEL_UNSPECIFIED = 0;
+  EXECUTION_ASYNC_LEVEL_INVOCATION_BLOCKING = 1;
+  EXECUTION_ASYNC_LEVEL_EXECUTOR_BLOCKING = 2;
+  EXECUTION_ASYNC_LEVEL_FULL_ASYNC = 3;
+}
+
+enum CortexStepStatus {
+  CORTEX_STEP_STATUS_UNSPECIFIED = 0;
+  CORTEX_STEP_STATUS_GENERATING = 8;
+  CORTEX_STEP_STATUS_QUEUED = 11;
+  CORTEX_STEP_STATUS_PENDING = 1;
+  CORTEX_STEP_STATUS_RUNNING = 2;
+  CORTEX_STEP_STATUS_WAITING = 9;
+  CORTEX_STEP_STATUS_DONE = 3;
+  CORTEX_STEP_STATUS_INVALID = 4;
+  CORTEX_STEP_STATUS_CLEARED = 5;
+  CORTEX_STEP_STATUS_CANCELED = 6;
+  CORTEX_STEP_STATUS_ERROR = 7;
+  CORTEX_STEP_STATUS_INTERRUPTED = 12;
+}
+
+enum CascadeRunStatus {
+  CASCADE_RUN_STATUS_UNSPECIFIED = 0;
+  CASCADE_RUN_STATUS_IDLE = 1;
+  CASCADE_RUN_STATUS_RUNNING = 2;
+  CASCADE_RUN_STATUS_CANCELING = 3;
+  CASCADE_RUN_STATUS_BUSY = 4;
+}
+
+enum BrainFilterStrategy {
+  BRAIN_FILTER_STRATEGY_UNSPECIFIED = 0;
+  BRAIN_FILTER_STRATEGY_NO_SYSTEM_INJECTED_STEPS = 1;
+  BRAIN_FILTER_STRATEGY_NO_MEMORIES = 2;
+}
+
+enum SectionOverrideMode {
+  SECTION_OVERRIDE_MODE_UNSPECIFIED = 0;
+  SECTION_OVERRIDE_MODE_OVERRIDE = 1;
+  SECTION_OVERRIDE_MODE_APPEND = 2;
+  SECTION_OVERRIDE_MODE_PREPEND = 3;
+}
+
+enum AgentMode {
+  AGENT_MODE_UNSPECIFIED = 0;
+  AGENT_MODE_PLANNING = 1;
+  AGENT_MODE_EXECUTION = 2;
+  AGENT_MODE_VERIFICATION = 3;
+}
+
+enum ReplaceToolVariant {
+  REPLACE_TOOL_VARIANT_UNSPECIFIED = 0;
+  REPLACE_TOOL_VARIANT_REPLACEMENT_CHUNK = 1;
+  REPLACE_TOOL_VARIANT_SEARCH_REPLACE = 2;
+  REPLACE_TOOL_VARIANT_APPLY_PATCH = 3;
+  REPLACE_TOOL_VARIANT_SINGLE_MULTI = 4;
+}
+
+enum BrowserSubagentMode {
+  BROWSER_SUBAGENT_MODE_UNSPECIFIED = 0;
+  BROWSER_SUBAGENT_MODE_MAIN_AGENT_ONLY = 1;
+  BROWSER_SUBAGENT_MODE_SUBAGENT_PRIMARILY = 2;
+  BROWSER_SUBAGENT_MODE_BOTH_AGENTS = 3;
+  BROWSER_SUBAGENT_MODE_SUBAGENT_ONLY = 4;
+}
+
+enum BrowserToolSetMode {
+  BROWSER_TOOL_SET_MODE_UNSPECIFIED = 0;
+  BROWSER_TOOL_SET_MODE_ALL_TOOLS = 1;
+  BROWSER_TOOL_SET_MODE_PIXEL_ONLY = 2;
+  BROWSER_TOOL_SET_MODE_ALL_INPUT_PIXEL_OUTPUT = 3;
+}
+
+enum BrowserActionWaitingReason {
+  BROWSER_ACTION_WAITING_REASON_UNSPECIFIED = 0;
+  BROWSER_ACTION_WAITING_REASON_PAGE_ACCESS = 1;
+  BROWSER_ACTION_WAITING_REASON_ACTION_PERMISSION = 2;
+  BROWSER_ACTION_WAITING_REASON_PAGE_ACCESS_AND_ACTION_PERMISSION = 3;
+}
+
+enum PermissionScope {
+  PERMISSION_SCOPE_UNSPECIFIED = 0;
+  PERMISSION_SCOPE_ONCE = 1;
+  PERMISSION_SCOPE_CONVERSATION = 2;
+}
+
+enum CortexStepType {
+  CORTEX_STEP_TYPE_UNSPECIFIED = 0;
+  CORTEX_STEP_TYPE_DUMMY = 1;
+  CORTEX_STEP_TYPE_FINISH = 2;
+  CORTEX_STEP_TYPE_MQUERY = 4;
+  CORTEX_STEP_TYPE_CODE_ACTION = 5;
+  CORTEX_STEP_TYPE_GIT_COMMIT = 6;
+  CORTEX_STEP_TYPE_GREP_SEARCH = 7;
+  CORTEX_STEP_TYPE_COMPILE = 10;
+  CORTEX_STEP_TYPE_VIEW_CODE_ITEM = 13;
+  CORTEX_STEP_TYPE_ERROR_MESSAGE = 17;
+  CORTEX_STEP_TYPE_RUN_COMMAND = 21;
+  CORTEX_STEP_TYPE_FIND = 25;
+  CORTEX_STEP_TYPE_SUGGESTED_RESPONSES = 27;
+  CORTEX_STEP_TYPE_COMMAND_STATUS = 28;
+  CORTEX_STEP_TYPE_READ_URL_CONTENT = 31;
+  CORTEX_STEP_TYPE_VIEW_CONTENT_CHUNK = 32;
+  CORTEX_STEP_TYPE_SEARCH_WEB = 33;
+  CORTEX_STEP_TYPE_MCP_TOOL = 38;
+  CORTEX_STEP_TYPE_CLIPBOARD = 45;
+  CORTEX_STEP_TYPE_VIEW_FILE_OUTLINE = 47;
+  CORTEX_STEP_TYPE_LIST_RESOURCES = 51;
+  CORTEX_STEP_TYPE_READ_RESOURCE = 52;
+  CORTEX_STEP_TYPE_LINT_DIFF = 53;
+  CORTEX_STEP_TYPE_OPEN_BROWSER_URL = 56;
+  CORTEX_STEP_TYPE_RUN_EXTENSION_CODE = 57;
+  CORTEX_STEP_TYPE_TRAJECTORY_SEARCH = 60;
+  CORTEX_STEP_TYPE_EXECUTE_BROWSER_JAVASCRIPT = 61;
+  CORTEX_STEP_TYPE_LIST_BROWSER_PAGES = 62;
+  CORTEX_STEP_TYPE_CAPTURE_BROWSER_SCREENSHOT = 63;
+  CORTEX_STEP_TYPE_CLICK_BROWSER_PIXEL = 64;
+  CORTEX_STEP_TYPE_READ_TERMINAL = 65;
+  CORTEX_STEP_TYPE_CAPTURE_BROWSER_CONSOLE_LOGS = 66;
+  CORTEX_STEP_TYPE_READ_BROWSER_PAGE = 67;
+  CORTEX_STEP_TYPE_BROWSER_GET_DOM = 68;
+  CORTEX_STEP_TYPE_CODE_SEARCH = 73;
+  CORTEX_STEP_TYPE_BROWSER_INPUT = 74;
+  CORTEX_STEP_TYPE_BROWSER_MOVE_MOUSE = 75;
+  CORTEX_STEP_TYPE_BROWSER_SELECT_OPTION = 76;
+  CORTEX_STEP_TYPE_BROWSER_SCROLL_UP = 77;
+  CORTEX_STEP_TYPE_BROWSER_SCROLL_DOWN = 78;
+  CORTEX_STEP_TYPE_BROWSER_CLICK_ELEMENT = 79;
+  CORTEX_STEP_TYPE_BROWSER_LIST_NETWORK_REQUESTS = 123;
+  CORTEX_STEP_TYPE_BROWSER_GET_NETWORK_REQUEST = 124;
+  CORTEX_STEP_TYPE_BROWSER_PRESS_KEY = 80;
+  CORTEX_STEP_TYPE_TASK_BOUNDARY = 81;
+  CORTEX_STEP_TYPE_NOTIFY_USER = 82;
+  CORTEX_STEP_TYPE_CODE_ACKNOWLEDGEMENT = 83;
+  CORTEX_STEP_TYPE_INTERNAL_SEARCH = 84;
+  CORTEX_STEP_TYPE_BROWSER_SUBAGENT = 85;
+  CORTEX_STEP_TYPE_BROWSER_SCROLL = 88;
+  CORTEX_STEP_TYPE_KNOWLEDGE_GENERATION = 89;
+  CORTEX_STEP_TYPE_GENERATE_IMAGE = 91;
+  CORTEX_STEP_TYPE_BROWSER_RESIZE_WINDOW = 96;
+  CORTEX_STEP_TYPE_BROWSER_DRAG_PIXEL_TO_PIXEL = 97;
+  CORTEX_STEP_TYPE_BROWSER_MOUSE_WHEEL = 113;
+  CORTEX_STEP_TYPE_BROWSER_MOUSE_UP = 120;
+  CORTEX_STEP_TYPE_BROWSER_MOUSE_DOWN = 121;
+  CORTEX_STEP_TYPE_BROWSER_REFRESH_PAGE = 125;
+  CORTEX_STEP_TYPE_CONVERSATION_HISTORY = 98;
+  CORTEX_STEP_TYPE_KNOWLEDGE_ARTIFACTS = 99;
+  CORTEX_STEP_TYPE_SEND_COMMAND_INPUT = 100;
+  CORTEX_STEP_TYPE_SYSTEM_MESSAGE = 101;
+  CORTEX_STEP_TYPE_WAIT = 102;
+  CORTEX_STEP_TYPE_KI_INSERTION = 116;
+  CORTEX_STEP_TYPE_WORKSPACE_API = 122;
+  CORTEX_STEP_TYPE_INVOKE_SUBAGENT = 127;
+  CORTEX_STEP_TYPE_USER_INPUT = 14;
+  CORTEX_STEP_TYPE_PLANNER_RESPONSE = 15;
+  CORTEX_STEP_TYPE_VIEW_FILE = 8;
+  CORTEX_STEP_TYPE_LIST_DIRECTORY = 9;
+  CORTEX_STEP_TYPE_CHECKPOINT = 23;
+  CORTEX_STEP_TYPE_FILE_CHANGE = 86;
+  CORTEX_STEP_TYPE_DELETE_DIRECTORY = 92;
+  CORTEX_STEP_TYPE_MOVE = 87;
+  CORTEX_STEP_TYPE_EPHEMERAL_MESSAGE = 90;
+  CORTEX_STEP_TYPE_COMPILE_APPLET = 93;
+  CORTEX_STEP_TYPE_INSTALL_APPLET_DEPENDENCIES = 94;
+  CORTEX_STEP_TYPE_INSTALL_APPLET_PACKAGE = 95;
+  CORTEX_STEP_TYPE_SET_UP_FIREBASE = 108;
+  CORTEX_STEP_TYPE_RESTART_DEV_SERVER = 110;
+  CORTEX_STEP_TYPE_DEPLOY_FIREBASE = 111;
+  CORTEX_STEP_TYPE_SHELL_EXEC = 112;
+  CORTEX_STEP_TYPE_LINT_APPLET = 114;
+  CORTEX_STEP_TYPE_DEFINE_NEW_ENV_VARIABLE = 115;
+  CORTEX_STEP_TYPE_WRITE_BLOB = 128;
+  CORTEX_STEP_TYPE_AGENCY_TOOL_CALL = 103;
+  CORTEX_STEP_TYPE_PLAN_INPUT = 3;
+  CORTEX_STEP_TYPE_PROPOSE_CODE = 24;
+  CORTEX_STEP_TYPE_MANAGER_FEEDBACK = 39;
+  CORTEX_STEP_TYPE_TOOL_CALL_PROPOSAL = 40;
+  CORTEX_STEP_TYPE_TOOL_CALL_CHOICE = 41;
+  CORTEX_STEP_TYPE_TRAJECTORY_CHOICE = 42;
+  CORTEX_STEP_TYPE_POST_PR_REVIEW = 49;
+  CORTEX_STEP_TYPE_FIND_ALL_REFERENCES = 54;
+  CORTEX_STEP_TYPE_BRAIN_UPDATE = 55;
+  CORTEX_STEP_TYPE_PROPOSAL_FEEDBACK = 59;
+  CORTEX_STEP_TYPE_RETRIEVE_MEMORY = 34;
+  CORTEX_STEP_TYPE_MEMORY = 29;
+}
+
+enum CheckpointType {
+  CHECKPOINT_TYPE_UNSPECIFIED = 0;
+}
+
+enum SemanticCodebaseSearchType {
+  SEMANTIC_CODEBASE_SEARCH_TYPE_UNSPECIFIED = 0;
+  SEMANTIC_CODEBASE_SEARCH_TYPE_MQUERY = 1;
+  SEMANTIC_CODEBASE_SEARCH_TYPE_VECTOR_INDEX = 2;
+}
+
+enum AcknowledgementType {
+  ACKNOWLEDGEMENT_TYPE_UNSPECIFIED = 0;
+  ACKNOWLEDGEMENT_TYPE_ACCEPT = 1;
+  ACKNOWLEDGEMENT_TYPE_REJECT = 2;
+  ACKNOWLEDGEMENT_TYPE_STALE = 3;
+  ACKNOWLEDGEMENT_TYPE_CLEARED = 4;
+}
+
+enum CodeHeuristicFailure {
+  CODE_HEURISTIC_FAILURE_UNSPECIFIED = 0;
+  CODE_HEURISTIC_FAILURE_LAZY_COMMENT = 1;
+  CODE_HEURISTIC_FAILURE_DELETED_LINES = 2;
+}
+
+enum FileChangeType {
+  FILE_CHANGE_TYPE_UNSPECIFIED = 0;
+  FILE_CHANGE_TYPE_CREATE = 1;
+  FILE_CHANGE_TYPE_EDIT = 2;
+  FILE_CHANGE_TYPE_DELETE = 3;
+}
+
+enum FindResultType {
+  FIND_RESULT_TYPE_UNSPECIFIED = 0;
+  FIND_RESULT_TYPE_FILE = 1;
+  FIND_RESULT_TYPE_DIRECTORY = 2;
+  FIND_RESULT_TYPE_ANY = 3;
+}
+
+enum CortexStepCompileTool {
+  CORTEX_STEP_COMPILE_TOOL_UNSPECIFIED = 0;
+  CORTEX_STEP_COMPILE_TOOL_PYLINT = 1;
+}
+
+enum SetUpFirebaseErrorCode {
+  ERROR_CODE_OK = 0;
+  ERROR_CODE_CANCELLED = 1;
+  ERROR_CODE_UNKNOWN = 2;
+  ERROR_CODE_INVALID_ARGUMENT = 3;
+  ERROR_CODE_DEADLINE_EXCEEDED = 4;
+  ERROR_CODE_NOT_FOUND = 5;
+  ERROR_CODE_ALREADY_EXISTS = 6;
+  ERROR_CODE_PERMISSION_DENIED = 7;
+  ERROR_CODE_UNAUTHENTICATED = 16;
+  ERROR_CODE_RESOURCE_EXHAUSTED = 8;
+  ERROR_CODE_FAILED_PRECONDITION = 9;
+  ERROR_CODE_ABORTED = 10;
+  ERROR_CODE_OUT_OF_RANGE = 11;
+  ERROR_CODE_UNIMPLEMENTED = 12;
+  ERROR_CODE_INTERNAL = 13;
+  ERROR_CODE_UNAVAILABLE = 14;
+  ERROR_CODE_DATA_LOSS = 15;
+}
+
+enum SetUpFirebaseRequest {
+  SET_UP_FIREBASE_REQUEST_UNSPECIFIED = 0;
+  SET_UP_FIREBASE_REQUEST_FORCE_SHOW_SET_UP_UI = 1;
+  SET_UP_FIREBASE_REQUEST_PROVISION = 2;
+}
+
+enum SetUpFirebaseResult {
+  SET_UP_FIREBASE_RESULT_UNSPECIFIED = 0;
+  SET_UP_FIREBASE_RESULT_SHOW_SET_UP_UI = 1;
+  SET_UP_FIREBASE_RESULT_IMPLEMENT_FIREBASE = 2;
+  SET_UP_FIREBASE_RESULT_TOS_ERROR = 3;
+  SET_UP_FIREBASE_RESULT_PROVISIONING_ERROR = 4;
+}
+
+enum AutoRunDecision {
+  AUTO_RUN_DECISION_UNSPECIFIED = 0;
+  AUTO_RUN_DECISION_USER_ALLOW = 1;
+  AUTO_RUN_DECISION_USER_DENY = 2;
+  AUTO_RUN_DECISION_SYSTEM_ALLOW = 3;
+  AUTO_RUN_DECISION_SYSTEM_DENY = 4;
+  AUTO_RUN_DECISION_MODEL_ALLOW = 5;
+  AUTO_RUN_DECISION_MODEL_DENY = 6;
+  AUTO_RUN_DECISION_DEFAULT_ALLOW = 7;
+  AUTO_RUN_DECISION_DEFAULT_DENY = 8;
+}
+
+enum SearchWebType {
+  SEARCH_WEB_TYPE_UNSPECIFIED = 0;
+  SEARCH_WEB_TYPE_WEB = 1;
+  SEARCH_WEB_TYPE_IMAGE = 2;
+}
+
+enum DeployWebAppFileUploadStatus {
+  DEPLOY_WEB_APP_FILE_UPLOAD_STATUS_UNSPECIFIED = 0;
+  DEPLOY_WEB_APP_FILE_UPLOAD_STATUS_PENDING = 1;
+  DEPLOY_WEB_APP_FILE_UPLOAD_STATUS_IN_PROGRESS = 2;
+  DEPLOY_WEB_APP_FILE_UPLOAD_STATUS_SUCCESS = 3;
+  DEPLOY_WEB_APP_FILE_UPLOAD_STATUS_FAILURE = 4;
+}
+
+enum ExecutorTerminationReason {
+  EXECUTOR_TERMINATION_REASON_UNSPECIFIED = 0;
+  EXECUTOR_TERMINATION_REASON_ERROR = 1;
+  EXECUTOR_TERMINATION_REASON_USER_CANCELED = 2;
+  EXECUTOR_TERMINATION_REASON_MAX_INVOCATIONS = 3;
+  EXECUTOR_TERMINATION_REASON_NO_TOOL_CALL = 4;
+  EXECUTOR_TERMINATION_REASON_MAX_FORCED_INVOCATIONS = 6;
+  EXECUTOR_TERMINATION_REASON_EARLY_CONTINUE = 7;
+  EXECUTOR_TERMINATION_REASON_TERMINAL_STEP_TYPE = 8;
+  EXECUTOR_TERMINATION_REASON_TERMINAL_CUSTOM_HOOK = 9;
+  EXECUTOR_TERMINATION_REASON_INJECTED_RESPONSE = 10;
+}
+
+enum LintDiffType {
+  LINT_DIFF_TYPE_UNSPECIFIED = 0;
+  LINT_DIFF_TYPE_DELETE = 1;
+  LINT_DIFF_TYPE_INSERT = 2;
+  LINT_DIFF_TYPE_UNCHANGED = 3;
+}
+
+enum BrainEntryType {
+  BRAIN_ENTRY_TYPE_UNSPECIFIED = 0;
+  BRAIN_ENTRY_TYPE_PLAN = 1;
+  BRAIN_ENTRY_TYPE_TASK = 2;
+}
+
+enum TaskStatus {
+  TASK_STATUS_UNSPECIFIED = 0;
+  TASK_STATUS_TODO = 1;
+  TASK_STATUS_IN_PROGRESS = 2;
+  TASK_STATUS_DONE = 3;
+}
+
+enum TaskDeltaType {
+  TASK_DELTA_TYPE_UNSPECIFIED = 0;
+  TASK_DELTA_TYPE_ADD = 1;
+  TASK_DELTA_TYPE_PRUNE = 2;
+  TASK_DELTA_TYPE_DELETE = 3;
+  TASK_DELTA_TYPE_UPDATE = 4;
+  TASK_DELTA_TYPE_MOVE = 5;
+}
+
+enum BrainUpdateTrigger {
+  BRAIN_UPDATE_TRIGGER_UNSPECIFIED = 0;
+  BRAIN_UPDATE_TRIGGER_SYSTEM_FORCED = 1;
+  BRAIN_UPDATE_TRIGGER_USER_REQUESTED = 2;
+  BRAIN_UPDATE_TRIGGER_USER_NEW_INFO = 3;
+  BRAIN_UPDATE_TRIGGER_RESEARCH_NEW_INFO = 4;
+}
+
+enum RecordingGenerationStatus {
+  RECORDING_GENERATION_STATUS_UNSPECIFIED = 0;
+  RECORDING_GENERATION_STATUS_GENERATING = 1;
+  RECORDING_GENERATION_STATUS_ERROR = 2;
+  RECORDING_GENERATION_STATUS_COMPLETED = 3;
+}
+
+enum CommandOutputPriority {
+  COMMAND_OUTPUT_PRIORITY_UNSPECIFIED = 0;
+  COMMAND_OUTPUT_PRIORITY_TOP = 1;
+  COMMAND_OUTPUT_PRIORITY_BOTTOM = 2;
+  COMMAND_OUTPUT_PRIORITY_SPLIT = 3;
+}
+
+enum CortexMemorySource {
+  CORTEX_MEMORY_SOURCE_UNSPECIFIED = 0;
+  CORTEX_MEMORY_SOURCE_USER = 1;
+  CORTEX_MEMORY_SOURCE_CASCADE = 2;
+}
+
+enum CortexMemoryTrigger {
+  CORTEX_MEMORY_TRIGGER_UNSPECIFIED = 0;
+  CORTEX_MEMORY_TRIGGER_ALWAYS_ON = 1;
+  CORTEX_MEMORY_TRIGGER_MODEL_DECISION = 2;
+  CORTEX_MEMORY_TRIGGER_MANUAL = 3;
+  CORTEX_MEMORY_TRIGGER_GLOB = 4;
+}
+
+enum MemoryActionType {
+  MEMORY_ACTION_TYPE_UNSPECIFIED = 0;
+  MEMORY_ACTION_TYPE_CREATE = 1;
+  MEMORY_ACTION_TYPE_UPDATE = 2;
+  MEMORY_ACTION_TYPE_DELETE = 3;
+}
+
+enum CortexStepManagerFeedbackStatus {
+  CORTEX_STEP_MANAGER_FEEDBACK_STATUS_UNSPECIFIED = 0;
+  CORTEX_STEP_MANAGER_FEEDBACK_STATUS_APPROVED = 1;
+  CORTEX_STEP_MANAGER_FEEDBACK_STATUS_DENIED = 2;
+  CORTEX_STEP_MANAGER_FEEDBACK_STATUS_ERROR = 3;
+}
+
+enum McpServerStatus {
+  MCP_SERVER_STATUS_UNSPECIFIED = 0;
+  MCP_SERVER_STATUS_PENDING = 1;
+  MCP_SERVER_STATUS_READY = 2;
+  MCP_SERVER_STATUS_ERROR = 3;
+}
+
+enum EphemeralMessagePersistenceLevel {
+  EPHEMERAL_MESSAGE_PERSISTENCE_LEVEL_UNSPECIFIED = 0;
+  EPHEMERAL_MESSAGE_PERSISTENCE_LEVEL_ALL = 1;
+  EPHEMERAL_MESSAGE_PERSISTENCE_LEVEL_LATEST_ONLY = 2;
+}
+
+enum BrowserEphemeralOption {
+  BROWSER_EPHEMERAL_OPTION_UNSPECIFIED = 0;
+  BROWSER_EPHEMERAL_OPTION_SCREENSHOT = 1;
+  BROWSER_EPHEMERAL_OPTION_DOM = 2;
+}
+
+enum TrajectoryShareStatus {
+  TRAJECTORY_SHARE_STATUS_UNSPECIFIED = 0;
+  TRAJECTORY_SHARE_STATUS_TEAM = 1;
+}
+
+enum RunExtensionCodeAutoRunDecision {
+  RUN_EXTENSION_CODE_AUTO_RUN_DECISION_UNSPECIFIED = 0;
+  RUN_EXTENSION_CODE_AUTO_RUN_DECISION_ALLOWED = 1;
+  RUN_EXTENSION_CODE_AUTO_RUN_DECISION_DENIED = 2;
+  RUN_EXTENSION_CODE_AUTO_RUN_DECISION_MODEL_ALLOWED = 3;
+  RUN_EXTENSION_CODE_AUTO_RUN_DECISION_MODEL_DENIED = 4;
+}
+
+enum TrajectorySearchIdType {
+  TRAJECTORY_SEARCH_ID_TYPE_UNSPECIFIED = 0;
+  TRAJECTORY_SEARCH_ID_TYPE_CASCADE_ID = 1;
+  TRAJECTORY_SEARCH_ID_TYPE_MAINLINE = 2;
+}
+
+enum CodeAcknowledgementScope {
+  CODE_ACKNOWLEDGEMENT_SCOPE_UNSPECIFIED = 0;
+  CODE_ACKNOWLEDGEMENT_SCOPE_FILE = 1;
+  CODE_ACKNOWLEDGEMENT_SCOPE_ALL = 2;
+  CODE_ACKNOWLEDGEMENT_SCOPE_HUNK = 3;
+}
+
+enum ArtifactReviewStatus {
+  ARTIFACT_REVIEW_STATUS_UNSPECIFIED = 0;
+  ARTIFACT_REVIEW_STATUS_PENDING_REVIEW = 1;
+  ARTIFACT_REVIEW_STATUS_REVIEWED = 2;
+  ARTIFACT_REVIEW_STATUS_MODIFIED = 3;
+}
+
+enum MessagePriority {
+  MESSAGE_PRIORITY_UNSPECIFIED = 0;
+  MESSAGE_PRIORITY_LOW = 1;
+  MESSAGE_PRIORITY_NORMAL = 2;
+  MESSAGE_PRIORITY_HIGH = 3;
+}
+
+message WorkflowSpec {
+  string path = 1;
+  string name = 2;
+  string description = 3;
+  string content = 4;
+  bool turbo = 5;
+  bool is_builtin = 6;
+  exa.cortex_pb.CortexMemoryScope scope = 7;
+  string base_dir = 8;
+}
+
+message CortexPlanSummaryComponent {
+  oneof component {
+    string text = 1;
+    exa.codeium_common_pb.ContextScopeItem citation = 2;
+  }
+}
+
+message CodingStepState {
+  string plan_id = 1;
+  string goal = 2;
+  repeated exa.cortex_pb.ActionState action_states = 3;
+  repeated exa.cortex_pb.CortexStepOutline outlines = 7;
+  repeated exa.cortex_pb.CortexPlanSummaryComponent summary_components = 8;
+  string post_summary_text = 9;
+  bool plan_fully_generated = 4;
+  bool plan_finished = 5;
+  exa.cortex_pb.PlanDebugInfo debug_info = 6;
+  bool plan_summary_confirmed = 10;
+  bool plan_summary_fully_generated = 11;
+  repeated exa.context_module_pb.CciWithSubrangeWithRetrievalMetadata cci_list = 12;
+}
+
+message CortexPlanState {
+  repeated exa.cortex_pb.CortexStepState steps = 1;
+  repeated exa.cortex_pb.CortexStepOutline outlines = 2;
+  uint32 current_step_index = 3;
+  exa.cortex_pb.PlanDebugInfo debug_info = 4;
+}
+
+message CortexStepOutline {
+  uint32 step_number = 1;
+  string action_name = 2;
+  string json_args = 3;
+  repeated uint32 parent_step_numbers = 4;
+}
+
+message CortexStepState {
+  oneof step {
+    exa.cortex_pb.CodingStepState coding = 1;
+  }
+}
+
+message CortexResearchState {
+  uint32 total_retrieved_count = 1;
+  repeated exa.codeium_common_pb.CciWithSubrange top_retrieved_items = 2;
+  exa.cortex_pb.ResearchDebugInfo debug_info = 3;
+  repeated exa.codeium_common_pb.CciWithSubrange full_cci_list = 4;
+}
+
+message ResearchDebugInfo {
+  string query = 1;
+  repeated string files_scanned = 2;
+}
+
+message CortexWorkflowState {
+  exa.cortex_pb.CortexRequestSource request_source = 6;
+  string goal = 1;
+  exa.cortex_pb.PlanInput plan_input = 2;
+  exa.cortex_pb.CortexResearchState research_state = 3;
+  exa.cortex_pb.CortexPlanState plan_state = 4;
+  string error = 5;
+}
+
+message CortexRunState {
+  exa.cortex_pb.CortexWorkflowState workflow_state = 1;
+  exa.codeium_common_pb.GraphExecutionState execution_state = 2;
+  bool done = 3;
+}
+
+message PlanInput {
+  string goal = 1;
+  repeated string next_steps = 5;
+  repeated string target_directories = 2;
+  repeated string target_files = 3;
+  repeated exa.codeium_common_pb.ContextScopeItem scope_items = 4;
+}
+
+message ActionSpec {
+  repeated uint32 parent_step_indices = 3;
+  oneof spec {
+    exa.cortex_pb.ActionSpecCommand command = 1;
+    exa.cortex_pb.ActionSpecCreateFile create_file = 2;
+    exa.cortex_pb.ActionSpecDeleteFile delete_file = 4;
+  }
+}
+
+message ActionSpecCreateFile {
+  string instruction = 1;
+  exa.codeium_common_pb.PathScopeItem path = 2;
+  repeated exa.codeium_common_pb.CodeContextItem reference_ccis = 3;
+  bool overwrite = 4;
+}
+
+message ActionSpecDeleteFile {
+  exa.codeium_common_pb.PathScopeItem path = 1;
+}
+
+message LineRangeTarget {
+  string absolute_uri = 1;
+  uint32 start_line = 2;
+  uint32 end_line = 3;
+}
+
+message CommandContentTarget {
+  string content = 1;
+  string absolute_uri = 2;
+}
+
+message ReplacementChunk {
+  string target_content = 1;
+  string replacement_content = 2;
+  bool allow_multiple = 3;
+  bool target_has_carriage_return = 4;
+  repeated string context_lines = 5;
+  int32 start_line = 6;
+  int32 end_line = 7;
+  exa.cortex_pb.AcknowledgementType acknowledgement_type = 11;
+  int32 index = 12;
+}
+
+message ActionSpecCommand {
+  string instruction = 1;
+  repeated exa.cortex_pb.ReplacementChunk replacement_chunks = 9;
+  bool is_edit = 2;
+  bool use_fast_apply = 8;
+  repeated exa.codeium_common_pb.CodeContextItem reference_ccis = 5;
+  string classification = 11;
+  exa.cortex_pb.InteractiveCascadeEditImportance importance = 12;
+  oneof target {
+    exa.codeium_common_pb.CodeContextItem code_context = 3;
+    exa.codeium_common_pb.PathScopeItem file = 4;
+    exa.codeium_common_pb.CciWithSubrange cci_with_subrange = 6;
+    exa.cortex_pb.LineRangeTarget line_range = 7;
+    exa.cortex_pb.CommandContentTarget content_target = 10;
+  }
+}
+
+message ActionState {
+  string step_id = 5;
+  exa.cortex_pb.ActionStatus status = 1;
+  exa.cortex_pb.ActionSpec spec = 2;
+  exa.cortex_pb.ActionResult result = 3;
+  string error = 4;
+  uint32 step_version = 6;
+  uint32 plan_version = 7;
+}
+
+message ActionResult {
+  bool apply_existing_result = 2;
+  oneof result {
+    exa.cortex_pb.ActionResultEdit edit = 1;
+  }
+}
+
+message ActionDebugInfo {
+  message DebugInfoEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  repeated exa.cortex_pb.ActionDebugInfo.DebugInfoEntry entries = 1;
+}
+
+message ActionResultEdit {
+  string absolute_path_migrate_me_to_uri = 1;
+  exa.diff_action_pb.DiffBlock diff = 2;
+  string context_prefix = 3;
+  string context_suffix = 4;
+  exa.cortex_pb.ActionDebugInfo debug_info = 5;
+  string prompt_id = 12;
+  string completion_id = 6;
+  string file_content_hash = 7;
+  string absolute_uri = 8;
+  repeated exa.codeium_common_pb.CodeContextItem result_ccis = 9;
+  string original_content = 10;
+  bool create_file = 11;
+}
+
+message RetrievalStatus {
+  uint32 total_retrieved_count = 1;
+  repeated exa.codeium_common_pb.CciWithSubrange top_retrieved_items = 2;
+}
+
+message PlanState {
+  exa.cortex_pb.PlanStatus status = 4;
+  string plan_id = 1;
+  exa.cortex_pb.PlanInput plan_input = 2;
+  repeated exa.cortex_pb.ActionState actions = 3;
+  exa.cortex_pb.RetrievalStatus retrieval_status = 6;
+  string error = 5;
+  exa.cortex_pb.PlanDebugInfo debug_info = 7;
+}
+
+message PlanDebugInfo {
+  string raw_response = 1;
+  uint32 plan_tokens = 2;
+  float plan_cost = 3;
+  string system_prompt = 4;
+  repeated exa.chat_pb.ChatMessagePrompt message_prompts = 5;
+}
+
+message CortexPlanConfig {
+  exa.codeium_common_pb.ChatNodeConfig model_config = 1;
+  uint32 max_nominal_continuations = 2;
+  uint32 max_error_continuations = 3;
+}
+
+message CortexConfig {
+  bool record_telemetry = 11;
+  bool add_distill_node = 6;
+  exa.codeium_common_pb.ChatNodeConfig distill_config = 10;
+  exa.codeium_common_pb.MQueryConfig m_query_config = 8;
+  string m_query_model_name = 12;
+  bool use_macro_planner = 1;
+  exa.cortex_pb.CortexPlanConfig macro_plan_config = 4;
+  exa.cortex_pb.PlanConfig plan_config = 9;
+  exa.cortex_pb.CortexPlanConfig code_plan_config = 5;
+  bool auto_prepare_apply = 2;
+  uint32 num_prepare_retries = 3;
+}
+
+message PlanConfig {
+  string plan_model_name = 1;
+  uint32 max_tokens_per_plan = 2;
+  float max_token_fraction = 3;
+  float chat_temperature = 4;
+  uint64 chat_completion_max_tokens = 5;
+  bool augment_command = 9;
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 7;
+  exa.codeium_common_pb.MQueryConfig m_query_config = 8;
+}
+
+message CortexPlanSummary {
+  string cortex_id = 1;
+  exa.cortex_pb.PlanInput plan_input = 2;
+  bytes created_at = 3;
+  bool done = 4;
+}
+
+message WorkspaceInitializationData {
+  exa.cortex_pb.WorkspaceType workspace_type = 1;
+  oneof data {
+    exa.cortex_pb.WorkspaceInitializationDataGit git = 2;
+    exa.cortex_pb.WorkspaceInitializationDataPiper piper = 3;
+  }
+}
+
+message WorkspaceInitializationDataGit {
+  exa.cortex_pb.CortexWorkspaceMetadata metadata = 1;
+  string merge_base_commit_hash = 2;
+  string merge_base_head_patch_string = 3;
+  string head_working_patch_string = 4;
+  exa.codeium_common_pb.WorkspaceStats workspace_stats = 5;
+  bool repo_is_public = 6;
+}
+
+message WorkspaceInitializationDataPiper {
+  string workspace_folder_absolute_uri = 1;
+  int64 base_cl = 2;
+  repeated exa.cortex_pb.FileDiff file_diffs = 3;
+  oneof base_state {
+    int64 base_changelist = 5;
+    int64 citc_snapshot_id = 4;
+  }
+}
+
+message FileDiff {
+  string depot_path = 1;
+  oneof file_op {
+    exa.cortex_pb.FileDiffAdd add = 2;
+    exa.cortex_pb.FileDiffRemove remove = 3;
+    exa.cortex_pb.FileDiffModify modify = 4;
+  }
+}
+
+message FileDiffAdd {
+  string content = 1;
+}
+
+message FileDiffRemove {
+}
+
+message FileDiffModify {
+  string diff = 1;
+}
+
+message StateInitializationData {
+  bytes timestamp = 1;
+  string state_id = 2;
+  repeated exa.cortex_pb.WorkspaceInitializationData workspaces = 3;
+  exa.cortex_pb.AritfactInitializationData artifacts = 4;
+}
+
+message AritfactInitializationData {
+  message CompressedArtifactFilesEntry {
+    string key = 1;
+    bytes value = 2;
+  }
+
+  string artifact_dir_uri = 1;
+  string artifact_base_dir_uri = 2;
+  repeated exa.cortex_pb.AritfactInitializationData.CompressedArtifactFilesEntry compressed_artifact_files = 3;
+}
+
+message CortexWorkspaceMetadata {
+  string workspace_folder_absolute_uri = 1;
+  string git_root_absolute_uri = 2;
+  exa.codeium_common_pb.Repository repository = 3;
+  string branch_name = 4;
+}
+
+message AgentScriptCommandSpec {
+  string command = 1;
+  repeated string args = 2;
+}
+
+message AgentScriptPythonSpec {
+  string main_py_path_uri = 1;
+  string requirements_txt_path_uri = 2;
+  string relative_path_to_main_py = 3;
+  string relative_path_to_requirements_txt = 4;
+}
+
+message AgentScriptConfigPath {
+  oneof config_path {
+    string config_path_uri = 1;
+    string relative_path_to_config = 2;
+  }
+}
+
+message AgentCustomization {
+  string path = 1;
+  exa.cortex_pb.AgentScriptItem agent = 2;
+  bool is_global = 3;
+}
+
+message AgentScriptItem {
+  string name = 1;
+  string description = 8;
+  bool disabled = 9;
+  oneof source {
+    exa.cortex_pb.AgentScriptCommandSpec command_spec = 3;
+    exa.cortex_pb.AgentScriptPythonSpec python_spec = 4;
+    exa.cortex_pb.AgentScriptConfigPath config_path = 6;
+    exa.cortex_pb.CustomAgentSpec config = 7;
+  }
+}
+
+message CortexTrajectoryMetadata {
+  repeated exa.cortex_pb.CortexWorkspaceMetadata workspaces = 1;
+  bytes created_at = 2;
+  string initialization_state_id = 3;
+  exa.cortex_pb.AgentScriptItem agent_script = 4;
+}
+
+message CortexTrajectoryReference {
+  string trajectory_id = 1;
+  exa.cortex_pb.CortexTrajectoryType trajectory_type = 3;
+  int32 step_index = 2;
+  exa.cortex_pb.CortexStepType step_type = 4;
+  exa.cortex_pb.CortexTrajectoryReferenceType reference_type = 5;
+}
+
+message ImplicitTrajectoryDescription {
+  string trajectory_id = 1;
+  exa.cortex_pb.TrajectoryScope trajectory_scope = 2;
+  bool current = 3;
+}
+
+message InjectedResponseMetadata {
+}
+
+message CortexStepGeneratorMetadata {
+  repeated uint32 step_indices = 2;
+  exa.cortex_pb.CascadePlannerConfig planner_config = 3;
+  string execution_id = 4;
+  string error = 5;
+  oneof metadata {
+    exa.cortex_pb.ChatModelMetadata chat_model = 1;
+    exa.cortex_pb.InjectedResponseMetadata injected = 7;
+  }
+}
+
+message MessagePromptMetadata {
+  uint32 message_index = 1;
+  uint32 segment_index = 2;
+}
+
+message SectionJudgeCriteria {
+  string name = 1;
+  string description = 2;
+  uint32 weight = 3;
+}
+
+message PromptSectionMetadata {
+  enum PromptSectionSourceType {
+    PROMPT_SECTION_SOURCE_TYPE_UNSPECIFIED = 0;
+    PROMPT_SECTION_SOURCE_TYPE_RAW = 1;
+    PROMPT_SECTION_SOURCE_TYPE_TEMPLATE = 2;
+  }
+
+  exa.cortex_pb.PromptSectionMetadata.PromptSectionSourceType source_type = 1;
+  string template_key = 2;
+  bool is_internal = 3;
+}
+
+message PromptSection {
+  string title = 1;
+  string content = 2;
+  repeated exa.cortex_pb.SectionJudgeCriteria criteria = 3;
+  exa.cortex_pb.PromptSectionMetadata metadata = 4;
+  string dynamic_content = 5;
+}
+
+message RetryInfo {
+  string sherlog_link = 1;
+  exa.codeium_common_pb.ModelUsageStats usage = 2;
+  string error = 3;
+  string trace_id = 4;
+  exa.cortex_pb.RetryReason retry_reason = 5;
+  repeated google.internal.cloud.code.v1internal.Credits consumed_credits = 6;
+}
+
+message ChatModelMetadata {
+  string system_prompt = 1;
+  repeated exa.chat_pb.ChatMessagePrompt message_prompts = 2;
+  repeated exa.cortex_pb.MessagePromptMetadata message_metadata = 10;
+  exa.codeium_common_pb.Model model = 3;
+  exa.codeium_common_pb.ModelUsageStats usage = 4;
+  float model_cost = 5;
+  uint32 last_cache_index = 6;
+  exa.chat_pb.ChatToolChoice tool_choice = 7;
+  repeated exa.chat_pb.ChatToolDefinition tools = 8;
+  exa.cortex_pb.ChatStartMetadata chat_start_metadata = 9;
+  bytes time_to_first_token = 11;
+  bytes streaming_duration = 12;
+  int32 credit_cost = 13;
+  uint32 retries = 14;
+  exa.codeium_common_pb.CompletionConfiguration completion_config = 15;
+  repeated exa.cortex_pb.PromptSection prompt_sections = 16;
+  repeated exa.cortex_pb.RetryInfo retry_infos = 17;
+  repeated google.internal.cloud.code.v1internal.Credits consumed_credits = 18;
+  string response_model = 19;
+}
+
+message ContextWindowMetadata {
+  int32 estimated_tokens_used = 1;
+  exa.cortex_pb.TruncationReason truncation_reason = 2;
+}
+
+message CacheBreakpointMetadata {
+  uint32 index = 1;
+  exa.chat_pb.PromptCacheOptions options = 2;
+  string content_checksum = 3;
+}
+
+message ChatStartMetadata {
+  bytes created_at = 4;
+  uint32 start_step_index = 1;
+  int32 checkpoint_index = 2;
+  repeated uint32 steps_covered_by_checkpoint = 3;
+  int32 latest_stable_message_index = 5;
+  repeated exa.cortex_pb.CacheBreakpointMetadata cache_breakpoints = 6;
+  exa.cortex_pb.CacheBreakpointMetadata system_prompt_cache = 7;
+  bytes time_since_last_invocation = 8;
+  exa.cortex_pb.CacheRequestOptions cache_request = 9;
+  exa.cortex_pb.ContextWindowMetadata context_window_metadata = 10;
+}
+
+message CacheRequestOptions {
+  bool enabled = 1;
+  repeated uint32 cache_breakpoint_indices = 2;
+}
+
+message SnapshotMetadata {
+  string user = 1;
+  string workspace_id = 2;
+  uint32 snapshot_version = 3;
+  exa.cortex_pb.WorkspaceType workspace_type = 4;
+}
+
+message StatusTransition {
+  exa.cortex_pb.CortexStepStatus updated_status = 1;
+  bytes timestamp = 2;
+}
+
+message CortexStepInternalMetadata {
+  repeated exa.cortex_pb.StatusTransition status_transitions = 1;
+}
+
+message CortexStepMetadata {
+  uint32 step_generation_version = 21;
+  bytes created_at = 1;
+  bytes viewable_at = 6;
+  bytes finished_generating_at = 7;
+  bytes last_completed_chunk_at = 22;
+  bytes completed_at = 8;
+  exa.cortex_pb.CortexStepSource source = 3;
+  exa.codeium_common_pb.ChatToolCall tool_call = 4;
+  exa.codeium_common_pb.ChatToolCall modified_tool_call = 29;
+  repeated string arguments_order = 5;
+  exa.codeium_common_pb.ModelUsageStats model_usage = 9;
+  repeated exa.cortex_pb.RetryInfo retry_infos = 28;
+  float model_cost = 10;
+  exa.codeium_common_pb.Model generator_model = 11;
+  exa.codeium_common_pb.ModelOrAlias requested_model = 13;
+  exa.codeium_common_pb.ModelInfo model_info = 24;
+  string execution_id = 12;
+  int32 flow_credits_used = 14;
+  int32 prompt_credits_used = 15;
+  repeated exa.cortex_pb.CortexStepCreditReason non_standard_credit_reasons = 18;
+  repeated exa.codeium_common_pb.ChatToolCall tool_call_choices = 16;
+  string tool_call_choice_reason = 17;
+  exa.cortex_pb.CortexRequestSource cortex_request_source = 19;
+  int32 tool_call_output_tokens = 23;
+  exa.cortex_pb.SourceTrajectoryStepInfo source_trajectory_step_info = 20;
+  exa.cortex_pb.SnapshotMetadata snapshot_metadata = 25;
+  exa.cortex_pb.CortexStepInternalMetadata internal_metadata = 26;
+  bool wait_for_previous_tools = 27;
+}
+
+message FileAccessPermission {
+  string path = 1;
+  bool is_directory = 2;
+  bool allow = 3;
+  exa.cortex_pb.PermissionScope scope = 4;
+  bool from_current_step = 5;
+}
+
+message TrajectoryPermissions {
+  repeated exa.cortex_pb.FileAccessPermission file_access_permissions = 1;
+}
+
+message SourceTrajectoryStepInfo {
+  string trajectory_id = 1;
+  uint32 step_index = 2;
+  uint32 metadata_index = 3;
+  string cascade_id = 4;
+}
+
+message StructuredErrorPart {
+  oneof part {
+    string text = 1;
+    string file_uri = 2;
+    string directory_uri = 3;
+    string url = 4;
+    string code_text = 5;
+  }
+}
+
+message CortexErrorDetails {
+  string user_error_message = 1;
+  string model_error_message = 9;
+  repeated exa.cortex_pb.StructuredErrorPart structured_error_parts = 8;
+  string short_error = 2;
+  string full_error = 3;
+  bool is_benign = 4;
+  uint32 error_code = 7;
+  string details = 5;
+  string error_id = 6;
+  repeated string rpc_error_details = 10;
+}
+
+message UserStepSnapshot {
+  string name = 1;
+}
+
+message UserStepAnnotations {
+  exa.cortex_pb.UserStepSnapshot snapshot = 1;
+}
+
+message TrajectoryScope {
+  string workspace_uri = 1;
+  string git_root_uri = 2;
+  string branch_name = 3;
+}
+
+message CascadeExecutorConfig {
+  bool disable_async = 1;
+  int32 max_generator_invocations = 2;
+  repeated exa.cortex_pb.CortexStepType terminal_step_types = 3;
+  bool hold_for_valid_checkpoint = 5;
+  int32 hold_for_valid_checkpoint_timeout = 6;
+  bool research_only = 7;
+  bool use_aggressive_snapshotting = 8;
+  bool require_finish_tool = 9;
+  int32 max_forced_invocations = 10;
+  bool queue_all_steps = 11;
+  bool store_gen_svc_request = 12;
+  bool enable_tasks = 13;
+}
+
+message ForcedBrainUpdateConfig {
+  float update_sample_rate = 1;
+}
+
+message DynamicBrainUpdateConfig {
+  bool use_aggressive_prompt = 1;
+}
+
+message BrainUpdateStrategy {
+  oneof strategy {
+    bytes executor_forced = 2;
+    exa.cortex_pb.ForcedBrainUpdateConfig invocation_forced = 3;
+    exa.cortex_pb.DynamicBrainUpdateConfig dynamic_update = 6;
+    bytes executor_forced_and_with_discretion = 5;
+  }
+}
+
+message LogArtifactsConfig {
+  bool enabled = 1;
+  bool hide_nominal_tool_steps = 2;
+  bool hide_planner_response_text = 3;
+  int32 max_bytes_per_step = 4;
+  int32 max_bytes_per_tool_arg = 5;
+  bool hide_system_steps = 6;
+  bool hide_user_implicit_steps = 7;
+}
+
+message MessageConfig {
+  bool enabled = 1;
+}
+
+message CascadeConfig {
+  exa.cortex_pb.CascadePlannerConfig planner_config = 1;
+  exa.cortex_pb.CheckpointConfig checkpoint_config = 2;
+  exa.cortex_pb.CascadeExecutorConfig executor_config = 3;
+  exa.cortex_pb.TrajectoryConversionConfig trajectory_conversion_config = 4;
+  bool apply_model_default_override = 6;
+  exa.cortex_pb.ConversationHistoryConfig conversation_history_config = 7;
+  bool split_dynamic_prompt_sections = 8;
+  exa.cortex_pb.MessageConfig message_config = 9;
+}
+
+message TrajectoryConversionConfig {
+  bool group_tools_with_planner_response = 3;
+  bool wrap_tool_responses = 5;
+  exa.cortex_pb.LogArtifactsConfig log_artifacts_config = 6;
+  bool append_ephemeral_to_previous_tool_result = 7;
+  bool disable_step_id = 8;
+  bool use_raw_user_message = 9;
+}
+
+message CascadeConversationalPlannerConfig {
+  exa.codeium_common_pb.ConversationalPlannerMode planner_mode = 4;
+  bool eval_mode = 5;
+  bool agentic_mode = 14;
+  string prompt_combination_name = 15;
+  exa.cortex_pb.ConversationHistoryConfig conversation_history_config = 16;
+  string override_workspace_dir_experimental_use_only = 17;
+}
+
+message SectionOverrideConfig {
+  exa.cortex_pb.SectionOverrideMode mode = 1;
+  string content = 2;
+}
+
+message MqueryToolConfig {
+  exa.codeium_common_pb.MQueryConfig m_query_config = 1;
+  exa.codeium_common_pb.Model m_query_model = 2;
+  uint32 max_tokens_per_m_query = 3;
+  int32 num_items_full_source = 4;
+  int32 max_lines_per_snippet = 5;
+  bool enable_search_in_file_tool = 6;
+  bool allow_access_gitignore = 7;
+  bool disable_semantic_codebase_search = 8;
+  bool force_disable = 9;
+  exa.cortex_pb.EnterpriseToolConfig enterprise_config = 10;
+}
+
+message NotifyUserConfig {
+  exa.codeium_common_pb.ArtifactReviewMode artifact_review_mode = 1;
+}
+
+message GrepToolConfig {
+  uint32 max_grep_results = 1;
+  bool include_cci_in_result = 2;
+  uint32 num_full_source_ccis = 3;
+  uint32 max_bytes_per_cci = 4;
+  exa.cortex_pb.EnterpriseToolConfig enterprise_config = 5;
+  bool allow_access_gitignore = 6;
+  bool use_code_search = 7;
+  bool disable_fallback_to_local_execution = 8;
+}
+
+message FindToolConfig {
+  uint32 max_find_results = 1;
+  string fd_path = 2;
+  bool use_code_search = 3;
+  bool disable_fallback_to_local_execution = 4;
+}
+
+message CodeSearchToolConfig {
+  string cs_path = 1;
+  bool use_eval_tag = 2;
+}
+
+message InternalSearchToolConfig {
+  int32 max_results = 1;
+  int32 max_content_length = 2;
+}
+
+message ClusterQueryToolConfig {
+  uint32 max_cluster_query_results = 1;
+}
+
+message InspectClusterToolConfig {
+  uint32 max_tokens_per_inspect_cluster = 1;
+}
+
+message AutoCommandConfig {
+  bool enable_model_auto_run = 1;
+  repeated string user_allowlist = 2;
+  repeated string user_denylist = 3;
+  repeated string system_allowlist = 4;
+  repeated string system_denylist = 5;
+  repeated string system_nooplist = 7;
+  exa.codeium_common_pb.CascadeCommandsAutoExecution auto_execution_policy = 6;
+}
+
+message ListDirToolConfig {
+  exa.cortex_pb.EnterpriseToolConfig enterprise_config = 1;
+}
+
+message RunCommandToolConfig {
+  uint32 max_chars_command_stdout = 1;
+  bool force_disable = 2;
+  exa.cortex_pb.AutoCommandConfig auto_command_config = 3;
+  bool enable_ide_terminal_execution = 4;
+  bool force_go_terminal_execution = 12;
+  string shell_name = 5;
+  string shell_path = 6;
+  uint32 max_timeout_ms = 7;
+  exa.cortex_pb.EnterpriseToolConfig enterprise_config = 9;
+  string shell_setup_script = 10;
+  bool forbid_search_commands = 11;
+  bool enable_midterm_output_processor = 8;
+}
+
+message KnowledgeBaseSearchToolConfig {
+  uint32 max_tokens_per_knowledge_base_search = 1;
+  double prompt_fraction = 2;
+}
+
+message FastApplyFallbackConfig {
+  bool enabled = 1;
+  uint32 prompt_unchanged_threshold = 2;
+  uint32 content_view_radius_lines = 3;
+  uint32 content_edit_radius_lines = 4;
+  exa.codeium_common_pb.Model fast_apply_model = 5;
+  bool repair_replace_blocks = 6;
+}
+
+message ReplaceContentToolConfig {
+  float max_fuzzy_edit_distance_fraction = 1;
+  bool allow_partial_replacement_success = 2;
+  uint32 view_file_recency_max_distance = 3;
+  bool enable_fuzzy_sandwich_match = 4;
+  exa.cortex_pb.FastApplyFallbackConfig fast_apply_fallback_config = 5;
+  exa.cortex_pb.ReplaceToolVariant tool_variant = 6;
+  bool show_triggered_memories = 8;
+  bool disable_allow_multiple = 9;
+  bool use_line_range = 10;
+}
+
+message CodeToolConfig {
+  repeated string disable_extensions = 1;
+  bool apply_edits = 2;
+  bool use_replace_content_edit_tool = 3;
+  exa.cortex_pb.ReplaceContentToolConfig replace_content_tool_config = 4;
+  exa.cortex_pb.AutoFixLintsConfig auto_fix_lints_config = 5;
+  bool allow_edit_gitignore = 6;
+  exa.cortex_pb.EnterpriseToolConfig enterprise_config = 7;
+  bool override_allow_action_on_unsaved_file = 8;
+  bool skip_replace_content_validation = 9;
+  bool use_replace_content_propose_code = 10;
+  bool only_show_incremental_diff_zone = 11;
+  repeated string file_allowlist = 12;
+  repeated string dir_allowlist = 17;
+  bool classify_edit = 13;
+  bool run_proposal_extension_verifier = 14;
+  bool skip_await_lint_errors = 15;
+  bool provide_importance = 16;
+}
+
+message IntentToolConfig {
+  exa.codeium_common_pb.Model intent_model = 1;
+  uint32 max_context_tokens = 2;
+}
+
+message ViewFileToolConfig {
+  bool allow_view_gitignore = 7;
+  bool split_outline_tool = 8;
+  bool show_triggered_memories = 13;
+  exa.cortex_pb.EnterpriseToolConfig enterprise_config = 12;
+  uint32 max_lines_per_view = 14;
+  bool include_line_numbers = 15;
+  repeated string dir_allowlist = 16;
+  uint32 max_total_outline_bytes = 9;
+  uint32 max_bytes_per_outline_item = 11;
+  uint32 show_full_file_bytes = 10;
+}
+
+message SuggestedResponseConfig {
+  bool force_disable = 1;
+}
+
+message SearchWebToolConfig {
+  bool force_disable = 1;
+  exa.codeium_common_pb.ThirdPartyWebSearchConfig third_party_config = 2;
+}
+
+message MemoryToolConfig {
+  bool force_disable = 1;
+  bool disable_auto_generate_memories = 2;
+}
+
+message McpToolConfig {
+  bool force_disable = 1;
+  uint32 max_output_bytes = 2;
+}
+
+message InvokeSubagentToolConfig {
+  bool enabled = 1;
+}
+
+message AutoFixLintsConfig {
+  bool enabled = 1;
+  string notifying_prompt = 2;
+}
+
+message CaptureBrowserScreenshotToolConfig {
+  bool enable_saving = 1;
+}
+
+message DOMExtractionConfig {
+  bool include_coordinates = 1;
+}
+
+message BrowserSubagentContextConfig {
+  enum ContextType {
+    CONTEXT_TYPE_UNSPECIFIED = 0;
+    CONTEXT_TYPE_WITH_MARKDOWN_TRAJECTORY_SUMMARY = 1;
+    CONTEXT_TYPE_TASK_ONLY = 2;
+  }
+
+  exa.cortex_pb.BrowserSubagentContextConfig.ContextType type = 1;
+  int32 max_chars = 2;
+}
+
+message BrowserSubagentToolConfig {
+  exa.cortex_pb.BrowserSubagentMode mode = 1;
+  exa.codeium_common_pb.Model browser_subagent_model = 2;
+  bool use_detailed_converter = 3;
+  int32 suggested_max_tool_calls = 4;
+  bool disable_onboarding = 5;
+  exa.cortex_pb.SubagentReminderMode subagent_reminder_mode = 6;
+  int32 max_context_tokens = 7;
+  exa.cortex_pb.BrowserSubagentContextConfig context_config = 8;
+  exa.cortex_pb.DOMExtractionConfig dom_extraction_config = 9;
+  bool disable_screenshot = 10;
+  exa.cortex_pb.LowLevelToolsConfig low_level_tools_config = 11;
+  bool enable_scratchpad = 12;
+  bool include_ci_prompt = 13;
+}
+
+message SubagentReminderMode {
+  oneof mode {
+    exa.cortex_pb.BrowserVerifyScreenshotsMode verify_screenshots = 1;
+    exa.cortex_pb.BrowserVerifyCompletenessMode verify_completeness = 2;
+    exa.cortex_pb.BrowserCustomReminderMode custom = 3;
+  }
+}
+
+message BrowserVerifyScreenshotsMode {
+}
+
+message BrowserVerifyCompletenessMode {
+}
+
+message BrowserCustomReminderMode {
+  string reminder = 1;
+}
+
+message ClickFeedbackConfig {
+  enum FeedbackType {
+    FEEDBACK_TYPE_UNSPECIFIED = 0;
+    FEEDBACK_TYPE_DOT = 1;
+    FEEDBACK_TYPE_MOUSE_POINTER = 2;
+  }
+
+  bool enabled = 12;
+  int32 red = 7;
+  int32 green = 8;
+  int32 blue = 9;
+  int32 alpha = 10;
+  string display_color = 5;
+  int32 radius = 11;
+  exa.cortex_pb.ClickFeedbackConfig.FeedbackType feedback_type = 13;
+}
+
+message ClickBrowserPixelToolConfig {
+  exa.cortex_pb.ClickFeedbackConfig click_feedback = 1;
+}
+
+message BrowserStateDiffingConfig {
+  bool capture_agent_action_diffs = 1;
+  bool include_dom_tree_in_diffs = 2;
+}
+
+message BrowserGetNetworkRequestToolConfig {
+  bool enabled = 1;
+}
+
+message LowLevelToolsConfig {
+  bool enable_low_level_tools_instructions = 1;
+  bool enable_mouse_tools = 2;
+}
+
+message BrowserWindowSize {
+  int32 width_px = 1;
+  int32 height_px = 2;
+}
+
+message BrowserListNetworkRequestsToolConfig {
+  bool enabled = 1;
+}
+
+message AntigravityBrowserToolConfig {
+  bool enabled = 1;
+  exa.cortex_pb.AutoRunDecision auto_run_decision = 2;
+  exa.cortex_pb.CaptureBrowserScreenshotToolConfig capture_browser_screenshot = 3;
+  exa.cortex_pb.BrowserSubagentToolConfig browser_subagent = 4;
+  exa.cortex_pb.ClickBrowserPixelToolConfig click_browser_pixel = 5;
+  exa.cortex_pb.BrowserStateDiffingConfig browser_state_diffing_config = 10;
+  exa.cortex_pb.BrowserListNetworkRequestsToolConfig browser_list_network_requests_tool_config = 18;
+  exa.cortex_pb.BrowserGetNetworkRequestToolConfig browser_get_network_request_tool_config = 19;
+  exa.cortex_pb.BrowserToolSetMode tool_set_mode = 6;
+  bool disable_open_url = 7;
+  bool is_eval_mode = 9;
+  exa.codeium_common_pb.BrowserJsExecutionPolicy browser_js_execution_policy = 11;
+  bool disable_actuation_overlay = 12;
+  bool variable_wait_tool = 13;
+  exa.codeium_common_pb.BrowserJsAutoRunPolicy browser_js_auto_run_policy = 8;
+  exa.cortex_pb.BrowserWindowSize initial_browser_window_size = 14;
+  exa.cortex_pb.DOMExtractionConfig dom_extraction_config = 15;
+  bool disable_workspace_api = 16;
+  bool open_page_in_background = 17;
+  bool use_antigravity_as_browser_prompting = 20;
+  bool enable_refresh_tool = 21;
+  bool disable_read_browser_page = 22;
+  bool use_extended_timeout = 23;
+  bool log_timeout_errors_instead_of_sentry = 24;
+  bool skip_permission_checks = 25;
+}
+
+message TrajectorySearchToolConfig {
+  bool force_disable = 1;
+  bool conversations_enabled = 2;
+  bool user_activities_enabled = 3;
+  uint32 max_scored_chunks = 4;
+}
+
+message EnterpriseToolConfig {
+  bool enforce_workspace_validation = 1;
+  repeated string custom_workspace = 2;
+}
+
+message ViewCodeItemToolConfig {
+  uint32 max_num_items = 1;
+  uint32 max_bytes_per_item = 2;
+  bool allow_access_gitignore = 3;
+  exa.cortex_pb.EnterpriseToolConfig enterprise_config = 4;
+}
+
+message CommandStatusToolConfig {
+  bool use_delta = 1;
+  int32 max_output_characters = 2;
+  int32 min_output_characters = 3;
+  int32 max_wait_duration_seconds = 4;
+  int32 output_stabilization_duration_seconds = 5;
+}
+
+message ReadKnowledgeBaseItemToolConfig {
+  bool enabled = 1;
+  repeated exa.codeium_common_pb.KnowledgeBaseItem knowledge_base_items = 2;
+}
+
+message ToolOverrideConfig {
+  message ArgumentNameOverridesEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  message ArgumentDescriptionOverridesEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  string name_override = 1;
+  repeated exa.cortex_pb.ToolOverrideConfig.ArgumentNameOverridesEntry argument_name_overrides = 2;
+  exa.cortex_pb.SectionOverrideConfig description_override = 3;
+  repeated exa.cortex_pb.ToolOverrideConfig.ArgumentDescriptionOverridesEntry argument_description_overrides = 4;
+}
+
+message ToolDescriptionOverrideMap {
+  message DescriptionsEntry {
+    string key = 1;
+    exa.cortex_pb.SectionOverrideConfig value = 2;
+  }
+
+  message ToolOverridesEntry {
+    string key = 1;
+    exa.cortex_pb.ToolOverrideConfig value = 2;
+  }
+
+  repeated exa.cortex_pb.ToolDescriptionOverrideMap.DescriptionsEntry descriptions = 1;
+  repeated exa.cortex_pb.ToolDescriptionOverrideMap.ToolOverridesEntry tool_overrides = 2;
+}
+
+message TaskBoundaryToolConfig {
+  int32 minimum_predicted_task_size = 1;
+  int32 target_status_update_frequency = 2;
+  int32 no_active_task_soft_reminder_tool_threshold = 3;
+  int32 no_active_task_strict_reminder_tool_threshold = 4;
+}
+
+message FinishToolConfig {
+  string result_json_schema_string = 1;
+}
+
+message WorkspaceAPIToolConfig {
+  bool read_only = 1;
+}
+
+message NotebookEditToolConfig {
+  bool enabled = 1;
+}
+
+message CascadeToolConfig {
+  exa.cortex_pb.MqueryToolConfig mquery = 1;
+  exa.cortex_pb.CodeToolConfig code = 2;
+  exa.cortex_pb.IntentToolConfig intent = 3;
+  exa.cortex_pb.GrepToolConfig grep = 4;
+  exa.cortex_pb.FindToolConfig find = 5;
+  exa.cortex_pb.RunCommandToolConfig run_command = 8;
+  exa.cortex_pb.KnowledgeBaseSearchToolConfig knowledge_base_search = 9;
+  exa.cortex_pb.ViewFileToolConfig view_file = 10;
+  exa.cortex_pb.SuggestedResponseConfig suggested_response = 11;
+  exa.cortex_pb.SearchWebToolConfig search_web = 13;
+  exa.cortex_pb.MemoryToolConfig memory = 14;
+  exa.cortex_pb.McpToolConfig mcp = 16;
+  exa.cortex_pb.ListDirToolConfig list_dir = 19;
+  exa.cortex_pb.ViewCodeItemToolConfig view_code_item = 20;
+  exa.cortex_pb.ReadKnowledgeBaseItemToolConfig read_knowledge_base_item = 21;
+  exa.cortex_pb.CommandStatusToolConfig command_status = 23;
+  exa.cortex_pb.AntigravityBrowserToolConfig antigravity_browser = 25;
+  exa.cortex_pb.TrajectorySearchToolConfig trajectory_search = 28;
+  exa.cortex_pb.CodeSearchToolConfig code_search = 31;
+  exa.cortex_pb.InternalSearchToolConfig internal_search = 32;
+  exa.cortex_pb.NotifyUserConfig notify_user = 33;
+  exa.cortex_pb.BrowserSubagentToolConfig browser_subagent = 34;
+  exa.cortex_pb.TaskBoundaryToolConfig task_boundary = 35;
+  exa.cortex_pb.FinishToolConfig finish = 36;
+  exa.cortex_pb.WorkspaceAPIToolConfig workspace_api = 37;
+  exa.cortex_pb.NotebookEditToolConfig notebook_edit = 38;
+  exa.cortex_pb.InvokeSubagentToolConfig invoke_subagent = 39;
+  exa.cortex_pb.ToolDescriptionOverrideMap description_override_map = 22;
+  bool disable_simple_research_tools = 29;
+}
+
+message ModelOutputRetryConfig {
+  uint32 max_retries = 1;
+  oneof last_retry_option {
+    bool forbid_tool_use = 3;
+    string force_tool_name = 4;
+  }
+}
+
+message ModelAPIRetryConfig {
+  uint32 max_retries = 1;
+  uint32 initial_sleep_duration_ms = 2;
+  double exponential_multiplier = 3;
+  bool include_error_feedback = 4;
+  double range = 5;
+}
+
+message PlannerRetryConfig {
+  exa.cortex_pb.ModelOutputRetryConfig model_output_retry = 1;
+  exa.cortex_pb.ModelAPIRetryConfig api_retry = 2;
+}
+
+message CodeAcknowledgementConverterConfig {
+  bool show_to_model_on_written_feedback = 1;
+  bool show_to_model_on_rejection = 2;
+}
+
+message StepStringConverterConfig {
+  exa.cortex_pb.CodeAcknowledgementConverterConfig code_acknowledgement = 1;
+}
+
+message AgenticModeConfig {
+  message InjectArtifactReminderThresholdMapEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+
+  repeated exa.cortex_pb.AgenticModeConfig.InjectArtifactReminderThresholdMapEntry inject_artifact_reminder_threshold_map = 1;
+  bool disable_artifact_reminders = 2;
+}
+
+message CustomAgentSystemPromptConfig {
+  bool include_workspace_prompt = 1;
+  bool include_mcp_server_prompt = 2;
+  bool include_artifact_instructions = 3;
+}
+
+message CustomizationPath {
+  oneof path {
+    string agent_relative = 1;
+    string workspace_relative = 2;
+    string absolute = 3;
+  }
+}
+
+message SkillSet {
+  exa.cortex_pb.CustomizationPath skills_path = 6;
+  repeated string skill_names = 2;
+}
+
+message SkillsConfig {
+  bool inherit_user = 2;
+  repeated exa.cortex_pb.CustomizationPath skills_paths = 3;
+}
+
+message AgentDiscoveryConfig {
+  bool inherit_user = 1;
+}
+
+message CustomizationDiscoveryConfig {
+  exa.cortex_pb.SkillsConfig skills = 1;
+  exa.cortex_pb.AgentDiscoveryConfig agents = 2;
+}
+
+message CustomAgentConfig {
+  repeated exa.cortex_pb.PromptSection system_prompt_sections = 1;
+  repeated string tool_names = 2;
+  exa.cortex_pb.CustomAgentSystemPromptConfig system_prompt_config = 6;
+}
+
+message CodingAgentConfig {
+  bool google_mode = 1;
+  bool agentic_mode = 2;
+}
+
+message SdkToolOverride {
+  message ParamMappingEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  string old_tool_name = 1;
+  string tool_class_name = 2;
+  string name = 3;
+  string description = 4;
+  string parameters = 5;
+  repeated exa.cortex_pb.SdkToolOverride.ParamMappingEntry param_mapping = 6;
+}
+
+message SdkCustomizationConfig {
+  message ExtraConfigEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  string workspace_root = 1;
+  repeated exa.cortex_pb.SdkToolOverride tool_overrides = 2;
+  bool use_only_override_tools = 3;
+  repeated exa.cortex_pb.SdkCustomizationConfig.ExtraConfigEntry extra_config = 4;
+}
+
+message CustomAgentSpec {
+  repeated exa.cortex_pb.McpServerSpec mcp_servers = 4;
+  string command_execution_policy = 5;
+  bool enforced_workspace_validation = 8;
+  exa.cortex_pb.PromptSectionCustomizationConfig prompt_section_customization = 9;
+  bool skip_mcp_prefixes = 10;
+  exa.cortex_pb.CascadeConfig cascade_config = 11;
+  exa.cortex_pb.SdkCustomizationConfig customization_config = 12;
+  repeated string custom_tools = 13;
+  exa.cortex_pb.SkillsConfig skills = 14;
+  exa.cortex_pb.AgentDiscoveryConfig agents = 15;
+  oneof config {
+    exa.cortex_pb.CustomAgentConfig custom_agent = 1;
+    exa.cortex_pb.CodingAgentConfig coding_agent = 2;
+  }
+  oneof workspace {
+    bool user_active_workspaces = 6;
+    exa.cortex_pb.WorkspacePaths workspace_paths = 7;
+  }
+}
+
+message CustomPromptSection {
+  exa.cortex_pb.PromptSection prompt_section = 1;
+  oneof placement {
+    string insert_after_section = 2;
+    string insert_before_section = 3;
+  }
+}
+
+message PromptSectionCustomizationConfig {
+  repeated string remove_prompt_sections = 1;
+  repeated exa.cortex_pb.CustomPromptSection add_prompt_sections = 2;
+  repeated exa.cortex_pb.PromptSection append_prompt_sections = 3;
+  repeated exa.cortex_pb.PromptSection replace_prompt_sections = 4;
+}
+
+message WorkspacePaths {
+  repeated string absolute_paths = 1;
+}
+
+message CustomizationConfig {
+  string customization_server_url = 1;
+  repeated string tool_names = 2;
+  repeated string pre_invocation_hook_names = 3;
+  repeated string post_invocation_hook_names = 4;
+  repeated exa.cortex_pb.McpServerSpec mcp_servers = 5;
+  string trajectory_to_chat_message_override = 6;
+  repeated string pre_tool_hook_names = 8;
+  repeated string post_tool_hook_names = 9;
+  bool skip_tool_name_prefix = 12;
+  bool skip_tool_description_prefix = 13;
+  repeated string stop_hook_names = 14;
+  exa.cortex_pb.CustomizationDiscoveryConfig customization_discovery_config = 15;
+  string agent_path = 16;
+  oneof workspace {
+    bool user_active_workspaces = 10;
+    exa.cortex_pb.WorkspacePaths workspace_paths = 11;
+  }
+}
+
+message CascadePlannerConfig {
+  exa.cortex_pb.CustomizationConfig customization_config = 42;
+  exa.cortex_pb.PromptSectionCustomizationConfig prompt_section_customization_config = 41;
+  exa.cortex_pb.CascadeToolConfig tool_config = 13;
+  exa.cortex_pb.StepStringConverterConfig step_string_converter_config = 31;
+  exa.codeium_common_pb.Model plan_model = 1;
+  exa.codeium_common_pb.ModelOrAlias requested_model = 15;
+  string model_name = 28;
+  exa.codeium_common_pb.ModelInfo custom_model_info_override = 27;
+  uint32 max_output_tokens = 6;
+  bool no_tool_explanation = 7;
+  bool no_tool_summary = 33;
+  int32 truncation_threshold_tokens = 14;
+  exa.cortex_pb.EphemeralMessagesConfig ephemeral_messages_config = 21;
+  bool show_all_errors = 25;
+  exa.cortex_pb.PlannerRetryConfig retry_config = 30;
+  exa.cortex_pb.KnowledgeConfig knowledge_config = 32;
+  exa.cortex_pb.AgenticModeConfig agentic_mode_config = 35;
+  bool no_wait_for_previous_tools = 37;
+  oneof planner_type_config {
+    exa.cortex_pb.CascadeConversationalPlannerConfig conversational = 2;
+    exa.cortex_pb.CascadeConversationalPlannerConfig google = 26;
+    exa.cortex_pb.CascadeConversationalPlannerConfig cider = 36;
+    exa.cortex_pb.CustomAgentConfig custom_agent = 39;
+    string custom_agent_config_absolute_uri = 40;
+  }
+}
+
+message DeploymentInteractionPayload {
+  string subdomain = 1;
+}
+
+message CascadeDeployInteraction {
+  bool cancel = 1;
+  exa.codeium_common_pb.DeployTarget deploy_target = 2;
+  string subdomain = 3;
+}
+
+message CascadeRunCommandInteraction {
+  bool confirm = 1;
+  string proposed_command_line = 2;
+  string submitted_command_line = 3;
+  bool sandbox_override = 4;
+}
+
+message CascadeOpenBrowserUrlInteraction {
+  bool confirm = 1;
+}
+
+message CascadeRunExtensionCodeInteraction {
+  bool confirm = 1;
+}
+
+message CascadeExecuteBrowserJavaScriptInteraction {
+  bool confirm = 1;
+}
+
+message CascadeCaptureBrowserScreenshotInteraction {
+  bool confirm = 1;
+}
+
+message CascadeClickBrowserPixelInteraction {
+  bool confirm = 1;
+}
+
+message CascadeTaskResolutionInteraction {
+  bool confirm = 1;
+  exa.cortex_pb.TaskResolution resolution = 2;
+}
+
+message CascadeBrowserActionInteraction {
+  bool confirm = 1;
+}
+
+message CascadeOpenBrowserSetupInteraction {
+  bool confirm = 1;
+}
+
+message CascadeConfirmBrowserSetupInteraction {
+  bool confirm = 1;
+}
+
+message CascadeSendCommandInputInteraction {
+  bool confirm = 1;
+}
+
+message CascadeReadUrlContentInteraction {
+  bool confirm = 1;
+}
+
+message CascadeMcpInteraction {
+  bool confirm = 1;
+}
+
+message FilePermissionInteraction {
+  bool allow = 1;
+  exa.cortex_pb.PermissionScope scope = 2;
+  string absolute_path_uri = 3;
+}
+
+message CascadeDeployInteractionSpec {
+  repeated exa.codeium_common_pb.DeployTarget deploy_target_options = 1;
+}
+
+message CascadeRunCommandInteractionSpec {
+}
+
+message CascadeOpenBrowserUrlInteractionSpec {
+}
+
+message CascadeRunExtensionCodeInteractionSpec {
+}
+
+message CascadeExecuteBrowserJavaScriptInteractionSpec {
+}
+
+message CascadeCaptureBrowserScreenshotInteractionSpec {
+}
+
+message CascadeClickBrowserPixelInteractionSpec {
+}
+
+message CascadeTaskResolutionInteractionSpec {
+  string title = 1;
+  string description = 2;
+}
+
+message CascadeSendCommandInputInteractionSpec {
+}
+
+message CascadeReadUrlContentInteractionSpec {
+}
+
+message CascadeMcpInteractionSpec {
+}
+
+message FilePermissionInteractionSpec {
+  enum BlockReason {
+    BLOCK_REASON_UNSPECIFIED = 0;
+    BLOCK_REASON_OUTSIDE_WORKSPACE = 1;
+    BLOCK_REASON_GITIGNORED = 2;
+  }
+
+  string absolute_path_uri = 1;
+  bool is_directory = 2;
+  exa.cortex_pb.FilePermissionInteractionSpec.BlockReason block_reason = 3;
+}
+
+message ElicitationInteractionSpec {
+  string server_name = 1;
+  string mode = 2;
+  string message = 3;
+  string requested_schema_json = 4;
+  string url = 5;
+}
+
+message ElicitationInteraction {
+  string action = 1;
+  string content_json = 2;
+}
+
+message RequestedInteraction {
+  oneof interaction {
+    exa.cortex_pb.CascadeDeployInteractionSpec deploy = 2;
+    exa.cortex_pb.CascadeRunCommandInteractionSpec run_command = 3;
+    exa.cortex_pb.CascadeOpenBrowserUrlInteractionSpec open_browser_url = 4;
+    exa.cortex_pb.CascadeRunExtensionCodeInteractionSpec run_extension_code = 5;
+    exa.cortex_pb.CascadeExecuteBrowserJavaScriptInteractionSpec execute_browser_javascript = 7;
+    exa.cortex_pb.CascadeCaptureBrowserScreenshotInteractionSpec capture_browser_screenshot = 8;
+    exa.cortex_pb.CascadeClickBrowserPixelInteractionSpec click_browser_pixel = 9;
+    exa.cortex_pb.CascadeBrowserActionInteraction browser_action = 13;
+    exa.cortex_pb.CascadeOpenBrowserSetupInteraction open_browser_setup = 14;
+    exa.cortex_pb.CascadeConfirmBrowserSetupInteraction confirm_browser_setup = 15;
+    exa.cortex_pb.CascadeSendCommandInputInteractionSpec send_command_input = 16;
+    exa.cortex_pb.CascadeReadUrlContentInteractionSpec read_url_content = 17;
+    exa.cortex_pb.CascadeMcpInteractionSpec mcp = 18;
+    exa.cortex_pb.FilePermissionInteractionSpec file_permission = 19;
+    exa.cortex_pb.ElicitationInteractionSpec elicitation = 20;
+  }
+}
+
+message CascadeUserInteraction {
+  string trajectory_id = 1;
+  uint32 step_index = 2;
+  oneof interaction {
+    exa.cortex_pb.CascadeDeployInteraction deploy = 4;
+    exa.cortex_pb.CascadeRunCommandInteraction run_command = 5;
+    exa.cortex_pb.CascadeOpenBrowserUrlInteraction open_browser_url = 6;
+    exa.cortex_pb.CascadeRunExtensionCodeInteraction run_extension_code = 7;
+    exa.cortex_pb.CascadeExecuteBrowserJavaScriptInteraction execute_browser_javascript = 8;
+    exa.cortex_pb.CascadeCaptureBrowserScreenshotInteraction capture_browser_screenshot = 9;
+    exa.cortex_pb.CascadeClickBrowserPixelInteraction click_browser_pixel = 10;
+    exa.cortex_pb.CascadeBrowserActionInteraction browser_action = 13;
+    exa.cortex_pb.CascadeOpenBrowserSetupInteraction open_browser_setup = 14;
+    exa.cortex_pb.CascadeConfirmBrowserSetupInteraction confirm_browser_setup = 15;
+    exa.cortex_pb.CascadeSendCommandInputInteraction send_command_input = 16;
+    exa.cortex_pb.CascadeReadUrlContentInteraction read_url_content = 17;
+    exa.cortex_pb.CascadeMcpInteraction mcp = 18;
+    exa.cortex_pb.FilePermissionInteraction file_permission = 19;
+    exa.cortex_pb.ElicitationInteraction elicitation = 20;
+  }
+}
+
+message CompletedInteraction {
+  exa.cortex_pb.RequestedInteraction request = 1;
+  exa.cortex_pb.CascadeUserInteraction response = 2;
+}
+
+message KnowledgeReference {
+  oneof reference {
+    string file_path = 1;
+    string conversation_id = 2;
+    string url = 3;
+  }
+}
+
+message KnowledgeReferences {
+  repeated exa.cortex_pb.KnowledgeReference references = 1;
+}
+
+message CortexStepKIInsertion {
+  message KiReferencesEntry {
+    string key = 1;
+    exa.cortex_pb.KnowledgeReferences value = 2;
+  }
+
+  repeated exa.cortex_pb.CortexStepKIInsertion.KiReferencesEntry ki_references = 1;
+}
+
+message CortexStepDummy {
+  uint32 input = 1;
+  uint32 output = 2;
+}
+
+message CortexStepFinish {
+  message OutputEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  repeated exa.cortex_pb.CortexStepFinish.OutputEntry output = 1;
+  string output_string = 2;
+}
+
+message CortexStepPlanInput {
+  exa.cortex_pb.PlanInput plan_input = 1;
+  bool user_provided = 2;
+}
+
+message ArtifactSnapshot {
+  string artifact_name = 1;
+  string content = 2;
+  string artifact_absolute_uri = 3;
+  bytes last_edited = 4;
+  exa.cortex_pb.ArtifactReviewState review_state = 5;
+}
+
+message CortexStepCheckpoint {
+  message EditedFileMapEntry {
+    string key = 1;
+    exa.diff_action_pb.DiffList value = 2;
+  }
+
+  uint32 checkpoint_index = 1;
+  bool intent_only = 9;
+  uint32 included_step_index_start = 11;
+  uint32 included_step_index_end = 12;
+  string conversation_title = 10;
+  string user_intent = 4;
+  string session_summary = 5;
+  string code_change_summary = 6;
+  bool model_summarization_failed = 16;
+  bool used_fallback_summary = 17;
+  repeated exa.cortex_pb.ArtifactSnapshot artifact_snapshots = 14;
+  repeated string conversation_log_uris = 15;
+  repeated exa.cortex_pb.TrajectoryFileDiff trajectory_file_diffs = 18;
+  repeated string user_requests = 19;
+  repeated exa.cortex_pb.CortexStepCheckpoint.EditedFileMapEntry edited_file_map = 7;
+  repeated uint32 included_step_indices = 3;
+  string memory_summary = 8;
+}
+
+message CheckpointConfig {
+  uint32 token_threshold = 1;
+  float max_overhead_ratio = 3;
+  uint32 moving_window_size = 4;
+  uint32 max_token_limit = 5;
+  uint32 max_output_tokens = 11;
+  exa.codeium_common_pb.Model checkpoint_model = 7;
+  bool enabled = 6;
+  bool full_async = 13;
+  int32 max_user_requests = 16;
+  int32 max_user_request_bytes = 17;
+  exa.cortex_pb.ModelAPIRetryConfig retry_config = 14;
+  bool enable_fallback = 15;
+}
+
+message CortexStepMquery {
+  exa.cortex_pb.PlanInput input = 1;
+  repeated exa.context_module_pb.CciWithSubrangeWithRetrievalMetadata ccis = 2;
+  uint32 num_tokens_processed = 3;
+  uint32 num_items_scored = 4;
+  exa.cortex_pb.SemanticCodebaseSearchType search_type = 5;
+}
+
+message ReplacementChunkInfo {
+  exa.cortex_pb.ReplacementChunk original_chunk = 1;
+  string fuzzy_match = 2;
+  int32 edit_distance = 3;
+  float rel_edit_distance = 4;
+  uint32 num_matches = 5;
+  bool is_non_exact = 7;
+  bool boundary_lines_match = 8;
+  bool error = 6;
+  string error_str = 9;
+  bool fast_apply_fixable = 10;
+  bool use_global_match = 11;
+  bool repair_fixable = 12;
+  bool repaired = 13;
+}
+
+message FastApplyFallbackInfo {
+  bool fallback_attempted = 1;
+  string fallback_error = 2;
+  exa.cortex_pb.ActionResult fast_apply_result = 3;
+  exa.cortex_pb.CodeHeuristicFailure heuristic_failure = 4;
+  string fast_apply_prompt = 5;
+  uint32 num_fast_apply_edits_masked = 6;
+  bool fallback_match_had_no_diff = 7;
+  bool used_repair_fallback = 8;
+}
+
+message CortexStepCodeAction {
+  exa.cortex_pb.ActionSpec action_spec = 1;
+  exa.cortex_pb.ActionResult action_result = 2;
+  bool use_fast_apply = 4;
+  exa.cortex_pb.AcknowledgementType acknowledgement_type = 5;
+  exa.cortex_pb.CodeHeuristicFailure heuristic_failure = 7;
+  string code_instruction = 8;
+  string markdown_language = 9;
+  repeated exa.codeium_common_pb.CodeDiagnostic lint_errors = 11;
+  repeated exa.codeium_common_pb.CodeDiagnostic persistent_lint_errors = 12;
+  repeated exa.cortex_pb.ReplacementChunkInfo replacement_infos = 13;
+  repeated string lint_error_ids_aiming_to_fix = 14;
+  exa.cortex_pb.FastApplyFallbackInfo fast_apply_fallback_info = 15;
+  bool target_file_has_carriage_returns = 16;
+  bool target_file_has_all_carriage_returns = 17;
+  repeated exa.cortex_pb.CortexStepCompileDiagnostic introduced_errors = 18;
+  string triggered_memories = 19;
+  bool is_artifact_file = 21;
+  int32 artifact_version = 22;
+  exa.codeium_common_pb.ArtifactMetadata artifact_metadata = 23;
+  bool is_knowledge_file = 24;
+  exa.cortex_pb.FilePermissionInteractionSpec file_permission_request = 25;
+  string description = 26;
+}
+
+message CortexStepFileChange {
+  string absolute_path_uri = 1;
+  exa.cortex_pb.FileChangeType file_change_type = 2;
+  repeated exa.cortex_pb.ReplacementChunk replacement_chunks = 3;
+  string instruction = 5;
+  exa.diff_action_pb.DiffBlock diff = 4;
+  repeated exa.cortex_pb.ReplacementChunkInfo replacement_infos = 6;
+  exa.cortex_pb.FastApplyFallbackInfo fast_apply_fallback_info = 7;
+  bool overwrite = 8;
+}
+
+message CortexStepMove {
+  string src_absolute_path_uri = 1;
+  string dst_absolute_path_uri = 2;
+}
+
+message CortexStepEphemeralMessage {
+  string content = 1;
+  repeated exa.codeium_common_pb.Media media = 2;
+  repeated string triggered_heuristics = 3;
+  repeated exa.codeium_common_pb.Media attachments = 4;
+  string dom_tree_uri = 5;
+}
+
+message CortexStepConversationHistory {
+  string content = 1;
+}
+
+message CortexStepKnowledgeArtifacts {
+  string content = 1;
+}
+
+message CortexStepProposeCode {
+  exa.cortex_pb.ActionSpec action_spec = 1;
+  exa.cortex_pb.ActionResult action_result = 2;
+  string code_instruction = 3;
+  string markdown_language = 4;
+}
+
+message CortexStepGitCommit {
+  exa.cortex_pb.PlanInput input = 1;
+  string commit_message = 2;
+  string commit_hash = 3;
+}
+
+message GrepSearchResult {
+  string relative_path = 1;
+  uint32 line_number = 2;
+  string content = 3;
+  string absolute_path = 4;
+  exa.codeium_common_pb.CodeContextItem cci = 5;
+}
+
+message DiffBasedCommandEvalConfig {
+  uint32 num_samples_per_commit = 1;
+}
+
+message CortexStepGrepSearch {
+  string search_path_uri = 11;
+  string query = 1;
+  bool match_per_line = 8;
+  repeated string includes = 2;
+  bool case_insensitive = 9;
+  bool allow_access_gitignore = 13;
+  bool is_regex = 14;
+  repeated exa.cortex_pb.GrepSearchResult results = 4;
+  uint32 total_results = 7;
+  string raw_output = 3;
+  string command_run = 10;
+  bool no_files_searched = 12;
+  bool timed_out = 15;
+  exa.cortex_pb.FilePermissionInteractionSpec file_permission_request = 16;
+  string grep_error = 5;
+}
+
+message CortexStepFind {
+  string search_directory = 10;
+  string pattern = 1;
+  repeated string excludes = 3;
+  exa.cortex_pb.FindResultType type = 4;
+  int32 max_depth = 5;
+  repeated string extensions = 12;
+  bool full_path = 13;
+  string truncated_output = 14;
+  uint32 truncated_total_results = 15;
+  uint32 total_results = 7;
+  string raw_output = 11;
+  string command_run = 9;
+  repeated string includes = 2;
+  string find_error = 8;
+}
+
+message CortexStepViewFile {
+  string absolute_path_uri = 1;
+  uint32 start_line = 2;
+  uint32 end_line = 3;
+  string content = 4;
+  bool is_skill_file = 17;
+  exa.cortex_pb.SkillMetadata skill_metadata = 18;
+  string raw_content = 9;
+  exa.codeium_common_pb.ImageData binary_data = 14;
+  exa.codeium_common_pb.Media media_data = 15;
+  string triggered_memories = 10;
+  uint32 num_lines = 11;
+  uint32 num_bytes = 12;
+  bool is_injected_reminder = 13;
+  exa.cortex_pb.FilePermissionInteractionSpec file_permission_request = 16;
+}
+
+message SkillMetadata {
+  string name = 1;
+  string description = 2;
+}
+
+message ListDirectoryResult {
+  string name = 1;
+  bool is_dir = 2;
+  uint32 num_children = 3;
+  uint64 size_bytes = 4;
+}
+
+message CortexStepListDirectory {
+  string directory_path_uri = 1;
+  repeated string children = 2;
+  repeated exa.cortex_pb.ListDirectoryResult results = 3;
+  bool dir_not_found = 4;
+  exa.cortex_pb.FilePermissionInteractionSpec file_permission_request = 5;
+}
+
+message CortexStepDeleteDirectory {
+  string directory_path_uri = 1;
+  bool force = 2;
+}
+
+message CortexStepCompileDiagnostic {
+  string message = 1;
+  string path = 2;
+  uint32 line = 3;
+  uint32 column = 4;
+  string symbol = 5;
+}
+
+message CortexStepCompile {
+  message OptionsEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  exa.cortex_pb.CortexStepCompileTool tool = 1;
+  string input_spec = 2;
+  repeated exa.cortex_pb.CortexStepCompile.OptionsEntry options = 3;
+  string target = 4;
+  string artifact_path = 5;
+  bool artifact_is_executable = 6;
+  repeated exa.cortex_pb.CortexStepCompileDiagnostic errors = 7;
+  repeated exa.cortex_pb.CortexStepCompileDiagnostic warnings = 8;
+}
+
+message CortexStepCompileApplet {
+  string error_message = 1;
+  string logs = 3;
+}
+
+message CortexStepInstallAppletDependencies {
+  string error_message = 1;
+  string logs = 2;
+}
+
+message CortexStepInstallAppletPackage {
+  string package_name = 1;
+  string error_message = 2;
+  string logs = 3;
+  bool is_dev_dependency = 4;
+  repeated string package_names = 5;
+}
+
+message CortexStepSetUpFirebase {
+  string error_message = 1;
+  exa.cortex_pb.SetUpFirebaseErrorCode rpc_error_code = 6;
+  string firebase_project_id = 7;
+  exa.cortex_pb.SetUpFirebaseRequest request = 2;
+  exa.cortex_pb.SetUpFirebaseResult result = 3;
+  exa.cortex_pb.SetUpFirebaseAppConfig app_config = 4;
+}
+
+message SetUpFirebaseAppConfig {
+  string firebase_project_id = 1;
+}
+
+message CortexStepRestartDevServer {
+  string error_message = 1;
+}
+
+message CortexStepDeployFirebase {
+  string error_message = 1;
+}
+
+message CortexStepShellExec {
+  string command = 1;
+  int32 exit_code = 2;
+  string output = 3;
+  string error_message = 4;
+}
+
+message CortexStepLintApplet {
+  int32 exit_code = 1;
+  string output = 2;
+  string error_message = 3;
+}
+
+message CortexStepDefineNewEnvVariable {
+  string variable_name = 1;
+}
+
+message CortexStepWriteBlob {
+  string blob_id = 1;
+  string target_path = 2;
+  string error_message = 3;
+  int64 bytes_written = 4;
+}
+
+message CortexTrajectoryToPromptConfig {
+  float prompt_fraction = 1;
+}
+
+message CortexStepUserInput {
+  repeated exa.codeium_common_pb.TextOrScopeItem items = 3;
+  string user_response = 2;
+  exa.context_module_pb.ContextModuleResult active_user_state = 4;
+  repeated exa.codeium_common_pb.ArtifactComment artifact_comments = 7;
+  repeated exa.codeium_common_pb.FileDiffComment file_diff_comments = 10;
+  repeated exa.codeium_common_pb.FileComment file_comments = 11;
+  bool is_queued_message = 6;
+  exa.chat_client_server_pb.ChatClientRequestStreamClientType client_type = 8;
+  exa.cortex_pb.CascadeConfig user_config = 12;
+  exa.cortex_pb.CascadeConfig last_user_config = 13;
+  string query = 1;
+  repeated exa.codeium_common_pb.ImageData images = 5;
+  repeated exa.codeium_common_pb.Media media = 9;
+}
+
+message ActiveUserState {
+  exa.codeium_common_pb.Document active_document = 1;
+  repeated exa.codeium_common_pb.Document open_documents = 2;
+  exa.codeium_common_pb.CodeContextItem active_node = 3;
+}
+
+message CortexStepPlannerResponse {
+  string response = 1;
+  string modified_response = 8;
+  string thinking = 3;
+  string signature = 4;
+  bytes thinking_signature = 14;
+  bool thinking_redacted = 5;
+  string message_id = 6;
+  string provider_assigned_message_id = 15;
+  repeated exa.codeium_common_pb.ChatToolCall tool_calls = 7;
+  repeated exa.codeium_common_pb.KnowledgeBaseItemWithMetadata knowledge_base_items = 2;
+  bytes thinking_duration = 11;
+  exa.codeium_common_pb.StopReason stop_reason = 12;
+  exa.codeium_common_pb.RecitationMetadata recitation_metadata = 13;
+}
+
+message CortexStepFileBreakdown {
+  string absolute_path = 1;
+  exa.codeium_common_pb.DocumentOutline document_outline = 2;
+}
+
+message CortexStepViewCodeItem {
+  string absolute_uri = 1;
+  repeated string node_paths = 4;
+  repeated exa.codeium_common_pb.CodeContextItem ccis = 5;
+  exa.cortex_pb.FilePermissionInteractionSpec file_permission_request = 6;
+}
+
+message CortexStepWriteToFile {
+  string target_file_uri = 1;
+  repeated string code_content = 2;
+  exa.diff_action_pb.DiffBlock diff = 3;
+  bool file_created = 4;
+  exa.cortex_pb.AcknowledgementType acknowledgement_type = 5;
+}
+
+message CortexStepSearchKnowledgeBase {
+  repeated string queries = 1;
+  exa.opensearch_clients_pb.TimeRange time_range = 3;
+  repeated exa.opensearch_clients_pb.ConnectorType connector_types = 4;
+  repeated string aggregate_ids = 7;
+  repeated exa.codeium_common_pb.KnowledgeBaseGroup knowledge_base_groups = 2;
+}
+
+message CortexStepLookupKnowledgeBase {
+  repeated string urls = 1;
+  repeated string document_ids = 2;
+  repeated exa.codeium_common_pb.KnowledgeBaseItemWithMetadata knowledge_base_items = 3;
+}
+
+message CortexStepSuggestedResponses {
+  repeated string suggestions = 1;
+}
+
+message CortexStepErrorMessage {
+  exa.cortex_pb.CortexErrorDetails error = 3;
+  bool should_show_user = 5;
+  bool should_show_model = 4;
+}
+
+message RunCommandOutput {
+  string full = 1;
+  string truncated = 2;
+  uint32 num_lines_above = 3;
+}
+
+message CortexStepRunCommand {
+  string command_line = 23;
+  string proposed_command_line = 25;
+  string cwd = 2;
+  uint64 wait_ms_before_async = 12;
+  bool should_auto_run = 15;
+  string requested_terminal_id = 17;
+  bool sandbox_override = 27;
+  bool blocking = 11;
+  string command_id = 13;
+  int32 exit_code = 6;
+  bool user_rejected = 14;
+  exa.cortex_pb.AutoRunDecision auto_run_decision = 16;
+  string terminal_id = 18;
+  exa.cortex_pb.RunCommandOutput combined_output = 21;
+  exa.cortex_pb.RunCommandOutput combined_output_snapshot = 26;
+  bool used_ide_terminal = 22;
+  string raw_debug_output = 24;
+  string command = 1;
+  repeated string args = 3;
+  string stdout = 4;
+  string stderr = 5;
+  string stdout_buffer = 7;
+  string stderr_buffer = 8;
+  uint32 stdout_lines_above = 9;
+  uint32 stderr_lines_above = 10;
+  exa.cortex_pb.RunCommandOutput stdout_output = 19;
+  exa.cortex_pb.RunCommandOutput stderr_output = 20;
+}
+
+message CortexStepReadUrlContent {
+  string url = 1;
+  exa.codeium_common_pb.KnowledgeBaseItem web_document = 2;
+  string resolved_url = 3;
+  uint32 latency_ms = 4;
+  bool user_rejected = 5;
+}
+
+message CortexStepReadKnowledgeBaseItem {
+  string identifier = 1;
+  exa.codeium_common_pb.KnowledgeBaseItem knowledge_base_item = 2;
+  exa.opensearch_clients_pb.ConnectorType connector_type = 3;
+}
+
+message CortexStepSendCommandInput {
+  string command_id = 1;
+  string input = 2;
+  bool should_auto_run = 3;
+  bool terminate = 6;
+  int64 wait_ms = 7;
+  bool user_rejected = 4;
+  exa.cortex_pb.AutoRunDecision auto_run_decision = 5;
+  exa.cortex_pb.RunCommandOutput output = 8;
+  bool running = 9;
+  int32 exit_code = 10;
+}
+
+message CortexStepViewContentChunk {
+  string document_id = 5;
+  int32 position = 2;
+  exa.codeium_common_pb.KnowledgeBaseItem cropped_item = 4;
+}
+
+message CortexStepSearchWeb {
+  string query = 1;
+  string domain = 3;
+  repeated exa.codeium_common_pb.KnowledgeBaseItem web_documents = 2;
+  string web_search_url = 4;
+  string summary = 5;
+  exa.codeium_common_pb.ThirdPartyWebSearchConfig third_party_config = 6;
+  exa.cortex_pb.SearchWebType search_type = 7;
+}
+
+message CortexStepReadDeploymentConfig {
+  string project_path = 1;
+  string deployment_config_uri = 2;
+  exa.codeium_common_pb.WebAppDeploymentConfig deployment_config = 3;
+  repeated string missing_file_uris = 4;
+  bool will_upload_node_modules = 5;
+  bool will_upload_dist = 6;
+  repeated string ignore_file_uris = 7;
+  uint32 num_files_to_upload = 8;
+  repeated string env_file_uris = 9;
+}
+
+message CortexStepDeployWebApp {
+  message FileUploadStatusEntry {
+    string key = 1;
+    exa.cortex_pb.DeployWebAppFileUploadStatus value = 2;
+  }
+
+  string project_path = 1;
+  string subdomain = 2;
+  string project_id = 11;
+  string framework = 3;
+  bool user_confirmed = 4;
+  repeated exa.cortex_pb.CortexStepDeployWebApp.FileUploadStatusEntry file_upload_status = 5;
+  exa.codeium_common_pb.AntigravityDeployment deployment = 6;
+  string deployment_config_uri = 7;
+  exa.codeium_common_pb.WebAppDeploymentConfig deployment_config_output = 8;
+  string subdomain_for_project_id = 12;
+  string subdomain_user_specified = 13;
+  string subdomain_used = 9;
+  exa.codeium_common_pb.DeployTarget deploy_target_for_project_id = 15;
+  exa.codeium_common_pb.DeployTarget deploy_target_user_specified = 16;
+  exa.codeium_common_pb.DeployTarget deploy_target_used = 17;
+  string project_id_used = 14;
+  string claim_url = 10;
+}
+
+message CortexStepCheckDeployStatus {
+  string antigravity_deployment_id = 1;
+  exa.codeium_common_pb.AntigravityDeployment deployment = 2;
+  exa.codeium_common_pb.DeploymentBuildStatus build_status = 3;
+  string build_error = 4;
+  string build_logs = 5;
+  bool is_claimed = 6;
+  string claim_url = 7;
+}
+
+message CortexStepClipboard {
+  string content = 1;
+}
+
+message ExecutorMetadata {
+  exa.cortex_pb.ExecutorTerminationReason termination_reason = 1;
+  int32 num_generator_invocations = 2;
+  int32 last_step_idx = 3;
+  bool proceeded_with_auto_continue = 4;
+  int32 num_forced_invocations = 5;
+  repeated exa.codeium_common_pb.MetricsRecord segment_records = 6;
+  repeated exa.codeium_common_pb.MetricsRecord trajectory_records = 7;
+  string execution_id = 9;
+}
+
+message TrajectoryFileDiff {
+  string uri = 1;
+  string original_content = 2;
+  string modified_content = 3;
+  bool is_artifact_file = 4;
+  bool is_knowledge_file = 5;
+  bytes last_modified_at = 6;
+}
+
+message CortexStepLintDiff {
+  exa.cortex_pb.LintDiffType type = 1;
+  exa.codeium_common_pb.CodeDiagnostic lint = 2;
+}
+
+message BrainEntry {
+  string id = 1;
+  exa.cortex_pb.BrainEntryType type = 2;
+  string content = 3;
+}
+
+message PlanEntryDeltaSummary {
+  repeated string items_added = 1;
+  repeated string items_completed = 2;
+}
+
+message BrainEntryDeltaSummary {
+  oneof summary {
+    exa.cortex_pb.PlanEntryDeltaSummary plan = 1;
+    exa.cortex_pb.TaskEntryDeltaSummary task = 2;
+  }
+}
+
+message BrainEntryDelta {
+  exa.cortex_pb.BrainEntry before = 1;
+  exa.cortex_pb.BrainEntry after = 2;
+  string absolute_path_uri = 3;
+  exa.cortex_pb.BrainEntryDeltaSummary summary = 4;
+}
+
+message TaskItem {
+  string id = 1;
+  string content = 2;
+  exa.cortex_pb.TaskStatus status = 3;
+  string parent_id = 4;
+  string prev_sibling_id = 5;
+}
+
+message TaskDelta {
+  exa.cortex_pb.TaskDeltaType type = 1;
+  string id = 2;
+  string content = 3;
+  exa.cortex_pb.TaskStatus status = 4;
+  string parent_id = 5;
+  string prev_sibling_id = 6;
+  string from_parent = 7;
+  string from_prev_sibling = 8;
+}
+
+message TaskEntryDeltaSummary {
+  repeated exa.cortex_pb.TaskDelta deltas = 1;
+  int32 items_added = 2;
+  int32 items_pruned = 3;
+  int32 items_deleted = 4;
+  int32 items_updated = 5;
+  int32 items_moved = 6;
+}
+
+message CortexStepBrainUpdate {
+  exa.cortex_pb.BrainUpdateTrigger trigger = 3;
+  repeated exa.cortex_pb.BrainEntryDelta deltas = 2;
+  oneof target {
+    exa.cortex_pb.BrainEntryType entry_type = 1;
+  }
+}
+
+message CortexStepBrowserSubagent {
+  string task = 1;
+  string reused_subagent_id = 9;
+  string recording_name = 7;
+  repeated exa.codeium_common_pb.Media media = 11;
+  string result = 2;
+  string task_name = 3;
+  string task_summary = 13;
+  string recording_path = 4;
+  exa.cortex_pb.RecordingGenerationStatus recording_generation_status = 6;
+  string subagent_id = 8;
+  bool skipped = 10;
+  string scratchpad_path = 12;
+}
+
+message KnowledgeConfig {
+  bool enabled = 1;
+  exa.codeium_common_pb.Model model = 2;
+  uint32 max_context_tokens = 3;
+  uint32 max_invocations = 4;
+  uint32 min_turns_between_knowledge_generation = 5;
+  uint32 max_knowledge_items = 6;
+  uint32 max_artifacts_per_ki = 7;
+  uint32 max_title_length = 8;
+  uint32 max_summary_length = 9;
+  bool enable_ki_insertion = 10;
+}
+
+message CortexStepKnowledgeGeneration {
+}
+
+message CortexStepOpenBrowserUrl {
+  string url = 1;
+  string page_id_to_replace = 8;
+  exa.cortex_pb.AutoRunDecision auto_run_decision = 2;
+  bool user_rejected = 3;
+  string page_id = 4;
+  exa.codeium_common_pb.KnowledgeBaseItem web_document = 5;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 6;
+  exa.codeium_common_pb.ImageData screenshot = 7;
+  exa.codeium_common_pb.Media media_screenshot = 10;
+  string browser_state_diff = 9;
+}
+
+message CortexStepExecuteBrowserJavaScript {
+  string title = 9;
+  string page_id = 1;
+  string javascript_source = 2;
+  string javascript_description = 3;
+  bool should_auto_run = 10;
+  exa.cortex_pb.BrowserActionWaitingReason waiting_reason = 13;
+  bool user_rejected = 4;
+  exa.codeium_common_pb.ImageData screenshot_end = 5;
+  exa.codeium_common_pb.Media media_screenshot_end = 12;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 6;
+  uint64 execution_duration_ms = 7;
+  string javascript_result = 8;
+  string browser_state_diff = 11;
+}
+
+message CortexStepReadBrowserPage {
+  string page_id = 1;
+  exa.codeium_common_pb.KnowledgeBaseItem web_document = 2;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 3;
+}
+
+message CortexStepBrowserGetDom {
+  string page_id = 1;
+  exa.codeium_common_pb.DOMTree dom_tree = 2;
+  string serialized_dom_tree = 3;
+  string serialized_dom_tree_uri = 5;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 4;
+}
+
+message CortexStepListBrowserPages {
+  repeated exa.codeium_common_pb.BrowserPageMetadata pages = 1;
+}
+
+message CortexStepCaptureBrowserScreenshot {
+  string page_id = 1;
+  bool save_screenshot = 7;
+  string screenshot_name = 10;
+  bool capture_by_element_index = 8;
+  int32 element_index = 9;
+  bool capture_beyond_viewport = 12;
+  bool user_rejected = 2;
+  exa.codeium_common_pb.ImageData screenshot = 3;
+  exa.codeium_common_pb.Media media_screenshot = 11;
+  exa.codeium_common_pb.Viewport screenshot_viewport = 13;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 4;
+  exa.cortex_pb.AutoRunDecision auto_run_decision = 5;
+}
+
+message CortexStepClickBrowserPixel {
+  string page_id = 1;
+  int32 x = 2;
+  int32 y = 3;
+  exa.browser_pb.ClickType click_type = 7;
+  bool user_rejected = 4;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 5;
+  exa.codeium_common_pb.Media screenshot_with_click_feedback = 6;
+  string browser_state_diff = 8;
+}
+
+message CortexStepCaptureBrowserConsoleLogs {
+  string page_id = 1;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 2;
+  exa.codeium_common_pb.ConsoleLogScopeItem console_logs = 3;
+}
+
+message CascadePanelState {
+  exa.codeium_common_pb.PlanStatus plan_status = 1;
+  exa.codeium_common_pb.UserSettings user_settings = 2;
+}
+
+message CortexStepCommandStatus {
+  string command_id = 1;
+  uint32 output_character_count = 8;
+  uint32 wait_duration_seconds = 10;
+  exa.cortex_pb.CortexStepStatus status = 2;
+  string combined = 9;
+  string delta = 12;
+  int32 exit_code = 5;
+  exa.cortex_pb.CortexErrorDetails error = 6;
+  uint32 waited_duration_seconds = 11;
+  string stdout = 3;
+  string stderr = 4;
+  exa.cortex_pb.CommandOutputPriority output_priority = 7;
+}
+
+message CortexMemory {
+  string memory_id = 1;
+  string title = 6;
+  exa.cortex_pb.CortexMemoryMetadata metadata = 2;
+  exa.cortex_pb.CortexMemorySource source = 3;
+  exa.cortex_pb.CortexMemoryScope scope = 4;
+  oneof memory {
+    exa.cortex_pb.CortexMemoryText text_memory = 5;
+  }
+}
+
+message CortexMemoryMetadata {
+  bytes created_at = 1;
+  bytes last_modified = 2;
+  bytes last_accessed = 3;
+  repeated string tags = 4;
+  bool user_triggered = 5;
+}
+
+message CortexMemoryText {
+  string content = 1;
+}
+
+message CortexMemoryScope {
+  oneof scope {
+    exa.cortex_pb.CortexMemoryGlobalScope global_scope = 1;
+    exa.cortex_pb.CortexMemoryLocalScope local_scope = 2;
+    exa.cortex_pb.CortexMemoryAllScope all_scope = 3;
+    exa.cortex_pb.CortexMemoryProjectScope project_scope = 4;
+  }
+}
+
+message CortexMemoryGlobalScope {
+}
+
+message CortexMemoryLocalScope {
+  repeated string corpus_names = 2;
+  repeated string base_dir_uris = 3;
+  string repo_base_dir_uri = 1;
+}
+
+message CortexMemoryAllScope {
+}
+
+message CortexMemoryProjectScope {
+  string file_path = 1;
+  string absolute_file_path = 7;
+  repeated string base_dir_uris = 2;
+  repeated string corpus_names = 3;
+  exa.cortex_pb.CortexMemoryTrigger trigger = 4;
+  string description = 5;
+  repeated string globs = 6;
+  int32 priority = 8;
+}
+
+message CortexStepMemory {
+  string memory_id = 1;
+  exa.cortex_pb.CortexMemory memory = 2;
+  exa.cortex_pb.CortexMemory prev_memory = 4;
+  exa.cortex_pb.MemoryActionType action = 3;
+}
+
+message CortexStepRetrieveMemory {
+  bool run_subagent = 1;
+  bool add_user_memories = 8;
+  string cascade_memory_summary = 2;
+  string user_memory_summary = 3;
+  string reason = 4;
+  bool show_reason = 5;
+  repeated exa.cortex_pb.CortexMemory retrieved_memories = 6;
+  bool blocking = 7;
+}
+
+message MemoryConfig {
+  exa.codeium_common_pb.Model memory_model = 1;
+  uint32 num_checkpoints_for_context = 5;
+  int32 num_memories_to_consider = 3;
+  int32 max_global_cascade_memories = 4;
+  bool condense_input_trajectory = 6;
+  bool add_user_memories_to_system_prompt = 7;
+  bool enabled = 2;
+}
+
+message ViewedFileTrackerConfig {
+  uint32 max_steps_per_checkpoint = 1;
+  uint32 max_files_in_prompt = 2;
+  uint32 max_lines_per_file_in_prompt = 3;
+}
+
+message CodeStepCreationOptions {
+  int64 diff_block_separation_threshold = 1;
+  bool handle_deletions = 2;
+  bool handle_creations = 3;
+  bool include_original_content = 4;
+}
+
+message BrainUpdateStepCreationOptions {
+  string entry_id_prefix = 1;
+}
+
+message ViewFileStepCreationOptions {
+  bool condition_on_edit_step = 1;
+  bool include_raw_content = 2;
+}
+
+message UserGrepStepCreationOptions {
+  uint32 num_search_events = 1;
+}
+
+message RunCommandStepCreationOptions {
+  uint32 max_commands = 1;
+  bytes max_command_age = 2;
+  uint32 per_command_max_bytes_output = 3;
+  uint32 total_max_bytes_output = 4;
+  bool include_running = 5;
+}
+
+message LintDiffStepCreationOptions {
+  uint32 max_lint_inserts = 1;
+  uint32 min_required_lint_duration = 2;
+}
+
+message BrowserStepCreationOptions {
+  uint32 max_browser_interactions = 1;
+}
+
+message SnapshotToStepsOptions {
+  exa.cortex_pb.CodeStepCreationOptions code_step_creation_options = 1;
+  exa.cortex_pb.ViewFileStepCreationOptions view_file_step_creation_options = 2;
+  exa.cortex_pb.ViewedFileTrackerConfig viewed_file_tracker_config = 3;
+  repeated exa.cortex_pb.CortexStepType step_type_allow_list = 4;
+  exa.cortex_pb.UserGrepStepCreationOptions user_grep_step_creation_options = 5;
+  exa.cortex_pb.RunCommandStepCreationOptions run_command_step_creation_options = 6;
+  exa.cortex_pb.LintDiffStepCreationOptions lint_diff_step_creation_options = 7;
+  exa.cortex_pb.BrowserStepCreationOptions browser_step_creation_options = 9;
+}
+
+message CortexStepPostPrReview {
+  string body = 1;
+  string commit_id = 2;
+  string path = 3;
+  string side = 4;
+  int32 start_line = 5;
+  int32 end_line = 6;
+  string category = 7;
+}
+
+message McpServerSpec {
+  message EnvEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  message HeadersEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  string server_name = 1;
+  string command = 2;
+  repeated string args = 3;
+  repeated exa.cortex_pb.McpServerSpec.EnvEntry env = 4;
+  string server_url = 6;
+  bool disabled = 7;
+  repeated string disabled_tools = 8;
+  repeated string enabled_tools = 10;
+  repeated exa.cortex_pb.McpServerSpec.HeadersEntry headers = 9;
+  string cwd = 13;
+  uint32 server_index = 5;
+  bool skip_tool_name_prefix = 11;
+  bool skip_tool_description_prefix = 12;
+}
+
+message McpServerInfo {
+  string name = 1;
+  string version = 2;
+}
+
+message StepRenderInfo {
+  message MetadataEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  string title = 1;
+  string markdown = 2;
+  repeated exa.cortex_pb.StepRenderInfo.MetadataEntry metadata = 3;
+}
+
+message CortexStepMcpTool {
+  string server_name = 1;
+  exa.codeium_common_pb.ChatToolCall tool_call = 2;
+  exa.cortex_pb.McpServerInfo server_info = 4;
+  repeated exa.codeium_common_pb.ImageData images = 5;
+  repeated exa.codeium_common_pb.Media media = 6;
+  bool user_rejected = 7;
+  exa.cortex_pb.StepRenderInfo render_info = 9;
+  string progress_message = 10;
+  double progress = 11;
+  double progress_total = 12;
+  oneof result {
+    string result_string = 3;
+    string result_uri = 8;
+  }
+}
+
+message McpResource {
+  string uri = 1;
+  string name = 2;
+  string description = 3;
+  string mime_type = 4;
+}
+
+message McpPromptSpec {
+  string server_name = 1;
+  string name = 2;
+  string title = 3;
+  string description = 4;
+  repeated exa.codeium_common_pb.McpPromptArgument arguments = 5;
+}
+
+message CortexStepListResources {
+  string server_name = 1;
+  string cursor = 2;
+  repeated exa.cortex_pb.McpResource resources = 3;
+  string next_cursor = 4;
+}
+
+message CortexStepReadResource {
+  string server_name = 1;
+  string uri = 2;
+  repeated exa.codeium_common_pb.McpResourceContent contents = 3;
+  bool skipped_non_image_binary_content = 4;
+}
+
+message CortexStepArtifactSummary {
+  string summary = 1;
+}
+
+message CortexStepManagerFeedback {
+  exa.cortex_pb.CortexStepManagerFeedbackStatus status = 1;
+  string feedback = 2;
+}
+
+message CortexStepToolCallProposal {
+  exa.codeium_common_pb.ChatToolCall tool_call = 1;
+}
+
+message CortexStepToolCallChoice {
+  repeated exa.codeium_common_pb.ChatToolCall proposal_tool_calls = 1;
+  uint32 choice = 2;
+  string reason = 3;
+}
+
+message CortexStepTrajectoryChoice {
+  repeated string proposal_trajectory_ids = 1;
+  int32 choice = 2;
+  string reason = 3;
+}
+
+message McpServerState {
+  exa.cortex_pb.McpServerSpec spec = 1;
+  exa.cortex_pb.McpServerStatus status = 2;
+  string error = 3;
+  repeated exa.chat_pb.ChatToolDefinition tools = 4;
+  repeated string tool_errors = 7;
+  exa.cortex_pb.McpServerInfo server_info = 5;
+  string instructions = 6;
+}
+
+message TrajectoryJudgeConfig {
+  int32 max_steps_to_judge = 1;
+}
+
+message CortexStepViewFileOutline {
+  string absolute_path_uri = 1;
+  uint32 cci_offset = 2;
+  repeated exa.codeium_common_pb.CodeContextItem ccis = 3;
+  repeated string outline_items = 9;
+  uint32 num_items_scanned = 10;
+  uint32 total_cci_count = 4;
+  uint32 num_lines = 5;
+  uint32 num_bytes = 6;
+  string contents = 7;
+  uint32 content_lines_truncated = 8;
+  string triggered_memories = 11;
+  string raw_content = 12;
+  exa.cortex_pb.FilePermissionInteractionSpec file_permission_request = 13;
+}
+
+message EphemeralMessagesConfig {
+  bool enabled = 1;
+  exa.cortex_pb.EphemeralMessagePersistenceLevel persistence_level = 4;
+  repeated exa.cortex_pb.BrowserEphemeralOption browser_ephemeral_options = 5;
+  bool exclude_unleash_browser_ephemeral_options = 6;
+  repeated string disabled_heuristics = 7;
+  uint32 num_steps = 2;
+  repeated exa.cortex_pb.HeuristicPrompt heuristic_prompts = 3;
+}
+
+message HeuristicPrompt {
+  string heuristic = 1;
+  string prompt = 2;
+}
+
+message RevertMetadata {
+  repeated string reverted_uris = 4;
+}
+
+message TrajectoryPrefixMetadata {
+  uint32 length = 1;
+  uint32 tokens = 2;
+  uint32 num_skipped = 3;
+  uint32 num_truncated = 4;
+}
+
+message CortexStepFindAllReferences {
+  string absolute_uri = 1;
+  string symbol = 2;
+  uint32 line = 3;
+  uint32 occurrence_index = 4;
+  repeated exa.codeium_common_pb.LspReference references = 5;
+}
+
+message CortexStepRunExtensionCode {
+  string code = 1;
+  string language = 2;
+  bool model_wants_auto_run = 6;
+  string user_facing_explanation = 7;
+  string output = 3;
+  bool user_rejected = 4;
+  exa.cortex_pb.RunExtensionCodeAutoRunDecision auto_run_decision = 5;
+}
+
+message CortexStepProposalFeedback {
+  exa.cortex_pb.AcknowledgementType acknowledgement_type = 1;
+  uint32 target_step_index = 2;
+  oneof target {
+    exa.cortex_pb.ReplacementChunk replacement_chunk = 3;
+  }
+}
+
+message TrajectoryDescription {
+  oneof description {
+    string cascade_conversation_title = 1;
+    string mainline_branch_name = 2;
+  }
+}
+
+message CortexStepTrajectorySearch {
+  string id = 1;
+  string query = 2;
+  exa.cortex_pb.TrajectorySearchIdType id_type = 3;
+  repeated exa.context_module_pb.CciWithSubrangeWithRetrievalMetadata chunks = 4;
+  exa.cortex_pb.TrajectoryDescription trajectory_description = 5;
+  uint32 total_chunks = 6;
+}
+
+message CortexStepReadTerminal {
+  string process_id = 1;
+  string name = 2;
+  string contents = 3;
+}
+
+message TaskResolutionOpenPr {
+  string pr_title = 1;
+  string pr_body = 2;
+  string pr_url = 3;
+  bool existed_previously = 4;
+}
+
+message TaskResolution {
+  oneof resolution {
+    exa.cortex_pb.TaskResolutionOpenPr open_pr = 1;
+  }
+}
+
+message CortexStepResolveTask {
+  string absolute_uri = 1;
+  string title = 2;
+  string description = 3;
+  bool user_rejected = 4;
+  exa.cortex_pb.TaskResolution resolution = 5;
+}
+
+message CodeSearchMatch {
+  string snippet = 1;
+  int32 line_number = 2;
+}
+
+message CodeSearchResults {
+  string path = 1;
+  repeated exa.cortex_pb.CodeSearchMatch matches = 4;
+  string changelist = 5;
+}
+
+message CortexStepCodeSearch {
+  string query = 1;
+  bool only_paths = 6;
+  bool allow_dirs = 7;
+  repeated exa.cortex_pb.CodeSearchResults results = 5;
+}
+
+message CortexStepBrowserInput {
+  string page_id = 1;
+  int32 index = 2;
+  string text = 3;
+  bool press_enter = 4;
+  bool clear_text = 5;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 6;
+  string browser_state_diff = 7;
+}
+
+message CortexStepBrowserMoveMouse {
+  string page_id = 1;
+  int32 x = 2;
+  int32 y = 3;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 6;
+  string browser_state_diff = 7;
+}
+
+message CortexStepBrowserSelectOption {
+  string page_id = 1;
+  int32 index = 2;
+  string value = 3;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 6;
+  string browser_state_diff = 7;
+}
+
+message CortexStepBrowserScroll {
+  string page_id = 1;
+  exa.browser_pb.ScrollDirection direction = 2;
+  bool scroll_to_end = 3;
+  bool scroll_by_element_index = 4;
+  int32 element_index = 5;
+  int32 pixels_scrolled_x = 6;
+  int32 pixels_scrolled_y = 7;
+  string browser_state_diff = 8;
+}
+
+message CortexStepBrowserScrollUp {
+  string page_id = 1;
+  bool scroll_to_end = 2;
+  bool scroll_by_element_index = 3;
+  int32 element_index = 4;
+  string browser_state_diff = 5;
+}
+
+message CortexStepBrowserScrollDown {
+  string page_id = 1;
+  bool scroll_to_end = 2;
+  bool scroll_by_element_index = 3;
+  int32 element_index = 4;
+  string browser_state_diff = 5;
+}
+
+message CortexStepBrowserClickElement {
+  string page_id = 1;
+  int32 index = 2;
+  string description = 3;
+  exa.browser_pb.ClickType click_type = 5;
+  bool user_rejected = 4;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 6;
+  string browser_state_diff = 7;
+}
+
+message CortexStepBrowserListNetworkRequests {
+  string page_id = 1;
+  bool include_preserved_requests = 2;
+  repeated string resource_types = 3;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 4;
+  string network_requests = 5;
+}
+
+message CortexStepBrowserGetNetworkRequest {
+  string page_id = 1;
+  string request_id = 2;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 3;
+  string network_request_details = 4;
+}
+
+message ModelAliasResolutionPayload {
+  exa.codeium_common_pb.Model model = 1;
+  exa.codeium_common_pb.ModelInfo model_info_override = 2;
+}
+
+message CortexStepBrowserMouseWheel {
+  string page_id = 1;
+  int32 x = 2;
+  int32 y = 3;
+  int32 dx = 4;
+  int32 dy = 5;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 6;
+  string browser_state_diff = 7;
+}
+
+message CortexStepBrowserMouseUp {
+  string page_id = 1;
+  string button = 2;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 3;
+  string browser_state_diff = 4;
+}
+
+message CortexStepBrowserMouseDown {
+  string page_id = 1;
+  string button = 2;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 3;
+  string browser_state_diff = 4;
+}
+
+message CortexStepBrowserRefreshPage {
+  string page_id = 1;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 2;
+  string browser_state_diff = 3;
+}
+
+message CortexStepBrowserPressKey {
+  string page_id = 1;
+  string key = 2;
+  string text = 3;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 5;
+  string browser_state_diff = 4;
+}
+
+message CortexStepGenerateImage {
+  string prompt = 1;
+  repeated string image_paths = 2;
+  string image_name = 4;
+  exa.codeium_common_pb.ImageData generated_image = 3;
+  string model_name = 5;
+  exa.codeium_common_pb.Media generated_media = 6;
+}
+
+message CortexStepBrowserResizeWindow {
+  string page_id = 1;
+  int32 width = 2;
+  int32 height = 3;
+  exa.browser_pb.WindowState window_state = 6;
+  bool user_rejected = 4;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 5;
+  string browser_state_diff = 7;
+}
+
+message CortexStepBrowserDragPixelToPixel {
+  string page_id = 1;
+  repeated exa.codeium_common_pb.Point2 waypoints = 2;
+  bool user_rejected = 6;
+  exa.codeium_common_pb.BrowserPageMetadata page_metadata = 7;
+  repeated exa.codeium_common_pb.Media screenshots_with_drag_feedback = 8;
+}
+
+message CortexStepTaskBoundary {
+  string task_name = 1;
+  string task_status = 2;
+  string task_summary = 3;
+  string task_summary_with_citations = 4;
+  string delta_summary = 6;
+  string delta_summary_with_citations = 7;
+  exa.cortex_pb.AgentMode mode = 5;
+}
+
+message CortexStepNotifyUser {
+  repeated string review_absolute_uris = 1;
+  string notification_content = 2;
+  bool is_blocking = 3;
+  float confidence_score = 4;
+  string confidence_justification = 5;
+  bool should_auto_proceed = 8;
+  string diffs_uri = 6;
+  bool ask_for_user_feedback = 7;
+}
+
+message CodeAcknowledgementInfo {
+  string uri_path = 1;
+  repeated uint32 step_indices = 2;
+  exa.diff_action_pb.UnifiedDiff diff = 3;
+}
+
+message CortexStepCodeAcknowledgement {
+  bool is_accept = 3;
+  string written_feedback = 4;
+  exa.cortex_pb.CodeAcknowledgementScope acknowledgement_scope = 5;
+  repeated exa.cortex_pb.CodeAcknowledgementInfo code_acknowledgement_infos = 7;
+}
+
+message InternalSearchResults {
+  string url = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message CortexStepInternalSearch {
+  string query = 1;
+  repeated exa.cortex_pb.InternalSearchResults results = 2;
+}
+
+message ArtifactReviewState {
+  string artifact_uri = 1;
+  exa.cortex_pb.ArtifactReviewStatus status = 2;
+  bytes last_reviewed_time = 3;
+  string last_reviewed_content = 4;
+}
+
+message ConversationHistoryConfig {
+  bool enabled = 1;
+  int32 max_conversations = 2;
+  int32 max_title_chars = 3;
+  int32 max_user_intent_chars = 4;
+  int32 max_conversation_logs_chars = 5;
+  int32 max_artifact_summary_chars = 6;
+}
+
+message CortexStepSystemMessage {
+  string message = 1;
+}
+
+message CortexStepWait {
+  int64 duration_ms = 1;
+}
+
+message CortexStepAgencyToolCall {
+  string agent_name = 1;
+  string function_name = 2;
+}
+
+message CortexStepWorkspaceAPI {
+  string url = 1;
+  string http_method = 2;
+  string body = 3;
+  string description = 4;
+  int32 status_code = 5;
+  string response = 6;
+}
+
+message GenericStepResult {
+  message MetadataEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  string result = 1;
+  repeated exa.cortex_pb.GenericStepResult.MetadataEntry metadata = 2;
+  exa.cortex_pb.StepRenderInfo step_render_info = 3;
+}
+
+message CortexStepInvokeSubagent {
+  string subagent_name = 1;
+  string prompt = 2;
+  string resumed_conversation_id = 4;
+  bool background = 6;
+  string result = 3;
+  string conversation_id = 5;
+  string log_absolute_uri = 7;
+  bool sent_to_background = 8;
+}
+
+message CortexStepGeneric {
+  message ArgsEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  repeated exa.cortex_pb.CortexStepGeneric.ArgsEntry args = 1;
+  exa.cortex_pb.GenericStepResult result = 2;
+}
+
+message AgentMessage {
+  string id = 1;
+  string recipient = 2;
+  string sender = 3;
+  string content = 4;
+  exa.cortex_pb.MessagePriority priority = 5;
+  bytes timestamp = 6;
+}

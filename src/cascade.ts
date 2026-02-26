@@ -1,13 +1,13 @@
 
 import { EventEmitter } from "events";
 import type { PromiseClient } from "@connectrpc/connect";
-import { LanguageServerService } from "./gen/exa/language_server_pb_connect.js";
+import { LanguageServerService } from "./gen/exa/language_server_pb/language_server_connect.js";
 import {
     SendUserCascadeMessageRequest,
     GetCascadeTrajectoryRequest,
     HandleCascadeUserInteractionRequest,
     CancelCascadeInvocationRequest,
-} from "./gen/exa/language_server_pb_pb.js";
+} from "./gen/exa/language_server_pb/language_server_pb.js";
 import {
     CascadeUserInteraction,
     CascadeRunCommandInteraction,
@@ -17,23 +17,23 @@ import {
     CortexStepStatus,
     CascadeRunStatus,
     PermissionScope,
-} from "./gen/exa/cortex_pb_pb.js";
-import { StreamReactiveUpdatesRequest } from "./gen/exa/reactive_component_pb_pb.js";
+} from "./gen/exa/cortex_pb/cortex_pb.js";
+import { StreamReactiveUpdatesRequest } from "./gen/exa/reactive_component_pb/reactive_component_pb.js";
 import {
     Metadata,
     TextOrScopeItem,
     ModelOrAlias,
     Model,
     ConversationalPlannerMode
-} from "./gen/exa/codeium_common_pb_pb.js";
+} from "./gen/exa/codeium_common_pb/codeium_common_pb.js";
 import {
     CascadeConfig,
     CascadePlannerConfig,
     CascadeConversationalPlannerConfig
-} from "./gen/exa/cortex_pb_pb.js";
-import { Trajectory, Step } from "./gen/gemini_coder_pb.js";
+} from "./gen/exa/cortex_pb/cortex_pb.js";
+import { Trajectory, Step } from "./gen/exa/gemini_coder/proto/trajectory_pb.js";
 import { applyMessageDiff } from "./reactive/apply.js";
-import { CascadeState } from "./gen/exa/jetski_cortex_pb_pb.js";
+import { CascadeState } from "./gen/exa/jetski_cortex_pb/jetski_cortex_pb.js";
 import {
     CascadeStep,
     toStepStatus,

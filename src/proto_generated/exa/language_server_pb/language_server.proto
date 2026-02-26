@@ -1,0 +1,1865 @@
+syntax = "proto3";
+package exa.language_server_pb;
+
+import "exa/cascade_plugins_pb/cascade_plugins.proto";
+import "exa/chat_client_server_pb/chat_client_server.proto";
+import "exa/chat_pb/chat.proto";
+import "exa/code_edit/code_edit_pb/code_edit.proto";
+import "exa/codeium_common_pb/codeium_common.proto";
+import "exa/cortex_pb/cortex.proto";
+import "exa/diff_action_pb/diff_action.proto";
+import "exa/gemini_coder/proto/trajectory.proto";
+import "exa/jetski_cortex_pb/jetski_cortex.proto";
+import "exa/reactive_component_pb/reactive_component.proto";
+
+enum IdeAction {
+  IDE_ACTION_UNSPECIFIED = 0;
+  IDE_ACTION_SAVE = 1;
+  IDE_ACTION_SELECTION_CHANGED = 2;
+  IDE_ACTION_VISIBLE_RANGES_CHANGED = 3;
+  IDE_ACTION_ACTIVE_EDITOR_CHANGED = 4;
+  IDE_ACTION_STARTUP = 5;
+}
+
+enum CodeiumState {
+  CODEIUM_STATE_UNSPECIFIED = 0;
+  CODEIUM_STATE_INACTIVE = 1;
+  CODEIUM_STATE_PROCESSING = 2;
+  CODEIUM_STATE_SUCCESS = 3;
+  CODEIUM_STATE_WARNING = 4;
+  CODEIUM_STATE_ERROR = 5;
+}
+
+enum CompletionPartType {
+  COMPLETION_PART_TYPE_UNSPECIFIED = 0;
+  COMPLETION_PART_TYPE_INLINE = 1;
+  COMPLETION_PART_TYPE_BLOCK = 2;
+  COMPLETION_PART_TYPE_INLINE_MASK = 3;
+}
+
+enum UnifiedDiffChangeType {
+  UNIFIED_DIFF_CHANGE_TYPE_UNSPECIFIED = 0;
+  UNIFIED_DIFF_CHANGE_TYPE_INSERT = 1;
+  UNIFIED_DIFF_CHANGE_TYPE_DELETE = 2;
+  UNIFIED_DIFF_CHANGE_TYPE_UNCHANGED = 3;
+}
+
+enum EditorThemeType {
+  EDITOR_THEME_TYPE_UNSPECIFIED = 0;
+  EDITOR_THEME_TYPE_LIGHT = 1;
+  EDITOR_THEME_TYPE_DARK = 2;
+  EDITOR_THEME_TYPE_HIGH_CONTRAST = 3;
+  EDITOR_THEME_TYPE_HIGH_CONTRAST_LIGHT = 4;
+}
+
+enum ClientTrajectoryVerbosity {
+  CLIENT_TRAJECTORY_VERBOSITY_UNSPECIFIED = 0;
+  CLIENT_TRAJECTORY_VERBOSITY_DEBUG = 1;
+  CLIENT_TRAJECTORY_VERBOSITY_PROD_UI = 2;
+}
+
+enum AgentMessageOrigin {
+  AGENT_MESSAGE_ORIGIN_UNSPECIFIED = 0;
+  AGENT_MESSAGE_ORIGIN_IDE = 1;
+  AGENT_MESSAGE_ORIGIN_SDK_EXECUTABLE = 2;
+  AGENT_MESSAGE_ORIGIN_SUBAGENT = 3;
+}
+
+enum CodeRevertActionType {
+  CODE_REVERT_ACTION_TYPE_UNSPECIFIED = 0;
+  CODE_REVERT_ACTION_TYPE_MODIFY = 1;
+  CODE_REVERT_ACTION_TYPE_CREATE = 2;
+  CODE_REVERT_ACTION_TYPE_DELETE = 3;
+}
+
+enum CustomizationFileType {
+  CUSTOMIZATION_FILE_TYPE_UNSPECIFIED = 0;
+  CUSTOMIZATION_FILE_TYPE_RULES = 1;
+  CUSTOMIZATION_FILE_TYPE_WORKFLOWS = 2;
+  CUSTOMIZATION_FILE_TYPE_GLOBAL_WORKFLOWS = 3;
+  CUSTOMIZATION_FILE_TYPE_SKILLS = 4;
+  CUSTOMIZATION_FILE_TYPE_GLOBAL_SKILLS = 5;
+  CUSTOMIZATION_FILE_TYPE_AGENT = 6;
+  CUSTOMIZATION_FILE_TYPE_GLOBAL_AGENT = 7;
+}
+
+enum FileType {
+  FILE_TYPE_UNSPECIFIED = 0;
+  FILE_TYPE_FILE = 1;
+  FILE_TYPE_DIRECTORY = 2;
+  FILE_TYPE_SYMLINK = 3;
+}
+
+enum CustomizationPathsOperation {
+  CUSTOMIZATION_PATHS_OPERATION_UNSPECIFIED = 0;
+  CUSTOMIZATION_PATHS_OPERATION_ADD = 1;
+  CUSTOMIZATION_PATHS_OPERATION_REMOVE = 2;
+  CUSTOMIZATION_PATHS_OPERATION_SET = 3;
+}
+
+message HandleStreamingCommandRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  exa.codeium_common_pb.Document document = 2;
+  exa.codeium_common_pb.EditorOptions editor_options = 3;
+  exa.codeium_common_pb.Model requested_model_id = 4;
+  uint64 selection_start_line = 6;
+  uint64 selection_end_line = 7;
+  string command_text = 8;
+  exa.codeium_common_pb.CommandRequestSource request_source = 9;
+  exa.codeium_common_pb.ContextScope mentioned_scope = 10;
+  exa.codeium_common_pb.ActionPointer action_pointer = 11;
+  string parent_completion_id = 12;
+  exa.diff_action_pb.DiffType diff_type = 13;
+  repeated exa.codeium_common_pb.CodeDiagnostic diagnostics = 14;
+  exa.codeium_common_pb.SupercompleteTriggerCondition supercomplete_trigger_condition = 15;
+  exa.codeium_common_pb.TerminalCommandData terminal_command_data = 16;
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 5;
+  bool ignore_supercomplete_debounce = 17;
+  string clipboard_entry = 18;
+  repeated exa.codeium_common_pb.IntellisenseSuggestion intellisense_suggestions = 19;
+}
+
+message HandleStreamingCommandResponse {
+  string completion_id = 1;
+  string prompt_id = 2;
+  exa.diff_action_pb.UnifiedDiff diff = 3;
+  exa.language_server_pb.LatencyInfo latency_info = 4;
+  uint64 selection_start_line = 5;
+  uint64 selection_end_line = 6;
+  double score = 7;
+  exa.diff_action_pb.CharacterDiff character_diff = 8;
+  exa.diff_action_pb.ComboDiff combo_diff = 9;
+  exa.codeium_common_pb.SuperCompleteFilterReason filter_reason = 10;
+  exa.codeium_common_pb.DocumentPosition jump_position = 14;
+  exa.language_server_pb.RequestInfo request_info = 12;
+  exa.codeium_common_pb.StopReason stop_reason = 13;
+  gemini_coder.Trajectory trajectory = 15;
+  string raw_text = 16;
+  string trace_id = 17;
+  uint64 closest_changed_line = 11;
+}
+
+message MultilineConfig {
+  float threshold = 1;
+}
+
+message GetCompletionsRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  exa.codeium_common_pb.Document document = 2;
+  exa.codeium_common_pb.EditorOptions editor_options = 3;
+  repeated exa.codeium_common_pb.Document other_documents = 5;
+  exa.codeium_common_pb.MockResponseData mock_response_data = 6;
+  bool disable_cache = 8;
+  repeated exa.codeium_common_pb.CodeContextItem oracle_items = 9;
+  string model_name = 10;
+  exa.codeium_common_pb.Model requested_model_id = 12;
+  exa.language_server_pb.MultilineConfig multiline_config = 13;
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 7;
+}
+
+message GetCompletionsResponse {
+  exa.language_server_pb.State state = 1;
+  repeated exa.language_server_pb.CompletionItem completion_items = 2;
+  repeated exa.language_server_pb.CompletionItem filtered_completion_items = 7;
+  exa.language_server_pb.RequestInfo request_info = 3;
+  exa.language_server_pb.LatencyInfo latency_info = 4;
+  string model_tag = 5;
+  string prompt_id = 6;
+  repeated exa.language_server_pb.CodeRange code_ranges = 8;
+}
+
+message ProvideCompletionFeedbackRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  bool is_accepted = 2;
+  int64 feedback_delay_ms = 3;
+  string completion_id = 4;
+  string prompt_id = 5;
+  exa.language_server_pb.LatencyInfo latency_info = 6;
+  exa.codeium_common_pb.ProviderSource source = 7;
+  exa.codeium_common_pb.Document document = 8;
+  uint64 view_columns_open = 10;
+  bool is_intentional_reject = 11;
+  bool is_partial = 12;
+  string midstream_autocomplete_text = 13;
+  bool has_active_vim_extension = 14;
+  string trace_id = 15;
+  int64 accepted_lines = 16;
+  int64 removed_lines = 17;
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 9;
+}
+
+message ProvideCompletionFeedbackResponse {
+}
+
+message HeartbeatRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  repeated exa.codeium_common_pb.ErrorTrace previous_error_traces = 2;
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 3;
+}
+
+message HeartbeatResponse {
+  bytes last_extension_heartbeat = 1;
+}
+
+message ReconnectExtensionServerRequest {
+  int32 extension_server_port = 1;
+  string extension_server_csrf_token = 2;
+}
+
+message ReconnectExtensionServerResponse {
+}
+
+message GetStatusRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+}
+
+message GetStatusResponse {
+  exa.codeium_common_pb.Status status = 1;
+}
+
+message GetCascadeModelConfigsRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  bool filter = 2;
+}
+
+message GetCascadeModelConfigsResponse {
+  repeated exa.codeium_common_pb.ClientModelConfig client_model_configs = 1;
+  repeated exa.codeium_common_pb.ClientModelSort client_model_sorts = 2;
+  exa.codeium_common_pb.DefaultOverrideModelConfig default_override_model_config = 3;
+}
+
+message TeamOrganizationalControls {
+  string team_id = 1;
+  repeated string cascade_model_labels = 2;
+  repeated string command_model_labels = 3;
+  bytes created_at = 4;
+  bytes updated_at = 5;
+  repeated string extension_model_labels = 6;
+}
+
+message GetTeamOrganizationalControlsRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+}
+
+message GetTeamOrganizationalControlsResponse {
+  exa.codeium_common_pb.TeamOrganizationalControls controls = 1;
+}
+
+message GetMcpServerTemplatesRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+}
+
+message GetMcpServerTemplatesResponse {
+  repeated exa.codeium_common_pb.McpServerTemplate templates = 1;
+}
+
+message GetCommandModelConfigsRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+}
+
+message GetCommandModelConfigsResponse {
+  repeated exa.codeium_common_pb.ClientModelConfig client_model_configs = 1;
+}
+
+message RecordEventRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  exa.codeium_common_pb.Event event = 2;
+}
+
+message RecordEventResponse {
+}
+
+message CancelRequestRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  uint64 request_id = 2;
+}
+
+message CancelRequestResponse {
+}
+
+message EditConfigurationRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  exa.codeium_common_pb.CompletionConfiguration completion_configuration = 2;
+}
+
+message EditConfigurationResponse {
+  exa.codeium_common_pb.CompletionConfiguration completion_configuration = 1;
+}
+
+message GetTranscriptionRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  bytes audio_data = 2;
+}
+
+message GetTranscriptionResponse {
+  string transcribed_text = 1;
+}
+
+message RegisterGdmUserRequest {
+}
+
+message RegisterGdmUserResponse {
+  bool created = 1;
+  string name = 2;
+  string email = 3;
+  string api_key = 4;
+}
+
+message MigrateApiKeyRequest {
+  string api_key = 1;
+}
+
+message MigrateApiKeyResponse {
+  string session_token = 1;
+}
+
+message WellSupportedLanguagesRequest {
+}
+
+message WellSupportedLanguagesResponse {
+  repeated exa.codeium_common_pb.Language languages = 1;
+}
+
+message RecordSearchDocOpenRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string result_id = 2;
+}
+
+message RecordSearchDocOpenResponse {
+}
+
+message RecordSearchResultsViewRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string cluster_search_id = 2;
+  string exact_search_id = 3;
+  repeated string search_result_ids = 4;
+}
+
+message RecordSearchResultsViewResponse {
+}
+
+message ContextInfoRequest {
+}
+
+message ContextInfoResponse {
+  repeated string active_workspaces = 1;
+  repeated string ignored_workspaces = 2;
+}
+
+message RefreshContextForIdeActionRequest {
+  exa.codeium_common_pb.Metadata metadata = 8;
+  exa.codeium_common_pb.Document active_document = 1;
+  repeated string open_document_filepaths_migrate_me_to_uri = 2;
+  repeated string open_document_uris = 6;
+  repeated exa.codeium_common_pb.Document other_documents = 5;
+  repeated string workspace_paths_migrate_me_to_uri = 3;
+  repeated string workspace_uris = 7;
+  bool blocking = 4;
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 9;
+  exa.language_server_pb.IdeAction ide_action = 10;
+}
+
+message RefreshContextForIdeActionResponse {
+}
+
+message RecordChatFeedbackRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string message_id = 2;
+  exa.chat_pb.ChatFeedbackType feedback = 3;
+  string reason = 4;
+  bytes timestamp = 5;
+}
+
+message RecordChatFeedbackResponse {
+}
+
+message RecordChatPanelSessionRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  bytes start_timestamp = 2;
+  bytes end_timestamp = 3;
+}
+
+message RecordChatPanelSessionResponse {
+}
+
+message GetUserAnalyticsSummaryRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string time_zone = 2;
+  bytes start_timestamp = 3;
+  bytes end_timestamp = 4;
+}
+
+message GetUserAnalyticsSummaryResponse {
+  exa.codeium_common_pb.CompletionStatistics completion_statistics = 1;
+  repeated exa.codeium_common_pb.CompletionByDateEntry completions_by_day = 2;
+  repeated exa.codeium_common_pb.CompletionByLanguageEntry completions_by_language = 3;
+  repeated exa.codeium_common_pb.ChatStatsByModelEntry chats_by_model = 4;
+}
+
+message GetUserStatusRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+}
+
+message GetUserStatusResponse {
+  exa.codeium_common_pb.UserStatus user_status = 1;
+  exa.codeium_common_pb.PlanInfo plan_info = 2;
+}
+
+message GetProfileDataRequest {
+  string api_key = 1;
+}
+
+message GetProfileDataResponse {
+  string profile_picture_url = 1;
+}
+
+message GetChangelogRequest {
+  string version = 1;
+}
+
+message GetChangelogResponse {
+  string path = 1;
+}
+
+message ExitRequest {
+}
+
+message ExitResponse {
+}
+
+message State {
+  exa.language_server_pb.CodeiumState state = 1;
+  string message = 2;
+}
+
+message RequestInfo {
+  string prompt_id = 1;
+  exa.codeium_common_pb.CompletionsRequest completions_request = 4;
+  string typing_as_suggested_prompt_suffix = 5;
+  exa.codeium_common_pb.CompletionType completion_type = 6;
+}
+
+message LatencyInfo {
+  uint64 client_latency_ms = 1;
+  uint64 prompt_latency_ms = 2;
+  repeated exa.codeium_common_pb.PromptStageLatency prompt_stage_latencies = 3;
+  uint64 debounce_latency_ms = 4;
+  uint64 rpc_latency_ms = 5;
+  uint64 network_latency_ms = 6;
+}
+
+message Suffix {
+  string text = 1;
+  int64 delta_cursor_offset = 2;
+}
+
+message CompletionPart {
+  string text = 1;
+  uint64 offset = 2;
+  exa.language_server_pb.CompletionPartType type = 3;
+  string prefix = 4;
+  uint64 line = 5;
+}
+
+message CompletionItem {
+  exa.codeium_common_pb.Completion completion = 1;
+  exa.language_server_pb.Suffix suffix = 5;
+  exa.codeium_common_pb.Range range = 2;
+  exa.codeium_common_pb.CompletionSource source = 3;
+  repeated exa.language_server_pb.CompletionPart completion_parts = 8;
+}
+
+message AddTrackedWorkspaceRequest {
+  string workspace = 1;
+  bool do_not_watch_files = 2;
+  bool is_passive_workspace = 3;
+}
+
+message AddTrackedWorkspaceResponse {
+}
+
+message RemoveTrackedWorkspaceRequest {
+  string workspace = 1;
+  bool is_passive_workspace = 2;
+}
+
+message RemoveTrackedWorkspaceResponse {
+}
+
+message GetWorkspaceEditStateRequest {
+}
+
+message WorkspaceEditState {
+  string repo_root = 1;
+  uint64 num_additions = 2;
+  uint64 num_deletions = 3;
+  repeated exa.cortex_pb.ActionResultEdit edits = 4;
+}
+
+message GetWorkspaceEditStateResponse {
+  repeated exa.language_server_pb.WorkspaceEditState workspace_edits = 1;
+}
+
+message BranchInfo {
+  string name = 1;
+  bool is_current_branch = 2;
+}
+
+message RepoInfo {
+  string name = 1;
+  string repo_path = 2;
+  repeated exa.language_server_pb.BranchInfo branches = 3;
+  exa.codeium_common_pb.ScmType scm_type = 4;
+}
+
+message GetRepoInfosRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+}
+
+message GetRepoInfosResponse {
+  repeated exa.language_server_pb.RepoInfo repos = 1;
+}
+
+message GetWorkspaceInfosRequest {
+}
+
+message WorkspaceInfo {
+  string workspace_uri = 1;
+  string git_root_uri = 2;
+}
+
+message GetWorkspaceInfosResponse {
+  string home_dir_path = 1;
+  repeated exa.language_server_pb.WorkspaceInfo workspace_infos = 2;
+  string home_dir_uri = 3;
+}
+
+message SetWorkingDirectoriesRequest {
+  repeated string directory_uris = 1;
+}
+
+message SetWorkingDirectoriesResponse {
+}
+
+message GetWorkingDirectoriesRequest {
+}
+
+message GetWorkingDirectoriesResponse {
+  repeated exa.codeium_common_pb.WorkingDirectoryInfo directories = 1;
+}
+
+message CreateWorktreeRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string repo_path = 2;
+  string base_branch_name = 3;
+  exa.codeium_common_pb.PlanInfo plan_info = 4;
+  repeated exa.codeium_common_pb.TextOrScopeItem items = 5;
+  repeated exa.codeium_common_pb.ImageData images = 6;
+  repeated exa.codeium_common_pb.Media media = 7;
+}
+
+message CreateWorktreeResponse {
+  string worktree_dir_uri = 1;
+  string worktree_name = 2;
+}
+
+message GenerateCommitMessageRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  exa.codeium_common_pb.PlanInfo plan_info = 2;
+  string repo_root = 3;
+}
+
+message CommitMessageData {
+  string repo_root = 1;
+  string commit_message_summary = 2;
+  string commit_message_description = 3;
+  repeated string changed_files_migrate_me_to_uri = 4;
+  repeated string changed_file_uris = 5;
+}
+
+message GenerateCommitMessageResponse {
+  exa.language_server_pb.CommitMessageData commit_message = 2;
+}
+
+message RecordCommitMessageSaveRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string repo_root = 2;
+  string branch_name = 3;
+  string commit_hash = 4;
+  string commit_message = 5;
+  bytes commit_timestamp = 6;
+  string parent_commit_hash = 7;
+  string author_name = 8;
+  string author_email = 9;
+}
+
+message RecordCommitMessageSaveResponse {
+}
+
+message UpdatePRForWorktreeRequest {
+  string worktree_fs_path = 1;
+  string commit_message = 2;
+  string title = 3;
+  string body = 4;
+}
+
+message UpdatePRForWorktreeResponse {
+  string pr_url = 1;
+}
+
+message GetUserSettingsRequest {
+}
+
+message GetUserSettingsResponse {
+  exa.codeium_common_pb.UserSettings user_settings = 1;
+}
+
+message SetUserSettingsRequest {
+  exa.codeium_common_pb.UserSettings user_settings = 1;
+}
+
+message SetUserSettingsResponse {
+  exa.codeium_common_pb.UserSettings user_settings = 1;
+}
+
+message GetDebugDiagnosticsRequest {
+}
+
+message GetDebugDiagnosticsResponse {
+  exa.codeium_common_pb.LanguageServerDiagnostics language_server_diagnostics = 1;
+}
+
+message CodeRange {
+  exa.codeium_common_pb.CodeSource source = 1;
+  uint64 start_offset = 2;
+  uint64 end_offset = 3;
+  bool modified = 4;
+  string completion_id = 5;
+  exa.codeium_common_pb.CompletionType completion_type = 6;
+  exa.codeium_common_pb.ProviderSource provider_source = 7;
+}
+
+message CodeTrackerState {
+  string absolute_path_migrate_me_to_uri = 1;
+  string absolute_uri = 6;
+  string text = 2;
+  repeated exa.language_server_pb.CodeRange ranges = 3;
+  string commit = 4;
+  string repo_root_migrate_me_to_uri = 5;
+  string repo_root_uri = 7;
+}
+
+message GetMatchingContextScopeItemsRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  repeated exa.codeium_common_pb.ContextScopeType allowed_types = 2;
+  repeated exa.codeium_common_pb.CodeContextType allowed_context_types = 7;
+  string query = 3;
+  bool fuzzy_match = 4;
+  int32 max_items = 5;
+  bool case_insensitive = 6;
+  string repo_filter = 8;
+  uint64 cancel_token = 9;
+}
+
+message GetMatchingContextScopeItemsResponse {
+  repeated exa.codeium_common_pb.ContextScopeItem items = 1;
+}
+
+message SetupUniversitySandboxRequest {
+}
+
+message SetupUniversitySandboxResponse {
+  string base_directory = 1;
+}
+
+message UnifiedDiffChange {
+  string text = 1;
+  exa.language_server_pb.UnifiedDiffChangeType type = 2;
+}
+
+message UnifiedDiff {
+  repeated exa.language_server_pb.UnifiedDiffChange changes = 1;
+}
+
+message CodeTheme {
+  string background = 1;
+  string text = 2;
+  string whitespace = 3;
+  string other = 4;
+  string literal = 5;
+  string literal_string = 6;
+  string number = 7;
+  string operator = 8;
+  string punctuation = 9;
+  string generic = 10;
+  string name = 11;
+  string keyword = 12;
+  string comment = 13;
+  string error = 14;
+}
+
+message OnboardingItemState {
+  exa.codeium_common_pb.OnboardingActionType action_type = 1;
+  bool completed = 2;
+}
+
+message OnboardingState {
+  bool has_skipped = 1;
+  repeated exa.language_server_pb.OnboardingItemState items = 2;
+}
+
+message ResetOnboardingRequest {
+  bool clear_history = 1;
+}
+
+message ResetOnboardingResponse {
+}
+
+message SkipOnboardingRequest {
+}
+
+message SkipOnboardingResponse {
+}
+
+message GetUserTrajectoryDebugRequest {
+  bool include_all_trajectories = 1;
+}
+
+message GetUserTrajectoryDebugResponse {
+  repeated exa.jetski_cortex_pb.ImplicitTrajectory mainline = 1;
+  gemini_coder.Trajectory granular = 2;
+  exa.language_server_pb.SupercompletePromptTrajectory supercomplete = 3;
+}
+
+message SupercompletePromptTrajectory {
+  gemini_coder.Trajectory trajectory = 1;
+  repeated int32 included_steps = 2;
+}
+
+message GetUserTrajectoryDescriptionsRequest {
+}
+
+message GetUserTrajectoryDescriptionsResponse {
+  repeated exa.cortex_pb.ImplicitTrajectoryDescription trajectories = 1;
+}
+
+message ForceBackgroundResearchRefreshRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string mainline_trajectory_id = 2;
+  bool blocking = 3;
+  bool full_refresh = 4;
+}
+
+message ForceBackgroundResearchRefreshResponse {
+}
+
+message ReplayGroundTruthTrajectoryRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  repeated gemini_coder.Step replay_steps = 2;
+  string cascade_id = 3;
+  exa.cortex_pb.CascadeConfig cascade_config = 4;
+}
+
+message ReplayGroundTruthTrajectoryResponse {
+  gemini_coder.Trajectory trajectory = 1;
+}
+
+message InitializeCascadePanelStateRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  exa.codeium_common_pb.UserStatus user_status = 2;
+}
+
+message InitializeCascadePanelStateResponse {
+}
+
+message StartCascadeRequest {
+  exa.jetski_cortex_pb.BaseTrajectoryIdentifier base_trajectory_identifier = 3;
+  exa.cortex_pb.CortexTrajectorySource source = 4;
+  exa.cortex_pb.CortexTrajectoryType trajectory_type = 5;
+  exa.cortex_pb.AgentScriptItem agent_script_item = 6;
+  string cascade_id = 7;
+  exa.codeium_common_pb.Metadata metadata = 1;
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 2;
+}
+
+message StartCascadeResponse {
+  string cascade_id = 1;
+}
+
+message GetCascadeTrajectoryRequest {
+  string cascade_id = 1;
+  exa.language_server_pb.ClientTrajectoryVerbosity verbosity = 2;
+}
+
+message GetCascadeTrajectoryResponse {
+  gemini_coder.Trajectory trajectory = 1;
+  exa.cortex_pb.CascadeRunStatus status = 2;
+  uint32 num_total_steps = 3;
+  uint32 num_total_generator_metadata = 4;
+}
+
+message GetArtifactSnapshotsRequest {
+  string cascade_id = 1;
+}
+
+message GetArtifactSnapshotsResponse {
+  repeated exa.cortex_pb.ArtifactSnapshot artifact_snapshots = 1;
+}
+
+message GetUserTrajectoryRequest {
+  string trajectory_id = 1;
+}
+
+message GetUserTrajectoryResponse {
+  gemini_coder.Trajectory trajectory = 1;
+}
+
+message GetCascadeTrajectoryStepsRequest {
+  string cascade_id = 1;
+  uint32 step_offset = 2;
+  exa.language_server_pb.ClientTrajectoryVerbosity verbosity = 3;
+}
+
+message GetCascadeTrajectoryStepsResponse {
+  repeated gemini_coder.Step steps = 1;
+}
+
+message GetCascadeTrajectoryGeneratorMetadataRequest {
+  string cascade_id = 1;
+  uint32 generator_metadata_offset = 2;
+  bool include_messages = 3;
+}
+
+message GetCascadeTrajectoryGeneratorMetadataResponse {
+  repeated exa.cortex_pb.CortexStepGeneratorMetadata generator_metadata = 1;
+}
+
+message GetAllCascadeTrajectoriesRequest {
+}
+
+message GetAllCascadeTrajectoriesResponse {
+  message TrajectorySummariesEntry {
+    string key = 1;
+    exa.jetski_cortex_pb.CascadeTrajectorySummary value = 2;
+  }
+
+  repeated exa.language_server_pb.GetAllCascadeTrajectoriesResponse.TrajectorySummariesEntry trajectory_summaries = 1;
+}
+
+message CancelCascadeInvocationRequest {
+  string cascade_id = 1;
+}
+
+message CancelCascadeInvocationResponse {
+}
+
+message CancelCascadeStepsRequest {
+  string cascade_id = 1;
+  repeated uint32 step_indices = 2;
+}
+
+message CancelCascadeStepsResponse {
+}
+
+message SkipBrowserSubagentRequest {
+  string cascade_id = 1;
+  int32 step_index = 2;
+}
+
+message SkipBrowserSubagentResponse {
+}
+
+message SendUserCascadeMessageRequest {
+  exa.codeium_common_pb.Metadata metadata = 3;
+  string cascade_id = 1;
+  repeated exa.codeium_common_pb.TextOrScopeItem items = 2;
+  repeated exa.codeium_common_pb.ImageData images = 6;
+  repeated exa.codeium_common_pb.ArtifactComment artifact_comments = 10;
+  repeated exa.codeium_common_pb.FileDiffComment file_diff_comments = 12;
+  repeated exa.codeium_common_pb.FileComment file_comments = 13;
+  repeated exa.codeium_common_pb.Media media = 14;
+  exa.cortex_pb.CascadeConfig cascade_config = 5;
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 4;
+  bool blocking = 8;
+  repeated gemini_coder.Step additional_steps = 9;
+  exa.chat_client_server_pb.ChatClientRequestStreamClientType client_type = 11;
+  bool propagate_error = 16;
+  exa.cortex_pb.CortexStepPlannerResponse planner_response = 17;
+  exa.language_server_pb.AgentMessageOrigin message_origin = 18;
+}
+
+message SendUserCascadeMessageResponse {
+  bool queued = 1;
+}
+
+message SignalExecutableIdleRequest {
+  string conversation_id = 1;
+}
+
+message SignalExecutableIdleResponse {
+}
+
+message SendAllQueuedMessagesRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string cascade_id = 2;
+  exa.cortex_pb.CascadeConfig cascade_config = 3;
+}
+
+message SendAllQueuedMessagesResponse {
+}
+
+message DeleteQueuedUserInputStepRequest {
+  string cascade_id = 1;
+  int32 step_index = 2;
+}
+
+message DeleteQueuedUserInputStepResponse {
+}
+
+message SaveMediaAsArtifactRequest {
+  exa.codeium_common_pb.Media media = 1;
+}
+
+message SaveMediaAsArtifactResponse {
+  string uri = 1;
+}
+
+message DeleteMediaArtifactRequest {
+  string uri = 1;
+}
+
+message DeleteMediaArtifactResponse {
+  bool success = 1;
+  string error_message = 2;
+}
+
+message RevertToCascadeStepRequest {
+  exa.codeium_common_pb.Metadata metadata = 3;
+  string cascade_id = 1;
+  int32 step_index = 2;
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 4;
+  exa.cortex_pb.CascadeConfig override_config = 5;
+}
+
+message RevertToCascadeStepResponse {
+  exa.cortex_pb.RevertMetadata metadata = 1;
+}
+
+message CodeEditRevertPreview {
+  string file_uri = 1;
+  exa.diff_action_pb.UnifiedDiff diff = 2;
+  exa.language_server_pb.CodeRevertActionType action_type = 3;
+}
+
+message GetRevertPreviewRequest {
+  string cascade_id = 1;
+  int32 step_index = 2;
+  exa.codeium_common_pb.Metadata metadata = 3;
+  exa.cortex_pb.CascadeConfig override_config = 4;
+}
+
+message GetRevertPreviewResponse {
+  repeated exa.language_server_pb.CodeEditRevertPreview code_edit_previews = 1;
+}
+
+message RecordUserStepSnapshotRequest {
+  string cascade_id = 1;
+  int32 step_index = 2;
+  exa.cortex_pb.UserStepSnapshot snapshot = 3;
+}
+
+message RecordUserStepSnapshotResponse {
+}
+
+message HandleCascadeUserInteractionRequest {
+  string cascade_id = 1;
+  exa.cortex_pb.CascadeUserInteraction interaction = 2;
+}
+
+message HandleCascadeUserInteractionResponse {
+}
+
+message AcknowledgeCascadeCodeEditRequest {
+  exa.codeium_common_pb.Metadata metadata = 4;
+  string cascade_id = 1;
+  repeated string absolute_uri = 2;
+  repeated string contents = 5;
+  bool accept = 3;
+}
+
+message AcknowledgeCascadeCodeEditResponse {
+}
+
+message CodeAcknowledgementRequestInfo {
+  string uri_path = 1;
+  repeated uint32 step_indices = 2;
+  string pre_code_actions_state = 3;
+  string post_code_actions_state = 4;
+}
+
+message AcknowledgeCodeActionStepRequest {
+  string cascade_id = 1;
+  bool accept = 3;
+  string written_feedback = 4;
+  exa.cortex_pb.CodeAcknowledgementScope acknowledgement_scope = 5;
+  repeated exa.language_server_pb.CodeAcknowledgementRequestInfo code_acknowledgement_request_infos = 7;
+}
+
+message AcknowledgeCodeActionStepResponse {
+}
+
+message GetCodeValidationStatesRequest {
+  string cascade_id = 1;
+}
+
+message GetCodeValidationStatesResponse {
+  repeated exa.language_server_pb.ValidationState states = 1;
+}
+
+message ValidationState {
+  string uri = 1;
+  string last_acknowledged_state = 2;
+  string current_state = 3;
+  bool last_state_file_nonexistent = 4;
+}
+
+message DeleteCascadeTrajectoryRequest {
+  string cascade_id = 1;
+}
+
+message DeleteCascadeTrajectoryResponse {
+}
+
+message ResolveOutstandingStepsRequest {
+  string cascade_id = 1;
+}
+
+message ResolveOutstandingStepsResponse {
+}
+
+message StreamTerminalShellCommandResponse {
+}
+
+message GetWebDocsOptionsRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+}
+
+message GetWebDocsOptionsResponse {
+  repeated exa.codeium_common_pb.WebDocsOption options = 1;
+}
+
+message UpdateDevExperimentsRequest {
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 1;
+}
+
+message UpdateDevExperimentsResponse {
+}
+
+message SetBaseExperimentsRequest {
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 1;
+}
+
+message SetBaseExperimentsResponse {
+}
+
+message GetCascadeModelConfigDataRequest {
+}
+
+message GetCascadeMemoriesRequest {
+}
+
+message GetCascadeMemoriesResponse {
+  repeated exa.cortex_pb.CortexMemory memories = 1;
+}
+
+message GetModelStatusesRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+}
+
+message GetModelStatusesResponse {
+  repeated exa.codeium_common_pb.ModelStatusInfo model_status_infos = 1;
+}
+
+message DeleteCascadeMemoryRequest {
+  string memory_id = 1;
+}
+
+message DeleteCascadeMemoryResponse {
+}
+
+message UpdateCascadeMemoryRequest {
+  string memory_id = 1;
+  string title = 2;
+  string content = 3;
+  repeated string tags = 4;
+}
+
+message UpdateCascadeMemoryResponse {
+}
+
+message GetUserMemoriesRequest {
+}
+
+message GetUserMemoriesResponse {
+  repeated exa.cortex_pb.CortexMemory memories = 1;
+}
+
+message GetConversationTagsRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+}
+
+message GetConversationTagsResponse {
+  message ConversationTagsEntry {
+    string key = 1;
+    exa.language_server_pb.ConversationTagList value = 2;
+  }
+
+  repeated exa.language_server_pb.GetConversationTagsResponse.ConversationTagsEntry conversation_tags = 1;
+}
+
+message ConversationTagList {
+  repeated string tags = 1;
+}
+
+message UpdateConversationTagsRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string cascade_id = 2;
+  repeated string tags = 3;
+}
+
+message UpdateConversationTagsResponse {
+}
+
+message UpdateConversationAnnotationsRequest {
+  string cascade_id = 1;
+  exa.jetski_cortex_pb.ConversationAnnotations annotations = 2;
+  bool merge_annotations = 3;
+}
+
+message UpdateConversationAnnotationsResponse {
+}
+
+message RefreshMcpServersRequest {
+  bool shallow = 1;
+  string server_name = 2;
+}
+
+message RefreshMcpServersResponse {
+}
+
+message GetMcpServerStatesRequest {
+}
+
+message GetMcpServerStatesResponse {
+  repeated exa.cortex_pb.McpServerState states = 1;
+  bool is_loading = 2;
+}
+
+message GetAllWorkflowsRequest {
+}
+
+message GetAllWorkflowsResponse {
+  repeated exa.cortex_pb.WorkflowSpec workflows = 2;
+}
+
+message GetAllCustomAgentConfigsRequest {
+}
+
+message GetAllCustomAgentConfigsResponse {
+  message ConfigMapEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  repeated exa.language_server_pb.GetAllCustomAgentConfigsResponse.ConfigMapEntry config_map = 1;
+}
+
+message CopyBuiltinWorkflowToWorkspaceRequest {
+  exa.cortex_pb.WorkflowSpec workflow = 1;
+  exa.codeium_common_pb.Metadata metadata = 2;
+}
+
+message CopyBuiltinWorkflowToWorkspaceResponse {
+  exa.cortex_pb.WorkflowSpec workflow = 1;
+}
+
+message GetAllRulesRequest {
+}
+
+message GetAllRulesResponse {
+  repeated exa.cortex_pb.CortexMemory memories = 2;
+}
+
+message GetAllSkillsRequest {
+}
+
+message GetAllSkillsResponse {
+  repeated exa.cortex_pb.WorkflowSpec skills = 1;
+}
+
+message ListMcpResourcesRequest {
+  string server_name = 1;
+  string query = 2;
+}
+
+message ListMcpResourcesResponse {
+  repeated exa.codeium_common_pb.McpResourceItem resources = 1;
+}
+
+message ListMcpPromptsRequest {
+}
+
+message ListMcpPromptsResponse {
+  repeated exa.cortex_pb.McpPromptSpec prompts = 1;
+}
+
+message GetMcpPromptRequest {
+  message ArgumentsEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  string server_name = 1;
+  string name = 2;
+  repeated exa.language_server_pb.GetMcpPromptRequest.ArgumentsEntry arguments = 3;
+}
+
+message GetMcpPromptResponse {
+  string description = 1;
+  repeated exa.codeium_common_pb.McpPromptMessage messages = 2;
+}
+
+message UpdateEnterpriseExperimentsFromUrlRequest {
+  string portal_url = 1;
+}
+
+message UpdateEnterpriseExperimentsFromUrlResponse {
+  bool success = 1;
+  string error_message = 2;
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 3;
+}
+
+message ImportFromCursorRequest {
+  string source_path = 1;
+}
+
+message ImportFromCursorResponse {
+  repeated string copied_files = 1;
+  repeated string duplicate_files = 2;
+  repeated string problem_files = 3;
+}
+
+message CreateCustomizationFileRequest {
+  exa.language_server_pb.CustomizationFileType file_type = 1;
+  string file_name = 2;
+}
+
+message CreateCustomizationFileResponse {
+  string file_path = 1;
+}
+
+message SendActionToChatPanelRequest {
+  string action_type = 1;
+  repeated bytes payload = 2;
+}
+
+message SendActionToChatPanelResponse {
+}
+
+message RecordUserGrepRequest {
+  string query = 1;
+  repeated exa.cortex_pb.GrepSearchResult results = 2;
+  bytes timestamp = 3;
+}
+
+message RecordUserGrepResponse {
+}
+
+message GetUnleashDataRequest {
+  message PropertiesEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  exa.codeium_common_pb.Metadata metadata = 1;
+  repeated exa.language_server_pb.GetUnleashDataRequest.PropertiesEntry properties = 2;
+}
+
+message GetUnleashDataResponse {
+  exa.codeium_common_pb.UnleashContext context = 1;
+  exa.codeium_common_pb.ExperimentConfig experiment_config = 2;
+}
+
+message ShouldEnableUnleashRequest {
+}
+
+message ShouldEnableUnleashResponse {
+  bool should_enable = 1;
+}
+
+message GetPatchAndCodeChangeRequest {
+  string intent = 1;
+  exa.codeium_common_pb.GitRepoInfo base_state_repo_info = 2;
+  string repo_path = 3;
+}
+
+message GetPatchAndCodeChangeResponse {
+  string patch_string = 1;
+  exa.code_edit.code_edit_pb.CodeChangeWithContext code_change_with_context = 2;
+}
+
+message ConvertTrajectoryToMarkdownRequest {
+  gemini_coder.Trajectory trajectory = 1;
+}
+
+message ConvertTrajectoryToMarkdownResponse {
+  string markdown = 1;
+}
+
+message CopyTrajectoryRequest {
+  string cascade_id = 1;
+  string destination_workspace_uri = 2;
+  string additional_details = 3;
+}
+
+message CopyTrajectoryResponse {
+  string new_cascade_id = 1;
+}
+
+message LoadTrajectoryRequest {
+  string cascade_id = 1;
+}
+
+message LoadTrajectoryResponse {
+}
+
+message CreateTrajectoryShareRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  exa.cortex_pb.TrajectoryShareStatus share_status = 3;
+  string cascade_id = 4;
+}
+
+message CreateTrajectoryShareResponse {
+  string url = 1;
+}
+
+message GetAvailableCascadePluginsRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string os = 2;
+  string search_query = 3;
+}
+
+message GetAvailableCascadePluginsResponse {
+  repeated exa.cascade_plugins_pb.CascadePluginTemplate plugins = 1;
+}
+
+message InstallCascadePluginRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string plugin_id = 2;
+}
+
+message InstallCascadePluginResponse {
+  int64 installation_count = 1;
+}
+
+message GetCascadePluginByIdRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string os = 2;
+  string plugin_id = 3;
+}
+
+message GetCascadePluginByIdResponse {
+  exa.cascade_plugins_pb.CascadePluginTemplate plugin = 1;
+}
+
+message RecordLintsRequest {
+  exa.codeium_common_pb.Language current_language = 1;
+  repeated exa.codeium_common_pb.CodeDiagnostic lints = 2;
+  bytes timestamp = 3;
+}
+
+message RecordLintsResponse {
+}
+
+message StatUriRequest {
+  string uri = 1;
+}
+
+message StatUriResponse {
+  exa.language_server_pb.FileType file_type = 1;
+  bytes mod_time = 2;
+}
+
+message SetBrowserOpenConversationRequest {
+  string cascade_id = 1;
+  bytes expires_at = 2;
+}
+
+message SetBrowserOpenConversationResponse {
+}
+
+message GetBrowserOpenConversationRequest {
+}
+
+message GetBrowserOpenConversationResponse {
+  string cascade_id = 1;
+}
+
+message RecordInteractiveCascadeFeedbackRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string cascade_id = 2;
+  int32 step_index = 3;
+  int32 chunk_index = 4;
+  exa.cortex_pb.AcknowledgementType acknowledgement_type = 5;
+}
+
+message RecordInteractiveCascadeFeedbackResponse {
+}
+
+message GetCascadeNuxesRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+}
+
+message GetCascadeNuxesResponse {
+  repeated exa.codeium_common_pb.CascadeNUXConfig nuxes = 1;
+}
+
+message GetStaticExperimentStatusRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+}
+
+message GetStaticExperimentStatusResponse {
+  repeated exa.chat_pb.ChatExperimentStatus status = 1;
+}
+
+message RecordAnalyticsEventRequest {
+  message ExtraEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  message ExperimentsEntry {
+    string key = 1;
+    bool value = 2;
+  }
+
+  string event_name = 1;
+  exa.codeium_common_pb.Metadata metadata = 2;
+  repeated exa.language_server_pb.RecordAnalyticsEventRequest.ExtraEntry extra = 3;
+  repeated exa.language_server_pb.RecordAnalyticsEventRequest.ExperimentsEntry experiments = 4;
+}
+
+message RecordAnalyticsEventResponse {
+}
+
+message GetTermsOfServiceRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+}
+
+message GetTermsOfServiceResponse {
+  string terms_of_service_text = 1;
+  string version = 2;
+}
+
+message AcceptTermsOfServiceRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string version = 2;
+}
+
+message AcceptTermsOfServiceResponse {
+}
+
+message DumpFlightRecorderRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string trace_file_path = 2;
+}
+
+message DumpFlightRecorderResponse {
+}
+
+message DumpPprofRequest {
+  exa.codeium_common_pb.Metadata metadata = 1;
+  string heap_file_path = 2;
+  string goroutine_file_path = 3;
+  string mutex_file_path = 4;
+}
+
+message DumpPprofResponse {
+}
+
+message OAuthTokenInfo {
+  string access_token = 1;
+  string token_type = 2;
+  string refresh_token = 3;
+  bytes expiry = 4;
+  bool is_gcp_tos = 6;
+}
+
+message SaveOAuthTokenInfoRequest {
+  exa.language_server_pb.OAuthTokenInfo token_info = 1;
+}
+
+message SaveOAuthTokenInfoResponse {
+}
+
+message RemoveOAuthTokenInfoRequest {
+}
+
+message RemoveOAuthTokenInfoResponse {
+}
+
+message CreateReplayWorkspaceRequest {
+  string trajectory_id = 1;
+  int32 step_index = 2;
+  string workspace_name = 3;
+  string target_user = 4;
+}
+
+message CreateReplayWorkspaceResponse {
+}
+
+message LoadReplayConversationRequest {
+  string workspace_name = 1;
+  string user = 2;
+  string cascade_id = 3;
+}
+
+message LoadReplayConversationResponse {
+}
+
+message ListPagesRequest {
+}
+
+message ListPagesResponse {
+  repeated exa.codeium_common_pb.BrowserPageMetadata pages = 1;
+}
+
+message BrowserValidateCascadeOrCancelOverlayRequest {
+  string cascade_id = 1;
+}
+
+message BrowserValidateCascadeOrCancelOverlayResponse {
+}
+
+message SmartFocusConversationRequest {
+  string cascade_id = 1;
+}
+
+message SmartFocusConversationResponse {
+}
+
+message OpenUrlRequest {
+  string url = 1;
+}
+
+message OpenUrlResponse {
+}
+
+message FocusUserPageRequest {
+  string page_id = 1;
+}
+
+message FocusUserPageResponse {
+}
+
+message AddToBrowserWhitelistRequest {
+  string hostname = 1;
+  repeated string hostnames = 2;
+}
+
+message AddToBrowserWhitelistResponse {
+}
+
+message CaptureConsoleLogsRequest {
+  string page_id = 1;
+}
+
+message CaptureConsoleLogsResponse {
+  exa.codeium_common_pb.ConsoleLogScopeItem console_logs = 1;
+}
+
+message StartScreenRecordingRequest {
+  string cascade_id = 1;
+  bool onboarded = 2;
+}
+
+message StartScreenRecordingResponse {
+}
+
+message SaveScreenRecordingRequest {
+  bytes video_data = 1;
+  string filename = 2;
+  string cascade_id = 3;
+}
+
+message SaveScreenRecordingResponse {
+  string file_path = 1;
+}
+
+message GetBrowserWhitelistFilePathRequest {
+}
+
+message GetBrowserWhitelistFilePathResponse {
+  string path = 1;
+}
+
+message GetAllBrowserWhitelistedUrlsRequest {
+}
+
+message GetAllBrowserWhitelistedUrlsResponse {
+  repeated string whitelisted_urls = 1;
+}
+
+message CaptureScreenshotRequest {
+  string page_id = 1;
+}
+
+message CaptureScreenshotResponse {
+  exa.codeium_common_pb.ImageData screenshot = 2;
+  exa.codeium_common_pb.Media media_screenshot = 3;
+}
+
+message SmartOpenBrowserRequest {
+  string url = 1;
+  bool is_onboarded = 2;
+}
+
+message SmartOpenBrowserResponse {
+}
+
+message SimulateSegFaultRequest {
+}
+
+message SimulateSegFaultResponse {
+}
+
+message HandleScreenRecordingRequest {
+  string cascade_id = 1;
+}
+
+message HandleScreenRecordingResponse {
+  bytes video_data = 1;
+}
+
+message PatchStats {
+  int32 num_files_changed = 1;
+  int32 num_line_additions = 2;
+  int32 num_line_deletions = 3;
+}
+
+message GetRevisionArtifactRequest {
+  string repo_path_uri = 1;
+  string base_commit = 2;
+}
+
+message GetRevisionArtifactResponse {
+  exa.language_server_pb.PatchStats stats = 1;
+  string patch = 2;
+}
+
+message GetModelResponseRequest {
+  string prompt = 1;
+  exa.codeium_common_pb.Model model = 2;
+}
+
+message GetModelResponseResponse {
+  string response = 1;
+}
+
+message GetAgentScriptsRequest {
+}
+
+message GetAgentScriptsResponse {
+  repeated exa.cortex_pb.AgentScriptItem agent_scripts = 1;
+  repeated exa.cortex_pb.AgentCustomization agent_customizations = 2;
+}
+
+message SaveAgentScriptCommandSpecRequest {
+  string name = 1;
+  bool save_to_workspace = 2;
+  bool overwrite = 3;
+  exa.cortex_pb.AgentScriptCommandSpec command_spec = 4;
+}
+
+message SaveAgentScriptCommandSpecResponse {
+  bool created = 1;
+  exa.cortex_pb.AgentScriptItem agent_script = 2;
+}
+
+message ListCustomizationPathsByFileRequest {
+  exa.codeium_common_pb.RefreshCustomizationType type = 1;
+  bool is_global = 2;
+}
+
+message ListCustomizationPathsByFileResponse {
+  message PathsFilesEntry {
+    string key = 1;
+    exa.language_server_pb.CustomizationPathsList value = 2;
+  }
+
+  repeated exa.language_server_pb.ListCustomizationPathsByFileResponse.PathsFilesEntry paths_files = 1;
+}
+
+message CustomizationPathsList {
+  repeated string paths = 1;
+}
+
+message UpdateCustomizationPathsFileRequest {
+  string file_path = 1;
+  repeated string paths = 2;
+  exa.language_server_pb.CustomizationPathsOperation operation = 3;
+}
+
+message UpdateCustomizationPathsFileResponse {
+}
+
+service LanguageServerService {
+  rpc ProvideCompletionFeedback(exa.language_server_pb.ProvideCompletionFeedbackRequest) returns (exa.language_server_pb.ProvideCompletionFeedbackResponse);
+  rpc Heartbeat(exa.language_server_pb.HeartbeatRequest) returns (exa.language_server_pb.HeartbeatResponse);
+  rpc GetStatus(exa.language_server_pb.GetStatusRequest) returns (exa.language_server_pb.GetStatusResponse);
+  rpc GetCommandModelConfigs(exa.language_server_pb.GetCommandModelConfigsRequest) returns (exa.language_server_pb.GetCommandModelConfigsResponse);
+  rpc GetCascadeModelConfigs(exa.language_server_pb.GetCascadeModelConfigsRequest) returns (exa.language_server_pb.GetCascadeModelConfigsResponse);
+  rpc RecordEvent(exa.language_server_pb.RecordEventRequest) returns (exa.language_server_pb.RecordEventResponse);
+  rpc RegisterGdmUser(exa.language_server_pb.RegisterGdmUserRequest) returns (exa.language_server_pb.RegisterGdmUserResponse);
+  rpc MigrateApiKey(exa.language_server_pb.MigrateApiKeyRequest) returns (exa.language_server_pb.MigrateApiKeyResponse);
+  rpc WellSupportedLanguages(exa.language_server_pb.WellSupportedLanguagesRequest) returns (exa.language_server_pb.WellSupportedLanguagesResponse);
+  rpc RecordSearchDocOpen(exa.language_server_pb.RecordSearchDocOpenRequest) returns (exa.language_server_pb.RecordSearchDocOpenResponse);
+  rpc RecordSearchResultsView(exa.language_server_pb.RecordSearchResultsViewRequest) returns (exa.language_server_pb.RecordSearchResultsViewResponse);
+  rpc HandleStreamingCommand(exa.language_server_pb.HandleStreamingCommandRequest) returns (stream exa.language_server_pb.HandleStreamingCommandResponse);
+  rpc GetMcpServerTemplates(exa.language_server_pb.GetMcpServerTemplatesRequest) returns (exa.language_server_pb.GetMcpServerTemplatesResponse);
+  rpc AddTrackedWorkspace(exa.language_server_pb.AddTrackedWorkspaceRequest) returns (exa.language_server_pb.AddTrackedWorkspaceResponse);
+  rpc RemoveTrackedWorkspace(exa.language_server_pb.RemoveTrackedWorkspaceRequest) returns (exa.language_server_pb.RemoveTrackedWorkspaceResponse);
+  rpc SmartFocusConversation(exa.language_server_pb.SmartFocusConversationRequest) returns (exa.language_server_pb.SmartFocusConversationResponse);
+  rpc StatUri(exa.language_server_pb.StatUriRequest) returns (exa.language_server_pb.StatUriResponse);
+  rpc SetBrowserOpenConversation(exa.language_server_pb.SetBrowserOpenConversationRequest) returns (exa.language_server_pb.SetBrowserOpenConversationResponse);
+  rpc GetBrowserOpenConversation(exa.language_server_pb.GetBrowserOpenConversationRequest) returns (exa.language_server_pb.GetBrowserOpenConversationResponse);
+  rpc RefreshContextForIdeAction(exa.language_server_pb.RefreshContextForIdeActionRequest) returns (exa.language_server_pb.RefreshContextForIdeActionResponse);
+  rpc GetMatchingContextScopeItems(exa.language_server_pb.GetMatchingContextScopeItemsRequest) returns (exa.language_server_pb.GetMatchingContextScopeItemsResponse);
+  rpc RecordChatFeedback(exa.language_server_pb.RecordChatFeedbackRequest) returns (exa.language_server_pb.RecordChatFeedbackResponse);
+  rpc RecordChatPanelSession(exa.language_server_pb.RecordChatPanelSessionRequest) returns (exa.language_server_pb.RecordChatPanelSessionResponse);
+  rpc ShouldEnableUnleash(exa.language_server_pb.ShouldEnableUnleashRequest) returns (exa.language_server_pb.ShouldEnableUnleashResponse);
+  rpc GetWorkspaceEditState(exa.language_server_pb.GetWorkspaceEditStateRequest) returns (exa.language_server_pb.GetWorkspaceEditStateResponse);
+  rpc GetRepoInfos(exa.language_server_pb.GetRepoInfosRequest) returns (exa.language_server_pb.GetRepoInfosResponse);
+  rpc GetWorkspaceInfos(exa.language_server_pb.GetWorkspaceInfosRequest) returns (exa.language_server_pb.GetWorkspaceInfosResponse);
+  rpc CreateWorktree(exa.language_server_pb.CreateWorktreeRequest) returns (exa.language_server_pb.CreateWorktreeResponse);
+  rpc SetWorkingDirectories(exa.language_server_pb.SetWorkingDirectoriesRequest) returns (exa.language_server_pb.SetWorkingDirectoriesResponse);
+  rpc GetWorkingDirectories(exa.language_server_pb.GetWorkingDirectoriesRequest) returns (exa.language_server_pb.GetWorkingDirectoriesResponse);
+  rpc GetRevisionArtifact(exa.language_server_pb.GetRevisionArtifactRequest) returns (exa.language_server_pb.GetRevisionArtifactResponse);
+  rpc GenerateCommitMessage(exa.language_server_pb.GenerateCommitMessageRequest) returns (exa.language_server_pb.GenerateCommitMessageResponse);
+  rpc RecordCommitMessageSave(exa.language_server_pb.RecordCommitMessageSaveRequest) returns (exa.language_server_pb.RecordCommitMessageSaveResponse);
+  rpc UpdatePRForWorktree(exa.language_server_pb.UpdatePRForWorktreeRequest) returns (exa.language_server_pb.UpdatePRForWorktreeResponse);
+  rpc SendActionToChatPanel(exa.language_server_pb.SendActionToChatPanelRequest) returns (exa.language_server_pb.SendActionToChatPanelResponse);
+  rpc GetUserSettings(exa.language_server_pb.GetUserSettingsRequest) returns (exa.language_server_pb.GetUserSettingsResponse);
+  rpc SetUserSettings(exa.language_server_pb.SetUserSettingsRequest) returns (exa.language_server_pb.SetUserSettingsResponse);
+  rpc GetDebugDiagnostics(exa.language_server_pb.GetDebugDiagnosticsRequest) returns (exa.language_server_pb.GetDebugDiagnosticsResponse);
+  rpc DumpFlightRecorder(exa.language_server_pb.DumpFlightRecorderRequest) returns (exa.language_server_pb.DumpFlightRecorderResponse);
+  rpc DumpPprof(exa.language_server_pb.DumpPprofRequest) returns (exa.language_server_pb.DumpPprofResponse);
+  rpc GetUserAnalyticsSummary(exa.language_server_pb.GetUserAnalyticsSummaryRequest) returns (exa.language_server_pb.GetUserAnalyticsSummaryResponse);
+  rpc GetUserStatus(exa.language_server_pb.GetUserStatusRequest) returns (exa.language_server_pb.GetUserStatusResponse);
+  rpc GetProfileData(exa.language_server_pb.GetProfileDataRequest) returns (exa.language_server_pb.GetProfileDataResponse);
+  rpc GetChangelog(exa.language_server_pb.GetChangelogRequest) returns (exa.language_server_pb.GetChangelogResponse);
+  rpc SetupUniversitySandbox(exa.language_server_pb.SetupUniversitySandboxRequest) returns (exa.language_server_pb.SetupUniversitySandboxResponse);
+  rpc Exit(exa.language_server_pb.ExitRequest) returns (exa.language_server_pb.ExitResponse);
+  rpc ResetOnboarding(exa.language_server_pb.ResetOnboardingRequest) returns (exa.language_server_pb.ResetOnboardingResponse);
+  rpc SkipOnboarding(exa.language_server_pb.SkipOnboardingRequest) returns (exa.language_server_pb.SkipOnboardingResponse);
+  rpc GetTermsOfService(exa.language_server_pb.GetTermsOfServiceRequest) returns (exa.language_server_pb.GetTermsOfServiceResponse);
+  rpc AcceptTermsOfService(exa.language_server_pb.AcceptTermsOfServiceRequest) returns (exa.language_server_pb.AcceptTermsOfServiceResponse);
+  rpc GetUserTrajectoryDebug(exa.language_server_pb.GetUserTrajectoryDebugRequest) returns (exa.language_server_pb.GetUserTrajectoryDebugResponse);
+  rpc GetUserTrajectoryDescriptions(exa.language_server_pb.GetUserTrajectoryDescriptionsRequest) returns (exa.language_server_pb.GetUserTrajectoryDescriptionsResponse);
+  rpc StreamUserTrajectoryReactiveUpdates(exa.reactive_component_pb.StreamReactiveUpdatesRequest) returns (stream exa.reactive_component_pb.StreamReactiveUpdatesResponse);
+  rpc GetCascadeMemories(exa.language_server_pb.GetCascadeMemoriesRequest) returns (exa.language_server_pb.GetCascadeMemoriesResponse);
+  rpc DeleteCascadeMemory(exa.language_server_pb.DeleteCascadeMemoryRequest) returns (exa.language_server_pb.DeleteCascadeMemoryResponse);
+  rpc UpdateCascadeMemory(exa.language_server_pb.UpdateCascadeMemoryRequest) returns (exa.language_server_pb.UpdateCascadeMemoryResponse);
+  rpc GetUserMemories(exa.language_server_pb.GetUserMemoriesRequest) returns (exa.language_server_pb.GetUserMemoriesResponse);
+  rpc UpdateConversationAnnotations(exa.language_server_pb.UpdateConversationAnnotationsRequest) returns (exa.language_server_pb.UpdateConversationAnnotationsResponse);
+  rpc StartCascade(exa.language_server_pb.StartCascadeRequest) returns (exa.language_server_pb.StartCascadeResponse);
+  rpc CancelCascadeInvocation(exa.language_server_pb.CancelCascadeInvocationRequest) returns (exa.language_server_pb.CancelCascadeInvocationResponse);
+  rpc CancelCascadeSteps(exa.language_server_pb.CancelCascadeStepsRequest) returns (exa.language_server_pb.CancelCascadeStepsResponse);
+  rpc SkipBrowserSubagent(exa.language_server_pb.SkipBrowserSubagentRequest) returns (exa.language_server_pb.SkipBrowserSubagentResponse);
+  rpc GetCascadeModelConfigData(exa.language_server_pb.GetCascadeModelConfigDataRequest) returns (exa.codeium_common_pb.CascadeModelConfigData);
+  rpc SendUserCascadeMessage(exa.language_server_pb.SendUserCascadeMessageRequest) returns (exa.language_server_pb.SendUserCascadeMessageResponse);
+  rpc SignalExecutableIdle(exa.language_server_pb.SignalExecutableIdleRequest) returns (exa.language_server_pb.SignalExecutableIdleResponse);
+  rpc SendAllQueuedMessages(exa.language_server_pb.SendAllQueuedMessagesRequest) returns (exa.language_server_pb.SendAllQueuedMessagesResponse);
+  rpc DeleteQueuedUserInputStep(exa.language_server_pb.DeleteQueuedUserInputStepRequest) returns (exa.language_server_pb.DeleteQueuedUserInputStepResponse);
+  rpc RevertToCascadeStep(exa.language_server_pb.RevertToCascadeStepRequest) returns (exa.language_server_pb.RevertToCascadeStepResponse);
+  rpc GetRevertPreview(exa.language_server_pb.GetRevertPreviewRequest) returns (exa.language_server_pb.GetRevertPreviewResponse);
+  rpc RecordUserStepSnapshot(exa.language_server_pb.RecordUserStepSnapshotRequest) returns (exa.language_server_pb.RecordUserStepSnapshotResponse);
+  rpc GetAllCascadeTrajectories(exa.language_server_pb.GetAllCascadeTrajectoriesRequest) returns (exa.language_server_pb.GetAllCascadeTrajectoriesResponse);
+  rpc HandleCascadeUserInteraction(exa.language_server_pb.HandleCascadeUserInteractionRequest) returns (exa.language_server_pb.HandleCascadeUserInteractionResponse);
+  rpc AcknowledgeCascadeCodeEdit(exa.language_server_pb.AcknowledgeCascadeCodeEditRequest) returns (exa.language_server_pb.AcknowledgeCascadeCodeEditResponse);
+  rpc AcknowledgeCodeActionStep(exa.language_server_pb.AcknowledgeCodeActionStepRequest) returns (exa.language_server_pb.AcknowledgeCodeActionStepResponse);
+  rpc GetCodeValidationStates(exa.language_server_pb.GetCodeValidationStatesRequest) returns (exa.language_server_pb.GetCodeValidationStatesResponse);
+  rpc DeleteCascadeTrajectory(exa.language_server_pb.DeleteCascadeTrajectoryRequest) returns (exa.language_server_pb.DeleteCascadeTrajectoryResponse);
+  rpc InitializeCascadePanelState(exa.language_server_pb.InitializeCascadePanelStateRequest) returns (exa.language_server_pb.InitializeCascadePanelStateResponse);
+  rpc StreamCascadePanelReactiveUpdates(exa.reactive_component_pb.StreamReactiveUpdatesRequest) returns (stream exa.reactive_component_pb.StreamReactiveUpdatesResponse);
+  rpc StreamCascadeReactiveUpdates(exa.reactive_component_pb.StreamReactiveUpdatesRequest) returns (stream exa.reactive_component_pb.StreamReactiveUpdatesResponse);
+  rpc StreamCascadeSummariesReactiveUpdates(exa.reactive_component_pb.StreamReactiveUpdatesRequest) returns (stream exa.reactive_component_pb.StreamReactiveUpdatesResponse);
+  rpc StreamAgentStateUpdates(exa.jetski_cortex_pb.StreamAgentStateUpdatesRequest) returns (stream exa.jetski_cortex_pb.StreamAgentStateUpdatesResponse);
+  rpc ForceBackgroundResearchRefresh(exa.language_server_pb.ForceBackgroundResearchRefreshRequest) returns (exa.language_server_pb.ForceBackgroundResearchRefreshResponse);
+  rpc ResolveOutstandingSteps(exa.language_server_pb.ResolveOutstandingStepsRequest) returns (exa.language_server_pb.ResolveOutstandingStepsResponse);
+  rpc RefreshMcpServers(exa.language_server_pb.RefreshMcpServersRequest) returns (exa.language_server_pb.RefreshMcpServersResponse);
+  rpc GetMcpServerStates(exa.language_server_pb.GetMcpServerStatesRequest) returns (exa.language_server_pb.GetMcpServerStatesResponse);
+  rpc StreamTerminalShellCommand(stream exa.codeium_common_pb.TerminalShellCommandStreamChunk) returns (exa.language_server_pb.StreamTerminalShellCommandResponse);
+  rpc GetModelResponse(exa.language_server_pb.GetModelResponseRequest) returns (exa.language_server_pb.GetModelResponseResponse);
+  rpc SaveMediaAsArtifact(exa.language_server_pb.SaveMediaAsArtifactRequest) returns (exa.language_server_pb.SaveMediaAsArtifactResponse);
+  rpc DeleteMediaArtifact(exa.language_server_pb.DeleteMediaArtifactRequest) returns (exa.language_server_pb.DeleteMediaArtifactResponse);
+  rpc GetWebDocsOptions(exa.language_server_pb.GetWebDocsOptionsRequest) returns (exa.language_server_pb.GetWebDocsOptionsResponse);
+  rpc UpdateDevExperiments(exa.language_server_pb.UpdateDevExperimentsRequest) returns (exa.language_server_pb.UpdateDevExperimentsResponse);
+  rpc SetBaseExperiments(exa.language_server_pb.SetBaseExperimentsRequest) returns (exa.language_server_pb.SetBaseExperimentsResponse);
+  rpc GetUnleashData(exa.language_server_pb.GetUnleashDataRequest) returns (exa.language_server_pb.GetUnleashDataResponse);
+  rpc GetModelStatuses(exa.language_server_pb.GetModelStatusesRequest) returns (exa.language_server_pb.GetModelStatusesResponse);
+  rpc GetAllWorkflows(exa.language_server_pb.GetAllWorkflowsRequest) returns (exa.language_server_pb.GetAllWorkflowsResponse);
+  rpc GetAllCustomAgentConfigs(exa.language_server_pb.GetAllCustomAgentConfigsRequest) returns (exa.language_server_pb.GetAllCustomAgentConfigsResponse);
+  rpc CopyBuiltinWorkflowToWorkspace(exa.language_server_pb.CopyBuiltinWorkflowToWorkspaceRequest) returns (exa.language_server_pb.CopyBuiltinWorkflowToWorkspaceResponse);
+  rpc GetAllRules(exa.language_server_pb.GetAllRulesRequest) returns (exa.language_server_pb.GetAllRulesResponse);
+  rpc GetAllSkills(exa.language_server_pb.GetAllSkillsRequest) returns (exa.language_server_pb.GetAllSkillsResponse);
+  rpc ListMcpResources(exa.language_server_pb.ListMcpResourcesRequest) returns (exa.language_server_pb.ListMcpResourcesResponse);
+  rpc ListMcpPrompts(exa.language_server_pb.ListMcpPromptsRequest) returns (exa.language_server_pb.ListMcpPromptsResponse);
+  rpc GetMcpPrompt(exa.language_server_pb.GetMcpPromptRequest) returns (exa.language_server_pb.GetMcpPromptResponse);
+  rpc UpdateEnterpriseExperimentsFromUrl(exa.language_server_pb.UpdateEnterpriseExperimentsFromUrlRequest) returns (exa.language_server_pb.UpdateEnterpriseExperimentsFromUrlResponse);
+  rpc ImportFromCursor(exa.language_server_pb.ImportFromCursorRequest) returns (exa.language_server_pb.ImportFromCursorResponse);
+  rpc CreateCustomizationFile(exa.language_server_pb.CreateCustomizationFileRequest) returns (exa.language_server_pb.CreateCustomizationFileResponse);
+  rpc ListCustomizationPathsByFile(exa.language_server_pb.ListCustomizationPathsByFileRequest) returns (exa.language_server_pb.ListCustomizationPathsByFileResponse);
+  rpc UpdateCustomizationPathsFile(exa.language_server_pb.UpdateCustomizationPathsFileRequest) returns (exa.language_server_pb.UpdateCustomizationPathsFileResponse);
+  rpc GetTeamOrganizationalControls(exa.language_server_pb.GetTeamOrganizationalControlsRequest) returns (exa.language_server_pb.GetTeamOrganizationalControlsResponse);
+  rpc RecordUserGrep(exa.language_server_pb.RecordUserGrepRequest) returns (exa.language_server_pb.RecordUserGrepResponse);
+  rpc CreateTrajectoryShare(exa.language_server_pb.CreateTrajectoryShareRequest) returns (exa.language_server_pb.CreateTrajectoryShareResponse);
+  rpc GetCascadeTrajectory(exa.language_server_pb.GetCascadeTrajectoryRequest) returns (exa.language_server_pb.GetCascadeTrajectoryResponse);
+  rpc GetArtifactSnapshots(exa.language_server_pb.GetArtifactSnapshotsRequest) returns (exa.language_server_pb.GetArtifactSnapshotsResponse);
+  rpc GetUserTrajectory(exa.language_server_pb.GetUserTrajectoryRequest) returns (exa.language_server_pb.GetUserTrajectoryResponse);
+  rpc GetCascadeTrajectorySteps(exa.language_server_pb.GetCascadeTrajectoryStepsRequest) returns (exa.language_server_pb.GetCascadeTrajectoryStepsResponse);
+  rpc GetCascadeTrajectoryGeneratorMetadata(exa.language_server_pb.GetCascadeTrajectoryGeneratorMetadataRequest) returns (exa.language_server_pb.GetCascadeTrajectoryGeneratorMetadataResponse);
+  rpc GetPatchAndCodeChange(exa.language_server_pb.GetPatchAndCodeChangeRequest) returns (exa.language_server_pb.GetPatchAndCodeChangeResponse);
+  rpc ConvertTrajectoryToMarkdown(exa.language_server_pb.ConvertTrajectoryToMarkdownRequest) returns (exa.language_server_pb.ConvertTrajectoryToMarkdownResponse);
+  rpc CopyTrajectory(exa.language_server_pb.CopyTrajectoryRequest) returns (exa.language_server_pb.CopyTrajectoryResponse);
+  rpc LoadTrajectory(exa.language_server_pb.LoadTrajectoryRequest) returns (exa.language_server_pb.LoadTrajectoryResponse);
+  rpc GetAvailableCascadePlugins(exa.language_server_pb.GetAvailableCascadePluginsRequest) returns (exa.language_server_pb.GetAvailableCascadePluginsResponse);
+  rpc InstallCascadePlugin(exa.language_server_pb.InstallCascadePluginRequest) returns (exa.language_server_pb.InstallCascadePluginResponse);
+  rpc GetCascadePluginById(exa.language_server_pb.GetCascadePluginByIdRequest) returns (exa.language_server_pb.GetCascadePluginByIdResponse);
+  rpc GetAgentScripts(exa.language_server_pb.GetAgentScriptsRequest) returns (exa.language_server_pb.GetAgentScriptsResponse);
+  rpc SaveAgentScriptCommandSpec(exa.language_server_pb.SaveAgentScriptCommandSpecRequest) returns (exa.language_server_pb.SaveAgentScriptCommandSpecResponse);
+  rpc RecordLints(exa.language_server_pb.RecordLintsRequest) returns (exa.language_server_pb.RecordLintsResponse);
+  rpc ReplayGroundTruthTrajectory(exa.language_server_pb.ReplayGroundTruthTrajectoryRequest) returns (exa.language_server_pb.ReplayGroundTruthTrajectoryResponse);
+  rpc CreateReplayWorkspace(exa.language_server_pb.CreateReplayWorkspaceRequest) returns (exa.language_server_pb.CreateReplayWorkspaceResponse);
+  rpc LoadReplayConversation(exa.language_server_pb.LoadReplayConversationRequest) returns (exa.language_server_pb.LoadReplayConversationResponse);
+  rpc RecordInteractiveCascadeFeedback(exa.language_server_pb.RecordInteractiveCascadeFeedbackRequest) returns (exa.language_server_pb.RecordInteractiveCascadeFeedbackResponse);
+  rpc GetCascadeNuxes(exa.language_server_pb.GetCascadeNuxesRequest) returns (exa.language_server_pb.GetCascadeNuxesResponse);
+  rpc GetTranscription(exa.language_server_pb.GetTranscriptionRequest) returns (exa.language_server_pb.GetTranscriptionResponse);
+  rpc GetStaticExperimentStatus(exa.language_server_pb.GetStaticExperimentStatusRequest) returns (exa.language_server_pb.GetStaticExperimentStatusResponse);
+  rpc RecordAnalyticsEvent(exa.language_server_pb.RecordAnalyticsEventRequest) returns (exa.language_server_pb.RecordAnalyticsEventResponse);
+  rpc ListPages(exa.language_server_pb.ListPagesRequest) returns (exa.language_server_pb.ListPagesResponse);
+  rpc BrowserValidateCascadeOrCancelOverlay(exa.language_server_pb.BrowserValidateCascadeOrCancelOverlayRequest) returns (exa.language_server_pb.BrowserValidateCascadeOrCancelOverlayResponse);
+  rpc OpenUrl(exa.language_server_pb.OpenUrlRequest) returns (exa.language_server_pb.OpenUrlResponse);
+  rpc FocusUserPage(exa.language_server_pb.FocusUserPageRequest) returns (exa.language_server_pb.FocusUserPageResponse);
+  rpc AddToBrowserWhitelist(exa.language_server_pb.AddToBrowserWhitelistRequest) returns (exa.language_server_pb.AddToBrowserWhitelistResponse);
+  rpc CaptureConsoleLogs(exa.language_server_pb.CaptureConsoleLogsRequest) returns (exa.language_server_pb.CaptureConsoleLogsResponse);
+  rpc StartScreenRecording(exa.language_server_pb.StartScreenRecordingRequest) returns (exa.language_server_pb.StartScreenRecordingResponse);
+  rpc SaveScreenRecording(exa.language_server_pb.SaveScreenRecordingRequest) returns (exa.language_server_pb.SaveScreenRecordingResponse);
+  rpc GetBrowserWhitelistFilePath(exa.language_server_pb.GetBrowserWhitelistFilePathRequest) returns (exa.language_server_pb.GetBrowserWhitelistFilePathResponse);
+  rpc HandleScreenRecording(exa.language_server_pb.HandleScreenRecordingRequest) returns (exa.language_server_pb.HandleScreenRecordingResponse);
+  rpc GetAllBrowserWhitelistedUrls(exa.language_server_pb.GetAllBrowserWhitelistedUrlsRequest) returns (exa.language_server_pb.GetAllBrowserWhitelistedUrlsResponse);
+  rpc CaptureScreenshot(exa.language_server_pb.CaptureScreenshotRequest) returns (exa.language_server_pb.CaptureScreenshotResponse);
+  rpc SmartOpenBrowser(exa.language_server_pb.SmartOpenBrowserRequest) returns (exa.language_server_pb.SmartOpenBrowserResponse);
+  rpc SimulateSegFault(exa.language_server_pb.SimulateSegFaultRequest) returns (exa.language_server_pb.SimulateSegFaultResponse);
+  rpc ReconnectExtensionServer(exa.language_server_pb.ReconnectExtensionServerRequest) returns (exa.language_server_pb.ReconnectExtensionServerResponse);
+}

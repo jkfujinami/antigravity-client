@@ -3,8 +3,8 @@ import { AntigravityClient } from "../src/client.js";
 import {
     CascadeRunCommandInteraction,
     CascadeUserInteraction,
-} from "../src/gen/exa/cortex_pb_pb.js";
-import { HandleCascadeUserInteractionRequest } from "../src/gen/exa/language_server_pb_pb.js";
+} from "../src/gen/exa/cortex_pb/cortex_pb.js";
+import { HandleCascadeUserInteractionRequest } from "../src/gen/exa/language_server_pb/language_server_pb.js";
 
 async function main() {
     console.log("🔌 Connecting to Antigravity LS...");

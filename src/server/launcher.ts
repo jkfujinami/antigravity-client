@@ -21,9 +21,9 @@ import { readAuthData, type AuthData } from "./auth-reader.js";
 import type { ServerInfo } from "../autodetect.js";
 import { createPromiseClient } from "@connectrpc/connect";
 import { createConnectTransport } from "@connectrpc/connect-node";
-import { LanguageServerService } from "../gen/exa/language_server_pb_connect.js";
-import { SetUserSettingsRequest } from "../gen/exa/language_server_pb_pb.js";
-import { UserSettings, AgentBrowserTools, BrowserJsExecutionPolicy } from "../gen/exa/codeium_common_pb_pb.js";
+import { LanguageServerService } from "../gen/exa/language_server_pb/language_server_connect.js";
+import { SetUserSettingsRequest } from "../gen/exa/language_server_pb/language_server_pb.js";
+import { UserSettings, AgentBrowserTools, BrowserJsExecutionPolicy } from "../gen/exa/codeium_common_pb/codeium_common_pb.js";
 
 const DEFAULT_LS_BINARY = path.join(
     "/Applications/Antigravity.app/Contents/Resources/app/extensions/antigravity/bin",

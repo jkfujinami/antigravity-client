@@ -1,7 +1,7 @@
 
 import { Message, proto3 } from "@bufbuild/protobuf";
 import type { MessageType, FieldInfo } from "@bufbuild/protobuf";
-import { MessageDiff, FieldDiff, SingularValue, RepeatedDiff, MapDiff } from "../gen/exa/reactive_component_pb_pb.js";
+import { MessageDiff, FieldDiff, SingularValue, RepeatedDiff, MapDiff } from "../gen/exa/reactive_component_pb/reactive_component_pb.js";
 
 /**
  * Applies a MessageDiff to a target object (which should be a plain JS object representation of a message).
