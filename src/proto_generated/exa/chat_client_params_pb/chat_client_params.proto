@@ -1,0 +1,41 @@
+syntax = "proto3";
+package exa.chat_client_params_pb;
+
+import "exa/chat_client_server_pb/chat_client_server.proto";
+import "exa/codeium_common_pb/codeium_common.proto";
+
+message CustomLinks {
+  string docs = 1;
+  string docs_mcp = 2;
+  string docs_rules = 3;
+  string report_issue = 4;
+  string troubleshooting = 5;
+  string pricing = 6;
+  string docs_browser = 7;
+}
+
+message ChatParamsType {
+  string cascade_init_prompt = 1;
+  string init_cascade_id = 2;
+  string api_key = 3;
+  string extension_name = 4;
+  string ide_name = 5;
+  string ide_version = 6;
+  string locale = 7;
+  bool has_dev_extension = 8;
+  bool has_index_service = 9;
+  string language_server_url = 10;
+  string http_language_server_url = 11;
+  string csrf_token = 12;
+  string ide_version_with_build_info = 13;
+  string os_name = 14;
+  string architecture = 15;
+  bool is_remote_connection = 16;
+  bool is_google_internal = 17;
+  bool is_google_3_workspace = 18;
+  string artifacts_dir = 19;
+  exa.chat_client_params_pb.CustomLinks custom_links = 20;
+  exa.codeium_common_pb.UserStatus initial_user_status = 21;
+  exa.chat_client_server_pb.ChatClientRequestStreamClientType client_type = 22;
+  string knowledge_dir = 23;
+}

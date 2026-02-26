@@ -13,7 +13,7 @@
  */
 import { ConnectRouter } from "@connectrpc/connect";
 import { connectNodeAdapter } from "@connectrpc/connect-node";
-import { ExtensionServerService } from "../gen/exa/extension_server_pb_connect.js";
+import { ExtensionServerService } from "../gen/exa/extension_server_pb/extension_server_connect.js";
 import {
     LanguageServerStartedResponse,
     GetChromeDevtoolsMcpUrlResponse,
@@ -25,17 +25,22 @@ import {
     LaunchBrowserResponse,
     CheckTerminalShellSupportResponse,
     PushUnifiedStateSyncUpdateResponse,
-} from "../gen/exa/extension_server_pb_pb.js";
-import { SmartFocusConversationResponse } from "../gen/exa/language_server_pb_pb.js";
-import { Topic, Row } from "../gen/exa/unified_state_sync_pb_pb.js";
+} from "../gen/exa/extension_server_pb/extension_server_pb.js";
+import { SmartFocusConversationResponse } from "../gen/exa/language_server_pb/language_server_pb.js";
+import { Topic, Topic_DataEntry, Row } from "../gen/exa/unified_state_sync_pb/unified_state_sync_pb.js";
 import {
     TerminalShellCommandStreamChunk,
     TerminalShellCommandHeader,
     TerminalShellCommandData,
     TerminalShellCommandTrailer,
     TerminalShellCommandSource
-} from "../gen/exa/codeium_common_pb_pb.js";
+} from "../gen/exa/codeium_common_pb/codeium_common_pb.js";
 import { Timestamp } from "@bufbuild/protobuf";
+
+/** Encode a Timestamp as bytes (proto field is `bytes` due to well-known type fallback) */
+function timestampBytes(): Uint8Array<ArrayBuffer> {
+    return Timestamp.fromDate(new Date()).toBinary() as Uint8Array<ArrayBuffer>;
+}
 import * as http from "http";
 import { EventEmitter } from "events";
 import { spawn } from "child_process";
@@ -43,6 +48,7 @@ import * as os from "os";
 import * as path from "path";
 import * as fs from "fs";
 import { readAuthData, type AuthData } from "./auth-reader.js";
+// @ts-ignore — launcher_mcp may be JS-only
 import { launchDevToolsMcp } from "./launcher_mcp.js";
 
 export interface MockServerOptions {
@@ -105,19 +111,22 @@ export class MockExtensionServer extends EventEmitter {
                 async *subscribeToUnifiedStateSyncTopic(req) {
                     if (req.topic === "uss-oauth") {
                         const topic = new Topic({
-                            data: {
-                                [authData.ussOAuth.key]: new Row({
-                                    value: authData.ussOAuth.value,
-                                    eTag: BigInt(1),
+                            data: [
+                                new Topic_DataEntry({
+                                    key: authData.ussOAuth.key,
+                                    value: new Row({
+                                        value: authData.ussOAuth.value,
+                                        eTag: BigInt(1),
+                                    }),
                                 }),
-                            },
+                            ],
                         });
                         yield new UnifiedStateSyncUpdate({
                             updateType: { case: "initialState", value: topic },
                         });
                     } else {
                         yield new UnifiedStateSyncUpdate({
-                            updateType: { case: "initialState", value: new Topic({ data: {} }) },
+                            updateType: { case: "initialState", value: new Topic({ data: [] }) },
                         });
                     }
 
@@ -184,7 +193,7 @@ export class MockExtensionServer extends EventEmitter {
                                 commandLine: req.commandLine,
                                 cwd: req.cwd,
                                 shellPid: 0,
-                                startTime: Timestamp.fromDate(new Date()),
+                                startTime: timestampBytes(),
                                 source: TerminalShellCommandSource.CASCADE,
                             })
                         }
@@ -203,7 +212,7 @@ export class MockExtensionServer extends EventEmitter {
                                 case: "trailer",
                                 value: new TerminalShellCommandTrailer({
                                     exitCode: 1,
-                                    endTime: Timestamp.fromDate(new Date())
+                                    endTime: timestampBytes()
                                 })
                             }
                         });
@@ -254,7 +263,7 @@ export class MockExtensionServer extends EventEmitter {
                             case: "trailer",
                             value: new TerminalShellCommandTrailer({
                                 exitCode: exitCode,
-                                endTime: Timestamp.fromDate(new Date())
+                                endTime: timestampBytes()
                             })
                         }
                     });

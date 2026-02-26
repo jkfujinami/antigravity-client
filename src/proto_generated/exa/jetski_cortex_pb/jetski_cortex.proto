@@ -1,0 +1,148 @@
+syntax = "proto3";
+package exa.jetski_cortex_pb;
+
+import "exa/cortex_pb/cortex.proto";
+import "exa/gemini_coder/proto/trajectory.proto";
+
+message CascadeState {
+  string cascade_id = 1;
+  gemini_coder.Trajectory trajectory = 2;
+  exa.cortex_pb.CascadeRunStatus status = 3;
+  exa.cortex_pb.CascadeRunStatus executable_status = 7;
+  exa.cortex_pb.CascadeRunStatus executor_loop_status = 8;
+  exa.cortex_pb.ExecutorMetadata executor_metadata = 4;
+  repeated gemini_coder.Step queued_steps = 5;
+  repeated exa.cortex_pb.ArtifactSnapshot artifact_snapshots = 6;
+  repeated exa.cortex_pb.TrajectoryFileDiff trajectory_file_diffs = 9;
+}
+
+message AgentStateUpdate {
+  message SubtrajectoryUpdatesEntry {
+    string key = 1;
+    exa.jetski_cortex_pb.TrajectoryUpdate value = 2;
+  }
+
+  string conversation_id = 1;
+  string trajectory_id = 2;
+  exa.cortex_pb.CascadeRunStatus status = 3;
+  exa.cortex_pb.CascadeRunStatus executable_status = 4;
+  exa.cortex_pb.CascadeRunStatus executor_loop_status = 5;
+  exa.cortex_pb.ExecutorMetadata executor_metadata = 6;
+  exa.jetski_cortex_pb.TrajectoryUpdate main_trajectory_update = 7;
+  repeated exa.jetski_cortex_pb.AgentStateUpdate.SubtrajectoryUpdatesEntry subtrajectory_updates = 8;
+  exa.jetski_cortex_pb.QueuedStepsUpdate queued_steps_update = 9;
+  exa.jetski_cortex_pb.ArtifactSnapshotsUpdate artifact_snapshots_update = 10;
+  exa.jetski_cortex_pb.TrajectoryFileDiffsUpdate trajectory_file_diffs_update = 11;
+}
+
+message TrajectoryUpdate {
+  exa.jetski_cortex_pb.StepsUpdate steps_update = 1;
+  exa.jetski_cortex_pb.GeneratorMetadatasUpdate generator_metadatas_update = 2;
+  exa.jetski_cortex_pb.ExecutorMetadatasUpdate executor_metadatas_update = 3;
+}
+
+message StepsUpdate {
+  repeated uint32 indices = 1;
+  repeated gemini_coder.Step steps = 2;
+  uint32 total_length = 3;
+}
+
+message GeneratorMetadatasUpdate {
+  repeated uint32 indices = 1;
+  repeated exa.cortex_pb.CortexStepGeneratorMetadata generator_metadatas = 2;
+  uint32 total_length = 3;
+}
+
+message ExecutorMetadatasUpdate {
+  repeated uint32 indices = 1;
+  repeated exa.cortex_pb.ExecutorMetadata executor_metadatas = 2;
+  uint32 total_length = 3;
+}
+
+message QueuedStepsUpdate {
+  repeated uint32 indices = 1;
+  repeated gemini_coder.Step queued_steps = 2;
+  uint32 total_length = 3;
+}
+
+message ArtifactSnapshotsUpdate {
+  repeated uint32 indices = 1;
+  repeated exa.cortex_pb.ArtifactSnapshot artifact_snapshots = 2;
+  uint32 total_length = 3;
+}
+
+message TrajectoryFileDiffsUpdate {
+  repeated uint32 indices = 1;
+  repeated exa.cortex_pb.TrajectoryFileDiff trajectory_file_diffs = 2;
+  uint32 total_length = 3;
+}
+
+message ImplicitTrajectory {
+  gemini_coder.Trajectory trajectory = 1;
+  exa.cortex_pb.TrajectoryScope trajectory_scope = 5;
+}
+
+message BaseTrajectoryIdentifier {
+  oneof identifier {
+    string cascade_id = 1;
+    string implicit_trajectory_file_uri = 2;
+    bool last_active_doc = 3;
+    gemini_coder.Trajectory trajectory = 4;
+  }
+}
+
+message CortexTrajectoryStepWithIndex {
+  gemini_coder.Step step = 1;
+  uint32 step_index = 2;
+}
+
+message ConversationAnnotations {
+  string title = 1;
+  repeated string tags = 3;
+  bool archived = 4;
+  bytes archival_status_timestamp = 5;
+  bool starred = 6;
+  bytes last_user_view_time = 7;
+}
+
+message CascadeTrajectorySummary {
+  string summary = 1;
+  uint32 step_count = 2;
+  bytes last_modified_time = 3;
+  string trajectory_id = 4;
+  exa.cortex_pb.CascadeRunStatus status = 5;
+  bytes created_time = 7;
+  repeated exa.jetski_cortex_pb.CortexTrajectoryStepWithIndex waiting_steps = 8;
+  repeated exa.cortex_pb.CortexWorkspaceMetadata workspaces = 9;
+  bytes last_user_input_time = 10;
+  uint32 last_user_input_step_index = 16;
+  exa.jetski_cortex_pb.CortexTrajectoryStepWithIndex latest_notify_user_step = 12;
+  exa.jetski_cortex_pb.CortexTrajectoryStepWithIndex latest_task_boundary_step = 14;
+  exa.jetski_cortex_pb.ConversationAnnotations annotations = 15;
+}
+
+message CascadeTrajectorySummaries {
+  message SummariesEntry {
+    string key = 1;
+    exa.jetski_cortex_pb.CascadeTrajectorySummary value = 2;
+  }
+
+  repeated exa.jetski_cortex_pb.CascadeTrajectorySummaries.SummariesEntry summaries = 1;
+}
+
+message CortexStepUpdate {
+  uint32 step_index = 1;
+  oneof update {
+    gemini_coder.Step step = 2;
+    exa.cortex_pb.CortexStepStatus status = 3;
+  }
+}
+
+message StreamAgentStateUpdatesRequest {
+  string conversation_id = 1;
+  string subscriber_id = 2;
+}
+
+message StreamAgentStateUpdatesResponse {
+  exa.jetski_cortex_pb.AgentStateUpdate update = 1;
+}

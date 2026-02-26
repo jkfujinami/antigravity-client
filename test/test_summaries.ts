@@ -1,6 +1,6 @@
 
 import { AntigravityClient } from "../src/client.js";
-import { CascadeTrajectorySummaries } from "../src/gen/exa/jetski_cortex_pb_pb.js";
+import { CascadeTrajectorySummaries } from "../src/gen/exa/jetski_cortex_pb/jetski_cortex_pb.js";
 import { applyMessageDiff } from "../src/reactive/apply.js";
 
 // Allow self-signed certs
@@ -25,39 +25,40 @@ async function main() {
 
                 console.clear();
                 console.log(`\n━━━ Summaries Update (v${res.version}) ━━━`);
-                const summaryCount = Object.keys(summariesState.summaries).length;
+                const summaryCount = summariesState.summaries.length;
                 console.log(`Total Conversations: ${summaryCount}`);
 
                 if (summaryCount === 0) {
                     continue;
                 }
 
-                // Show list of conversations
-                const summaries = Object.values(summariesState.summaries).sort((a, b) => {
-                    // Sort by last modified DESC
-                    const tA = Number(a.lastModifiedTime?.seconds || 0);
-                    const tB = Number(b.lastModifiedTime?.seconds || 0);
-                    return tB - tA;
-                });
+                // Show list of conversations (entries have .key and .value)
+                const entries = summariesState.summaries
+                    .filter(e => e.value)
+                    .sort((a, b) => {
+                        // lastModifiedTime is now bytes (Timestamp binary), compare raw
+                        const tA = a.value!.lastModifiedTime;
+                        const tB = b.value!.lastModifiedTime;
+                        // Simple byte comparison (bigger = newer for Timestamp binary)
+                        return tB.toString() > tA.toString() ? 1 : -1;
+                    });
 
-                for (const summary of summaries.slice(0, 15)) { // Show top 15
+                for (const entry of entries.slice(0, 15)) { // Show top 15
+                    const summary = entry.value!;
                     const statusRaw = summary.status;
                     let statusStr = "UNKNOWN";
                     if (statusRaw === 0) statusStr = "UNSPECIFIED";
                     if (statusRaw === 1) statusStr = "IDLE";
                     if (statusRaw === 2) statusStr = "RUNNING";
                     if (statusRaw === 3) statusStr = "DONE";
-                    if (statusRaw === 4) statusStr = "CANCELLED"; // Guess
-
-                    const time = summary.lastModifiedTime ? new Date(Number(summary.lastModifiedTime.seconds) * 1000).toLocaleString() : "N/A";
-                    const title = summary.annotations?.title || "(No Title)";
+                    if (statusRaw === 4) statusStr = "CANCELLED";
 
                     // Simple color output
                     const color = statusRaw === 2 ? "\x1b[32m" : (statusRaw === 3 ? "\x1b[36m" : "\x1b[0m");
                     const reset = "\x1b[0m";
 
-                    console.log(`${color}[Status: ${statusRaw} (${statusStr})] ${summary.trajectoryId} (${time})${reset}`);
-                    console.log(`   Title: ${title}`);
+                    console.log(`${color}[Status: ${statusRaw} (${statusStr})] ${summary.trajectoryId}${reset}`);
+                    console.log(`   Steps: ${summary.stepCount}`);
                     if (summary.status === 2) {
                         console.log(`   ⚠️  Status is RUNNING`);
                     }
