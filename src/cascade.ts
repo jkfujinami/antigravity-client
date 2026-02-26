@@ -88,41 +88,53 @@ export class Cascade extends EventEmitter {
 
     /**
      * Starts listening to reactive updates for this cascade.
+     *
+     * Reactive streams are **finite** — the LS closes the stream after each
+     * AI turn completes. The official Antigravity client handles this by
+     * immediately reconnecting in a retry loop. On reconnection, the initial
+     * sync delivers the full state including fields (like `response`) that
+     * may not have been included in the final diff before the stream closed.
      */
     async listen() {
         if (this.isListening) return;
         this.isListening = true;
 
-        const req = new StreamReactiveUpdatesRequest({
-            id: this.cascadeId,
-            protocolVersion: 1,
-            subscriberId: "antigravity-client-" + Date.now(),
-        });
+        const maxAttempts = Infinity;
+        const retryDelay = 1000;
 
-        try {
-            for await (const res of this.lsClient.streamCascadeReactiveUpdates(req)) {
-                if (res.diff) {
-                    // Emit raw update for debugging BEFORE applying
-                    this.emit("raw_update", {
-                        type: "raw_update",
-                        diff: res.diff
-                    });
+        for (let attempt = 0; attempt < maxAttempts; attempt++) {
+            const req = new StreamReactiveUpdatesRequest({
+                id: this.cascadeId,
+                protocolVersion: 1,
+                subscriberId: "antigravity-client-" + Date.now(),
+            });
 
-                    // We apply the diff to our local state
-                    applyMessageDiff(this.state, res.diff, CascadeState);
+            try {
+                for await (const res of this.lsClient.streamCascadeReactiveUpdates(req)) {
+                    if (res.diff) {
+                        this.emit("raw_update", {
+                            type: "raw_update",
+                            diff: res.diff
+                        });
 
-                    // Trigger events based on diff contents
-                    this.emitEvents();
+                        applyMessageDiff(this.state, res.diff, CascadeState);
+                        this.emitEvents();
+                    }
+                    attempt = 0;
                 }
+                // Stream ended normally → reconnect (same as official client)
+            } catch (err: any) {
+                if (err?.code === 1 ||
+                    (err?.code === 2 && err?.message?.includes("canceled"))) {
+                    break;
+                }
+                this.emit("error", err);
             }
-            this.state.status = CascadeRunStatus.IDLE;
-            this.emit("update", this.state);
-            this.emit("done");
-        } catch (err) {
-            this.emit("error", err);
-        } finally {
-            this.isListening = false;
+
+            await new Promise(resolve => setTimeout(resolve, retryDelay));
         }
+
+        this.isListening = false;
     }
 
     private emitEvents() {
@@ -201,13 +213,37 @@ export class Cascade extends EventEmitter {
             if (!step) return;
 
             const status = step.status;
+            const stepType = step.step?.case || "unknown";
+            const hasInteraction = !!step.requestedInteraction?.interaction?.case;
+            const interactionCase = step.requestedInteraction?.interaction?.case || "none";
+
+            // Debug: log all steps that have PENDING/RUNNING/WAITING status
             const isInteractiveState =
                 status === CortexStepStatus.PENDING ||
                 status === CortexStepStatus.RUNNING ||
                 status === CortexStepStatus.WAITING;
 
+            if (isInteractiveState && !this.emittedInteractions.has(index)) {
+                console.log(`[Cascade:Debug] Step[${index}] type=${stepType} status=${CortexStepStatus[status]} hasInteraction=${hasInteraction} interactionCase=${interactionCase}`);
+
+                // If it's waiting but has no requestedInteraction, what DOES it have?
+                if (status === CortexStepStatus.WAITING && !hasInteraction) {
+                    console.log(`[Cascade:Debug] Found WAITING step with NO interaction. Full properties:`, {
+                        permissions: step.permissions?.toJson(),
+                        subtrajectory: !!step.subtrajectory,
+                        rawStepCase: step.step?.case,
+                        rawStepValue: step.step?.value,
+                    });
+                }
+            }
+
+            const inlineFilePermission = (step.step?.value as any)?.filePermissionRequest;
+
             if (!isInteractiveState) return;
-            if (!step.requestedInteraction?.interaction?.case) return;
+            if (!step.requestedInteraction?.interaction?.case && !inlineFilePermission) {
+                // 自動承認のために、もし interactionCase が無くても WAITING なら進められるように特別な対応が必要かもしれない
+                return;
+            }
             if (this.emittedInteractions.has(index)) return;
 
             // Compute autoRun / needsApproval / commandLine for legacy event
@@ -237,11 +273,44 @@ export class Cascade extends EventEmitter {
             });
 
             // New high-level event
-            const request = this.buildApprovalRequest(step, index, autoRun, needsApproval, commandLine);
+            let request: ApprovalRequest | null = null;
+            if (step.requestedInteraction?.interaction?.case) {
+                request = this.buildApprovalRequest(step, index, autoRun, needsApproval, commandLine);
+            } else if (inlineFilePermission) {
+                request = this.buildInlineFilePermissionRequest(step, index, inlineFilePermission);
+            }
+
             if (request) {
                 this.emit("approval:needed", request);
             }
         });
+    }
+
+    private buildInlineFilePermissionRequest(step: Step, stepIndex: number, spec: any): ApprovalRequest {
+        const cascadeStep = new CascadeStep(step, stepIndex);
+        const cascade = this;
+        const opStr = spec.isDirectory ? "Read Directory" : "Read File";
+
+        return {
+            type: "file_permission",
+            description: `${opStr}: ${spec.absolutePathUri}`,
+            stepIndex,
+            step: cascadeStep,
+            autoRun: false,
+            needsApproval: true,
+            filePath: spec.absolutePathUri,
+            isDirectory: spec.isDirectory,
+            async approve(scope: "once" | "conversation" | "global" = "once") {
+                const scopeValue = {
+                    "once": PermissionScope.ONCE,
+                    "conversation": PermissionScope.CONVERSATION,
+                    "global": PermissionScope.CONVERSATION, // No global scope in enum, fallback to conversation
+                }[scope] || PermissionScope.UNSPECIFIED;
+
+                await cascade.approveFilePermission(stepIndex, spec.absolutePathUri, scopeValue);
+            },
+            async deny() { /* no-op */ }
+        };
     }
 
     private buildApprovalRequest(
@@ -435,7 +504,11 @@ export class Cascade extends EventEmitter {
             if (!step) return;
             if (step.step?.case !== "plannerResponse") return;
             const planner = step.step.value as any;
-            const response = planner.response || "";
+            // 本家UIは modifiedResponse を表示に使用する。
+            // modifiedResponse は LS が response を後処理して生成するフィールド。
+            // response はストリーム終了前に空のままだが、modifiedResponse は
+            // 再接続後の初期同期で配信される。
+            const response = planner.modifiedResponse || planner.response || "";
             const thinking = planner.thinking || "";
 
             // Text Delta
@@ -482,7 +555,7 @@ export class Cascade extends EventEmitter {
         const metadata = new Metadata({
             apiKey: this.apiKey,
             ideName: "vscode",
-            ideVersion: "1.18.4 ",
+            ideVersion: "1.107.0",
             extensionName: "antigravity",
             extensionVersion: "0.2.0",
         });
@@ -511,10 +584,13 @@ export class Cascade extends EventEmitter {
                     })
                 })
             }),
-            blocking: true,
+            blocking: false,
             clientType: 1,
         });
 
+        // blocking: false にすると、このRPCはリクエストの受領直後に正常完了(Promise resolve)する。
+        // AIのレスポンス（テキスト、ツール実行など）はリアクティブストリーム(Listen)経由で流れてくるので
+        // メインスレッドをブロックせず、次々にメッセージを送信可能になる。
         return await this.lsClient.sendUserCascadeMessage(req);
     }
 
