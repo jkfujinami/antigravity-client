@@ -24,7 +24,8 @@ import {
     TextOrScopeItem,
     ModelOrAlias,
     Model,
-    ConversationalPlannerMode
+    ConversationalPlannerMode,
+    ImageData
 } from "./gen/exa/codeium_common_pb/codeium_common_pb.js";
 import {
     CascadeConfig,
@@ -61,6 +62,16 @@ export interface CascadeEvent {
     commandLine?: string;
     outputType?: "stdout" | "stderr";
     diff?: any; // For raw_update debugging
+}
+
+export interface SendMessageOptions {
+    model?: Model;
+    images?: {
+        base64Data: string;
+        mimeType: string;
+        caption?: string;
+        uri?: string;
+    }[];
 }
 
 export class Cascade extends EventEmitter {
@@ -551,7 +562,9 @@ export class Cascade extends EventEmitter {
         });
     }
 
-    async sendMessage(text: string, options: { model?: Model } = {}) {
+
+
+    async sendMessage(text: string, options: SendMessageOptions = {}) {
         const metadata = new Metadata({
             apiKey: this.apiKey,
             ideName: "vscode",
@@ -559,6 +572,14 @@ export class Cascade extends EventEmitter {
             extensionName: "antigravity",
             extensionVersion: "0.2.0",
         });
+
+        // Convert options.images to ImageData representations
+        const imageObjects = (options.images || []).map(img => new ImageData({
+            base64Data: img.base64Data,
+            mimeType: img.mimeType,
+            caption: img.caption || "",
+            uri: img.uri || ""
+        }));
 
         const req = new SendUserCascadeMessageRequest({
             cascadeId: this.cascadeId,
@@ -568,6 +589,7 @@ export class Cascade extends EventEmitter {
                     chunk: { case: "text", value: text }
                 })
             ],
+            images: imageObjects,
             cascadeConfig: new CascadeConfig({
                 plannerConfig: new CascadePlannerConfig({
                     plannerTypeConfig: {

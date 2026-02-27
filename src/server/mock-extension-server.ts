@@ -48,7 +48,6 @@ import * as os from "os";
 import * as path from "path";
 import * as fs from "fs";
 import { readAuthData, type AuthData } from "./auth-reader.js";
-// @ts-ignore — launcher_mcp may be JS-only
 import { launchDevToolsMcp } from "./launcher_mcp.js";
 
 export interface MockServerOptions {
@@ -145,8 +144,8 @@ export class MockExtensionServer extends EventEmitter {
                         return new GetChromeDevtoolsMcpUrlResponse({
                             url: mcpUrl
                         });
-                    } catch (e) {
-                        console.error("[MockExtSrv] Error launching MCP:", e);
+                    } catch {
+                        // Expected: MCP launcher not configured — silently return empty
                         return new GetChromeDevtoolsMcpUrlResponse();
                     }
                 },
