@@ -237,8 +237,13 @@ export class Launcher extends EventEmitter {
             }));
 
             if (verbose) console.log(`[Launcher] ✅ Browser settings injected: agentBrowserTools=ENABLED, cdpPort=${browserSettings.browserCdpPort}, jsPolicy=TURBO`);
-        } catch (e) {
-            console.warn(`[Launcher] ⚠️ Failed to inject browser settings:`, e);
+        } catch (e: any) {
+            if (e.code === 12) {
+                // Code 12 = Unimplemented
+                if (verbose) console.log(`[Launcher] LS does not support SetUserSettings (ignoring).`);
+            } else {
+                console.warn(`[Launcher] ⚠️ Failed to inject browser settings:`, e);
+            }
         }
 
         return launcher;

@@ -83,8 +83,10 @@ function extractSingularValue(sv: SingularValue, field: FieldInfo, existingValue
         case "bytesValue": return sv.value.value;
         case "messageValue":
             if (field.kind !== "message") {
-                console.warn(`[extractSingularValue] Message value for non-message field ${field.name}`);
-                return undefined;
+                // The Language Server sometimes sends messageValue for fields that our TS protobuf
+                // schema (proto-v2) considers bytes (due to well-known type Timestamp fallback).
+                // Safely ignore these by returning existingValue (or undefined) without spamming the log.
+                return existingValue;
             }
             const subType = field.T as MessageType;
 
