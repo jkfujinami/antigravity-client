@@ -12,7 +12,7 @@ function resolveApiKey(explicit?: string): string {
 // Generated Imports from src/gen
 import { LanguageServerService } from "./gen/exa/language_server_pb/language_server_connect.js";
 import { Metadata, TextOrScopeItem, ModelOrAlias, Model, ModelAlias, ConversationalPlannerMode } from "./gen/exa/codeium_common_pb/codeium_common_pb.js";
-import { StartCascadeRequest, SendUserCascadeMessageRequest, GetCascadeTrajectoryRequest, GetUserStatusResponse, GetModelStatusesResponse, GetWorkingDirectoriesResponse, AddTrackedWorkspaceRequest } from "./gen/exa/language_server_pb/language_server_pb.js";
+import { StartCascadeRequest, SendUserCascadeMessageRequest, GetCascadeTrajectoryRequest, GetUserStatusResponse, GetModelStatusesResponse, GetWorkingDirectoriesResponse, AddTrackedWorkspaceRequest, GetModelResponseRequest } from "./gen/exa/language_server_pb/language_server_pb.js";
 import { StreamReactiveUpdatesRequest, StreamReactiveUpdatesResponse } from "./gen/exa/reactive_component_pb/reactive_component_pb.js";
 import { CascadeConfig, CascadePlannerConfig, CascadeConversationalPlannerConfig } from "./gen/exa/cortex_pb/cortex_pb.js";
 
@@ -283,6 +283,24 @@ export class AntigravityClient {
       const cascade = new Cascade(cascadeId, this.lsClient, this.apiKey);
       cascade.listen();
       return cascade;
+  }
+
+  /**
+   * Sends a simple prompt to the model and gets a string response.
+   * This is a quick and direct way to get an AI response without starting a cascade.
+   *
+   * @param prompt The prompt string to send to the AI.
+   * @param model An optional model enum value (defaults to Model.UNSPECIFIED).
+   * @returns The AI's response string.
+   */
+  async getModelResponse(prompt: string, model: Model = Model.UNSPECIFIED): Promise<string> {
+      const req = new GetModelResponseRequest({
+          prompt: prompt,
+          model: model,
+      });
+
+      const response = await this.lsClient.getModelResponse(req);
+      return response.response;
   }
 }
 

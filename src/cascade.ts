@@ -25,7 +25,7 @@ import {
     ModelOrAlias,
     Model,
     ConversationalPlannerMode,
-    ImageData
+    Media
 } from "./gen/exa/codeium_common_pb/codeium_common_pb.js";
 import {
     CascadeConfig,
@@ -67,9 +67,10 @@ export interface CascadeEvent {
 export interface SendMessageOptions {
     model?: Model;
     images?: {
-        base64Data: string;
+        base64Data?: string;
+        dataBytes?: Uint8Array;
         mimeType: string;
-        caption?: string;
+        caption?: string; // Maps to description
         uri?: string;
     }[];
 }
@@ -573,13 +574,24 @@ export class Cascade extends EventEmitter {
             extensionVersion: "0.2.0",
         });
 
-        // Convert options.images to ImageData representations
-        const imageObjects = (options.images || []).map(img => new ImageData({
-            base64Data: img.base64Data,
-            mimeType: img.mimeType,
-            caption: img.caption || "",
-            uri: img.uri || ""
-        }));
+        // Convert options.images to Media representations
+        const mediaObjects = (options.images || []).map(img => {
+            let uint8Array = img.dataBytes;
+            if (!uint8Array && img.base64Data) {
+                const buffer = Buffer.from(img.base64Data, 'base64');
+                uint8Array = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.length);
+            }
+
+            return new Media({
+                mimeType: img.mimeType,
+                description: img.caption || "",
+                uri: img.uri || "",
+                payload: {
+                    case: "inlineData",
+                    value: uint8Array || new Uint8Array()
+                }
+            });
+        });
 
         const req = new SendUserCascadeMessageRequest({
             cascadeId: this.cascadeId,
@@ -589,7 +601,7 @@ export class Cascade extends EventEmitter {
                     chunk: { case: "text", value: text }
                 })
             ],
-            images: imageObjects,
+            media: mediaObjects,
             cascadeConfig: new CascadeConfig({
                 plannerConfig: new CascadePlannerConfig({
                     plannerTypeConfig: {

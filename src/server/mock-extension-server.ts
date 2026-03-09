@@ -277,8 +277,14 @@ export class MockExtensionServer extends EventEmitter {
         const handler = connectNodeAdapter({ routes });
 
         this.server = http.createServer((req, res) => {
-            // Always log RPCs for debugging
-            console.log(`[MockExtSrv] ${req.method} ${req.url}`);
+            // Suppress noisy polling RPCs for cleaner logs
+            const isNoisyRpc = req.url?.includes('/GetChromeDevtoolsMcpUrl') ||
+                               req.url?.includes('/PushUnifiedStateSyncUpdate');
+
+            if (!isNoisyRpc && self.verbose) {
+                console.log(`[MockExtSrv] ${req.method} ${req.url}`);
+            }
+
             const origEnd = res.end.bind(res);
             res.end = function(...args: any[]) {
                 if (res.statusCode !== 200) {
