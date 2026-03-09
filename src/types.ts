@@ -1,6 +1,6 @@
 
-import { Step } from "./gen/gemini_coder_pb.js";
-import { CortexStepStatus, CascadeRunStatus, PermissionScope } from "./gen/exa/cortex_pb_pb.js";
+import { Step } from "./gen/exa/gemini_coder/proto/trajectory_pb.js";
+import { CortexStepStatus, CascadeRunStatus, PermissionScope } from "./gen/exa/cortex_pb/cortex_pb.js";
 
 // ════════════════════════════════════════════════════════════════
 // 1. ステップのステータス (文字列型)
@@ -364,4 +364,4 @@ export interface StatusChangeEvent {
 // 7. PermissionScope の再エクスポート (repl.ts が直接 gen/ を参照しなくて済むように)
 // ════════════════════════════════════════════════════════════════
 
-export { PermissionScope } from "./gen/exa/cortex_pb_pb.js";
+export { PermissionScope } from "./gen/exa/cortex_pb/cortex_pb.js";

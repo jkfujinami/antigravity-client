@@ -7,7 +7,7 @@
 import { execSync } from "child_process";
 import { homedir } from "os";
 import * as path from "path";
-import { Topic } from "../gen/exa/unified_state_sync_pb_pb.js";
+import { Topic } from "../gen/exa/unified_state_sync_pb/unified_state_sync_pb.js";
 
 const STATE_DB_PATH = path.join(
     homedir(),
@@ -60,10 +60,9 @@ export function readUssOAuthData(): UssOAuthData {
         const topicBytes = Buffer.from(raw, "base64");
         const topic = Topic.fromBinary(topicBytes);
 
-        const entries = Object.entries(topic.data);
-        if (entries.length > 0) {
-            const [key, row] = entries[0];
-            return { key, value: row.value };
+        if (topic.data.length > 0) {
+            const entry = topic.data[0];
+            return { key: entry.key, value: entry.value?.value || "" };
         }
 
         return { key: "oauthTokenInfoSentinelKey", value: "" };

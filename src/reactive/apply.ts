@@ -1,7 +1,7 @@
 
 import { Message, proto3 } from "@bufbuild/protobuf";
 import type { MessageType, FieldInfo } from "@bufbuild/protobuf";
-import { MessageDiff, FieldDiff, SingularValue, RepeatedDiff, MapDiff } from "../gen/exa/reactive_component_pb_pb.js";
+import { MessageDiff, FieldDiff, SingularValue, RepeatedDiff, MapDiff } from "../gen/exa/reactive_component_pb/reactive_component_pb.js";
 
 /**
  * Applies a MessageDiff to a target object (which should be a plain JS object representation of a message).
@@ -83,8 +83,10 @@ function extractSingularValue(sv: SingularValue, field: FieldInfo, existingValue
         case "bytesValue": return sv.value.value;
         case "messageValue":
             if (field.kind !== "message") {
-                console.warn(`[extractSingularValue] Message value for non-message field ${field.name}`);
-                return undefined;
+                // The Language Server sometimes sends messageValue for fields that our TS protobuf
+                // schema (proto-v2) considers bytes (due to well-known type Timestamp fallback).
+                // Safely ignore these by returning existingValue (or undefined) without spamming the log.
+                return existingValue;
             }
             const subType = field.T as MessageType;
 

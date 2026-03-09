@@ -1,6 +1,6 @@
 
 import { AntigravityClient } from "../src/client.js";
-import { Model } from "../src/gen/exa/codeium_common_pb_pb.js";
+import { Model } from "../src/gen/exa/codeium_common_pb/codeium_common_pb.js";
 
 async function main() {
     console.log("🔌 Connecting to Antigravity...");

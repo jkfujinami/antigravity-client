@@ -1,13 +1,13 @@
 
 import { EventEmitter } from "events";
 import type { PromiseClient } from "@connectrpc/connect";
-import { LanguageServerService } from "./gen/exa/language_server_pb_connect.js";
+import { LanguageServerService } from "./gen/exa/language_server_pb/language_server_connect.js";
 import {
     SendUserCascadeMessageRequest,
     GetCascadeTrajectoryRequest,
     HandleCascadeUserInteractionRequest,
     CancelCascadeInvocationRequest,
-} from "./gen/exa/language_server_pb_pb.js";
+} from "./gen/exa/language_server_pb/language_server_pb.js";
 import {
     CascadeUserInteraction,
     CascadeRunCommandInteraction,
@@ -17,23 +17,24 @@ import {
     CortexStepStatus,
     CascadeRunStatus,
     PermissionScope,
-} from "./gen/exa/cortex_pb_pb.js";
-import { StreamReactiveUpdatesRequest } from "./gen/exa/reactive_component_pb_pb.js";
+} from "./gen/exa/cortex_pb/cortex_pb.js";
+import { StreamReactiveUpdatesRequest } from "./gen/exa/reactive_component_pb/reactive_component_pb.js";
 import {
     Metadata,
     TextOrScopeItem,
     ModelOrAlias,
     Model,
-    ConversationalPlannerMode
-} from "./gen/exa/codeium_common_pb_pb.js";
+    ConversationalPlannerMode,
+    Media
+} from "./gen/exa/codeium_common_pb/codeium_common_pb.js";
 import {
     CascadeConfig,
     CascadePlannerConfig,
     CascadeConversationalPlannerConfig
-} from "./gen/exa/cortex_pb_pb.js";
-import { Trajectory, Step } from "./gen/gemini_coder_pb.js";
+} from "./gen/exa/cortex_pb/cortex_pb.js";
+import { Trajectory, Step } from "./gen/exa/gemini_coder/proto/trajectory_pb.js";
 import { applyMessageDiff } from "./reactive/apply.js";
-import { CascadeState } from "./gen/exa/jetski_cortex_pb_pb.js";
+import { CascadeState } from "./gen/exa/jetski_cortex_pb/jetski_cortex_pb.js";
 import {
     CascadeStep,
     toStepStatus,
@@ -61,6 +62,17 @@ export interface CascadeEvent {
     commandLine?: string;
     outputType?: "stdout" | "stderr";
     diff?: any; // For raw_update debugging
+}
+
+export interface SendMessageOptions {
+    model?: Model;
+    images?: {
+        base64Data?: string;
+        dataBytes?: Uint8Array;
+        mimeType: string;
+        caption?: string; // Maps to description
+        uri?: string;
+    }[];
 }
 
 export class Cascade extends EventEmitter {
@@ -551,13 +563,34 @@ export class Cascade extends EventEmitter {
         });
     }
 
-    async sendMessage(text: string, options: { model?: Model } = {}) {
+
+
+    async sendMessage(text: string, options: SendMessageOptions = {}) {
         const metadata = new Metadata({
             apiKey: this.apiKey,
             ideName: "vscode",
             ideVersion: "1.107.0",
             extensionName: "antigravity",
             extensionVersion: "0.2.0",
+        });
+
+        // Convert options.images to Media representations
+        const mediaObjects = (options.images || []).map(img => {
+            let uint8Array = img.dataBytes;
+            if (!uint8Array && img.base64Data) {
+                const buffer = Buffer.from(img.base64Data, 'base64');
+                uint8Array = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.length);
+            }
+
+            return new Media({
+                mimeType: img.mimeType,
+                description: img.caption || "",
+                uri: img.uri || "",
+                payload: {
+                    case: "inlineData",
+                    value: uint8Array || new Uint8Array()
+                }
+            });
         });
 
         const req = new SendUserCascadeMessageRequest({
@@ -568,6 +601,7 @@ export class Cascade extends EventEmitter {
                     chunk: { case: "text", value: text }
                 })
             ],
+            media: mediaObjects,
             cascadeConfig: new CascadeConfig({
                 plannerConfig: new CascadePlannerConfig({
                     plannerTypeConfig: {
