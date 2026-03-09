@@ -1,0 +1,176 @@
+syntax = "proto3";
+package google.internal.cloud.code.v1internal;
+
+import "exa/google/internal/cloud/code/v1internal/onboarding.proto";
+
+enum ActionStatus {
+  ACTION_STATUS_UNSPECIFIED = 0;
+  ACTION_STATUS_NO_ERROR = 1;
+  ACTION_STATUS_ERROR_UNKNOWN = 2;
+  ACTION_STATUS_CANCELLED = 3;
+  ACTION_STATUS_EMPTY = 4;
+}
+
+message RecordCodeAssistMetricsRequest {
+  string project = 1;
+  string request_id = 2;
+  google.internal.cloud.code.v1internal.ClientMetadata metadata = 3;
+  repeated google.internal.cloud.code.v1internal.CodeAssistMetric metrics = 4;
+}
+
+message RecordClientEventRequest {
+  string project = 1;
+  google.internal.cloud.code.v1internal.ClientMetadata.IdeType ide_type = 2;
+  google.internal.cloud.code.v1internal.CodeAssistMetric metric = 3;
+}
+
+message CodeAssistMetric {
+  message MetricMetadataEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  bytes timestamp = 1;
+  repeated google.internal.cloud.code.v1internal.CodeAssistMetric.MetricMetadataEntry metric_metadata = 10;
+  oneof event {
+    google.internal.cloud.code.v1internal.InlineCompletionAccepted inline_completion_accepted = 2;
+    google.internal.cloud.code.v1internal.InlineCompletionOffered inline_completion_offered = 3;
+    google.internal.cloud.code.v1internal.ConversationOffered conversation_offered = 4;
+    google.internal.cloud.code.v1internal.GenerateCodeUI generate_code_ui = 5;
+    google.internal.cloud.code.v1internal.ConversationExplainUI conversation_explain_ui = 6;
+    google.internal.cloud.code.v1internal.ConversationGenerateTestUI conversation_generate_test_ui = 7;
+    google.internal.cloud.code.v1internal.ConversationInteraction conversation_interaction = 8;
+    google.internal.cloud.code.v1internal.AiCharactersReports ai_characters_reports = 9;
+  }
+}
+
+message InlineCompletionAccepted {
+  enum CompletionMethod {
+    UNKNOWN = 0;
+    GENERATE_CODE = 1;
+    COMPLETE_CODE = 2;
+    TRANSFORM_CODE = 3;
+    AUTOMATIC_GENERATION = 4;
+  }
+
+  string trace_id = 1;
+  float score = 2;
+  int64 response_size = 3;
+  int64 response_lines = 4;
+  string language = 5;
+  google.internal.cloud.code.v1internal.InlineCompletionAccepted.CompletionMethod completion_method = 6;
+  int64 partial_accepted_characters = 7;
+  int64 partial_accepted_lines = 8;
+  int64 accepted_comment_lines = 10;
+  google.internal.cloud.code.v1internal.ActionStatus status = 9;
+  int64 response_accepted_index = 11;
+}
+
+message InlineCompletionOffered {
+  enum CompletionMode {
+    UNKNOWN = 0;
+    LANGUAGE_CLIENT = 1;
+    TYPEOVER = 2;
+    TYPEOVER_NEWLINE = 3;
+    TRANSFORM_CODE = 4;
+  }
+
+  enum CompletionMethod {
+    COMPLETION_METHOD_UNKNOWN = 0;
+    COMPLETION_METHOD_GENERATE_CODE = 1;
+    COMPLETION_METHOD_COMPLETE_CODE = 2;
+    COMPLETION_METHOD_TRANSFORM_CODE = 3;
+    COMPLETION_METHOD_AUTOMATIC_GENERATION = 4;
+  }
+
+  string trace_id = 1;
+  int64 result_count = 2;
+  string language = 3;
+  google.internal.cloud.code.v1internal.InlineCompletionOffered.CompletionMode completion_mode = 4;
+  bytes display_length = 5;
+  google.internal.cloud.code.v1internal.ActionStatus status = 6;
+  google.internal.cloud.code.v1internal.InlineCompletionOffered.CompletionMethod completion_method = 7;
+  bytes response_latency = 8;
+  int64 response_received_index = 9;
+}
+
+message ConversationOffered {
+  enum InitiationMethod {
+    INITIATION_METHOD_UNSPECIFIED = 0;
+    TAB = 1;
+    COMMAND = 2;
+    AGENT = 3;
+  }
+
+  message StreamingLatency {
+    bytes first_message_latency = 1;
+    bytes total_latency = 2;
+  }
+
+  int64 citation_count = 1;
+  bool included_code = 2;
+  google.internal.cloud.code.v1internal.ActionStatus status = 3;
+  string trace_id = 4;
+  google.internal.cloud.code.v1internal.ConversationOffered.StreamingLatency streaming_latency = 5;
+  bool is_agentic = 6;
+  google.internal.cloud.code.v1internal.ConversationOffered.InitiationMethod initiation_method = 7;
+  string trajectory_id = 8;
+  string language = 9;
+}
+
+message ConversationInteraction {
+  enum Interaction {
+    UNKNOWN = 0;
+    THUMBSUP = 1;
+    THUMBSDOWN = 2;
+    COPY = 3;
+    INSERT = 4;
+    ACCEPT_CODE_BLOCK = 5;
+    ACCEPT_ALL = 6;
+    ACCEPT_FILE = 7;
+    DIFF = 8;
+    ACCEPT_RANGE = 9;
+  }
+
+  string trace_id = 1;
+  google.internal.cloud.code.v1internal.ActionStatus status = 2;
+  google.internal.cloud.code.v1internal.ConversationInteraction.Interaction interaction = 3;
+  int64 accepted_lines = 4;
+  int64 removed_lines = 7;
+  string language = 5;
+  bool is_agentic = 6;
+  google.internal.cloud.code.v1internal.ConversationOffered.InitiationMethod initiation_method = 8;
+}
+
+message GenerateCodeUI {
+}
+
+message ConversationExplainUI {
+}
+
+message ConversationGenerateTestUI {
+}
+
+message AiCharactersReports {
+  repeated google.internal.cloud.code.v1internal.AiCharactersReport reports = 1;
+}
+
+message AiCharactersReport {
+  enum EditType {
+    EDIT_TYPE_UNSPECIFIED = 0;
+    USER_ADD = 1;
+    PASTE = 2;
+    DELETE = 3;
+    OTHER = 4;
+    AI_COMPLETION = 5;
+    AI_COMPLETION_PARTIAL = 6;
+    AI_GENERATION = 7;
+    AI_GENERATION_PARTIAL = 8;
+  }
+
+  string language = 1;
+  google.internal.cloud.code.v1internal.AiCharactersReport.EditType edit_type = 2;
+  int64 total_chars = 3;
+  int64 whitespace_chars = 4;
+  int64 time_interval_index = 5;
+}

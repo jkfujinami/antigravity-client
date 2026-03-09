@@ -4,7 +4,7 @@
  * Generates the binary Metadata protobuf that must be written to LS's stdin on startup.
  * This is part of the LS initialization handshake.
  */
-import { Metadata } from "../gen/exa/codeium_common_pb_pb.js";
+import { Metadata } from "../gen/exa/codeium_common_pb/codeium_common_pb.js";
 
 export interface MetadataOptions {
     ideName?: string;

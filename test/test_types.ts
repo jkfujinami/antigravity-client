@@ -6,9 +6,9 @@
  * Run: npx tsx test/test_types.ts
  */
 
-import { Step } from "../src/gen/gemini_coder_pb.js";
-import { CortexStepStatus, CascadeRunStatus } from "../src/gen/exa/cortex_pb_pb.js";
-import { CortexStepRunCommand, CortexStepPlannerResponse } from "../src/gen/exa/cortex_pb_pb.js";
+import { Step } from "../src/gen/exa/gemini_coder/proto/trajectory_pb.js";
+import { CortexStepStatus, CascadeRunStatus } from "../src/gen/exa/cortex_pb/cortex_pb.js";
+import { CortexStepRunCommand, CortexStepPlannerResponse } from "../src/gen/exa/cortex_pb/cortex_pb.js";
 import {
     toStepStatus,
     toRunStatus,

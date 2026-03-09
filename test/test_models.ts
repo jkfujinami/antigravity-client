@@ -1,5 +1,5 @@
 import { AntigravityClient } from "../src/client.js";
-import { Model, ModelStatus, ModelAlias } from "../src/gen/exa/codeium_common_pb_pb.js";
+import { Model, ModelStatus, ModelAlias } from "../src/gen/exa/codeium_common_pb/codeium_common_pb.js";
 
 /**
  * Antigravity LS から使用可能なモデル一覧を取得し、表示するテストスクリプト

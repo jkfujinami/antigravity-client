@@ -1,0 +1,91 @@
+syntax = "proto3";
+package exa.unified_state_sync_pb;
+
+import "exa/codeium_common_pb/codeium_common.proto";
+
+message Topic {
+  message DataEntry {
+    string key = 1;
+    exa.unified_state_sync_pb.Row value = 2;
+  }
+
+  repeated exa.unified_state_sync_pb.Topic.DataEntry data = 1;
+}
+
+message Row {
+  string value = 1;
+  int64 e_tag = 2;
+}
+
+message AppliedUpdate {
+  string key = 1;
+  exa.unified_state_sync_pb.Row new_row = 2;
+  bool deleted = 5;
+  int64 current_e_tag = 3;
+}
+
+message UpdateRequest {
+  string topic_name = 1;
+  exa.unified_state_sync_pb.AppliedUpdate applied_update = 5;
+  string key = 2;
+  exa.unified_state_sync_pb.Row row = 3;
+}
+
+message Primitive {
+  oneof value {
+    bool bool_value = 1;
+    int32 int32_value = 2;
+    string string_value = 3;
+    exa.unified_state_sync_pb.RepeatedString repeated_string_value = 4;
+    exa.unified_state_sync_pb.OptionalString optional_string_value = 5;
+  }
+}
+
+message OptionalString {
+  string value = 1;
+}
+
+message RepeatedString {
+  repeated string values = 1;
+}
+
+message PlanningModeConfig {
+  exa.codeium_common_pb.PlanningMode planning_mode = 1;
+}
+
+message BrowserAllowlistConfig {
+  repeated string allowlisted_urls = 1;
+}
+
+message BrowserCdpPortConfig {
+  int32 cdp_port = 1;
+}
+
+message BrowserUserProfilePath {
+  string user_profile_path = 1;
+}
+
+message BrowserChromeBinaryPath {
+  string chrome_binary_path = 1;
+}
+
+message BrowserToolsConfig {
+  exa.codeium_common_pb.AgentBrowserTools agent_browser_tools = 1;
+}
+
+message BrowserJavascriptExecutionConfig {
+  exa.codeium_common_pb.BrowserJsExecutionPolicy browser_js_execution_policy = 1;
+}
+
+message WorkspaceApiConfig {
+  bool workspace_api_enabled = 1;
+}
+
+message CustomModels {
+  message CustomModelsEntry {
+    string key = 1;
+    exa.codeium_common_pb.ModelInfo value = 2;
+  }
+
+  repeated exa.unified_state_sync_pb.CustomModels.CustomModelsEntry custom_models = 1;
+}
