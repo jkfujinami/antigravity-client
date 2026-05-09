@@ -33,7 +33,6 @@ import {
     CascadeConversationalPlannerConfig
 } from "./gen/exa/cortex_pb/cortex_pb.js";
 import { Trajectory, Step } from "./gen/exa/gemini_coder/proto/trajectory_pb.js";
-import { applyMessageDiff } from "./reactive/apply.js";
 import { CascadeState } from "./gen/exa/jetski_cortex_pb/jetski_cortex_pb.js";
 import {
     CascadeStep,
@@ -111,38 +110,54 @@ export class Cascade extends EventEmitter {
         if (this.isListening) return;
         this.isListening = true;
 
-        const maxAttempts = Infinity;
         const retryDelay = 1000;
 
-        for (let attempt = 0; attempt < maxAttempts; attempt++) {
-            const req = new StreamReactiveUpdatesRequest({
-                id: this.cascadeId,
-                protocolVersion: 1,
-                subscriberId: "antigravity-client-" + Date.now(),
-            });
+        while (this.isListening) {
+            // Use StreamAgentStateUpdates (modern) for real-time synchronization
+            const req: any = {
+                conversationId: this.cascadeId,
+                subscriberId: this.cascadeId,
+                trajectoryVerbosity: 3, // FULL
+            };
 
             try {
-                for await (const res of this.lsClient.streamCascadeReactiveUpdates(req)) {
-                    if (res.diff) {
-                        this.emit("raw_update", {
-                            type: "raw_update",
-                            diff: res.diff
-                        });
+                // @ts-ignore - The method name might vary across SDK generations
+                for await (const res of this.lsClient.streamAgentStateUpdates(req)) {
+                    const update = res.update;
+                    if (!update) continue;
 
-                        applyMessageDiff(this.state, res.diff, CascadeState);
-                        this.emitEvents();
+                    // 1. Sync Status
+                    if (update.status !== undefined) {
+                        this.state.status = update.status as any;
                     }
-                    attempt = 0;
+
+                    // 2. Sync Trajectory Steps (Manual Hydration)
+                    const mainTraj = update.mainTrajectoryUpdate;
+                    if (mainTraj?.stepsUpdate) {
+                        if (!this.state.trajectory) {
+                            this.state.trajectory = new Trajectory();
+                        }
+                        // Important: Sync trajectoryId from update to allow correct interactions
+                        if (update.trajectoryId) {
+                            this.state.trajectory.trajectoryId = update.trajectoryId;
+                        }
+                        const { steps, indices } = mainTraj.stepsUpdate;
+                        indices.forEach((idx: number, i: number) => {
+                            this.state.trajectory!.steps[idx] = steps[i];
+                        });
+                    }
+
+                    // 3. Emit internal events for deltas and interactions
+                    this.emitEvents();
                 }
-                // Stream ended normally → reconnect (same as official client)
             } catch (err: any) {
-                if (err?.code === 1 ||
-                    (err?.code === 2 && err?.message?.includes("canceled"))) {
+                if (err?.code === 1 || (err?.code === 2 && err?.message?.includes("canceled"))) {
                     break;
                 }
                 this.emit("error", err);
             }
 
+            if (!this.isListening) break;
             await new Promise(resolve => setTimeout(resolve, retryDelay));
         }
 
@@ -236,17 +251,7 @@ export class Cascade extends EventEmitter {
                 status === CortexStepStatus.WAITING;
 
             if (isInteractiveState && !this.emittedInteractions.has(index)) {
-                console.log(`[Cascade:Debug] Step[${index}] type=${stepType} status=${CortexStepStatus[status]} hasInteraction=${hasInteraction} interactionCase=${interactionCase}`);
-
-                // If it's waiting but has no requestedInteraction, what DOES it have?
-                if (status === CortexStepStatus.WAITING && !hasInteraction) {
-                    console.log(`[Cascade:Debug] Found WAITING step with NO interaction. Full properties:`, {
-                        permissions: step.permissions?.toJson(),
-                        subtrajectory: !!step.subtrajectory,
-                        rawStepCase: step.step?.case,
-                        rawStepValue: step.step?.value,
-                    });
-                }
+                // Interactive step detected
             }
 
             const inlineFilePermission = (step.step?.value as any)?.filePermissionRequest;
@@ -352,6 +357,40 @@ export class Cascade extends EventEmitter {
                     },
                     async deny() { /* no-op */ },
                 };
+
+            case "permission": {
+                const spec = interaction.interaction.value as any;
+                const resource = spec.resource;
+                const action = resource?.action || "unknown";
+                const target = resource?.target || "resource";
+
+                return {
+                    type: "permission",
+                    description: `Permission Needed: ${action} on ${target}`,
+                    stepIndex,
+                    step: cascadeStep,
+                    autoRun: false,
+                    needsApproval: true,
+                    async approve(scope: "once" | "conversation" | "global" = "once") {
+                        const scopeValue = {
+                            "once": 1, // PermissionScope.ONCE
+                            "conversation": 2, // PermissionScope.CONVERSATION
+                            "global": 2, // No global in some versions, fallback
+                        }[scope] || 0;
+
+                        await cascade.sendInteraction(stepIndex, "permission", {
+                            allow: true,
+                            scope: scopeValue,
+                        });
+                    },
+                    async deny() {
+                        await cascade.sendInteraction(stepIndex, "permission", {
+                            allow: false,
+                            scope: 0,
+                        });
+                    },
+                };
+            }
 
             case "filePermission": {
                 const spec = interaction.interaction.value as any;
@@ -607,24 +646,21 @@ export class Cascade extends EventEmitter {
                     plannerTypeConfig: {
                         case: "conversational",
                         value: new CascadeConversationalPlannerConfig({
-                            plannerMode: ConversationalPlannerMode.DEFAULT,
+                            plannerMode: 1, // DEFAULT
                         })
                     },
                     requestedModel: new ModelOrAlias({
                         choice: {
                             case: "model",
-                            value: options.model || Model.PLACEHOLDER_M18
+                            value: options.model || 1084 // Gemini 3 Flash as reliable default
                         }
                     })
                 })
             }),
             blocking: false,
-            clientType: 1,
+            clientType: 1, // IDE
         });
 
-        // blocking: false にすると、このRPCはリクエストの受領直後に正常完了(Promise resolve)する。
-        // AIのレスポンス（テキスト、ツール実行など）はリアクティブストリーム(Listen)経由で流れてくるので
-        // メインスレッドをブロックせず、次々にメッセージを送信可能になる。
         return await this.lsClient.sendUserCascadeMessage(req);
     }
 
@@ -650,25 +686,37 @@ export class Cascade extends EventEmitter {
      * Approves a command execution request.
      */
     async approveCommand(stepIndex: number, proposedCommandLine: string, submittedCommandLine?: string) {
+        const step = this.state.trajectory?.steps[stepIndex];
+        if (!step) throw new Error(`Step ${stepIndex} not found`);
+
         const trajectoryId = this.state.trajectory?.trajectoryId || this.cascadeId;
+        const interactionCase = step.requestedInteraction?.interaction?.case;
 
-        const req = new HandleCascadeUserInteractionRequest({
-            cascadeId: this.cascadeId,
-            interaction: new CascadeUserInteraction({
-                trajectoryId: trajectoryId,
-                stepIndex,
-                interaction: {
-                    case: "runCommand",
-                    value: new CascadeRunCommandInteraction({
-                        proposedCommandLine: proposedCommandLine,
-                        submittedCommandLine: submittedCommandLine || proposedCommandLine,
-                        confirm: true,
-                    })
-                }
-            })
-        });
-
-        await this.lsClient.handleCascadeUserInteraction(req);
+        // If the server is asking for a 'permission' interaction (modern LS), we must respond with 'permission'.
+        // This solves "input not registered for step X" errors.
+        if (interactionCase === "permission") {
+            await this.sendInteraction(stepIndex, "permission", {
+                allow: true,
+                scope: 1, // PermissionScope.ONCE
+            });
+        } else {
+            const req = new HandleCascadeUserInteractionRequest({
+                cascadeId: this.cascadeId,
+                interaction: new CascadeUserInteraction({
+                    trajectoryId: trajectoryId,
+                    stepIndex,
+                    interaction: {
+                        case: "runCommand",
+                        value: new CascadeRunCommandInteraction({
+                            proposedCommandLine: proposedCommandLine,
+                            submittedCommandLine: submittedCommandLine || proposedCommandLine,
+                            confirm: true,
+                        })
+                    }
+                })
+            });
+            await this.lsClient.handleCascadeUserInteraction(req);
+        }
     }
 
     /**
@@ -724,7 +772,9 @@ export class Cascade extends EventEmitter {
          const interactionOneof: any = {};
          interactionOneof.case = interactionCase;
          interactionOneof.value = interactionValue;
-         const trajectoryId = this.state.trajectory?.trajectoryId || this.cascadeId;
+
+         // Use the synced trajectoryId from state, falling back to cascadeId
+         const trajectoryId = this.state.trajectoryId || this.state.trajectory?.trajectoryId || this.cascadeId;
 
          const req = new HandleCascadeUserInteractionRequest({
             cascadeId: this.cascadeId,
