@@ -6,12 +6,19 @@ import { AutoDetector } from "./autodetect.js";
 import { Launcher, type LauncherOptions } from "./server/launcher.js";
 import { readAuthStatus } from "./server/auth-reader.js";
 
-// --- Node.js Debug Hack: Make console.log(message) output clean JSON ---
+// --- Node.js Debug Hack: Make console.log output recursive and clean ---
+import util from "util";
 const inspectSymbol = Symbol.for("nodejs.util.inspect.custom");
-if (typeof process !== "undefined" && (Message.prototype as any)) {
-  (Message.prototype as any)[inspectSymbol] = function () {
-    return this.toJson();
-  };
+if (typeof process !== "undefined") {
+  util.inspect.defaultOptions.depth = null;
+  util.inspect.defaultOptions.colors = true;
+  util.inspect.defaultOptions.maxArrayLength = null;
+
+  if (Message.prototype as any) {
+    (Message.prototype as any)[inspectSymbol] = function () {
+      return this.toJson();
+    };
+  }
 }
 // -----------------------------------------------------------------------
 
