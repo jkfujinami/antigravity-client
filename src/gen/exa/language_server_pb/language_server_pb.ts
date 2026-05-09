@@ -4,16 +4,20 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
-import { ActionPointer, ArtifactComment, BrowserPageMetadata, CascadeNUXConfig, ChatStatsByModelEntry, ClientModelConfig, ClientModelSort, CodeContextItem, CodeContextType, CodeDiagnostic, CodeSource, CommandRequestSource, Completion, CompletionByDateEntry, CompletionByLanguageEntry, CompletionConfiguration, CompletionSource, CompletionsRequest, CompletionStatistics, CompletionType, ConsoleLogScopeItem, ContextScope, ContextScopeItem, ContextScopeType, DefaultOverrideModelConfig, Document, DocumentPosition, EditorOptions, ErrorTrace, Event, ExperimentConfig, FileComment, FileDiffComment, GitRepoInfo, ImageData, IntellisenseSuggestion, Language, LanguageServerDiagnostics, McpPromptMessage, McpResourceItem, McpServerTemplate, Media, Metadata, MockResponseData, Model, ModelStatusInfo, OnboardingActionType, PlanInfo, PromptStageLatency, ProviderSource, Range, RefreshCustomizationType, ScmType, Status, StopReason, SuperCompleteFilterReason, SupercompleteTriggerCondition, TeamOrganizationalControls as TeamOrganizationalControls$1, TerminalCommandData, TextOrScopeItem, UnleashContext, UserSettings, UserStatus, WebDocsOption, WorkingDirectoryInfo } from "../codeium_common_pb/codeium_common_pb.js";
+import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
+import { LoadCodeAssistResponse } from "../google/internal/cloud/code/v1internal/onboarding_pb.js";
+import { FetchAvailableModelsResponse } from "../google/internal/cloud/code/v1internal/model_configs_pb.js";
+import { ActionPointer, ArtifactComment, BrowserPageMetadata, CascadeNUXConfig, ChatStatsByModelEntry, ClientModelConfig, ClientModelSort, CodeContextItem, CodeContextType, CodeDiagnostic, CodeSource, CommandRequestSource, Completion, CompletionByDateEntry, CompletionByLanguageEntry, CompletionConfiguration, CompletionSource, CompletionsRequest, CompletionStatistics, CompletionType, ConsoleLogScopeItem, ContextScope, ContextScopeItem, ContextScopeType, DefaultOverrideModelConfig, Document, DocumentPosition, EditorOptions, ErrorTrace, Event, ExperimentConfig, FileComment, FileDiffComment, GitRepoInfo, ImageData, IntellisenseSuggestion, Language, LanguageServerDiagnostics, McpPromptMessage, McpResourceItem, McpServerTemplate, Media, Metadata, MockResponseData, Model, ModelStatusInfo, OnboardingActionType, PathScopeItem, PlanInfo, PromptStageLatency, ProviderSource, Range, RefreshCustomizationType, ScmType, Status, StopReason, SuperCompleteFilterReason, SupercompleteTriggerCondition, TeamOrganizationalControls as TeamOrganizationalControls$1, TerminalCommandData, TextOrScopeItem, UnleashContext, UserSettings, UserStatus, WebDocsOption, WorkingDirectoryInfo } from "../codeium_common_pb/codeium_common_pb.js";
 import { CharacterDiff, ComboDiff, DiffType, UnifiedDiff as UnifiedDiff$1 } from "../diff_action_pb/diff_action_pb.js";
 import { Step, Trajectory } from "../gemini_coder/proto/trajectory_pb.js";
 import { ChatExperimentStatus, ChatFeedbackType } from "../chat_pb/chat_pb.js";
-import { AcknowledgementType, ActionResultEdit, AgentCustomization, AgentScriptCommandSpec, AgentScriptItem, ArtifactSnapshot, CascadeConfig, CascadeRunStatus, CascadeUserInteraction, CodeAcknowledgementScope, CortexMemory, CortexStepGeneratorMetadata, CortexStepPlannerResponse, CortexTrajectorySource, CortexTrajectoryType, GrepSearchResult, ImplicitTrajectoryDescription, McpPromptSpec, McpServerState, RevertMetadata, TrajectoryShareStatus, UserStepSnapshot, WorkflowSpec } from "../cortex_pb/cortex_pb.js";
-import { BaseTrajectoryIdentifier, CascadeTrajectorySummary, ConversationAnnotations, ImplicitTrajectory } from "../jetski_cortex_pb/jetski_cortex_pb.js";
+import { AcknowledgementType, ActionResultEdit, AgentCustomization, AgentScriptCommandSpec, AgentScriptItem, ArtifactSnapshot, CascadeConfig, CascadeRunStatus, CascadeUserInteraction, CodeAcknowledgementScope, CortexMemory, CortexStepGeneratorMetadata, CortexStepPlannerResponse, CortexTrajectorySource, CortexTrajectoryType, CustomAgentSpec, GrepSearchResult, ImplicitTrajectoryDescription, McpPromptSpec, McpServerSpec, McpServerState, PluginItem, RevertMetadata, SidecarEvent, SidecarEventPayload, SidecarStatusInfo, SourceMetadata, TokenBreakdown, TrajectoryShareStatus, UserStepSnapshot, WorkflowSpec } from "../cortex_pb/cortex_pb.js";
+import { UserSettings as UserSettings$1 } from "../google/internal/cloud/code/v1internal/jetski_service_pb.js";
+import { BaseTrajectoryIdentifier, CascadeTrajectorySummary, ClientTrajectoryVerbosity as ClientTrajectoryVerbosity$1, ConversationAnnotations, ImplicitTrajectory } from "../jetski_cortex_pb/jetski_cortex_pb.js";
 import { ChatClientRequestStreamClientType } from "../chat_client_server_pb/chat_client_server_pb.js";
 import { CodeChangeWithContext } from "../code_edit/code_edit_pb/code_edit_pb.js";
 import { CascadePluginTemplate } from "../cascade_plugins_pb/cascade_plugins_pb.js";
+import { State as State$1 } from "../jetbox_state_pb/jetbox_state_pb.js";
 
 /**
  * @generated from enum exa.language_server_pb.IdeAction
@@ -223,12 +227,18 @@ export enum ClientTrajectoryVerbosity {
    * @generated from enum value: CLIENT_TRAJECTORY_VERBOSITY_PROD_UI = 2;
    */
   PROD_UI = 2,
+
+  /**
+   * @generated from enum value: CLIENT_TRAJECTORY_VERBOSITY_FULL = 3;
+   */
+  FULL = 3,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ClientTrajectoryVerbosity)
 proto3.util.setEnumType(ClientTrajectoryVerbosity, "exa.language_server_pb.ClientTrajectoryVerbosity", [
   { no: 0, name: "CLIENT_TRAJECTORY_VERBOSITY_UNSPECIFIED" },
   { no: 1, name: "CLIENT_TRAJECTORY_VERBOSITY_DEBUG" },
   { no: 2, name: "CLIENT_TRAJECTORY_VERBOSITY_PROD_UI" },
+  { no: 3, name: "CLIENT_TRAJECTORY_VERBOSITY_FULL" },
 ]);
 
 /**
@@ -338,6 +348,26 @@ export enum CustomizationFileType {
    * @generated from enum value: CUSTOMIZATION_FILE_TYPE_GLOBAL_AGENT = 7;
    */
   GLOBAL_AGENT = 7,
+
+  /**
+   * @generated from enum value: CUSTOMIZATION_FILE_TYPE_PLUGIN = 8;
+   */
+  PLUGIN = 8,
+
+  /**
+   * @generated from enum value: CUSTOMIZATION_FILE_TYPE_GLOBAL_PLUGIN = 9;
+   */
+  GLOBAL_PLUGIN = 9,
+
+  /**
+   * @generated from enum value: CUSTOMIZATION_FILE_TYPE_HOOKS = 10;
+   */
+  HOOKS = 10,
+
+  /**
+   * @generated from enum value: CUSTOMIZATION_FILE_TYPE_MCP = 11;
+   */
+  MCP = 11,
 }
 // Retrieve enum metadata with: proto3.getEnumType(CustomizationFileType)
 proto3.util.setEnumType(CustomizationFileType, "exa.language_server_pb.CustomizationFileType", [
@@ -349,6 +379,10 @@ proto3.util.setEnumType(CustomizationFileType, "exa.language_server_pb.Customiza
   { no: 5, name: "CUSTOMIZATION_FILE_TYPE_GLOBAL_SKILLS" },
   { no: 6, name: "CUSTOMIZATION_FILE_TYPE_AGENT" },
   { no: 7, name: "CUSTOMIZATION_FILE_TYPE_GLOBAL_AGENT" },
+  { no: 8, name: "CUSTOMIZATION_FILE_TYPE_PLUGIN" },
+  { no: 9, name: "CUSTOMIZATION_FILE_TYPE_GLOBAL_PLUGIN" },
+  { no: 10, name: "CUSTOMIZATION_FILE_TYPE_HOOKS" },
+  { no: 11, name: "CUSTOMIZATION_FILE_TYPE_MCP" },
 ]);
 
 /**
@@ -414,6 +448,218 @@ proto3.util.setEnumType(CustomizationPathsOperation, "exa.language_server_pb.Cus
   { no: 2, name: "CUSTOMIZATION_PATHS_OPERATION_REMOVE" },
   { no: 3, name: "CUSTOMIZATION_PATHS_OPERATION_SET" },
 ]);
+
+/**
+ * @generated from enum exa.language_server_pb.ForkTarget
+ */
+export enum ForkTarget {
+  /**
+   * @generated from enum value: FORK_TARGET_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: FORK_TARGET_CURRENT_WORKSPACE = 1;
+   */
+  CURRENT_WORKSPACE = 1,
+
+  /**
+   * @generated from enum value: FORK_TARGET_NEW_WORKTREE = 2;
+   */
+  NEW_WORKTREE = 2,
+
+  /**
+   * @generated from enum value: FORK_TARGET_NEW_WORKSPACE = 3;
+   */
+  NEW_WORKSPACE = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ForkTarget)
+proto3.util.setEnumType(ForkTarget, "exa.language_server_pb.ForkTarget", [
+  { no: 0, name: "FORK_TARGET_UNSPECIFIED" },
+  { no: 1, name: "FORK_TARGET_CURRENT_WORKSPACE" },
+  { no: 2, name: "FORK_TARGET_NEW_WORKTREE" },
+  { no: 3, name: "FORK_TARGET_NEW_WORKSPACE" },
+]);
+
+/**
+ * @generated from enum exa.language_server_pb.SidecarAction
+ */
+export enum SidecarAction {
+  /**
+   * @generated from enum value: SIDECAR_ACTION_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: SIDECAR_ACTION_DISABLE = 1;
+   */
+  DISABLE = 1,
+
+  /**
+   * @generated from enum value: SIDECAR_ACTION_ENABLE = 2;
+   */
+  ENABLE = 2,
+
+  /**
+   * @generated from enum value: SIDECAR_ACTION_DELETE = 3;
+   */
+  DELETE = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(SidecarAction)
+proto3.util.setEnumType(SidecarAction, "exa.language_server_pb.SidecarAction", [
+  { no: 0, name: "SIDECAR_ACTION_UNSPECIFIED" },
+  { no: 1, name: "SIDECAR_ACTION_DISABLE" },
+  { no: 2, name: "SIDECAR_ACTION_ENABLE" },
+  { no: 3, name: "SIDECAR_ACTION_DELETE" },
+]);
+
+/**
+ * @generated from message exa.language_server_pb.GetLoadCodeAssistRequest
+ */
+export class GetLoadCodeAssistRequest extends Message<GetLoadCodeAssistRequest> {
+  /**
+   * @generated from field: bool force_refresh = 1;
+   */
+  forceRefresh = false;
+
+  constructor(data?: PartialMessage<GetLoadCodeAssistRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetLoadCodeAssistRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "force_refresh", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetLoadCodeAssistRequest {
+    return new GetLoadCodeAssistRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetLoadCodeAssistRequest {
+    return new GetLoadCodeAssistRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetLoadCodeAssistRequest {
+    return new GetLoadCodeAssistRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetLoadCodeAssistRequest | PlainMessage<GetLoadCodeAssistRequest> | undefined, b: GetLoadCodeAssistRequest | PlainMessage<GetLoadCodeAssistRequest> | undefined): boolean {
+    return proto3.util.equals(GetLoadCodeAssistRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetLoadCodeAssistResponse
+ */
+export class GetLoadCodeAssistResponse extends Message<GetLoadCodeAssistResponse> {
+  /**
+   * @generated from field: google.internal.cloud.code.v1internal.LoadCodeAssistResponse response = 1;
+   */
+  response?: LoadCodeAssistResponse;
+
+  constructor(data?: PartialMessage<GetLoadCodeAssistResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetLoadCodeAssistResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "response", kind: "message", T: LoadCodeAssistResponse },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetLoadCodeAssistResponse {
+    return new GetLoadCodeAssistResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetLoadCodeAssistResponse {
+    return new GetLoadCodeAssistResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetLoadCodeAssistResponse {
+    return new GetLoadCodeAssistResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetLoadCodeAssistResponse | PlainMessage<GetLoadCodeAssistResponse> | undefined, b: GetLoadCodeAssistResponse | PlainMessage<GetLoadCodeAssistResponse> | undefined): boolean {
+    return proto3.util.equals(GetLoadCodeAssistResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetAvailableModelsRequest
+ */
+export class GetAvailableModelsRequest extends Message<GetAvailableModelsRequest> {
+  /**
+   * @generated from field: bool force_refresh = 1;
+   */
+  forceRefresh = false;
+
+  constructor(data?: PartialMessage<GetAvailableModelsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetAvailableModelsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "force_refresh", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAvailableModelsRequest {
+    return new GetAvailableModelsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetAvailableModelsRequest {
+    return new GetAvailableModelsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetAvailableModelsRequest {
+    return new GetAvailableModelsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetAvailableModelsRequest | PlainMessage<GetAvailableModelsRequest> | undefined, b: GetAvailableModelsRequest | PlainMessage<GetAvailableModelsRequest> | undefined): boolean {
+    return proto3.util.equals(GetAvailableModelsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetAvailableModelsResponse
+ */
+export class GetAvailableModelsResponse extends Message<GetAvailableModelsResponse> {
+  /**
+   * @generated from field: google.internal.cloud.code.v1internal.FetchAvailableModelsResponse response = 1;
+   */
+  response?: FetchAvailableModelsResponse;
+
+  constructor(data?: PartialMessage<GetAvailableModelsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetAvailableModelsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "response", kind: "message", T: FetchAvailableModelsResponse },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAvailableModelsResponse {
+    return new GetAvailableModelsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetAvailableModelsResponse {
+    return new GetAvailableModelsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetAvailableModelsResponse {
+    return new GetAvailableModelsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetAvailableModelsResponse | PlainMessage<GetAvailableModelsResponse> | undefined, b: GetAvailableModelsResponse | PlainMessage<GetAvailableModelsResponse> | undefined): boolean {
+    return proto3.util.equals(GetAvailableModelsResponse, a, b);
+  }
+}
 
 /**
  * @generated from message exa.language_server_pb.HandleStreamingCommandRequest
@@ -1124,9 +1370,9 @@ export class HeartbeatRequest extends Message<HeartbeatRequest> {
  */
 export class HeartbeatResponse extends Message<HeartbeatResponse> {
   /**
-   * @generated from field: bytes last_extension_heartbeat = 1;
+   * @generated from field: google.protobuf.Timestamp last_extension_heartbeat = 1;
    */
-  lastExtensionHeartbeat = new Uint8Array(0);
+  lastExtensionHeartbeat?: Timestamp;
 
   constructor(data?: PartialMessage<HeartbeatResponse>) {
     super();
@@ -1136,7 +1382,7 @@ export class HeartbeatResponse extends Message<HeartbeatResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.language_server_pb.HeartbeatResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "last_extension_heartbeat", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: "last_extension_heartbeat", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HeartbeatResponse {
@@ -1227,6 +1473,74 @@ export class ReconnectExtensionServerResponse extends Message<ReconnectExtension
 
   static equals(a: ReconnectExtensionServerResponse | PlainMessage<ReconnectExtensionServerResponse> | undefined, b: ReconnectExtensionServerResponse | PlainMessage<ReconnectExtensionServerResponse> | undefined): boolean {
     return proto3.util.equals(ReconnectExtensionServerResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SetCloudCodeURLRequest
+ */
+export class SetCloudCodeURLRequest extends Message<SetCloudCodeURLRequest> {
+  /**
+   * @generated from field: string url = 1;
+   */
+  url = "";
+
+  constructor(data?: PartialMessage<SetCloudCodeURLRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SetCloudCodeURLRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetCloudCodeURLRequest {
+    return new SetCloudCodeURLRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetCloudCodeURLRequest {
+    return new SetCloudCodeURLRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetCloudCodeURLRequest {
+    return new SetCloudCodeURLRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetCloudCodeURLRequest | PlainMessage<SetCloudCodeURLRequest> | undefined, b: SetCloudCodeURLRequest | PlainMessage<SetCloudCodeURLRequest> | undefined): boolean {
+    return proto3.util.equals(SetCloudCodeURLRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SetCloudCodeURLResponse
+ */
+export class SetCloudCodeURLResponse extends Message<SetCloudCodeURLResponse> {
+  constructor(data?: PartialMessage<SetCloudCodeURLResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SetCloudCodeURLResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetCloudCodeURLResponse {
+    return new SetCloudCodeURLResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetCloudCodeURLResponse {
+    return new SetCloudCodeURLResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetCloudCodeURLResponse {
+    return new SetCloudCodeURLResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetCloudCodeURLResponse | PlainMessage<SetCloudCodeURLResponse> | undefined, b: SetCloudCodeURLResponse | PlainMessage<SetCloudCodeURLResponse> | undefined): boolean {
+    return proto3.util.equals(SetCloudCodeURLResponse, a, b);
   }
 }
 
@@ -1416,14 +1730,14 @@ export class TeamOrganizationalControls extends Message<TeamOrganizationalContro
   commandModelLabels: string[] = [];
 
   /**
-   * @generated from field: bytes created_at = 4;
+   * @generated from field: google.protobuf.Timestamp created_at = 4;
    */
-  createdAt = new Uint8Array(0);
+  createdAt?: Timestamp;
 
   /**
-   * @generated from field: bytes updated_at = 5;
+   * @generated from field: google.protobuf.Timestamp updated_at = 5;
    */
-  updatedAt = new Uint8Array(0);
+  updatedAt?: Timestamp;
 
   /**
    * @generated from field: repeated string extension_model_labels = 6;
@@ -1441,8 +1755,8 @@ export class TeamOrganizationalControls extends Message<TeamOrganizationalContro
     { no: 1, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "cascade_model_labels", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 3, name: "command_model_labels", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 4, name: "created_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 5, name: "updated_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 4, name: "created_at", kind: "message", T: Timestamp },
+    { no: 5, name: "updated_at", kind: "message", T: Timestamp },
     { no: 6, name: "extension_model_labels", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
   ]);
 
@@ -2602,9 +2916,9 @@ export class RecordChatFeedbackRequest extends Message<RecordChatFeedbackRequest
   reason = "";
 
   /**
-   * @generated from field: bytes timestamp = 5;
+   * @generated from field: google.protobuf.Timestamp timestamp = 5;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   constructor(data?: PartialMessage<RecordChatFeedbackRequest>) {
     super();
@@ -2618,7 +2932,7 @@ export class RecordChatFeedbackRequest extends Message<RecordChatFeedbackRequest
     { no: 2, name: "message_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "feedback", kind: "enum", T: proto3.getEnumType(ChatFeedbackType) },
     { no: 4, name: "reason", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 5, name: "timestamp", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecordChatFeedbackRequest {
@@ -2679,14 +2993,14 @@ export class RecordChatPanelSessionRequest extends Message<RecordChatPanelSessio
   metadata?: Metadata;
 
   /**
-   * @generated from field: bytes start_timestamp = 2;
+   * @generated from field: google.protobuf.Timestamp start_timestamp = 2;
    */
-  startTimestamp = new Uint8Array(0);
+  startTimestamp?: Timestamp;
 
   /**
-   * @generated from field: bytes end_timestamp = 3;
+   * @generated from field: google.protobuf.Timestamp end_timestamp = 3;
    */
-  endTimestamp = new Uint8Array(0);
+  endTimestamp?: Timestamp;
 
   constructor(data?: PartialMessage<RecordChatPanelSessionRequest>) {
     super();
@@ -2697,8 +3011,8 @@ export class RecordChatPanelSessionRequest extends Message<RecordChatPanelSessio
   static readonly typeName = "exa.language_server_pb.RecordChatPanelSessionRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "metadata", kind: "message", T: Metadata },
-    { no: 2, name: "start_timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "end_timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "start_timestamp", kind: "message", T: Timestamp },
+    { no: 3, name: "end_timestamp", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecordChatPanelSessionRequest {
@@ -2764,14 +3078,14 @@ export class GetUserAnalyticsSummaryRequest extends Message<GetUserAnalyticsSumm
   timeZone = "";
 
   /**
-   * @generated from field: bytes start_timestamp = 3;
+   * @generated from field: google.protobuf.Timestamp start_timestamp = 3;
    */
-  startTimestamp = new Uint8Array(0);
+  startTimestamp?: Timestamp;
 
   /**
-   * @generated from field: bytes end_timestamp = 4;
+   * @generated from field: google.protobuf.Timestamp end_timestamp = 4;
    */
-  endTimestamp = new Uint8Array(0);
+  endTimestamp?: Timestamp;
 
   constructor(data?: PartialMessage<GetUserAnalyticsSummaryRequest>) {
     super();
@@ -2783,8 +3097,8 @@ export class GetUserAnalyticsSummaryRequest extends Message<GetUserAnalyticsSumm
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "metadata", kind: "message", T: Metadata },
     { no: 2, name: "time_zone", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "start_timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 4, name: "end_timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "start_timestamp", kind: "message", T: Timestamp },
+    { no: 4, name: "end_timestamp", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetUserAnalyticsSummaryRequest {
@@ -3146,6 +3460,68 @@ export class ExitResponse extends Message<ExitResponse> {
 
   static equals(a: ExitResponse | PlainMessage<ExitResponse> | undefined, b: ExitResponse | PlainMessage<ExitResponse> | undefined): boolean {
     return proto3.util.equals(ExitResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.RestartRequest
+ */
+export class RestartRequest extends Message<RestartRequest> {
+  constructor(data?: PartialMessage<RestartRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.RestartRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RestartRequest {
+    return new RestartRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RestartRequest {
+    return new RestartRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RestartRequest {
+    return new RestartRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RestartRequest | PlainMessage<RestartRequest> | undefined, b: RestartRequest | PlainMessage<RestartRequest> | undefined): boolean {
+    return proto3.util.equals(RestartRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.RestartResponse
+ */
+export class RestartResponse extends Message<RestartResponse> {
+  constructor(data?: PartialMessage<RestartResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.RestartResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RestartResponse {
+    return new RestartResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RestartResponse {
+    return new RestartResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RestartResponse {
+    return new RestartResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RestartResponse | PlainMessage<RestartResponse> | undefined, b: RestartResponse | PlainMessage<RestartResponse> | undefined): boolean {
+    return proto3.util.equals(RestartResponse, a, b);
   }
 }
 
@@ -3863,6 +4239,11 @@ export class GetRepoInfosRequest extends Message<GetRepoInfosRequest> {
    */
   metadata?: Metadata;
 
+  /**
+   * @generated from field: repeated string repo_uris = 2;
+   */
+  repoUris: string[] = [];
+
   constructor(data?: PartialMessage<GetRepoInfosRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -3872,6 +4253,7 @@ export class GetRepoInfosRequest extends Message<GetRepoInfosRequest> {
   static readonly typeName = "exa.language_server_pb.GetRepoInfosRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "metadata", kind: "message", T: Metadata },
+    { no: 2, name: "repo_uris", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetRepoInfosRequest {
@@ -4226,6 +4608,11 @@ export class CreateWorktreeRequest extends Message<CreateWorktreeRequest> {
    */
   media: Media[] = [];
 
+  /**
+   * @generated from field: string worktree_name = 8;
+   */
+  worktreeName = "";
+
   constructor(data?: PartialMessage<CreateWorktreeRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -4241,6 +4628,7 @@ export class CreateWorktreeRequest extends Message<CreateWorktreeRequest> {
     { no: 5, name: "items", kind: "message", T: TextOrScopeItem, repeated: true },
     { no: 6, name: "images", kind: "message", T: ImageData, repeated: true },
     { no: 7, name: "media", kind: "message", T: Media, repeated: true },
+    { no: 8, name: "worktree_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateWorktreeRequest {
@@ -4300,6 +4688,435 @@ export class CreateWorktreeResponse extends Message<CreateWorktreeResponse> {
 
   static equals(a: CreateWorktreeResponse | PlainMessage<CreateWorktreeResponse> | undefined, b: CreateWorktreeResponse | PlainMessage<CreateWorktreeResponse> | undefined): boolean {
     return proto3.util.equals(CreateWorktreeResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.DeleteWorktreeRequest
+ */
+export class DeleteWorktreeRequest extends Message<DeleteWorktreeRequest> {
+  /**
+   * @generated from field: string worktree_dir_uri = 1;
+   */
+  worktreeDirUri = "";
+
+  /**
+   * @generated from field: string repo_uri = 2;
+   */
+  repoUri = "";
+
+  constructor(data?: PartialMessage<DeleteWorktreeRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.DeleteWorktreeRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "worktree_dir_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "repo_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteWorktreeRequest {
+    return new DeleteWorktreeRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteWorktreeRequest {
+    return new DeleteWorktreeRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteWorktreeRequest {
+    return new DeleteWorktreeRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteWorktreeRequest | PlainMessage<DeleteWorktreeRequest> | undefined, b: DeleteWorktreeRequest | PlainMessage<DeleteWorktreeRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteWorktreeRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.DeleteWorktreeResponse
+ */
+export class DeleteWorktreeResponse extends Message<DeleteWorktreeResponse> {
+  /**
+   * @generated from field: bool success = 1;
+   */
+  success = false;
+
+  /**
+   * @generated from field: string error_message = 2;
+   */
+  errorMessage = "";
+
+  constructor(data?: PartialMessage<DeleteWorktreeResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.DeleteWorktreeResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "success", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "error_message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteWorktreeResponse {
+    return new DeleteWorktreeResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteWorktreeResponse {
+    return new DeleteWorktreeResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteWorktreeResponse {
+    return new DeleteWorktreeResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteWorktreeResponse | PlainMessage<DeleteWorktreeResponse> | undefined, b: DeleteWorktreeResponse | PlainMessage<DeleteWorktreeResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteWorktreeResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.CheckoutWorktreeRequest
+ */
+export class CheckoutWorktreeRequest extends Message<CheckoutWorktreeRequest> {
+  /**
+   * @generated from field: string worktree_dir_uri = 1;
+   */
+  worktreeDirUri = "";
+
+  /**
+   * @generated from field: string target_workspace_uri = 2;
+   */
+  targetWorkspaceUri = "";
+
+  /**
+   * @generated from field: bool delete_worktree_after_checkout = 3;
+   */
+  deleteWorktreeAfterCheckout = false;
+
+  constructor(data?: PartialMessage<CheckoutWorktreeRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.CheckoutWorktreeRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "worktree_dir_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "target_workspace_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "delete_worktree_after_checkout", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CheckoutWorktreeRequest {
+    return new CheckoutWorktreeRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CheckoutWorktreeRequest {
+    return new CheckoutWorktreeRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CheckoutWorktreeRequest {
+    return new CheckoutWorktreeRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CheckoutWorktreeRequest | PlainMessage<CheckoutWorktreeRequest> | undefined, b: CheckoutWorktreeRequest | PlainMessage<CheckoutWorktreeRequest> | undefined): boolean {
+    return proto3.util.equals(CheckoutWorktreeRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.CheckoutWorktreeResponse
+ */
+export class CheckoutWorktreeResponse extends Message<CheckoutWorktreeResponse> {
+  /**
+   * @generated from field: bool success = 1;
+   */
+  success = false;
+
+  /**
+   * @generated from field: string error_message = 2;
+   */
+  errorMessage = "";
+
+  /**
+   * @generated from field: exa.language_server_pb.CheckoutSummary summary = 3;
+   */
+  summary?: CheckoutSummary;
+
+  /**
+   * @generated from field: string diff_patch = 4;
+   */
+  diffPatch = "";
+
+  constructor(data?: PartialMessage<CheckoutWorktreeResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.CheckoutWorktreeResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "success", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "error_message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "summary", kind: "message", T: CheckoutSummary },
+    { no: 4, name: "diff_patch", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CheckoutWorktreeResponse {
+    return new CheckoutWorktreeResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CheckoutWorktreeResponse {
+    return new CheckoutWorktreeResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CheckoutWorktreeResponse {
+    return new CheckoutWorktreeResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CheckoutWorktreeResponse | PlainMessage<CheckoutWorktreeResponse> | undefined, b: CheckoutWorktreeResponse | PlainMessage<CheckoutWorktreeResponse> | undefined): boolean {
+    return proto3.util.equals(CheckoutWorktreeResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.CheckoutSummary
+ */
+export class CheckoutSummary extends Message<CheckoutSummary> {
+  /**
+   * @generated from field: int32 files_changed = 1;
+   */
+  filesChanged = 0;
+
+  /**
+   * @generated from field: int32 additions = 2;
+   */
+  additions = 0;
+
+  /**
+   * @generated from field: int32 deletions = 3;
+   */
+  deletions = 0;
+
+  constructor(data?: PartialMessage<CheckoutSummary>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.CheckoutSummary";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "files_changed", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "additions", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "deletions", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CheckoutSummary {
+    return new CheckoutSummary().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CheckoutSummary {
+    return new CheckoutSummary().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CheckoutSummary {
+    return new CheckoutSummary().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CheckoutSummary | PlainMessage<CheckoutSummary> | undefined, b: CheckoutSummary | PlainMessage<CheckoutSummary> | undefined): boolean {
+    return proto3.util.equals(CheckoutSummary, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetWorktreeDiffRequest
+ */
+export class GetWorktreeDiffRequest extends Message<GetWorktreeDiffRequest> {
+  /**
+   * @generated from field: string worktree_dir_uri = 1;
+   */
+  worktreeDirUri = "";
+
+  /**
+   * @generated from field: string target_workspace_uri = 2;
+   */
+  targetWorkspaceUri = "";
+
+  constructor(data?: PartialMessage<GetWorktreeDiffRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetWorktreeDiffRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "worktree_dir_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "target_workspace_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetWorktreeDiffRequest {
+    return new GetWorktreeDiffRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetWorktreeDiffRequest {
+    return new GetWorktreeDiffRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetWorktreeDiffRequest {
+    return new GetWorktreeDiffRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetWorktreeDiffRequest | PlainMessage<GetWorktreeDiffRequest> | undefined, b: GetWorktreeDiffRequest | PlainMessage<GetWorktreeDiffRequest> | undefined): boolean {
+    return proto3.util.equals(GetWorktreeDiffRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetWorktreeDiffResponse
+ */
+export class GetWorktreeDiffResponse extends Message<GetWorktreeDiffResponse> {
+  /**
+   * @generated from field: string diff_patch = 1;
+   */
+  diffPatch = "";
+
+  /**
+   * @generated from field: exa.language_server_pb.CheckoutSummary summary = 2;
+   */
+  summary?: CheckoutSummary;
+
+  constructor(data?: PartialMessage<GetWorktreeDiffResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetWorktreeDiffResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "diff_patch", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "summary", kind: "message", T: CheckoutSummary },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetWorktreeDiffResponse {
+    return new GetWorktreeDiffResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetWorktreeDiffResponse {
+    return new GetWorktreeDiffResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetWorktreeDiffResponse {
+    return new GetWorktreeDiffResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetWorktreeDiffResponse | PlainMessage<GetWorktreeDiffResponse> | undefined, b: GetWorktreeDiffResponse | PlainMessage<GetWorktreeDiffResponse> | undefined): boolean {
+    return proto3.util.equals(GetWorktreeDiffResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.CreateCitcWorkspaceRequest
+ */
+export class CreateCitcWorkspaceRequest extends Message<CreateCitcWorkspaceRequest> {
+  /**
+   * @generated from field: exa.codeium_common_pb.Metadata metadata = 1;
+   */
+  metadata?: Metadata;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.TextOrScopeItem items = 2;
+   */
+  items: TextOrScopeItem[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Media media = 3;
+   */
+  media: Media[] = [];
+
+  /**
+   * @generated from field: bool clone_current_workspace = 4;
+   */
+  cloneCurrentWorkspace = false;
+
+  /**
+   * @generated from field: string source_workspace_uri = 5;
+   */
+  sourceWorkspaceUri = "";
+
+  constructor(data?: PartialMessage<CreateCitcWorkspaceRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.CreateCitcWorkspaceRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "metadata", kind: "message", T: Metadata },
+    { no: 2, name: "items", kind: "message", T: TextOrScopeItem, repeated: true },
+    { no: 3, name: "media", kind: "message", T: Media, repeated: true },
+    { no: 4, name: "clone_current_workspace", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "source_workspace_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateCitcWorkspaceRequest {
+    return new CreateCitcWorkspaceRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateCitcWorkspaceRequest {
+    return new CreateCitcWorkspaceRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateCitcWorkspaceRequest {
+    return new CreateCitcWorkspaceRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateCitcWorkspaceRequest | PlainMessage<CreateCitcWorkspaceRequest> | undefined, b: CreateCitcWorkspaceRequest | PlainMessage<CreateCitcWorkspaceRequest> | undefined): boolean {
+    return proto3.util.equals(CreateCitcWorkspaceRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.CreateCitcWorkspaceResponse
+ */
+export class CreateCitcWorkspaceResponse extends Message<CreateCitcWorkspaceResponse> {
+  /**
+   * @generated from field: string workspace_dir_uri = 1;
+   */
+  workspaceDirUri = "";
+
+  /**
+   * @generated from field: string workspace_name = 2;
+   */
+  workspaceName = "";
+
+  constructor(data?: PartialMessage<CreateCitcWorkspaceResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.CreateCitcWorkspaceResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "workspace_dir_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "workspace_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateCitcWorkspaceResponse {
+    return new CreateCitcWorkspaceResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateCitcWorkspaceResponse {
+    return new CreateCitcWorkspaceResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateCitcWorkspaceResponse {
+    return new CreateCitcWorkspaceResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateCitcWorkspaceResponse | PlainMessage<CreateCitcWorkspaceResponse> | undefined, b: CreateCitcWorkspaceResponse | PlainMessage<CreateCitcWorkspaceResponse> | undefined): boolean {
+    return proto3.util.equals(CreateCitcWorkspaceResponse, a, b);
   }
 }
 
@@ -4480,9 +5297,9 @@ export class RecordCommitMessageSaveRequest extends Message<RecordCommitMessageS
   commitMessage = "";
 
   /**
-   * @generated from field: bytes commit_timestamp = 6;
+   * @generated from field: google.protobuf.Timestamp commit_timestamp = 6;
    */
-  commitTimestamp = new Uint8Array(0);
+  commitTimestamp?: Timestamp;
 
   /**
    * @generated from field: string parent_commit_hash = 7;
@@ -4512,7 +5329,7 @@ export class RecordCommitMessageSaveRequest extends Message<RecordCommitMessageS
     { no: 3, name: "branch_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "commit_hash", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "commit_message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 6, name: "commit_timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 6, name: "commit_timestamp", kind: "message", T: Timestamp },
     { no: 7, name: "parent_commit_hash", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 8, name: "author_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 9, name: "author_email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
@@ -4797,6 +5614,148 @@ export class SetUserSettingsResponse extends Message<SetUserSettingsResponse> {
 
   static equals(a: SetUserSettingsResponse | PlainMessage<SetUserSettingsResponse> | undefined, b: SetUserSettingsResponse | PlainMessage<SetUserSettingsResponse> | undefined): boolean {
     return proto3.util.equals(SetUserSettingsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.FetchUserInfoRequest
+ */
+export class FetchUserInfoRequest extends Message<FetchUserInfoRequest> {
+  constructor(data?: PartialMessage<FetchUserInfoRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.FetchUserInfoRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FetchUserInfoRequest {
+    return new FetchUserInfoRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FetchUserInfoRequest {
+    return new FetchUserInfoRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FetchUserInfoRequest {
+    return new FetchUserInfoRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: FetchUserInfoRequest | PlainMessage<FetchUserInfoRequest> | undefined, b: FetchUserInfoRequest | PlainMessage<FetchUserInfoRequest> | undefined): boolean {
+    return proto3.util.equals(FetchUserInfoRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.FetchUserInfoResponse
+ */
+export class FetchUserInfoResponse extends Message<FetchUserInfoResponse> {
+  /**
+   * @generated from field: google.internal.cloud.code.v1internal.UserSettings user_settings = 1;
+   */
+  userSettings?: UserSettings$1;
+
+  constructor(data?: PartialMessage<FetchUserInfoResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.FetchUserInfoResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user_settings", kind: "message", T: UserSettings$1 },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FetchUserInfoResponse {
+    return new FetchUserInfoResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FetchUserInfoResponse {
+    return new FetchUserInfoResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FetchUserInfoResponse {
+    return new FetchUserInfoResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: FetchUserInfoResponse | PlainMessage<FetchUserInfoResponse> | undefined, b: FetchUserInfoResponse | PlainMessage<FetchUserInfoResponse> | undefined): boolean {
+    return proto3.util.equals(FetchUserInfoResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SetUserInfoRequest
+ */
+export class SetUserInfoRequest extends Message<SetUserInfoRequest> {
+  /**
+   * @generated from field: google.internal.cloud.code.v1internal.UserSettings user_settings = 1;
+   */
+  userSettings?: UserSettings$1;
+
+  constructor(data?: PartialMessage<SetUserInfoRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SetUserInfoRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user_settings", kind: "message", T: UserSettings$1 },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetUserInfoRequest {
+    return new SetUserInfoRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetUserInfoRequest {
+    return new SetUserInfoRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetUserInfoRequest {
+    return new SetUserInfoRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetUserInfoRequest | PlainMessage<SetUserInfoRequest> | undefined, b: SetUserInfoRequest | PlainMessage<SetUserInfoRequest> | undefined): boolean {
+    return proto3.util.equals(SetUserInfoRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SetUserInfoResponse
+ */
+export class SetUserInfoResponse extends Message<SetUserInfoResponse> {
+  /**
+   * @generated from field: google.internal.cloud.code.v1internal.UserSettings user_settings = 1;
+   */
+  userSettings?: UserSettings$1;
+
+  constructor(data?: PartialMessage<SetUserInfoResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SetUserInfoResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user_settings", kind: "message", T: UserSettings$1 },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetUserInfoResponse {
+    return new SetUserInfoResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetUserInfoResponse {
+    return new SetUserInfoResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetUserInfoResponse {
+    return new SetUserInfoResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetUserInfoResponse | PlainMessage<SetUserInfoResponse> | undefined, b: SetUserInfoResponse | PlainMessage<SetUserInfoResponse> | undefined): boolean {
+    return proto3.util.equals(SetUserInfoResponse, a, b);
   }
 }
 
@@ -6074,6 +7033,11 @@ export class StartCascadeRequest extends Message<StartCascadeRequest> {
   baseTrajectoryIdentifier?: BaseTrajectoryIdentifier;
 
   /**
+   * @generated from field: exa.cortex_pb.SourceMetadata source_metadata = 13;
+   */
+  sourceMetadata?: SourceMetadata;
+
+  /**
    * @generated from field: exa.cortex_pb.CortexTrajectorySource source = 4;
    */
   source = CortexTrajectorySource.UNSPECIFIED;
@@ -6094,6 +7058,26 @@ export class StartCascadeRequest extends Message<StartCascadeRequest> {
   cascadeId = "";
 
   /**
+   * @generated from field: repeated string workspace_uris = 8;
+   */
+  workspaceUris: string[] = [];
+
+  /**
+   * @generated from field: repeated string override_workspace_uris = 9;
+   */
+  overrideWorkspaceUris: string[] = [];
+
+  /**
+   * @generated from field: string parent_conversation_id = 12;
+   */
+  parentConversationId = "";
+
+  /**
+   * @generated from field: exa.cortex_pb.CustomAgentSpec custom_agent_spec = 11;
+   */
+  customAgentSpec?: CustomAgentSpec;
+
+  /**
    * @generated from field: exa.codeium_common_pb.Metadata metadata = 1;
    */
   metadata?: Metadata;
@@ -6112,10 +7096,15 @@ export class StartCascadeRequest extends Message<StartCascadeRequest> {
   static readonly typeName = "exa.language_server_pb.StartCascadeRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 3, name: "base_trajectory_identifier", kind: "message", T: BaseTrajectoryIdentifier },
+    { no: 13, name: "source_metadata", kind: "message", T: SourceMetadata },
     { no: 4, name: "source", kind: "enum", T: proto3.getEnumType(CortexTrajectorySource) },
     { no: 5, name: "trajectory_type", kind: "enum", T: proto3.getEnumType(CortexTrajectoryType) },
     { no: 6, name: "agent_script_item", kind: "message", T: AgentScriptItem },
     { no: 7, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "workspace_uris", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 9, name: "override_workspace_uris", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 12, name: "parent_conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 11, name: "custom_agent_spec", kind: "message", T: CustomAgentSpec },
     { no: 1, name: "metadata", kind: "message", T: Metadata },
     { no: 2, name: "experiment_config", kind: "message", T: ExperimentConfig },
   ]);
@@ -6175,6 +7164,80 @@ export class StartCascadeResponse extends Message<StartCascadeResponse> {
 }
 
 /**
+ * @generated from message exa.language_server_pb.SetOrVerifyStaticConfigRequest
+ */
+export class SetOrVerifyStaticConfigRequest extends Message<SetOrVerifyStaticConfigRequest> {
+  /**
+   * @generated from field: string cascade_id = 1;
+   */
+  cascadeId = "";
+
+  /**
+   * @generated from field: exa.cortex_pb.CustomAgentSpec custom_agent_spec = 2;
+   */
+  customAgentSpec?: CustomAgentSpec;
+
+  constructor(data?: PartialMessage<SetOrVerifyStaticConfigRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SetOrVerifyStaticConfigRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "custom_agent_spec", kind: "message", T: CustomAgentSpec },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetOrVerifyStaticConfigRequest {
+    return new SetOrVerifyStaticConfigRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetOrVerifyStaticConfigRequest {
+    return new SetOrVerifyStaticConfigRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetOrVerifyStaticConfigRequest {
+    return new SetOrVerifyStaticConfigRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetOrVerifyStaticConfigRequest | PlainMessage<SetOrVerifyStaticConfigRequest> | undefined, b: SetOrVerifyStaticConfigRequest | PlainMessage<SetOrVerifyStaticConfigRequest> | undefined): boolean {
+    return proto3.util.equals(SetOrVerifyStaticConfigRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SetOrVerifyStaticConfigResponse
+ */
+export class SetOrVerifyStaticConfigResponse extends Message<SetOrVerifyStaticConfigResponse> {
+  constructor(data?: PartialMessage<SetOrVerifyStaticConfigResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SetOrVerifyStaticConfigResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetOrVerifyStaticConfigResponse {
+    return new SetOrVerifyStaticConfigResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetOrVerifyStaticConfigResponse {
+    return new SetOrVerifyStaticConfigResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetOrVerifyStaticConfigResponse {
+    return new SetOrVerifyStaticConfigResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetOrVerifyStaticConfigResponse | PlainMessage<SetOrVerifyStaticConfigResponse> | undefined, b: SetOrVerifyStaticConfigResponse | PlainMessage<SetOrVerifyStaticConfigResponse> | undefined): boolean {
+    return proto3.util.equals(SetOrVerifyStaticConfigResponse, a, b);
+  }
+}
+
+/**
  * @generated from message exa.language_server_pb.GetCascadeTrajectoryRequest
  */
 export class GetCascadeTrajectoryRequest extends Message<GetCascadeTrajectoryRequest> {
@@ -6188,6 +7251,11 @@ export class GetCascadeTrajectoryRequest extends Message<GetCascadeTrajectoryReq
    */
   verbosity = ClientTrajectoryVerbosity.UNSPECIFIED;
 
+  /**
+   * @generated from field: exa.jetski_cortex_pb.ClientTrajectoryVerbosity trajectory_verbosity = 3;
+   */
+  trajectoryVerbosity = ClientTrajectoryVerbosity$1.UNSPECIFIED;
+
   constructor(data?: PartialMessage<GetCascadeTrajectoryRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -6198,6 +7266,7 @@ export class GetCascadeTrajectoryRequest extends Message<GetCascadeTrajectoryReq
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "verbosity", kind: "enum", T: proto3.getEnumType(ClientTrajectoryVerbosity) },
+    { no: 3, name: "trajectory_verbosity", kind: "enum", T: proto3.getEnumType(ClientTrajectoryVerbosity$1) },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCascadeTrajectoryRequest {
@@ -6439,6 +7508,11 @@ export class GetCascadeTrajectoryStepsRequest extends Message<GetCascadeTrajecto
    */
   verbosity = ClientTrajectoryVerbosity.UNSPECIFIED;
 
+  /**
+   * @generated from field: exa.jetski_cortex_pb.ClientTrajectoryVerbosity trajectory_verbosity = 4;
+   */
+  trajectoryVerbosity = ClientTrajectoryVerbosity$1.UNSPECIFIED;
+
   constructor(data?: PartialMessage<GetCascadeTrajectoryStepsRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -6450,6 +7524,7 @@ export class GetCascadeTrajectoryStepsRequest extends Message<GetCascadeTrajecto
     { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "step_offset", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 3, name: "verbosity", kind: "enum", T: proto3.getEnumType(ClientTrajectoryVerbosity) },
+    { no: 4, name: "trajectory_verbosity", kind: "enum", T: proto3.getEnumType(ClientTrajectoryVerbosity$1) },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCascadeTrajectoryStepsRequest {
@@ -6596,6 +7671,11 @@ export class GetCascadeTrajectoryGeneratorMetadataResponse extends Message<GetCa
  * @generated from message exa.language_server_pb.GetAllCascadeTrajectoriesRequest
  */
 export class GetAllCascadeTrajectoriesRequest extends Message<GetAllCascadeTrajectoriesRequest> {
+  /**
+   * @generated from field: bool exclude_subtrajectories = 1;
+   */
+  excludeSubtrajectories = false;
+
   constructor(data?: PartialMessage<GetAllCascadeTrajectoriesRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -6604,6 +7684,7 @@ export class GetAllCascadeTrajectoriesRequest extends Message<GetAllCascadeTraje
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.language_server_pb.GetAllCascadeTrajectoriesRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "exclude_subtrajectories", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAllCascadeTrajectoriesRequest {
@@ -6712,6 +7793,16 @@ export class CancelCascadeInvocationRequest extends Message<CancelCascadeInvocat
    */
   cascadeId = "";
 
+  /**
+   * @generated from field: bool kill_background_tasks = 2;
+   */
+  killBackgroundTasks = false;
+
+  /**
+   * @generated from field: bool notify_parent = 3;
+   */
+  notifyParent = false;
+
   constructor(data?: PartialMessage<CancelCascadeInvocationRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -6721,6 +7812,8 @@ export class CancelCascadeInvocationRequest extends Message<CancelCascadeInvocat
   static readonly typeName = "exa.language_server_pb.CancelCascadeInvocationRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "kill_background_tasks", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "notify_parent", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CancelCascadeInvocationRequest {
@@ -6768,6 +7861,80 @@ export class CancelCascadeInvocationResponse extends Message<CancelCascadeInvoca
 
   static equals(a: CancelCascadeInvocationResponse | PlainMessage<CancelCascadeInvocationResponse> | undefined, b: CancelCascadeInvocationResponse | PlainMessage<CancelCascadeInvocationResponse> | undefined): boolean {
     return proto3.util.equals(CancelCascadeInvocationResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ForceStopCascadeTreeRequest
+ */
+export class ForceStopCascadeTreeRequest extends Message<ForceStopCascadeTreeRequest> {
+  /**
+   * @generated from field: string conversation_id = 1;
+   */
+  conversationId = "";
+
+  constructor(data?: PartialMessage<ForceStopCascadeTreeRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ForceStopCascadeTreeRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ForceStopCascadeTreeRequest {
+    return new ForceStopCascadeTreeRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ForceStopCascadeTreeRequest {
+    return new ForceStopCascadeTreeRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ForceStopCascadeTreeRequest {
+    return new ForceStopCascadeTreeRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ForceStopCascadeTreeRequest | PlainMessage<ForceStopCascadeTreeRequest> | undefined, b: ForceStopCascadeTreeRequest | PlainMessage<ForceStopCascadeTreeRequest> | undefined): boolean {
+    return proto3.util.equals(ForceStopCascadeTreeRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ForceStopCascadeTreeResponse
+ */
+export class ForceStopCascadeTreeResponse extends Message<ForceStopCascadeTreeResponse> {
+  /**
+   * @generated from field: repeated string stopped_conversation_ids = 1;
+   */
+  stoppedConversationIds: string[] = [];
+
+  constructor(data?: PartialMessage<ForceStopCascadeTreeResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ForceStopCascadeTreeResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "stopped_conversation_ids", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ForceStopCascadeTreeResponse {
+    return new ForceStopCascadeTreeResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ForceStopCascadeTreeResponse {
+    return new ForceStopCascadeTreeResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ForceStopCascadeTreeResponse {
+    return new ForceStopCascadeTreeResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ForceStopCascadeTreeResponse | PlainMessage<ForceStopCascadeTreeResponse> | undefined, b: ForceStopCascadeTreeResponse | PlainMessage<ForceStopCascadeTreeResponse> | undefined): boolean {
+    return proto3.util.equals(ForceStopCascadeTreeResponse, a, b);
   }
 }
 
@@ -6842,6 +8009,80 @@ export class CancelCascadeStepsResponse extends Message<CancelCascadeStepsRespon
 
   static equals(a: CancelCascadeStepsResponse | PlainMessage<CancelCascadeStepsResponse> | undefined, b: CancelCascadeStepsResponse | PlainMessage<CancelCascadeStepsResponse> | undefined): boolean {
     return proto3.util.equals(CancelCascadeStepsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SendStepsToBackgroundRequest
+ */
+export class SendStepsToBackgroundRequest extends Message<SendStepsToBackgroundRequest> {
+  /**
+   * @generated from field: string conversation_id = 1;
+   */
+  conversationId = "";
+
+  /**
+   * @generated from field: repeated uint32 step_indices = 2;
+   */
+  stepIndices: number[] = [];
+
+  constructor(data?: PartialMessage<SendStepsToBackgroundRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SendStepsToBackgroundRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "step_indices", kind: "scalar", T: 13 /* ScalarType.UINT32 */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendStepsToBackgroundRequest {
+    return new SendStepsToBackgroundRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SendStepsToBackgroundRequest {
+    return new SendStepsToBackgroundRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SendStepsToBackgroundRequest {
+    return new SendStepsToBackgroundRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SendStepsToBackgroundRequest | PlainMessage<SendStepsToBackgroundRequest> | undefined, b: SendStepsToBackgroundRequest | PlainMessage<SendStepsToBackgroundRequest> | undefined): boolean {
+    return proto3.util.equals(SendStepsToBackgroundRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SendStepsToBackgroundResponse
+ */
+export class SendStepsToBackgroundResponse extends Message<SendStepsToBackgroundResponse> {
+  constructor(data?: PartialMessage<SendStepsToBackgroundResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SendStepsToBackgroundResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendStepsToBackgroundResponse {
+    return new SendStepsToBackgroundResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SendStepsToBackgroundResponse {
+    return new SendStepsToBackgroundResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SendStepsToBackgroundResponse {
+    return new SendStepsToBackgroundResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SendStepsToBackgroundResponse | PlainMessage<SendStepsToBackgroundResponse> | undefined, b: SendStepsToBackgroundResponse | PlainMessage<SendStepsToBackgroundResponse> | undefined): boolean {
+    return proto3.util.equals(SendStepsToBackgroundResponse, a, b);
   }
 }
 
@@ -6969,6 +8210,11 @@ export class SendUserCascadeMessageRequest extends Message<SendUserCascadeMessag
   cascadeConfig?: CascadeConfig;
 
   /**
+   * @generated from field: exa.cortex_pb.CustomAgentSpec custom_agent_spec = 19;
+   */
+  customAgentSpec?: CustomAgentSpec;
+
+  /**
    * @generated from field: exa.codeium_common_pb.ExperimentConfig experiment_config = 4;
    */
   experimentConfig?: ExperimentConfig;
@@ -7020,6 +8266,7 @@ export class SendUserCascadeMessageRequest extends Message<SendUserCascadeMessag
     { no: 13, name: "file_comments", kind: "message", T: FileComment, repeated: true },
     { no: 14, name: "media", kind: "message", T: Media, repeated: true },
     { no: 5, name: "cascade_config", kind: "message", T: CascadeConfig },
+    { no: 19, name: "custom_agent_spec", kind: "message", T: CustomAgentSpec },
     { no: 4, name: "experiment_config", kind: "message", T: ExperimentConfig },
     { no: 8, name: "blocking", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 9, name: "additional_steps", kind: "message", T: Step, repeated: true },
@@ -7050,11 +8297,6 @@ export class SendUserCascadeMessageRequest extends Message<SendUserCascadeMessag
  * @generated from message exa.language_server_pb.SendUserCascadeMessageResponse
  */
 export class SendUserCascadeMessageResponse extends Message<SendUserCascadeMessageResponse> {
-  /**
-   * @generated from field: bool queued = 1;
-   */
-  queued = false;
-
   constructor(data?: PartialMessage<SendUserCascadeMessageResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -7063,7 +8305,6 @@ export class SendUserCascadeMessageResponse extends Message<SendUserCascadeMessa
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.language_server_pb.SendUserCascadeMessageResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "queued", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendUserCascadeMessageResponse {
@@ -7080,6 +8321,154 @@ export class SendUserCascadeMessageResponse extends Message<SendUserCascadeMessa
 
   static equals(a: SendUserCascadeMessageResponse | PlainMessage<SendUserCascadeMessageResponse> | undefined, b: SendUserCascadeMessageResponse | PlainMessage<SendUserCascadeMessageResponse> | undefined): boolean {
     return proto3.util.equals(SendUserCascadeMessageResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.StartBattleModeRequest
+ */
+export class StartBattleModeRequest extends Message<StartBattleModeRequest> {
+  /**
+   * @generated from field: exa.language_server_pb.SendUserCascadeMessageRequest request = 1;
+   */
+  request?: SendUserCascadeMessageRequest;
+
+  constructor(data?: PartialMessage<StartBattleModeRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.StartBattleModeRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "request", kind: "message", T: SendUserCascadeMessageRequest },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StartBattleModeRequest {
+    return new StartBattleModeRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StartBattleModeRequest {
+    return new StartBattleModeRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StartBattleModeRequest {
+    return new StartBattleModeRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: StartBattleModeRequest | PlainMessage<StartBattleModeRequest> | undefined, b: StartBattleModeRequest | PlainMessage<StartBattleModeRequest> | undefined): boolean {
+    return proto3.util.equals(StartBattleModeRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.StartBattleModeResponse
+ */
+export class StartBattleModeResponse extends Message<StartBattleModeResponse> {
+  /**
+   * @generated from field: repeated string children_conversation_ids = 1;
+   */
+  childrenConversationIds: string[] = [];
+
+  constructor(data?: PartialMessage<StartBattleModeResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.StartBattleModeResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "children_conversation_ids", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StartBattleModeResponse {
+    return new StartBattleModeResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StartBattleModeResponse {
+    return new StartBattleModeResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StartBattleModeResponse {
+    return new StartBattleModeResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: StartBattleModeResponse | PlainMessage<StartBattleModeResponse> | undefined, b: StartBattleModeResponse | PlainMessage<StartBattleModeResponse> | undefined): boolean {
+    return proto3.util.equals(StartBattleModeResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.EndBattleModeRequest
+ */
+export class EndBattleModeRequest extends Message<EndBattleModeRequest> {
+  /**
+   * @generated from field: string winner_conversation_id = 1;
+   */
+  winnerConversationId = "";
+
+  constructor(data?: PartialMessage<EndBattleModeRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.EndBattleModeRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "winner_conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EndBattleModeRequest {
+    return new EndBattleModeRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EndBattleModeRequest {
+    return new EndBattleModeRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EndBattleModeRequest {
+    return new EndBattleModeRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EndBattleModeRequest | PlainMessage<EndBattleModeRequest> | undefined, b: EndBattleModeRequest | PlainMessage<EndBattleModeRequest> | undefined): boolean {
+    return proto3.util.equals(EndBattleModeRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.EndBattleModeResponse
+ */
+export class EndBattleModeResponse extends Message<EndBattleModeResponse> {
+  /**
+   * @generated from field: string main_conversation_id = 1;
+   */
+  mainConversationId = "";
+
+  constructor(data?: PartialMessage<EndBattleModeResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.EndBattleModeResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "main_conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EndBattleModeResponse {
+    return new EndBattleModeResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EndBattleModeResponse {
+    return new EndBattleModeResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EndBattleModeResponse {
+    return new EndBattleModeResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EndBattleModeResponse | PlainMessage<EndBattleModeResponse> | undefined, b: EndBattleModeResponse | PlainMessage<EndBattleModeResponse> | undefined): boolean {
+    return proto3.util.equals(EndBattleModeResponse, a, b);
   }
 }
 
@@ -9455,9 +10844,156 @@ export class GetMcpServerStatesResponse extends Message<GetMcpServerStatesRespon
 }
 
 /**
+ * @generated from message exa.language_server_pb.CompleteMcpOAuthRequest
+ */
+export class CompleteMcpOAuthRequest extends Message<CompleteMcpOAuthRequest> {
+  /**
+   * @generated from field: string server_name = 1;
+   */
+  serverName = "";
+
+  /**
+   * @generated from field: string authorization_code = 2;
+   */
+  authorizationCode = "";
+
+  constructor(data?: PartialMessage<CompleteMcpOAuthRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.CompleteMcpOAuthRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "server_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "authorization_code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompleteMcpOAuthRequest {
+    return new CompleteMcpOAuthRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompleteMcpOAuthRequest {
+    return new CompleteMcpOAuthRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompleteMcpOAuthRequest {
+    return new CompleteMcpOAuthRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompleteMcpOAuthRequest | PlainMessage<CompleteMcpOAuthRequest> | undefined, b: CompleteMcpOAuthRequest | PlainMessage<CompleteMcpOAuthRequest> | undefined): boolean {
+    return proto3.util.equals(CompleteMcpOAuthRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.CompleteMcpOAuthResponse
+ */
+export class CompleteMcpOAuthResponse extends Message<CompleteMcpOAuthResponse> {
+  constructor(data?: PartialMessage<CompleteMcpOAuthResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.CompleteMcpOAuthResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompleteMcpOAuthResponse {
+    return new CompleteMcpOAuthResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompleteMcpOAuthResponse {
+    return new CompleteMcpOAuthResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompleteMcpOAuthResponse {
+    return new CompleteMcpOAuthResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompleteMcpOAuthResponse | PlainMessage<CompleteMcpOAuthResponse> | undefined, b: CompleteMcpOAuthResponse | PlainMessage<CompleteMcpOAuthResponse> | undefined): boolean {
+    return proto3.util.equals(CompleteMcpOAuthResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.DisconnectMcpOAuthRequest
+ */
+export class DisconnectMcpOAuthRequest extends Message<DisconnectMcpOAuthRequest> {
+  /**
+   * @generated from field: string server_name = 1;
+   */
+  serverName = "";
+
+  constructor(data?: PartialMessage<DisconnectMcpOAuthRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.DisconnectMcpOAuthRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "server_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DisconnectMcpOAuthRequest {
+    return new DisconnectMcpOAuthRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DisconnectMcpOAuthRequest {
+    return new DisconnectMcpOAuthRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DisconnectMcpOAuthRequest {
+    return new DisconnectMcpOAuthRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DisconnectMcpOAuthRequest | PlainMessage<DisconnectMcpOAuthRequest> | undefined, b: DisconnectMcpOAuthRequest | PlainMessage<DisconnectMcpOAuthRequest> | undefined): boolean {
+    return proto3.util.equals(DisconnectMcpOAuthRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.DisconnectMcpOAuthResponse
+ */
+export class DisconnectMcpOAuthResponse extends Message<DisconnectMcpOAuthResponse> {
+  constructor(data?: PartialMessage<DisconnectMcpOAuthResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.DisconnectMcpOAuthResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DisconnectMcpOAuthResponse {
+    return new DisconnectMcpOAuthResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DisconnectMcpOAuthResponse {
+    return new DisconnectMcpOAuthResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DisconnectMcpOAuthResponse {
+    return new DisconnectMcpOAuthResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DisconnectMcpOAuthResponse | PlainMessage<DisconnectMcpOAuthResponse> | undefined, b: DisconnectMcpOAuthResponse | PlainMessage<DisconnectMcpOAuthResponse> | undefined): boolean {
+    return proto3.util.equals(DisconnectMcpOAuthResponse, a, b);
+  }
+}
+
+/**
  * @generated from message exa.language_server_pb.GetAllWorkflowsRequest
  */
 export class GetAllWorkflowsRequest extends Message<GetAllWorkflowsRequest> {
+  /**
+   * @generated from field: repeated string workspace_uris = 1;
+   */
+  workspaceUris: string[] = [];
+
   constructor(data?: PartialMessage<GetAllWorkflowsRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -9466,6 +11002,7 @@ export class GetAllWorkflowsRequest extends Message<GetAllWorkflowsRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.language_server_pb.GetAllWorkflowsRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "workspace_uris", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAllWorkflowsRequest {
@@ -9717,6 +11254,11 @@ export class CopyBuiltinWorkflowToWorkspaceResponse extends Message<CopyBuiltinW
  * @generated from message exa.language_server_pb.GetAllRulesRequest
  */
 export class GetAllRulesRequest extends Message<GetAllRulesRequest> {
+  /**
+   * @generated from field: repeated string workspace_uris = 1;
+   */
+  workspaceUris: string[] = [];
+
   constructor(data?: PartialMessage<GetAllRulesRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -9725,6 +11267,7 @@ export class GetAllRulesRequest extends Message<GetAllRulesRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.language_server_pb.GetAllRulesRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "workspace_uris", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAllRulesRequest {
@@ -9785,6 +11328,11 @@ export class GetAllRulesResponse extends Message<GetAllRulesResponse> {
  * @generated from message exa.language_server_pb.GetAllSkillsRequest
  */
 export class GetAllSkillsRequest extends Message<GetAllSkillsRequest> {
+  /**
+   * @generated from field: repeated string workspace_uris = 1;
+   */
+  workspaceUris: string[] = [];
+
   constructor(data?: PartialMessage<GetAllSkillsRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -9793,6 +11341,7 @@ export class GetAllSkillsRequest extends Message<GetAllSkillsRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.language_server_pb.GetAllSkillsRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "workspace_uris", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAllSkillsRequest {
@@ -9846,6 +11395,160 @@ export class GetAllSkillsResponse extends Message<GetAllSkillsResponse> {
 
   static equals(a: GetAllSkillsResponse | PlainMessage<GetAllSkillsResponse> | undefined, b: GetAllSkillsResponse | PlainMessage<GetAllSkillsResponse> | undefined): boolean {
     return proto3.util.equals(GetAllSkillsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetSkillMarketplaceLinkRequest
+ */
+export class GetSkillMarketplaceLinkRequest extends Message<GetSkillMarketplaceLinkRequest> {
+  /**
+   * @generated from field: string skill_path = 1;
+   */
+  skillPath = "";
+
+  constructor(data?: PartialMessage<GetSkillMarketplaceLinkRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetSkillMarketplaceLinkRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "skill_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetSkillMarketplaceLinkRequest {
+    return new GetSkillMarketplaceLinkRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetSkillMarketplaceLinkRequest {
+    return new GetSkillMarketplaceLinkRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetSkillMarketplaceLinkRequest {
+    return new GetSkillMarketplaceLinkRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetSkillMarketplaceLinkRequest | PlainMessage<GetSkillMarketplaceLinkRequest> | undefined, b: GetSkillMarketplaceLinkRequest | PlainMessage<GetSkillMarketplaceLinkRequest> | undefined): boolean {
+    return proto3.util.equals(GetSkillMarketplaceLinkRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetSkillMarketplaceLinkResponse
+ */
+export class GetSkillMarketplaceLinkResponse extends Message<GetSkillMarketplaceLinkResponse> {
+  /**
+   * @generated from field: string marketplace_url = 1;
+   */
+  marketplaceUrl = "";
+
+  constructor(data?: PartialMessage<GetSkillMarketplaceLinkResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetSkillMarketplaceLinkResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "marketplace_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetSkillMarketplaceLinkResponse {
+    return new GetSkillMarketplaceLinkResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetSkillMarketplaceLinkResponse {
+    return new GetSkillMarketplaceLinkResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetSkillMarketplaceLinkResponse {
+    return new GetSkillMarketplaceLinkResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetSkillMarketplaceLinkResponse | PlainMessage<GetSkillMarketplaceLinkResponse> | undefined, b: GetSkillMarketplaceLinkResponse | PlainMessage<GetSkillMarketplaceLinkResponse> | undefined): boolean {
+    return proto3.util.equals(GetSkillMarketplaceLinkResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ScanSkillsConfigFileRequest
+ */
+export class ScanSkillsConfigFileRequest extends Message<ScanSkillsConfigFileRequest> {
+  /**
+   * @generated from field: string config_file_path = 1;
+   */
+  configFilePath = "";
+
+  /**
+   * @generated from field: string workspace_uri = 2;
+   */
+  workspaceUri = "";
+
+  constructor(data?: PartialMessage<ScanSkillsConfigFileRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ScanSkillsConfigFileRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "config_file_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "workspace_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ScanSkillsConfigFileRequest {
+    return new ScanSkillsConfigFileRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ScanSkillsConfigFileRequest {
+    return new ScanSkillsConfigFileRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ScanSkillsConfigFileRequest {
+    return new ScanSkillsConfigFileRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ScanSkillsConfigFileRequest | PlainMessage<ScanSkillsConfigFileRequest> | undefined, b: ScanSkillsConfigFileRequest | PlainMessage<ScanSkillsConfigFileRequest> | undefined): boolean {
+    return proto3.util.equals(ScanSkillsConfigFileRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ScanSkillsConfigFileResponse
+ */
+export class ScanSkillsConfigFileResponse extends Message<ScanSkillsConfigFileResponse> {
+  /**
+   * @generated from field: repeated exa.cortex_pb.WorkflowSpec skills = 1;
+   */
+  skills: WorkflowSpec[] = [];
+
+  constructor(data?: PartialMessage<ScanSkillsConfigFileResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ScanSkillsConfigFileResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "skills", kind: "message", T: WorkflowSpec, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ScanSkillsConfigFileResponse {
+    return new ScanSkillsConfigFileResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ScanSkillsConfigFileResponse {
+    return new ScanSkillsConfigFileResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ScanSkillsConfigFileResponse {
+    return new ScanSkillsConfigFileResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ScanSkillsConfigFileResponse | PlainMessage<ScanSkillsConfigFileResponse> | undefined, b: ScanSkillsConfigFileResponse | PlainMessage<ScanSkillsConfigFileResponse> | undefined): boolean {
+    return proto3.util.equals(ScanSkillsConfigFileResponse, a, b);
   }
 }
 
@@ -10318,6 +12021,11 @@ export class CreateCustomizationFileRequest extends Message<CreateCustomizationF
    */
   fileName = "";
 
+  /**
+   * @generated from field: string workspace_uri = 3;
+   */
+  workspaceUri = "";
+
   constructor(data?: PartialMessage<CreateCustomizationFileRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -10328,6 +12036,7 @@ export class CreateCustomizationFileRequest extends Message<CreateCustomizationF
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "file_type", kind: "enum", T: proto3.getEnumType(CustomizationFileType) },
     { no: 2, name: "file_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "workspace_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateCustomizationFileRequest {
@@ -10473,9 +12182,9 @@ export class RecordUserGrepRequest extends Message<RecordUserGrepRequest> {
   results: GrepSearchResult[] = [];
 
   /**
-   * @generated from field: bytes timestamp = 3;
+   * @generated from field: google.protobuf.Timestamp timestamp = 3;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   constructor(data?: PartialMessage<RecordUserGrepRequest>) {
     super();
@@ -10487,7 +12196,7 @@ export class RecordUserGrepRequest extends Message<RecordUserGrepRequest> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "results", kind: "message", T: GrepSearchResult, repeated: true },
-    { no: 3, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "timestamp", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecordUserGrepRequest {
@@ -10836,6 +12545,11 @@ export class ConvertTrajectoryToMarkdownRequest extends Message<ConvertTrajector
    */
   trajectory?: Trajectory;
 
+  /**
+   * @generated from field: string conversation_id = 2;
+   */
+  conversationId = "";
+
   constructor(data?: PartialMessage<ConvertTrajectoryToMarkdownRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -10845,6 +12559,7 @@ export class ConvertTrajectoryToMarkdownRequest extends Message<ConvertTrajector
   static readonly typeName = "exa.language_server_pb.ConvertTrajectoryToMarkdownRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "trajectory", kind: "message", T: Trajectory },
+    { no: 2, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConvertTrajectoryToMarkdownRequest {
@@ -10898,92 +12613,6 @@ export class ConvertTrajectoryToMarkdownResponse extends Message<ConvertTrajecto
 
   static equals(a: ConvertTrajectoryToMarkdownResponse | PlainMessage<ConvertTrajectoryToMarkdownResponse> | undefined, b: ConvertTrajectoryToMarkdownResponse | PlainMessage<ConvertTrajectoryToMarkdownResponse> | undefined): boolean {
     return proto3.util.equals(ConvertTrajectoryToMarkdownResponse, a, b);
-  }
-}
-
-/**
- * @generated from message exa.language_server_pb.CopyTrajectoryRequest
- */
-export class CopyTrajectoryRequest extends Message<CopyTrajectoryRequest> {
-  /**
-   * @generated from field: string cascade_id = 1;
-   */
-  cascadeId = "";
-
-  /**
-   * @generated from field: string destination_workspace_uri = 2;
-   */
-  destinationWorkspaceUri = "";
-
-  /**
-   * @generated from field: string additional_details = 3;
-   */
-  additionalDetails = "";
-
-  constructor(data?: PartialMessage<CopyTrajectoryRequest>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.language_server_pb.CopyTrajectoryRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "destination_workspace_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "additional_details", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CopyTrajectoryRequest {
-    return new CopyTrajectoryRequest().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CopyTrajectoryRequest {
-    return new CopyTrajectoryRequest().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CopyTrajectoryRequest {
-    return new CopyTrajectoryRequest().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: CopyTrajectoryRequest | PlainMessage<CopyTrajectoryRequest> | undefined, b: CopyTrajectoryRequest | PlainMessage<CopyTrajectoryRequest> | undefined): boolean {
-    return proto3.util.equals(CopyTrajectoryRequest, a, b);
-  }
-}
-
-/**
- * @generated from message exa.language_server_pb.CopyTrajectoryResponse
- */
-export class CopyTrajectoryResponse extends Message<CopyTrajectoryResponse> {
-  /**
-   * @generated from field: string new_cascade_id = 1;
-   */
-  newCascadeId = "";
-
-  constructor(data?: PartialMessage<CopyTrajectoryResponse>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.language_server_pb.CopyTrajectoryResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "new_cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CopyTrajectoryResponse {
-    return new CopyTrajectoryResponse().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CopyTrajectoryResponse {
-    return new CopyTrajectoryResponse().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CopyTrajectoryResponse {
-    return new CopyTrajectoryResponse().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: CopyTrajectoryResponse | PlainMessage<CopyTrajectoryResponse> | undefined, b: CopyTrajectoryResponse | PlainMessage<CopyTrajectoryResponse> | undefined): boolean {
-    return proto3.util.equals(CopyTrajectoryResponse, a, b);
   }
 }
 
@@ -11408,9 +13037,9 @@ export class RecordLintsRequest extends Message<RecordLintsRequest> {
   lints: CodeDiagnostic[] = [];
 
   /**
-   * @generated from field: bytes timestamp = 3;
+   * @generated from field: google.protobuf.Timestamp timestamp = 3;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   constructor(data?: PartialMessage<RecordLintsRequest>) {
     super();
@@ -11422,7 +13051,7 @@ export class RecordLintsRequest extends Message<RecordLintsRequest> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "current_language", kind: "enum", T: proto3.getEnumType(Language) },
     { no: 2, name: "lints", kind: "message", T: CodeDiagnostic, repeated: true },
-    { no: 3, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "timestamp", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecordLintsRequest {
@@ -11520,9 +13149,14 @@ export class StatUriResponse extends Message<StatUriResponse> {
   fileType = FileType.UNSPECIFIED;
 
   /**
-   * @generated from field: bytes mod_time = 2;
+   * @generated from field: google.protobuf.Timestamp mod_time = 2;
    */
-  modTime = new Uint8Array(0);
+  modTime?: Timestamp;
+
+  /**
+   * @generated from field: string normalized_uri = 3;
+   */
+  normalizedUri = "";
 
   constructor(data?: PartialMessage<StatUriResponse>) {
     super();
@@ -11533,7 +13167,8 @@ export class StatUriResponse extends Message<StatUriResponse> {
   static readonly typeName = "exa.language_server_pb.StatUriResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "file_type", kind: "enum", T: proto3.getEnumType(FileType) },
-    { no: 2, name: "mod_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "mod_time", kind: "message", T: Timestamp },
+    { no: 3, name: "normalized_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StatUriResponse {
@@ -11554,6 +13189,431 @@ export class StatUriResponse extends Message<StatUriResponse> {
 }
 
 /**
+ * @generated from message exa.language_server_pb.ReadFileRequest
+ */
+export class ReadFileRequest extends Message<ReadFileRequest> {
+  /**
+   * @generated from field: string uri = 1;
+   */
+  uri = "";
+
+  constructor(data?: PartialMessage<ReadFileRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ReadFileRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReadFileRequest {
+    return new ReadFileRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ReadFileRequest {
+    return new ReadFileRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ReadFileRequest {
+    return new ReadFileRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ReadFileRequest | PlainMessage<ReadFileRequest> | undefined, b: ReadFileRequest | PlainMessage<ReadFileRequest> | undefined): boolean {
+    return proto3.util.equals(ReadFileRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ReadFileResponse
+ */
+export class ReadFileResponse extends Message<ReadFileResponse> {
+  /**
+   * @generated from field: bytes content = 1;
+   */
+  content = new Uint8Array(0);
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Language language = 2;
+   */
+  language = Language.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<ReadFileResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ReadFileResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "content", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "language", kind: "enum", T: proto3.getEnumType(Language) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReadFileResponse {
+    return new ReadFileResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ReadFileResponse {
+    return new ReadFileResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ReadFileResponse {
+    return new ReadFileResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ReadFileResponse | PlainMessage<ReadFileResponse> | undefined, b: ReadFileResponse | PlainMessage<ReadFileResponse> | undefined): boolean {
+    return proto3.util.equals(ReadFileResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.WriteFileRequest
+ */
+export class WriteFileRequest extends Message<WriteFileRequest> {
+  /**
+   * @generated from field: string uri = 1;
+   */
+  uri = "";
+
+  /**
+   * @generated from field: bytes content = 2;
+   */
+  content = new Uint8Array(0);
+
+  /**
+   * @generated from field: bool overwrite = 3;
+   */
+  overwrite = false;
+
+  constructor(data?: PartialMessage<WriteFileRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.WriteFileRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "content", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "overwrite", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WriteFileRequest {
+    return new WriteFileRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WriteFileRequest {
+    return new WriteFileRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WriteFileRequest {
+    return new WriteFileRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WriteFileRequest | PlainMessage<WriteFileRequest> | undefined, b: WriteFileRequest | PlainMessage<WriteFileRequest> | undefined): boolean {
+    return proto3.util.equals(WriteFileRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.WriteFileResponse
+ */
+export class WriteFileResponse extends Message<WriteFileResponse> {
+  constructor(data?: PartialMessage<WriteFileResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.WriteFileResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WriteFileResponse {
+    return new WriteFileResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WriteFileResponse {
+    return new WriteFileResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WriteFileResponse {
+    return new WriteFileResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WriteFileResponse | PlainMessage<WriteFileResponse> | undefined, b: WriteFileResponse | PlainMessage<WriteFileResponse> | undefined): boolean {
+    return proto3.util.equals(WriteFileResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ReadDirRequest
+ */
+export class ReadDirRequest extends Message<ReadDirRequest> {
+  /**
+   * @generated from field: string uri = 1;
+   */
+  uri = "";
+
+  constructor(data?: PartialMessage<ReadDirRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ReadDirRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReadDirRequest {
+    return new ReadDirRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ReadDirRequest {
+    return new ReadDirRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ReadDirRequest {
+    return new ReadDirRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ReadDirRequest | PlainMessage<ReadDirRequest> | undefined, b: ReadDirRequest | PlainMessage<ReadDirRequest> | undefined): boolean {
+    return proto3.util.equals(ReadDirRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ReadDirEntry
+ */
+export class ReadDirEntry extends Message<ReadDirEntry> {
+  /**
+   * @generated from field: string uri = 1;
+   */
+  uri = "";
+
+  /**
+   * @generated from field: exa.language_server_pb.FileType file_type = 2;
+   */
+  fileType = FileType.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<ReadDirEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ReadDirEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "file_type", kind: "enum", T: proto3.getEnumType(FileType) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReadDirEntry {
+    return new ReadDirEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ReadDirEntry {
+    return new ReadDirEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ReadDirEntry {
+    return new ReadDirEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ReadDirEntry | PlainMessage<ReadDirEntry> | undefined, b: ReadDirEntry | PlainMessage<ReadDirEntry> | undefined): boolean {
+    return proto3.util.equals(ReadDirEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ReadDirResponse
+ */
+export class ReadDirResponse extends Message<ReadDirResponse> {
+  /**
+   * @generated from field: repeated exa.language_server_pb.ReadDirEntry entries = 1;
+   */
+  entries: ReadDirEntry[] = [];
+
+  constructor(data?: PartialMessage<ReadDirResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ReadDirResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "entries", kind: "message", T: ReadDirEntry, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReadDirResponse {
+    return new ReadDirResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ReadDirResponse {
+    return new ReadDirResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ReadDirResponse {
+    return new ReadDirResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ReadDirResponse | PlainMessage<ReadDirResponse> | undefined, b: ReadDirResponse | PlainMessage<ReadDirResponse> | undefined): boolean {
+    return proto3.util.equals(ReadDirResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.DeleteFileOrDirectoryRequest
+ */
+export class DeleteFileOrDirectoryRequest extends Message<DeleteFileOrDirectoryRequest> {
+  /**
+   * @generated from field: string uri = 1;
+   */
+  uri = "";
+
+  constructor(data?: PartialMessage<DeleteFileOrDirectoryRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.DeleteFileOrDirectoryRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteFileOrDirectoryRequest {
+    return new DeleteFileOrDirectoryRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteFileOrDirectoryRequest {
+    return new DeleteFileOrDirectoryRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteFileOrDirectoryRequest {
+    return new DeleteFileOrDirectoryRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteFileOrDirectoryRequest | PlainMessage<DeleteFileOrDirectoryRequest> | undefined, b: DeleteFileOrDirectoryRequest | PlainMessage<DeleteFileOrDirectoryRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteFileOrDirectoryRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.DeleteFileOrDirectoryResponse
+ */
+export class DeleteFileOrDirectoryResponse extends Message<DeleteFileOrDirectoryResponse> {
+  constructor(data?: PartialMessage<DeleteFileOrDirectoryResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.DeleteFileOrDirectoryResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteFileOrDirectoryResponse {
+    return new DeleteFileOrDirectoryResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteFileOrDirectoryResponse {
+    return new DeleteFileOrDirectoryResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteFileOrDirectoryResponse {
+    return new DeleteFileOrDirectoryResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteFileOrDirectoryResponse | PlainMessage<DeleteFileOrDirectoryResponse> | undefined, b: DeleteFileOrDirectoryResponse | PlainMessage<DeleteFileOrDirectoryResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteFileOrDirectoryResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.WatchDirectoryRequest
+ */
+export class WatchDirectoryRequest extends Message<WatchDirectoryRequest> {
+  /**
+   * @generated from field: string uri = 1;
+   */
+  uri = "";
+
+  /**
+   * @generated from field: bool recursive = 2;
+   */
+  recursive = false;
+
+  constructor(data?: PartialMessage<WatchDirectoryRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.WatchDirectoryRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "recursive", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WatchDirectoryRequest {
+    return new WatchDirectoryRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WatchDirectoryRequest {
+    return new WatchDirectoryRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WatchDirectoryRequest {
+    return new WatchDirectoryRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WatchDirectoryRequest | PlainMessage<WatchDirectoryRequest> | undefined, b: WatchDirectoryRequest | PlainMessage<WatchDirectoryRequest> | undefined): boolean {
+    return proto3.util.equals(WatchDirectoryRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.WatchDirectoryResponse
+ */
+export class WatchDirectoryResponse extends Message<WatchDirectoryResponse> {
+  /**
+   * @generated from field: repeated string uri = 1;
+   */
+  uri: string[] = [];
+
+  constructor(data?: PartialMessage<WatchDirectoryResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.WatchDirectoryResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WatchDirectoryResponse {
+    return new WatchDirectoryResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WatchDirectoryResponse {
+    return new WatchDirectoryResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WatchDirectoryResponse {
+    return new WatchDirectoryResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WatchDirectoryResponse | PlainMessage<WatchDirectoryResponse> | undefined, b: WatchDirectoryResponse | PlainMessage<WatchDirectoryResponse> | undefined): boolean {
+    return proto3.util.equals(WatchDirectoryResponse, a, b);
+  }
+}
+
+/**
  * @generated from message exa.language_server_pb.SetBrowserOpenConversationRequest
  */
 export class SetBrowserOpenConversationRequest extends Message<SetBrowserOpenConversationRequest> {
@@ -11563,9 +13623,9 @@ export class SetBrowserOpenConversationRequest extends Message<SetBrowserOpenCon
   cascadeId = "";
 
   /**
-   * @generated from field: bytes expires_at = 2;
+   * @generated from field: google.protobuf.Timestamp expires_at = 2;
    */
-  expiresAt = new Uint8Array(0);
+  expiresAt?: Timestamp;
 
   constructor(data?: PartialMessage<SetBrowserOpenConversationRequest>) {
     super();
@@ -11576,7 +13636,7 @@ export class SetBrowserOpenConversationRequest extends Message<SetBrowserOpenCon
   static readonly typeName = "exa.language_server_pb.SetBrowserOpenConversationRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "expires_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "expires_at", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetBrowserOpenConversationRequest {
@@ -12108,6 +14168,246 @@ export class RecordAnalyticsEventResponse extends Message<RecordAnalyticsEventRe
 }
 
 /**
+ * @generated from message exa.language_server_pb.RecordErrorRequest
+ */
+export class RecordErrorRequest extends Message<RecordErrorRequest> {
+  /**
+   * @generated from field: exa.codeium_common_pb.ErrorTrace error_trace = 1;
+   */
+  errorTrace?: ErrorTrace;
+
+  /**
+   * @generated from field: bool should_upload_immediately = 2;
+   */
+  shouldUploadImmediately = false;
+
+  constructor(data?: PartialMessage<RecordErrorRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.RecordErrorRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "error_trace", kind: "message", T: ErrorTrace },
+    { no: 2, name: "should_upload_immediately", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecordErrorRequest {
+    return new RecordErrorRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RecordErrorRequest {
+    return new RecordErrorRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RecordErrorRequest {
+    return new RecordErrorRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RecordErrorRequest | PlainMessage<RecordErrorRequest> | undefined, b: RecordErrorRequest | PlainMessage<RecordErrorRequest> | undefined): boolean {
+    return proto3.util.equals(RecordErrorRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.RecordErrorResponse
+ */
+export class RecordErrorResponse extends Message<RecordErrorResponse> {
+  constructor(data?: PartialMessage<RecordErrorResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.RecordErrorResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecordErrorResponse {
+    return new RecordErrorResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RecordErrorResponse {
+    return new RecordErrorResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RecordErrorResponse {
+    return new RecordErrorResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RecordErrorResponse | PlainMessage<RecordErrorResponse> | undefined, b: RecordErrorResponse | PlainMessage<RecordErrorResponse> | undefined): boolean {
+    return proto3.util.equals(RecordErrorResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.RecordObservabilityDataRequest
+ */
+export class RecordObservabilityDataRequest extends Message<RecordObservabilityDataRequest> {
+  /**
+   * @generated from field: string datatype = 1;
+   */
+  datatype = "";
+
+  /**
+   * @generated from field: repeated exa.language_server_pb.RecordObservabilityDataRequest.ExtraEntry extra = 2;
+   */
+  extra: RecordObservabilityDataRequest_ExtraEntry[] = [];
+
+  /**
+   * @generated from field: repeated exa.language_server_pb.RecordObservabilityDataRequest.SensitiveDataEntry sensitive_data = 3;
+   */
+  sensitiveData: RecordObservabilityDataRequest_SensitiveDataEntry[] = [];
+
+  constructor(data?: PartialMessage<RecordObservabilityDataRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.RecordObservabilityDataRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "datatype", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "extra", kind: "message", T: RecordObservabilityDataRequest_ExtraEntry, repeated: true },
+    { no: 3, name: "sensitive_data", kind: "message", T: RecordObservabilityDataRequest_SensitiveDataEntry, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecordObservabilityDataRequest {
+    return new RecordObservabilityDataRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RecordObservabilityDataRequest {
+    return new RecordObservabilityDataRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RecordObservabilityDataRequest {
+    return new RecordObservabilityDataRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RecordObservabilityDataRequest | PlainMessage<RecordObservabilityDataRequest> | undefined, b: RecordObservabilityDataRequest | PlainMessage<RecordObservabilityDataRequest> | undefined): boolean {
+    return proto3.util.equals(RecordObservabilityDataRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.RecordObservabilityDataRequest.ExtraEntry
+ */
+export class RecordObservabilityDataRequest_ExtraEntry extends Message<RecordObservabilityDataRequest_ExtraEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: string value = 2;
+   */
+  value = "";
+
+  constructor(data?: PartialMessage<RecordObservabilityDataRequest_ExtraEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.RecordObservabilityDataRequest.ExtraEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecordObservabilityDataRequest_ExtraEntry {
+    return new RecordObservabilityDataRequest_ExtraEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RecordObservabilityDataRequest_ExtraEntry {
+    return new RecordObservabilityDataRequest_ExtraEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RecordObservabilityDataRequest_ExtraEntry {
+    return new RecordObservabilityDataRequest_ExtraEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RecordObservabilityDataRequest_ExtraEntry | PlainMessage<RecordObservabilityDataRequest_ExtraEntry> | undefined, b: RecordObservabilityDataRequest_ExtraEntry | PlainMessage<RecordObservabilityDataRequest_ExtraEntry> | undefined): boolean {
+    return proto3.util.equals(RecordObservabilityDataRequest_ExtraEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.RecordObservabilityDataRequest.SensitiveDataEntry
+ */
+export class RecordObservabilityDataRequest_SensitiveDataEntry extends Message<RecordObservabilityDataRequest_SensitiveDataEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: string value = 2;
+   */
+  value = "";
+
+  constructor(data?: PartialMessage<RecordObservabilityDataRequest_SensitiveDataEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.RecordObservabilityDataRequest.SensitiveDataEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecordObservabilityDataRequest_SensitiveDataEntry {
+    return new RecordObservabilityDataRequest_SensitiveDataEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RecordObservabilityDataRequest_SensitiveDataEntry {
+    return new RecordObservabilityDataRequest_SensitiveDataEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RecordObservabilityDataRequest_SensitiveDataEntry {
+    return new RecordObservabilityDataRequest_SensitiveDataEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RecordObservabilityDataRequest_SensitiveDataEntry | PlainMessage<RecordObservabilityDataRequest_SensitiveDataEntry> | undefined, b: RecordObservabilityDataRequest_SensitiveDataEntry | PlainMessage<RecordObservabilityDataRequest_SensitiveDataEntry> | undefined): boolean {
+    return proto3.util.equals(RecordObservabilityDataRequest_SensitiveDataEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.RecordObservabilityDataResponse
+ */
+export class RecordObservabilityDataResponse extends Message<RecordObservabilityDataResponse> {
+  constructor(data?: PartialMessage<RecordObservabilityDataResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.RecordObservabilityDataResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecordObservabilityDataResponse {
+    return new RecordObservabilityDataResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RecordObservabilityDataResponse {
+    return new RecordObservabilityDataResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RecordObservabilityDataResponse {
+    return new RecordObservabilityDataResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RecordObservabilityDataResponse | PlainMessage<RecordObservabilityDataResponse> | undefined, b: RecordObservabilityDataResponse | PlainMessage<RecordObservabilityDataResponse> | undefined): boolean {
+    return proto3.util.equals(RecordObservabilityDataResponse, a, b);
+  }
+}
+
+/**
  * @generated from message exa.language_server_pb.GetTermsOfServiceRequest
  */
 export class GetTermsOfServiceRequest extends Message<GetTermsOfServiceRequest> {
@@ -12441,9 +14741,9 @@ export class OAuthTokenInfo extends Message<OAuthTokenInfo> {
   refreshToken = "";
 
   /**
-   * @generated from field: bytes expiry = 4;
+   * @generated from field: google.protobuf.Timestamp expiry = 4;
    */
-  expiry = new Uint8Array(0);
+  expiry?: Timestamp;
 
   /**
    * @generated from field: bool is_gcp_tos = 6;
@@ -12461,7 +14761,7 @@ export class OAuthTokenInfo extends Message<OAuthTokenInfo> {
     { no: 1, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "token_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "refresh_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "expiry", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 4, name: "expiry", kind: "message", T: Timestamp },
     { no: 6, name: "is_gcp_tos", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
@@ -14071,6 +16371,11 @@ export class GetModelResponseResponse extends Message<GetModelResponseResponse> 
  * @generated from message exa.language_server_pb.GetAgentScriptsRequest
  */
 export class GetAgentScriptsRequest extends Message<GetAgentScriptsRequest> {
+  /**
+   * @generated from field: repeated string workspace_uris = 1;
+   */
+  workspaceUris: string[] = [];
+
   constructor(data?: PartialMessage<GetAgentScriptsRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -14079,6 +16384,7 @@ export class GetAgentScriptsRequest extends Message<GetAgentScriptsRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.language_server_pb.GetAgentScriptsRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "workspace_uris", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAgentScriptsRequest {
@@ -14476,6 +16782,3019 @@ export class UpdateCustomizationPathsFileResponse extends Message<UpdateCustomiz
 
   static equals(a: UpdateCustomizationPathsFileResponse | PlainMessage<UpdateCustomizationPathsFileResponse> | undefined, b: UpdateCustomizationPathsFileResponse | PlainMessage<UpdateCustomizationPathsFileResponse> | undefined): boolean {
     return proto3.util.equals(UpdateCustomizationPathsFileResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.UpdateCustomizationRequest
+ */
+export class UpdateCustomizationRequest extends Message<UpdateCustomizationRequest> {
+  /**
+   * @generated from field: string path = 1;
+   */
+  path = "";
+
+  /**
+   * @generated from field: exa.language_server_pb.CustomizationPathsOperation operation = 2;
+   */
+  operation = CustomizationPathsOperation.UNSPECIFIED;
+
+  /**
+   * @generated from oneof exa.language_server_pb.UpdateCustomizationRequest.customization
+   */
+  customization: {
+    /**
+     * @generated from field: exa.cortex_pb.AgentScriptItem agent = 3;
+     */
+    value: AgentScriptItem;
+    case: "agent";
+  } | {
+    /**
+     * @generated from field: exa.cortex_pb.PluginItem plugin = 4;
+     */
+    value: PluginItem;
+    case: "plugin";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<UpdateCustomizationRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.UpdateCustomizationRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "operation", kind: "enum", T: proto3.getEnumType(CustomizationPathsOperation) },
+    { no: 3, name: "agent", kind: "message", T: AgentScriptItem, oneof: "customization" },
+    { no: 4, name: "plugin", kind: "message", T: PluginItem, oneof: "customization" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateCustomizationRequest {
+    return new UpdateCustomizationRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateCustomizationRequest {
+    return new UpdateCustomizationRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateCustomizationRequest {
+    return new UpdateCustomizationRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateCustomizationRequest | PlainMessage<UpdateCustomizationRequest> | undefined, b: UpdateCustomizationRequest | PlainMessage<UpdateCustomizationRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateCustomizationRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.UpdateCustomizationResponse
+ */
+export class UpdateCustomizationResponse extends Message<UpdateCustomizationResponse> {
+  constructor(data?: PartialMessage<UpdateCustomizationResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.UpdateCustomizationResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateCustomizationResponse {
+    return new UpdateCustomizationResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateCustomizationResponse {
+    return new UpdateCustomizationResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateCustomizationResponse {
+    return new UpdateCustomizationResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateCustomizationResponse | PlainMessage<UpdateCustomizationResponse> | undefined, b: UpdateCustomizationResponse | PlainMessage<UpdateCustomizationResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateCustomizationResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetAllPluginsRequest
+ */
+export class GetAllPluginsRequest extends Message<GetAllPluginsRequest> {
+  /**
+   * @generated from field: repeated string workspace_uris = 1;
+   */
+  workspaceUris: string[] = [];
+
+  constructor(data?: PartialMessage<GetAllPluginsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetAllPluginsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "workspace_uris", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAllPluginsRequest {
+    return new GetAllPluginsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetAllPluginsRequest {
+    return new GetAllPluginsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetAllPluginsRequest {
+    return new GetAllPluginsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetAllPluginsRequest | PlainMessage<GetAllPluginsRequest> | undefined, b: GetAllPluginsRequest | PlainMessage<GetAllPluginsRequest> | undefined): boolean {
+    return proto3.util.equals(GetAllPluginsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.Plugin
+ */
+export class Plugin extends Message<Plugin> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string path = 2;
+   */
+  path = "";
+
+  /**
+   * @generated from field: bool is_global = 3;
+   */
+  isGlobal = false;
+
+  /**
+   * @generated from field: repeated exa.cortex_pb.WorkflowSpec skills = 4;
+   */
+  skills: WorkflowSpec[] = [];
+
+  /**
+   * @generated from field: repeated exa.cortex_pb.AgentCustomization agents = 5;
+   */
+  agents: AgentCustomization[] = [];
+
+  /**
+   * @generated from field: repeated exa.cortex_pb.McpServerSpec mcp_servers = 6;
+   */
+  mcpServers: McpServerSpec[] = [];
+
+  constructor(data?: PartialMessage<Plugin>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.Plugin";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "is_global", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "skills", kind: "message", T: WorkflowSpec, repeated: true },
+    { no: 5, name: "agents", kind: "message", T: AgentCustomization, repeated: true },
+    { no: 6, name: "mcp_servers", kind: "message", T: McpServerSpec, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Plugin {
+    return new Plugin().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Plugin {
+    return new Plugin().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Plugin {
+    return new Plugin().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Plugin | PlainMessage<Plugin> | undefined, b: Plugin | PlainMessage<Plugin> | undefined): boolean {
+    return proto3.util.equals(Plugin, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetAllPluginsResponse
+ */
+export class GetAllPluginsResponse extends Message<GetAllPluginsResponse> {
+  /**
+   * @generated from field: repeated exa.language_server_pb.Plugin plugins = 1;
+   */
+  plugins: Plugin[] = [];
+
+  constructor(data?: PartialMessage<GetAllPluginsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetAllPluginsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "plugins", kind: "message", T: Plugin, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAllPluginsResponse {
+    return new GetAllPluginsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetAllPluginsResponse {
+    return new GetAllPluginsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetAllPluginsResponse {
+    return new GetAllPluginsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetAllPluginsResponse | PlainMessage<GetAllPluginsResponse> | undefined, b: GetAllPluginsResponse | PlainMessage<GetAllPluginsResponse> | undefined): boolean {
+    return proto3.util.equals(GetAllPluginsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetTokenBaseRequest
+ */
+export class GetTokenBaseRequest extends Message<GetTokenBaseRequest> {
+  /**
+   * @generated from field: exa.cortex_pb.CascadeConfig cascade_config = 1;
+   */
+  cascadeConfig?: CascadeConfig;
+
+  /**
+   * @generated from field: repeated string workspace_uris = 2;
+   */
+  workspaceUris: string[] = [];
+
+  constructor(data?: PartialMessage<GetTokenBaseRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetTokenBaseRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "cascade_config", kind: "message", T: CascadeConfig },
+    { no: 2, name: "workspace_uris", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTokenBaseRequest {
+    return new GetTokenBaseRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTokenBaseRequest {
+    return new GetTokenBaseRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTokenBaseRequest {
+    return new GetTokenBaseRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTokenBaseRequest | PlainMessage<GetTokenBaseRequest> | undefined, b: GetTokenBaseRequest | PlainMessage<GetTokenBaseRequest> | undefined): boolean {
+    return proto3.util.equals(GetTokenBaseRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetTokenBaseResponse
+ */
+export class GetTokenBaseResponse extends Message<GetTokenBaseResponse> {
+  /**
+   * @generated from field: exa.cortex_pb.TokenBreakdown customization_token_base = 3;
+   */
+  customizationTokenBase?: TokenBreakdown;
+
+  /**
+   * @generated from field: int32 remaining_budget = 4;
+   */
+  remainingBudget = 0;
+
+  /**
+   * @generated from field: int32 customization_budget = 5;
+   */
+  customizationBudget = 0;
+
+  /**
+   * @generated from field: exa.cortex_pb.TokenBreakdown token_base = 1;
+   */
+  tokenBase?: TokenBreakdown;
+
+  /**
+   * @generated from field: int32 max_token_base = 2;
+   */
+  maxTokenBase = 0;
+
+  constructor(data?: PartialMessage<GetTokenBaseResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetTokenBaseResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 3, name: "customization_token_base", kind: "message", T: TokenBreakdown },
+    { no: 4, name: "remaining_budget", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 5, name: "customization_budget", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 1, name: "token_base", kind: "message", T: TokenBreakdown },
+    { no: 2, name: "max_token_base", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTokenBaseResponse {
+    return new GetTokenBaseResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTokenBaseResponse {
+    return new GetTokenBaseResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTokenBaseResponse {
+    return new GetTokenBaseResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTokenBaseResponse | PlainMessage<GetTokenBaseResponse> | undefined, b: GetTokenBaseResponse | PlainMessage<GetTokenBaseResponse> | undefined): boolean {
+    return proto3.util.equals(GetTokenBaseResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.RunCommandRequest
+ */
+export class RunCommandRequest extends Message<RunCommandRequest> {
+  /**
+   * @generated from field: string command = 1;
+   */
+  command = "";
+
+  /**
+   * @generated from field: repeated string args = 2;
+   */
+  args: string[] = [];
+
+  /**
+   * @generated from field: string cwd = 3;
+   */
+  cwd = "";
+
+  /**
+   * @generated from field: int64 timeout_ms = 4;
+   */
+  timeoutMs = protoInt64.zero;
+
+  constructor(data?: PartialMessage<RunCommandRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.RunCommandRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "command", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "args", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "cwd", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "timeout_ms", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RunCommandRequest {
+    return new RunCommandRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RunCommandRequest {
+    return new RunCommandRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RunCommandRequest {
+    return new RunCommandRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RunCommandRequest | PlainMessage<RunCommandRequest> | undefined, b: RunCommandRequest | PlainMessage<RunCommandRequest> | undefined): boolean {
+    return proto3.util.equals(RunCommandRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.RunCommandResponse
+ */
+export class RunCommandResponse extends Message<RunCommandResponse> {
+  /**
+   * @generated from field: string stdout = 1;
+   */
+  stdout = "";
+
+  /**
+   * @generated from field: string stderr = 2;
+   */
+  stderr = "";
+
+  /**
+   * @generated from field: int32 exit_code = 3;
+   */
+  exitCode = 0;
+
+  /**
+   * @generated from field: bool timed_out = 4;
+   */
+  timedOut = false;
+
+  constructor(data?: PartialMessage<RunCommandResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.RunCommandResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "stdout", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "stderr", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "exit_code", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "timed_out", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RunCommandResponse {
+    return new RunCommandResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RunCommandResponse {
+    return new RunCommandResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RunCommandResponse {
+    return new RunCommandResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RunCommandResponse | PlainMessage<RunCommandResponse> | undefined, b: RunCommandResponse | PlainMessage<RunCommandResponse> | undefined): boolean {
+    return proto3.util.equals(RunCommandResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxWriteStateRequest
+ */
+export class JetboxWriteStateRequest extends Message<JetboxWriteStateRequest> {
+  /**
+   * @generated from field: jetbox_state_pb.State state = 1;
+   */
+  state?: State$1;
+
+  constructor(data?: PartialMessage<JetboxWriteStateRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxWriteStateRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "state", kind: "message", T: State$1 },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxWriteStateRequest {
+    return new JetboxWriteStateRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxWriteStateRequest {
+    return new JetboxWriteStateRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxWriteStateRequest {
+    return new JetboxWriteStateRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxWriteStateRequest | PlainMessage<JetboxWriteStateRequest> | undefined, b: JetboxWriteStateRequest | PlainMessage<JetboxWriteStateRequest> | undefined): boolean {
+    return proto3.util.equals(JetboxWriteStateRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxWriteStateResponse
+ */
+export class JetboxWriteStateResponse extends Message<JetboxWriteStateResponse> {
+  constructor(data?: PartialMessage<JetboxWriteStateResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxWriteStateResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxWriteStateResponse {
+    return new JetboxWriteStateResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxWriteStateResponse {
+    return new JetboxWriteStateResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxWriteStateResponse {
+    return new JetboxWriteStateResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxWriteStateResponse | PlainMessage<JetboxWriteStateResponse> | undefined, b: JetboxWriteStateResponse | PlainMessage<JetboxWriteStateResponse> | undefined): boolean {
+    return proto3.util.equals(JetboxWriteStateResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxSubscribeToStateRequest
+ */
+export class JetboxSubscribeToStateRequest extends Message<JetboxSubscribeToStateRequest> {
+  constructor(data?: PartialMessage<JetboxSubscribeToStateRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxSubscribeToStateRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxSubscribeToStateRequest {
+    return new JetboxSubscribeToStateRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxSubscribeToStateRequest {
+    return new JetboxSubscribeToStateRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxSubscribeToStateRequest {
+    return new JetboxSubscribeToStateRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxSubscribeToStateRequest | PlainMessage<JetboxSubscribeToStateRequest> | undefined, b: JetboxSubscribeToStateRequest | PlainMessage<JetboxSubscribeToStateRequest> | undefined): boolean {
+    return proto3.util.equals(JetboxSubscribeToStateRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxSubscribeToStateResponse
+ */
+export class JetboxSubscribeToStateResponse extends Message<JetboxSubscribeToStateResponse> {
+  /**
+   * @generated from field: jetbox_state_pb.State state = 1;
+   */
+  state?: State$1;
+
+  constructor(data?: PartialMessage<JetboxSubscribeToStateResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxSubscribeToStateResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "state", kind: "message", T: State$1 },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxSubscribeToStateResponse {
+    return new JetboxSubscribeToStateResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxSubscribeToStateResponse {
+    return new JetboxSubscribeToStateResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxSubscribeToStateResponse {
+    return new JetboxSubscribeToStateResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxSubscribeToStateResponse | PlainMessage<JetboxSubscribeToStateResponse> | undefined, b: JetboxSubscribeToStateResponse | PlainMessage<JetboxSubscribeToStateResponse> | undefined): boolean {
+    return proto3.util.equals(JetboxSubscribeToStateResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxWriteSummaryRequest
+ */
+export class JetboxWriteSummaryRequest extends Message<JetboxWriteSummaryRequest> {
+  /**
+   * @generated from field: string cascade_id = 1;
+   */
+  cascadeId = "";
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CascadeTrajectorySummary summary = 2;
+   */
+  summary?: CascadeTrajectorySummary;
+
+  constructor(data?: PartialMessage<JetboxWriteSummaryRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxWriteSummaryRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "summary", kind: "message", T: CascadeTrajectorySummary },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxWriteSummaryRequest {
+    return new JetboxWriteSummaryRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxWriteSummaryRequest {
+    return new JetboxWriteSummaryRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxWriteSummaryRequest {
+    return new JetboxWriteSummaryRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxWriteSummaryRequest | PlainMessage<JetboxWriteSummaryRequest> | undefined, b: JetboxWriteSummaryRequest | PlainMessage<JetboxWriteSummaryRequest> | undefined): boolean {
+    return proto3.util.equals(JetboxWriteSummaryRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxWriteSummaryResponse
+ */
+export class JetboxWriteSummaryResponse extends Message<JetboxWriteSummaryResponse> {
+  constructor(data?: PartialMessage<JetboxWriteSummaryResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxWriteSummaryResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxWriteSummaryResponse {
+    return new JetboxWriteSummaryResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxWriteSummaryResponse {
+    return new JetboxWriteSummaryResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxWriteSummaryResponse {
+    return new JetboxWriteSummaryResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxWriteSummaryResponse | PlainMessage<JetboxWriteSummaryResponse> | undefined, b: JetboxWriteSummaryResponse | PlainMessage<JetboxWriteSummaryResponse> | undefined): boolean {
+    return proto3.util.equals(JetboxWriteSummaryResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxDeleteSummaryRequest
+ */
+export class JetboxDeleteSummaryRequest extends Message<JetboxDeleteSummaryRequest> {
+  /**
+   * @generated from field: string cascade_id = 1;
+   */
+  cascadeId = "";
+
+  constructor(data?: PartialMessage<JetboxDeleteSummaryRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxDeleteSummaryRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxDeleteSummaryRequest {
+    return new JetboxDeleteSummaryRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxDeleteSummaryRequest {
+    return new JetboxDeleteSummaryRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxDeleteSummaryRequest {
+    return new JetboxDeleteSummaryRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxDeleteSummaryRequest | PlainMessage<JetboxDeleteSummaryRequest> | undefined, b: JetboxDeleteSummaryRequest | PlainMessage<JetboxDeleteSummaryRequest> | undefined): boolean {
+    return proto3.util.equals(JetboxDeleteSummaryRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxDeleteSummaryResponse
+ */
+export class JetboxDeleteSummaryResponse extends Message<JetboxDeleteSummaryResponse> {
+  constructor(data?: PartialMessage<JetboxDeleteSummaryResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxDeleteSummaryResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxDeleteSummaryResponse {
+    return new JetboxDeleteSummaryResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxDeleteSummaryResponse {
+    return new JetboxDeleteSummaryResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxDeleteSummaryResponse {
+    return new JetboxDeleteSummaryResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxDeleteSummaryResponse | PlainMessage<JetboxDeleteSummaryResponse> | undefined, b: JetboxDeleteSummaryResponse | PlainMessage<JetboxDeleteSummaryResponse> | undefined): boolean {
+    return proto3.util.equals(JetboxDeleteSummaryResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxSubscribeToSummariesRequest
+ */
+export class JetboxSubscribeToSummariesRequest extends Message<JetboxSubscribeToSummariesRequest> {
+  constructor(data?: PartialMessage<JetboxSubscribeToSummariesRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxSubscribeToSummariesRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxSubscribeToSummariesRequest {
+    return new JetboxSubscribeToSummariesRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxSubscribeToSummariesRequest {
+    return new JetboxSubscribeToSummariesRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxSubscribeToSummariesRequest {
+    return new JetboxSubscribeToSummariesRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxSubscribeToSummariesRequest | PlainMessage<JetboxSubscribeToSummariesRequest> | undefined, b: JetboxSubscribeToSummariesRequest | PlainMessage<JetboxSubscribeToSummariesRequest> | undefined): boolean {
+    return proto3.util.equals(JetboxSubscribeToSummariesRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxSubscribeToSummariesResponse
+ */
+export class JetboxSubscribeToSummariesResponse extends Message<JetboxSubscribeToSummariesResponse> {
+  /**
+   * @generated from field: repeated exa.language_server_pb.JetboxSubscribeToSummariesResponse.UpdatesEntry updates = 1;
+   */
+  updates: JetboxSubscribeToSummariesResponse_UpdatesEntry[] = [];
+
+  /**
+   * @generated from field: repeated string deletes = 2;
+   */
+  deletes: string[] = [];
+
+  constructor(data?: PartialMessage<JetboxSubscribeToSummariesResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxSubscribeToSummariesResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "updates", kind: "message", T: JetboxSubscribeToSummariesResponse_UpdatesEntry, repeated: true },
+    { no: 2, name: "deletes", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxSubscribeToSummariesResponse {
+    return new JetboxSubscribeToSummariesResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxSubscribeToSummariesResponse {
+    return new JetboxSubscribeToSummariesResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxSubscribeToSummariesResponse {
+    return new JetboxSubscribeToSummariesResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxSubscribeToSummariesResponse | PlainMessage<JetboxSubscribeToSummariesResponse> | undefined, b: JetboxSubscribeToSummariesResponse | PlainMessage<JetboxSubscribeToSummariesResponse> | undefined): boolean {
+    return proto3.util.equals(JetboxSubscribeToSummariesResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxSubscribeToSummariesResponse.UpdatesEntry
+ */
+export class JetboxSubscribeToSummariesResponse_UpdatesEntry extends Message<JetboxSubscribeToSummariesResponse_UpdatesEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CascadeTrajectorySummary value = 2;
+   */
+  value?: CascadeTrajectorySummary;
+
+  constructor(data?: PartialMessage<JetboxSubscribeToSummariesResponse_UpdatesEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxSubscribeToSummariesResponse.UpdatesEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "message", T: CascadeTrajectorySummary },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxSubscribeToSummariesResponse_UpdatesEntry {
+    return new JetboxSubscribeToSummariesResponse_UpdatesEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxSubscribeToSummariesResponse_UpdatesEntry {
+    return new JetboxSubscribeToSummariesResponse_UpdatesEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxSubscribeToSummariesResponse_UpdatesEntry {
+    return new JetboxSubscribeToSummariesResponse_UpdatesEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxSubscribeToSummariesResponse_UpdatesEntry | PlainMessage<JetboxSubscribeToSummariesResponse_UpdatesEntry> | undefined, b: JetboxSubscribeToSummariesResponse_UpdatesEntry | PlainMessage<JetboxSubscribeToSummariesResponse_UpdatesEntry> | undefined): boolean {
+    return proto3.util.equals(JetboxSubscribeToSummariesResponse_UpdatesEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GcertStatus
+ */
+export class GcertStatus extends Message<GcertStatus> {
+  /**
+   * @generated from field: bool valid = 1;
+   */
+  valid = false;
+
+  /**
+   * @generated from field: string error = 2;
+   */
+  error = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp expires_at = 3;
+   */
+  expiresAt?: Timestamp;
+
+  constructor(data?: PartialMessage<GcertStatus>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GcertStatus";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "valid", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "error", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "expires_at", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GcertStatus {
+    return new GcertStatus().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GcertStatus {
+    return new GcertStatus().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GcertStatus {
+    return new GcertStatus().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GcertStatus | PlainMessage<GcertStatus> | undefined, b: GcertStatus | PlainMessage<GcertStatus> | undefined): boolean {
+    return proto3.util.equals(GcertStatus, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.OAuthStatus
+ */
+export class OAuthStatus extends Message<OAuthStatus> {
+  /**
+   * @generated from field: bool valid = 1;
+   */
+  valid = false;
+
+  /**
+   * @generated from field: string error = 2;
+   */
+  error = "";
+
+  constructor(data?: PartialMessage<OAuthStatus>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.OAuthStatus";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "valid", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "error", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): OAuthStatus {
+    return new OAuthStatus().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): OAuthStatus {
+    return new OAuthStatus().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): OAuthStatus {
+    return new OAuthStatus().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: OAuthStatus | PlainMessage<OAuthStatus> | undefined, b: OAuthStatus | PlainMessage<OAuthStatus> | undefined): boolean {
+    return proto3.util.equals(OAuthStatus, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxSubscribeToGcertStateRequest
+ */
+export class JetboxSubscribeToGcertStateRequest extends Message<JetboxSubscribeToGcertStateRequest> {
+  constructor(data?: PartialMessage<JetboxSubscribeToGcertStateRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxSubscribeToGcertStateRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxSubscribeToGcertStateRequest {
+    return new JetboxSubscribeToGcertStateRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxSubscribeToGcertStateRequest {
+    return new JetboxSubscribeToGcertStateRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxSubscribeToGcertStateRequest {
+    return new JetboxSubscribeToGcertStateRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxSubscribeToGcertStateRequest | PlainMessage<JetboxSubscribeToGcertStateRequest> | undefined, b: JetboxSubscribeToGcertStateRequest | PlainMessage<JetboxSubscribeToGcertStateRequest> | undefined): boolean {
+    return proto3.util.equals(JetboxSubscribeToGcertStateRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxSubscribeToGcertStateResponse
+ */
+export class JetboxSubscribeToGcertStateResponse extends Message<JetboxSubscribeToGcertStateResponse> {
+  /**
+   * @generated from field: exa.language_server_pb.GcertStatus gcert_status = 1;
+   */
+  gcertStatus?: GcertStatus;
+
+  constructor(data?: PartialMessage<JetboxSubscribeToGcertStateResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxSubscribeToGcertStateResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "gcert_status", kind: "message", T: GcertStatus },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxSubscribeToGcertStateResponse {
+    return new JetboxSubscribeToGcertStateResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxSubscribeToGcertStateResponse {
+    return new JetboxSubscribeToGcertStateResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxSubscribeToGcertStateResponse {
+    return new JetboxSubscribeToGcertStateResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxSubscribeToGcertStateResponse | PlainMessage<JetboxSubscribeToGcertStateResponse> | undefined, b: JetboxSubscribeToGcertStateResponse | PlainMessage<JetboxSubscribeToGcertStateResponse> | undefined): boolean {
+    return proto3.util.equals(JetboxSubscribeToGcertStateResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxSubscribeToOAuthStateRequest
+ */
+export class JetboxSubscribeToOAuthStateRequest extends Message<JetboxSubscribeToOAuthStateRequest> {
+  constructor(data?: PartialMessage<JetboxSubscribeToOAuthStateRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxSubscribeToOAuthStateRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxSubscribeToOAuthStateRequest {
+    return new JetboxSubscribeToOAuthStateRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxSubscribeToOAuthStateRequest {
+    return new JetboxSubscribeToOAuthStateRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxSubscribeToOAuthStateRequest {
+    return new JetboxSubscribeToOAuthStateRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxSubscribeToOAuthStateRequest | PlainMessage<JetboxSubscribeToOAuthStateRequest> | undefined, b: JetboxSubscribeToOAuthStateRequest | PlainMessage<JetboxSubscribeToOAuthStateRequest> | undefined): boolean {
+    return proto3.util.equals(JetboxSubscribeToOAuthStateRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxSubscribeToOAuthStateResponse
+ */
+export class JetboxSubscribeToOAuthStateResponse extends Message<JetboxSubscribeToOAuthStateResponse> {
+  /**
+   * @generated from field: exa.language_server_pb.OAuthStatus oauth_status = 1;
+   */
+  oauthStatus?: OAuthStatus;
+
+  constructor(data?: PartialMessage<JetboxSubscribeToOAuthStateResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxSubscribeToOAuthStateResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "oauth_status", kind: "message", T: OAuthStatus },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxSubscribeToOAuthStateResponse {
+    return new JetboxSubscribeToOAuthStateResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxSubscribeToOAuthStateResponse {
+    return new JetboxSubscribeToOAuthStateResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxSubscribeToOAuthStateResponse {
+    return new JetboxSubscribeToOAuthStateResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxSubscribeToOAuthStateResponse | PlainMessage<JetboxSubscribeToOAuthStateResponse> | undefined, b: JetboxSubscribeToOAuthStateResponse | PlainMessage<JetboxSubscribeToOAuthStateResponse> | undefined): boolean {
+    return proto3.util.equals(JetboxSubscribeToOAuthStateResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SearchFilesRequest
+ */
+export class SearchFilesRequest extends Message<SearchFilesRequest> {
+  /**
+   * @generated from field: string query = 1;
+   */
+  query = "";
+
+  /**
+   * @generated from field: string workspace_uri = 2;
+   */
+  workspaceUri = "";
+
+  /**
+   * @generated from field: int32 max_results = 3;
+   */
+  maxResults = 0;
+
+  /**
+   * @generated from field: bool include_directories = 4;
+   */
+  includeDirectories = false;
+
+  /**
+   * @generated from field: uint64 cancel_token = 5;
+   */
+  cancelToken = protoInt64.zero;
+
+  constructor(data?: PartialMessage<SearchFilesRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SearchFilesRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "workspace_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "max_results", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "include_directories", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "cancel_token", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchFilesRequest {
+    return new SearchFilesRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchFilesRequest {
+    return new SearchFilesRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchFilesRequest {
+    return new SearchFilesRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SearchFilesRequest | PlainMessage<SearchFilesRequest> | undefined, b: SearchFilesRequest | PlainMessage<SearchFilesRequest> | undefined): boolean {
+    return proto3.util.equals(SearchFilesRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SearchFilesResponse
+ */
+export class SearchFilesResponse extends Message<SearchFilesResponse> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.PathScopeItem results = 1;
+   */
+  results: PathScopeItem[] = [];
+
+  constructor(data?: PartialMessage<SearchFilesResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SearchFilesResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "results", kind: "message", T: PathScopeItem, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchFilesResponse {
+    return new SearchFilesResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchFilesResponse {
+    return new SearchFilesResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchFilesResponse {
+    return new SearchFilesResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SearchFilesResponse | PlainMessage<SearchFilesResponse> | undefined, b: SearchFilesResponse | PlainMessage<SearchFilesResponse> | undefined): boolean {
+    return proto3.util.equals(SearchFilesResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SearchCodeRequest
+ */
+export class SearchCodeRequest extends Message<SearchCodeRequest> {
+  /**
+   * @generated from field: string query = 1;
+   */
+  query = "";
+
+  /**
+   * @generated from field: string workspace_uri = 2;
+   */
+  workspaceUri = "";
+
+  /**
+   * @generated from field: int32 max_results = 3;
+   */
+  maxResults = 0;
+
+  /**
+   * @generated from field: int32 lines_context = 4;
+   */
+  linesContext = 0;
+
+  /**
+   * @generated from field: uint64 cancel_token = 5;
+   */
+  cancelToken = protoInt64.zero;
+
+  constructor(data?: PartialMessage<SearchCodeRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SearchCodeRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "workspace_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "max_results", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "lines_context", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 5, name: "cancel_token", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchCodeRequest {
+    return new SearchCodeRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchCodeRequest {
+    return new SearchCodeRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchCodeRequest {
+    return new SearchCodeRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SearchCodeRequest | PlainMessage<SearchCodeRequest> | undefined, b: SearchCodeRequest | PlainMessage<SearchCodeRequest> | undefined): boolean {
+    return proto3.util.equals(SearchCodeRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SearchCodeResponse
+ */
+export class SearchCodeResponse extends Message<SearchCodeResponse> {
+  /**
+   * @generated from field: repeated exa.language_server_pb.SearchCodeResult results = 1;
+   */
+  results: SearchCodeResult[] = [];
+
+  constructor(data?: PartialMessage<SearchCodeResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SearchCodeResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "results", kind: "message", T: SearchCodeResult, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchCodeResponse {
+    return new SearchCodeResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchCodeResponse {
+    return new SearchCodeResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchCodeResponse {
+    return new SearchCodeResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SearchCodeResponse | PlainMessage<SearchCodeResponse> | undefined, b: SearchCodeResponse | PlainMessage<SearchCodeResponse> | undefined): boolean {
+    return proto3.util.equals(SearchCodeResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SearchCodeResult
+ */
+export class SearchCodeResult extends Message<SearchCodeResult> {
+  /**
+   * @generated from field: string absolute_uri = 1;
+   */
+  absoluteUri = "";
+
+  /**
+   * @generated from field: repeated exa.language_server_pb.SearchCodeResult.WorkspaceUrisToRelativePathsEntry workspace_uris_to_relative_paths = 2;
+   */
+  workspaceUrisToRelativePaths: SearchCodeResult_WorkspaceUrisToRelativePathsEntry[] = [];
+
+  /**
+   * @generated from field: int32 line_number = 3;
+   */
+  lineNumber = 0;
+
+  /**
+   * @generated from field: string snippet = 4;
+   */
+  snippet = "";
+
+  /**
+   * @generated from field: int32 match_start_col = 5;
+   */
+  matchStartCol = 0;
+
+  /**
+   * @generated from field: int32 match_end_col = 6;
+   */
+  matchEndCol = 0;
+
+  constructor(data?: PartialMessage<SearchCodeResult>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SearchCodeResult";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "absolute_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "workspace_uris_to_relative_paths", kind: "message", T: SearchCodeResult_WorkspaceUrisToRelativePathsEntry, repeated: true },
+    { no: 3, name: "line_number", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "snippet", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "match_start_col", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 6, name: "match_end_col", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchCodeResult {
+    return new SearchCodeResult().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchCodeResult {
+    return new SearchCodeResult().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchCodeResult {
+    return new SearchCodeResult().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SearchCodeResult | PlainMessage<SearchCodeResult> | undefined, b: SearchCodeResult | PlainMessage<SearchCodeResult> | undefined): boolean {
+    return proto3.util.equals(SearchCodeResult, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SearchCodeResult.WorkspaceUrisToRelativePathsEntry
+ */
+export class SearchCodeResult_WorkspaceUrisToRelativePathsEntry extends Message<SearchCodeResult_WorkspaceUrisToRelativePathsEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: string value = 2;
+   */
+  value = "";
+
+  constructor(data?: PartialMessage<SearchCodeResult_WorkspaceUrisToRelativePathsEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SearchCodeResult.WorkspaceUrisToRelativePathsEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchCodeResult_WorkspaceUrisToRelativePathsEntry {
+    return new SearchCodeResult_WorkspaceUrisToRelativePathsEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchCodeResult_WorkspaceUrisToRelativePathsEntry {
+    return new SearchCodeResult_WorkspaceUrisToRelativePathsEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchCodeResult_WorkspaceUrisToRelativePathsEntry {
+    return new SearchCodeResult_WorkspaceUrisToRelativePathsEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SearchCodeResult_WorkspaceUrisToRelativePathsEntry | PlainMessage<SearchCodeResult_WorkspaceUrisToRelativePathsEntry> | undefined, b: SearchCodeResult_WorkspaceUrisToRelativePathsEntry | PlainMessage<SearchCodeResult_WorkspaceUrisToRelativePathsEntry> | undefined): boolean {
+    return proto3.util.equals(SearchCodeResult_WorkspaceUrisToRelativePathsEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SearchConversationsRequest
+ */
+export class SearchConversationsRequest extends Message<SearchConversationsRequest> {
+  /**
+   * @generated from field: string query = 1;
+   */
+  query = "";
+
+  /**
+   * @generated from field: int32 limit = 2;
+   */
+  limit = 0;
+
+  constructor(data?: PartialMessage<SearchConversationsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SearchConversationsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "limit", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchConversationsRequest {
+    return new SearchConversationsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchConversationsRequest {
+    return new SearchConversationsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchConversationsRequest {
+    return new SearchConversationsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SearchConversationsRequest | PlainMessage<SearchConversationsRequest> | undefined, b: SearchConversationsRequest | PlainMessage<SearchConversationsRequest> | undefined): boolean {
+    return proto3.util.equals(SearchConversationsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.StringMatchRange
+ */
+export class StringMatchRange extends Message<StringMatchRange> {
+  /**
+   * @generated from field: int32 start_offset = 1;
+   */
+  startOffset = 0;
+
+  /**
+   * @generated from field: int32 end_offset_exclusive = 2;
+   */
+  endOffsetExclusive = 0;
+
+  constructor(data?: PartialMessage<StringMatchRange>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.StringMatchRange";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "start_offset", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "end_offset_exclusive", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StringMatchRange {
+    return new StringMatchRange().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StringMatchRange {
+    return new StringMatchRange().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StringMatchRange {
+    return new StringMatchRange().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: StringMatchRange | PlainMessage<StringMatchRange> | undefined, b: StringMatchRange | PlainMessage<StringMatchRange> | undefined): boolean {
+    return proto3.util.equals(StringMatchRange, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ConversationSearchResult
+ */
+export class ConversationSearchResult extends Message<ConversationSearchResult> {
+  /**
+   * @generated from field: string cascade_id = 1;
+   */
+  cascadeId = "";
+
+  /**
+   * @generated from field: string title = 2;
+   */
+  title = "";
+
+  /**
+   * @generated from field: string workspace_name = 3;
+   */
+  workspaceName = "";
+
+  /**
+   * @generated from field: string snippet = 4;
+   */
+  snippet = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp last_modified_time = 5;
+   */
+  lastModifiedTime?: Timestamp;
+
+  /**
+   * @generated from field: bool needs_attention = 6;
+   */
+  needsAttention = false;
+
+  /**
+   * @generated from field: repeated exa.language_server_pb.StringMatchRange title_match_ranges = 7;
+   */
+  titleMatchRanges: StringMatchRange[] = [];
+
+  /**
+   * @generated from field: repeated exa.language_server_pb.StringMatchRange snippet_match_ranges = 8;
+   */
+  snippetMatchRanges: StringMatchRange[] = [];
+
+  constructor(data?: PartialMessage<ConversationSearchResult>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ConversationSearchResult";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "workspace_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "snippet", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "last_modified_time", kind: "message", T: Timestamp },
+    { no: 6, name: "needs_attention", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: "title_match_ranges", kind: "message", T: StringMatchRange, repeated: true },
+    { no: 8, name: "snippet_match_ranges", kind: "message", T: StringMatchRange, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConversationSearchResult {
+    return new ConversationSearchResult().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConversationSearchResult {
+    return new ConversationSearchResult().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConversationSearchResult {
+    return new ConversationSearchResult().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConversationSearchResult | PlainMessage<ConversationSearchResult> | undefined, b: ConversationSearchResult | PlainMessage<ConversationSearchResult> | undefined): boolean {
+    return proto3.util.equals(ConversationSearchResult, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SearchConversationsResponse
+ */
+export class SearchConversationsResponse extends Message<SearchConversationsResponse> {
+  /**
+   * @generated from field: repeated exa.language_server_pb.ConversationSearchResult results = 1;
+   */
+  results: ConversationSearchResult[] = [];
+
+  constructor(data?: PartialMessage<SearchConversationsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SearchConversationsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "results", kind: "message", T: ConversationSearchResult, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchConversationsResponse {
+    return new SearchConversationsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchConversationsResponse {
+    return new SearchConversationsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchConversationsResponse {
+    return new SearchConversationsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SearchConversationsResponse | PlainMessage<SearchConversationsResponse> | undefined, b: SearchConversationsResponse | PlainMessage<SearchConversationsResponse> | undefined): boolean {
+    return proto3.util.equals(SearchConversationsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GenerateSkillInstallationCLRequest
+ */
+export class GenerateSkillInstallationCLRequest extends Message<GenerateSkillInstallationCLRequest> {
+  /**
+   * @generated from field: repeated string skill_paths = 1;
+   */
+  skillPaths: string[] = [];
+
+  /**
+   * @generated from field: string ldap = 2;
+   */
+  ldap = "";
+
+  constructor(data?: PartialMessage<GenerateSkillInstallationCLRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GenerateSkillInstallationCLRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "skill_paths", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 2, name: "ldap", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GenerateSkillInstallationCLRequest {
+    return new GenerateSkillInstallationCLRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GenerateSkillInstallationCLRequest {
+    return new GenerateSkillInstallationCLRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GenerateSkillInstallationCLRequest {
+    return new GenerateSkillInstallationCLRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GenerateSkillInstallationCLRequest | PlainMessage<GenerateSkillInstallationCLRequest> | undefined, b: GenerateSkillInstallationCLRequest | PlainMessage<GenerateSkillInstallationCLRequest> | undefined): boolean {
+    return proto3.util.equals(GenerateSkillInstallationCLRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GenerateSkillInstallationCLResponse
+ */
+export class GenerateSkillInstallationCLResponse extends Message<GenerateSkillInstallationCLResponse> {
+  /**
+   * @generated from field: int64 cl_number = 1;
+   */
+  clNumber = protoInt64.zero;
+
+  /**
+   * @generated from field: string cl_url = 2;
+   */
+  clUrl = "";
+
+  constructor(data?: PartialMessage<GenerateSkillInstallationCLResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GenerateSkillInstallationCLResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "cl_number", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 2, name: "cl_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GenerateSkillInstallationCLResponse {
+    return new GenerateSkillInstallationCLResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GenerateSkillInstallationCLResponse {
+    return new GenerateSkillInstallationCLResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GenerateSkillInstallationCLResponse {
+    return new GenerateSkillInstallationCLResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GenerateSkillInstallationCLResponse | PlainMessage<GenerateSkillInstallationCLResponse> | undefined, b: GenerateSkillInstallationCLResponse | PlainMessage<GenerateSkillInstallationCLResponse> | undefined): boolean {
+    return proto3.util.equals(GenerateSkillInstallationCLResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxGetLatestVersionRequest
+ */
+export class JetboxGetLatestVersionRequest extends Message<JetboxGetLatestVersionRequest> {
+  constructor(data?: PartialMessage<JetboxGetLatestVersionRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxGetLatestVersionRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxGetLatestVersionRequest {
+    return new JetboxGetLatestVersionRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxGetLatestVersionRequest {
+    return new JetboxGetLatestVersionRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxGetLatestVersionRequest {
+    return new JetboxGetLatestVersionRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxGetLatestVersionRequest | PlainMessage<JetboxGetLatestVersionRequest> | undefined, b: JetboxGetLatestVersionRequest | PlainMessage<JetboxGetLatestVersionRequest> | undefined): boolean {
+    return proto3.util.equals(JetboxGetLatestVersionRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.JetboxGetLatestVersionResponse
+ */
+export class JetboxGetLatestVersionResponse extends Message<JetboxGetLatestVersionResponse> {
+  /**
+   * @generated from field: string latest_version = 1;
+   */
+  latestVersion = "";
+
+  constructor(data?: PartialMessage<JetboxGetLatestVersionResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.JetboxGetLatestVersionResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "latest_version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxGetLatestVersionResponse {
+    return new JetboxGetLatestVersionResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxGetLatestVersionResponse {
+    return new JetboxGetLatestVersionResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxGetLatestVersionResponse {
+    return new JetboxGetLatestVersionResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxGetLatestVersionResponse | PlainMessage<JetboxGetLatestVersionResponse> | undefined, b: JetboxGetLatestVersionResponse | PlainMessage<JetboxGetLatestVersionResponse> | undefined): boolean {
+    return proto3.util.equals(JetboxGetLatestVersionResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetAgentTeamMetadataRequest
+ */
+export class GetAgentTeamMetadataRequest extends Message<GetAgentTeamMetadataRequest> {
+  /**
+   * @generated from field: string project_dir_uri = 1;
+   */
+  projectDirUri = "";
+
+  constructor(data?: PartialMessage<GetAgentTeamMetadataRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetAgentTeamMetadataRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "project_dir_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAgentTeamMetadataRequest {
+    return new GetAgentTeamMetadataRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetAgentTeamMetadataRequest {
+    return new GetAgentTeamMetadataRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetAgentTeamMetadataRequest {
+    return new GetAgentTeamMetadataRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetAgentTeamMetadataRequest | PlainMessage<GetAgentTeamMetadataRequest> | undefined, b: GetAgentTeamMetadataRequest | PlainMessage<GetAgentTeamMetadataRequest> | undefined): boolean {
+    return proto3.util.equals(GetAgentTeamMetadataRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.AgentInstance
+ */
+export class AgentInstance extends Message<AgentInstance> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string log_file_path = 2;
+   */
+  logFilePath = "";
+
+  /**
+   * @generated from field: string latest_trajectory_id = 3;
+   */
+  latestTrajectoryId = "";
+
+  /**
+   * @generated from field: string latest_cascade_id = 4;
+   */
+  latestCascadeId = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp last_step_updated_at = 5;
+   */
+  lastStepUpdatedAt?: Timestamp;
+
+  /**
+   * @generated from field: string description = 6;
+   */
+  description = "";
+
+  constructor(data?: PartialMessage<AgentInstance>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.AgentInstance";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "log_file_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "latest_trajectory_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "latest_cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "last_step_updated_at", kind: "message", T: Timestamp },
+    { no: 6, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AgentInstance {
+    return new AgentInstance().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AgentInstance {
+    return new AgentInstance().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AgentInstance {
+    return new AgentInstance().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AgentInstance | PlainMessage<AgentInstance> | undefined, b: AgentInstance | PlainMessage<AgentInstance> | undefined): boolean {
+    return proto3.util.equals(AgentInstance, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.AgentTeamTask
+ */
+export class AgentTeamTask extends Message<AgentTeamTask> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: bool is_completed = 2;
+   */
+  isCompleted = false;
+
+  /**
+   * @generated from field: string task_file_uri = 3;
+   */
+  taskFileUri = "";
+
+  constructor(data?: PartialMessage<AgentTeamTask>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.AgentTeamTask";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "is_completed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "task_file_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AgentTeamTask {
+    return new AgentTeamTask().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AgentTeamTask {
+    return new AgentTeamTask().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AgentTeamTask {
+    return new AgentTeamTask().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AgentTeamTask | PlainMessage<AgentTeamTask> | undefined, b: AgentTeamTask | PlainMessage<AgentTeamTask> | undefined): boolean {
+    return proto3.util.equals(AgentTeamTask, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetAgentTeamMetadataResponse
+ */
+export class GetAgentTeamMetadataResponse extends Message<GetAgentTeamMetadataResponse> {
+  /**
+   * @generated from field: repeated exa.language_server_pb.AgentInstance agents = 1;
+   */
+  agents: AgentInstance[] = [];
+
+  /**
+   * @generated from field: repeated exa.language_server_pb.AgentTeamTask tasks = 2;
+   */
+  tasks: AgentTeamTask[] = [];
+
+  constructor(data?: PartialMessage<GetAgentTeamMetadataResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetAgentTeamMetadataResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "agents", kind: "message", T: AgentInstance, repeated: true },
+    { no: 2, name: "tasks", kind: "message", T: AgentTeamTask, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAgentTeamMetadataResponse {
+    return new GetAgentTeamMetadataResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetAgentTeamMetadataResponse {
+    return new GetAgentTeamMetadataResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetAgentTeamMetadataResponse {
+    return new GetAgentTeamMetadataResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetAgentTeamMetadataResponse | PlainMessage<GetAgentTeamMetadataResponse> | undefined, b: GetAgentTeamMetadataResponse | PlainMessage<GetAgentTeamMetadataResponse> | undefined): boolean {
+    return proto3.util.equals(GetAgentTeamMetadataResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetCodeFrequencyForRepoRequest
+ */
+export class GetCodeFrequencyForRepoRequest extends Message<GetCodeFrequencyForRepoRequest> {
+  /**
+   * @generated from field: string repo_uri = 1;
+   */
+  repoUri = "";
+
+  /**
+   * @generated from field: string branch = 2;
+   */
+  branch = "";
+
+  /**
+   * @generated from field: int32 minutes_per_bucket = 3;
+   */
+  minutesPerBucket = 0;
+
+  constructor(data?: PartialMessage<GetCodeFrequencyForRepoRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetCodeFrequencyForRepoRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "repo_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "branch", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "minutes_per_bucket", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCodeFrequencyForRepoRequest {
+    return new GetCodeFrequencyForRepoRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetCodeFrequencyForRepoRequest {
+    return new GetCodeFrequencyForRepoRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetCodeFrequencyForRepoRequest {
+    return new GetCodeFrequencyForRepoRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetCodeFrequencyForRepoRequest | PlainMessage<GetCodeFrequencyForRepoRequest> | undefined, b: GetCodeFrequencyForRepoRequest | PlainMessage<GetCodeFrequencyForRepoRequest> | undefined): boolean {
+    return proto3.util.equals(GetCodeFrequencyForRepoRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.CodeFrequencyRecord
+ */
+export class CodeFrequencyRecord extends Message<CodeFrequencyRecord> {
+  /**
+   * @generated from field: int32 num_commits = 1;
+   */
+  numCommits = 0;
+
+  /**
+   * @generated from field: int32 lines_added = 2;
+   */
+  linesAdded = 0;
+
+  /**
+   * @generated from field: int32 lines_deleted = 3;
+   */
+  linesDeleted = 0;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp record_start_time = 4;
+   */
+  recordStartTime?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp record_end_time = 5;
+   */
+  recordEndTime?: Timestamp;
+
+  constructor(data?: PartialMessage<CodeFrequencyRecord>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.CodeFrequencyRecord";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "num_commits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "lines_added", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "lines_deleted", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "record_start_time", kind: "message", T: Timestamp },
+    { no: 5, name: "record_end_time", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CodeFrequencyRecord {
+    return new CodeFrequencyRecord().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CodeFrequencyRecord {
+    return new CodeFrequencyRecord().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CodeFrequencyRecord {
+    return new CodeFrequencyRecord().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CodeFrequencyRecord | PlainMessage<CodeFrequencyRecord> | undefined, b: CodeFrequencyRecord | PlainMessage<CodeFrequencyRecord> | undefined): boolean {
+    return proto3.util.equals(CodeFrequencyRecord, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetCodeFrequencyForRepoResponse
+ */
+export class GetCodeFrequencyForRepoResponse extends Message<GetCodeFrequencyForRepoResponse> {
+  /**
+   * @generated from field: repeated exa.language_server_pb.CodeFrequencyRecord code_frequency = 1;
+   */
+  codeFrequency: CodeFrequencyRecord[] = [];
+
+  constructor(data?: PartialMessage<GetCodeFrequencyForRepoResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetCodeFrequencyForRepoResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "code_frequency", kind: "message", T: CodeFrequencyRecord, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCodeFrequencyForRepoResponse {
+    return new GetCodeFrequencyForRepoResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetCodeFrequencyForRepoResponse {
+    return new GetCodeFrequencyForRepoResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetCodeFrequencyForRepoResponse {
+    return new GetCodeFrequencyForRepoResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetCodeFrequencyForRepoResponse | PlainMessage<GetCodeFrequencyForRepoResponse> | undefined, b: GetCodeFrequencyForRepoResponse | PlainMessage<GetCodeFrequencyForRepoResponse> | undefined): boolean {
+    return proto3.util.equals(GetCodeFrequencyForRepoResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ForkConversationRequest
+ */
+export class ForkConversationRequest extends Message<ForkConversationRequest> {
+  /**
+   * @generated from field: string source_cascade_id = 1;
+   */
+  sourceCascadeId = "";
+
+  /**
+   * @generated from field: int32 fork_at_step_index = 2;
+   */
+  forkAtStepIndex = 0;
+
+  /**
+   * @generated from field: exa.language_server_pb.ForkTarget target_fork_workspace = 3;
+   */
+  targetForkWorkspace = ForkTarget.UNSPECIFIED;
+
+  /**
+   * @generated from field: repeated string source_workspace_uris = 4;
+   */
+  sourceWorkspaceUris: string[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.TextOrScopeItem items = 5;
+   */
+  items: TextOrScopeItem[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Media media = 6;
+   */
+  media: Media[] = [];
+
+  /**
+   * @generated from field: exa.cortex_pb.AgentScriptItem agent_script_override = 7;
+   */
+  agentScriptOverride?: AgentScriptItem;
+
+  constructor(data?: PartialMessage<ForkConversationRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ForkConversationRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "source_cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "fork_at_step_index", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "target_fork_workspace", kind: "enum", T: proto3.getEnumType(ForkTarget) },
+    { no: 4, name: "source_workspace_uris", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 5, name: "items", kind: "message", T: TextOrScopeItem, repeated: true },
+    { no: 6, name: "media", kind: "message", T: Media, repeated: true },
+    { no: 7, name: "agent_script_override", kind: "message", T: AgentScriptItem },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ForkConversationRequest {
+    return new ForkConversationRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ForkConversationRequest {
+    return new ForkConversationRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ForkConversationRequest {
+    return new ForkConversationRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ForkConversationRequest | PlainMessage<ForkConversationRequest> | undefined, b: ForkConversationRequest | PlainMessage<ForkConversationRequest> | undefined): boolean {
+    return proto3.util.equals(ForkConversationRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ForkConversationResponse
+ */
+export class ForkConversationResponse extends Message<ForkConversationResponse> {
+  /**
+   * @generated from field: string new_cascade_id = 1;
+   */
+  newCascadeId = "";
+
+  /**
+   * @generated from field: string new_workspace_uri = 2;
+   */
+  newWorkspaceUri = "";
+
+  /**
+   * @generated from field: string new_workspace_name = 3;
+   */
+  newWorkspaceName = "";
+
+  /**
+   * @generated from field: int32 forked_at_step_index = 4;
+   */
+  forkedAtStepIndex = 0;
+
+  constructor(data?: PartialMessage<ForkConversationResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ForkConversationResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "new_cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "new_workspace_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "new_workspace_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "forked_at_step_index", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ForkConversationResponse {
+    return new ForkConversationResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ForkConversationResponse {
+    return new ForkConversationResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ForkConversationResponse {
+    return new ForkConversationResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ForkConversationResponse | PlainMessage<ForkConversationResponse> | undefined, b: ForkConversationResponse | PlainMessage<ForkConversationResponse> | undefined): boolean {
+    return proto3.util.equals(ForkConversationResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SendAgentMessageRequest
+ */
+export class SendAgentMessageRequest extends Message<SendAgentMessageRequest> {
+  /**
+   * @generated from field: string content = 1;
+   */
+  content = "";
+
+  /**
+   * @generated from field: string recipient = 2;
+   */
+  recipient = "";
+
+  /**
+   * @generated from field: string sender_id = 3;
+   */
+  senderId = "";
+
+  /**
+   * @generated from field: exa.cortex_pb.SourceMetadata source_metadata = 4;
+   */
+  sourceMetadata?: SourceMetadata;
+
+  constructor(data?: PartialMessage<SendAgentMessageRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SendAgentMessageRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "recipient", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "sender_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "source_metadata", kind: "message", T: SourceMetadata },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendAgentMessageRequest {
+    return new SendAgentMessageRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SendAgentMessageRequest {
+    return new SendAgentMessageRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SendAgentMessageRequest {
+    return new SendAgentMessageRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SendAgentMessageRequest | PlainMessage<SendAgentMessageRequest> | undefined, b: SendAgentMessageRequest | PlainMessage<SendAgentMessageRequest> | undefined): boolean {
+    return proto3.util.equals(SendAgentMessageRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SendAgentMessageResponse
+ */
+export class SendAgentMessageResponse extends Message<SendAgentMessageResponse> {
+  constructor(data?: PartialMessage<SendAgentMessageResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SendAgentMessageResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendAgentMessageResponse {
+    return new SendAgentMessageResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SendAgentMessageResponse {
+    return new SendAgentMessageResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SendAgentMessageResponse {
+    return new SendAgentMessageResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SendAgentMessageResponse | PlainMessage<SendAgentMessageResponse> | undefined, b: SendAgentMessageResponse | PlainMessage<SendAgentMessageResponse> | undefined): boolean {
+    return proto3.util.equals(SendAgentMessageResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.RecordSidecarEventRequest
+ */
+export class RecordSidecarEventRequest extends Message<RecordSidecarEventRequest> {
+  /**
+   * @generated from field: string sidecar_id = 1;
+   */
+  sidecarId = "";
+
+  /**
+   * @generated from field: exa.cortex_pb.SidecarEventPayload payload = 2;
+   */
+  payload?: SidecarEventPayload;
+
+  /**
+   * @generated from field: string error = 3;
+   */
+  error = "";
+
+  constructor(data?: PartialMessage<RecordSidecarEventRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.RecordSidecarEventRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "sidecar_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "payload", kind: "message", T: SidecarEventPayload },
+    { no: 3, name: "error", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecordSidecarEventRequest {
+    return new RecordSidecarEventRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RecordSidecarEventRequest {
+    return new RecordSidecarEventRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RecordSidecarEventRequest {
+    return new RecordSidecarEventRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RecordSidecarEventRequest | PlainMessage<RecordSidecarEventRequest> | undefined, b: RecordSidecarEventRequest | PlainMessage<RecordSidecarEventRequest> | undefined): boolean {
+    return proto3.util.equals(RecordSidecarEventRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.RecordSidecarEventResponse
+ */
+export class RecordSidecarEventResponse extends Message<RecordSidecarEventResponse> {
+  constructor(data?: PartialMessage<RecordSidecarEventResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.RecordSidecarEventResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecordSidecarEventResponse {
+    return new RecordSidecarEventResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RecordSidecarEventResponse {
+    return new RecordSidecarEventResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RecordSidecarEventResponse {
+    return new RecordSidecarEventResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RecordSidecarEventResponse | PlainMessage<RecordSidecarEventResponse> | undefined, b: RecordSidecarEventResponse | PlainMessage<RecordSidecarEventResponse> | undefined): boolean {
+    return proto3.util.equals(RecordSidecarEventResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetSidecarsRequest
+ */
+export class GetSidecarsRequest extends Message<GetSidecarsRequest> {
+  constructor(data?: PartialMessage<GetSidecarsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetSidecarsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetSidecarsRequest {
+    return new GetSidecarsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetSidecarsRequest {
+    return new GetSidecarsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetSidecarsRequest {
+    return new GetSidecarsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetSidecarsRequest | PlainMessage<GetSidecarsRequest> | undefined, b: GetSidecarsRequest | PlainMessage<GetSidecarsRequest> | undefined): boolean {
+    return proto3.util.equals(GetSidecarsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetSidecarsResponse
+ */
+export class GetSidecarsResponse extends Message<GetSidecarsResponse> {
+  /**
+   * @generated from field: repeated exa.cortex_pb.SidecarStatusInfo sidecars = 1;
+   */
+  sidecars: SidecarStatusInfo[] = [];
+
+  constructor(data?: PartialMessage<GetSidecarsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetSidecarsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "sidecars", kind: "message", T: SidecarStatusInfo, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetSidecarsResponse {
+    return new GetSidecarsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetSidecarsResponse {
+    return new GetSidecarsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetSidecarsResponse {
+    return new GetSidecarsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetSidecarsResponse | PlainMessage<GetSidecarsResponse> | undefined, b: GetSidecarsResponse | PlainMessage<GetSidecarsResponse> | undefined): boolean {
+    return proto3.util.equals(GetSidecarsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SubscribeToSidecarsRequest
+ */
+export class SubscribeToSidecarsRequest extends Message<SubscribeToSidecarsRequest> {
+  constructor(data?: PartialMessage<SubscribeToSidecarsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SubscribeToSidecarsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SubscribeToSidecarsRequest {
+    return new SubscribeToSidecarsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SubscribeToSidecarsRequest {
+    return new SubscribeToSidecarsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SubscribeToSidecarsRequest {
+    return new SubscribeToSidecarsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SubscribeToSidecarsRequest | PlainMessage<SubscribeToSidecarsRequest> | undefined, b: SubscribeToSidecarsRequest | PlainMessage<SubscribeToSidecarsRequest> | undefined): boolean {
+    return proto3.util.equals(SubscribeToSidecarsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SubscribeToSidecarsResponse
+ */
+export class SubscribeToSidecarsResponse extends Message<SubscribeToSidecarsResponse> {
+  /**
+   * @generated from field: repeated exa.cortex_pb.SidecarStatusInfo sidecars = 1;
+   */
+  sidecars: SidecarStatusInfo[] = [];
+
+  constructor(data?: PartialMessage<SubscribeToSidecarsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SubscribeToSidecarsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "sidecars", kind: "message", T: SidecarStatusInfo, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SubscribeToSidecarsResponse {
+    return new SubscribeToSidecarsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SubscribeToSidecarsResponse {
+    return new SubscribeToSidecarsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SubscribeToSidecarsResponse {
+    return new SubscribeToSidecarsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SubscribeToSidecarsResponse | PlainMessage<SubscribeToSidecarsResponse> | undefined, b: SubscribeToSidecarsResponse | PlainMessage<SubscribeToSidecarsResponse> | undefined): boolean {
+    return proto3.util.equals(SubscribeToSidecarsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetSidecarEventsRequest
+ */
+export class GetSidecarEventsRequest extends Message<GetSidecarEventsRequest> {
+  /**
+   * @generated from field: string sidecar_id = 1;
+   */
+  sidecarId = "";
+
+  constructor(data?: PartialMessage<GetSidecarEventsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetSidecarEventsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "sidecar_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetSidecarEventsRequest {
+    return new GetSidecarEventsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetSidecarEventsRequest {
+    return new GetSidecarEventsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetSidecarEventsRequest {
+    return new GetSidecarEventsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetSidecarEventsRequest | PlainMessage<GetSidecarEventsRequest> | undefined, b: GetSidecarEventsRequest | PlainMessage<GetSidecarEventsRequest> | undefined): boolean {
+    return proto3.util.equals(GetSidecarEventsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.GetSidecarEventsResponse
+ */
+export class GetSidecarEventsResponse extends Message<GetSidecarEventsResponse> {
+  /**
+   * @generated from field: repeated exa.cortex_pb.SidecarEvent events = 1;
+   */
+  events: SidecarEvent[] = [];
+
+  constructor(data?: PartialMessage<GetSidecarEventsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.GetSidecarEventsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "events", kind: "message", T: SidecarEvent, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetSidecarEventsResponse {
+    return new GetSidecarEventsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetSidecarEventsResponse {
+    return new GetSidecarEventsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetSidecarEventsResponse {
+    return new GetSidecarEventsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetSidecarEventsResponse | PlainMessage<GetSidecarEventsResponse> | undefined, b: GetSidecarEventsResponse | PlainMessage<GetSidecarEventsResponse> | undefined): boolean {
+    return proto3.util.equals(GetSidecarEventsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ManageSidecarRequest
+ */
+export class ManageSidecarRequest extends Message<ManageSidecarRequest> {
+  /**
+   * @generated from field: string sidecar_id = 1;
+   */
+  sidecarId = "";
+
+  /**
+   * @generated from field: exa.language_server_pb.SidecarAction action = 2;
+   */
+  action = SidecarAction.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<ManageSidecarRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ManageSidecarRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "sidecar_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "action", kind: "enum", T: proto3.getEnumType(SidecarAction) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ManageSidecarRequest {
+    return new ManageSidecarRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ManageSidecarRequest {
+    return new ManageSidecarRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ManageSidecarRequest {
+    return new ManageSidecarRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ManageSidecarRequest | PlainMessage<ManageSidecarRequest> | undefined, b: ManageSidecarRequest | PlainMessage<ManageSidecarRequest> | undefined): boolean {
+    return proto3.util.equals(ManageSidecarRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.ManageSidecarResponse
+ */
+export class ManageSidecarResponse extends Message<ManageSidecarResponse> {
+  constructor(data?: PartialMessage<ManageSidecarResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.ManageSidecarResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ManageSidecarResponse {
+    return new ManageSidecarResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ManageSidecarResponse {
+    return new ManageSidecarResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ManageSidecarResponse {
+    return new ManageSidecarResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ManageSidecarResponse | PlainMessage<ManageSidecarResponse> | undefined, b: ManageSidecarResponse | PlainMessage<ManageSidecarResponse> | undefined): boolean {
+    return proto3.util.equals(ManageSidecarResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.StartAudioTranscriptionRequest
+ */
+export class StartAudioTranscriptionRequest extends Message<StartAudioTranscriptionRequest> {
+  /**
+   * @generated from field: string mime_type = 1;
+   */
+  mimeType = "";
+
+  /**
+   * @generated from field: string model = 2;
+   */
+  model = "";
+
+  constructor(data?: PartialMessage<StartAudioTranscriptionRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.StartAudioTranscriptionRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "mime_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "model", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StartAudioTranscriptionRequest {
+    return new StartAudioTranscriptionRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StartAudioTranscriptionRequest {
+    return new StartAudioTranscriptionRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StartAudioTranscriptionRequest {
+    return new StartAudioTranscriptionRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: StartAudioTranscriptionRequest | PlainMessage<StartAudioTranscriptionRequest> | undefined, b: StartAudioTranscriptionRequest | PlainMessage<StartAudioTranscriptionRequest> | undefined): boolean {
+    return proto3.util.equals(StartAudioTranscriptionRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.StreamAudioTranscriptionResponse
+ */
+export class StreamAudioTranscriptionResponse extends Message<StreamAudioTranscriptionResponse> {
+  /**
+   * @generated from oneof exa.language_server_pb.StreamAudioTranscriptionResponse.message
+   */
+  message: {
+    /**
+     * @generated from field: exa.language_server_pb.AudioStreamReady ready = 1;
+     */
+    value: AudioStreamReady;
+    case: "ready";
+  } | {
+    /**
+     * @generated from field: exa.language_server_pb.TranscriptionUpdate transcription = 2;
+     */
+    value: TranscriptionUpdate;
+    case: "transcription";
+  } | {
+    /**
+     * @generated from field: exa.language_server_pb.AudioStreamComplete complete = 3;
+     */
+    value: AudioStreamComplete;
+    case: "complete";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<StreamAudioTranscriptionResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.StreamAudioTranscriptionResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "ready", kind: "message", T: AudioStreamReady, oneof: "message" },
+    { no: 2, name: "transcription", kind: "message", T: TranscriptionUpdate, oneof: "message" },
+    { no: 3, name: "complete", kind: "message", T: AudioStreamComplete, oneof: "message" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StreamAudioTranscriptionResponse {
+    return new StreamAudioTranscriptionResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StreamAudioTranscriptionResponse {
+    return new StreamAudioTranscriptionResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StreamAudioTranscriptionResponse {
+    return new StreamAudioTranscriptionResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: StreamAudioTranscriptionResponse | PlainMessage<StreamAudioTranscriptionResponse> | undefined, b: StreamAudioTranscriptionResponse | PlainMessage<StreamAudioTranscriptionResponse> | undefined): boolean {
+    return proto3.util.equals(StreamAudioTranscriptionResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.AudioStreamReady
+ */
+export class AudioStreamReady extends Message<AudioStreamReady> {
+  /**
+   * @generated from field: string session_id = 1;
+   */
+  sessionId = "";
+
+  constructor(data?: PartialMessage<AudioStreamReady>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.AudioStreamReady";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "session_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AudioStreamReady {
+    return new AudioStreamReady().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AudioStreamReady {
+    return new AudioStreamReady().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AudioStreamReady {
+    return new AudioStreamReady().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AudioStreamReady | PlainMessage<AudioStreamReady> | undefined, b: AudioStreamReady | PlainMessage<AudioStreamReady> | undefined): boolean {
+    return proto3.util.equals(AudioStreamReady, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.TranscriptionUpdate
+ */
+export class TranscriptionUpdate extends Message<TranscriptionUpdate> {
+  /**
+   * @generated from field: string text = 1;
+   */
+  text = "";
+
+  /**
+   * @generated from field: bool is_final = 2;
+   */
+  isFinal = false;
+
+  constructor(data?: PartialMessage<TranscriptionUpdate>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.TranscriptionUpdate";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "is_final", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TranscriptionUpdate {
+    return new TranscriptionUpdate().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TranscriptionUpdate {
+    return new TranscriptionUpdate().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TranscriptionUpdate {
+    return new TranscriptionUpdate().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TranscriptionUpdate | PlainMessage<TranscriptionUpdate> | undefined, b: TranscriptionUpdate | PlainMessage<TranscriptionUpdate> | undefined): boolean {
+    return proto3.util.equals(TranscriptionUpdate, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.AudioStreamComplete
+ */
+export class AudioStreamComplete extends Message<AudioStreamComplete> {
+  constructor(data?: PartialMessage<AudioStreamComplete>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.AudioStreamComplete";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AudioStreamComplete {
+    return new AudioStreamComplete().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AudioStreamComplete {
+    return new AudioStreamComplete().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AudioStreamComplete {
+    return new AudioStreamComplete().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AudioStreamComplete | PlainMessage<AudioStreamComplete> | undefined, b: AudioStreamComplete | PlainMessage<AudioStreamComplete> | undefined): boolean {
+    return proto3.util.equals(AudioStreamComplete, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SendAudioChunkRequest
+ */
+export class SendAudioChunkRequest extends Message<SendAudioChunkRequest> {
+  /**
+   * @generated from field: string session_id = 1;
+   */
+  sessionId = "";
+
+  /**
+   * @generated from field: bytes data = 2;
+   */
+  data = new Uint8Array(0);
+
+  /**
+   * @generated from field: uint32 sequence_number = 3;
+   */
+  sequenceNumber = 0;
+
+  constructor(data?: PartialMessage<SendAudioChunkRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SendAudioChunkRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "session_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "data", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "sequence_number", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendAudioChunkRequest {
+    return new SendAudioChunkRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SendAudioChunkRequest {
+    return new SendAudioChunkRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SendAudioChunkRequest {
+    return new SendAudioChunkRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SendAudioChunkRequest | PlainMessage<SendAudioChunkRequest> | undefined, b: SendAudioChunkRequest | PlainMessage<SendAudioChunkRequest> | undefined): boolean {
+    return proto3.util.equals(SendAudioChunkRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.SendAudioChunkResponse
+ */
+export class SendAudioChunkResponse extends Message<SendAudioChunkResponse> {
+  constructor(data?: PartialMessage<SendAudioChunkResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.SendAudioChunkResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendAudioChunkResponse {
+    return new SendAudioChunkResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SendAudioChunkResponse {
+    return new SendAudioChunkResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SendAudioChunkResponse {
+    return new SendAudioChunkResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SendAudioChunkResponse | PlainMessage<SendAudioChunkResponse> | undefined, b: SendAudioChunkResponse | PlainMessage<SendAudioChunkResponse> | undefined): boolean {
+    return proto3.util.equals(SendAudioChunkResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.EndAudioSessionRequest
+ */
+export class EndAudioSessionRequest extends Message<EndAudioSessionRequest> {
+  /**
+   * @generated from field: string session_id = 1;
+   */
+  sessionId = "";
+
+  constructor(data?: PartialMessage<EndAudioSessionRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.EndAudioSessionRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "session_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EndAudioSessionRequest {
+    return new EndAudioSessionRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EndAudioSessionRequest {
+    return new EndAudioSessionRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EndAudioSessionRequest {
+    return new EndAudioSessionRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EndAudioSessionRequest | PlainMessage<EndAudioSessionRequest> | undefined, b: EndAudioSessionRequest | PlainMessage<EndAudioSessionRequest> | undefined): boolean {
+    return proto3.util.equals(EndAudioSessionRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.language_server_pb.EndAudioSessionResponse
+ */
+export class EndAudioSessionResponse extends Message<EndAudioSessionResponse> {
+  constructor(data?: PartialMessage<EndAudioSessionResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.language_server_pb.EndAudioSessionResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EndAudioSessionResponse {
+    return new EndAudioSessionResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EndAudioSessionResponse {
+    return new EndAudioSessionResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EndAudioSessionResponse {
+    return new EndAudioSessionResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EndAudioSessionResponse | PlainMessage<EndAudioSessionResponse> | undefined, b: EndAudioSessionResponse | PlainMessage<EndAudioSessionResponse> | undefined): boolean {
+    return proto3.util.equals(EndAudioSessionResponse, a, b);
   }
 }
 

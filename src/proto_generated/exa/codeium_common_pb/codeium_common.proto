@@ -3,6 +3,8 @@ package exa.codeium_common_pb;
 
 import "exa/google/internal/cloud/code/v1internal/credits.proto";
 import "exa/google/internal/cloud/code/v1internal/onboarding.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
 
 enum CommandRequestSource {
   COMMAND_REQUEST_SOURCE_UNSPECIFIED = 0;
@@ -262,6 +264,7 @@ enum Model {
   MODEL_GOOGLE_JARVIS_PROXY = 346;
   MODEL_GOOGLE_JARVIS_V4S = 349;
   MODEL_GOOGLE_GEMINI_TRAINING_POLICY = 323;
+  MODEL_GOOGLE_GEMINI_EXAMPLE_GEMAX_SAMPLER = 354;
   MODEL_GOOGLE_GEMINI_INTERNAL_BYOM = 326;
   MODEL_GOOGLE_GEMINI_INTERNAL_TAB_FLASH_LITE = 344;
   MODEL_GOOGLE_GEMINI_INTERNAL_TAB_JUMP_FLASH_LITE = 345;
@@ -1485,6 +1488,9 @@ enum RefreshCustomizationType {
   REFRESH_CUSTOMIZATION_TYPE_WORKFLOW = 2;
   REFRESH_CUSTOMIZATION_TYPE_SKILL = 3;
   REFRESH_CUSTOMIZATION_TYPE_AGENT = 4;
+  REFRESH_CUSTOMIZATION_TYPE_PLUGIN = 5;
+  REFRESH_CUSTOMIZATION_TYPE_HOOKS = 6;
+  REFRESH_CUSTOMIZATION_TYPE_MCP = 7;
 }
 
 enum ThirdPartyWebSearchProvider {
@@ -1661,8 +1667,8 @@ message TeamOrganizationalControls {
   string team_id = 1;
   repeated string cascade_model_labels = 2;
   repeated string command_model_labels = 3;
-  bytes created_at = 4;
-  bytes updated_at = 5;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
   repeated string extension_model_labels = 6;
 }
 
@@ -1867,7 +1873,7 @@ message Metadata {
   string session_id = 10;
   string device_fingerprint = 24;
   string user_tier_id = 29;
-  bytes ls_timestamp = 16;
+  google.protobuf.Timestamp ls_timestamp = 16;
   string trigger_id = 25;
   string id = 27;
   string api_key = 3;
@@ -1954,9 +1960,9 @@ message MockResponseData {
 
 message WorkspaceIndexData {
   string workspace_uri_for_telemetry = 1;
-  bytes indexing_start = 2;
-  bytes indexing_end = 3;
-  bytes embedding_duration = 4;
+  google.protobuf.Timestamp indexing_start = 2;
+  google.protobuf.Timestamp indexing_end = 3;
+  google.protobuf.Duration embedding_duration = 4;
   int64 num_files_total = 5;
   int64 num_files_to_embed = 6;
   int64 num_nodes_total = 7;
@@ -1986,7 +1992,7 @@ message WorkspaceStats {
 message PartialIndexMetadata {
   uint32 num_total_files = 1;
   uint32 num_indexed_files = 2;
-  bytes cutoff_timestamp = 3;
+  google.protobuf.Timestamp cutoff_timestamp = 3;
 }
 
 message FunctionInfo {
@@ -2031,7 +2037,7 @@ message TeamsFeaturesMetadata {
 
 message QuotaInfo {
   float remaining_fraction = 1;
-  bytes reset_time = 2;
+  google.protobuf.Timestamp reset_time = 2;
 }
 
 message ClientModelConfig {
@@ -2136,8 +2142,8 @@ message TopUpStatus {
 
 message PlanStatus {
   exa.codeium_common_pb.PlanInfo plan_info = 1;
-  bytes plan_start = 2;
-  bytes plan_end = 3;
+  google.protobuf.Timestamp plan_start = 2;
+  google.protobuf.Timestamp plan_end = 3;
   int32 available_prompt_credits = 8;
   int32 available_flow_credits = 9;
   int32 available_flex_credits = 4;
@@ -2170,6 +2176,7 @@ message UserStatus {
   string g1_tier = 35;
   google.internal.cloud.code.v1internal.UserTier user_tier = 36;
   bool user_data_collection_force_disabled = 37;
+  string profile_picture_url = 38;
 }
 
 message ScmWorkspaceInfo {
@@ -2269,7 +2276,7 @@ message CompletionStatistics {
 }
 
 message CompletionByDateEntry {
-  bytes timestamp = 1;
+  google.protobuf.Timestamp timestamp = 1;
   exa.codeium_common_pb.CompletionStatistics completion_statistics = 2;
 }
 
@@ -2297,7 +2304,7 @@ message ChatStats {
 }
 
 message ChatStatsByDateEntry {
-  bytes timestamp = 1;
+  google.protobuf.Timestamp timestamp = 1;
   exa.codeium_common_pb.ChatStats chat_stats = 2;
 }
 
@@ -2327,33 +2334,33 @@ message CommandStats {
 }
 
 message CommandStatsByDateEntry {
-  bytes timestamp = 1;
+  google.protobuf.Timestamp timestamp = 1;
   exa.codeium_common_pb.CommandStats command_stats = 2;
 }
 
 message UserTableStats {
   string name = 1;
   string email = 2;
-  bytes last_update_time = 3;
+  google.protobuf.Timestamp last_update_time = 3;
   string api_key = 4;
   bool disable_codeium = 5;
   uint32 active_days = 6;
   string role = 7;
-  bytes signup_time = 8;
-  bytes last_autocomplete_usage_time = 9;
-  bytes last_chat_usage_time = 10;
-  bytes last_command_usage_time = 11;
+  google.protobuf.Timestamp signup_time = 8;
+  google.protobuf.Timestamp last_autocomplete_usage_time = 9;
+  google.protobuf.Timestamp last_chat_usage_time = 10;
+  google.protobuf.Timestamp last_command_usage_time = 11;
   int64 prompt_credits_used = 12;
 }
 
 message CascadeNUXState {
   exa.codeium_common_pb.CascadeNUXEvent event = 1;
-  bytes timestamp = 2;
+  google.protobuf.Timestamp timestamp = 2;
 }
 
 message UserNUXState {
   exa.codeium_common_pb.UserNUXEvent event = 1;
-  bytes timestamp = 2;
+  google.protobuf.Timestamp timestamp = 2;
 }
 
 message ConversationBrainConfig {
@@ -2478,6 +2485,7 @@ message ModelFeatures {
   bool supports_cumulative_context = 13;
   bool tab_jump_print_line_range = 14;
   bool supports_thinking = 15;
+  bool supports_adaptive_thinking = 29;
   bool supports_raw_thinking = 21;
   bool supports_estimate_token_counter = 17;
   bool add_cursor_to_find_replace_target = 18;
@@ -2521,6 +2529,9 @@ message ModelInfo {
   int32 thinking_budget = 16;
   int32 min_thinking_budget = 17;
   bool use_ccpa_for_eval = 18;
+  int32 thinking_level = 19;
+  string display_name = 20;
+  string tool_response_key = 21;
 }
 
 message ApiProviderRoutingConfig {
@@ -2569,7 +2580,7 @@ message CompletionExample {
 message CompletionExampleWithMetadata {
   exa.codeium_common_pb.CompletionExample example = 1;
   string name = 2;
-  bytes time = 4;
+  google.protobuf.Timestamp time = 4;
 }
 
 message CciWithSubrange {
@@ -2787,7 +2798,7 @@ message BrowserTextScopeItem {
 message ConversationScopeItem {
   string id = 1;
   string title = 2;
-  bytes last_modified_time = 3;
+  google.protobuf.Timestamp last_modified_time = 3;
 }
 
 message UserActivityScopeItem {
@@ -2839,8 +2850,8 @@ message ContextScope {
 
 message NodeExecutionRecord {
   string node_name = 1;
-  bytes start_time = 2;
-  bytes end_time = 3;
+  google.protobuf.Timestamp start_time = 2;
+  google.protobuf.Timestamp end_time = 3;
   bytes graph_state_json = 5;
   uint64 graph_state_json_num_bytes = 6;
   exa.codeium_common_pb.GraphExecutionState subgraph_execution = 4;
@@ -2888,6 +2899,7 @@ message CompletionDelta {
   exa.codeium_common_pb.ModelUsageStats usage = 4;
   repeated exa.codeium_common_pb.ChatToolCall delta_tool_calls = 5;
   string delta_thinking = 6;
+  string delta_raw_thinking = 17;
   bytes delta_signature = 7;
   bool thinking_redacted = 8;
   exa.codeium_common_pb.CitationMetadata citation_metadata = 11;
@@ -2958,7 +2970,7 @@ message Document {
   bool is_cutoff_end = 11;
   int32 lines_cutoff_start = 14;
   int32 lines_cutoff_end = 15;
-  bytes timestamp = 16;
+  google.protobuf.Timestamp timestamp = 16;
   bool is_dirty = 17;
   bool is_synthetic = 18;
 }
@@ -3041,7 +3053,7 @@ message PostgresDbStats {
 }
 
 message LastUpdateRecord {
-  bytes time = 1;
+  google.protobuf.Timestamp time = 1;
   exa.codeium_common_pb.LastUpdateType type = 2;
 }
 
@@ -3149,7 +3161,7 @@ message KnowledgeBaseItem {
   string document_id = 1;
   string url = 3;
   string title = 4;
-  bytes timestamp = 5;
+  google.protobuf.Timestamp timestamp = 5;
   repeated exa.codeium_common_pb.KnowledgeBaseChunk chunks = 6;
   string summary = 7;
   exa.codeium_common_pb.DOMTree dom_tree = 9;
@@ -3215,7 +3227,7 @@ message TerminalShellCommandHeader {
   uint32 shell_pid = 2;
   string command_line = 3;
   string cwd = 4;
-  bytes start_time = 5;
+  google.protobuf.Timestamp start_time = 5;
   exa.codeium_common_pb.TerminalShellCommandSource source = 6;
 }
 
@@ -3225,7 +3237,7 @@ message TerminalShellCommandData {
 
 message TerminalShellCommandTrailer {
   int32 exit_code = 1;
-  bytes end_time = 2;
+  google.protobuf.Timestamp end_time = 2;
 }
 
 message TerminalShellCommandStreamChunk {
@@ -3243,9 +3255,9 @@ message TerminalShellCommand {
   string cwd = 3;
   bytes output = 4;
   int32 exit_code = 5;
-  bytes start_time = 6;
-  bytes end_time = 7;
-  bytes last_updated_time = 11;
+  google.protobuf.Timestamp start_time = 6;
+  google.protobuf.Timestamp end_time = 7;
+  google.protobuf.Timestamp last_updated_time = 11;
   exa.codeium_common_pb.TerminalShellCommandStatus status = 8;
   exa.codeium_common_pb.TerminalShellCommandSource source = 9;
 }
@@ -3263,13 +3275,13 @@ message AntigravityProject {
   exa.codeium_common_pb.DeploymentProvider deployment_provider = 3;
   string provider_project_id = 4;
   string project_name = 5;
-  bytes created_at = 6;
-  bytes updated_at = 7;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
   string domain = 8;
   string subdomain_name = 9;
-  bytes expires_at = 10;
-  bytes claimed_at = 11;
-  bytes deprovisioned_at = 12;
+  google.protobuf.Timestamp expires_at = 10;
+  google.protobuf.Timestamp claimed_at = 11;
+  google.protobuf.Timestamp deprovisioned_at = 12;
   string provider_team_id = 14;
   string project_url = 13;
 }
@@ -3283,15 +3295,15 @@ message AntigravityDeployment {
   string project_id = 4;
   string project_name = 5;
   string workspace_path = 6;
-  bytes created_at = 7;
-  bytes updated_at = 8;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
   string domain = 16;
   string subdomain_name = 17;
   string provider_team_id = 20;
-  bytes expires_at = 11;
+  google.protobuf.Timestamp expires_at = 11;
   string deployment_url = 12;
-  bytes claimed_at = 15;
-  bytes deprovisioned_at = 13;
+  google.protobuf.Timestamp claimed_at = 15;
+  google.protobuf.Timestamp deprovisioned_at = 13;
   string build_status_url = 9;
   string project_url = 10;
 }
@@ -3424,7 +3436,7 @@ message UnleashContext {
 }
 
 message BrowserStateSnapshot {
-  bytes timestamp = 1;
+  google.protobuf.Timestamp timestamp = 1;
   string user_active_page_id = 2;
   repeated exa.codeium_common_pb.BrowserPageMetadata pages = 3;
 }
@@ -3438,7 +3450,7 @@ message BrowserPageMetadata {
   uint32 page_height = 9;
   string favicon_url = 6;
   float device_pixel_ratio = 8;
-  bytes last_visited_time = 7;
+  google.protobuf.Timestamp last_visited_time = 7;
 }
 
 message BrowserClickInteraction {
@@ -3456,7 +3468,7 @@ message BrowserScrollInteraction {
 }
 
 message BrowserInteraction {
-  bytes timestamp = 1;
+  google.protobuf.Timestamp timestamp = 1;
   exa.codeium_common_pb.BrowserPageMetadata page_metadata = 2;
   oneof interaction {
     exa.codeium_common_pb.BrowserClickInteraction click = 3;
@@ -3580,9 +3592,10 @@ message ArtifactComment {
 message ArtifactMetadata {
   exa.codeium_common_pb.ArtifactType artifact_type = 1;
   string summary = 2;
-  bytes created_at = 3;
-  bytes updated_at = 4;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
   int64 version = 5;
+  bool request_feedback = 6;
 }
 
 message DiffCommentInfo {
@@ -3714,4 +3727,10 @@ message LogRequest {
 
 message LogResponse {
   int64 next_request_wait_millis = 1;
+}
+
+message PermissionGrantsConfig {
+  repeated string allow = 1;
+  repeated string deny = 2;
+  repeated string ask = 3;
 }

@@ -1,0 +1,19 @@
+syntax = "proto3";
+package google.api;
+
+message FieldInfo {
+  enum Format {
+    FORMAT_UNSPECIFIED = 0;
+    UUID4 = 1;
+    IPV4 = 2;
+    IPV6 = 3;
+    IPV4_OR_IPV6 = 4;
+  }
+
+  google.api.FieldInfo.Format format = 1;
+  repeated google.api.TypeReference referenced_types = 2;
+}
+
+message TypeReference {
+  string type_name = 1;
+}
