@@ -15,159 +15,171 @@ import { ClientTrajectoryVerbosity as JetskiCortexClientTrajectoryVerbosity } fr
 import { IntentType, RelevanceReason } from "../gen/exa/code_edit/code_edit_pb/code_edit_pb.js";
 import { PostOnboardingStepType, ThemeMode } from "../gen/exa/jetbox_state_pb/jetbox_state_pb.js";
 
-export interface AcceptTermsOfServiceRequestInput {
+export { APIProvider, AgentBrowserTools, AnnotationsConfig, ArtifactApprovalStatus, ArtifactReviewMode, ArtifactType, AutoContinueOnMaxGeneratorInvocations, AutocompleteSpeed, BrowserJsAutoRunPolicy, BrowserJsExecutionPolicy, CascadeCommandsAutoExecution, CascadeInputAutocomplete, CascadeNUXIcon, CascadeNUXLocation, CascadeNUXTrigger, CascadeRunExtensionCode, CascadeRunExtensionCodeAutoRun, CascadeWebSearchTool, ChatMessageSource, CodeContextType, ContextScopeType, ContextSnippetType, ConversationalPlannerMode, DeploymentBuildStatus, DeploymentProvider, DetectAndUseProxy, DocumentType, EventType, ExperimentKey, ExperimentSource, IndexChoice, Language, MarkdownNodeType, Model, ModelAlias, ModelPricingType, ModelProvider, ModelStatus, ModelType, Permission, PlanMode, PlanningMode, PromptAnnotationKind, PromptTemplaterType, ProviderSource, RefreshCustomizationType, RememberLastModelSelection, ScmProvider, ScmType, StatusLevel, StopReason, TabEnabled, TabToJump, TeamsFeatures, TeamsTier, TerminalShellCommandSource, TerminalShellCommandStatus, ThemePreference, ThirdPartyWebSearchProvider, ToolFormatterType, TransactionStatus, UserFeatures, UserTeamStatus, WorkingDirectoryStatus };
+export { AcknowledgementType, AgentMode, ArtifactReviewStatus, AutoRunDecision, BrainEntryType, BrainUpdateTrigger, BrowserActionWaitingReason, BrowserEphemeralOption, BrowserSubagentContextConfig_ContextType, BrowserSubagentMode, BrowserToolSetMode, CascadeRunStatus, CheckpointStrategy, ClickFeedbackConfig_FeedbackType, CloudSQLUpdateSchemaErrorCode, CloudSQLUpdateSchemaResult, CodeAcknowledgementScope, CodeHeuristicFailure, CommandOutputPriority, CortexMemorySource, CortexMemoryTrigger, CortexStepCompileTool, CortexStepExecuteNotebook_CellStatus, CortexStepExecuteNotebook_ExecutionStatus, CortexStepManagerFeedbackStatus, CortexStepStatus, CortexStepType, CortexTrajectoryReferenceType, CortexTrajectorySource, CortexTrajectoryType, EditNotebookOperation, EphemeralMessagePersistenceLevel, ExecutorTerminationReason, FileChangeType, FilePermissionInteractionSpec_BlockReason, FindResultType, FunctionProvider_Protocol, InteractiveCascadeEditImportance, LintDiffType, McpAuthProviderType, McpServerStatus, McpToolBackgroundMode, MemoryActionType, MessagePriority, PermissionScope, RecordingGenerationStatus, ReplaceToolVariant, RetryReason, RunExtensionCodeAutoRunDecision, SearchWebType, SectionOverrideMode, SemanticCodebaseSearchType, SetUpCloudSqlErrorCode, SetUpCloudSqlResult, SetUpFirebaseErrorCode, SetUpFirebaseRequest, SetUpFirebaseResult, SidecarStatus, SidecarUIEntrypoint, TaskDeltaType, TaskStatus, TokenSource, TokenType, TrajectorySearchIdType, TrajectoryShareStatus, TruncationReason };
+export { AgentMessageOrigin, ClientTrajectoryVerbosity, CodeRevertActionType, CustomizationFileType, CustomizationPathsOperation, FileType, ForkTarget, IdeAction, SidecarAction };
+export { CacheControlType, ChatFeedbackType };
+export { UnifiedDiffLineType };
+export { ClickType, ScrollDirection, WindowState };
+export { ChatClientRequestStreamClientType };
+export { ConnectorType };
+export { JetskiCortexClientTrajectoryVerbosity };
+export { IntentType, RelevanceReason };
+export { PostOnboardingStepType, ThemeMode };
+
+export interface AcceptTermsOfServiceRequest {
   version?: string;
 }
 
-export interface AcceptTermsOfServiceResponseInput {
+export interface AcceptTermsOfServiceResponse {
 }
 
-export interface AcknowledgeCascadeCodeEditRequestInput {
+export interface AcknowledgeCascadeCodeEditRequest {
   cascadeId?: string;
   absoluteUri?: string[];
   contents?: string[];
   accept?: boolean;
 }
 
-export interface AcknowledgeCascadeCodeEditResponseInput {
+export interface AcknowledgeCascadeCodeEditResponse {
 }
 
-export interface AcknowledgeCodeActionStepRequestInput {
+export interface AcknowledgeCodeActionStepRequest {
   cascadeId?: string;
   accept?: boolean;
   writtenFeedback?: string;
   acknowledgementScope?: CodeAcknowledgementScope;
-  codeAcknowledgementRequestInfos?: CodeAcknowledgementRequestInfoInput[];
+  codeAcknowledgementRequestInfos?: CodeAcknowledgementRequestInfo[];
 }
 
-export interface AcknowledgeCodeActionStepResponseInput {
+export interface AcknowledgeCodeActionStepResponse {
 }
 
-export interface ActionDebugInfo_DebugInfoEntryInput {
+export interface ActionDebugInfo {
+  entries?: ActionDebugInfo_DebugInfoEntry[];
+}
+
+export interface ActionDebugInfo_DebugInfoEntry {
   key?: string;
   value?: string;
 }
 
-export interface ActionDebugInfoInput {
-  entries?: ActionDebugInfo_DebugInfoEntryInput[];
+export interface ActionResult {
+  applyExistingResult?: boolean;
+  edit?: ActionResultEdit;
 }
 
-export interface ActionResultEditInput {
+export interface ActionResultEdit {
   absolutePathMigrateMeToUri?: string;
-  diff?: DiffBlockInput;
+  diff?: DiffBlock;
   contextPrefix?: string;
   contextSuffix?: string;
-  debugInfo?: ActionDebugInfoInput;
+  debugInfo?: ActionDebugInfo;
   promptId?: string;
   completionId?: string;
   fileContentHash?: string;
   absoluteUri?: string;
-  resultCcis?: CodeContextItemInput[];
+  resultCcis?: CodeContextItem[];
   originalContent?: string;
   createFile?: boolean;
 }
 
-export interface ActionResultInput {
-  applyExistingResult?: boolean;
-  edit?: ActionResultEditInput;
+export interface ActionSpec {
+  parentStepIndices?: number[];
+  command?: ActionSpecCommand;
+  createFile?: ActionSpecCreateFile;
+  deleteFile?: ActionSpecDeleteFile;
+  sed?: ActionSpecSed;
 }
 
-export interface ActionSpecCommandInput {
+export interface ActionSpecCommand {
   instruction?: string;
-  replacementChunks?: ReplacementChunkInput[];
+  replacementChunks?: ReplacementChunk[];
   isEdit?: boolean;
   useFastApply?: boolean;
-  referenceCcis?: CodeContextItemInput[];
+  referenceCcis?: CodeContextItem[];
   classification?: string;
   importance?: InteractiveCascadeEditImportance;
-  codeContext?: CodeContextItemInput;
-  file?: PathScopeItemInput;
-  cciWithSubrange?: CciWithSubrangeInput;
-  lineRange?: LineRangeTargetInput;
-  contentTarget?: CommandContentTargetInput;
+  codeContext?: CodeContextItem;
+  file?: PathScopeItem;
+  cciWithSubrange?: CciWithSubrange;
+  lineRange?: LineRangeTarget;
+  contentTarget?: CommandContentTarget;
 }
 
-export interface ActionSpecCreateFileInput {
+export interface ActionSpecCreateFile {
   instruction?: string;
-  path?: PathScopeItemInput;
-  referenceCcis?: CodeContextItemInput[];
+  path?: PathScopeItem;
+  referenceCcis?: CodeContextItem[];
   overwrite?: boolean;
 }
 
-export interface ActionSpecDeleteFileInput {
-  path?: PathScopeItemInput;
+export interface ActionSpecDeleteFile {
+  path?: PathScopeItem;
 }
 
-export interface ActionSpecInput {
-  parentStepIndices?: number[];
-  command?: ActionSpecCommandInput;
-  createFile?: ActionSpecCreateFileInput;
-  deleteFile?: ActionSpecDeleteFileInput;
-  sed?: ActionSpecSedInput;
+export interface ActionSpecSed {
+  expressions?: string[];
+  path?: PathScopeItem;
+  fileContent?: ActionSpecSed_FileContentEntry[];
 }
 
-export interface ActionSpecSed_FileContentEntryInput {
+export interface ActionSpecSed_FileContentEntry {
   key?: string;
   value?: string;
 }
 
-export interface ActionSpecSedInput {
-  expressions?: string[];
-  path?: PathScopeItemInput;
-  fileContent?: ActionSpecSed_FileContentEntryInput[];
-}
-
-export interface AddToBrowserWhitelistRequestInput {
+export interface AddToBrowserWhitelistRequest {
   hostname?: string;
   hostnames?: string[];
 }
 
-export interface AddToBrowserWhitelistResponseInput {
+export interface AddToBrowserWhitelistResponse {
 }
 
-export interface AddTrackedWorkspaceRequestInput {
+export interface AddTrackedWorkspaceRequest {
   workspace?: string;
   doNotWatchFiles?: boolean;
   isPassiveWorkspace?: boolean;
 }
 
-export interface AddTrackedWorkspaceResponseInput {
+export interface AddTrackedWorkspaceResponse {
 }
 
-export interface AgentApiConfigInput {
+export interface AgentApiConfig {
   enabled?: boolean;
 }
 
-export interface AgentConfigInput {
-  mixinConfig?: DeclarativeMixinConfigInput;
+export interface AgentConfig {
+  mixinConfig?: DeclarativeMixinConfig;
   model?: Model;
-  customizationDiscovery?: CustomizationDiscoveryConfigInput;
-  cascadeConfig?: CascadeConfigInput;
+  customizationDiscovery?: CustomizationDiscoveryConfig;
+  cascadeConfig?: CascadeConfig;
 }
 
-export interface AgentCustomizationInput {
+export interface AgentCustomization {
   path?: string;
-  agent?: AgentScriptItemInput;
+  agent?: AgentScriptItem;
   isGlobal?: boolean;
 }
 
-export interface AgentDiscoveryConfigInput {
+export interface AgentDiscoveryConfig {
   inheritUser?: boolean;
   builtinAgentNames?: string[];
-  agents?: AgentScriptItemInput[];
+  agents?: AgentScriptItem[];
 }
 
-export interface AgenticModeConfig_InjectArtifactReminderThresholdMapEntryInput {
+export interface AgenticModeConfig {
+  injectArtifactReminderThresholdMap?: AgenticModeConfig_InjectArtifactReminderThresholdMapEntry[];
+  disableArtifactReminders?: boolean;
+}
+
+export interface AgenticModeConfig_InjectArtifactReminderThresholdMapEntry {
   key?: string;
   value?: number;
 }
 
-export interface AgenticModeConfigInput {
-  injectArtifactReminderThresholdMap?: AgenticModeConfig_InjectArtifactReminderThresholdMapEntryInput[];
-  disableArtifactReminders?: boolean;
-}
-
-export interface AgentInstanceInput {
+export interface AgentInstance {
   name?: string;
   logFilePath?: string;
   latestTrajectoryId?: string;
@@ -176,81 +188,81 @@ export interface AgentInstanceInput {
   description?: string;
 }
 
-export interface AgentMessageInput {
+export interface AgentMessage {
   id?: string;
   recipient?: string;
   sender?: string;
   priority?: MessagePriority;
   timestamp?: any;
-  renderDetails?: MessageRenderDetailsInput;
+  renderDetails?: MessageRenderDetails;
   hideFromUser?: boolean;
-  sourceMetadata?: SourceMetadataInput;
+  sourceMetadata?: SourceMetadata;
   content?: string;
   stepPayload?: Uint8Array;
 }
 
-export interface AgentScriptCommandSpecInput {
+export interface AgentScriptCommandSpec {
   command?: string;
   args?: string[];
 }
 
-export interface AgentScriptConfigPathInput {
+export interface AgentScriptConfigPath {
   configPathUri?: string;
   relativePathToConfig?: string;
 }
 
-export interface AgentScriptItemInput {
+export interface AgentScriptItem {
   name?: string;
   description?: string;
   disabled?: boolean;
   hidden?: boolean;
   subagent?: boolean;
   mainAgent?: boolean;
-  commandSpec?: AgentScriptCommandSpecInput;
-  pythonSpec?: AgentScriptPythonSpecInput;
-  configPath?: AgentScriptConfigPathInput;
-  config?: CustomAgentSpecInput;
-  cascadeConfig?: CascadeConfigInput;
+  commandSpec?: AgentScriptCommandSpec;
+  pythonSpec?: AgentScriptPythonSpec;
+  configPath?: AgentScriptConfigPath;
+  config?: CustomAgentSpec;
+  cascadeConfig?: CascadeConfig;
 }
 
-export interface AgentScriptPythonSpecInput {
+export interface AgentScriptPythonSpec {
   mainPyPathUri?: string;
   requirementsTxtPathUri?: string;
   relativePathToMainPy?: string;
   relativePathToRequirementsTxt?: string;
 }
 
-export interface AgentStatePageUpdateRequestInput {
+export interface AgentStatePageUpdateRequest {
   conversationId?: string;
   subscriberId?: string;
-  stepPageBounds?: SliceInput;
-  generatorMetadatasPageBounds?: SliceInput;
-  executorMetadatasPageBounds?: SliceInput;
+  stepPageBounds?: Slice;
+  generatorMetadatasPageBounds?: Slice;
+  executorMetadatasPageBounds?: Slice;
 }
 
-export interface AgentStatePageUpdateResponseInput {
+export interface AgentStatePageUpdateResponse {
 }
 
-export interface AgentTeamTaskInput {
+export interface AgentTeamTask {
   id?: string;
   isCompleted?: boolean;
   taskFileUri?: string;
 }
 
-export interface AllowedModelConfigInput {
-  modelOrAlias?: ModelOrAliasInput;
+export interface AllowedModelConfig {
+  modelOrAlias?: ModelOrAlias;
   creditMultiplier?: number;
 }
 
-export interface AntigravityBrowserToolConfigInput {
+export interface AntigravityBrowserToolConfig {
   enabled?: boolean;
   autoRunDecision?: AutoRunDecision;
-  captureBrowserScreenshot?: CaptureBrowserScreenshotToolConfigInput;
-  browserSubagent?: BrowserSubagentToolConfigInput;
-  clickBrowserPixel?: ClickBrowserPixelToolConfigInput;
-  browserStateDiffingConfig?: BrowserStateDiffingConfigInput;
-  browserListNetworkRequestsToolConfig?: BrowserListNetworkRequestsToolConfigInput;
-  browserGetNetworkRequestToolConfig?: BrowserGetNetworkRequestToolConfigInput;
+  captureBrowserScreenshot?: CaptureBrowserScreenshotToolConfig;
+  browserSubagent?: BrowserSubagentToolConfig;
+  clickBrowserPixel?: ClickBrowserPixelToolConfig;
+  browserStateDiffingConfig?: BrowserStateDiffingConfig;
+  browserListNetworkRequestsToolConfig?: BrowserListNetworkRequestsToolConfig;
+  browserGetNetworkRequestToolConfig?: BrowserGetNetworkRequestToolConfig;
   toolSetMode?: BrowserToolSetMode;
   disableOpenUrl?: boolean;
   isEvalMode?: boolean;
@@ -258,8 +270,8 @@ export interface AntigravityBrowserToolConfigInput {
   disableActuationOverlay?: boolean;
   variableWaitTool?: boolean;
   browserJsAutoRunPolicy?: BrowserJsAutoRunPolicy;
-  initialBrowserWindowSize?: BrowserWindowSizeInput;
-  domExtractionConfig?: DOMExtractionConfigInput;
+  initialBrowserWindowSize?: BrowserWindowSize;
+  domExtractionConfig?: DOMExtractionConfig;
   disableWorkspaceApi?: boolean;
   openPageInBackground?: boolean;
   useAntigravityAsBrowserPrompting?: boolean;
@@ -271,7 +283,7 @@ export interface AntigravityBrowserToolConfigInput {
   displayOnCrd?: boolean;
 }
 
-export interface AntigravityDeploymentInput {
+export interface AntigravityDeployment {
   antigravityDeploymentId?: string;
   authUid?: string;
   deploymentProvider?: DeploymentProvider;
@@ -293,36 +305,36 @@ export interface AntigravityDeploymentInput {
   projectUrl?: string;
 }
 
-export interface ApprovalInteractionInput {
+export interface ApprovalInteraction {
   confirm?: boolean;
 }
 
-export interface ApprovalInteractionSpecInput {
+export interface ApprovalInteractionSpec {
 }
 
-export interface ArtifactCommentInput {
+export interface ArtifactComment {
   artifactUri?: string;
   comment?: string;
   approvalStatus?: ArtifactApprovalStatus;
-  fullFile?: ArtifactFullFileTargetInput;
-  selections?: ArtifactSelectionTargetInput;
+  fullFile?: ArtifactFullFileTarget;
+  selections?: ArtifactSelectionTarget;
 }
 
-export interface ArtifactFullFileTargetInput {
-  image?: ImageDataInput;
-  media?: MediaInput;
+export interface ArtifactFullFileTarget {
+  image?: ImageData;
+  media?: Media;
 }
 
-export interface ArtifactImageSelectionInput {
-  croppedImage?: ImageDataInput;
+export interface ArtifactImageSelection {
+  croppedImage?: ImageData;
   x?: number;
   y?: number;
   width?: number;
   height?: number;
-  croppedMedia?: MediaInput;
+  croppedMedia?: Media;
 }
 
-export interface ArtifactMetadataInput {
+export interface ArtifactMetadata {
   artifactType?: ArtifactType;
   summary?: string;
   createdAt?: any;
@@ -331,58 +343,58 @@ export interface ArtifactMetadataInput {
   requestFeedback?: boolean;
 }
 
-export interface ArtifactReviewStateInput {
+export interface ArtifactReviewState {
   artifactUri?: string;
   status?: ArtifactReviewStatus;
   lastReviewedTime?: any;
   lastReviewedContent?: string;
 }
 
-export interface ArtifactSelectionInput {
-  textSelection?: TextSelectionInput;
-  imageSelection?: ArtifactImageSelectionInput;
+export interface ArtifactSelection {
+  textSelection?: TextSelection;
+  imageSelection?: ArtifactImageSelection;
 }
 
-export interface ArtifactSelectionTargetInput {
-  selections?: ArtifactSelectionInput[];
+export interface ArtifactSelectionTarget {
+  selections?: ArtifactSelection[];
 }
 
-export interface ArtifactSnapshotInput {
+export interface ArtifactSnapshot {
   artifactName?: string;
   content?: string;
   artifactAbsoluteUri?: string;
   lastEdited?: any;
-  reviewState?: ArtifactReviewStateInput;
+  reviewState?: ArtifactReviewState;
 }
 
-export interface AskQuestionEntryInput {
+export interface AskQuestionEntry {
   question?: string;
-  options?: AskQuestionOptionInput[];
+  options?: AskQuestionOption[];
   isMultiSelect?: boolean;
   selectedOptionIds?: string[];
   writeInResponse?: string;
   skipped?: boolean;
 }
 
-export interface AskQuestionInteractionInput {
-  responses?: AskQuestionEntryInput[];
+export interface AskQuestionInteraction {
+  responses?: AskQuestionEntry[];
   cancelled?: boolean;
 }
 
-export interface AskQuestionInteractionSpecInput {
-  questions?: AskQuestionEntryInput[];
+export interface AskQuestionInteractionSpec {
+  questions?: AskQuestionEntry[];
 }
 
-export interface AskQuestionOptionInput {
+export interface AskQuestionOption {
   id?: string;
   text?: string;
 }
 
-export interface AskQuestionToolConfigInput {
+export interface AskQuestionToolConfig {
   enabled?: boolean;
 }
 
-export interface AutoCommandConfigInput {
+export interface AutoCommandConfig {
   enableModelAutoRun?: boolean;
   userAllowlist?: string[];
   userDenylist?: string[];
@@ -393,47 +405,47 @@ export interface AutoCommandConfigInput {
   autoExecutionPolicy?: CascadeCommandsAutoExecution;
 }
 
-export interface AutoFixLintsConfigInput {
+export interface AutoFixLintsConfig {
   enabled?: boolean;
   notifyingPrompt?: string;
 }
 
-export interface BaseTrajectoryIdentifierInput {
+export interface BaseTrajectoryIdentifier {
   cascadeId?: string;
   implicitTrajectoryFileUri?: string;
   lastActiveDoc?: boolean;
-  trajectory?: TrajectoryInput;
-  forkFrom?: ForkFromIdentifierInput;
+  trajectory?: Trajectory;
+  forkFrom?: ForkFromIdentifier;
 }
 
-export interface BlobrefInput {
+export interface Blobref {
   blobId?: string;
 }
 
-export interface BrainEntryDeltaInput {
-  before?: BrainEntryInput;
-  after?: BrainEntryInput;
-  absolutePathUri?: string;
-  summary?: BrainEntryDeltaSummaryInput;
-}
-
-export interface BrainEntryDeltaSummaryInput {
-  plan?: PlanEntryDeltaSummaryInput;
-  task?: TaskEntryDeltaSummaryInput;
-}
-
-export interface BrainEntryInput {
+export interface BrainEntry {
   id?: string;
   type?: BrainEntryType;
   content?: string;
 }
 
-export interface BranchInfoInput {
+export interface BrainEntryDelta {
+  before?: BrainEntry;
+  after?: BrainEntry;
+  absolutePathUri?: string;
+  summary?: BrainEntryDeltaSummary;
+}
+
+export interface BrainEntryDeltaSummary {
+  plan?: PlanEntryDeltaSummary;
+  task?: TaskEntryDeltaSummary;
+}
+
+export interface BranchInfo {
   name?: string;
   isCurrentBranch?: boolean;
 }
 
-export interface BrowserCodeBlockScopeItemInput {
+export interface BrowserCodeBlockScopeItem {
   url?: string;
   title?: string;
   codeContent?: string;
@@ -442,19 +454,19 @@ export interface BrowserCodeBlockScopeItemInput {
   pageId?: string;
 }
 
-export interface BrowserCustomReminderModeInput {
+export interface BrowserCustomReminderMode {
   reminder?: string;
 }
 
-export interface BrowserGetNetworkRequestToolConfigInput {
+export interface BrowserGetNetworkRequestToolConfig {
   enabled?: boolean;
 }
 
-export interface BrowserListNetworkRequestsToolConfigInput {
+export interface BrowserListNetworkRequestsToolConfig {
   enabled?: boolean;
 }
 
-export interface BrowserPageMetadataInput {
+export interface BrowserPageMetadata {
   url?: string;
   pageId?: string;
   pageTitle?: string;
@@ -466,74 +478,81 @@ export interface BrowserPageMetadataInput {
   lastVisitedTime?: any;
 }
 
-export interface BrowserPageScopeItemInput {
+export interface BrowserPageScopeItem {
   url?: string;
   title?: string;
   visibleTextContent?: string;
   pageId?: string;
 }
 
-export interface BrowserStateDiffingConfigInput {
+export interface BrowserStateDiffingConfig {
   captureAgentActionDiffs?: boolean;
   includeDomTreeInDiffs?: boolean;
 }
 
-export interface BrowserStateSnapshotInput {
+export interface BrowserStateSnapshot {
   timestamp?: any;
   userActivePageId?: string;
-  pages?: BrowserPageMetadataInput[];
+  pages?: BrowserPageMetadata[];
 }
 
-export interface BrowserSubagentContextConfigInput {
+export interface BrowserSubagentContextConfig {
   type?: BrowserSubagentContextConfig_ContextType;
   maxChars?: number;
 }
 
-export interface BrowserSubagentToolConfigInput {
+export interface BrowserSubagentToolConfig {
   mode?: BrowserSubagentMode;
   browserSubagentModel?: Model;
   useDetailedConverter?: boolean;
   suggestedMaxToolCalls?: number;
   disableOnboarding?: boolean;
-  subagentReminderMode?: SubagentReminderModeInput;
+  subagentReminderMode?: SubagentReminderMode;
   maxContextTokens?: number;
-  contextConfig?: BrowserSubagentContextConfigInput;
-  domExtractionConfig?: DOMExtractionConfigInput;
+  contextConfig?: BrowserSubagentContextConfig;
+  domExtractionConfig?: DOMExtractionConfig;
   disableScreenshot?: boolean;
-  lowLevelToolsConfig?: LowLevelToolsConfigInput;
+  lowLevelToolsConfig?: LowLevelToolsConfig;
   enableScratchpad?: boolean;
   includeCiPrompt?: boolean;
 }
 
-export interface BrowserTextScopeItemInput {
+export interface BrowserTextScopeItem {
   url?: string;
   visibleText?: string;
   pageId?: string;
 }
 
-export interface BrowserValidateCascadeOrCancelOverlayRequestInput {
+export interface BrowserValidateCascadeOrCancelOverlayRequest {
   cascadeId?: string;
 }
 
-export interface BrowserValidateCascadeOrCancelOverlayResponseInput {
+export interface BrowserValidateCascadeOrCancelOverlayResponse {
 }
 
-export interface BrowserVerifyCompletenessModeInput {
+export interface BrowserVerifyCompletenessMode {
 }
 
-export interface BrowserVerifyScreenshotsModeInput {
+export interface BrowserVerifyScreenshotsMode {
 }
 
-export interface BrowserWindowSizeInput {
+export interface BrowserWindowSize {
   widthPx?: number;
   heightPx?: number;
 }
 
-export interface BuildCleanerStep_ArgsInput {
+export interface BuildCleanerStep {
+  toolName?: string;
+  args?: BuildCleanerStep_Args;
+  reply?: BuildCleanerStep_Reply;
+  toolStatus?: ToolStatus;
+}
+
+export interface BuildCleanerStep_Args {
   workspacePaths?: string[];
 }
 
-export interface BuildCleanerStep_IssueInput {
+export interface BuildCleanerStep_Issue {
   blazePackage?: string;
   action?: string;
   actionLabel?: string;
@@ -541,153 +560,146 @@ export interface BuildCleanerStep_IssueInput {
   statusDetail?: string;
 }
 
-export interface BuildCleanerStep_ReplyInput {
+export interface BuildCleanerStep_Reply {
   updatedBuildFiles?: string[];
-  issues?: BuildCleanerStep_IssueInput[];
+  issues?: BuildCleanerStep_Issue[];
 }
 
-export interface BuildCleanerStepInput {
-  toolName?: string;
-  args?: BuildCleanerStep_ArgsInput;
-  reply?: BuildCleanerStep_ReplyInput;
-  toolStatus?: ToolStatusInput;
-}
-
-export interface BuildFailureInput {
+export interface BuildFailure {
   target?: string;
   stderr?: string;
 }
 
-export interface BuildReplyInput {
+export interface BuildReply {
   invocationId?: string;
   succeeded?: boolean;
   errorMessage?: string;
-  failureDetails?: BuildFailureInput[];
+  failureDetails?: BuildFailure[];
 }
 
-export interface BuildTargetsStep_ArgsInput {
+export interface BuildTargetsStep {
+  toolName?: string;
+  args?: BuildTargetsStep_Args;
+  reply?: BuildReply;
+}
+
+export interface BuildTargetsStep_Args {
   targets?: string[];
   arguments?: string[];
 }
 
-export interface BuildTargetsStepInput {
-  toolName?: string;
-  args?: BuildTargetsStep_ArgsInput;
-  reply?: BuildReplyInput;
-}
-
-export interface CacheBreakpointMetadataInput {
+export interface CacheBreakpointMetadata {
   index?: number;
-  options?: PromptCacheOptionsInput;
+  options?: PromptCacheOptions;
   contentChecksum?: string;
 }
 
-export interface CacheRequestOptionsInput {
+export interface CacheRequestOptions {
   enabled?: boolean;
   cacheBreakpointIndices?: number[];
 }
 
-export interface CancelCascadeInvocationRequestInput {
+export interface CancelCascadeInvocationRequest {
   cascadeId?: string;
   killBackgroundTasks?: boolean;
   notifyParent?: boolean;
 }
 
-export interface CancelCascadeInvocationResponseInput {
+export interface CancelCascadeInvocationResponse {
 }
 
-export interface CancelCascadeStepsRequestInput {
+export interface CancelCascadeStepsRequest {
   cascadeId?: string;
   stepIndices?: number[];
 }
 
-export interface CancelCascadeStepsResponseInput {
+export interface CancelCascadeStepsResponse {
 }
 
-export interface CaptureBrowserScreenshotToolConfigInput {
+export interface CaptureBrowserScreenshotToolConfig {
   enableSaving?: boolean;
 }
 
-export interface CaptureConsoleLogsRequestInput {
+export interface CaptureConsoleLogsRequest {
   pageId?: string;
 }
 
-export interface CaptureConsoleLogsResponseInput {
-  consoleLogs?: ConsoleLogScopeItemInput;
+export interface CaptureConsoleLogsResponse {
+  consoleLogs?: ConsoleLogScopeItem;
 }
 
-export interface CaptureScreenshotRequestInput {
+export interface CaptureScreenshotRequest {
   pageId?: string;
 }
 
-export interface CaptureScreenshotResponseInput {
-  screenshot?: ImageDataInput;
-  mediaScreenshot?: MediaInput;
+export interface CaptureScreenshotResponse {
+  screenshot?: ImageData;
+  mediaScreenshot?: Media;
 }
 
-export interface CascadeBrowserActionInteractionInput {
+export interface CascadeBrowserActionInteraction {
   confirm?: boolean;
 }
 
-export interface CascadeCaptureBrowserScreenshotInteractionInput {
+export interface CascadeCaptureBrowserScreenshotInteraction {
   confirm?: boolean;
 }
 
-export interface CascadeCaptureBrowserScreenshotInteractionSpecInput {
+export interface CascadeCaptureBrowserScreenshotInteractionSpec {
 }
 
-export interface CascadeClickBrowserPixelInteractionInput {
+export interface CascadeClickBrowserPixelInteraction {
   confirm?: boolean;
 }
 
-export interface CascadeClickBrowserPixelInteractionSpecInput {
+export interface CascadeClickBrowserPixelInteractionSpec {
 }
 
-export interface CascadeConfigInput {
-  plannerConfig?: CascadePlannerConfigInput;
-  checkpointConfig?: CheckpointConfigInput;
-  executorConfig?: CascadeExecutorConfigInput;
-  trajectoryConversionConfig?: TrajectoryConversionConfigInput;
+export interface CascadeConfig {
+  plannerConfig?: CascadePlannerConfig;
+  checkpointConfig?: CheckpointConfig;
+  executorConfig?: CascadeExecutorConfig;
+  trajectoryConversionConfig?: TrajectoryConversionConfig;
   applyModelDefaultOverride?: boolean;
-  conversationHistoryConfig?: ConversationHistoryConfigInput;
+  conversationHistoryConfig?: ConversationHistoryConfig;
   splitDynamicPromptSections?: boolean;
-  messageConfig?: MessageConfigInput;
+  messageConfig?: MessageConfig;
   useDbTrajectory?: boolean;
-  agentApiConfig?: AgentApiConfigInput;
+  agentApiConfig?: AgentApiConfig;
 }
 
-export interface CascadeConfirmBrowserSetupInteractionInput {
+export interface CascadeConfirmBrowserSetupInteraction {
   confirm?: boolean;
 }
 
-export interface CascadeConversationalPlannerConfigInput {
+export interface CascadeConversationalPlannerConfig {
   plannerMode?: ConversationalPlannerMode;
   evalMode?: boolean;
   agenticMode?: boolean;
   promptCombinationName?: string;
-  conversationHistoryConfig?: ConversationHistoryConfigInput;
+  conversationHistoryConfig?: ConversationHistoryConfig;
   overrideWorkspaceDirExperimentalUseOnly?: string;
   overrideCascadeIdForPrompt?: string;
 }
 
-export interface CascadeDeployInteractionInput {
+export interface CascadeDeployInteraction {
   cancel?: boolean;
-  deployTarget?: DeployTargetInput;
+  deployTarget?: DeployTarget;
   subdomain?: string;
 }
 
-export interface CascadeDeployInteractionSpecInput {
-  deployTargetOptions?: DeployTargetInput[];
+export interface CascadeDeployInteractionSpec {
+  deployTargetOptions?: DeployTarget[];
 }
 
-export interface CascadeExecuteBrowserJavaScriptInteractionInput {
+export interface CascadeExecuteBrowserJavaScriptInteraction {
   confirm?: boolean;
 }
 
-export interface CascadeExecuteBrowserJavaScriptInteractionSpecInput {
+export interface CascadeExecuteBrowserJavaScriptInteractionSpec {
 }
 
-export interface CascadeExecutorConfigInput {
+export interface CascadeExecutorConfig {
   disableAsync?: boolean;
   maxGeneratorInvocations?: number;
   terminalStepTypes?: CortexStepType[];
@@ -703,20 +715,20 @@ export interface CascadeExecutorConfigInput {
   disableEmptyOutputContinuation?: boolean;
 }
 
-export interface CascadeMcpInteractionInput {
+export interface CascadeMcpInteraction {
   confirm?: boolean;
 }
 
-export interface CascadeMcpInteractionSpecInput {
+export interface CascadeMcpInteractionSpec {
 }
 
-export interface CascadeModelConfigDataInput {
-  clientModelConfigs?: ClientModelConfigInput[];
-  clientModelSorts?: ClientModelSortInput[];
-  defaultOverrideModelConfig?: DefaultOverrideModelConfigInput;
+export interface CascadeModelConfigData {
+  clientModelConfigs?: ClientModelConfig[];
+  clientModelSorts?: ClientModelSort[];
+  defaultOverrideModelConfig?: DefaultOverrideModelConfig;
 }
 
-export interface CascadeNUXConfigInput {
+export interface CascadeNUXConfig {
   uid?: number;
   location?: CascadeNUXLocation;
   trigger?: CascadeNUXTrigger;
@@ -731,295 +743,290 @@ export interface CascadeNUXConfigInput {
   videoUrl?: string;
 }
 
-export interface CascadeOpenBrowserSetupInteractionInput {
+export interface CascadeOpenBrowserSetupInteraction {
   confirm?: boolean;
 }
 
-export interface CascadeOpenBrowserUrlInteractionInput {
+export interface CascadeOpenBrowserUrlInteraction {
   confirm?: boolean;
 }
 
-export interface CascadeOpenBrowserUrlInteractionSpecInput {
+export interface CascadeOpenBrowserUrlInteractionSpec {
 }
 
-export interface CascadePlannerConfigInput {
-  customizationConfig?: CustomizationConfigInput;
-  promptSectionCustomizationConfig?: PromptSectionCustomizationConfigInput;
-  toolConfig?: CascadeToolConfigInput;
-  stepStringConverterConfig?: StepStringConverterConfigInput;
+export interface CascadePlannerConfig {
+  customizationConfig?: CustomizationConfig;
+  promptSectionCustomizationConfig?: PromptSectionCustomizationConfig;
+  toolConfig?: CascadeToolConfig;
+  stepStringConverterConfig?: StepStringConverterConfig;
   planModel?: Model;
-  requestedModel?: ModelOrAliasInput;
+  requestedModel?: ModelOrAlias;
   modelName?: string;
-  customModelInfoOverride?: ModelInfoInput;
+  customModelInfoOverride?: ModelInfo;
   maxOutputTokens?: number;
   noToolExplanation?: boolean;
   noToolSummary?: boolean;
   truncationThresholdTokens?: number;
-  ephemeralMessagesConfig?: EphemeralMessagesConfigInput;
+  ephemeralMessagesConfig?: EphemeralMessagesConfig;
   showAllErrors?: boolean;
-  retryConfig?: PlannerRetryConfigInput;
-  knowledgeConfig?: KnowledgeConfigInput;
-  agenticModeConfig?: AgenticModeConfigInput;
+  retryConfig?: PlannerRetryConfig;
+  knowledgeConfig?: KnowledgeConfig;
+  agenticModeConfig?: AgenticModeConfig;
   noWaitForPreviousTools?: boolean;
-  experiments?: ExperimentsInput;
-  conversational?: CascadeConversationalPlannerConfigInput;
-  google?: CascadeConversationalPlannerConfigInput;
-  cider?: CascadeConversationalPlannerConfigInput;
-  customAgent?: CustomAgentConfigInput;
+  experiments?: Experiments;
+  conversational?: CascadeConversationalPlannerConfig;
+  google?: CascadeConversationalPlannerConfig;
+  cider?: CascadeConversationalPlannerConfig;
+  customAgent?: CustomAgentConfig;
   customAgentConfigAbsoluteUri?: string;
-  googleMinimal?: CascadeConversationalPlannerConfigInput;
-  declarativeMixinConfig?: DeclarativeMixinConfigInput;
+  googleMinimal?: CascadeConversationalPlannerConfig;
+  declarativeMixinConfig?: DeclarativeMixinConfig;
 }
 
-export interface CascadePluginCommandInput {
-  template?: CascadePluginCommandTemplateInput;
-  variables?: CascadePluginCommandVariableInput[];
+export interface CascadePluginCommand {
+  template?: CascadePluginCommandTemplate;
+  variables?: CascadePluginCommandVariable[];
 }
 
-export interface CascadePluginCommandTemplate_EnvEntryInput {
+export interface CascadePluginCommandTemplate {
+  command?: string;
+  args?: string[];
+  env?: CascadePluginCommandTemplate_EnvEntry[];
+}
+
+export interface CascadePluginCommandTemplate_EnvEntry {
   key?: string;
   value?: string;
 }
 
-export interface CascadePluginCommandTemplateInput {
-  command?: string;
-  args?: string[];
-  env?: CascadePluginCommandTemplate_EnvEntryInput[];
-}
-
-export interface CascadePluginCommandVariableInput {
+export interface CascadePluginCommandVariable {
   name?: string;
   title?: string;
   description?: string;
   link?: string;
 }
 
-export interface CascadePluginLocalConfig_CommandsEntryInput {
+export interface CascadePluginLocalConfig {
+  commands?: CascadePluginLocalConfig_CommandsEntry[];
+}
+
+export interface CascadePluginLocalConfig_CommandsEntry {
   key?: string;
-  value?: CascadePluginCommandInput;
+  value?: CascadePluginCommand;
 }
 
-export interface CascadePluginLocalConfigInput {
-  commands?: CascadePluginLocalConfig_CommandsEntryInput[];
+export interface CascadePluginRemoteConfig {
+  template?: CascadePluginRemoteConfigTemplate;
 }
 
-export interface CascadePluginRemoteConfigInput {
-  template?: CascadePluginRemoteConfigTemplateInput;
+export interface CascadePluginRemoteConfigTemplate {
+  serverUrl?: string;
+  headers?: CascadePluginRemoteConfigTemplate_HeadersEntry[];
+  authProviderType?: string;
 }
 
-export interface CascadePluginRemoteConfigTemplate_HeadersEntryInput {
+export interface CascadePluginRemoteConfigTemplate_HeadersEntry {
   key?: string;
   value?: string;
 }
 
-export interface CascadePluginRemoteConfigTemplateInput {
-  serverUrl?: string;
-  headers?: CascadePluginRemoteConfigTemplate_HeadersEntryInput[];
-  authProviderType?: string;
-}
-
-export interface CascadePluginTemplate_CommandsEntryInput {
-  key?: string;
-  value?: CascadePluginCommandInput;
-}
-
-export interface CascadePluginTemplateInput {
+export interface CascadePluginTemplate {
   title?: string;
   id?: string;
   link?: string;
   description?: string;
-  commands?: CascadePluginTemplate_CommandsEntryInput[];
+  commands?: CascadePluginTemplate_CommandsEntry[];
   installationCount?: bigint;
   trustLevel?: string;
   readme?: string;
-  local?: CascadePluginLocalConfigInput;
-  remote?: CascadePluginRemoteConfigInput;
+  local?: CascadePluginLocalConfig;
+  remote?: CascadePluginRemoteConfig;
 }
 
-export interface CascadeReadUrlContentInteractionInput {
+export interface CascadePluginTemplate_CommandsEntry {
+  key?: string;
+  value?: CascadePluginCommand;
+}
+
+export interface CascadeReadUrlContentInteraction {
   confirm?: boolean;
 }
 
-export interface CascadeReadUrlContentInteractionSpecInput {
+export interface CascadeReadUrlContentInteractionSpec {
 }
 
-export interface CascadeRunCommandInteractionInput {
+export interface CascadeRunCommandInteraction {
   confirm?: boolean;
   proposedCommandLine?: string;
   submittedCommandLine?: string;
   sandboxOverride?: boolean;
 }
 
-export interface CascadeRunCommandInteractionSpecInput {
+export interface CascadeRunCommandInteractionSpec {
 }
 
-export interface CascadeRunExtensionCodeInteractionInput {
+export interface CascadeRunExtensionCodeInteraction {
   confirm?: boolean;
 }
 
-export interface CascadeRunExtensionCodeInteractionSpecInput {
+export interface CascadeRunExtensionCodeInteractionSpec {
 }
 
-export interface CascadeSendCommandInputInteractionInput {
+export interface CascadeSendCommandInputInteraction {
   confirm?: boolean;
 }
 
-export interface CascadeSendCommandInputInteractionSpecInput {
+export interface CascadeSendCommandInputInteractionSpec {
 }
 
-export interface CascadeToolConfigInput {
-  mquery?: MqueryToolConfigInput;
-  code?: CodeToolConfigInput;
-  intent?: IntentToolConfigInput;
-  grep?: GrepToolConfigInput;
-  find?: FindToolConfigInput;
-  runCommand?: RunCommandToolConfigInput;
-  knowledgeBaseSearch?: KnowledgeBaseSearchToolConfigInput;
-  viewFile?: ViewFileToolConfigInput;
-  suggestedResponse?: SuggestedResponseConfigInput;
-  searchWeb?: SearchWebToolConfigInput;
-  memory?: MemoryToolConfigInput;
-  mcp?: McpToolConfigInput;
-  listDir?: ListDirToolConfigInput;
-  viewCodeItem?: ViewCodeItemToolConfigInput;
-  readKnowledgeBaseItem?: ReadKnowledgeBaseItemToolConfigInput;
-  commandStatus?: CommandStatusToolConfigInput;
-  antigravityBrowser?: AntigravityBrowserToolConfigInput;
-  trajectorySearch?: TrajectorySearchToolConfigInput;
-  codeSearch?: CodeSearchToolConfigInput;
-  internalSearch?: InternalSearchToolConfigInput;
-  notifyUser?: NotifyUserConfigInput;
-  browserSubagent?: BrowserSubagentToolConfigInput;
-  taskBoundary?: TaskBoundaryToolConfigInput;
-  finish?: FinishToolConfigInput;
-  workspaceApi?: WorkspaceAPIToolConfigInput;
-  notebookEdit?: NotebookEditToolConfigInput;
-  invokeSubagent?: InvokeSubagentToolConfigInput;
-  generateImage?: GenerateImageToolConfigInput;
-  askQuestion?: AskQuestionToolConfigInput;
-  permissionConfig?: PermissionConfigInput;
-  descriptionOverrideMap?: ToolDescriptionOverrideMapInput;
+export interface CascadeToolConfig {
+  mquery?: MqueryToolConfig;
+  code?: CodeToolConfig;
+  intent?: IntentToolConfig;
+  grep?: GrepToolConfig;
+  find?: FindToolConfig;
+  runCommand?: RunCommandToolConfig;
+  knowledgeBaseSearch?: KnowledgeBaseSearchToolConfig;
+  viewFile?: ViewFileToolConfig;
+  suggestedResponse?: SuggestedResponseConfig;
+  searchWeb?: SearchWebToolConfig;
+  memory?: MemoryToolConfig;
+  mcp?: McpToolConfig;
+  listDir?: ListDirToolConfig;
+  viewCodeItem?: ViewCodeItemToolConfig;
+  readKnowledgeBaseItem?: ReadKnowledgeBaseItemToolConfig;
+  commandStatus?: CommandStatusToolConfig;
+  antigravityBrowser?: AntigravityBrowserToolConfig;
+  trajectorySearch?: TrajectorySearchToolConfig;
+  codeSearch?: CodeSearchToolConfig;
+  internalSearch?: InternalSearchToolConfig;
+  notifyUser?: NotifyUserConfig;
+  browserSubagent?: BrowserSubagentToolConfig;
+  taskBoundary?: TaskBoundaryToolConfig;
+  finish?: FinishToolConfig;
+  workspaceApi?: WorkspaceAPIToolConfig;
+  notebookEdit?: NotebookEditToolConfig;
+  invokeSubagent?: InvokeSubagentToolConfig;
+  generateImage?: GenerateImageToolConfig;
+  askQuestion?: AskQuestionToolConfig;
+  permissionConfig?: PermissionConfig;
+  descriptionOverrideMap?: ToolDescriptionOverrideMap;
   disableSimpleResearchTools?: boolean;
 }
 
-export interface CascadeTrajectorySummaryInput {
+export interface CascadeTrajectorySummary {
   summary?: string;
   stepCount?: number;
   lastModifiedTime?: any;
   trajectoryId?: string;
   status?: CascadeRunStatus;
   createdTime?: any;
-  waitingSteps?: CortexTrajectoryStepWithIndexInput[];
-  workspaces?: CortexWorkspaceMetadataInput[];
+  waitingSteps?: CortexTrajectoryStepWithIndex[];
+  workspaces?: CortexWorkspaceMetadata[];
   lastUserInputTime?: any;
   lastUserInputStepIndex?: number;
-  latestNotifyUserStep?: CortexTrajectoryStepWithIndexInput;
-  latestTaskBoundaryStep?: CortexTrajectoryStepWithIndexInput;
-  annotations?: ConversationAnnotationsInput;
-  trajectoryMetadata?: CortexTrajectoryMetadataInput;
+  latestNotifyUserStep?: CortexTrajectoryStepWithIndex;
+  latestTaskBoundaryStep?: CortexTrajectoryStepWithIndex;
+  annotations?: ConversationAnnotations;
+  trajectoryMetadata?: CortexTrajectoryMetadata;
   hasActiveChildren?: boolean;
 }
 
-export interface CascadeUserInteractionInput {
+export interface CascadeUserInteraction {
   trajectoryId?: string;
   stepIndex?: number;
-  deploy?: CascadeDeployInteractionInput;
-  runCommand?: CascadeRunCommandInteractionInput;
-  openBrowserUrl?: CascadeOpenBrowserUrlInteractionInput;
-  runExtensionCode?: CascadeRunExtensionCodeInteractionInput;
-  executeBrowserJavascript?: CascadeExecuteBrowserJavaScriptInteractionInput;
-  captureBrowserScreenshot?: CascadeCaptureBrowserScreenshotInteractionInput;
-  clickBrowserPixel?: CascadeClickBrowserPixelInteractionInput;
-  browserAction?: CascadeBrowserActionInteractionInput;
-  openBrowserSetup?: CascadeOpenBrowserSetupInteractionInput;
-  confirmBrowserSetup?: CascadeConfirmBrowserSetupInteractionInput;
-  sendCommandInput?: CascadeSendCommandInputInteractionInput;
-  readUrlContent?: CascadeReadUrlContentInteractionInput;
-  mcp?: CascadeMcpInteractionInput;
-  filePermission?: FilePermissionInteractionInput;
-  elicitation?: ElicitationInteractionInput;
-  permission?: PermissionInteractionInput;
-  askQuestion?: AskQuestionInteractionInput;
-  approvalInteraction?: ApprovalInteractionInput;
+  deploy?: CascadeDeployInteraction;
+  runCommand?: CascadeRunCommandInteraction;
+  openBrowserUrl?: CascadeOpenBrowserUrlInteraction;
+  runExtensionCode?: CascadeRunExtensionCodeInteraction;
+  executeBrowserJavascript?: CascadeExecuteBrowserJavaScriptInteraction;
+  captureBrowserScreenshot?: CascadeCaptureBrowserScreenshotInteraction;
+  clickBrowserPixel?: CascadeClickBrowserPixelInteraction;
+  browserAction?: CascadeBrowserActionInteraction;
+  openBrowserSetup?: CascadeOpenBrowserSetupInteraction;
+  confirmBrowserSetup?: CascadeConfirmBrowserSetupInteraction;
+  sendCommandInput?: CascadeSendCommandInputInteraction;
+  readUrlContent?: CascadeReadUrlContentInteraction;
+  mcp?: CascadeMcpInteraction;
+  filePermission?: FilePermissionInteraction;
+  elicitation?: ElicitationInteraction;
+  permission?: PermissionInteraction;
+  askQuestion?: AskQuestionInteraction;
+  approvalInteraction?: ApprovalInteraction;
 }
 
-export interface CciWithSubrangeInput {
-  cci?: CodeContextItemInput;
-  subrange?: ContextSubrangeInput;
+export interface CciWithSubrange {
+  cci?: CodeContextItem;
+  subrange?: ContextSubrange;
 }
 
-export interface CciWithSubrangeWithRetrievalMetadataInput {
-  cciWithSubrange?: CciWithSubrangeInput;
+export interface CciWithSubrangeWithRetrievalMetadata {
+  cciWithSubrange?: CciWithSubrange;
 }
 
-export interface ChatExperimentStatusInput {
+export interface ChatExperimentStatus {
   experimentKey?: ExperimentKey;
   enabled?: boolean;
 }
 
-export interface ChatMessagePromptInput {
+export interface ChatMessagePrompt {
   messageId?: string;
   source?: ChatMessageSource;
   prompt?: string;
   numTokens?: number;
   safeForCodeTelemetry?: boolean;
-  toolCalls?: ChatToolCallInput[];
+  toolCalls?: ChatToolCall[];
   toolCallId?: string;
-  promptCacheOptions?: PromptCacheOptionsInput;
+  promptCacheOptions?: PromptCacheOptions;
   toolResultIsError?: boolean;
-  images?: ImageDataInput[];
-  media?: MediaInput[];
+  images?: ImageData[];
+  media?: Media[];
   thinking?: string;
   rawThinking?: string;
   signature?: string;
   thinkingSignature?: Uint8Array;
   thinkingRedacted?: boolean;
-  promptAnnotationRanges?: PromptAnnotationRangeInput[];
+  promptAnnotationRanges?: PromptAnnotationRange[];
   stepIdx?: number;
   providerAssignedMessageId?: string;
 }
 
-export interface ChatModelMetadataInput {
+export interface ChatModelMetadata {
   systemPrompt?: string;
-  messagePrompts?: ChatMessagePromptInput[];
-  messageMetadata?: MessagePromptMetadataInput[];
+  messagePrompts?: ChatMessagePrompt[];
+  messageMetadata?: MessagePromptMetadata[];
   model?: Model;
-  usage?: ModelUsageStatsInput;
+  usage?: ModelUsageStats;
   modelCost?: number;
   lastCacheIndex?: number;
-  toolChoice?: ChatToolChoiceInput;
-  tools?: ChatToolDefinitionInput[];
-  chatStartMetadata?: ChatStartMetadataInput;
+  toolChoice?: ChatToolChoice;
+  tools?: ChatToolDefinition[];
+  chatStartMetadata?: ChatStartMetadata;
   timeToFirstToken?: any;
   streamingDuration?: any;
   creditCost?: number;
   retries?: number;
-  completionConfig?: CompletionConfigurationInput;
-  promptSections?: PromptSectionInput[];
-  retryInfos?: RetryInfoInput[];
+  completionConfig?: CompletionConfiguration;
+  promptSections?: PromptSection[];
+  retryInfos?: RetryInfo[];
   consumedCredits?: any[];
   responseModel?: string;
 }
 
-export interface ChatStartMetadataInput {
+export interface ChatStartMetadata {
   createdAt?: any;
   startStepIndex?: number;
   checkpointIndex?: number;
   stepsCoveredByCheckpoint?: number[];
   latestStableMessageIndex?: number;
-  cacheBreakpoints?: CacheBreakpointMetadataInput[];
-  systemPromptCache?: CacheBreakpointMetadataInput;
+  cacheBreakpoints?: CacheBreakpointMetadata[];
+  systemPromptCache?: CacheBreakpointMetadata;
   timeSinceLastInvocation?: any;
-  cacheRequest?: CacheRequestOptionsInput;
-  contextWindowMetadata?: ContextWindowMetadataInput;
+  cacheRequest?: CacheRequestOptions;
+  contextWindowMetadata?: ContextWindowMetadata;
 }
 
-export interface ChatStatsByModelEntryInput {
-  modelId?: Model;
-  chatStats?: ChatStatsInput;
-}
-
-export interface ChatStatsInput {
+export interface ChatStats {
   chatsSent?: bigint;
   chatsReceived?: bigint;
   chatsAccepted?: bigint;
@@ -1037,7 +1044,12 @@ export interface ChatStatsInput {
   activeDeveloperDays?: number;
 }
 
-export interface ChatToolCallInput {
+export interface ChatStatsByModelEntry {
+  modelId?: Model;
+  chatStats?: ChatStats;
+}
+
+export interface ChatToolCall {
   id?: string;
   name?: string;
   argumentsJson?: string;
@@ -1048,12 +1060,12 @@ export interface ChatToolCallInput {
   originalArgumentsJson?: string;
 }
 
-export interface ChatToolChoiceInput {
+export interface ChatToolChoice {
   optionName?: string;
   toolName?: string;
 }
 
-export interface ChatToolDefinitionInput {
+export interface ChatToolDefinition {
   name?: string;
   description?: string;
   jsonSchemaString?: string;
@@ -1062,26 +1074,26 @@ export interface ChatToolDefinitionInput {
   serverName?: string;
 }
 
-export interface CheckoutSummaryInput {
+export interface CheckoutSummary {
   filesChanged?: number;
   additions?: number;
   deletions?: number;
 }
 
-export interface CheckoutWorktreeRequestInput {
+export interface CheckoutWorktreeRequest {
   worktreeDirUri?: string;
   targetWorkspaceUri?: string;
   deleteWorktreeAfterCheckout?: boolean;
 }
 
-export interface CheckoutWorktreeResponseInput {
+export interface CheckoutWorktreeResponse {
   success?: boolean;
   errorMessage?: string;
-  summary?: CheckoutSummaryInput;
+  summary?: CheckoutSummary;
   diffPatch?: string;
 }
 
-export interface CheckpointConfigInput {
+export interface CheckpointConfig {
   tokenThreshold?: number;
   maxOverheadRatio?: number;
   movingWindowSize?: number;
@@ -1093,12 +1105,12 @@ export interface CheckpointConfigInput {
   maxUserRequests?: number;
   maxUserRequestBytes?: number;
   maxSubagentSnapshots?: number;
-  retryConfig?: ModelAPIRetryConfigInput;
+  retryConfig?: ModelAPIRetryConfig;
   enableFallback?: boolean;
   strategy?: CheckpointStrategy;
 }
 
-export interface CitationInput {
+export interface Citation {
   startIndex?: number;
   endIndex?: number;
   uri?: string;
@@ -1106,11 +1118,11 @@ export interface CitationInput {
   license?: string;
 }
 
-export interface ClickBrowserPixelToolConfigInput {
-  clickFeedback?: ClickFeedbackConfigInput;
+export interface ClickBrowserPixelToolConfig {
+  clickFeedback?: ClickFeedbackConfig;
 }
 
-export interface ClickFeedbackConfigInput {
+export interface ClickFeedbackConfig {
   enabled?: boolean;
   red?: number;
   green?: number;
@@ -1121,14 +1133,9 @@ export interface ClickFeedbackConfigInput {
   feedbackType?: ClickFeedbackConfig_FeedbackType;
 }
 
-export interface ClientModelConfig_SupportedMimeTypesEntryInput {
-  key?: string;
-  value?: boolean;
-}
-
-export interface ClientModelConfigInput {
+export interface ClientModelConfig {
   label?: string;
-  modelOrAlias?: ModelOrAliasInput;
+  modelOrAlias?: ModelOrAlias;
   creditMultiplier?: number;
   pricingType?: ModelPricingType;
   disabled?: boolean;
@@ -1141,73 +1148,60 @@ export interface ClientModelConfigInput {
   isRecommended?: boolean;
   allowedTiers?: TeamsTier[];
   description?: string;
-  quotaInfo?: QuotaInfoInput;
+  quotaInfo?: QuotaInfo;
   tagTitle?: string;
   tagDescription?: string;
-  supportedMimeTypes?: ClientModelConfig_SupportedMimeTypesEntryInput[];
+  supportedMimeTypes?: ClientModelConfig_SupportedMimeTypesEntry[];
 }
 
-export interface ClientModelGroupInput {
+export interface ClientModelConfig_SupportedMimeTypesEntry {
+  key?: string;
+  value?: boolean;
+}
+
+export interface ClientModelGroup {
   groupName?: string;
   modelLabels?: string[];
 }
 
-export interface ClientModelSortInput {
+export interface ClientModelSort {
   name?: string;
-  groups?: ClientModelGroupInput[];
+  groups?: ClientModelGroup[];
 }
 
-export interface CodeAcknowledgementConverterConfigInput {
+export interface CodeAcknowledgementConverterConfig {
   showToModelOnWrittenFeedback?: boolean;
   showToModelOnRejection?: boolean;
 }
 
-export interface CodeAcknowledgementInfoInput {
+export interface CodeAcknowledgementInfo {
   uriPath?: string;
   stepIndices?: number[];
-  diff?: UnifiedDiffInput;
+  diff?: UnifiedDiff;
 }
 
-export interface CodeAcknowledgementRequestInfoInput {
+export interface CodeAcknowledgementRequestInfo {
   uriPath?: string;
   stepIndices?: number[];
   preCodeActionsState?: string;
   postCodeActionsState?: string;
 }
 
-export interface CodeChangeWithContextInput {
-  repository?: GitRepoInfoInput;
-  fileChanges?: FileChangeInput[];
-  testFileChanges?: FileChangeInput[];
+export interface CodeChangeWithContext {
+  repository?: GitRepoInfo;
+  fileChanges?: FileChange[];
+  testFileChanges?: FileChange[];
   intent?: string;
-  indexStats?: IndexStatsInput;
-  unrelatedCcis?: CodeContextItemInput[];
-  syntheticIntents?: IntentInput[];
-  gitCommit?: GitCommitInput;
+  indexStats?: IndexStats;
+  unrelatedCcis?: CodeContextItem[];
+  syntheticIntents?: Intent[];
+  gitCommit?: GitCommit;
 }
 
-export interface CodeContextItem_SnippetByTypeEntryInput {
-  key?: string;
-  value?: SnippetWithWordCountInput;
-}
-
-export interface CodeContextItemChange_DescriptionByTypeEntryInput {
-  key?: string;
-  value?: string;
-}
-
-export interface CodeContextItemChangeInput {
-  startCci?: CodeContextItemInput;
-  endCci?: CodeContextItemInput;
-  relevantCodeContexts?: RelevantCodeContextInput[];
-  descriptionByType?: CodeContextItemChange_DescriptionByTypeEntryInput[];
-  intentRelevance?: IntentRelevanceInput[];
-}
-
-export interface CodeContextItemInput {
+export interface CodeContextItem {
   absolutePathMigrateMeToUri?: string;
   absoluteUri?: string;
-  workspacePaths?: WorkspacePathInput[];
+  workspacePaths?: WorkspacePath[];
   nodeName?: string;
   nodeLineage?: string[];
   startLine?: number;
@@ -1216,13 +1210,31 @@ export interface CodeContextItemInput {
   endCol?: number;
   contextType?: CodeContextType;
   language?: Language;
-  snippetByType?: CodeContextItem_SnippetByTypeEntryInput[];
-  repoInfo?: GitRepoInfoInput;
+  snippetByType?: CodeContextItem_SnippetByTypeEntry[];
+  repoInfo?: GitRepoInfo;
   fileContentHash?: Uint8Array;
 }
 
-export interface CodeDiagnosticInput {
-  range?: RangeInput;
+export interface CodeContextItem_SnippetByTypeEntry {
+  key?: string;
+  value?: SnippetWithWordCount;
+}
+
+export interface CodeContextItemChange {
+  startCci?: CodeContextItem;
+  endCci?: CodeContextItem;
+  relevantCodeContexts?: RelevantCodeContext[];
+  descriptionByType?: CodeContextItemChange_DescriptionByTypeEntry[];
+  intentRelevance?: IntentRelevance[];
+}
+
+export interface CodeContextItemChange_DescriptionByTypeEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface CodeDiagnostic {
+  range?: Range;
   message?: string;
   severity?: string;
   source?: string;
@@ -1232,13 +1244,13 @@ export interface CodeDiagnosticInput {
   score?: bigint;
 }
 
-export interface CodeEditRevertPreviewInput {
+export interface CodeEditRevertPreview {
   fileUri?: string;
-  diff?: UnifiedDiffInput;
+  diff?: UnifiedDiff;
   actionType?: CodeRevertActionType;
 }
 
-export interface CodeFrequencyRecordInput {
+export interface CodeFrequencyRecord {
   numCommits?: number;
   linesAdded?: number;
   linesDeleted?: number;
@@ -1246,24 +1258,24 @@ export interface CodeFrequencyRecordInput {
   recordEndTime?: any;
 }
 
-export interface CodeSearchMatchInput {
+export interface CodeSearchMatch {
   snippet?: string;
   lineNumber?: number;
 }
 
-export interface CodeSearchResultsInput {
+export interface CodeSearchResults {
   path?: string;
-  matches?: CodeSearchMatchInput[];
+  matches?: CodeSearchMatch[];
   changelist?: string;
   depotPath?: string;
 }
 
-export interface CodeSearchToolConfigInput {
+export interface CodeSearchToolConfig {
   csPath?: string;
   useEvalTag?: boolean;
 }
 
-export interface CodeToolConfigInput {
+export interface CodeToolConfig {
   disableExtensions?: string[];
   allowEditGitignore?: boolean;
   fileAllowlist?: string[];
@@ -1271,8 +1283,8 @@ export interface CodeToolConfigInput {
   applyEdits?: boolean;
   onlyShowIncrementalDiffZone?: boolean;
   skipAwaitLintErrors?: boolean;
-  autoFixLintsConfig?: AutoFixLintsConfigInput;
-  replaceContentToolConfig?: ReplaceContentToolConfigInput;
+  autoFixLintsConfig?: AutoFixLintsConfig;
+  replaceContentToolConfig?: ReplaceContentToolConfig;
   classifyEdit?: boolean;
   provideImportance?: boolean;
   skipReplaceContentValidation?: boolean;
@@ -1283,17 +1295,17 @@ export interface CodeToolConfigInput {
   runProposalExtensionVerifier?: boolean;
 }
 
-export interface CodingAgentConfigInput {
+export interface CodingAgentConfig {
   googleMode?: boolean;
   agenticMode?: boolean;
 }
 
-export interface CommandContentTargetInput {
+export interface CommandContentTarget {
   content?: string;
   absoluteUri?: string;
 }
 
-export interface CommandStatusToolConfigInput {
+export interface CommandStatusToolConfig {
   useDelta?: boolean;
   maxOutputCharacters?: number;
   minOutputCharacters?: number;
@@ -1303,7 +1315,7 @@ export interface CommandStatusToolConfigInput {
   inputDetectionModel?: Model;
 }
 
-export interface CommitMessageDataInput {
+export interface CommitMessageData {
   repoRoot?: string;
   commitMessageSummary?: string;
   commitMessageDescription?: string;
@@ -1311,30 +1323,30 @@ export interface CommitMessageDataInput {
   changedFileUris?: string[];
 }
 
-export interface CompletedInteractionInput {
-  request?: RequestedInteractionInput;
-  response?: CascadeUserInteractionInput;
+export interface CompletedInteraction {
+  request?: RequestedInteraction;
+  response?: CascadeUserInteraction;
 }
 
-export interface CompleteMcpOAuthRequestInput {
+export interface CompleteMcpOAuthRequest {
   serverName?: string;
   authorizationCode?: string;
 }
 
-export interface CompleteMcpOAuthResponseInput {
+export interface CompleteMcpOAuthResponse {
 }
 
-export interface CompletionByDateEntryInput {
+export interface CompletionByDateEntry {
   timestamp?: any;
-  completionStatistics?: CompletionStatisticsInput;
+  completionStatistics?: CompletionStatistics;
 }
 
-export interface CompletionByLanguageEntryInput {
+export interface CompletionByLanguageEntry {
   language?: Language;
-  completionStatistics?: CompletionStatisticsInput;
+  completionStatistics?: CompletionStatistics;
 }
 
-export interface CompletionConfigurationInput {
+export interface CompletionConfiguration {
   numCompletions?: bigint;
   maxTokens?: bigint;
   maxNewlines?: bigint;
@@ -1354,7 +1366,7 @@ export interface CompletionConfigurationInput {
   disableParallelToolCalls?: boolean;
 }
 
-export interface CompletionStatisticsInput {
+export interface CompletionStatistics {
   numAcceptances?: number;
   numRejections?: number;
   numLinesAccepted?: number;
@@ -1364,70 +1376,70 @@ export interface CompletionStatisticsInput {
   activeDeveloperHours?: number;
 }
 
-export interface ConsoleLogLineInput {
+export interface ConsoleLogLine {
   timestampStr?: string;
   type?: string;
   output?: string;
   location?: string;
 }
 
-export interface ConsoleLogScopeItemInput {
-  lines?: ConsoleLogLineInput[];
+export interface ConsoleLogScopeItem {
+  lines?: ConsoleLogLine[];
   serverAddress?: string;
 }
 
-export interface ContextModuleResultInput {
-  retrievedCciWithSubranges?: CciWithSubrangeWithRetrievalMetadataInput[];
-  activeDocument?: DocumentInput;
-  activeDocumentOutline?: DocumentOutlineInput;
-  localNodeState?: LocalNodeStateInput;
-  guideline?: GuidelineInput;
-  openDocuments?: DocumentInput[];
-  runningTerminalCommands?: TerminalShellCommandInput[];
-  browserStateSnapshot?: BrowserStateSnapshotInput;
+export interface ContextModuleResult {
+  retrievedCciWithSubranges?: CciWithSubrangeWithRetrievalMetadata[];
+  activeDocument?: Document;
+  activeDocumentOutline?: DocumentOutline;
+  localNodeState?: LocalNodeState;
+  guideline?: Guideline;
+  openDocuments?: Document[];
+  runningTerminalCommands?: TerminalShellCommand[];
+  browserStateSnapshot?: BrowserStateSnapshot;
 }
 
-export interface ContextScopeItemInput {
-  file?: PathScopeItemInput;
-  directory?: PathScopeItemInput;
-  repository?: RepositoryScopeItemInput;
-  codeContext?: CodeContextItemInput;
-  cciWithSubrange?: CciWithSubrangeInput;
-  repositoryPath?: RepositoryPathScopeItemInput;
-  slack?: KnowledgeBaseScopeItemInput;
-  github?: KnowledgeBaseScopeItemInput;
-  fileLineRange?: FileLineRangeInput;
-  textBlock?: TextBlockInput;
-  jira?: KnowledgeBaseScopeItemInput;
-  googleDrive?: KnowledgeBaseScopeItemInput;
-  consoleLog?: ConsoleLogScopeItemInput;
-  domElement?: DOMElementScopeItemInput;
-  recipe?: RecipeScopeItemInput;
-  knowledge?: KnowledgeBaseScopeItemInput;
-  rule?: RuleScopeItemInput;
-  mcpResource?: McpResourceItemInput;
-  browserPage?: BrowserPageScopeItemInput;
-  browserCodeBlock?: BrowserCodeBlockScopeItemInput;
-  browserText?: BrowserTextScopeItemInput;
-  conversation?: ConversationScopeItemInput;
-  userActivity?: UserActivityScopeItemInput;
-  terminal?: TerminalScopeItemInput;
-  mcpPrompt?: McpPromptScopeItemInput;
+export interface ContextScopeItem {
+  file?: PathScopeItem;
+  directory?: PathScopeItem;
+  repository?: RepositoryScopeItem;
+  codeContext?: CodeContextItem;
+  cciWithSubrange?: CciWithSubrange;
+  repositoryPath?: RepositoryPathScopeItem;
+  slack?: KnowledgeBaseScopeItem;
+  github?: KnowledgeBaseScopeItem;
+  fileLineRange?: FileLineRange;
+  textBlock?: TextBlock;
+  jira?: KnowledgeBaseScopeItem;
+  googleDrive?: KnowledgeBaseScopeItem;
+  consoleLog?: ConsoleLogScopeItem;
+  domElement?: DOMElementScopeItem;
+  recipe?: RecipeScopeItem;
+  knowledge?: KnowledgeBaseScopeItem;
+  rule?: RuleScopeItem;
+  mcpResource?: McpResourceItem;
+  browserPage?: BrowserPageScopeItem;
+  browserCodeBlock?: BrowserCodeBlockScopeItem;
+  browserText?: BrowserTextScopeItem;
+  conversation?: ConversationScopeItem;
+  userActivity?: UserActivityScopeItem;
+  terminal?: TerminalScopeItem;
+  mcpPrompt?: McpPromptScopeItem;
 }
 
-export interface ContextSubrangeInput {
+export interface ContextSubrange {
   snippetType?: ContextSnippetType;
   startOffset?: bigint;
   endOffset?: bigint;
 }
 
-export interface ContextWindowMetadataInput {
+export interface ContextWindowMetadata {
   estimatedTokensUsed?: number;
   truncationReason?: TruncationReason;
-  tokenBreakdown?: TokenBreakdownInput;
+  tokenBreakdown?: TokenBreakdown;
 }
 
-export interface ConversationAnnotationsInput {
+export interface ConversationAnnotations {
   title?: string;
   tags?: string[];
   archived?: boolean;
@@ -1441,7 +1453,7 @@ export interface ConversationAnnotationsInput {
   pinned?: boolean;
 }
 
-export interface ConversationHistoryConfigInput {
+export interface ConversationHistoryConfig {
   enabled?: boolean;
   maxConversations?: number;
   maxTitleChars?: number;
@@ -1450,44 +1462,44 @@ export interface ConversationHistoryConfigInput {
   maxArtifactSummaryChars?: number;
 }
 
-export interface ConversationScopeItemInput {
+export interface ConversationScopeItem {
   id?: string;
   title?: string;
   lastModifiedTime?: any;
 }
 
-export interface ConversationSearchResultInput {
+export interface ConversationSearchResult {
   cascadeId?: string;
   title?: string;
   workspaceName?: string;
   snippet?: string;
   lastModifiedTime?: any;
   needsAttention?: boolean;
-  titleMatchRanges?: StringMatchRangeInput[];
-  snippetMatchRanges?: StringMatchRangeInput[];
+  titleMatchRanges?: StringMatchRange[];
+  snippetMatchRanges?: StringMatchRange[];
 }
 
-export interface ConvertTrajectoryToMarkdownRequestInput {
-  trajectory?: TrajectoryInput;
+export interface ConvertTrajectoryToMarkdownRequest {
+  trajectory?: Trajectory;
   conversationId?: string;
 }
 
-export interface ConvertTrajectoryToMarkdownResponseInput {
+export interface ConvertTrajectoryToMarkdownResponse {
   markdown?: string;
 }
 
-export interface CopyBuiltinWorkflowToWorkspaceRequestInput {
-  workflow?: WorkflowSpecInput;
+export interface CopyBuiltinWorkflowToWorkspaceRequest {
+  workflow?: WorkflowSpec;
 }
 
-export interface CopyBuiltinWorkflowToWorkspaceResponseInput {
-  workflow?: WorkflowSpecInput;
+export interface CopyBuiltinWorkflowToWorkspaceResponse {
+  workflow?: WorkflowSpec;
 }
 
-export interface CortexErrorDetailsInput {
+export interface CortexErrorDetails {
   userErrorMessage?: string;
   modelErrorMessage?: string;
-  structuredErrorParts?: StructuredErrorPartInput[];
+  structuredErrorParts?: StructuredErrorPart[];
   shortError?: string;
   fullError?: string;
   isBenign?: boolean;
@@ -1497,27 +1509,27 @@ export interface CortexErrorDetailsInput {
   rpcErrorDetails?: string[];
 }
 
-export interface CortexMemoryAllScopeInput {
-}
-
-export interface CortexMemoryGlobalScopeInput {
-}
-
-export interface CortexMemoryInput {
+export interface CortexMemory {
   memoryId?: string;
   title?: string;
   source?: CortexMemorySource;
-  scope?: CortexMemoryScopeInput;
-  textMemory?: CortexMemoryTextInput;
+  scope?: CortexMemoryScope;
+  textMemory?: CortexMemoryText;
 }
 
-export interface CortexMemoryLocalScopeInput {
+export interface CortexMemoryAllScope {
+}
+
+export interface CortexMemoryGlobalScope {
+}
+
+export interface CortexMemoryLocalScope {
   corpusNames?: string[];
   baseDirUris?: string[];
   repoBaseDirUri?: string;
 }
 
-export interface CortexMemoryProjectScopeInput {
+export interface CortexMemoryProjectScope {
   filePath?: string;
   absoluteFilePath?: string;
   baseDirUris?: string[];
@@ -1528,150 +1540,142 @@ export interface CortexMemoryProjectScopeInput {
   priority?: number;
 }
 
-export interface CortexMemoryScopeInput {
-  globalScope?: CortexMemoryGlobalScopeInput;
-  localScope?: CortexMemoryLocalScopeInput;
-  allScope?: CortexMemoryAllScopeInput;
-  projectScope?: CortexMemoryProjectScopeInput;
+export interface CortexMemoryScope {
+  globalScope?: CortexMemoryGlobalScope;
+  localScope?: CortexMemoryLocalScope;
+  allScope?: CortexMemoryAllScope;
+  projectScope?: CortexMemoryProjectScope;
 }
 
-export interface CortexMemoryTextInput {
+export interface CortexMemoryText {
   content?: string;
 }
 
-export interface CortexStepAgencyToolCallInput {
+export interface CortexStepAgencyToolCall {
   agentName?: string;
   functionName?: string;
   requestMessages?: any[];
   responseMessages?: any[];
 }
 
-export interface CortexStepAskQuestionInput {
-  questions?: AskQuestionEntryInput[];
+export interface CortexStepAskQuestion {
+  questions?: AskQuestionEntry[];
 }
 
-export interface CortexStepBrainUpdateInput {
+export interface CortexStepBrainUpdate {
   trigger?: BrainUpdateTrigger;
-  deltas?: BrainEntryDeltaInput[];
+  deltas?: BrainEntryDelta[];
   entryType?: BrainEntryType;
 }
 
-export interface CortexStepBrowserClickElementInput {
+export interface CortexStepBrowserClickElement {
   pageId?: string;
   index?: number;
   description?: string;
   clickType?: ClickType;
   userRejected?: boolean;
-  pageMetadata?: BrowserPageMetadataInput;
+  pageMetadata?: BrowserPageMetadata;
   browserStateDiff?: string;
 }
 
-export interface CortexStepBrowserDragPixelToPixelInput {
+export interface CortexStepBrowserDragPixelToPixel {
   pageId?: string;
-  waypoints?: Point2Input[];
+  waypoints?: Point2[];
   userRejected?: boolean;
-  pageMetadata?: BrowserPageMetadataInput;
-  screenshotsWithDragFeedback?: MediaInput[];
+  pageMetadata?: BrowserPageMetadata;
+  screenshotsWithDragFeedback?: Media[];
 }
 
-export interface CortexStepBrowserGetDomInput {
+export interface CortexStepBrowserGetDom {
   pageId?: string;
-  domTree?: DOMTreeInput;
+  domTree?: DOMTree;
   serializedDomTree?: string;
   serializedDomTreeUri?: string;
-  pageMetadata?: BrowserPageMetadataInput;
+  pageMetadata?: BrowserPageMetadata;
 }
 
-export interface CortexStepBrowserGetNetworkRequestInput {
+export interface CortexStepBrowserGetNetworkRequest {
   pageId?: string;
   requestId?: string;
-  pageMetadata?: BrowserPageMetadataInput;
+  pageMetadata?: BrowserPageMetadata;
   networkRequestDetails?: string;
 }
 
-export interface CortexStepBrowserInputInput {
+export interface CortexStepBrowserInput {
   pageId?: string;
   index?: number;
   text?: string;
   pressEnter?: boolean;
   clearText?: boolean;
-  pageMetadata?: BrowserPageMetadataInput;
+  pageMetadata?: BrowserPageMetadata;
   browserStateDiff?: string;
 }
 
-export interface CortexStepBrowserListNetworkRequestsInput {
+export interface CortexStepBrowserListNetworkRequests {
   pageId?: string;
   includePreservedRequests?: boolean;
   resourceTypes?: string[];
-  pageMetadata?: BrowserPageMetadataInput;
+  pageMetadata?: BrowserPageMetadata;
   networkRequests?: string;
 }
 
-export interface CortexStepBrowserMouseDownInput {
+export interface CortexStepBrowserMouseDown {
   pageId?: string;
   button?: string;
-  pageMetadata?: BrowserPageMetadataInput;
+  pageMetadata?: BrowserPageMetadata;
   browserStateDiff?: string;
 }
 
-export interface CortexStepBrowserMouseUpInput {
+export interface CortexStepBrowserMouseUp {
   pageId?: string;
   button?: string;
-  pageMetadata?: BrowserPageMetadataInput;
+  pageMetadata?: BrowserPageMetadata;
   browserStateDiff?: string;
 }
 
-export interface CortexStepBrowserMouseWheelInput {
+export interface CortexStepBrowserMouseWheel {
   pageId?: string;
   x?: number;
   y?: number;
   dx?: number;
   dy?: number;
-  pageMetadata?: BrowserPageMetadataInput;
+  pageMetadata?: BrowserPageMetadata;
   browserStateDiff?: string;
 }
 
-export interface CortexStepBrowserMoveMouseInput {
+export interface CortexStepBrowserMoveMouse {
   pageId?: string;
   x?: number;
   y?: number;
-  pageMetadata?: BrowserPageMetadataInput;
+  pageMetadata?: BrowserPageMetadata;
   browserStateDiff?: string;
 }
 
-export interface CortexStepBrowserPressKeyInput {
+export interface CortexStepBrowserPressKey {
   pageId?: string;
   key?: string;
   text?: string;
-  pageMetadata?: BrowserPageMetadataInput;
+  pageMetadata?: BrowserPageMetadata;
   browserStateDiff?: string;
 }
 
-export interface CortexStepBrowserRefreshPageInput {
+export interface CortexStepBrowserRefreshPage {
   pageId?: string;
-  pageMetadata?: BrowserPageMetadataInput;
+  pageMetadata?: BrowserPageMetadata;
   browserStateDiff?: string;
 }
 
-export interface CortexStepBrowserResizeWindowInput {
+export interface CortexStepBrowserResizeWindow {
   pageId?: string;
   width?: number;
   height?: number;
   windowState?: WindowState;
   userRejected?: boolean;
-  pageMetadata?: BrowserPageMetadataInput;
+  pageMetadata?: BrowserPageMetadata;
   browserStateDiff?: string;
 }
 
-export interface CortexStepBrowserScrollDownInput {
-  pageId?: string;
-  scrollToEnd?: boolean;
-  scrollByElementIndex?: boolean;
-  elementIndex?: number;
-  browserStateDiff?: string;
-}
-
-export interface CortexStepBrowserScrollInput {
+export interface CortexStepBrowserScroll {
   pageId?: string;
   direction?: ScrollDirection;
   scrollToEnd?: boolean;
@@ -1682,7 +1686,7 @@ export interface CortexStepBrowserScrollInput {
   browserStateDiff?: string;
 }
 
-export interface CortexStepBrowserScrollUpInput {
+export interface CortexStepBrowserScrollDown {
   pageId?: string;
   scrollToEnd?: boolean;
   scrollByElementIndex?: boolean;
@@ -1690,19 +1694,27 @@ export interface CortexStepBrowserScrollUpInput {
   browserStateDiff?: string;
 }
 
-export interface CortexStepBrowserSelectOptionInput {
+export interface CortexStepBrowserScrollUp {
   pageId?: string;
-  index?: number;
-  value?: string;
-  pageMetadata?: BrowserPageMetadataInput;
+  scrollToEnd?: boolean;
+  scrollByElementIndex?: boolean;
+  elementIndex?: number;
   browserStateDiff?: string;
 }
 
-export interface CortexStepBrowserSubagentInput {
+export interface CortexStepBrowserSelectOption {
+  pageId?: string;
+  index?: number;
+  value?: string;
+  pageMetadata?: BrowserPageMetadata;
+  browserStateDiff?: string;
+}
+
+export interface CortexStepBrowserSubagent {
   task?: string;
   reusedSubagentId?: string;
   recordingName?: string;
-  media?: MediaInput[];
+  media?: Media[];
   result?: string;
   taskName?: string;
   taskSummary?: string;
@@ -1713,13 +1725,13 @@ export interface CortexStepBrowserSubagentInput {
   scratchpadPath?: string;
 }
 
-export interface CortexStepCaptureBrowserConsoleLogsInput {
+export interface CortexStepCaptureBrowserConsoleLogs {
   pageId?: string;
-  pageMetadata?: BrowserPageMetadataInput;
-  consoleLogs?: ConsoleLogScopeItemInput;
+  pageMetadata?: BrowserPageMetadata;
+  consoleLogs?: ConsoleLogScopeItem;
 }
 
-export interface CortexStepCaptureBrowserScreenshotInput {
+export interface CortexStepCaptureBrowserScreenshot {
   pageId?: string;
   saveScreenshot?: boolean;
   screenshotName?: string;
@@ -1727,16 +1739,16 @@ export interface CortexStepCaptureBrowserScreenshotInput {
   elementIndex?: number;
   captureBeyondViewport?: boolean;
   userRejected?: boolean;
-  screenshot?: ImageDataInput;
-  mediaScreenshot?: MediaInput;
-  screenshotViewport?: ViewportInput;
-  pageMetadata?: BrowserPageMetadataInput;
+  screenshot?: ImageData;
+  mediaScreenshot?: Media;
+  screenshotViewport?: Viewport;
+  pageMetadata?: BrowserPageMetadata;
   autoRunDecision?: AutoRunDecision;
 }
 
-export interface CortexStepCheckDeployStatusInput {
+export interface CortexStepCheckDeployStatus {
   antigravityDeploymentId?: string;
-  deployment?: AntigravityDeploymentInput;
+  deployment?: AntigravityDeployment;
   buildStatus?: DeploymentBuildStatus;
   buildError?: string;
   buildLogs?: string;
@@ -1744,12 +1756,7 @@ export interface CortexStepCheckDeployStatusInput {
   claimUrl?: string;
 }
 
-export interface CortexStepCheckpoint_EditedFileMapEntryInput {
-  key?: string;
-  value?: DiffListInput;
-}
-
-export interface CortexStepCheckpointInput {
+export interface CortexStepCheckpoint {
   checkpointIndex?: number;
   intentOnly?: boolean;
   includedStepIndexStart?: number;
@@ -1760,33 +1767,38 @@ export interface CortexStepCheckpointInput {
   codeChangeSummary?: string;
   modelSummarizationFailed?: boolean;
   usedFallbackSummary?: boolean;
-  artifactSnapshots?: ArtifactSnapshotInput[];
+  artifactSnapshots?: ArtifactSnapshot[];
   conversationLogUris?: string[];
-  trajectoryFileDiffs?: TrajectoryFileDiffInput[];
+  trajectoryFileDiffs?: TrajectoryFileDiff[];
   userRequests?: string[];
-  subagentSnapshots?: SubagentSnapshotInput[];
-  runningTaskSnapshots?: TaskSnapshotInput[];
-  editedFileMap?: CortexStepCheckpoint_EditedFileMapEntryInput[];
+  subagentSnapshots?: SubagentSnapshot[];
+  runningTaskSnapshots?: TaskSnapshot[];
+  editedFileMap?: CortexStepCheckpoint_EditedFileMapEntry[];
   includedStepIndices?: number[];
   memorySummary?: string;
 }
 
-export interface CortexStepClickBrowserPixelInput {
+export interface CortexStepCheckpoint_EditedFileMapEntry {
+  key?: string;
+  value?: DiffList;
+}
+
+export interface CortexStepClickBrowserPixel {
   pageId?: string;
   x?: number;
   y?: number;
   clickType?: ClickType;
   userRejected?: boolean;
-  pageMetadata?: BrowserPageMetadataInput;
-  screenshotWithClickFeedback?: MediaInput;
+  pageMetadata?: BrowserPageMetadata;
+  screenshotWithClickFeedback?: Media;
   browserStateDiff?: string;
 }
 
-export interface CortexStepClipboardInput {
+export interface CortexStepClipboard {
   content?: string;
 }
 
-export interface CortexStepCloudSQLExecuteSQLInput {
+export interface CortexStepCloudSQLExecuteSQL {
   projectId?: string;
   instanceName?: string;
   sqlStatement?: string;
@@ -1794,53 +1806,53 @@ export interface CortexStepCloudSQLExecuteSQLInput {
   output?: string;
 }
 
-export interface CortexStepCloudSQLSchemaUpdateInput {
+export interface CortexStepCloudSQLSchemaUpdate {
   errorMessage?: string;
   rpcErrorCode?: CloudSQLUpdateSchemaErrorCode;
   result?: CloudSQLUpdateSchemaResult;
   output?: string;
 }
 
-export interface CortexStepCodeAcknowledgementInput {
+export interface CortexStepCodeAcknowledgement {
   isAccept?: boolean;
   writtenFeedback?: string;
   acknowledgementScope?: CodeAcknowledgementScope;
-  codeAcknowledgementInfos?: CodeAcknowledgementInfoInput[];
+  codeAcknowledgementInfos?: CodeAcknowledgementInfo[];
 }
 
-export interface CortexStepCodeActionInput {
-  actionSpec?: ActionSpecInput;
-  actionResult?: ActionResultInput;
+export interface CortexStepCodeAction {
+  actionSpec?: ActionSpec;
+  actionResult?: ActionResult;
   useFastApply?: boolean;
   acknowledgementType?: AcknowledgementType;
   heuristicFailure?: CodeHeuristicFailure;
   codeInstruction?: string;
-  lintErrors?: CodeDiagnosticInput[];
-  persistentLintErrors?: CodeDiagnosticInput[];
-  replacementInfos?: ReplacementChunkInfoInput[];
+  lintErrors?: CodeDiagnostic[];
+  persistentLintErrors?: CodeDiagnostic[];
+  replacementInfos?: ReplacementChunkInfo[];
   lintErrorIdsAimingToFix?: string[];
-  fastApplyFallbackInfo?: FastApplyFallbackInfoInput;
+  fastApplyFallbackInfo?: FastApplyFallbackInfo;
   targetFileHasCarriageReturns?: boolean;
   targetFileHasAllCarriageReturns?: boolean;
-  introducedErrors?: CortexStepCompileDiagnosticInput[];
+  introducedErrors?: CortexStepCompileDiagnostic[];
   triggeredMemories?: string;
   isArtifactFile?: boolean;
   artifactVersion?: number;
-  artifactMetadata?: ArtifactMetadataInput;
+  artifactMetadata?: ArtifactMetadata;
   isKnowledgeFile?: boolean;
-  filePermissionRequest?: FilePermissionInteractionSpecInput;
+  filePermissionRequest?: FilePermissionInteractionSpec;
   description?: string;
   markdownValidationError?: string;
 }
 
-export interface CortexStepCodeSearchInput {
+export interface CortexStepCodeSearch {
   query?: string;
   onlyPaths?: boolean;
   allowDirs?: boolean;
-  results?: CodeSearchResultsInput[];
+  results?: CodeSearchResults[];
 }
 
-export interface CortexStepCommandStatusInput {
+export interface CortexStepCommandStatus {
   commandId?: string;
   outputCharacterCount?: number;
   waitDurationSeconds?: number;
@@ -1848,24 +1860,35 @@ export interface CortexStepCommandStatusInput {
   combined?: string;
   delta?: string;
   exitCode?: number;
-  error?: CortexErrorDetailsInput;
+  error?: CortexErrorDetails;
   waitedDurationSeconds?: number;
   stdout?: string;
   stderr?: string;
   outputPriority?: CommandOutputPriority;
 }
 
-export interface CortexStepCompile_OptionsEntryInput {
+export interface CortexStepCompile {
+  tool?: CortexStepCompileTool;
+  inputSpec?: string;
+  options?: CortexStepCompile_OptionsEntry[];
+  target?: string;
+  artifactPath?: string;
+  artifactIsExecutable?: boolean;
+  errors?: CortexStepCompileDiagnostic[];
+  warnings?: CortexStepCompileDiagnostic[];
+}
+
+export interface CortexStepCompile_OptionsEntry {
   key?: string;
   value?: string;
 }
 
-export interface CortexStepCompileAppletInput {
+export interface CortexStepCompileApplet {
   errorMessage?: string;
   logs?: string;
 }
 
-export interface CortexStepCompileDiagnosticInput {
+export interface CortexStepCompileDiagnostic {
   message?: string;
   path?: string;
   line?: number;
@@ -1873,82 +1896,71 @@ export interface CortexStepCompileDiagnosticInput {
   symbol?: string;
 }
 
-export interface CortexStepCompileInput {
-  tool?: CortexStepCompileTool;
-  inputSpec?: string;
-  options?: CortexStepCompile_OptionsEntryInput[];
-  target?: string;
-  artifactPath?: string;
-  artifactIsExecutable?: boolean;
-  errors?: CortexStepCompileDiagnosticInput[];
-  warnings?: CortexStepCompileDiagnosticInput[];
-}
-
-export interface CortexStepConversationHistoryInput {
+export interface CortexStepConversationHistory {
   content?: string;
 }
 
-export interface CortexStepDeleteDirectoryInput {
+export interface CortexStepDeleteDirectory {
   directoryPathUri?: string;
   force?: boolean;
 }
 
-export interface CortexStepDeployFirebaseInput {
+export interface CortexStepDeployFirebase {
   errorMessage?: string;
 }
 
-export interface CortexStepDummyInput {
+export interface CortexStepDummy {
   input?: number;
   output?: number;
 }
 
-export interface CortexStepEditNotebook_ArgsInput {
+export interface CortexStepEditNotebook {
+  toolName?: string;
+  args?: CortexStepEditNotebook_Args;
+  reply?: CortexStepEditNotebook_Reply;
+}
+
+export interface CortexStepEditNotebook_Args {
   absolutePathUri?: string;
   operation?: EditNotebookOperation;
   anchorCellId?: string;
   anchorCellIndex?: number;
-  cells?: CortexStepEditNotebook_CellInput[];
+  cells?: CortexStepEditNotebook_Cell[];
   deleteCount?: number;
 }
 
-export interface CortexStepEditNotebook_CellInput {
+export interface CortexStepEditNotebook_Cell {
   kind?: string;
   content?: string;
 }
 
-export interface CortexStepEditNotebook_ModifiedCellInput {
+export interface CortexStepEditNotebook_ModifiedCell {
   cellId?: string;
   kind?: string;
   content?: string;
   index?: number;
 }
 
-export interface CortexStepEditNotebook_ReplyInput {
-  modifiedCells?: CortexStepEditNotebook_ModifiedCellInput[];
+export interface CortexStepEditNotebook_Reply {
+  modifiedCells?: CortexStepEditNotebook_ModifiedCell[];
   totalCellCount?: number;
 }
 
-export interface CortexStepEditNotebookInput {
-  toolName?: string;
-  args?: CortexStepEditNotebook_ArgsInput;
-  reply?: CortexStepEditNotebook_ReplyInput;
-}
-
-export interface CortexStepEphemeralMessageInput {
+export interface CortexStepEphemeralMessage {
   content?: string;
-  media?: MediaInput[];
+  media?: Media[];
   triggeredHeuristics?: string[];
-  attachments?: MediaInput[];
+  attachments?: Media[];
   domTreeUri?: string;
 }
 
-export interface CortexStepErrorMessageInput {
-  error?: CortexErrorDetailsInput;
+export interface CortexStepErrorMessage {
+  error?: CortexErrorDetails;
   shouldShowUser?: boolean;
   shouldShowModel?: boolean;
 }
 
-export interface CortexStepExecuteBrowserJavaScriptInput {
+export interface CortexStepExecuteBrowserJavaScript {
   title?: string;
   pageId?: string;
   javascriptSource?: string;
@@ -1956,15 +1968,21 @@ export interface CortexStepExecuteBrowserJavaScriptInput {
   shouldAutoRun?: boolean;
   waitingReason?: BrowserActionWaitingReason;
   userRejected?: boolean;
-  screenshotEnd?: ImageDataInput;
-  mediaScreenshotEnd?: MediaInput;
-  pageMetadata?: BrowserPageMetadataInput;
+  screenshotEnd?: ImageData;
+  mediaScreenshotEnd?: Media;
+  pageMetadata?: BrowserPageMetadata;
   executionDurationMs?: bigint;
   javascriptResult?: string;
   browserStateDiff?: string;
 }
 
-export interface CortexStepExecuteNotebook_ArgsInput {
+export interface CortexStepExecuteNotebook {
+  toolName?: string;
+  args?: CortexStepExecuteNotebook_Args;
+  reply?: CortexStepExecuteNotebook_Reply;
+}
+
+export interface CortexStepExecuteNotebook_Args {
   absolutePathUri?: string;
   cellIds?: string[];
   cellIndices?: number[];
@@ -1972,7 +1990,7 @@ export interface CortexStepExecuteNotebook_ArgsInput {
   restartKernel?: boolean;
 }
 
-export interface CortexStepExecuteNotebook_CellOutputInput {
+export interface CortexStepExecuteNotebook_CellOutput {
   cellId?: string;
   cellIndex?: number;
   status?: CortexStepExecuteNotebook_CellStatus;
@@ -1982,44 +2000,30 @@ export interface CortexStepExecuteNotebook_CellOutputInput {
   errorTrace?: string;
 }
 
-export interface CortexStepExecuteNotebook_ReplyInput {
+export interface CortexStepExecuteNotebook_Reply {
   status?: CortexStepExecuteNotebook_ExecutionStatus;
   executedCellsCount?: number;
-  cellOutputs?: CortexStepExecuteNotebook_CellOutputInput[];
+  cellOutputs?: CortexStepExecuteNotebook_CellOutput[];
   errorTrace?: string;
 }
 
-export interface CortexStepExecuteNotebookInput {
-  toolName?: string;
-  args?: CortexStepExecuteNotebook_ArgsInput;
-  reply?: CortexStepExecuteNotebook_ReplyInput;
-}
-
-export interface CortexStepFileBreakdownInput {
+export interface CortexStepFileBreakdown {
   absolutePath?: string;
-  documentOutline?: DocumentOutlineInput;
+  documentOutline?: DocumentOutline;
 }
 
-export interface CortexStepFileChangeInput {
+export interface CortexStepFileChange {
   absolutePathUri?: string;
   fileChangeType?: FileChangeType;
-  replacementChunks?: ReplacementChunkInput[];
+  replacementChunks?: ReplacementChunk[];
   instruction?: string;
-  diff?: DiffBlockInput;
-  replacementInfos?: ReplacementChunkInfoInput[];
-  fastApplyFallbackInfo?: FastApplyFallbackInfoInput;
+  diff?: DiffBlock;
+  replacementInfos?: ReplacementChunkInfo[];
+  fastApplyFallbackInfo?: FastApplyFallbackInfo;
   overwrite?: boolean;
 }
 
-export interface CortexStepFindAllReferencesInput {
-  absoluteUri?: string;
-  symbol?: string;
-  line?: number;
-  occurrenceIndex?: number;
-  references?: LspReferenceInput[];
-}
-
-export interface CortexStepFindInput {
+export interface CortexStepFind {
   searchDirectory?: string;
   pattern?: string;
   excludes?: string[];
@@ -2036,52 +2040,60 @@ export interface CortexStepFindInput {
   findError?: string;
 }
 
-export interface CortexStepFinish_OutputEntryInput {
-  key?: string;
-  value?: string;
+export interface CortexStepFindAllReferences {
+  absoluteUri?: string;
+  symbol?: string;
+  line?: number;
+  occurrenceIndex?: number;
+  references?: LspReference[];
 }
 
-export interface CortexStepFinishInput {
-  output?: CortexStepFinish_OutputEntryInput[];
+export interface CortexStepFinish {
+  output?: CortexStepFinish_OutputEntry[];
   outputString?: string;
 }
 
-export interface CortexStepGenerateImageInput {
-  prompt?: string;
-  imagePaths?: string[];
-  imageName?: string;
-  generatedImage?: ImageDataInput;
-  modelName?: string;
-  generatedMedia?: MediaInput;
-}
-
-export interface CortexStepGeneratorMetadataInput {
-  stepIndices?: number[];
-  plannerConfig?: CascadePlannerConfigInput;
-  executionId?: string;
-  error?: string;
-  mendelExperimentIds?: number[];
-  chatModel?: ChatModelMetadataInput;
-  injected?: InjectedResponseMetadataInput;
-}
-
-export interface CortexStepGeneric_ArgsEntryInput {
+export interface CortexStepFinish_OutputEntry {
   key?: string;
   value?: string;
 }
 
-export interface CortexStepGenericInput {
-  args?: CortexStepGeneric_ArgsEntryInput[];
-  result?: GenericStepResultInput;
+export interface CortexStepGenerateImage {
+  prompt?: string;
+  imagePaths?: string[];
+  imageName?: string;
+  generatedImage?: ImageData;
+  modelName?: string;
+  generatedMedia?: Media;
 }
 
-export interface CortexStepGitCommitInput {
-  input?: PlanInputInput;
+export interface CortexStepGeneratorMetadata {
+  stepIndices?: number[];
+  plannerConfig?: CascadePlannerConfig;
+  executionId?: string;
+  error?: string;
+  mendelExperimentIds?: number[];
+  chatModel?: ChatModelMetadata;
+  injected?: InjectedResponseMetadata;
+}
+
+export interface CortexStepGeneric {
+  args?: CortexStepGeneric_ArgsEntry[];
+  result?: GenericStepResult;
+}
+
+export interface CortexStepGeneric_ArgsEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface CortexStepGitCommit {
+  input?: PlanInput;
   commitMessage?: string;
   commitHash?: string;
 }
 
-export interface CortexStepGrepSearchInput {
+export interface CortexStepGrepSearch {
   searchPathUri?: string;
   query?: string;
   matchPerLine?: boolean;
@@ -2089,22 +2101,22 @@ export interface CortexStepGrepSearchInput {
   caseInsensitive?: boolean;
   allowAccessGitignore?: boolean;
   isRegex?: boolean;
-  results?: GrepSearchResultInput[];
+  results?: GrepSearchResult[];
   totalResults?: number;
   rawOutput?: string;
   commandRun?: string;
   noFilesSearched?: boolean;
   timedOut?: boolean;
-  filePermissionRequest?: FilePermissionInteractionSpecInput;
+  filePermissionRequest?: FilePermissionInteractionSpec;
   grepError?: string;
 }
 
-export interface CortexStepInstallAppletDependenciesInput {
+export interface CortexStepInstallAppletDependencies {
   errorMessage?: string;
   logs?: string;
 }
 
-export interface CortexStepInstallAppletPackageInput {
+export interface CortexStepInstallAppletPackage {
   packageName?: string;
   errorMessage?: string;
   logs?: string;
@@ -2112,84 +2124,84 @@ export interface CortexStepInstallAppletPackageInput {
   packageNames?: string[];
 }
 
-export interface CortexStepInternalSearchInput {
+export interface CortexStepInternalSearch {
   query?: string;
-  results?: InternalSearchResultsInput[];
+  results?: InternalSearchResults[];
 }
 
-export interface CortexStepInvokeSubagentInput {
-  subagents?: SubagentSpecInput[];
-  results?: SubagentResultInput[];
+export interface CortexStepInvokeSubagent {
+  subagents?: SubagentSpec[];
+  results?: SubagentResult[];
   subagentName?: string;
   prompt?: string;
   conversationId?: string;
 }
 
-export interface CortexStepKIInsertion_KiReferencesEntryInput {
+export interface CortexStepKIInsertion {
+  kiReferences?: CortexStepKIInsertion_KiReferencesEntry[];
+}
+
+export interface CortexStepKIInsertion_KiReferencesEntry {
   key?: string;
-  value?: KnowledgeReferencesInput;
+  value?: KnowledgeReferences;
 }
 
-export interface CortexStepKIInsertionInput {
-  kiReferences?: CortexStepKIInsertion_KiReferencesEntryInput[];
-}
-
-export interface CortexStepKnowledgeArtifactsInput {
+export interface CortexStepKnowledgeArtifacts {
   content?: string;
 }
 
-export interface CortexStepKnowledgeGenerationInput {
+export interface CortexStepKnowledgeGeneration {
 }
 
-export interface CortexStepLintAppletInput {
+export interface CortexStepLintApplet {
   exitCode?: number;
   output?: string;
   errorMessage?: string;
 }
 
-export interface CortexStepLintDiffInput {
+export interface CortexStepLintDiff {
   type?: LintDiffType;
-  lint?: CodeDiagnosticInput;
+  lint?: CodeDiagnostic;
 }
 
-export interface CortexStepListBrowserPagesInput {
-  pages?: BrowserPageMetadataInput[];
+export interface CortexStepListBrowserPages {
+  pages?: BrowserPageMetadata[];
 }
 
-export interface CortexStepListDirectoryInput {
+export interface CortexStepListDirectory {
   directoryPathUri?: string;
   children?: string[];
-  results?: ListDirectoryResultInput[];
+  results?: ListDirectoryResult[];
   dirNotFound?: boolean;
-  filePermissionRequest?: FilePermissionInteractionSpecInput;
+  filePermissionRequest?: FilePermissionInteractionSpec;
 }
 
-export interface CortexStepListResourcesInput {
+export interface CortexStepListResources {
   serverName?: string;
   cursor?: string;
-  resources?: McpResourceInput[];
+  resources?: McpResource[];
   nextCursor?: string;
 }
 
-export interface CortexStepLookupKnowledgeBaseInput {
+export interface CortexStepLookupKnowledgeBase {
   urls?: string[];
   documentIds?: string[];
-  knowledgeBaseItems?: KnowledgeBaseItemWithMetadataInput[];
+  knowledgeBaseItems?: KnowledgeBaseItemWithMetadata[];
 }
 
-export interface CortexStepManagerFeedbackInput {
+export interface CortexStepManagerFeedback {
   status?: CortexStepManagerFeedbackStatus;
   feedback?: string;
 }
 
-export interface CortexStepMcpToolInput {
+export interface CortexStepMcpTool {
   serverName?: string;
-  toolCall?: ChatToolCallInput;
-  serverInfo?: McpServerInfoInput;
-  images?: ImageDataInput[];
-  media?: MediaInput[];
+  toolCall?: ChatToolCall;
+  serverInfo?: McpServerInfo;
+  images?: ImageData[];
+  media?: Media[];
   userRejected?: boolean;
-  renderInfo?: StepRenderInfoInput;
+  renderInfo?: StepRenderInfo;
   progressMessage?: string;
   progress?: number;
   progressTotal?: number;
@@ -2197,27 +2209,27 @@ export interface CortexStepMcpToolInput {
   resultUri?: string;
 }
 
-export interface CortexStepMemoryInput {
+export interface CortexStepMemory {
   memoryId?: string;
-  memory?: CortexMemoryInput;
-  prevMemory?: CortexMemoryInput;
+  memory?: CortexMemory;
+  prevMemory?: CortexMemory;
   action?: MemoryActionType;
 }
 
-export interface CortexStepMoveInput {
+export interface CortexStepMove {
   srcAbsolutePathUri?: string;
   dstAbsolutePathUri?: string;
 }
 
-export interface CortexStepMqueryInput {
-  input?: PlanInputInput;
-  ccis?: CciWithSubrangeWithRetrievalMetadataInput[];
+export interface CortexStepMquery {
+  input?: PlanInput;
+  ccis?: CciWithSubrangeWithRetrievalMetadata[];
   numTokensProcessed?: number;
   numItemsScored?: number;
   searchType?: SemanticCodebaseSearchType;
 }
 
-export interface CortexStepNotifyUserInput {
+export interface CortexStepNotifyUser {
   reviewAbsoluteUris?: string[];
   notificationContent?: string;
   isBlocking?: boolean;
@@ -2228,25 +2240,25 @@ export interface CortexStepNotifyUserInput {
   askForUserFeedback?: boolean;
 }
 
-export interface CortexStepOpenBrowserUrlInput {
+export interface CortexStepOpenBrowserUrl {
   url?: string;
   pageIdToReplace?: string;
   autoRunDecision?: AutoRunDecision;
   userRejected?: boolean;
   pageId?: string;
-  webDocument?: KnowledgeBaseItemInput;
-  pageMetadata?: BrowserPageMetadataInput;
-  screenshot?: ImageDataInput;
-  mediaScreenshot?: MediaInput;
+  webDocument?: KnowledgeBaseItem;
+  pageMetadata?: BrowserPageMetadata;
+  screenshot?: ImageData;
+  mediaScreenshot?: Media;
   browserStateDiff?: string;
 }
 
-export interface CortexStepPlanInputInput {
-  planInput?: PlanInputInput;
+export interface CortexStepPlanInput {
+  planInput?: PlanInput;
   userProvided?: boolean;
 }
 
-export interface CortexStepPlannerResponseInput {
+export interface CortexStepPlannerResponse {
   response?: string;
   modifiedResponse?: string;
   thinking?: string;
@@ -2256,14 +2268,14 @@ export interface CortexStepPlannerResponseInput {
   thinkingRedacted?: boolean;
   messageId?: string;
   providerAssignedMessageId?: string;
-  toolCalls?: ChatToolCallInput[];
-  knowledgeBaseItems?: KnowledgeBaseItemWithMetadataInput[];
+  toolCalls?: ChatToolCall[];
+  knowledgeBaseItems?: KnowledgeBaseItemWithMetadata[];
   thinkingDuration?: any;
   stopReason?: StopReason;
-  recitationMetadata?: RecitationMetadataInput;
+  recitationMetadata?: RecitationMetadata;
 }
 
-export interface CortexStepPostPrReviewInput {
+export interface CortexStepPostPrReview {
   body?: string;
   commitId?: string;
   path?: string;
@@ -2273,80 +2285,80 @@ export interface CortexStepPostPrReviewInput {
   category?: string;
 }
 
-export interface CortexStepProposalFeedbackInput {
+export interface CortexStepProposalFeedback {
   acknowledgementType?: AcknowledgementType;
   targetStepIndex?: number;
-  replacementChunk?: ReplacementChunkInput;
+  replacementChunk?: ReplacementChunk;
 }
 
-export interface CortexStepProposeCodeInput {
-  actionSpec?: ActionSpecInput;
-  actionResult?: ActionResultInput;
+export interface CortexStepProposeCode {
+  actionSpec?: ActionSpec;
+  actionResult?: ActionResult;
   codeInstruction?: string;
   markdownLanguage?: string;
 }
 
-export interface CortexStepReadBrowserPageInput {
+export interface CortexStepReadBrowserPage {
   pageId?: string;
-  webDocument?: KnowledgeBaseItemInput;
-  pageMetadata?: BrowserPageMetadataInput;
+  webDocument?: KnowledgeBaseItem;
+  pageMetadata?: BrowserPageMetadata;
 }
 
-export interface CortexStepReadNotebook_ArgsInput {
+export interface CortexStepReadNotebook {
+  toolName?: string;
+  args?: CortexStepReadNotebook_Args;
+  reply?: CortexStepReadNotebook_Reply;
+}
+
+export interface CortexStepReadNotebook_Args {
   absolutePathUri?: string;
   cellIndices?: number[];
   cellIds?: string[];
 }
 
-export interface CortexStepReadNotebook_ReplyInput {
+export interface CortexStepReadNotebook_Reply {
   flattenedContent?: string;
   readCellCount?: number;
 }
 
-export interface CortexStepReadNotebookInput {
-  toolName?: string;
-  args?: CortexStepReadNotebook_ArgsInput;
-  reply?: CortexStepReadNotebook_ReplyInput;
-}
-
-export interface CortexStepReadResourceInput {
+export interface CortexStepReadResource {
   serverName?: string;
   uri?: string;
-  contents?: McpResourceContentInput[];
+  contents?: McpResourceContent[];
   skippedNonImageBinaryContent?: boolean;
 }
 
-export interface CortexStepReadTerminalInput {
+export interface CortexStepReadTerminal {
   processId?: string;
   name?: string;
   contents?: string;
 }
 
-export interface CortexStepReadUrlContentInput {
+export interface CortexStepReadUrlContent {
   url?: string;
-  webDocument?: KnowledgeBaseItemInput;
+  webDocument?: KnowledgeBaseItem;
   resolvedUrl?: string;
   latencyMs?: number;
   userRejected?: boolean;
   contentPath?: string;
 }
 
-export interface CortexStepRestartDevServerInput {
+export interface CortexStepRestartDevServer {
   errorMessage?: string;
 }
 
-export interface CortexStepRetrieveMemoryInput {
+export interface CortexStepRetrieveMemory {
   runSubagent?: boolean;
   addUserMemories?: boolean;
   cascadeMemorySummary?: string;
   userMemorySummary?: string;
   reason?: string;
   showReason?: boolean;
-  retrievedMemories?: CortexMemoryInput[];
+  retrievedMemories?: CortexMemory[];
   blocking?: boolean;
 }
 
-export interface CortexStepRPCActionInput {
+export interface CortexStepRPCAction {
   serviceName?: string;
   methodName?: string;
   arguments?: any;
@@ -2354,7 +2366,7 @@ export interface CortexStepRPCActionInput {
   result?: any;
 }
 
-export interface CortexStepRunCommandInput {
+export interface CortexStepRunCommand {
   commandLine?: string;
   proposedCommandLine?: string;
   cwd?: string;
@@ -2369,8 +2381,8 @@ export interface CortexStepRunCommandInput {
   userRejected?: boolean;
   autoRunDecision?: AutoRunDecision;
   terminalId?: string;
-  combinedOutput?: RunCommandOutputInput;
-  combinedOutputSnapshot?: RunCommandOutputInput;
+  combinedOutput?: RunCommandOutput;
+  combinedOutputSnapshot?: RunCommandOutput;
   usedIdeTerminal?: boolean;
   rawDebugOutput?: string;
   command?: string;
@@ -2381,11 +2393,11 @@ export interface CortexStepRunCommandInput {
   stderrBuffer?: string;
   stdoutLinesAbove?: number;
   stderrLinesAbove?: number;
-  stdoutOutput?: RunCommandOutputInput;
-  stderrOutput?: RunCommandOutputInput;
+  stdoutOutput?: RunCommandOutput;
+  stderrOutput?: RunCommandOutput;
 }
 
-export interface CortexStepRunExtensionCodeInput {
+export interface CortexStepRunExtensionCode {
   code?: string;
   language?: string;
   modelWantsAutoRun?: boolean;
@@ -2395,25 +2407,25 @@ export interface CortexStepRunExtensionCodeInput {
   autoRunDecision?: RunExtensionCodeAutoRunDecision;
 }
 
-export interface CortexStepSearchKnowledgeBaseInput {
+export interface CortexStepSearchKnowledgeBase {
   queries?: string[];
-  timeRange?: TimeRangeInput;
+  timeRange?: TimeRange;
   connectorTypes?: ConnectorType[];
   aggregateIds?: string[];
-  knowledgeBaseGroups?: KnowledgeBaseGroupInput[];
+  knowledgeBaseGroups?: KnowledgeBaseGroup[];
 }
 
-export interface CortexStepSearchWebInput {
+export interface CortexStepSearchWeb {
   query?: string;
   domain?: string;
-  webDocuments?: KnowledgeBaseItemInput[];
+  webDocuments?: KnowledgeBaseItem[];
   webSearchUrl?: string;
   summary?: string;
-  thirdPartyConfig?: ThirdPartyWebSearchConfigInput;
+  thirdPartyConfig?: ThirdPartyWebSearchConfig;
   searchType?: SearchWebType;
 }
 
-export interface CortexStepSendCommandInputInput {
+export interface CortexStepSendCommandInput {
   commandId?: string;
   input?: string;
   shouldAutoRun?: boolean;
@@ -2421,48 +2433,48 @@ export interface CortexStepSendCommandInputInput {
   waitMs?: bigint;
   userRejected?: boolean;
   autoRunDecision?: AutoRunDecision;
-  output?: RunCommandOutputInput;
+  output?: RunCommandOutput;
   running?: boolean;
   exitCode?: number;
 }
 
-export interface CortexStepSetUpCloudSqlInput {
+export interface CortexStepSetUpCloudSql {
   errorMessage?: string;
   rpcErrorCode?: SetUpCloudSqlErrorCode;
   result?: SetUpCloudSqlResult;
-  appConfig?: SetUpCloudSqlAppConfigInput;
+  appConfig?: SetUpCloudSqlAppConfig;
 }
 
-export interface CortexStepSetUpFirebaseInput {
+export interface CortexStepSetUpFirebase {
   errorMessage?: string;
   rpcErrorCode?: SetUpFirebaseErrorCode;
   firebaseProjectId?: string;
   request?: SetUpFirebaseRequest;
   result?: SetUpFirebaseResult;
-  appConfig?: SetUpFirebaseAppConfigInput;
+  appConfig?: SetUpFirebaseAppConfig;
   firestoreRegion?: string;
   databaseId?: string;
 }
 
-export interface CortexStepShellExecInput {
+export interface CortexStepShellExec {
   command?: string;
   exitCode?: number;
   output?: string;
   errorMessage?: string;
 }
 
-export interface CortexStepSuggestedResponsesInput {
+export interface CortexStepSuggestedResponses {
   suggestions?: string[];
 }
 
-export interface CortexStepSystemMessageInput {
+export interface CortexStepSystemMessage {
   message?: string;
-  renderInfo?: StepRenderInfoInput;
+  renderInfo?: StepRenderInfo;
   eventType?: string;
-  agentMessage?: AgentMessageInput;
+  agentMessage?: AgentMessage;
 }
 
-export interface CortexStepTaskBoundaryInput {
+export interface CortexStepTaskBoundary {
   taskName?: string;
   taskStatus?: string;
   taskSummary?: string;
@@ -2472,81 +2484,81 @@ export interface CortexStepTaskBoundaryInput {
   mode?: AgentMode;
 }
 
-export interface CortexStepToolCallChoiceInput {
-  proposalToolCalls?: ChatToolCallInput[];
+export interface CortexStepToolCallChoice {
+  proposalToolCalls?: ChatToolCall[];
   choice?: number;
   reason?: string;
 }
 
-export interface CortexStepToolCallProposalInput {
-  toolCall?: ChatToolCallInput;
+export interface CortexStepToolCallProposal {
+  toolCall?: ChatToolCall;
 }
 
-export interface CortexStepTrajectoryChoiceInput {
+export interface CortexStepTrajectoryChoice {
   proposalTrajectoryIds?: string[];
   choice?: number;
   reason?: string;
 }
 
-export interface CortexStepTrajectorySearchInput {
+export interface CortexStepTrajectorySearch {
   id?: string;
   query?: string;
   idType?: TrajectorySearchIdType;
-  chunks?: CciWithSubrangeWithRetrievalMetadataInput[];
-  trajectoryDescription?: TrajectoryDescriptionInput;
+  chunks?: CciWithSubrangeWithRetrievalMetadata[];
+  trajectoryDescription?: TrajectoryDescription;
   totalChunks?: number;
 }
 
-export interface CortexStepUserInputInput {
-  items?: TextOrScopeItemInput[];
+export interface CortexStepUserInput {
+  items?: TextOrScopeItem[];
   userResponse?: string;
-  activeUserState?: ContextModuleResultInput;
-  artifactComments?: ArtifactCommentInput[];
-  fileDiffComments?: FileDiffCommentInput[];
-  fileComments?: FileCommentInput[];
+  activeUserState?: ContextModuleResult;
+  artifactComments?: ArtifactComment[];
+  fileDiffComments?: FileDiffComment[];
+  fileComments?: FileComment[];
   isQueuedMessage?: boolean;
   clientType?: ChatClientRequestStreamClientType;
-  userConfig?: CascadeConfigInput;
-  lastUserConfig?: CascadeConfigInput;
+  userConfig?: CascadeConfig;
+  lastUserConfig?: CascadeConfig;
   query?: string;
-  images?: ImageDataInput[];
-  media?: MediaInput[];
+  images?: ImageData[];
+  media?: Media[];
 }
 
-export interface CortexStepViewCodeItemInput {
+export interface CortexStepViewCodeItem {
   absoluteUri?: string;
   nodePaths?: string[];
-  ccis?: CodeContextItemInput[];
-  filePermissionRequest?: FilePermissionInteractionSpecInput;
+  ccis?: CodeContextItem[];
+  filePermissionRequest?: FilePermissionInteractionSpec;
 }
 
-export interface CortexStepViewContentChunkInput {
+export interface CortexStepViewContentChunk {
   documentId?: string;
   position?: number;
-  croppedItem?: KnowledgeBaseItemInput;
+  croppedItem?: KnowledgeBaseItem;
 }
 
-export interface CortexStepViewFileInput {
+export interface CortexStepViewFile {
   absolutePathUri?: string;
   startLine?: number;
   endLine?: number;
   content?: string;
   isSkillFile?: boolean;
-  skillMetadata?: SkillMetadataInput;
+  skillMetadata?: SkillMetadata;
   rawContent?: string;
-  binaryData?: ImageDataInput;
-  mediaData?: MediaInput;
+  binaryData?: ImageData;
+  mediaData?: Media;
   triggeredMemories?: string;
   numLines?: number;
   numBytes?: number;
   isInjectedReminder?: boolean;
-  filePermissionRequest?: FilePermissionInteractionSpecInput;
+  filePermissionRequest?: FilePermissionInteractionSpec;
 }
 
-export interface CortexStepViewFileOutlineInput {
+export interface CortexStepViewFileOutline {
   absolutePathUri?: string;
   cciOffset?: number;
-  ccis?: CodeContextItemInput[];
+  ccis?: CodeContextItem[];
   outlineItems?: string[];
   numItemsScanned?: number;
   totalCciCount?: number;
@@ -2556,14 +2568,14 @@ export interface CortexStepViewFileOutlineInput {
   contentLinesTruncated?: number;
   triggeredMemories?: string;
   rawContent?: string;
-  filePermissionRequest?: FilePermissionInteractionSpecInput;
+  filePermissionRequest?: FilePermissionInteractionSpec;
 }
 
-export interface CortexStepWaitInput {
+export interface CortexStepWait {
   durationMs?: bigint;
 }
 
-export interface CortexStepWorkspaceAPIInput {
+export interface CortexStepWorkspaceAPI {
   url?: string;
   httpMethod?: string;
   body?: string;
@@ -2572,38 +2584,38 @@ export interface CortexStepWorkspaceAPIInput {
   response?: string;
 }
 
-export interface CortexStepWriteBlobInput {
+export interface CortexStepWriteBlob {
   blobId?: string;
   targetPath?: string;
   errorMessage?: string;
   bytesWritten?: bigint;
 }
 
-export interface CortexStepWriteToFileInput {
+export interface CortexStepWriteToFile {
   targetFileUri?: string;
   codeContent?: string[];
-  diff?: DiffBlockInput;
+  diff?: DiffBlock;
   fileCreated?: boolean;
   acknowledgementType?: AcknowledgementType;
 }
 
-export interface CortexTrajectoryMetadataInput {
-  workspaces?: CortexWorkspaceMetadataInput[];
+export interface CortexTrajectoryMetadata {
+  workspaces?: CortexWorkspaceMetadata[];
   createdAt?: any;
   initializationStateId?: string;
   parentConversationId?: string;
   rootConversationId?: string;
   workspaceUris?: string[];
   mappedWorkspaceUris?: string[];
-  subagentSpec?: SubagentSpecInput;
-  staticConfig?: CustomAgentSpecInput;
-  executableSpec?: ExecutableScriptSpecInput;
-  sourceMetadata?: SourceMetadataInput;
+  subagentSpec?: SubagentSpec;
+  staticConfig?: CustomAgentSpec;
+  executableSpec?: ExecutableScriptSpec;
+  sourceMetadata?: SourceMetadata;
   battleModeSourceConversationId?: string;
-  agentScript?: AgentScriptItemInput;
+  agentScript?: AgentScriptItem;
 }
 
-export interface CortexTrajectoryReferenceInput {
+export interface CortexTrajectoryReference {
   trajectoryId?: string;
   trajectoryType?: CortexTrajectoryType;
   stepIndex?: number;
@@ -2611,263 +2623,263 @@ export interface CortexTrajectoryReferenceInput {
   referenceType?: CortexTrajectoryReferenceType;
 }
 
-export interface CortexTrajectoryStepWithIndexInput {
-  step?: StepInput;
+export interface CortexTrajectoryStepWithIndex {
+  step?: Step;
   stepIndex?: number;
 }
 
-export interface CortexWorkspaceMetadataInput {
+export interface CortexWorkspaceMetadata {
   workspaceFolderAbsoluteUri?: string;
   gitRootAbsoluteUri?: string;
-  repository?: RepositoryInput;
+  repository?: Repository;
   branchName?: string;
 }
 
-export interface CreateCitcWorkspaceRequestInput {
-  items?: TextOrScopeItemInput[];
-  media?: MediaInput[];
+export interface CreateCitcWorkspaceRequest {
+  items?: TextOrScopeItem[];
+  media?: Media[];
   cloneCurrentWorkspace?: boolean;
   sourceWorkspaceUri?: string;
 }
 
-export interface CreateCitcWorkspaceResponseInput {
+export interface CreateCitcWorkspaceResponse {
   workspaceDirUri?: string;
   workspaceName?: string;
 }
 
-export interface CreateCustomizationFileRequestInput {
+export interface CreateCustomizationFileRequest {
   fileType?: CustomizationFileType;
   fileName?: string;
   workspaceUri?: string;
 }
 
-export interface CreateCustomizationFileResponseInput {
+export interface CreateCustomizationFileResponse {
   filePath?: string;
 }
 
-export interface CreateReplayWorkspaceRequestInput {
+export interface CreateReplayWorkspaceRequest {
   trajectoryId?: string;
   stepIndex?: number;
   workspaceName?: string;
   targetUser?: string;
 }
 
-export interface CreateReplayWorkspaceResponseInput {
+export interface CreateReplayWorkspaceResponse {
 }
 
-export interface CreateTrajectoryShareRequestInput {
+export interface CreateTrajectoryShareRequest {
   shareStatus?: TrajectoryShareStatus;
   cascadeId?: string;
 }
 
-export interface CreateTrajectoryShareResponseInput {
+export interface CreateTrajectoryShareResponse {
   url?: string;
 }
 
-export interface CreateWorktreeRequestInput {
+export interface CreateWorktreeRequest {
   repoPath?: string;
   baseBranchName?: string;
-  planInfo?: PlanInfoInput;
-  items?: TextOrScopeItemInput[];
-  images?: ImageDataInput[];
-  media?: MediaInput[];
+  planInfo?: PlanInfo;
+  items?: TextOrScopeItem[];
+  images?: ImageData[];
+  media?: Media[];
   worktreeName?: string;
 }
 
-export interface CreateWorktreeResponseInput {
+export interface CreateWorktreeResponse {
   worktreeDirUri?: string;
   worktreeName?: string;
 }
 
-export interface CritiqueStep_ApprovalInput {
+export interface CritiqueStep {
+  toolName?: string;
+  args?: CritiqueStep_Args;
+  reply?: CritiqueStep_Reply;
+  toolStatus?: ToolStatus;
+}
+
+export interface CritiqueStep_Approval {
   type?: string;
   displayName?: string;
   approved?: boolean;
 }
 
-export interface CritiqueStep_ArgsInput {
+export interface CritiqueStep_Args {
   changelist?: string;
   includeCodeChanges?: boolean;
   includeReviewerComments?: boolean;
   paths?: string[];
 }
 
-export interface CritiqueStep_CommentInput {
+export interface CritiqueStep_Comment {
   depotPath?: string;
   type?: string;
   author?: string;
   content?: string;
   resolved?: boolean;
-  approval?: CritiqueStep_ApprovalInput[];
-  replies?: CritiqueStep_CommentReplyInput[];
+  approval?: CritiqueStep_Approval[];
+  replies?: CritiqueStep_CommentReply[];
 }
 
-export interface CritiqueStep_CommentReplyInput {
+export interface CritiqueStep_CommentReply {
   author?: string;
   content?: string;
   action?: string;
 }
 
-export interface CritiqueStep_ReplyInput {
+export interface CritiqueStep_Reply {
   changelistContent?: string;
-  comments?: CritiqueStep_CommentInput[];
+  comments?: CritiqueStep_Comment[];
   modifiedPaths?: string[];
 }
 
-export interface CritiqueStepInput {
-  toolName?: string;
-  args?: CritiqueStep_ArgsInput;
-  reply?: CritiqueStep_ReplyInput;
-  toolStatus?: ToolStatusInput;
-}
-
-export interface CustomAgentConfigInput {
-  systemPromptSections?: PromptSectionInput[];
+export interface CustomAgentConfig {
+  systemPromptSections?: PromptSection[];
   toolNames?: string[];
-  systemPromptConfig?: CustomAgentSystemPromptConfigInput;
+  systemPromptConfig?: CustomAgentSystemPromptConfig;
   preInvocationHooks?: string[];
   postInvocationHooks?: string[];
   stopHooks?: string[];
 }
 
-export interface CustomAgentSpecInput {
-  launchedMcpServers?: McpServerSpecInput[];
+export interface CustomAgentSpec {
+  launchedMcpServers?: McpServerSpec[];
   commandExecutionPolicy?: string;
   enforcedWorkspaceValidation?: boolean;
-  promptSectionCustomization?: PromptSectionCustomizationConfigInput;
-  cascadeConfig?: CascadeConfigInput;
-  customizationConfig?: CustomizationConfigInput;
-  mcpServers?: McpServerSpecInput[];
+  promptSectionCustomization?: PromptSectionCustomizationConfig;
+  cascadeConfig?: CascadeConfig;
+  customizationConfig?: CustomizationConfig;
+  mcpServers?: McpServerSpec[];
   skipMcpPrefixes?: boolean;
   customTools?: string[];
-  skills?: SkillsConfigInput;
-  agents?: AgentDiscoveryConfigInput;
-  customAgent?: CustomAgentConfigInput;
-  codingAgent?: CodingAgentConfigInput;
-  agentConfig?: AgentConfigInput;
+  skills?: SkillsConfig;
+  agents?: AgentDiscoveryConfig;
+  customAgent?: CustomAgentConfig;
+  codingAgent?: CodingAgentConfig;
+  agentConfig?: AgentConfig;
   userActiveWorkspaces?: boolean;
-  workspacePaths?: WorkspacePathsInput;
+  workspacePaths?: WorkspacePaths;
 }
 
-export interface CustomAgentSystemPromptConfigInput {
+export interface CustomAgentSystemPromptConfig {
   includeSections?: string[];
 }
 
-export interface CustomizationConfigInput {
+export interface CustomizationConfig {
   customizationServerUrl?: string;
   toolNames?: string[];
   preInvocationHookNames?: string[];
   postInvocationHookNames?: string[];
-  mcpServers?: McpServerSpecInput[];
+  mcpServers?: McpServerSpec[];
   trajectoryToChatMessageOverride?: string;
   preToolHookNames?: string[];
   postToolHookNames?: string[];
   skipToolNamePrefix?: boolean;
   skipToolDescriptionPrefix?: boolean;
   stopHookNames?: string[];
-  customizationDiscoveryConfig?: CustomizationDiscoveryConfigInput;
+  customizationDiscoveryConfig?: CustomizationDiscoveryConfig;
   agentPath?: string;
   enableJsonHooks?: boolean;
   userActiveWorkspaces?: boolean;
-  workspacePaths?: WorkspacePathsInput;
+  workspacePaths?: WorkspacePaths;
 }
 
-export interface CustomizationDiscoveryConfigInput {
-  skills?: SkillsConfigInput;
-  agents?: AgentDiscoveryConfigInput;
-  mcp?: McpDiscoveryConfigInput;
+export interface CustomizationDiscoveryConfig {
+  skills?: SkillsConfig;
+  agents?: AgentDiscoveryConfig;
+  mcp?: McpDiscoveryConfig;
 }
 
-export interface CustomizationPathInput {
+export interface CustomizationPath {
   agentRelative?: string;
   workspaceRelative?: string;
   absolute?: string;
 }
 
-export interface CustomizationPathsListInput {
+export interface CustomizationPathsList {
   paths?: string[];
 }
 
-export interface CustomModelsConfig_CustomModelsEntryInput {
+export interface CustomModelsConfig {
+  customModels?: CustomModelsConfig_CustomModelsEntry[];
+}
+
+export interface CustomModelsConfig_CustomModelsEntry {
   key?: string;
-  value?: ModelInfoInput;
+  value?: ModelInfo;
 }
 
-export interface CustomModelsConfigInput {
-  customModels?: CustomModelsConfig_CustomModelsEntryInput[];
-}
-
-export interface CustomPromptSectionInput {
-  promptSection?: PromptSectionInput;
+export interface CustomPromptSection {
+  promptSection?: PromptSection;
   insertAfterSection?: string;
   insertBeforeSection?: string;
 }
 
-export interface DeclarativeMixinConfigInput {
-  providers?: FunctionProviderInput[];
-  promptSections?: PromptSectionItemInput[];
-  tools?: NamedItemInput[];
-  preInvocationHooks?: NamedItemInput[];
-  postInvocationHooks?: NamedItemInput[];
-  preToolHooks?: NamedItemInput[];
-  postToolHooks?: NamedItemInput[];
-  stopHooks?: NamedItemInput[];
+export interface DeclarativeMixinConfig {
+  providers?: FunctionProvider[];
+  promptSections?: PromptSectionItem[];
+  tools?: NamedItem[];
+  preInvocationHooks?: NamedItem[];
+  postInvocationHooks?: NamedItem[];
+  preToolHooks?: NamedItem[];
+  postToolHooks?: NamedItem[];
+  stopHooks?: NamedItem[];
 }
 
-export interface DefaultOverrideModelConfigInput {
-  modelOrAlias?: ModelOrAliasInput;
+export interface DefaultOverrideModelConfig {
+  modelOrAlias?: ModelOrAlias;
   versionId?: string;
 }
 
-export interface DeleteCascadeMemoryRequestInput {
+export interface DeleteCascadeMemoryRequest {
   memoryId?: string;
 }
 
-export interface DeleteCascadeMemoryResponseInput {
+export interface DeleteCascadeMemoryResponse {
 }
 
-export interface DeleteCascadeTrajectoryRequestInput {
+export interface DeleteCascadeTrajectoryRequest {
   cascadeId?: string;
 }
 
-export interface DeleteCascadeTrajectoryResponseInput {
+export interface DeleteCascadeTrajectoryResponse {
 }
 
-export interface DeleteFileOrDirectoryRequestInput {
+export interface DeleteFileOrDirectoryRequest {
   uri?: string;
 }
 
-export interface DeleteFileOrDirectoryResponseInput {
+export interface DeleteFileOrDirectoryResponse {
 }
 
-export interface DeleteMediaArtifactRequestInput {
+export interface DeleteMediaArtifactRequest {
   uri?: string;
 }
 
-export interface DeleteMediaArtifactResponseInput {
+export interface DeleteMediaArtifactResponse {
   success?: boolean;
   errorMessage?: string;
 }
 
-export interface DeleteQueuedUserInputStepRequestInput {
+export interface DeleteQueuedUserInputStepRequest {
   cascadeId?: string;
   stepIndex?: number;
 }
 
-export interface DeleteQueuedUserInputStepResponseInput {
+export interface DeleteQueuedUserInputStepResponse {
 }
 
-export interface DeleteWorktreeRequestInput {
+export interface DeleteWorktreeRequest {
   worktreeDirUri?: string;
   repoUri?: string;
 }
 
-export interface DeleteWorktreeResponseInput {
+export interface DeleteWorktreeResponse {
   success?: boolean;
   errorMessage?: string;
 }
 
-export interface DeployTargetInput {
+export interface DeployTarget {
   deploymentProvider?: DeploymentProvider;
   isSandbox?: boolean;
   providerTeamId?: string;
@@ -2875,30 +2887,30 @@ export interface DeployTargetInput {
   domain?: string;
 }
 
-export interface DiffBlockInput {
+export interface DiffBlock {
   startLine?: number;
   endLine?: number;
-  unifiedDiff?: UnifiedDiffInput;
+  unifiedDiff?: UnifiedDiff;
 }
 
-export interface DiffCommentInfoInput {
-  originalSelection?: TextSelectionInput;
-  modifiedSelection?: TextSelectionInput;
+export interface DiffCommentInfo {
+  originalSelection?: TextSelection;
+  modifiedSelection?: TextSelection;
   comment?: string;
 }
 
-export interface DiffListInput {
-  diffs?: DiffBlockInput[];
+export interface DiffList {
+  diffs?: DiffBlock[];
 }
 
-export interface DisconnectMcpOAuthRequestInput {
+export interface DisconnectMcpOAuthRequest {
   serverName?: string;
 }
 
-export interface DisconnectMcpOAuthResponseInput {
+export interface DisconnectMcpOAuthResponse {
 }
 
-export interface DocumentInput {
+export interface Document {
   absolutePathMigrateMeToUri?: string;
   absoluteUri?: string;
   relativePathMigrateMeToWorkspaceUri?: string;
@@ -2907,9 +2919,9 @@ export interface DocumentInput {
   editorLanguage?: string;
   language?: Language;
   cursorOffset?: bigint;
-  cursorPosition?: DocumentPositionInput;
+  cursorPosition?: DocumentPosition;
   lineEnding?: string;
-  visibleRange?: RangeInput;
+  visibleRange?: Range;
   isCutoffStart?: boolean;
   isCutoffEnd?: boolean;
   linesCutoffStart?: number;
@@ -2919,30 +2931,30 @@ export interface DocumentInput {
   isSynthetic?: boolean;
 }
 
-export interface DocumentLinesElementInput {
-  documentQuery?: DocumentQueryInput;
-  overlappedCodeContextItems?: CodeContextItemInput[];
+export interface DocumentLinesElement {
+  documentQuery?: DocumentQuery;
+  overlappedCodeContextItems?: CodeContextItem[];
   firstElementSuffixOverlap?: number;
   lastElementPrefixOverlap?: number;
 }
 
-export interface DocumentOutlineElementInput {
-  codeContextItem?: CodeContextItemInput;
-  documentLinesElement?: DocumentLinesElementInput;
-  text?: string;
-}
-
-export interface DocumentOutlineInput {
-  elements?: DocumentOutlineElementInput[];
+export interface DocumentOutline {
+  elements?: DocumentOutlineElement[];
   startIndex?: bigint;
 }
 
-export interface DocumentPositionInput {
+export interface DocumentOutlineElement {
+  codeContextItem?: CodeContextItem;
+  documentLinesElement?: DocumentLinesElement;
+  text?: string;
+}
+
+export interface DocumentPosition {
   row?: bigint;
   col?: bigint;
 }
 
-export interface DocumentQueryInput {
+export interface DocumentQuery {
   text?: string;
   cursorOffset?: number;
   startLine?: number;
@@ -2950,28 +2962,29 @@ export interface DocumentQueryInput {
   useCharacterPosition?: boolean;
 }
 
-export interface DOMElementScopeItemInput {
+export interface DOMElementScopeItem {
   tagName?: string;
   outerHtml?: string;
   id?: string;
   reactComponentName?: string;
-  fileLineRange?: FileLineRangeInput;
+  fileLineRange?: FileLineRange;
 }
 
-export interface DOMExtractionConfigInput {
+export interface DOMExtractionConfig {
   includeCoordinates?: boolean;
 }
 
-export interface DOMNode_ElementNode_AttributesEntryInput {
-  key?: string;
-  value?: string;
+export interface DOMNode {
+  isVisible?: boolean;
+  element?: DOMNode_ElementNode;
+  text?: DOMNode_TextNode;
 }
 
-export interface DOMNode_ElementNodeInput {
+export interface DOMNode_ElementNode {
   tagName?: string;
   xpath?: string;
   children?: string[];
-  attributes?: DOMNode_ElementNode_AttributesEntryInput[];
+  attributes?: DOMNode_ElementNode_AttributesEntry[];
   isInteractive?: boolean;
   isTopElement?: boolean;
   highlightIndex?: number;
@@ -2979,48 +2992,47 @@ export interface DOMNode_ElementNodeInput {
   centralY?: number;
 }
 
-export interface DOMNode_TextNodeInput {
+export interface DOMNode_ElementNode_AttributesEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface DOMNode_TextNode {
   text?: string;
 }
 
-export interface DOMNodeInput {
-  isVisible?: boolean;
-  element?: DOMNode_ElementNodeInput;
-  text?: DOMNode_TextNodeInput;
-}
-
-export interface DOMTree_MapEntryInput {
-  key?: string;
-  value?: DOMNodeInput;
-}
-
-export interface DOMTreeInput {
+export interface DOMTree {
   rootId?: string;
-  map?: DOMTree_MapEntryInput[];
+  map?: DOMTree_MapEntry[];
 }
 
-export interface DumpFlightRecorderRequestInput {
+export interface DOMTree_MapEntry {
+  key?: string;
+  value?: DOMNode;
+}
+
+export interface DumpFlightRecorderRequest {
   traceFilePath?: string;
 }
 
-export interface DumpFlightRecorderResponseInput {
+export interface DumpFlightRecorderResponse {
 }
 
-export interface DumpPprofRequestInput {
+export interface DumpPprofRequest {
   heapFilePath?: string;
   goroutineFilePath?: string;
   mutexFilePath?: string;
 }
 
-export interface DumpPprofResponseInput {
+export interface DumpPprofResponse {
 }
 
-export interface ElicitationInteractionInput {
+export interface ElicitationInteraction {
   action?: string;
   contentJson?: string;
 }
 
-export interface ElicitationInteractionSpecInput {
+export interface ElicitationInteractionSpec {
   serverName?: string;
   mode?: string;
   message?: string;
@@ -3028,37 +3040,37 @@ export interface ElicitationInteractionSpecInput {
   url?: string;
 }
 
-export interface EndAudioSessionRequestInput {
+export interface EndAudioSessionRequest {
   sessionId?: string;
 }
 
-export interface EndAudioSessionResponseInput {
+export interface EndAudioSessionResponse {
 }
 
-export interface EndBattleModeRequestInput {
+export interface EndBattleModeRequest {
   winnerConversationId?: string;
 }
 
-export interface EndBattleModeResponseInput {
+export interface EndBattleModeResponse {
   mainConversationId?: string;
 }
 
-export interface EnterpriseToolConfigInput {
+export interface EnterpriseToolConfig {
   enforceWorkspaceValidation?: boolean;
   customWorkspace?: string[];
 }
 
-export interface EphemeralMessagesConfigInput {
+export interface EphemeralMessagesConfig {
   enabled?: boolean;
   persistenceLevel?: EphemeralMessagePersistenceLevel;
   browserEphemeralOptions?: BrowserEphemeralOption[];
   excludeUnleashBrowserEphemeralOptions?: boolean;
   disabledHeuristics?: string[];
   numSteps?: number;
-  heuristicPrompts?: HeuristicPromptInput[];
+  heuristicPrompts?: HeuristicPrompt[];
 }
 
-export interface ErrorTraceInput {
+export interface ErrorTrace {
   errorId?: string;
   timestampUnixMs?: bigint;
   stacktrace?: string;
@@ -3070,63 +3082,63 @@ export interface ErrorTraceInput {
   isDev?: boolean;
 }
 
-export interface EventInput {
+export interface Event {
   eventType?: EventType;
   eventJson?: string;
   timestampUnixMs?: bigint;
 }
 
-export interface ExecutableScriptSpecInput {
-  commandSpec?: AgentScriptCommandSpecInput;
-  pythonSpec?: AgentScriptPythonSpecInput;
+export interface ExecutableScriptSpec {
+  commandSpec?: AgentScriptCommandSpec;
+  pythonSpec?: AgentScriptPythonSpec;
 }
 
-export interface ExecutorMetadataInput {
+export interface ExecutorMetadata {
   terminationReason?: ExecutorTerminationReason;
   numGeneratorInvocations?: number;
   lastStepIdx?: number;
   proceededWithAutoContinue?: boolean;
   numForcedInvocations?: number;
-  segmentRecords?: MetricsRecordInput[];
-  trajectoryRecords?: MetricsRecordInput[];
+  segmentRecords?: MetricsRecord[];
+  trajectoryRecords?: MetricsRecord[];
   genSvcRequest?: any;
   executionId?: string;
-  cascadeConfig?: CascadeConfigInput;
+  cascadeConfig?: CascadeConfig;
   mendelExperimentIds?: number[];
 }
 
-export interface ExitRequestInput {
+export interface ExitRequest {
 }
 
-export interface ExitResponseInput {
+export interface ExitResponse {
 }
 
-export interface ExperimentConfigInput {
-  experiments?: ExperimentWithVariantInput[];
+export interface ExperimentConfig {
+  experiments?: ExperimentWithVariant[];
   forceEnableExperiments?: ExperimentKey[];
   forceDisableExperiments?: ExperimentKey[];
-  forceEnableExperimentsWithVariants?: ExperimentWithVariantInput[];
+  forceEnableExperimentsWithVariants?: ExperimentWithVariant[];
   forceEnableExperimentStrings?: string[];
   forceDisableExperimentStrings?: string[];
   devMode?: boolean;
 }
 
-export interface Experiments_ValuesEntryInput {
+export interface Experiments {
+  values?: Experiments_ValuesEntry[];
+}
+
+export interface Experiments_ValuesEntry {
   key?: string;
-  value?: ExperimentValueInput;
+  value?: ExperimentValue;
 }
 
-export interface ExperimentsInput {
-  values?: Experiments_ValuesEntryInput[];
-}
-
-export interface ExperimentValueInput {
+export interface ExperimentValue {
   boolValue?: boolean;
   stringValue?: string;
   numberValue?: number;
 }
 
-export interface ExperimentWithVariantInput {
+export interface ExperimentWithVariant {
   key?: ExperimentKey;
   keyString?: string;
   disabled?: boolean;
@@ -3136,7 +3148,7 @@ export interface ExperimentWithVariantInput {
   csv?: string;
 }
 
-export interface FastApplyFallbackConfigInput {
+export interface FastApplyFallbackConfig {
   enabled?: boolean;
   promptUnchangedThreshold?: number;
   contentViewRadiusLines?: number;
@@ -3145,10 +3157,10 @@ export interface FastApplyFallbackConfigInput {
   repairReplaceBlocks?: boolean;
 }
 
-export interface FastApplyFallbackInfoInput {
+export interface FastApplyFallbackInfo {
   fallbackAttempted?: boolean;
   fallbackError?: string;
-  fastApplyResult?: ActionResultInput;
+  fastApplyResult?: ActionResult;
   heuristicFailure?: CodeHeuristicFailure;
   fastApplyPrompt?: string;
   numFastApplyEditsMasked?: number;
@@ -3156,14 +3168,14 @@ export interface FastApplyFallbackInfoInput {
   usedRepairFallback?: boolean;
 }
 
-export interface FetchUserInfoRequestInput {
+export interface FetchUserInfoRequest {
 }
 
-export interface FetchUserInfoResponseInput {
+export interface FetchUserInfoResponse {
   userSettings?: any;
 }
 
-export interface FileAccessPermissionInput {
+export interface FileAccessPermission {
   path?: string;
   isDirectory?: boolean;
   allow?: boolean;
@@ -3171,7 +3183,7 @@ export interface FileAccessPermissionInput {
   fromCurrentStep?: boolean;
 }
 
-export interface FileChangeInput {
+export interface FileChange {
   startFilePathMigrateMeToUri?: string;
   startFileUri?: string;
   startFileRelPath?: string;
@@ -3180,73 +3192,73 @@ export interface FileChangeInput {
   endFileRelPath?: string;
   oldFileContent?: string;
   newFileContent?: string;
-  codeContextItemChanges?: CodeContextItemChangeInput[];
-  unchangedCodeContextItems?: CodeContextItemInput[];
+  codeContextItemChanges?: CodeContextItemChange[];
+  unchangedCodeContextItems?: CodeContextItem[];
 }
 
-export interface FileCommentInfoInput {
+export interface FileComment {
+  fileUri?: string;
+  fileCommentInfos?: FileCommentInfo[];
+}
+
+export interface FileCommentInfo {
   comment?: string;
-  selection?: TextSelectionInput;
+  selection?: TextSelection;
 }
 
-export interface FileCommentInput {
+export interface FileDiffComment {
   fileUri?: string;
-  fileCommentInfos?: FileCommentInfoInput[];
+  diffCommentInfos?: DiffCommentInfo[];
 }
 
-export interface FileDiffCommentInput {
-  fileUri?: string;
-  diffCommentInfos?: DiffCommentInfoInput[];
-}
-
-export interface FileLineRangeInput {
+export interface FileLineRange {
   absoluteUri?: string;
   startLine?: number;
   endLine?: number;
 }
 
-export interface FilePermissionInteractionInput {
+export interface FilePermissionInteraction {
   allow?: boolean;
   scope?: PermissionScope;
   absolutePathUri?: string;
 }
 
-export interface FilePermissionInteractionSpecInput {
+export interface FilePermissionInteractionSpec {
   absolutePathUri?: string;
   isDirectory?: boolean;
   blockReason?: FilePermissionInteractionSpec_BlockReason;
 }
 
-export interface FindingsStep_ArgsInput {
+export interface FindingsStep {
+  toolName?: string;
+  args?: FindingsStep_Args;
+  reply?: FindingsStep_Reply;
+  toolStatus?: ToolStatus;
+}
+
+export interface FindingsStep_Args {
   changelist?: string;
 }
 
-export interface FindingsStep_Finding_LocationInput {
+export interface FindingsStep_Finding {
+  category?: string;
+  subcategory?: string;
+  description?: string;
+  actionable?: boolean;
+  location?: FindingsStep_Finding_Location;
+}
+
+export interface FindingsStep_Finding_Location {
   depotPath?: string;
   lineNumberStart?: number;
   lineNumberEnd?: number;
 }
 
-export interface FindingsStep_FindingInput {
-  category?: string;
-  subcategory?: string;
-  description?: string;
-  actionable?: boolean;
-  location?: FindingsStep_Finding_LocationInput;
+export interface FindingsStep_Reply {
+  findings?: FindingsStep_Finding[];
 }
 
-export interface FindingsStep_ReplyInput {
-  findings?: FindingsStep_FindingInput[];
-}
-
-export interface FindingsStepInput {
-  toolName?: string;
-  args?: FindingsStep_ArgsInput;
-  reply?: FindingsStep_ReplyInput;
-  toolStatus?: ToolStatusInput;
-}
-
-export interface FindToolConfigInput {
+export interface FindToolConfig {
   maxFindResults?: number;
   fdPath?: string;
   useCodeSearch?: boolean;
@@ -3254,333 +3266,333 @@ export interface FindToolConfigInput {
   forceDisable?: boolean;
 }
 
-export interface FinishToolConfigInput {
+export interface FinishToolConfig {
   resultJsonSchemaString?: string;
 }
 
-export interface FocusUserPageRequestInput {
+export interface FocusUserPageRequest {
   pageId?: string;
 }
 
-export interface FocusUserPageResponseInput {
+export interface FocusUserPageResponse {
 }
 
-export interface ForceBackgroundResearchRefreshRequestInput {
+export interface ForceBackgroundResearchRefreshRequest {
   mainlineTrajectoryId?: string;
   blocking?: boolean;
   fullRefresh?: boolean;
 }
 
-export interface ForceBackgroundResearchRefreshResponseInput {
+export interface ForceBackgroundResearchRefreshResponse {
 }
 
-export interface ForceStopCascadeTreeRequestInput {
+export interface ForceStopCascadeTreeRequest {
   conversationId?: string;
 }
 
-export interface ForceStopCascadeTreeResponseInput {
+export interface ForceStopCascadeTreeResponse {
   stoppedConversationIds?: string[];
 }
 
-export interface ForkConversationRequestInput {
+export interface ForkConversationRequest {
   sourceCascadeId?: string;
   forkAtStepIndex?: number;
   targetForkWorkspace?: ForkTarget;
   sourceWorkspaceUris?: string[];
-  items?: TextOrScopeItemInput[];
-  media?: MediaInput[];
-  agentScriptOverride?: AgentScriptItemInput;
+  items?: TextOrScopeItem[];
+  media?: Media[];
+  agentScriptOverride?: AgentScriptItem;
 }
 
-export interface ForkConversationResponseInput {
+export interface ForkConversationResponse {
   newCascadeId?: string;
   newWorkspaceUri?: string;
   newWorkspaceName?: string;
   forkedAtStepIndex?: number;
 }
 
-export interface ForkFromIdentifierInput {
+export interface ForkFromIdentifier {
   cascadeId?: string;
   stepIndex?: number;
 }
 
-export interface FunctionProviderInput {
+export interface FunctionProvider {
   name?: string;
   url?: string;
   protocol?: FunctionProvider_Protocol;
 }
 
-export interface GenerateCommitMessageRequestInput {
-  planInfo?: PlanInfoInput;
+export interface GenerateCommitMessageRequest {
+  planInfo?: PlanInfo;
   repoRoot?: string;
 }
 
-export interface GenerateCommitMessageResponseInput {
-  commitMessage?: CommitMessageDataInput;
+export interface GenerateCommitMessageResponse {
+  commitMessage?: CommitMessageData;
 }
 
-export interface GenerateImageToolConfigInput {
+export interface GenerateImageToolConfig {
   forceDisable?: boolean;
   outputDirectory?: string;
 }
 
-export interface GenerateSkillInstallationCLRequestInput {
+export interface GenerateSkillInstallationCLRequest {
   skillPaths?: string[];
   ldap?: string;
 }
 
-export interface GenerateSkillInstallationCLResponseInput {
+export interface GenerateSkillInstallationCLResponse {
   clNumber?: bigint;
   clUrl?: string;
 }
 
-export interface GenericStepResultInput {
+export interface GenericStepResult {
   result?: string;
-  media?: MediaInput[];
+  media?: Media[];
   data?: any;
-  stepRenderInfo?: StepRenderInfoInput;
+  stepRenderInfo?: StepRenderInfo;
 }
 
-export interface GetAgentScriptsRequestInput {
+export interface GetAgentScriptsRequest {
   workspaceUris?: string[];
 }
 
-export interface GetAgentScriptsResponseInput {
-  agentScripts?: AgentScriptItemInput[];
-  agentCustomizations?: AgentCustomizationInput[];
+export interface GetAgentScriptsResponse {
+  agentScripts?: AgentScriptItem[];
+  agentCustomizations?: AgentCustomization[];
 }
 
-export interface GetAgentTeamMetadataRequestInput {
+export interface GetAgentTeamMetadataRequest {
   projectDirUri?: string;
 }
 
-export interface GetAgentTeamMetadataResponseInput {
-  agents?: AgentInstanceInput[];
-  tasks?: AgentTeamTaskInput[];
+export interface GetAgentTeamMetadataResponse {
+  agents?: AgentInstance[];
+  tasks?: AgentTeamTask[];
 }
 
-export interface GetAllBrowserWhitelistedUrlsRequestInput {
+export interface GetAllBrowserWhitelistedUrlsRequest {
 }
 
-export interface GetAllBrowserWhitelistedUrlsResponseInput {
+export interface GetAllBrowserWhitelistedUrlsResponse {
   whitelistedUrls?: string[];
 }
 
-export interface GetAllCascadeTrajectoriesRequestInput {
+export interface GetAllCascadeTrajectoriesRequest {
   excludeSubtrajectories?: boolean;
 }
 
-export interface GetAllCascadeTrajectoriesResponse_TrajectorySummariesEntryInput {
+export interface GetAllCascadeTrajectoriesResponse {
+  trajectorySummaries?: GetAllCascadeTrajectoriesResponse_TrajectorySummariesEntry[];
+}
+
+export interface GetAllCascadeTrajectoriesResponse_TrajectorySummariesEntry {
   key?: string;
-  value?: CascadeTrajectorySummaryInput;
+  value?: CascadeTrajectorySummary;
 }
 
-export interface GetAllCascadeTrajectoriesResponseInput {
-  trajectorySummaries?: GetAllCascadeTrajectoriesResponse_TrajectorySummariesEntryInput[];
+export interface GetAllCustomAgentConfigsRequest {
 }
 
-export interface GetAllCustomAgentConfigsRequestInput {
+export interface GetAllCustomAgentConfigsResponse {
+  configMap?: GetAllCustomAgentConfigsResponse_ConfigMapEntry[];
 }
 
-export interface GetAllCustomAgentConfigsResponse_ConfigMapEntryInput {
+export interface GetAllCustomAgentConfigsResponse_ConfigMapEntry {
   key?: string;
   value?: string;
 }
 
-export interface GetAllCustomAgentConfigsResponseInput {
-  configMap?: GetAllCustomAgentConfigsResponse_ConfigMapEntryInput[];
-}
-
-export interface GetAllPluginsRequestInput {
+export interface GetAllPluginsRequest {
   workspaceUris?: string[];
 }
 
-export interface GetAllPluginsResponseInput {
-  plugins?: PluginInput[];
+export interface GetAllPluginsResponse {
+  plugins?: Plugin[];
 }
 
-export interface GetAllRulesRequestInput {
+export interface GetAllRulesRequest {
   workspaceUris?: string[];
 }
 
-export interface GetAllRulesResponseInput {
-  memories?: CortexMemoryInput[];
+export interface GetAllRulesResponse {
+  memories?: CortexMemory[];
 }
 
-export interface GetAllSkillsRequestInput {
+export interface GetAllSkillsRequest {
   workspaceUris?: string[];
 }
 
-export interface GetAllSkillsResponseInput {
-  skills?: WorkflowSpecInput[];
+export interface GetAllSkillsResponse {
+  skills?: WorkflowSpec[];
 }
 
-export interface GetAllWorkflowsRequestInput {
+export interface GetAllWorkflowsRequest {
   workspaceUris?: string[];
 }
 
-export interface GetAllWorkflowsResponseInput {
-  workflows?: WorkflowSpecInput[];
+export interface GetAllWorkflowsResponse {
+  workflows?: WorkflowSpec[];
 }
 
-export interface GetArtifactSnapshotsRequestInput {
+export interface GetArtifactSnapshotsRequest {
   cascadeId?: string;
 }
 
-export interface GetArtifactSnapshotsResponseInput {
-  artifactSnapshots?: ArtifactSnapshotInput[];
+export interface GetArtifactSnapshotsResponse {
+  artifactSnapshots?: ArtifactSnapshot[];
 }
 
-export interface GetAvailableCascadePluginsRequestInput {
+export interface GetAvailableCascadePluginsRequest {
   os?: string;
   searchQuery?: string;
 }
 
-export interface GetAvailableCascadePluginsResponseInput {
-  plugins?: CascadePluginTemplateInput[];
+export interface GetAvailableCascadePluginsResponse {
+  plugins?: CascadePluginTemplate[];
 }
 
-export interface GetAvailableModelsRequestInput {
+export interface GetAvailableModelsRequest {
   forceRefresh?: boolean;
 }
 
-export interface GetAvailableModelsResponseInput {
+export interface GetAvailableModelsResponse {
   response?: any;
 }
 
-export interface GetBrowserOpenConversationRequestInput {
+export interface GetBrowserOpenConversationRequest {
 }
 
-export interface GetBrowserOpenConversationResponseInput {
+export interface GetBrowserOpenConversationResponse {
   cascadeId?: string;
 }
 
-export interface GetBrowserWhitelistFilePathRequestInput {
+export interface GetBrowserWhitelistFilePathRequest {
 }
 
-export interface GetBrowserWhitelistFilePathResponseInput {
+export interface GetBrowserWhitelistFilePathResponse {
   path?: string;
 }
 
-export interface GetCascadeMemoriesRequestInput {
+export interface GetCascadeMemoriesRequest {
 }
 
-export interface GetCascadeMemoriesResponseInput {
-  memories?: CortexMemoryInput[];
+export interface GetCascadeMemoriesResponse {
+  memories?: CortexMemory[];
 }
 
-export interface GetCascadeModelConfigDataRequestInput {
+export interface GetCascadeModelConfigDataRequest {
 }
 
-export interface GetCascadeModelConfigsRequestInput {
+export interface GetCascadeModelConfigsRequest {
   filter?: boolean;
 }
 
-export interface GetCascadeModelConfigsResponseInput {
-  clientModelConfigs?: ClientModelConfigInput[];
-  clientModelSorts?: ClientModelSortInput[];
-  defaultOverrideModelConfig?: DefaultOverrideModelConfigInput;
+export interface GetCascadeModelConfigsResponse {
+  clientModelConfigs?: ClientModelConfig[];
+  clientModelSorts?: ClientModelSort[];
+  defaultOverrideModelConfig?: DefaultOverrideModelConfig;
 }
 
-export interface GetCascadeNuxesRequestInput {
+export interface GetCascadeNuxesRequest {
 }
 
-export interface GetCascadeNuxesResponseInput {
-  nuxes?: CascadeNUXConfigInput[];
+export interface GetCascadeNuxesResponse {
+  nuxes?: CascadeNUXConfig[];
 }
 
-export interface GetCascadePluginByIdRequestInput {
+export interface GetCascadePluginByIdRequest {
   os?: string;
   pluginId?: string;
 }
 
-export interface GetCascadePluginByIdResponseInput {
-  plugin?: CascadePluginTemplateInput;
+export interface GetCascadePluginByIdResponse {
+  plugin?: CascadePluginTemplate;
 }
 
-export interface GetCascadeTrajectoryGeneratorMetadataRequestInput {
+export interface GetCascadeTrajectoryGeneratorMetadataRequest {
   cascadeId?: string;
   generatorMetadataOffset?: number;
   includeMessages?: boolean;
 }
 
-export interface GetCascadeTrajectoryGeneratorMetadataResponseInput {
-  generatorMetadata?: CortexStepGeneratorMetadataInput[];
+export interface GetCascadeTrajectoryGeneratorMetadataResponse {
+  generatorMetadata?: CortexStepGeneratorMetadata[];
 }
 
-export interface GetCascadeTrajectoryRequestInput {
+export interface GetCascadeTrajectoryRequest {
   cascadeId?: string;
   verbosity?: ClientTrajectoryVerbosity;
   trajectoryVerbosity?: JetskiCortexClientTrajectoryVerbosity;
 }
 
-export interface GetCascadeTrajectoryResponseInput {
-  trajectory?: TrajectoryInput;
+export interface GetCascadeTrajectoryResponse {
+  trajectory?: Trajectory;
   status?: CascadeRunStatus;
   numTotalSteps?: number;
   numTotalGeneratorMetadata?: number;
 }
 
-export interface GetCascadeTrajectoryStepsRequestInput {
+export interface GetCascadeTrajectoryStepsRequest {
   cascadeId?: string;
   stepOffset?: number;
   verbosity?: ClientTrajectoryVerbosity;
   trajectoryVerbosity?: JetskiCortexClientTrajectoryVerbosity;
 }
 
-export interface GetCascadeTrajectoryStepsResponseInput {
-  steps?: StepInput[];
+export interface GetCascadeTrajectoryStepsResponse {
+  steps?: Step[];
 }
 
-export interface GetChangelogRequestInput {
+export interface GetChangelogRequest {
   version?: string;
 }
 
-export interface GetChangelogResponseInput {
+export interface GetChangelogResponse {
   path?: string;
 }
 
-export interface GetCodeFrequencyForRepoRequestInput {
+export interface GetCodeFrequencyForRepoRequest {
   repoUri?: string;
   branch?: string;
   minutesPerBucket?: number;
 }
 
-export interface GetCodeFrequencyForRepoResponseInput {
-  codeFrequency?: CodeFrequencyRecordInput[];
+export interface GetCodeFrequencyForRepoResponse {
+  codeFrequency?: CodeFrequencyRecord[];
 }
 
-export interface GetCodeValidationStatesRequestInput {
+export interface GetCodeValidationStatesRequest {
   cascadeId?: string;
 }
 
-export interface GetCodeValidationStatesResponseInput {
-  states?: ValidationStateInput[];
+export interface GetCodeValidationStatesResponse {
+  states?: ValidationState[];
 }
 
-export interface GetCommandModelConfigsRequestInput {
+export interface GetCommandModelConfigsRequest {
 }
 
-export interface GetCommandModelConfigsResponseInput {
-  clientModelConfigs?: ClientModelConfigInput[];
+export interface GetCommandModelConfigsResponse {
+  clientModelConfigs?: ClientModelConfig[];
 }
 
-export interface GetDebugDiagnosticsRequestInput {
+export interface GetDebugDiagnosticsRequest {
 }
 
-export interface GetDebugDiagnosticsResponseInput {
-  languageServerDiagnostics?: LanguageServerDiagnosticsInput;
+export interface GetDebugDiagnosticsResponse {
+  languageServerDiagnostics?: LanguageServerDiagnostics;
 }
 
-export interface GetLoadCodeAssistRequestInput {
+export interface GetLoadCodeAssistRequest {
   forceRefresh?: boolean;
 }
 
-export interface GetLoadCodeAssistResponseInput {
+export interface GetLoadCodeAssistResponse {
   response?: any;
 }
 
-export interface GetMatchingContextScopeItemsRequestInput {
+export interface GetMatchingContextScopeItemsRequest {
   allowedTypes?: ContextScopeType[];
   allowedContextTypes?: CodeContextType[];
   query?: string;
@@ -3591,297 +3603,297 @@ export interface GetMatchingContextScopeItemsRequestInput {
   cancelToken?: bigint;
 }
 
-export interface GetMatchingContextScopeItemsResponseInput {
-  items?: ContextScopeItemInput[];
+export interface GetMatchingContextScopeItemsResponse {
+  items?: ContextScopeItem[];
 }
 
-export interface GetMcpPromptRequest_ArgumentsEntryInput {
+export interface GetMcpPromptRequest {
+  serverName?: string;
+  name?: string;
+  arguments?: GetMcpPromptRequest_ArgumentsEntry[];
+}
+
+export interface GetMcpPromptRequest_ArgumentsEntry {
   key?: string;
   value?: string;
 }
 
-export interface GetMcpPromptRequestInput {
-  serverName?: string;
-  name?: string;
-  arguments?: GetMcpPromptRequest_ArgumentsEntryInput[];
-}
-
-export interface GetMcpPromptResponseInput {
+export interface GetMcpPromptResponse {
   description?: string;
-  messages?: McpPromptMessageInput[];
+  messages?: McpPromptMessage[];
 }
 
-export interface GetMcpServerStatesRequestInput {
+export interface GetMcpServerStatesRequest {
 }
 
-export interface GetMcpServerStatesResponseInput {
-  states?: McpServerStateInput[];
+export interface GetMcpServerStatesResponse {
+  states?: McpServerState[];
   isLoading?: boolean;
 }
 
-export interface GetMcpServerTemplatesRequestInput {
+export interface GetMcpServerTemplatesRequest {
 }
 
-export interface GetMcpServerTemplatesResponseInput {
-  templates?: McpServerTemplateInput[];
+export interface GetMcpServerTemplatesResponse {
+  templates?: McpServerTemplate[];
 }
 
-export interface GetModelResponseRequestInput {
+export interface GetModelResponseRequest {
   prompt?: string;
   model?: Model;
 }
 
-export interface GetModelResponseResponseInput {
+export interface GetModelResponseResponse {
   response?: string;
 }
 
-export interface GetModelStatusesRequestInput {
+export interface GetModelStatusesRequest {
 }
 
-export interface GetModelStatusesResponseInput {
-  modelStatusInfos?: ModelStatusInfoInput[];
+export interface GetModelStatusesResponse {
+  modelStatusInfos?: ModelStatusInfo[];
 }
 
-export interface GetPatchAndCodeChangeRequestInput {
+export interface GetPatchAndCodeChangeRequest {
   intent?: string;
-  baseStateRepoInfo?: GitRepoInfoInput;
+  baseStateRepoInfo?: GitRepoInfo;
   repoPath?: string;
 }
 
-export interface GetPatchAndCodeChangeResponseInput {
+export interface GetPatchAndCodeChangeResponse {
   patchString?: string;
-  codeChangeWithContext?: CodeChangeWithContextInput;
+  codeChangeWithContext?: CodeChangeWithContext;
 }
 
-export interface GetProfileDataRequestInput {
+export interface GetProfileDataRequest {
   apiKey?: string;
 }
 
-export interface GetProfileDataResponseInput {
+export interface GetProfileDataResponse {
   profilePictureUrl?: string;
 }
 
-export interface GetRepoInfosRequestInput {
+export interface GetRepoInfosRequest {
   repoUris?: string[];
 }
 
-export interface GetRepoInfosResponseInput {
-  repos?: RepoInfoInput[];
+export interface GetRepoInfosResponse {
+  repos?: RepoInfo[];
 }
 
-export interface GetRevertPreviewRequestInput {
+export interface GetRevertPreviewRequest {
   cascadeId?: string;
   stepIndex?: number;
-  overrideConfig?: CascadeConfigInput;
+  overrideConfig?: CascadeConfig;
 }
 
-export interface GetRevertPreviewResponseInput {
-  codeEditPreviews?: CodeEditRevertPreviewInput[];
+export interface GetRevertPreviewResponse {
+  codeEditPreviews?: CodeEditRevertPreview[];
 }
 
-export interface GetRevisionArtifactRequestInput {
+export interface GetRevisionArtifactRequest {
   repoPathUri?: string;
   baseCommit?: string;
 }
 
-export interface GetRevisionArtifactResponseInput {
-  stats?: PatchStatsInput;
+export interface GetRevisionArtifactResponse {
+  stats?: PatchStats;
   patch?: string;
 }
 
-export interface GetSidecarEventsRequestInput {
+export interface GetSidecarEventsRequest {
   sidecarId?: string;
 }
 
-export interface GetSidecarEventsResponseInput {
-  events?: SidecarEventInput[];
+export interface GetSidecarEventsResponse {
+  events?: SidecarEvent[];
 }
 
-export interface GetSidecarsRequestInput {
+export interface GetSidecarsRequest {
 }
 
-export interface GetSidecarsResponseInput {
-  sidecars?: SidecarStatusInfoInput[];
+export interface GetSidecarsResponse {
+  sidecars?: SidecarStatusInfo[];
 }
 
-export interface GetSkillMarketplaceLinkRequestInput {
+export interface GetSkillMarketplaceLinkRequest {
   skillPath?: string;
 }
 
-export interface GetSkillMarketplaceLinkResponseInput {
+export interface GetSkillMarketplaceLinkResponse {
   marketplaceUrl?: string;
 }
 
-export interface GetStaticExperimentStatusRequestInput {
+export interface GetStaticExperimentStatusRequest {
 }
 
-export interface GetStaticExperimentStatusResponseInput {
-  status?: ChatExperimentStatusInput[];
+export interface GetStaticExperimentStatusResponse {
+  status?: ChatExperimentStatus[];
 }
 
-export interface GetStatusRequestInput {
+export interface GetStatusRequest {
 }
 
-export interface GetStatusResponseInput {
-  status?: StatusInput;
+export interface GetStatusResponse {
+  status?: Status;
 }
 
-export interface GetTeamOrganizationalControlsRequestInput {
+export interface GetTeamOrganizationalControlsRequest {
 }
 
-export interface GetTeamOrganizationalControlsResponseInput {
-  controls?: TeamOrganizationalControlsInput;
+export interface GetTeamOrganizationalControlsResponse {
+  controls?: TeamOrganizationalControls;
 }
 
-export interface GetTermsOfServiceRequestInput {
+export interface GetTermsOfServiceRequest {
 }
 
-export interface GetTermsOfServiceResponseInput {
+export interface GetTermsOfServiceResponse {
   termsOfServiceText?: string;
   version?: string;
 }
 
-export interface GetTokenBaseRequestInput {
-  cascadeConfig?: CascadeConfigInput;
+export interface GetTokenBaseRequest {
+  cascadeConfig?: CascadeConfig;
   workspaceUris?: string[];
 }
 
-export interface GetTokenBaseResponseInput {
-  customizationTokenBase?: TokenBreakdownInput;
+export interface GetTokenBaseResponse {
+  customizationTokenBase?: TokenBreakdown;
   remainingBudget?: number;
   customizationBudget?: number;
-  tokenBase?: TokenBreakdownInput;
+  tokenBase?: TokenBreakdown;
   maxTokenBase?: number;
 }
 
-export interface GetTranscriptionRequestInput {
+export interface GetTranscriptionRequest {
   audioData?: Uint8Array;
 }
 
-export interface GetTranscriptionResponseInput {
+export interface GetTranscriptionResponse {
   transcribedText?: string;
 }
 
-export interface GetUnleashDataRequest_PropertiesEntryInput {
+export interface GetUnleashDataRequest {
+  properties?: GetUnleashDataRequest_PropertiesEntry[];
+}
+
+export interface GetUnleashDataRequest_PropertiesEntry {
   key?: string;
   value?: string;
 }
 
-export interface GetUnleashDataRequestInput {
-  properties?: GetUnleashDataRequest_PropertiesEntryInput[];
+export interface GetUnleashDataResponse {
+  context?: UnleashContext;
+  experimentConfig?: ExperimentConfig;
 }
 
-export interface GetUnleashDataResponseInput {
-  context?: UnleashContextInput;
-  experimentConfig?: ExperimentConfigInput;
-}
-
-export interface GetUserAnalyticsSummaryRequestInput {
+export interface GetUserAnalyticsSummaryRequest {
   timeZone?: string;
   startTimestamp?: any;
   endTimestamp?: any;
 }
 
-export interface GetUserAnalyticsSummaryResponseInput {
-  completionStatistics?: CompletionStatisticsInput;
-  completionsByDay?: CompletionByDateEntryInput[];
-  completionsByLanguage?: CompletionByLanguageEntryInput[];
-  chatsByModel?: ChatStatsByModelEntryInput[];
+export interface GetUserAnalyticsSummaryResponse {
+  completionStatistics?: CompletionStatistics;
+  completionsByDay?: CompletionByDateEntry[];
+  completionsByLanguage?: CompletionByLanguageEntry[];
+  chatsByModel?: ChatStatsByModelEntry[];
 }
 
-export interface GetUserMemoriesRequestInput {
+export interface GetUserMemoriesRequest {
 }
 
-export interface GetUserMemoriesResponseInput {
-  memories?: CortexMemoryInput[];
+export interface GetUserMemoriesResponse {
+  memories?: CortexMemory[];
 }
 
-export interface GetUserSettingsRequestInput {
+export interface GetUserSettingsRequest {
 }
 
-export interface GetUserSettingsResponseInput {
-  userSettings?: UserSettingsInput;
+export interface GetUserSettingsResponse {
+  userSettings?: UserSettings;
 }
 
-export interface GetUserStatusRequestInput {
+export interface GetUserStatusRequest {
 }
 
-export interface GetUserStatusResponseInput {
-  userStatus?: UserStatusInput;
-  planInfo?: PlanInfoInput;
+export interface GetUserStatusResponse {
+  userStatus?: UserStatus;
+  planInfo?: PlanInfo;
 }
 
-export interface GetUserTrajectoryDebugRequestInput {
+export interface GetUserTrajectoryDebugRequest {
   includeAllTrajectories?: boolean;
 }
 
-export interface GetUserTrajectoryDebugResponseInput {
-  mainline?: ImplicitTrajectoryInput[];
-  granular?: TrajectoryInput;
-  supercomplete?: SupercompletePromptTrajectoryInput;
+export interface GetUserTrajectoryDebugResponse {
+  mainline?: ImplicitTrajectory[];
+  granular?: Trajectory;
+  supercomplete?: SupercompletePromptTrajectory;
 }
 
-export interface GetUserTrajectoryDescriptionsRequestInput {
+export interface GetUserTrajectoryDescriptionsRequest {
 }
 
-export interface GetUserTrajectoryDescriptionsResponseInput {
-  trajectories?: ImplicitTrajectoryDescriptionInput[];
+export interface GetUserTrajectoryDescriptionsResponse {
+  trajectories?: ImplicitTrajectoryDescription[];
 }
 
-export interface GetUserTrajectoryRequestInput {
+export interface GetUserTrajectoryRequest {
   trajectoryId?: string;
 }
 
-export interface GetUserTrajectoryResponseInput {
-  trajectory?: TrajectoryInput;
+export interface GetUserTrajectoryResponse {
+  trajectory?: Trajectory;
 }
 
-export interface GetWebDocsOptionsRequestInput {
+export interface GetWebDocsOptionsRequest {
 }
 
-export interface GetWebDocsOptionsResponseInput {
-  options?: WebDocsOptionInput[];
+export interface GetWebDocsOptionsResponse {
+  options?: WebDocsOption[];
 }
 
-export interface GetWorkingDirectoriesRequestInput {
+export interface GetWorkingDirectoriesRequest {
 }
 
-export interface GetWorkingDirectoriesResponseInput {
-  directories?: WorkingDirectoryInfoInput[];
+export interface GetWorkingDirectoriesResponse {
+  directories?: WorkingDirectoryInfo[];
 }
 
-export interface GetWorkspaceEditStateRequestInput {
+export interface GetWorkspaceEditStateRequest {
 }
 
-export interface GetWorkspaceEditStateResponseInput {
-  workspaceEdits?: WorkspaceEditStateInput[];
+export interface GetWorkspaceEditStateResponse {
+  workspaceEdits?: WorkspaceEditState[];
 }
 
-export interface GetWorkspaceInfosRequestInput {
+export interface GetWorkspaceInfosRequest {
 }
 
-export interface GetWorkspaceInfosResponseInput {
+export interface GetWorkspaceInfosResponse {
   homeDirPath?: string;
-  workspaceInfos?: WorkspaceInfoInput[];
+  workspaceInfos?: WorkspaceInfo[];
   homeDirUri?: string;
 }
 
-export interface GetWorktreeDiffRequestInput {
+export interface GetWorktreeDiffRequest {
   worktreeDirUri?: string;
   targetWorkspaceUri?: string;
 }
 
-export interface GetWorktreeDiffResponseInput {
+export interface GetWorktreeDiffResponse {
   diffPatch?: string;
-  summary?: CheckoutSummaryInput;
+  summary?: CheckoutSummary;
 }
 
-export interface GitCommitInput {
+export interface GitCommit {
   commitHash?: string;
   parentCommitHash?: string;
 }
 
-export interface GitRepoInfoInput {
+export interface GitRepoInfo {
   name?: string;
   owner?: string;
   repoName?: string;
@@ -3891,15 +3903,15 @@ export interface GitRepoInfoInput {
   baseGitUrl?: string;
 }
 
-export interface GrepSearchResultInput {
+export interface GrepSearchResult {
   relativePath?: string;
   lineNumber?: number;
   content?: string;
   absolutePath?: string;
-  cci?: CodeContextItemInput;
+  cci?: CodeContextItem;
 }
 
-export interface GrepToolConfigInput {
+export interface GrepToolConfig {
   maxGrepResults?: number;
   includeCciInResult?: boolean;
   numFullSourceCcis?: number;
@@ -3909,131 +3921,131 @@ export interface GrepToolConfigInput {
   disableFallbackToLocalExecution?: boolean;
 }
 
-export interface GuidelineInput {
-  items?: GuidelineItemInput[];
+export interface Guideline {
+  items?: GuidelineItem[];
 }
 
-export interface GuidelineItemInput {
+export interface GuidelineItem {
   guideline?: string;
 }
 
-export interface HandleCascadeUserInteractionRequestInput {
+export interface HandleCascadeUserInteractionRequest {
   cascadeId?: string;
-  interaction?: CascadeUserInteractionInput;
+  interaction?: CascadeUserInteraction;
 }
 
-export interface HandleCascadeUserInteractionResponseInput {
+export interface HandleCascadeUserInteractionResponse {
 }
 
-export interface HandleScreenRecordingRequestInput {
+export interface HandleScreenRecordingRequest {
   cascadeId?: string;
 }
 
-export interface HandleScreenRecordingResponseInput {
+export interface HandleScreenRecordingResponse {
   videoData?: Uint8Array;
 }
 
-export interface HeartbeatRequestInput {
-  previousErrorTraces?: ErrorTraceInput[];
-  experimentConfig?: ExperimentConfigInput;
+export interface HeartbeatRequest {
+  previousErrorTraces?: ErrorTrace[];
+  experimentConfig?: ExperimentConfig;
 }
 
-export interface HeartbeatResponseInput {
+export interface HeartbeatResponse {
   lastExtensionHeartbeat?: any;
 }
 
-export interface HeuristicPromptInput {
+export interface HeuristicPrompt {
   heuristic?: string;
   prompt?: string;
 }
 
-export interface ImageDataInput {
+export interface ImageData {
   base64Data?: string;
   mimeType?: string;
   caption?: string;
   uri?: string;
 }
 
-export interface ImplicitTrajectoryDescriptionInput {
+export interface ImplicitTrajectory {
+  trajectory?: Trajectory;
+  trajectoryScope?: TrajectoryScope;
+}
+
+export interface ImplicitTrajectoryDescription {
   trajectoryId?: string;
-  trajectoryScope?: TrajectoryScopeInput;
+  trajectoryScope?: TrajectoryScope;
   current?: boolean;
 }
 
-export interface ImplicitTrajectoryInput {
-  trajectory?: TrajectoryInput;
-  trajectoryScope?: TrajectoryScopeInput;
-}
-
-export interface ImportFromCursorRequestInput {
+export interface ImportFromCursorRequest {
   sourcePath?: string;
 }
 
-export interface ImportFromCursorResponseInput {
+export interface ImportFromCursorResponse {
   copiedFiles?: string[];
   duplicateFiles?: string[];
   problemFiles?: string[];
 }
 
-export interface IndexStatsInput {
+export interface IndexStats {
   repositoryName?: string;
   fileCount?: bigint;
   codeContextItemCount?: bigint;
 }
 
-export interface InitializeCascadePanelStateRequestInput {
-  userStatus?: UserStatusInput;
+export interface InitializeCascadePanelStateRequest {
+  userStatus?: UserStatus;
 }
 
-export interface InitializeCascadePanelStateResponseInput {
+export interface InitializeCascadePanelStateResponse {
 }
 
-export interface InjectedResponseMetadataInput {
+export interface InjectedResponseMetadata {
 }
 
-export interface InstallCascadePluginRequestInput {
+export interface InstallCascadePluginRequest {
   pluginId?: string;
 }
 
-export interface InstallCascadePluginResponseInput {
+export interface InstallCascadePluginResponse {
   installationCount?: bigint;
 }
 
-export interface IntentInput {
+export interface Intent {
   intent?: string;
   intentType?: IntentType;
   includeTestFiles?: boolean;
 }
 
-export interface IntentRelevanceInput {
+export interface IntentRelevance {
   intent?: string;
   relevanceScore?: number;
   rationale?: string;
 }
 
-export interface IntentToolConfigInput {
+export interface IntentToolConfig {
   intentModel?: Model;
   maxContextTokens?: number;
 }
 
-export interface InternalSearchResultsInput {
+export interface InternalSearchResults {
   url?: string;
   title?: string;
   content?: string;
 }
 
-export interface InternalSearchToolConfigInput {
+export interface InternalSearchToolConfig {
   maxResults?: number;
   maxContentLength?: number;
 }
 
-export interface InvokeSubagentToolConfigInput {
+export interface InvokeSubagentToolConfig {
   enabled?: boolean;
   fastModel?: Model;
   heavyModel?: Model;
 }
 
-export interface Jetbox_stateUserSettingsInput {
+export interface Jetbox_stateUserSettings {
   autoExecutionPolicy?: CascadeCommandsAutoExecution;
   artifactReviewMode?: ArtifactReviewMode;
   allowAgentAccessNonWorkspaceFiles?: boolean;
@@ -4044,71 +4056,71 @@ export interface Jetbox_stateUserSettingsInput {
   allowCascadeAccessGitignoreFiles?: boolean;
   enableTerminalSandbox?: boolean;
   disableDefaultCustomizations?: boolean;
-  globalPermissionGrants?: PermissionGrantsConfigInput;
+  globalPermissionGrants?: PermissionGrantsConfig;
 }
 
-export interface JetboxDeleteSummaryRequestInput {
+export interface JetboxDeleteSummaryRequest {
   cascadeId?: string;
 }
 
-export interface JetboxDeleteSummaryResponseInput {
+export interface JetboxDeleteSummaryResponse {
 }
 
-export interface JetboxGetLatestVersionRequestInput {
+export interface JetboxGetLatestVersionRequest {
 }
 
-export interface JetboxGetLatestVersionResponseInput {
+export interface JetboxGetLatestVersionResponse {
   latestVersion?: string;
 }
 
-export interface JetboxWriteStateRequestInput {
-  state?: StateInput;
+export interface JetboxWriteStateRequest {
+  state?: State;
 }
 
-export interface JetboxWriteStateResponseInput {
+export interface JetboxWriteStateResponse {
 }
 
-export interface JetboxWriteSummaryRequestInput {
+export interface JetboxWriteSummaryRequest {
   cascadeId?: string;
-  summary?: CascadeTrajectorySummaryInput;
+  summary?: CascadeTrajectorySummary;
 }
 
-export interface JetboxWriteSummaryResponseInput {
+export interface JetboxWriteSummaryResponse {
 }
 
-export interface KnowledgeBaseChunkInput {
+export interface KnowledgeBaseChunk {
   position?: number;
   text?: string;
-  markdownChunk?: MarkdownChunkInput;
+  markdownChunk?: MarkdownChunk;
 }
 
-export interface KnowledgeBaseGroupInput {
+export interface KnowledgeBaseGroup {
   description?: string;
-  item?: KnowledgeBaseItemWithMetadataInput;
-  children?: KnowledgeBaseGroupInput[];
+  item?: KnowledgeBaseItemWithMetadata;
+  children?: KnowledgeBaseGroup[];
 }
 
-export interface KnowledgeBaseItemInput {
+export interface KnowledgeBaseItem {
   documentId?: string;
   url?: string;
   title?: string;
   timestamp?: any;
-  chunks?: KnowledgeBaseChunkInput[];
+  chunks?: KnowledgeBaseChunk[];
   summary?: string;
-  domTree?: DOMTreeInput;
-  image?: ImageDataInput;
-  media?: MediaInput;
+  domTree?: DOMTree;
+  image?: ImageData;
+  media?: Media;
   text?: string;
 }
 
-export interface KnowledgeBaseItemWithMetadataInput {
-  knowledgeBaseItem?: KnowledgeBaseItemInput;
+export interface KnowledgeBaseItemWithMetadata {
+  knowledgeBaseItem?: KnowledgeBaseItem;
   score?: number;
   indexName?: string;
   documentSourceName?: string;
 }
 
-export interface KnowledgeBaseScopeItemInput {
+export interface KnowledgeBaseScopeItem {
   documentId?: string;
   index?: IndexChoice;
   documentType?: DocumentType;
@@ -4118,12 +4130,12 @@ export interface KnowledgeBaseScopeItemInput {
   url?: string;
 }
 
-export interface KnowledgeBaseSearchToolConfigInput {
+export interface KnowledgeBaseSearchToolConfig {
   maxTokensPerKnowledgeBaseSearch?: number;
   promptFraction?: number;
 }
 
-export interface KnowledgeConfigInput {
+export interface KnowledgeConfig {
   enabled?: boolean;
   model?: Model;
   maxContextTokens?: number;
@@ -4136,105 +4148,105 @@ export interface KnowledgeConfigInput {
   enableKiInsertion?: boolean;
 }
 
-export interface KnowledgeReferenceInput {
+export interface KnowledgeReference {
   filePath?: string;
   conversationId?: string;
   url?: string;
 }
 
-export interface KnowledgeReferencesInput {
-  references?: KnowledgeReferenceInput[];
+export interface KnowledgeReferences {
+  references?: KnowledgeReference[];
 }
 
-export interface LanguageServerDiagnosticsInput {
+export interface LanguageServerDiagnostics {
   logs?: string[];
 }
 
-export interface LatencyInfoInput {
+export interface LatencyInfo {
   clientLatencyMs?: bigint;
   promptLatencyMs?: bigint;
-  promptStageLatencies?: PromptStageLatencyInput[];
+  promptStageLatencies?: PromptStageLatency[];
   debounceLatencyMs?: bigint;
   rpcLatencyMs?: bigint;
   networkLatencyMs?: bigint;
 }
 
-export interface LineRangeTargetInput {
+export interface LineRangeTarget {
   absoluteUri?: string;
   startLine?: number;
   endLine?: number;
 }
 
-export interface ListCustomizationPathsByFileRequestInput {
+export interface ListCustomizationPathsByFileRequest {
   type?: RefreshCustomizationType;
   isGlobal?: boolean;
 }
 
-export interface ListCustomizationPathsByFileResponse_PathsFilesEntryInput {
+export interface ListCustomizationPathsByFileResponse {
+  pathsFiles?: ListCustomizationPathsByFileResponse_PathsFilesEntry[];
+}
+
+export interface ListCustomizationPathsByFileResponse_PathsFilesEntry {
   key?: string;
-  value?: CustomizationPathsListInput;
+  value?: CustomizationPathsList;
 }
 
-export interface ListCustomizationPathsByFileResponseInput {
-  pathsFiles?: ListCustomizationPathsByFileResponse_PathsFilesEntryInput[];
-}
-
-export interface ListDirectoryResultInput {
+export interface ListDirectoryResult {
   name?: string;
   isDir?: boolean;
   numChildren?: number;
   sizeBytes?: bigint;
 }
 
-export interface ListDirToolConfigInput {
+export interface ListDirToolConfig {
 }
 
-export interface ListMcpPromptsRequestInput {
+export interface ListMcpPromptsRequest {
 }
 
-export interface ListMcpPromptsResponseInput {
-  prompts?: McpPromptSpecInput[];
+export interface ListMcpPromptsResponse {
+  prompts?: McpPromptSpec[];
 }
 
-export interface ListMcpResourcesRequestInput {
+export interface ListMcpResourcesRequest {
   serverName?: string;
   query?: string;
 }
 
-export interface ListMcpResourcesResponseInput {
-  resources?: McpResourceItemInput[];
+export interface ListMcpResourcesResponse {
+  resources?: McpResourceItem[];
 }
 
-export interface ListPagesRequestInput {
+export interface ListPagesRequest {
 }
 
-export interface ListPagesResponseInput {
-  pages?: BrowserPageMetadataInput[];
+export interface ListPagesResponse {
+  pages?: BrowserPageMetadata[];
 }
 
-export interface LoadReplayConversationRequestInput {
+export interface LoadReplayConversationRequest {
   workspaceName?: string;
   user?: string;
   cascadeId?: string;
 }
 
-export interface LoadReplayConversationResponseInput {
+export interface LoadReplayConversationResponse {
 }
 
-export interface LoadTrajectoryRequestInput {
+export interface LoadTrajectoryRequest {
   cascadeId?: string;
 }
 
-export interface LoadTrajectoryResponseInput {
+export interface LoadTrajectoryResponse {
 }
 
-export interface LocalNodeStateInput {
-  currentNode?: CodeContextItemInput;
-  closestAboveNode?: CodeContextItemInput;
-  closestBelowNode?: CodeContextItemInput;
+export interface LocalNodeState {
+  currentNode?: CodeContextItem;
+  closestAboveNode?: CodeContextItem;
+  closestBelowNode?: CodeContextItem;
 }
 
-export interface LogArtifactsConfigInput {
+export interface LogArtifactsConfig {
   enabled?: boolean;
   hideNominalToolSteps?: boolean;
   hidePlannerResponseText?: boolean;
@@ -4244,7 +4256,7 @@ export interface LogArtifactsConfigInput {
   hideUserImplicitSteps?: boolean;
 }
 
-export interface LookupResultInput {
+export interface LookupResult {
   uri?: string;
   content?: string;
   binaryContent?: string;
@@ -4253,135 +4265,135 @@ export interface LookupResultInput {
   mimeType?: string;
 }
 
-export interface LowLevelToolsConfigInput {
+export interface LowLevelToolsConfig {
   enableLowLevelToolsInstructions?: boolean;
   enableMouseTools?: boolean;
 }
 
-export interface LspReferenceInput {
+export interface LspReference {
   uri?: string;
-  range?: RangeInput;
+  range?: Range;
   snippet?: string;
 }
 
-export interface ManageSidecarRequestInput {
+export interface ManageSidecarRequest {
   sidecarId?: string;
   action?: SidecarAction;
 }
 
-export interface ManageSidecarResponseInput {
+export interface ManageSidecarResponse {
 }
 
-export interface MarkdownChunk_MarkdownHeaderInput {
+export interface MarkdownChunk {
+  headers?: MarkdownChunk_MarkdownHeader[];
+  text?: string;
+}
+
+export interface MarkdownChunk_MarkdownHeader {
   type?: MarkdownNodeType;
   text?: string;
 }
 
-export interface MarkdownChunkInput {
-  headers?: MarkdownChunk_MarkdownHeaderInput[];
-  text?: string;
+export interface McpCommandTemplate {
+  command?: string;
+  args?: string[];
+  env?: McpCommandTemplate_EnvEntry[];
 }
 
-export interface McpCommandTemplate_EnvEntryInput {
+export interface McpCommandTemplate_EnvEntry {
   key?: string;
   value?: string;
 }
 
-export interface McpCommandTemplateInput {
-  command?: string;
-  args?: string[];
-  env?: McpCommandTemplate_EnvEntryInput[];
-}
-
-export interface McpCommandVariableInput {
+export interface McpCommandVariable {
   name?: string;
   title?: string;
   description?: string;
   link?: string;
 }
 
-export interface McpDiscoveryConfigInput {
+export interface McpDiscoveryConfig {
   inheritUser?: boolean;
-  servers?: McpServerSpecInput[];
+  servers?: McpServerSpec[];
 }
 
-export interface McpLocalServer_EnvEntryInput {
+export interface McpLocalServer {
+  command?: string;
+  args?: string[];
+  env?: McpLocalServer_EnvEntry[];
+}
+
+export interface McpLocalServer_EnvEntry {
   key?: string;
   value?: string;
 }
 
-export interface McpLocalServerInput {
-  command?: string;
-  args?: string[];
-  env?: McpLocalServer_EnvEntryInput[];
-}
-
-export interface McpOAuthConfigInput {
+export interface McpOAuthConfig {
   clientId?: string;
   clientSecret?: string;
 }
 
-export interface McpPromptArgumentInput {
+export interface McpPromptArgument {
   name?: string;
   description?: string;
   required?: boolean;
 }
 
-export interface McpPromptMessageInput {
+export interface McpPromptMessage {
   role?: string;
   text?: string;
-  media?: MediaInput;
-  resource?: McpResourceContentInput;
+  media?: Media;
+  resource?: McpResourceContent;
 }
 
-export interface McpPromptScopeItem_ArgumentValuesEntryInput {
+export interface McpPromptScopeItem {
+  serverName?: string;
+  name?: string;
+  description?: string;
+  arguments?: McpPromptArgument[];
+  argumentValues?: McpPromptScopeItem_ArgumentValuesEntry[];
+  messages?: McpPromptMessage[];
+}
+
+export interface McpPromptScopeItem_ArgumentValuesEntry {
   key?: string;
   value?: string;
 }
 
-export interface McpPromptScopeItemInput {
-  serverName?: string;
-  name?: string;
-  description?: string;
-  arguments?: McpPromptArgumentInput[];
-  argumentValues?: McpPromptScopeItem_ArgumentValuesEntryInput[];
-  messages?: McpPromptMessageInput[];
-}
-
-export interface McpPromptSpecInput {
+export interface McpPromptSpec {
   serverName?: string;
   name?: string;
   title?: string;
   description?: string;
-  arguments?: McpPromptArgumentInput[];
+  arguments?: McpPromptArgument[];
 }
 
-export interface McpRemoteServer_HeadersEntryInput {
+export interface McpRemoteServer {
+  type?: string;
+  url?: string;
+  headers?: McpRemoteServer_HeadersEntry[];
+}
+
+export interface McpRemoteServer_HeadersEntry {
   key?: string;
   value?: string;
 }
 
-export interface McpRemoteServerInput {
-  type?: string;
-  url?: string;
-  headers?: McpRemoteServer_HeadersEntryInput[];
-}
-
-export interface McpResourceContentInput {
-  uri?: string;
-  text?: TextDataInput;
-  image?: ImageDataInput;
-  mediaContent?: MediaInput;
-}
-
-export interface McpResourceInput {
+export interface McpResource {
   uri?: string;
   name?: string;
   description?: string;
   mimeType?: string;
 }
 
-export interface McpResourceItemInput {
+export interface McpResourceContent {
+  uri?: string;
+  text?: TextData;
+  image?: ImageData;
+  mediaContent?: Media;
+}
+
+export interface McpResourceItem {
   uri?: string;
   name?: string;
   description?: string;
@@ -4389,142 +4401,142 @@ export interface McpResourceItemInput {
   serverName?: string;
 }
 
-export interface McpServerCommandInput {
-  template?: McpCommandTemplateInput;
-  variables?: McpCommandVariableInput[];
+export interface McpServerCommand {
+  template?: McpCommandTemplate;
+  variables?: McpCommandVariable[];
 }
 
-export interface McpServerConfigInput {
+export interface McpServerConfig {
   serverId?: string;
-  local?: McpLocalServerInput;
-  remote?: McpRemoteServerInput;
+  local?: McpLocalServer;
+  remote?: McpRemoteServer;
 }
 
-export interface McpServerInfoInput {
+export interface McpServerInfo {
   name?: string;
   version?: string;
 }
 
-export interface McpServerSpec_EnvEntryInput {
-  key?: string;
-  value?: string;
-}
-
-export interface McpServerSpec_HeadersEntryInput {
-  key?: string;
-  value?: string;
-}
-
-export interface McpServerSpec_ToolConfigEntryInput {
-  key?: string;
-  value?: McpServerToolConfigInput;
-}
-
-export interface McpServerSpecInput {
+export interface McpServerSpec {
   serverName?: string;
   command?: string;
   args?: string[];
-  env?: McpServerSpec_EnvEntryInput[];
+  env?: McpServerSpec_EnvEntry[];
   serverUrl?: string;
   disabled?: boolean;
   disabledTools?: string[];
   enabledTools?: string[];
-  headers?: McpServerSpec_HeadersEntryInput[];
+  headers?: McpServerSpec_HeadersEntry[];
   cwd?: string;
   serverIndex?: number;
   skipToolNamePrefix?: boolean;
   skipToolDescriptionPrefix?: boolean;
-  toolConfig?: McpServerSpec_ToolConfigEntryInput[];
-  oauth?: McpOAuthConfigInput;
+  toolConfig?: McpServerSpec_ToolConfigEntry[];
+  oauth?: McpOAuthConfig;
   authProviderType?: McpAuthProviderType;
 }
 
-export interface McpServerStateInput {
-  spec?: McpServerSpecInput;
+export interface McpServerSpec_EnvEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface McpServerSpec_HeadersEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface McpServerSpec_ToolConfigEntry {
+  key?: string;
+  value?: McpServerToolConfig;
+}
+
+export interface McpServerState {
+  spec?: McpServerSpec;
   status?: McpServerStatus;
   error?: string;
-  tools?: ChatToolDefinitionInput[];
+  tools?: ChatToolDefinition[];
   toolErrors?: string[];
-  serverInfo?: McpServerInfoInput;
+  serverInfo?: McpServerInfo;
   instructions?: string;
   authUrl?: string;
   hasAuthToken?: boolean;
 }
 
-export interface McpServerTemplate_CommandsEntryInput {
-  key?: string;
-  value?: McpServerCommandInput;
-}
-
-export interface McpServerTemplateInput {
+export interface McpServerTemplate {
   title?: string;
   id?: string;
   link?: string;
   description?: string;
-  commands?: McpServerTemplate_CommandsEntryInput[];
+  commands?: McpServerTemplate_CommandsEntry[];
 }
 
-export interface McpServerToolConfigInput {
+export interface McpServerTemplate_CommandsEntry {
+  key?: string;
+  value?: McpServerCommand;
+}
+
+export interface McpServerToolConfig {
   background?: McpToolBackgroundMode;
 }
 
-export interface McpToolConfigInput {
+export interface McpToolConfig {
   forceDisable?: boolean;
   maxOutputBytes?: number;
 }
 
-export interface MediaInput {
+export interface Media {
   mimeType?: string;
   description?: string;
   uri?: string;
   thumbnail?: Uint8Array;
   durationSeconds?: number;
   inlineData?: Uint8Array;
-  blobref?: BlobrefInput;
+  blobref?: Blobref;
 }
 
-export interface MemoryToolConfigInput {
+export interface MemoryToolConfig {
   forceDisable?: boolean;
   disableAutoGenerateMemories?: boolean;
 }
 
-export interface MessageConfigInput {
+export interface MessageConfig {
   enabled?: boolean;
 }
 
-export interface MessagePromptMetadataInput {
+export interface MessagePromptMetadata {
   messageIndex?: number;
   segmentIndex?: number;
 }
 
-export interface MessageRenderDetailsInput {
+export interface MessageRenderDetails {
   messageTitle?: string;
 }
 
-export interface MetricsRecord_DetailsEntryInput {
-  key?: string;
-  value?: string;
-}
-
-export interface MetricsRecordInput {
+export interface MetricsRecord {
   name?: string;
   value?: number;
-  details?: MetricsRecord_DetailsEntryInput[];
+  details?: MetricsRecord_DetailsEntry[];
   error?: string;
   trajectoryId?: string;
   lowerBetter?: boolean;
   isBool?: boolean;
 }
 
-export interface MigrateApiKeyRequestInput {
+export interface MetricsRecord_DetailsEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface MigrateApiKeyRequest {
   apiKey?: string;
 }
 
-export interface MigrateApiKeyResponseInput {
+export interface MigrateApiKeyResponse {
   sessionToken?: string;
 }
 
-export interface ModelAPIRetryConfigInput {
+export interface ModelAPIRetryConfig {
   maxRetries?: number;
   initialSleepDurationMs?: number;
   exponentialMultiplier?: number;
@@ -4532,12 +4544,7 @@ export interface ModelAPIRetryConfigInput {
   range?: number;
 }
 
-export interface ModelFeatures_SupportedMimeTypesEntryInput {
-  key?: string;
-  value?: boolean;
-}
-
-export interface ModelFeaturesInput {
+export interface ModelFeatures {
   supportsContextTokens?: boolean;
   requiresInstructTags?: boolean;
   requiresFimContext?: boolean;
@@ -4550,7 +4557,7 @@ export interface ModelFeaturesInput {
   supportsImages?: boolean;
   supportsPdf?: boolean;
   supportsVideo?: boolean;
-  supportedMimeTypes?: ModelFeatures_SupportedMimeTypesEntryInput[];
+  supportedMimeTypes?: ModelFeatures_SupportedMimeTypesEntry[];
   supportsToolCalls?: boolean;
   doesNotSupportToolChoice?: boolean;
   supportsCumulativeContext?: boolean;
@@ -4566,13 +4573,18 @@ export interface ModelFeaturesInput {
   requiresNoXmlToolExamples?: boolean;
 }
 
-export interface ModelInfoInput {
+export interface ModelFeatures_SupportedMimeTypesEntry {
+  key?: string;
+  value?: boolean;
+}
+
+export interface ModelInfo {
   modelId?: Model;
   isInternal?: boolean;
   modelType?: ModelType;
   maxTokens?: number;
   tokenizerType?: string;
-  modelFeatures?: ModelFeaturesInput;
+  modelFeatures?: ModelFeatures;
   apiProvider?: APIProvider;
   modelName?: string;
   supportsContext?: boolean;
@@ -4590,29 +4602,24 @@ export interface ModelInfoInput {
   toolResponseKey?: string;
 }
 
-export interface ModelOrAliasInput {
+export interface ModelOrAlias {
   model?: Model;
   alias?: ModelAlias;
 }
 
-export interface ModelOutputRetryConfigInput {
+export interface ModelOutputRetryConfig {
   maxRetries?: number;
   forbidToolUse?: boolean;
   forceToolName?: string;
 }
 
-export interface ModelStatusInfoInput {
+export interface ModelStatusInfo {
   model?: Model;
   message?: string;
   status?: ModelStatus;
 }
 
-export interface ModelUsageStats_ResponseHeaderEntryInput {
-  key?: string;
-  value?: string;
-}
-
-export interface ModelUsageStatsInput {
+export interface ModelUsageStats {
   model?: Model;
   inputTokens?: bigint;
   outputTokens?: bigint;
@@ -4621,34 +4628,39 @@ export interface ModelUsageStatsInput {
   cacheReadTokens?: bigint;
   apiProvider?: APIProvider;
   messageId?: string;
-  responseHeader?: ModelUsageStats_ResponseHeaderEntryInput[];
+  responseHeader?: ModelUsageStats_ResponseHeaderEntry[];
   responseId?: string;
   providerAssignedMessageId?: string;
   cacheWriteTokens?: bigint;
 }
 
-export interface MomaStep_ArgsInput {
+export interface ModelUsageStats_ResponseHeaderEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface MomaStep {
+  toolName?: string;
+  args?: MomaStep_Args;
+  reply?: MomaStep_Reply;
+  toolStatus?: ToolStatus;
+}
+
+export interface MomaStep_Args {
   query?: string;
 }
 
-export interface MomaStep_ReplyInput {
-  searchResults?: MomaStep_ResultInput[];
+export interface MomaStep_Reply {
+  searchResults?: MomaStep_Result[];
 }
 
-export interface MomaStep_ResultInput {
+export interface MomaStep_Result {
   uri?: string;
   title?: string;
   content?: string;
 }
 
-export interface MomaStepInput {
-  toolName?: string;
-  args?: MomaStep_ArgsInput;
-  reply?: MomaStep_ReplyInput;
-  toolStatus?: ToolStatusInput;
-}
-
-export interface MQueryConfigInput {
+export interface MQueryConfig {
   shouldBatchCcis?: boolean;
   maxTokensPerSubrange?: bigint;
   numParserWorkers?: bigint;
@@ -4661,8 +4673,8 @@ export interface MQueryConfigInput {
   topCciCount?: number;
 }
 
-export interface MqueryToolConfigInput {
-  mQueryConfig?: MQueryConfigInput;
+export interface MqueryToolConfig {
+  mQueryConfig?: MQueryConfig;
   mQueryModel?: Model;
   maxTokensPerMQuery?: number;
   numItemsFullSource?: number;
@@ -4673,101 +4685,96 @@ export interface MqueryToolConfigInput {
   forceDisable?: boolean;
 }
 
-export interface NamedItemInput {
+export interface NamedItem {
   name?: string;
   pattern?: string;
   builtin?: boolean;
   providerName?: string;
 }
 
-export interface NewConversationEventInput {
+export interface NewConversationEvent {
   prompt?: string;
   conversationId?: string;
 }
 
-export interface NotebookEditToolConfigInput {
+export interface NotebookEditToolConfig {
   enabled?: boolean;
 }
 
-export interface NotifyUserConfigInput {
+export interface NotifyUserConfig {
   artifactReviewMode?: ArtifactReviewMode;
 }
 
-export interface OpenUrlRequestInput {
+export interface OpenUrlRequest {
   url?: string;
 }
 
-export interface OpenUrlResponseInput {
+export interface OpenUrlResponse {
 }
 
-export interface PatchStatsInput {
+export interface PatchStats {
   numFilesChanged?: number;
   numLineAdditions?: number;
   numLineDeletions?: number;
 }
 
-export interface PathScopeItem_WorkspaceRelativePathsMigrateMeToWorkspaceUrisEntryInput {
-  key?: string;
-  value?: string;
-}
-
-export interface PathScopeItem_WorkspaceUrisToRelativePathsEntryInput {
-  key?: string;
-  value?: string;
-}
-
-export interface PathScopeItemInput {
+export interface PathScopeItem {
   absolutePathMigrateMeToUri?: string;
   absoluteUri?: string;
-  workspaceRelativePathsMigrateMeToWorkspaceUris?: PathScopeItem_WorkspaceRelativePathsMigrateMeToWorkspaceUrisEntryInput[];
-  workspaceUrisToRelativePaths?: PathScopeItem_WorkspaceUrisToRelativePathsEntryInput[];
+  workspaceRelativePathsMigrateMeToWorkspaceUris?: PathScopeItem_WorkspaceRelativePathsMigrateMeToWorkspaceUrisEntry[];
+  workspaceUrisToRelativePaths?: PathScopeItem_WorkspaceUrisToRelativePathsEntry[];
   numFiles?: number;
   numBytes?: bigint;
 }
 
-export interface PermissionConfigInput {
-  enterpriseConfig?: EnterpriseToolConfigInput;
-  globalPermissionGrants?: PermissionGrantsConfigInput;
+export interface PathScopeItem_WorkspaceRelativePathsMigrateMeToWorkspaceUrisEntry {
+  key?: string;
+  value?: string;
 }
 
-export interface PermissionGrantInput {
-  resource?: PermissionResourceInput;
+export interface PathScopeItem_WorkspaceUrisToRelativePathsEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface PermissionConfig {
+  enterpriseConfig?: EnterpriseToolConfig;
+  globalPermissionGrants?: PermissionGrantsConfig;
+}
+
+export interface PermissionGrant {
+  resource?: PermissionResource;
   allow?: boolean;
   scope?: PermissionScope;
 }
 
-export interface PermissionGrantsConfigInput {
+export interface PermissionGrantsConfig {
   allow?: string[];
   deny?: string[];
   ask?: string[];
 }
 
-export interface PermissionInteractionInput {
+export interface PermissionInteraction {
   allow?: boolean;
   scope?: PermissionScope;
   sandboxOverride?: boolean;
 }
 
-export interface PermissionInteractionSpecInput {
-  resource?: PermissionResourceInput;
+export interface PermissionInteractionSpec {
+  resource?: PermissionResource;
 }
 
-export interface PermissionResourceInput {
+export interface PermissionResource {
   action?: string;
   target?: string;
 }
 
-export interface PlanEntryDeltaSummaryInput {
+export interface PlanEntryDeltaSummary {
   itemsAdded?: string[];
   itemsCompleted?: string[];
 }
 
-export interface PlanInfo_DefaultTeamFeaturesEntryInput {
-  key?: number;
-  value?: TeamsFeaturesMetadataInput;
-}
-
-export interface PlanInfoInput {
+export interface PlanInfo {
   teamsTier?: TeamsTier;
   planName?: string;
   hasAutocompleteFastMode?: boolean;
@@ -4793,29 +4800,34 @@ export interface PlanInfoInput {
   cascadeCanAutoRunCommands?: boolean;
   canGenerateCommitMessages?: boolean;
   knowledgeBaseEnabled?: boolean;
-  cascadeAllowedModelsConfig?: AllowedModelConfigInput[];
-  defaultTeamConfig?: TeamConfigInput;
+  cascadeAllowedModelsConfig?: AllowedModelConfig[];
+  defaultTeamConfig?: TeamConfig;
   canShareConversations?: boolean;
   canAllowCascadeInBackground?: boolean;
-  defaultTeamFeatures?: PlanInfo_DefaultTeamFeaturesEntryInput[];
+  defaultTeamFeatures?: PlanInfo_DefaultTeamFeaturesEntry[];
   browserEnabled?: boolean;
 }
 
-export interface PlanInputInput {
+export interface PlanInfo_DefaultTeamFeaturesEntry {
+  key?: number;
+  value?: TeamsFeaturesMetadata;
+}
+
+export interface PlanInput {
   goal?: string;
   nextSteps?: string[];
   targetDirectories?: string[];
   targetFiles?: string[];
-  scopeItems?: ContextScopeItemInput[];
+  scopeItems?: ContextScopeItem[];
 }
 
-export interface PlannerRetryConfigInput {
-  modelOutputRetry?: ModelOutputRetryConfigInput;
-  apiRetry?: ModelAPIRetryConfigInput;
+export interface PlannerRetryConfig {
+  modelOutputRetry?: ModelOutputRetryConfig;
+  apiRetry?: ModelAPIRetryConfig;
 }
 
-export interface PlanStatusInput {
-  planInfo?: PlanInfoInput;
+export interface PlanStatus {
+  planInfo?: PlanInfo;
   planStart?: any;
   planEnd?: any;
   availablePromptCredits?: number;
@@ -4824,55 +4836,48 @@ export interface PlanStatusInput {
   usedFlexCredits?: number;
   usedFlowCredits?: number;
   usedPromptCredits?: number;
-  topUpStatus?: TopUpStatusInput;
+  topUpStatus?: TopUpStatus;
 }
 
-export interface PluginInput {
+export interface Plugin {
   name?: string;
   path?: string;
   isGlobal?: boolean;
-  skills?: WorkflowSpecInput[];
-  agents?: AgentCustomizationInput[];
-  mcpServers?: McpServerSpecInput[];
+  skills?: WorkflowSpec[];
+  agents?: AgentCustomization[];
+  mcpServers?: McpServerSpec[];
 }
 
-export interface PluginItemInput {
+export interface PluginItem {
   name?: string;
   description?: string;
   disabled?: boolean;
 }
 
-export interface Point2Input {
+export interface Point2 {
   x?: number;
   y?: number;
 }
 
-export interface PostOnboardingStateInput {
+export interface PostOnboardingState {
   completedSteps?: PostOnboardingStepType[];
 }
 
-export interface PromptAnnotationRangeInput {
+export interface PromptAnnotationRange {
   kind?: PromptAnnotationKind;
   byteOffsetStart?: bigint;
   byteOffsetEnd?: bigint;
   suffix?: string;
 }
 
-export interface PromptCacheOptionsInput {
+export interface PromptCacheOptions {
   type?: CacheControlType;
 }
 
-export interface PromptSectionCustomizationConfigInput {
-  removePromptSections?: string[];
-  addPromptSections?: CustomPromptSectionInput[];
-  appendPromptSections?: PromptSectionInput[];
-  replacePromptSections?: PromptSectionInput[];
-}
-
-export interface PromptSectionInput {
+export interface PromptSection {
   title?: string;
   content?: string;
-  criteria?: SectionJudgeCriteriaInput[];
+  criteria?: SectionJudgeCriteria[];
   dynamicContent?: string;
   tokenType?: TokenType;
   tokenSource?: TokenSource;
@@ -4880,24 +4885,31 @@ export interface PromptSectionInput {
   templatedDynamicContent?: string;
 }
 
-export interface PromptSectionItemInput {
-  custom?: PromptSectionInput;
+export interface PromptSectionCustomizationConfig {
+  removePromptSections?: string[];
+  addPromptSections?: CustomPromptSection[];
+  appendPromptSections?: PromptSection[];
+  replacePromptSections?: PromptSection[];
+}
+
+export interface PromptSectionItem {
+  custom?: PromptSection;
   builtinName?: string;
 }
 
-export interface PromptStageLatencyInput {
+export interface PromptStageLatency {
   name?: string;
   latencyMs?: bigint;
 }
 
-export interface ProvideCompletionFeedbackRequestInput {
+export interface ProvideCompletionFeedbackRequest {
   isAccepted?: boolean;
   feedbackDelayMs?: bigint;
   completionId?: string;
   promptId?: string;
-  latencyInfo?: LatencyInfoInput;
+  latencyInfo?: LatencyInfo;
   source?: ProviderSource;
-  document?: DocumentInput;
+  document?: Document;
   viewColumnsOpen?: bigint;
   isIntentionalReject?: boolean;
   isPartial?: boolean;
@@ -4906,52 +4918,52 @@ export interface ProvideCompletionFeedbackRequestInput {
   traceId?: string;
   acceptedLines?: bigint;
   removedLines?: bigint;
-  experimentConfig?: ExperimentConfigInput;
+  experimentConfig?: ExperimentConfig;
 }
 
-export interface ProvideCompletionFeedbackResponseInput {
+export interface ProvideCompletionFeedbackResponse {
 }
 
-export interface QuotaInfoInput {
+export interface QuotaInfo {
   remainingFraction?: number;
   resetTime?: any;
 }
 
-export interface RangeInput {
+export interface Range {
   startOffset?: bigint;
   endOffset?: bigint;
-  startPosition?: DocumentPositionInput;
-  endPosition?: DocumentPositionInput;
+  startPosition?: DocumentPosition;
+  endPosition?: DocumentPosition;
 }
 
-export interface ReadDirEntryInput {
+export interface ReadDirEntry {
   uri?: string;
   fileType?: FileType;
 }
 
-export interface ReadDirRequestInput {
+export interface ReadDirRequest {
   uri?: string;
 }
 
-export interface ReadDirResponseInput {
-  entries?: ReadDirEntryInput[];
+export interface ReadDirResponse {
+  entries?: ReadDirEntry[];
 }
 
-export interface ReadFileRequestInput {
+export interface ReadFileRequest {
   uri?: string;
 }
 
-export interface ReadFileResponseInput {
+export interface ReadFileResponse {
   content?: Uint8Array;
   language?: Language;
 }
 
-export interface ReadKnowledgeBaseItemToolConfigInput {
+export interface ReadKnowledgeBaseItemToolConfig {
   enabled?: boolean;
-  knowledgeBaseItems?: KnowledgeBaseItemInput[];
+  knowledgeBaseItems?: KnowledgeBaseItem[];
 }
 
-export interface RecipeScopeItemInput {
+export interface RecipeScopeItem {
   recipeId?: string;
   title?: string;
   description?: string;
@@ -4959,61 +4971,61 @@ export interface RecipeScopeItemInput {
   uri?: string;
 }
 
-export interface RecitationInput {
-  citation?: CitationInput;
+export interface Recitation {
+  citation?: Citation;
   content?: string;
 }
 
-export interface RecitationMetadataInput {
-  recitations?: RecitationInput[];
+export interface RecitationMetadata {
+  recitations?: Recitation[];
 }
 
-export interface ReconnectExtensionServerRequestInput {
+export interface ReconnectExtensionServerRequest {
   extensionServerPort?: number;
   extensionServerCsrfToken?: string;
 }
 
-export interface ReconnectExtensionServerResponseInput {
+export interface ReconnectExtensionServerResponse {
 }
 
-export interface RecordAnalyticsEventRequest_ExperimentsEntryInput {
+export interface RecordAnalyticsEventRequest {
+  eventName?: string;
+  extra?: RecordAnalyticsEventRequest_ExtraEntry[];
+  experiments?: RecordAnalyticsEventRequest_ExperimentsEntry[];
+}
+
+export interface RecordAnalyticsEventRequest_ExperimentsEntry {
   key?: string;
   value?: boolean;
 }
 
-export interface RecordAnalyticsEventRequest_ExtraEntryInput {
+export interface RecordAnalyticsEventRequest_ExtraEntry {
   key?: string;
   value?: string;
 }
 
-export interface RecordAnalyticsEventRequestInput {
-  eventName?: string;
-  extra?: RecordAnalyticsEventRequest_ExtraEntryInput[];
-  experiments?: RecordAnalyticsEventRequest_ExperimentsEntryInput[];
+export interface RecordAnalyticsEventResponse {
 }
 
-export interface RecordAnalyticsEventResponseInput {
-}
-
-export interface RecordChatFeedbackRequestInput {
+export interface RecordChatFeedbackRequest {
   messageId?: string;
   feedback?: ChatFeedbackType;
   reason?: string;
   timestamp?: any;
 }
 
-export interface RecordChatFeedbackResponseInput {
+export interface RecordChatFeedbackResponse {
 }
 
-export interface RecordChatPanelSessionRequestInput {
+export interface RecordChatPanelSessionRequest {
   startTimestamp?: any;
   endTimestamp?: any;
 }
 
-export interface RecordChatPanelSessionResponseInput {
+export interface RecordChatPanelSessionResponse {
 }
 
-export interface RecordCommitMessageSaveRequestInput {
+export interface RecordCommitMessageSaveRequest {
   repoRoot?: string;
   branchName?: string;
   commitHash?: string;
@@ -5024,165 +5036,177 @@ export interface RecordCommitMessageSaveRequestInput {
   authorEmail?: string;
 }
 
-export interface RecordCommitMessageSaveResponseInput {
+export interface RecordCommitMessageSaveResponse {
 }
 
-export interface RecordErrorRequestInput {
-  errorTrace?: ErrorTraceInput;
+export interface RecordErrorRequest {
+  errorTrace?: ErrorTrace;
   shouldUploadImmediately?: boolean;
 }
 
-export interface RecordErrorResponseInput {
+export interface RecordErrorResponse {
 }
 
-export interface RecordEventRequestInput {
-  event?: EventInput;
+export interface RecordEventRequest {
+  event?: Event;
 }
 
-export interface RecordEventResponseInput {
+export interface RecordEventResponse {
 }
 
-export interface RecordInteractiveCascadeFeedbackRequestInput {
+export interface RecordInteractiveCascadeFeedbackRequest {
   cascadeId?: string;
   stepIndex?: number;
   chunkIndex?: number;
   acknowledgementType?: AcknowledgementType;
 }
 
-export interface RecordInteractiveCascadeFeedbackResponseInput {
+export interface RecordInteractiveCascadeFeedbackResponse {
 }
 
-export interface RecordLintsRequestInput {
+export interface RecordLintsRequest {
   currentLanguage?: Language;
-  lints?: CodeDiagnosticInput[];
+  lints?: CodeDiagnostic[];
   timestamp?: any;
 }
 
-export interface RecordLintsResponseInput {
+export interface RecordLintsResponse {
 }
 
-export interface RecordObservabilityDataRequest_ExtraEntryInput {
-  key?: string;
-  value?: string;
-}
-
-export interface RecordObservabilityDataRequest_SensitiveDataEntryInput {
-  key?: string;
-  value?: string;
-}
-
-export interface RecordObservabilityDataRequestInput {
+export interface RecordObservabilityDataRequest {
   datatype?: string;
-  extra?: RecordObservabilityDataRequest_ExtraEntryInput[];
-  sensitiveData?: RecordObservabilityDataRequest_SensitiveDataEntryInput[];
+  extra?: RecordObservabilityDataRequest_ExtraEntry[];
+  sensitiveData?: RecordObservabilityDataRequest_SensitiveDataEntry[];
 }
 
-export interface RecordObservabilityDataResponseInput {
+export interface RecordObservabilityDataRequest_ExtraEntry {
+  key?: string;
+  value?: string;
 }
 
-export interface RecordSearchDocOpenRequestInput {
+export interface RecordObservabilityDataRequest_SensitiveDataEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface RecordObservabilityDataResponse {
+}
+
+export interface RecordSearchDocOpenRequest {
   resultId?: string;
 }
 
-export interface RecordSearchDocOpenResponseInput {
+export interface RecordSearchDocOpenResponse {
 }
 
-export interface RecordSearchResultsViewRequestInput {
+export interface RecordSearchResultsViewRequest {
   clusterSearchId?: string;
   exactSearchId?: string;
   searchResultIds?: string[];
 }
 
-export interface RecordSearchResultsViewResponseInput {
+export interface RecordSearchResultsViewResponse {
 }
 
-export interface RecordSidecarEventRequestInput {
+export interface RecordSidecarEventRequest {
   sidecarId?: string;
-  payload?: SidecarEventPayloadInput;
+  payload?: SidecarEventPayload;
   error?: string;
 }
 
-export interface RecordSidecarEventResponseInput {
+export interface RecordSidecarEventResponse {
 }
 
-export interface RecordUserGrepRequestInput {
+export interface RecordUserGrepRequest {
   query?: string;
-  results?: GrepSearchResultInput[];
+  results?: GrepSearchResult[];
   timestamp?: any;
 }
 
-export interface RecordUserGrepResponseInput {
+export interface RecordUserGrepResponse {
 }
 
-export interface RecordUserStepSnapshotRequestInput {
+export interface RecordUserStepSnapshotRequest {
   cascadeId?: string;
   stepIndex?: number;
-  snapshot?: UserStepSnapshotInput;
+  snapshot?: UserStepSnapshot;
 }
 
-export interface RecordUserStepSnapshotResponseInput {
+export interface RecordUserStepSnapshotResponse {
 }
 
-export interface RefreshContextForIdeActionRequestInput {
-  activeDocument?: DocumentInput;
+export interface RefreshContextForIdeActionRequest {
+  activeDocument?: Document;
   openDocumentFilepathsMigrateMeToUri?: string[];
   openDocumentUris?: string[];
-  otherDocuments?: DocumentInput[];
+  otherDocuments?: Document[];
   workspacePathsMigrateMeToUri?: string[];
   workspaceUris?: string[];
   blocking?: boolean;
-  experimentConfig?: ExperimentConfigInput;
+  experimentConfig?: ExperimentConfig;
   ideAction?: IdeAction;
 }
 
-export interface RefreshContextForIdeActionResponseInput {
+export interface RefreshContextForIdeActionResponse {
 }
 
-export interface RefreshMcpServersRequestInput {
+export interface RefreshMcpServersRequest {
   shallow?: boolean;
   serverName?: string;
 }
 
-export interface RefreshMcpServersResponseInput {
+export interface RefreshMcpServersResponse {
 }
 
-export interface RegisterGdmUserRequestInput {
+export interface RegisterGdmUserRequest {
 }
 
-export interface RegisterGdmUserResponseInput {
+export interface RegisterGdmUserResponse {
   created?: boolean;
   name?: string;
   email?: string;
   apiKey?: string;
 }
 
-export interface RelevantCodeContextInput {
-  codeContextItem?: CodeContextItemInput;
+export interface RelevantCodeContext {
+  codeContextItem?: CodeContextItem;
   relevanceReason?: RelevanceReason;
 }
 
-export interface RemoveTrackedWorkspaceRequestInput {
+export interface RemoveTrackedWorkspaceRequest {
   workspace?: string;
   isPassiveWorkspace?: boolean;
 }
 
-export interface RemoveTrackedWorkspaceResponseInput {
+export interface RemoveTrackedWorkspaceResponse {
 }
 
-export interface ReplaceContentToolConfigInput {
+export interface ReplaceContentToolConfig {
   maxFuzzyEditDistanceFraction?: number;
   allowPartialReplacementSuccess?: boolean;
   viewFileRecencyMaxDistance?: number;
   enableFuzzySandwichMatch?: boolean;
-  fastApplyFallbackConfig?: FastApplyFallbackConfigInput;
+  fastApplyFallbackConfig?: FastApplyFallbackConfig;
   toolVariant?: ReplaceToolVariant;
   showTriggeredMemories?: boolean;
   disableAllowMultiple?: boolean;
   useLineRange?: boolean;
 }
 
-export interface ReplacementChunkInfoInput {
-  originalChunk?: ReplacementChunkInput;
+export interface ReplacementChunk {
+  targetContent?: string;
+  replacementContent?: string;
+  allowMultiple?: boolean;
+  targetHasCarriageReturn?: boolean;
+  contextLines?: string[];
+  startLine?: number;
+  endLine?: number;
+  acknowledgementType?: AcknowledgementType;
+  index?: number;
+}
+
+export interface ReplacementChunkInfo {
+  originalChunk?: ReplacementChunk;
   fuzzyMatch?: string;
   editDistance?: number;
   relEditDistance?: number;
@@ -5197,36 +5221,24 @@ export interface ReplacementChunkInfoInput {
   repaired?: boolean;
 }
 
-export interface ReplacementChunkInput {
-  targetContent?: string;
-  replacementContent?: string;
-  allowMultiple?: boolean;
-  targetHasCarriageReturn?: boolean;
-  contextLines?: string[];
-  startLine?: number;
-  endLine?: number;
-  acknowledgementType?: AcknowledgementType;
-  index?: number;
-}
-
-export interface ReplayGroundTruthTrajectoryRequestInput {
-  replaySteps?: StepInput[];
+export interface ReplayGroundTruthTrajectoryRequest {
+  replaySteps?: Step[];
   cascadeId?: string;
-  cascadeConfig?: CascadeConfigInput;
+  cascadeConfig?: CascadeConfig;
 }
 
-export interface ReplayGroundTruthTrajectoryResponseInput {
-  trajectory?: TrajectoryInput;
+export interface ReplayGroundTruthTrajectoryResponse {
+  trajectory?: Trajectory;
 }
 
-export interface RepoInfoInput {
+export interface RepoInfo {
   name?: string;
   repoPath?: string;
-  branches?: BranchInfoInput[];
+  branches?: BranchInfo[];
   scmType?: ScmType;
 }
 
-export interface RepositoryInput {
+export interface Repository {
   computedName?: string;
   gitOriginUrl?: string;
   gitUpstreamUrl?: string;
@@ -5236,120 +5248,120 @@ export interface RepositoryInput {
   submodulePath?: string;
 }
 
-export interface RepositoryPathScopeItemInput {
-  repoInfo?: GitRepoInfoInput;
+export interface RepositoryPathScopeItem {
+  repoInfo?: GitRepoInfo;
   relativePath?: string;
   isDir?: boolean;
 }
 
-export interface RepositoryScopeItemInput {
-  repoInfo?: GitRepoInfoInput;
+export interface RepositoryScopeItem {
+  repoInfo?: GitRepoInfo;
 }
 
-export interface RequestedInteractionInput {
-  deploy?: CascadeDeployInteractionSpecInput;
-  runCommand?: CascadeRunCommandInteractionSpecInput;
-  openBrowserUrl?: CascadeOpenBrowserUrlInteractionSpecInput;
-  runExtensionCode?: CascadeRunExtensionCodeInteractionSpecInput;
-  executeBrowserJavascript?: CascadeExecuteBrowserJavaScriptInteractionSpecInput;
-  captureBrowserScreenshot?: CascadeCaptureBrowserScreenshotInteractionSpecInput;
-  clickBrowserPixel?: CascadeClickBrowserPixelInteractionSpecInput;
-  browserAction?: CascadeBrowserActionInteractionInput;
-  openBrowserSetup?: CascadeOpenBrowserSetupInteractionInput;
-  confirmBrowserSetup?: CascadeConfirmBrowserSetupInteractionInput;
-  sendCommandInput?: CascadeSendCommandInputInteractionSpecInput;
-  readUrlContent?: CascadeReadUrlContentInteractionSpecInput;
-  mcp?: CascadeMcpInteractionSpecInput;
-  filePermission?: FilePermissionInteractionSpecInput;
-  elicitation?: ElicitationInteractionSpecInput;
-  permission?: PermissionInteractionSpecInput;
-  askQuestion?: AskQuestionInteractionSpecInput;
-  approvalInteraction?: ApprovalInteractionSpecInput;
+export interface RequestedInteraction {
+  deploy?: CascadeDeployInteractionSpec;
+  runCommand?: CascadeRunCommandInteractionSpec;
+  openBrowserUrl?: CascadeOpenBrowserUrlInteractionSpec;
+  runExtensionCode?: CascadeRunExtensionCodeInteractionSpec;
+  executeBrowserJavascript?: CascadeExecuteBrowserJavaScriptInteractionSpec;
+  captureBrowserScreenshot?: CascadeCaptureBrowserScreenshotInteractionSpec;
+  clickBrowserPixel?: CascadeClickBrowserPixelInteractionSpec;
+  browserAction?: CascadeBrowserActionInteraction;
+  openBrowserSetup?: CascadeOpenBrowserSetupInteraction;
+  confirmBrowserSetup?: CascadeConfirmBrowserSetupInteraction;
+  sendCommandInput?: CascadeSendCommandInputInteractionSpec;
+  readUrlContent?: CascadeReadUrlContentInteractionSpec;
+  mcp?: CascadeMcpInteractionSpec;
+  filePermission?: FilePermissionInteractionSpec;
+  elicitation?: ElicitationInteractionSpec;
+  permission?: PermissionInteractionSpec;
+  askQuestion?: AskQuestionInteractionSpec;
+  approvalInteraction?: ApprovalInteractionSpec;
 }
 
-export interface ResetOnboardingRequestInput {
+export interface ResetOnboardingRequest {
   clearHistory?: boolean;
 }
 
-export interface ResetOnboardingResponseInput {
+export interface ResetOnboardingResponse {
 }
 
-export interface ResolveOutstandingStepsRequestInput {
+export interface ResolveOutstandingStepsRequest {
   cascadeId?: string;
 }
 
-export interface ResolveOutstandingStepsResponseInput {
+export interface ResolveOutstandingStepsResponse {
 }
 
-export interface RestartRequestInput {
+export interface RestartRequest {
 }
 
-export interface RestartResponseInput {
+export interface RestartResponse {
 }
 
-export interface RetrieveContentStep_ArgsInput {
+export interface RetrieveContentStep {
+  toolName?: string;
+  args?: RetrieveContentStep_Args;
+  reply?: RetrieveContentStep_Reply;
+}
+
+export interface RetrieveContentStep_Args {
   uri?: string[];
 }
 
-export interface RetrieveContentStep_ReplyInput {
-  results?: LookupResultInput[];
+export interface RetrieveContentStep_Reply {
+  results?: LookupResult[];
 }
 
-export interface RetrieveContentStepInput {
-  toolName?: string;
-  args?: RetrieveContentStep_ArgsInput;
-  reply?: RetrieveContentStep_ReplyInput;
-}
-
-export interface RetryInfoInput {
+export interface RetryInfo {
   sherlogLink?: string;
-  usage?: ModelUsageStatsInput;
+  usage?: ModelUsageStats;
   error?: string;
   traceId?: string;
   retryReason?: RetryReason;
   consumedCredits?: any[];
 }
 
-export interface RevertToCascadeStepRequestInput {
+export interface RevertToCascadeStepRequest {
   cascadeId?: string;
   stepIndex?: number;
-  experimentConfig?: ExperimentConfigInput;
-  overrideConfig?: CascadeConfigInput;
+  experimentConfig?: ExperimentConfig;
+  overrideConfig?: CascadeConfig;
 }
 
-export interface RevertToCascadeStepResponseInput {
+export interface RevertToCascadeStepResponse {
 }
 
-export interface RuleScopeItemInput {
+export interface RuleScopeItem {
   rulePath?: string;
   ruleName?: string;
   description?: string;
 }
 
-export interface RunCommandOutputInput {
+export interface RunCommandOutput {
   full?: string;
   truncated?: string;
   numLinesAbove?: number;
 }
 
-export interface RunCommandRequestInput {
+export interface RunCommandRequest {
   command?: string;
   args?: string[];
   cwd?: string;
   timeoutMs?: bigint;
 }
 
-export interface RunCommandResponseInput {
+export interface RunCommandResponse {
   stdout?: string;
   stderr?: string;
   exitCode?: number;
   timedOut?: boolean;
 }
 
-export interface RunCommandToolConfigInput {
+export interface RunCommandToolConfig {
   maxCharsCommandStdout?: number;
   forceDisable?: boolean;
-  autoCommandConfig?: AutoCommandConfigInput;
+  autoCommandConfig?: AutoCommandConfig;
   enableIdeTerminalExecution?: boolean;
   forceGoTerminalExecution?: boolean;
   shellName?: string;
@@ -5362,46 +5374,46 @@ export interface RunCommandToolConfigInput {
   enableMidtermOutputProcessor?: boolean;
 }
 
-export interface SaveAgentScriptCommandSpecRequestInput {
+export interface SaveAgentScriptCommandSpecRequest {
   name?: string;
   saveToWorkspace?: boolean;
   overwrite?: boolean;
-  commandSpec?: AgentScriptCommandSpecInput;
+  commandSpec?: AgentScriptCommandSpec;
 }
 
-export interface SaveAgentScriptCommandSpecResponseInput {
+export interface SaveAgentScriptCommandSpecResponse {
   created?: boolean;
-  agentScript?: AgentScriptItemInput;
+  agentScript?: AgentScriptItem;
 }
 
-export interface SaveMediaAsArtifactRequestInput {
-  media?: MediaInput;
+export interface SaveMediaAsArtifactRequest {
+  media?: Media;
 }
 
-export interface SaveMediaAsArtifactResponseInput {
+export interface SaveMediaAsArtifactResponse {
   uri?: string;
 }
 
-export interface SaveScreenRecordingRequestInput {
+export interface SaveScreenRecordingRequest {
   videoData?: Uint8Array;
   filename?: string;
   cascadeId?: string;
 }
 
-export interface SaveScreenRecordingResponseInput {
+export interface SaveScreenRecordingResponse {
   filePath?: string;
 }
 
-export interface ScanSkillsConfigFileRequestInput {
+export interface ScanSkillsConfigFileRequest {
   configFilePath?: string;
   workspaceUri?: string;
 }
 
-export interface ScanSkillsConfigFileResponseInput {
-  skills?: WorkflowSpecInput[];
+export interface ScanSkillsConfigFileResponse {
+  skills?: WorkflowSpec[];
 }
 
-export interface SearchCodeRequestInput {
+export interface SearchCodeRequest {
   query?: string;
   workspaceUri?: string;
   maxResults?: number;
@@ -5409,34 +5421,34 @@ export interface SearchCodeRequestInput {
   cancelToken?: bigint;
 }
 
-export interface SearchCodeResponseInput {
-  results?: SearchCodeResultInput[];
+export interface SearchCodeResponse {
+  results?: SearchCodeResult[];
 }
 
-export interface SearchCodeResult_WorkspaceUrisToRelativePathsEntryInput {
-  key?: string;
-  value?: string;
-}
-
-export interface SearchCodeResultInput {
+export interface SearchCodeResult {
   absoluteUri?: string;
-  workspaceUrisToRelativePaths?: SearchCodeResult_WorkspaceUrisToRelativePathsEntryInput[];
+  workspaceUrisToRelativePaths?: SearchCodeResult_WorkspaceUrisToRelativePathsEntry[];
   lineNumber?: number;
   snippet?: string;
   matchStartCol?: number;
   matchEndCol?: number;
 }
 
-export interface SearchConversationsRequestInput {
+export interface SearchCodeResult_WorkspaceUrisToRelativePathsEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface SearchConversationsRequest {
   query?: string;
   limit?: number;
 }
 
-export interface SearchConversationsResponseInput {
-  results?: ConversationSearchResultInput[];
+export interface SearchConversationsResponse {
+  results?: ConversationSearchResult[];
 }
 
-export interface SearchFilesRequestInput {
+export interface SearchFilesRequest {
   query?: string;
   workspaceUri?: string;
   maxResults?: number;
@@ -5444,183 +5456,183 @@ export interface SearchFilesRequestInput {
   cancelToken?: bigint;
 }
 
-export interface SearchFilesResponseInput {
-  results?: PathScopeItemInput[];
+export interface SearchFilesResponse {
+  results?: PathScopeItem[];
 }
 
-export interface SearchWebToolConfigInput {
+export interface SearchWebToolConfig {
   forceDisable?: boolean;
-  thirdPartyConfig?: ThirdPartyWebSearchConfigInput;
+  thirdPartyConfig?: ThirdPartyWebSearchConfig;
 }
 
-export interface SectionJudgeCriteriaInput {
+export interface SectionJudgeCriteria {
   name?: string;
   description?: string;
   weight?: number;
 }
 
-export interface SectionOverrideConfigInput {
+export interface SectionOverrideConfig {
   mode?: SectionOverrideMode;
   content?: string;
 }
 
-export interface SendActionToChatPanelRequestInput {
+export interface SendActionToChatPanelRequest {
   actionType?: string;
   payload?: Uint8Array[];
 }
 
-export interface SendActionToChatPanelResponseInput {
+export interface SendActionToChatPanelResponse {
 }
 
-export interface SendAgentMessageRequestInput {
+export interface SendAgentMessageRequest {
   content?: string;
   recipient?: string;
   senderId?: string;
-  sourceMetadata?: SourceMetadataInput;
+  sourceMetadata?: SourceMetadata;
 }
 
-export interface SendAgentMessageResponseInput {
+export interface SendAgentMessageResponse {
 }
 
-export interface SendAllQueuedMessagesRequestInput {
+export interface SendAllQueuedMessagesRequest {
   cascadeId?: string;
-  cascadeConfig?: CascadeConfigInput;
+  cascadeConfig?: CascadeConfig;
 }
 
-export interface SendAllQueuedMessagesResponseInput {
+export interface SendAllQueuedMessagesResponse {
 }
 
-export interface SendAudioChunkRequestInput {
+export interface SendAudioChunkRequest {
   sessionId?: string;
   data?: Uint8Array;
   sequenceNumber?: number;
 }
 
-export interface SendAudioChunkResponseInput {
+export interface SendAudioChunkResponse {
 }
 
-export interface SendMessageEventInput {
+export interface SendMessageEvent {
   recipientId?: string;
   content?: string;
 }
 
-export interface SendStepsToBackgroundRequestInput {
+export interface SendStepsToBackgroundRequest {
   conversationId?: string;
   stepIndices?: number[];
 }
 
-export interface SendStepsToBackgroundResponseInput {
+export interface SendStepsToBackgroundResponse {
 }
 
-export interface SendUserCascadeMessageRequestInput {
+export interface SendUserCascadeMessageRequest {
   cascadeId?: string;
-  items?: TextOrScopeItemInput[];
-  images?: ImageDataInput[];
-  artifactComments?: ArtifactCommentInput[];
-  fileDiffComments?: FileDiffCommentInput[];
-  fileComments?: FileCommentInput[];
-  media?: MediaInput[];
-  cascadeConfig?: CascadeConfigInput;
-  customAgentSpec?: CustomAgentSpecInput;
-  experimentConfig?: ExperimentConfigInput;
+  items?: TextOrScopeItem[];
+  images?: ImageData[];
+  artifactComments?: ArtifactComment[];
+  fileDiffComments?: FileDiffComment[];
+  fileComments?: FileComment[];
+  media?: Media[];
+  cascadeConfig?: CascadeConfig;
+  customAgentSpec?: CustomAgentSpec;
+  experimentConfig?: ExperimentConfig;
   blocking?: boolean;
-  additionalSteps?: StepInput[];
+  additionalSteps?: Step[];
   clientType?: ChatClientRequestStreamClientType;
   propagateError?: boolean;
-  plannerResponse?: CortexStepPlannerResponseInput;
+  plannerResponse?: CortexStepPlannerResponse;
   messageOrigin?: AgentMessageOrigin;
 }
 
-export interface SendUserCascadeMessageResponseInput {
+export interface SendUserCascadeMessageResponse {
 }
 
-export interface SetBaseExperimentsRequestInput {
-  experimentConfig?: ExperimentConfigInput;
+export interface SetBaseExperimentsRequest {
+  experimentConfig?: ExperimentConfig;
 }
 
-export interface SetBaseExperimentsResponseInput {
+export interface SetBaseExperimentsResponse {
 }
 
-export interface SetBrowserOpenConversationRequestInput {
+export interface SetBrowserOpenConversationRequest {
   cascadeId?: string;
   expiresAt?: any;
 }
 
-export interface SetBrowserOpenConversationResponseInput {
+export interface SetBrowserOpenConversationResponse {
 }
 
-export interface SetCloudCodeURLRequestInput {
+export interface SetCloudCodeURLRequest {
   url?: string;
 }
 
-export interface SetCloudCodeURLResponseInput {
+export interface SetCloudCodeURLResponse {
 }
 
-export interface SetOrVerifyStaticConfigRequestInput {
+export interface SetOrVerifyStaticConfigRequest {
   cascadeId?: string;
-  customAgentSpec?: CustomAgentSpecInput;
+  customAgentSpec?: CustomAgentSpec;
 }
 
-export interface SetOrVerifyStaticConfigResponseInput {
+export interface SetOrVerifyStaticConfigResponse {
 }
 
-export interface SetUpCloudSqlAppConfigInput {
+export interface SetUpCloudSqlAppConfig {
   instanceName?: string;
   projectId?: string;
 }
 
-export interface SetUpFirebaseAppConfigInput {
+export interface SetUpFirebaseAppConfig {
   firebaseProjectId?: string;
 }
 
-export interface SetupUniversitySandboxRequestInput {
+export interface SetupUniversitySandboxRequest {
 }
 
-export interface SetupUniversitySandboxResponseInput {
+export interface SetupUniversitySandboxResponse {
   baseDirectory?: string;
 }
 
-export interface SetUserInfoRequestInput {
+export interface SetUserInfoRequest {
   userSettings?: any;
 }
 
-export interface SetUserInfoResponseInput {
+export interface SetUserInfoResponse {
   userSettings?: any;
 }
 
-export interface SetUserSettingsRequestInput {
-  userSettings?: UserSettingsInput;
+export interface SetUserSettingsRequest {
+  userSettings?: UserSettings;
 }
 
-export interface SetUserSettingsResponseInput {
-  userSettings?: UserSettingsInput;
+export interface SetUserSettingsResponse {
+  userSettings?: UserSettings;
 }
 
-export interface SetWorkingDirectoriesRequestInput {
+export interface SetWorkingDirectoriesRequest {
   directoryUris?: string[];
 }
 
-export interface SetWorkingDirectoriesResponseInput {
+export interface SetWorkingDirectoriesResponse {
 }
 
-export interface ShouldEnableUnleashRequestInput {
+export interface ShouldEnableUnleashRequest {
 }
 
-export interface ShouldEnableUnleashResponseInput {
+export interface ShouldEnableUnleashResponse {
   shouldEnable?: boolean;
 }
 
-export interface SidebarWorkspaceInfoInput {
+export interface SidebarWorkspaceInfo {
   isCollapsed?: boolean;
   isHidden?: boolean;
 }
 
-export interface SidecarCommandSourceInput {
+export interface SidecarCommandSource {
   sidecarId?: string;
-  config?: SidecarConfigInput;
+  config?: SidecarConfig;
 }
 
-export interface SidecarConfigInput {
+export interface SidecarConfig {
   command?: string;
   restartPolicy?: string;
   args?: string[];
@@ -5628,321 +5640,321 @@ export interface SidecarConfigInput {
   description?: string;
 }
 
-export interface SidecarEventInput {
+export interface SidecarEvent {
   timestampMs?: bigint;
   commandInvocationTimestampMs?: bigint;
   error?: string;
-  payload?: SidecarEventPayloadInput;
+  payload?: SidecarEventPayload;
 }
 
-export interface SidecarEventPayloadInput {
-  sendMessage?: SendMessageEventInput;
-  newConversation?: NewConversationEventInput;
+export interface SidecarEventPayload {
+  sendMessage?: SendMessageEvent;
+  newConversation?: NewConversationEvent;
 }
 
-export interface SidecarStatusInfoInput {
+export interface SidecarStatusInfo {
   sidecarId?: string;
-  config?: SidecarConfigInput;
+  config?: SidecarConfig;
   status?: SidecarStatus;
   lastError?: string;
   startTimeMs?: bigint;
   webPort?: number;
-  uiConfig?: SidecarUIConfigInput;
+  uiConfig?: SidecarUIConfig;
 }
 
-export interface SidecarUIConfigInput {
+export interface SidecarUIConfig {
   displayName?: string;
-  views?: SidecarUIViewInput[];
+  views?: SidecarUIView[];
 }
 
-export interface SidecarUIViewInput {
+export interface SidecarUIView {
   url?: string;
   entrypoint?: SidecarUIEntrypoint;
 }
 
-export interface SignalExecutableIdleRequestInput {
+export interface SignalExecutableIdleRequest {
   conversationId?: string;
 }
 
-export interface SignalExecutableIdleResponseInput {
+export interface SignalExecutableIdleResponse {
 }
 
-export interface SimulateSegFaultRequestInput {
+export interface SimulateSegFaultRequest {
 }
 
-export interface SimulateSegFaultResponseInput {
+export interface SimulateSegFaultResponse {
 }
 
-export interface SkillMetadataInput {
+export interface SkillMetadata {
   name?: string;
   description?: string;
   publisher?: string;
   version?: string;
 }
 
-export interface SkillsConfigInput {
+export interface SkillsConfig {
   inheritUser?: boolean;
-  skillsPaths?: CustomizationPathInput[];
+  skillsPaths?: CustomizationPath[];
 }
 
-export interface SkipBrowserSubagentRequestInput {
+export interface SkipBrowserSubagentRequest {
   cascadeId?: string;
   stepIndex?: number;
 }
 
-export interface SkipBrowserSubagentResponseInput {
+export interface SkipBrowserSubagentResponse {
 }
 
-export interface SkipOnboardingRequestInput {
+export interface SkipOnboardingRequest {
 }
 
-export interface SkipOnboardingResponseInput {
+export interface SkipOnboardingResponse {
 }
 
-export interface SliceInput {
+export interface Slice {
   startIndex?: number;
   endIndexExclusive?: number;
 }
 
-export interface SmartFocusConversationRequestInput {
+export interface SmartFocusConversationRequest {
   cascadeId?: string;
 }
 
-export interface SmartFocusConversationResponseInput {
+export interface SmartFocusConversationResponse {
 }
 
-export interface SmartOpenBrowserRequestInput {
+export interface SmartOpenBrowserRequest {
   url?: string;
   isOnboarded?: boolean;
 }
 
-export interface SmartOpenBrowserResponseInput {
+export interface SmartOpenBrowserResponse {
 }
 
-export interface SnippetWithWordCount_WordCountBySplitterEntryInput {
-  key?: string;
-  value?: WordCountInput;
-}
-
-export interface SnippetWithWordCountInput {
+export interface SnippetWithWordCount {
   snippet?: string;
-  wordCountBySplitter?: SnippetWithWordCount_WordCountBySplitterEntryInput[];
+  wordCountBySplitter?: SnippetWithWordCount_WordCountBySplitterEntry[];
 }
 
-export interface SourceMetadataInput {
-  tool?: ToolSourceMetadataInput;
-  sidecar?: SidecarCommandSourceInput;
+export interface SnippetWithWordCount_WordCountBySplitterEntry {
+  key?: string;
+  value?: WordCount;
 }
 
-export interface StartBattleModeRequestInput {
-  request?: SendUserCascadeMessageRequestInput;
+export interface SourceMetadata {
+  tool?: ToolSourceMetadata;
+  sidecar?: SidecarCommandSource;
 }
 
-export interface StartBattleModeResponseInput {
+export interface StartBattleModeRequest {
+  request?: SendUserCascadeMessageRequest;
+}
+
+export interface StartBattleModeResponse {
   childrenConversationIds?: string[];
 }
 
-export interface StartCascadeRequestInput {
-  baseTrajectoryIdentifier?: BaseTrajectoryIdentifierInput;
-  sourceMetadata?: SourceMetadataInput;
+export interface StartCascadeRequest {
+  baseTrajectoryIdentifier?: BaseTrajectoryIdentifier;
+  sourceMetadata?: SourceMetadata;
   source?: CortexTrajectorySource;
   trajectoryType?: CortexTrajectoryType;
-  agentScriptItem?: AgentScriptItemInput;
+  agentScriptItem?: AgentScriptItem;
   cascadeId?: string;
   workspaceUris?: string[];
   overrideWorkspaceUris?: string[];
   parentConversationId?: string;
-  customAgentSpec?: CustomAgentSpecInput;
-  experimentConfig?: ExperimentConfigInput;
+  customAgentSpec?: CustomAgentSpec;
+  experimentConfig?: ExperimentConfig;
 }
 
-export interface StartCascadeResponseInput {
+export interface StartCascadeResponse {
   cascadeId?: string;
 }
 
-export interface StartScreenRecordingRequestInput {
+export interface StartScreenRecordingRequest {
   cascadeId?: string;
   onboarded?: boolean;
 }
 
-export interface StartScreenRecordingResponseInput {
+export interface StartScreenRecordingResponse {
 }
 
-export interface State_SidebarWorkspacesEntryInput {
-  key?: string;
-  value?: SidebarWorkspaceInfoInput;
-}
-
-export interface StateInput {
-  postOnboarding?: PostOnboardingStateInput;
-  userSettings?: Jetbox_stateUserSettingsInput;
-  sidebarWorkspaces?: State_SidebarWorkspacesEntryInput[];
+export interface State {
+  postOnboarding?: PostOnboardingState;
+  userSettings?: Jetbox_stateUserSettings;
+  sidebarWorkspaces?: State_SidebarWorkspacesEntry[];
   lastSelectedAgentModel?: Model;
-  customModelsConfig?: CustomModelsConfigInput;
+  customModelsConfig?: CustomModelsConfig;
   seenNuxUids?: number[];
   themeMode?: ThemeMode;
 }
 
-export interface StatUriRequestInput {
+export interface State_SidebarWorkspacesEntry {
+  key?: string;
+  value?: SidebarWorkspaceInfo;
+}
+
+export interface StatUriRequest {
   uri?: string;
 }
 
-export interface StatUriResponseInput {
+export interface StatUriResponse {
   fileType?: FileType;
   modTime?: any;
   normalizedUri?: string;
 }
 
-export interface StatusInput {
+export interface Status {
   level?: StatusLevel;
   message?: string;
 }
 
-export interface StepInput {
+export interface Step {
   type?: CortexStepType;
   status?: CortexStepStatus;
-  error?: CortexErrorDetailsInput;
-  permissions?: TrajectoryPermissionsInput;
-  taskDetails?: TaskDetailsInput;
-  requestedInteraction?: RequestedInteractionInput;
-  completedInteractions?: CompletedInteractionInput[];
-  userAnnotations?: UserStepAnnotationsInput;
-  subtrajectory?: TrajectoryInput;
-  generic?: CortexStepGenericInput;
-  finish?: CortexStepFinishInput;
-  mquery?: CortexStepMqueryInput;
-  codeAction?: CortexStepCodeActionInput;
-  gitCommit?: CortexStepGitCommitInput;
-  grepSearch?: CortexStepGrepSearchInput;
-  compile?: CortexStepCompileInput;
-  viewCodeItem?: CortexStepViewCodeItemInput;
-  errorMessage?: CortexStepErrorMessageInput;
-  runCommand?: CortexStepRunCommandInput;
-  find?: CortexStepFindInput;
-  suggestedResponses?: CortexStepSuggestedResponsesInput;
-  commandStatus?: CortexStepCommandStatusInput;
-  readUrlContent?: CortexStepReadUrlContentInput;
-  viewContentChunk?: CortexStepViewContentChunkInput;
-  searchWeb?: CortexStepSearchWebInput;
-  mcpTool?: CortexStepMcpToolInput;
-  clipboard?: CortexStepClipboardInput;
-  viewFileOutline?: CortexStepViewFileOutlineInput;
-  listResources?: CortexStepListResourcesInput;
-  readResource?: CortexStepReadResourceInput;
-  lintDiff?: CortexStepLintDiffInput;
-  openBrowserUrl?: CortexStepOpenBrowserUrlInput;
-  trajectorySearch?: CortexStepTrajectorySearchInput;
-  executeBrowserJavascript?: CortexStepExecuteBrowserJavaScriptInput;
-  listBrowserPages?: CortexStepListBrowserPagesInput;
-  captureBrowserScreenshot?: CortexStepCaptureBrowserScreenshotInput;
-  clickBrowserPixel?: CortexStepClickBrowserPixelInput;
-  captureBrowserConsoleLogs?: CortexStepCaptureBrowserConsoleLogsInput;
-  readBrowserPage?: CortexStepReadBrowserPageInput;
-  browserGetDom?: CortexStepBrowserGetDomInput;
-  codeSearch?: CortexStepCodeSearchInput;
-  browserInput?: CortexStepBrowserInputInput;
-  browserMoveMouse?: CortexStepBrowserMoveMouseInput;
-  browserSelectOption?: CortexStepBrowserSelectOptionInput;
-  browserScrollUp?: CortexStepBrowserScrollUpInput;
-  browserScrollDown?: CortexStepBrowserScrollDownInput;
-  browserClickElement?: CortexStepBrowserClickElementInput;
-  browserListNetworkRequests?: CortexStepBrowserListNetworkRequestsInput;
-  browserGetNetworkRequest?: CortexStepBrowserGetNetworkRequestInput;
-  browserPressKey?: CortexStepBrowserPressKeyInput;
-  taskBoundary?: CortexStepTaskBoundaryInput;
-  notifyUser?: CortexStepNotifyUserInput;
-  codeAcknowledgement?: CortexStepCodeAcknowledgementInput;
-  internalSearch?: CortexStepInternalSearchInput;
-  browserSubagent?: CortexStepBrowserSubagentInput;
-  knowledgeGeneration?: CortexStepKnowledgeGenerationInput;
-  generateImage?: CortexStepGenerateImageInput;
-  browserScroll?: CortexStepBrowserScrollInput;
-  browserResizeWindow?: CortexStepBrowserResizeWindowInput;
-  browserDragPixelToPixel?: CortexStepBrowserDragPixelToPixelInput;
-  browserMouseWheel?: CortexStepBrowserMouseWheelInput;
-  browserMouseUp?: CortexStepBrowserMouseUpInput;
-  browserMouseDown?: CortexStepBrowserMouseDownInput;
-  browserRefreshPage?: CortexStepBrowserRefreshPageInput;
-  conversationHistory?: CortexStepConversationHistoryInput;
-  knowledgeArtifacts?: CortexStepKnowledgeArtifactsInput;
-  sendCommandInput?: CortexStepSendCommandInputInput;
-  systemMessage?: CortexStepSystemMessageInput;
-  wait?: CortexStepWaitInput;
-  kiInsertion?: CortexStepKIInsertionInput;
-  workspaceApi?: CortexStepWorkspaceAPIInput;
-  invokeSubagent?: CortexStepInvokeSubagentInput;
-  rpcAction?: CortexStepRPCActionInput;
-  askQuestion?: CortexStepAskQuestionInput;
-  executeNotebook?: CortexStepExecuteNotebookInput;
-  readNotebook?: CortexStepReadNotebookInput;
-  editNotebook?: CortexStepEditNotebookInput;
-  compileApplet?: CortexStepCompileAppletInput;
-  installAppletDependencies?: CortexStepInstallAppletDependenciesInput;
-  installAppletPackage?: CortexStepInstallAppletPackageInput;
-  restartDevServer?: CortexStepRestartDevServerInput;
-  lintApplet?: CortexStepLintAppletInput;
-  shellExec?: CortexStepShellExecInput;
-  writeBlob?: CortexStepWriteBlobInput;
-  setUpFirebase?: CortexStepSetUpFirebaseInput;
-  deployFirebase?: CortexStepDeployFirebaseInput;
-  setUpCloudsql?: CortexStepSetUpCloudSqlInput;
-  cloudsqlUpdateSchema?: CortexStepCloudSQLSchemaUpdateInput;
-  cloudsqlExecuteSql?: CortexStepCloudSQLExecuteSQLInput;
-  agencyToolCall?: CortexStepAgencyToolCallInput;
-  buildCleaner?: BuildCleanerStepInput;
-  blazeBuildTargets?: BuildTargetsStepInput;
-  blazeTestTargets?: TestTargetsStepInput;
-  moma?: MomaStepInput;
-  retrieveContent?: RetrieveContentStepInput;
-  critique?: CritiqueStepInput;
-  findings?: FindingsStepInput;
-  userInput?: CortexStepUserInputInput;
-  plannerResponse?: CortexStepPlannerResponseInput;
-  viewFile?: CortexStepViewFileInput;
-  listDirectory?: CortexStepListDirectoryInput;
-  deleteDirectory?: CortexStepDeleteDirectoryInput;
-  checkpoint?: CortexStepCheckpointInput;
-  fileChange?: CortexStepFileChangeInput;
-  move?: CortexStepMoveInput;
-  ephemeralMessage?: CortexStepEphemeralMessageInput;
-  dummy?: CortexStepDummyInput;
-  planInput?: CortexStepPlanInputInput;
-  fileBreakdown?: CortexStepFileBreakdownInput;
-  writeToFile?: CortexStepWriteToFileInput;
-  proposeCode?: CortexStepProposeCodeInput;
-  searchKnowledgeBase?: CortexStepSearchKnowledgeBaseInput;
-  lookupKnowledgeBase?: CortexStepLookupKnowledgeBaseInput;
-  managerFeedback?: CortexStepManagerFeedbackInput;
-  toolCallProposal?: CortexStepToolCallProposalInput;
-  toolCallChoice?: CortexStepToolCallChoiceInput;
-  trajectoryChoice?: CortexStepTrajectoryChoiceInput;
-  checkDeployStatus?: CortexStepCheckDeployStatusInput;
-  postPrReview?: CortexStepPostPrReviewInput;
-  findAllReferences?: CortexStepFindAllReferencesInput;
-  brainUpdate?: CortexStepBrainUpdateInput;
-  readTerminal?: CortexStepReadTerminalInput;
-  runExtensionCode?: CortexStepRunExtensionCodeInput;
-  proposalFeedback?: CortexStepProposalFeedbackInput;
-  retrieveMemory?: CortexStepRetrieveMemoryInput;
-  memory?: CortexStepMemoryInput;
+  error?: CortexErrorDetails;
+  permissions?: TrajectoryPermissions;
+  taskDetails?: TaskDetails;
+  requestedInteraction?: RequestedInteraction;
+  completedInteractions?: CompletedInteraction[];
+  userAnnotations?: UserStepAnnotations;
+  subtrajectory?: Trajectory;
+  generic?: CortexStepGeneric;
+  finish?: CortexStepFinish;
+  mquery?: CortexStepMquery;
+  codeAction?: CortexStepCodeAction;
+  gitCommit?: CortexStepGitCommit;
+  grepSearch?: CortexStepGrepSearch;
+  compile?: CortexStepCompile;
+  viewCodeItem?: CortexStepViewCodeItem;
+  errorMessage?: CortexStepErrorMessage;
+  runCommand?: CortexStepRunCommand;
+  find?: CortexStepFind;
+  suggestedResponses?: CortexStepSuggestedResponses;
+  commandStatus?: CortexStepCommandStatus;
+  readUrlContent?: CortexStepReadUrlContent;
+  viewContentChunk?: CortexStepViewContentChunk;
+  searchWeb?: CortexStepSearchWeb;
+  mcpTool?: CortexStepMcpTool;
+  clipboard?: CortexStepClipboard;
+  viewFileOutline?: CortexStepViewFileOutline;
+  listResources?: CortexStepListResources;
+  readResource?: CortexStepReadResource;
+  lintDiff?: CortexStepLintDiff;
+  openBrowserUrl?: CortexStepOpenBrowserUrl;
+  trajectorySearch?: CortexStepTrajectorySearch;
+  executeBrowserJavascript?: CortexStepExecuteBrowserJavaScript;
+  listBrowserPages?: CortexStepListBrowserPages;
+  captureBrowserScreenshot?: CortexStepCaptureBrowserScreenshot;
+  clickBrowserPixel?: CortexStepClickBrowserPixel;
+  captureBrowserConsoleLogs?: CortexStepCaptureBrowserConsoleLogs;
+  readBrowserPage?: CortexStepReadBrowserPage;
+  browserGetDom?: CortexStepBrowserGetDom;
+  codeSearch?: CortexStepCodeSearch;
+  browserInput?: CortexStepBrowserInput;
+  browserMoveMouse?: CortexStepBrowserMoveMouse;
+  browserSelectOption?: CortexStepBrowserSelectOption;
+  browserScrollUp?: CortexStepBrowserScrollUp;
+  browserScrollDown?: CortexStepBrowserScrollDown;
+  browserClickElement?: CortexStepBrowserClickElement;
+  browserListNetworkRequests?: CortexStepBrowserListNetworkRequests;
+  browserGetNetworkRequest?: CortexStepBrowserGetNetworkRequest;
+  browserPressKey?: CortexStepBrowserPressKey;
+  taskBoundary?: CortexStepTaskBoundary;
+  notifyUser?: CortexStepNotifyUser;
+  codeAcknowledgement?: CortexStepCodeAcknowledgement;
+  internalSearch?: CortexStepInternalSearch;
+  browserSubagent?: CortexStepBrowserSubagent;
+  knowledgeGeneration?: CortexStepKnowledgeGeneration;
+  generateImage?: CortexStepGenerateImage;
+  browserScroll?: CortexStepBrowserScroll;
+  browserResizeWindow?: CortexStepBrowserResizeWindow;
+  browserDragPixelToPixel?: CortexStepBrowserDragPixelToPixel;
+  browserMouseWheel?: CortexStepBrowserMouseWheel;
+  browserMouseUp?: CortexStepBrowserMouseUp;
+  browserMouseDown?: CortexStepBrowserMouseDown;
+  browserRefreshPage?: CortexStepBrowserRefreshPage;
+  conversationHistory?: CortexStepConversationHistory;
+  knowledgeArtifacts?: CortexStepKnowledgeArtifacts;
+  sendCommandInput?: CortexStepSendCommandInput;
+  systemMessage?: CortexStepSystemMessage;
+  wait?: CortexStepWait;
+  kiInsertion?: CortexStepKIInsertion;
+  workspaceApi?: CortexStepWorkspaceAPI;
+  invokeSubagent?: CortexStepInvokeSubagent;
+  rpcAction?: CortexStepRPCAction;
+  askQuestion?: CortexStepAskQuestion;
+  executeNotebook?: CortexStepExecuteNotebook;
+  readNotebook?: CortexStepReadNotebook;
+  editNotebook?: CortexStepEditNotebook;
+  compileApplet?: CortexStepCompileApplet;
+  installAppletDependencies?: CortexStepInstallAppletDependencies;
+  installAppletPackage?: CortexStepInstallAppletPackage;
+  restartDevServer?: CortexStepRestartDevServer;
+  lintApplet?: CortexStepLintApplet;
+  shellExec?: CortexStepShellExec;
+  writeBlob?: CortexStepWriteBlob;
+  setUpFirebase?: CortexStepSetUpFirebase;
+  deployFirebase?: CortexStepDeployFirebase;
+  setUpCloudsql?: CortexStepSetUpCloudSql;
+  cloudsqlUpdateSchema?: CortexStepCloudSQLSchemaUpdate;
+  cloudsqlExecuteSql?: CortexStepCloudSQLExecuteSQL;
+  agencyToolCall?: CortexStepAgencyToolCall;
+  buildCleaner?: BuildCleanerStep;
+  blazeBuildTargets?: BuildTargetsStep;
+  blazeTestTargets?: TestTargetsStep;
+  moma?: MomaStep;
+  retrieveContent?: RetrieveContentStep;
+  critique?: CritiqueStep;
+  findings?: FindingsStep;
+  userInput?: CortexStepUserInput;
+  plannerResponse?: CortexStepPlannerResponse;
+  viewFile?: CortexStepViewFile;
+  listDirectory?: CortexStepListDirectory;
+  deleteDirectory?: CortexStepDeleteDirectory;
+  checkpoint?: CortexStepCheckpoint;
+  fileChange?: CortexStepFileChange;
+  move?: CortexStepMove;
+  ephemeralMessage?: CortexStepEphemeralMessage;
+  dummy?: CortexStepDummy;
+  planInput?: CortexStepPlanInput;
+  fileBreakdown?: CortexStepFileBreakdown;
+  writeToFile?: CortexStepWriteToFile;
+  proposeCode?: CortexStepProposeCode;
+  searchKnowledgeBase?: CortexStepSearchKnowledgeBase;
+  lookupKnowledgeBase?: CortexStepLookupKnowledgeBase;
+  managerFeedback?: CortexStepManagerFeedback;
+  toolCallProposal?: CortexStepToolCallProposal;
+  toolCallChoice?: CortexStepToolCallChoice;
+  trajectoryChoice?: CortexStepTrajectoryChoice;
+  checkDeployStatus?: CortexStepCheckDeployStatus;
+  postPrReview?: CortexStepPostPrReview;
+  findAllReferences?: CortexStepFindAllReferences;
+  brainUpdate?: CortexStepBrainUpdate;
+  readTerminal?: CortexStepReadTerminal;
+  runExtensionCode?: CortexStepRunExtensionCode;
+  proposalFeedback?: CortexStepProposalFeedback;
+  retrieveMemory?: CortexStepRetrieveMemory;
+  memory?: CortexStepMemory;
 }
 
-export interface StepRenderInfoInput {
+export interface StepRenderInfo {
   title?: string;
   markdown?: string;
   hidden?: boolean;
 }
 
-export interface StepStringConverterConfigInput {
-  codeAcknowledgement?: CodeAcknowledgementConverterConfigInput;
+export interface StepStringConverterConfig {
+  codeAcknowledgement?: CodeAcknowledgementConverterConfig;
 }
 
-export interface StringMatchRangeInput {
+export interface StringMatchRange {
   startOffset?: number;
   endOffsetExclusive?: number;
 }
 
-export interface StructuredErrorPartInput {
+export interface StructuredErrorPart {
   text?: string;
   fileUri?: string;
   directoryUri?: string;
@@ -5950,24 +5962,24 @@ export interface StructuredErrorPartInput {
   codeText?: string;
 }
 
-export interface SubagentReminderModeInput {
-  verifyScreenshots?: BrowserVerifyScreenshotsModeInput;
-  verifyCompleteness?: BrowserVerifyCompletenessModeInput;
-  custom?: BrowserCustomReminderModeInput;
+export interface SubagentReminderMode {
+  verifyScreenshots?: BrowserVerifyScreenshotsMode;
+  verifyCompleteness?: BrowserVerifyCompletenessMode;
+  custom?: BrowserCustomReminderMode;
 }
 
-export interface SubagentResultInput {
+export interface SubagentResult {
   conversationId?: string;
   logAbsoluteUri?: string;
   workspaceUris?: string[];
 }
 
-export interface SubagentSnapshotInput {
-  spec?: SubagentSpecInput;
-  result?: SubagentResultInput;
+export interface SubagentSnapshot {
+  spec?: SubagentSpec;
+  result?: SubagentResult;
 }
 
-export interface SubagentSpecInput {
+export interface SubagentSpec {
   typeName?: string;
   role?: string;
   initialPrompt?: string;
@@ -5977,23 +5989,23 @@ export interface SubagentSpecInput {
   workspaceUri?: string;
 }
 
-export interface SuggestedResponseConfigInput {
+export interface SuggestedResponseConfig {
   forceDisable?: boolean;
 }
 
-export interface SupercompletePromptTrajectoryInput {
-  trajectory?: TrajectoryInput;
+export interface SupercompletePromptTrajectory {
+  trajectory?: Trajectory;
   includedSteps?: number[];
 }
 
-export interface TaskBoundaryToolConfigInput {
+export interface TaskBoundaryToolConfig {
   minimumPredictedTaskSize?: number;
   targetStatusUpdateFrequency?: number;
   noActiveTaskSoftReminderToolThreshold?: number;
   noActiveTaskStrictReminderToolThreshold?: number;
 }
 
-export interface TaskDeltaInput {
+export interface TaskDelta {
   type?: TaskDeltaType;
   id?: string;
   content?: string;
@@ -6004,7 +6016,7 @@ export interface TaskDeltaInput {
   fromPrevSibling?: string;
 }
 
-export interface TaskDetailsInput {
+export interface TaskDetails {
   id?: string;
   logUri?: string;
   progress?: string;
@@ -6012,8 +6024,8 @@ export interface TaskDetailsInput {
   requiresInputApproval?: boolean;
 }
 
-export interface TaskEntryDeltaSummaryInput {
-  deltas?: TaskDeltaInput[];
+export interface TaskEntryDeltaSummary {
+  deltas?: TaskDelta[];
   itemsAdded?: number;
   itemsPruned?: number;
   itemsDeleted?: number;
@@ -6021,7 +6033,7 @@ export interface TaskEntryDeltaSummaryInput {
   itemsMoved?: number;
 }
 
-export interface TaskSnapshotInput {
+export interface TaskSnapshot {
   taskId?: string;
   toolName?: string;
   toolSummary?: string;
@@ -6030,7 +6042,7 @@ export interface TaskSnapshotInput {
   stepIndex?: number;
 }
 
-export interface TeamConfigInput {
+export interface TeamConfig {
   teamId?: string;
   userPromptCreditCap?: number;
   userFlowCreditCap?: number;
@@ -6051,13 +6063,13 @@ export interface TeamConfigInput {
   allowConversationSharing?: boolean;
   pullRequestReviewRateLimit?: number;
   allowAttribution?: boolean;
-  allowedMcpServers?: McpServerConfigInput[];
+  allowedMcpServers?: McpServerConfig[];
   allowGithubAutoReviews?: boolean;
   allowBrowserExperimentalFeatures?: boolean;
   disableToolCallExecutionOutsideWorkspace?: boolean;
 }
 
-export interface TeamOrganizationalControlsInput {
+export interface TeamOrganizationalControls {
   teamId?: string;
   cascadeModelLabels?: string[];
   commandModelLabels?: string[];
@@ -6066,20 +6078,20 @@ export interface TeamOrganizationalControlsInput {
   extensionModelLabels?: string[];
 }
 
-export interface TeamsFeaturesMetadataInput {
+export interface TeamsFeaturesMetadata {
   isActive?: boolean;
   stripeSubscriptionId?: string;
   hasAccess?: boolean;
 }
 
-export interface TerminalScopeItemInput {
+export interface TerminalScopeItem {
   processId?: string;
   name?: string;
   lastCommand?: string;
   selectionContent?: string;
 }
 
-export interface TerminalShellCommandInput {
+export interface TerminalShellCommand {
   id?: string;
   shellPid?: number;
   commandLine?: string;
@@ -6093,127 +6105,127 @@ export interface TerminalShellCommandInput {
   source?: TerminalShellCommandSource;
 }
 
-export interface TestFailureInput {
+export interface TestFailure {
   target?: string;
   testCase?: string;
   failureMessage?: string;
 }
 
-export interface TestReplyInput {
+export interface TestReply {
   invocationId?: string;
   succeeded?: boolean;
   errorMessage?: string;
-  buildFailureDetails?: BuildFailureInput[];
-  testFailureDetails?: TestFailureInput[];
+  buildFailureDetails?: BuildFailure[];
+  testFailureDetails?: TestFailure[];
   rawLcov?: string;
 }
 
-export interface TestTargetsStep_ArgsInput {
+export interface TestTargetsStep {
+  toolName?: string;
+  args?: TestTargetsStep_Args;
+  reply?: TestReply;
+}
+
+export interface TestTargetsStep_Args {
   targets?: string[];
   arguments?: string[];
   coverageFiles?: string[];
 }
 
-export interface TestTargetsStepInput {
-  toolName?: string;
-  args?: TestTargetsStep_ArgsInput;
-  reply?: TestReplyInput;
-}
-
-export interface TextBlockInput {
+export interface TextBlock {
   content?: string;
-  fileLineRange?: FileLineRangeInput;
+  fileLineRange?: FileLineRange;
   label?: string;
 }
 
-export interface TextDataInput {
+export interface TextData {
   text?: string;
   mimeType?: string;
 }
 
-export interface TextOrScopeItemInput {
+export interface TextOrScopeItem {
   text?: string;
-  item?: ContextScopeItemInput;
+  item?: ContextScopeItem;
 }
 
-export interface TextSelectionInput {
+export interface TextSelection {
   content?: string;
   startLine?: number;
   endLine?: number;
 }
 
-export interface ThirdPartyWebSearchConfigInput {
+export interface ThirdPartyWebSearchConfig {
   provider?: ThirdPartyWebSearchProvider;
 }
 
-export interface TimeRangeInput {
+export interface TimeRange {
   start?: any;
   end?: any;
 }
 
-export interface TokenBreakdownInput {
-  groups?: TopLevelTokenGroupInput[];
+export interface TokenBreakdown {
+  groups?: TopLevelTokenGroup[];
   totalTokens?: number;
 }
 
-export interface TokenGroupInput {
+export interface TokenGroup {
   name?: string;
-  children?: TokenGroupInput[];
+  children?: TokenGroup[];
   numTokens?: number;
 }
 
-export interface ToolDescriptionOverrideMap_DescriptionsEntryInput {
+export interface ToolDescriptionOverrideMap {
+  descriptions?: ToolDescriptionOverrideMap_DescriptionsEntry[];
+  toolOverrides?: ToolDescriptionOverrideMap_ToolOverridesEntry[];
+}
+
+export interface ToolDescriptionOverrideMap_DescriptionsEntry {
   key?: string;
-  value?: SectionOverrideConfigInput;
+  value?: SectionOverrideConfig;
 }
 
-export interface ToolDescriptionOverrideMap_ToolOverridesEntryInput {
+export interface ToolDescriptionOverrideMap_ToolOverridesEntry {
   key?: string;
-  value?: ToolOverrideConfigInput;
+  value?: ToolOverrideConfig;
 }
 
-export interface ToolDescriptionOverrideMapInput {
-  descriptions?: ToolDescriptionOverrideMap_DescriptionsEntryInput[];
-  toolOverrides?: ToolDescriptionOverrideMap_ToolOverridesEntryInput[];
-}
-
-export interface ToolOverrideConfig_ArgumentDescriptionOverridesEntryInput {
-  key?: string;
-  value?: string;
-}
-
-export interface ToolOverrideConfig_ArgumentNameOverridesEntryInput {
-  key?: string;
-  value?: string;
-}
-
-export interface ToolOverrideConfigInput {
+export interface ToolOverrideConfig {
   nameOverride?: string;
-  argumentNameOverrides?: ToolOverrideConfig_ArgumentNameOverridesEntryInput[];
-  descriptionOverride?: SectionOverrideConfigInput;
-  argumentDescriptionOverrides?: ToolOverrideConfig_ArgumentDescriptionOverridesEntryInput[];
+  argumentNameOverrides?: ToolOverrideConfig_ArgumentNameOverridesEntry[];
+  descriptionOverride?: SectionOverrideConfig;
+  argumentDescriptionOverrides?: ToolOverrideConfig_ArgumentDescriptionOverridesEntry[];
 }
 
-export interface ToolSourceMetadataInput {
+export interface ToolOverrideConfig_ArgumentDescriptionOverridesEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface ToolOverrideConfig_ArgumentNameOverridesEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface ToolSourceMetadata {
   conversationId?: string;
   stepIndex?: number;
-  toolCall?: ChatToolCallInput;
+  toolCall?: ChatToolCall;
 }
 
-export interface ToolStatusInput {
+export interface ToolStatus {
   widgetUpdate?: string;
   warning?: string;
 }
 
-export interface TopLevelTokenGroupInput {
+export interface TopLevelTokenGroup {
   name?: string;
   type?: TokenType;
   source?: TokenSource;
   numTokens?: number;
-  children?: TokenGroupInput[];
+  children?: TokenGroup[];
 }
 
-export interface TopUpStatusInput {
+export interface TopUpStatus {
   topUpTransactionStatus?: TransactionStatus;
   topUpEnabled?: boolean;
   monthlyTopUpAmount?: number;
@@ -6222,22 +6234,33 @@ export interface TopUpStatusInput {
   topUpCriteriaMet?: boolean;
 }
 
-export interface TrajectoryConversionConfigInput {
+export interface Trajectory {
+  trajectoryId?: string;
+  cascadeId?: string;
+  trajectoryType?: CortexTrajectoryType;
+  steps?: Step[];
+  parentReferences?: CortexTrajectoryReference[];
+  generatorMetadata?: CortexStepGeneratorMetadata[];
+  executorMetadatas?: ExecutorMetadata[];
+  source?: CortexTrajectorySource;
+}
+
+export interface TrajectoryConversionConfig {
   groupToolsWithPlannerResponse?: boolean;
   wrapToolResponses?: boolean;
-  logArtifactsConfig?: LogArtifactsConfigInput;
+  logArtifactsConfig?: LogArtifactsConfig;
   appendEphemeralToPreviousToolResult?: boolean;
   disableStepId?: boolean;
   enableToolTimestamp?: boolean;
   useRawUserMessage?: boolean;
 }
 
-export interface TrajectoryDescriptionInput {
+export interface TrajectoryDescription {
   cascadeConversationTitle?: string;
   mainlineBranchName?: string;
 }
 
-export interface TrajectoryFileDiffInput {
+export interface TrajectoryFileDiff {
   uri?: string;
   originalContent?: string;
   modifiedContent?: string;
@@ -6247,133 +6270,117 @@ export interface TrajectoryFileDiffInput {
   hasModelEdited?: boolean;
 }
 
-export interface TrajectoryInput {
-  trajectoryId?: string;
-  cascadeId?: string;
-  trajectoryType?: CortexTrajectoryType;
-  steps?: StepInput[];
-  parentReferences?: CortexTrajectoryReferenceInput[];
-  generatorMetadata?: CortexStepGeneratorMetadataInput[];
-  executorMetadatas?: ExecutorMetadataInput[];
-  source?: CortexTrajectorySource;
+export interface TrajectoryPermissions {
+  fileAccessPermissions?: FileAccessPermission[];
+  permissionGrants?: PermissionGrant[];
 }
 
-export interface TrajectoryPermissionsInput {
-  fileAccessPermissions?: FileAccessPermissionInput[];
-  permissionGrants?: PermissionGrantInput[];
-}
-
-export interface TrajectoryScopeInput {
+export interface TrajectoryScope {
   workspaceUri?: string;
   gitRootUri?: string;
   branchName?: string;
 }
 
-export interface TrajectorySearchToolConfigInput {
+export interface TrajectorySearchToolConfig {
   forceDisable?: boolean;
   conversationsEnabled?: boolean;
   userActivitiesEnabled?: boolean;
   maxScoredChunks?: number;
 }
 
-export interface UnifiedDiff_UnifiedDiffLineInput {
+export interface UnifiedDiff {
+  lines?: UnifiedDiff_UnifiedDiffLine[];
+}
+
+export interface UnifiedDiff_UnifiedDiffLine {
   text?: string;
   type?: UnifiedDiffLineType;
 }
 
-export interface UnifiedDiffInput {
-  lines?: UnifiedDiff_UnifiedDiffLineInput[];
+export interface UnleashContext {
+  userId?: string;
+  sessionId?: string;
+  properties?: UnleashContext_PropertiesEntry[];
 }
 
-export interface UnleashContext_PropertiesEntryInput {
+export interface UnleashContext_PropertiesEntry {
   key?: string;
   value?: string;
 }
 
-export interface UnleashContextInput {
-  userId?: string;
-  sessionId?: string;
-  properties?: UnleashContext_PropertiesEntryInput[];
-}
-
-export interface UpdateCascadeMemoryRequestInput {
+export interface UpdateCascadeMemoryRequest {
   memoryId?: string;
   title?: string;
   content?: string;
   tags?: string[];
 }
 
-export interface UpdateCascadeMemoryResponseInput {
+export interface UpdateCascadeMemoryResponse {
 }
 
-export interface UpdateConversationAnnotationsRequestInput {
+export interface UpdateConversationAnnotationsRequest {
   cascadeId?: string;
-  annotations?: ConversationAnnotationsInput;
+  annotations?: ConversationAnnotations;
   mergeAnnotations?: boolean;
 }
 
-export interface UpdateConversationAnnotationsResponseInput {
+export interface UpdateConversationAnnotationsResponse {
 }
 
-export interface UpdateCustomizationPathsFileRequestInput {
+export interface UpdateCustomizationPathsFileRequest {
   filePath?: string;
   paths?: string[];
   operation?: CustomizationPathsOperation;
 }
 
-export interface UpdateCustomizationPathsFileResponseInput {
+export interface UpdateCustomizationPathsFileResponse {
 }
 
-export interface UpdateCustomizationRequestInput {
+export interface UpdateCustomizationRequest {
   path?: string;
   operation?: CustomizationPathsOperation;
-  agent?: AgentScriptItemInput;
-  plugin?: PluginItemInput;
+  agent?: AgentScriptItem;
+  plugin?: PluginItem;
 }
 
-export interface UpdateCustomizationResponseInput {
+export interface UpdateCustomizationResponse {
 }
 
-export interface UpdateDevExperimentsRequestInput {
-  experimentConfig?: ExperimentConfigInput;
+export interface UpdateDevExperimentsRequest {
+  experimentConfig?: ExperimentConfig;
 }
 
-export interface UpdateDevExperimentsResponseInput {
+export interface UpdateDevExperimentsResponse {
 }
 
-export interface UpdateEnterpriseExperimentsFromUrlRequestInput {
+export interface UpdateEnterpriseExperimentsFromUrlRequest {
   portalUrl?: string;
 }
 
-export interface UpdateEnterpriseExperimentsFromUrlResponseInput {
+export interface UpdateEnterpriseExperimentsFromUrlResponse {
   success?: boolean;
   errorMessage?: string;
-  experimentConfig?: ExperimentConfigInput;
+  experimentConfig?: ExperimentConfig;
 }
 
-export interface UpdatePRForWorktreeRequestInput {
+export interface UpdatePRForWorktreeRequest {
   worktreeFsPath?: string;
   commitMessage?: string;
   title?: string;
   body?: string;
 }
 
-export interface UpdatePRForWorktreeResponseInput {
+export interface UpdatePRForWorktreeResponse {
   prUrl?: string;
 }
 
-export interface UserActivityScopeItemInput {
+export interface UserActivityScopeItem {
   id?: string;
   branch?: string;
   current?: boolean;
 }
 
-export interface UserSettings_CustomModelsEntryInput {
-  key?: string;
-  value?: ModelInfoInput;
-}
-
-export interface UserSettingsInput {
+export interface UserSettings {
   openMostRecentChatConversation?: boolean;
   lastSelectedModel?: Model;
   themePreference?: ThemePreference;
@@ -6381,7 +6388,7 @@ export interface UserSettingsInput {
   autocompleteSpeed?: AutocompleteSpeed;
   lastSelectedModelName?: string;
   lastSelectedCascadeModel?: Model;
-  lastSelectedCascadeModelOrAlias?: ModelOrAliasInput;
+  lastSelectedCascadeModelOrAlias?: ModelOrAlias;
   cascadePlannerMode?: ConversationalPlannerMode;
   lastModelOverride?: Model;
   lastModelDefaultOverrideVersionId?: string;
@@ -6416,8 +6423,8 @@ export interface UserSettingsInput {
   disableCascadeInBackground?: boolean;
   customWorkspace?: string[];
   globalPlanModePreference?: PlanMode;
-  cachedCascadeModelConfigs?: ClientModelConfigInput[];
-  cachedCascadeModelSorts?: ClientModelSortInput[];
+  cachedCascadeModelConfigs?: ClientModelConfig[];
+  cachedCascadeModelSorts?: ClientModelSort[];
   cascadeRunExtensionCode?: CascadeRunExtensionCode;
   cascadeRunExtensionCodeAutoRun?: CascadeRunExtensionCodeAutoRun;
   cascadeInputAutocomplete?: CascadeInputAutocomplete;
@@ -6425,7 +6432,7 @@ export interface UserSettingsInput {
   recentlyUsedCascadeModels?: string[];
   annotationsConfig?: AnnotationsConfig;
   relativeWorkingDirPaths?: string[];
-  customModels?: UserSettings_CustomModelsEntryInput[];
+  customModels?: UserSettings_CustomModelsEntry[];
   disableCodeSnippetTelemetry?: boolean;
   planningMode?: PlanningMode;
   agentBrowserTools?: AgentBrowserTools;
@@ -6439,7 +6446,12 @@ export interface UserSettingsInput {
   secureModeEnabled?: boolean;
 }
 
-export interface UserStatusInput {
+export interface UserSettings_CustomModelsEntry {
+  key?: string;
+  value?: ModelInfo;
+}
+
+export interface UserStatus {
   pro?: boolean;
   disableTelemetry?: boolean;
   name?: string;
@@ -6450,14 +6462,14 @@ export interface UserStatusInput {
   userFeatures?: UserFeatures[];
   teamsFeatures?: TeamsFeatures[];
   permissions?: Permission[];
-  planInfo?: PlanInfoInput;
-  planStatus?: PlanStatusInput;
+  planInfo?: PlanInfo;
+  planStatus?: PlanStatus;
   hasUsedAntigravity?: boolean;
   userUsedPromptCredits?: bigint;
   userUsedFlowCredits?: bigint;
   hasFingerprintSet?: boolean;
-  teamConfig?: TeamConfigInput;
-  cascadeModelConfigData?: CascadeModelConfigDataInput;
+  teamConfig?: TeamConfig;
+  cascadeModelConfigData?: CascadeModelConfigData;
   acceptedLatestTermsOfService?: boolean;
   g1Tier?: string;
   userTier?: any;
@@ -6465,28 +6477,28 @@ export interface UserStatusInput {
   profilePictureUrl?: string;
 }
 
-export interface UserStepAnnotationsInput {
-  snapshot?: UserStepSnapshotInput;
+export interface UserStepAnnotations {
+  snapshot?: UserStepSnapshot;
 }
 
-export interface UserStepSnapshotInput {
+export interface UserStepSnapshot {
   name?: string;
 }
 
-export interface ValidationStateInput {
+export interface ValidationState {
   uri?: string;
   lastAcknowledgedState?: string;
   currentState?: string;
   lastStateFileNonexistent?: boolean;
 }
 
-export interface ViewCodeItemToolConfigInput {
+export interface ViewCodeItemToolConfig {
   maxNumItems?: number;
   maxBytesPerItem?: number;
   allowAccessGitignore?: boolean;
 }
 
-export interface ViewFileToolConfigInput {
+export interface ViewFileToolConfig {
   allowViewGitignore?: boolean;
   splitOutlineTool?: boolean;
   showTriggeredMemories?: boolean;
@@ -6498,14 +6510,14 @@ export interface ViewFileToolConfigInput {
   showFullFileBytes?: number;
 }
 
-export interface ViewportInput {
+export interface Viewport {
   x?: number;
   y?: number;
   width?: number;
   height?: number;
 }
 
-export interface WebDocsOptionInput {
+export interface WebDocsOption {
   label?: string;
   synonyms?: string[];
   isFeatured?: boolean;
@@ -6513,72 +6525,72 @@ export interface WebDocsOptionInput {
   docsSearchDomain?: string;
 }
 
-export interface WellSupportedLanguagesRequestInput {
+export interface WellSupportedLanguagesRequest {
 }
 
-export interface WellSupportedLanguagesResponseInput {
+export interface WellSupportedLanguagesResponse {
   languages?: Language[];
 }
 
-export interface WordCount_WordCountMapEntryInput {
+export interface WordCount {
+  wordCountMap?: WordCount_WordCountMapEntry[];
+}
+
+export interface WordCount_WordCountMapEntry {
   key?: string;
   value?: bigint;
 }
 
-export interface WordCountInput {
-  wordCountMap?: WordCount_WordCountMapEntryInput[];
-}
-
-export interface WorkflowSpecInput {
+export interface WorkflowSpec {
   path?: string;
   name?: string;
   description?: string;
   content?: string;
   turbo?: boolean;
   isBuiltin?: boolean;
-  scope?: CortexMemoryScopeInput;
+  scope?: CortexMemoryScope;
   baseDir?: string;
   disableModelInvocation?: boolean;
 }
 
-export interface WorkingDirectoryInfoInput {
+export interface WorkingDirectoryInfo {
   absoluteUri?: string;
   relativePath?: string;
   status?: WorkingDirectoryStatus;
   error?: string;
 }
 
-export interface WorkspaceAPIToolConfigInput {
+export interface WorkspaceAPIToolConfig {
   readOnly?: boolean;
 }
 
-export interface WorkspaceEditStateInput {
+export interface WorkspaceEditState {
   repoRoot?: string;
   numAdditions?: bigint;
   numDeletions?: bigint;
-  edits?: ActionResultEditInput[];
+  edits?: ActionResultEdit[];
 }
 
-export interface WorkspaceInfoInput {
+export interface WorkspaceInfo {
   workspaceUri?: string;
   gitRootUri?: string;
 }
 
-export interface WorkspacePathInput {
+export interface WorkspacePath {
   workspaceMigrateMeToUri?: string;
   workspaceUri?: string;
   relativePath?: string;
 }
 
-export interface WorkspacePathsInput {
+export interface WorkspacePaths {
   absolutePaths?: string[];
 }
 
-export interface WriteFileRequestInput {
+export interface WriteFileRequest {
   uri?: string;
   content?: Uint8Array;
   overwrite?: boolean;
 }
 
-export interface WriteFileResponseInput {
+export interface WriteFileResponse {
 }

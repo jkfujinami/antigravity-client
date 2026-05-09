@@ -11,944 +11,1132 @@ export class LanguageServerFacade {
     this.client = createPromiseClient((ServiceMod as any).LanguageServerService, transport);
   }
 
-  async provideCompletionFeedback(input: T.LanguageServer.ProvideCompletionFeedbackRequestInput) {
+  async provideCompletionFeedback(input: T.LanguageServer.ProvideCompletionFeedbackRequest): Promise<T.LanguageServer.ProvideCompletionFeedbackResponse> {
     const req = new (PB as any).ProvideCompletionFeedbackRequest(input as any);
-    return await this.client.provideCompletionFeedback(req);
+    const res = await this.client.provideCompletionFeedback(req);
+    return (res as any) as T.LanguageServer.ProvideCompletionFeedbackResponse;
   }
 
-  async heartbeat(input: T.LanguageServer.HeartbeatRequestInput) {
+  async heartbeat(input: T.LanguageServer.HeartbeatRequest): Promise<T.LanguageServer.HeartbeatResponse> {
     const req = new (PB as any).HeartbeatRequest(input as any);
-    return await this.client.heartbeat(req);
+    const res = await this.client.heartbeat(req);
+    return (res as any) as T.LanguageServer.HeartbeatResponse;
   }
 
-  async getStatus(input: T.LanguageServer.GetStatusRequestInput) {
+  async getStatus(input: T.LanguageServer.GetStatusRequest): Promise<T.LanguageServer.GetStatusResponse> {
     const req = new (PB as any).GetStatusRequest(input as any);
-    return await this.client.getStatus(req);
+    const res = await this.client.getStatus(req);
+    return (res as any) as T.LanguageServer.GetStatusResponse;
   }
 
-  async getCommandModelConfigs(input: T.LanguageServer.GetCommandModelConfigsRequestInput) {
+  async getCommandModelConfigs(input: T.LanguageServer.GetCommandModelConfigsRequest): Promise<T.LanguageServer.GetCommandModelConfigsResponse> {
     const req = new (PB as any).GetCommandModelConfigsRequest(input as any);
-    return await this.client.getCommandModelConfigs(req);
+    const res = await this.client.getCommandModelConfigs(req);
+    return (res as any) as T.LanguageServer.GetCommandModelConfigsResponse;
   }
 
-  async getCascadeModelConfigs(input: T.LanguageServer.GetCascadeModelConfigsRequestInput) {
+  async getCascadeModelConfigs(input: T.LanguageServer.GetCascadeModelConfigsRequest): Promise<T.LanguageServer.GetCascadeModelConfigsResponse> {
     const req = new (PB as any).GetCascadeModelConfigsRequest(input as any);
-    return await this.client.getCascadeModelConfigs(req);
+    const res = await this.client.getCascadeModelConfigs(req);
+    return (res as any) as T.LanguageServer.GetCascadeModelConfigsResponse;
   }
 
-  async recordEvent(input: T.LanguageServer.RecordEventRequestInput) {
+  async recordEvent(input: T.LanguageServer.RecordEventRequest): Promise<T.LanguageServer.RecordEventResponse> {
     const req = new (PB as any).RecordEventRequest(input as any);
-    return await this.client.recordEvent(req);
+    const res = await this.client.recordEvent(req);
+    return (res as any) as T.LanguageServer.RecordEventResponse;
   }
 
-  async recordSidecarEvent(input: T.LanguageServer.RecordSidecarEventRequestInput) {
+  async recordSidecarEvent(input: T.LanguageServer.RecordSidecarEventRequest): Promise<T.LanguageServer.RecordSidecarEventResponse> {
     const req = new (PB as any).RecordSidecarEventRequest(input as any);
-    return await this.client.recordSidecarEvent(req);
+    const res = await this.client.recordSidecarEvent(req);
+    return (res as any) as T.LanguageServer.RecordSidecarEventResponse;
   }
 
-  async getSidecars(input: T.LanguageServer.GetSidecarsRequestInput) {
+  async getSidecars(input: T.LanguageServer.GetSidecarsRequest): Promise<T.LanguageServer.GetSidecarsResponse> {
     const req = new (PB as any).GetSidecarsRequest(input as any);
-    return await this.client.getSidecars(req);
+    const res = await this.client.getSidecars(req);
+    return (res as any) as T.LanguageServer.GetSidecarsResponse;
   }
 
-  async getSidecarEvents(input: T.LanguageServer.GetSidecarEventsRequestInput) {
+  async getSidecarEvents(input: T.LanguageServer.GetSidecarEventsRequest): Promise<T.LanguageServer.GetSidecarEventsResponse> {
     const req = new (PB as any).GetSidecarEventsRequest(input as any);
-    return await this.client.getSidecarEvents(req);
+    const res = await this.client.getSidecarEvents(req);
+    return (res as any) as T.LanguageServer.GetSidecarEventsResponse;
   }
 
-  async manageSidecar(input: T.LanguageServer.ManageSidecarRequestInput) {
+  async manageSidecar(input: T.LanguageServer.ManageSidecarRequest): Promise<T.LanguageServer.ManageSidecarResponse> {
     const req = new (PB as any).ManageSidecarRequest(input as any);
-    return await this.client.manageSidecar(req);
+    const res = await this.client.manageSidecar(req);
+    return (res as any) as T.LanguageServer.ManageSidecarResponse;
   }
 
-  async registerGdmUser(input: T.LanguageServer.RegisterGdmUserRequestInput) {
+  async registerGdmUser(input: T.LanguageServer.RegisterGdmUserRequest): Promise<T.LanguageServer.RegisterGdmUserResponse> {
     const req = new (PB as any).RegisterGdmUserRequest(input as any);
-    return await this.client.registerGdmUser(req);
+    const res = await this.client.registerGdmUser(req);
+    return (res as any) as T.LanguageServer.RegisterGdmUserResponse;
   }
 
-  async migrateApiKey(input: T.LanguageServer.MigrateApiKeyRequestInput) {
+  async migrateApiKey(input: T.LanguageServer.MigrateApiKeyRequest): Promise<T.LanguageServer.MigrateApiKeyResponse> {
     const req = new (PB as any).MigrateApiKeyRequest(input as any);
-    return await this.client.migrateApiKey(req);
+    const res = await this.client.migrateApiKey(req);
+    return (res as any) as T.LanguageServer.MigrateApiKeyResponse;
   }
 
-  async wellSupportedLanguages(input: T.LanguageServer.WellSupportedLanguagesRequestInput) {
+  async wellSupportedLanguages(input: T.LanguageServer.WellSupportedLanguagesRequest): Promise<T.LanguageServer.WellSupportedLanguagesResponse> {
     const req = new (PB as any).WellSupportedLanguagesRequest(input as any);
-    return await this.client.wellSupportedLanguages(req);
+    const res = await this.client.wellSupportedLanguages(req);
+    return (res as any) as T.LanguageServer.WellSupportedLanguagesResponse;
   }
 
-  async recordSearchDocOpen(input: T.LanguageServer.RecordSearchDocOpenRequestInput) {
+  async recordSearchDocOpen(input: T.LanguageServer.RecordSearchDocOpenRequest): Promise<T.LanguageServer.RecordSearchDocOpenResponse> {
     const req = new (PB as any).RecordSearchDocOpenRequest(input as any);
-    return await this.client.recordSearchDocOpen(req);
+    const res = await this.client.recordSearchDocOpen(req);
+    return (res as any) as T.LanguageServer.RecordSearchDocOpenResponse;
   }
 
-  async recordSearchResultsView(input: T.LanguageServer.RecordSearchResultsViewRequestInput) {
+  async recordSearchResultsView(input: T.LanguageServer.RecordSearchResultsViewRequest): Promise<T.LanguageServer.RecordSearchResultsViewResponse> {
     const req = new (PB as any).RecordSearchResultsViewRequest(input as any);
-    return await this.client.recordSearchResultsView(req);
+    const res = await this.client.recordSearchResultsView(req);
+    return (res as any) as T.LanguageServer.RecordSearchResultsViewResponse;
   }
 
-  async getMcpServerTemplates(input: T.LanguageServer.GetMcpServerTemplatesRequestInput) {
+  async getMcpServerTemplates(input: T.LanguageServer.GetMcpServerTemplatesRequest): Promise<T.LanguageServer.GetMcpServerTemplatesResponse> {
     const req = new (PB as any).GetMcpServerTemplatesRequest(input as any);
-    return await this.client.getMcpServerTemplates(req);
+    const res = await this.client.getMcpServerTemplates(req);
+    return (res as any) as T.LanguageServer.GetMcpServerTemplatesResponse;
   }
 
-  async addTrackedWorkspace(input: T.LanguageServer.AddTrackedWorkspaceRequestInput) {
+  async addTrackedWorkspace(input: T.LanguageServer.AddTrackedWorkspaceRequest): Promise<T.LanguageServer.AddTrackedWorkspaceResponse> {
     const req = new (PB as any).AddTrackedWorkspaceRequest(input as any);
-    return await this.client.addTrackedWorkspace(req);
+    const res = await this.client.addTrackedWorkspace(req);
+    return (res as any) as T.LanguageServer.AddTrackedWorkspaceResponse;
   }
 
-  async removeTrackedWorkspace(input: T.LanguageServer.RemoveTrackedWorkspaceRequestInput) {
+  async removeTrackedWorkspace(input: T.LanguageServer.RemoveTrackedWorkspaceRequest): Promise<T.LanguageServer.RemoveTrackedWorkspaceResponse> {
     const req = new (PB as any).RemoveTrackedWorkspaceRequest(input as any);
-    return await this.client.removeTrackedWorkspace(req);
+    const res = await this.client.removeTrackedWorkspace(req);
+    return (res as any) as T.LanguageServer.RemoveTrackedWorkspaceResponse;
   }
 
-  async smartFocusConversation(input: T.LanguageServer.SmartFocusConversationRequestInput) {
+  async smartFocusConversation(input: T.LanguageServer.SmartFocusConversationRequest): Promise<T.LanguageServer.SmartFocusConversationResponse> {
     const req = new (PB as any).SmartFocusConversationRequest(input as any);
-    return await this.client.smartFocusConversation(req);
+    const res = await this.client.smartFocusConversation(req);
+    return (res as any) as T.LanguageServer.SmartFocusConversationResponse;
   }
 
-  async statUri(input: T.LanguageServer.StatUriRequestInput) {
+  async statUri(input: T.LanguageServer.StatUriRequest): Promise<T.LanguageServer.StatUriResponse> {
     const req = new (PB as any).StatUriRequest(input as any);
-    return await this.client.statUri(req);
+    const res = await this.client.statUri(req);
+    return (res as any) as T.LanguageServer.StatUriResponse;
   }
 
-  async readFile(input: T.LanguageServer.ReadFileRequestInput) {
+  async readFile(input: T.LanguageServer.ReadFileRequest): Promise<T.LanguageServer.ReadFileResponse> {
     const req = new (PB as any).ReadFileRequest(input as any);
-    return await this.client.readFile(req);
+    const res = await this.client.readFile(req);
+    return (res as any) as T.LanguageServer.ReadFileResponse;
   }
 
-  async writeFile(input: T.LanguageServer.WriteFileRequestInput) {
+  async writeFile(input: T.LanguageServer.WriteFileRequest): Promise<T.LanguageServer.WriteFileResponse> {
     const req = new (PB as any).WriteFileRequest(input as any);
-    return await this.client.writeFile(req);
+    const res = await this.client.writeFile(req);
+    return (res as any) as T.LanguageServer.WriteFileResponse;
   }
 
-  async readDir(input: T.LanguageServer.ReadDirRequestInput) {
+  async readDir(input: T.LanguageServer.ReadDirRequest): Promise<T.LanguageServer.ReadDirResponse> {
     const req = new (PB as any).ReadDirRequest(input as any);
-    return await this.client.readDir(req);
+    const res = await this.client.readDir(req);
+    return (res as any) as T.LanguageServer.ReadDirResponse;
   }
 
-  async deleteFileOrDirectory(input: T.LanguageServer.DeleteFileOrDirectoryRequestInput) {
+  async deleteFileOrDirectory(input: T.LanguageServer.DeleteFileOrDirectoryRequest): Promise<T.LanguageServer.DeleteFileOrDirectoryResponse> {
     const req = new (PB as any).DeleteFileOrDirectoryRequest(input as any);
-    return await this.client.deleteFileOrDirectory(req);
+    const res = await this.client.deleteFileOrDirectory(req);
+    return (res as any) as T.LanguageServer.DeleteFileOrDirectoryResponse;
   }
 
-  async setBrowserOpenConversation(input: T.LanguageServer.SetBrowserOpenConversationRequestInput) {
+  async setBrowserOpenConversation(input: T.LanguageServer.SetBrowserOpenConversationRequest): Promise<T.LanguageServer.SetBrowserOpenConversationResponse> {
     const req = new (PB as any).SetBrowserOpenConversationRequest(input as any);
-    return await this.client.setBrowserOpenConversation(req);
+    const res = await this.client.setBrowserOpenConversation(req);
+    return (res as any) as T.LanguageServer.SetBrowserOpenConversationResponse;
   }
 
-  async getBrowserOpenConversation(input: T.LanguageServer.GetBrowserOpenConversationRequestInput) {
+  async getBrowserOpenConversation(input: T.LanguageServer.GetBrowserOpenConversationRequest): Promise<T.LanguageServer.GetBrowserOpenConversationResponse> {
     const req = new (PB as any).GetBrowserOpenConversationRequest(input as any);
-    return await this.client.getBrowserOpenConversation(req);
+    const res = await this.client.getBrowserOpenConversation(req);
+    return (res as any) as T.LanguageServer.GetBrowserOpenConversationResponse;
   }
 
-  async refreshContextForIdeAction(input: T.LanguageServer.RefreshContextForIdeActionRequestInput) {
+  async refreshContextForIdeAction(input: T.LanguageServer.RefreshContextForIdeActionRequest): Promise<T.LanguageServer.RefreshContextForIdeActionResponse> {
     const req = new (PB as any).RefreshContextForIdeActionRequest(input as any);
-    return await this.client.refreshContextForIdeAction(req);
+    const res = await this.client.refreshContextForIdeAction(req);
+    return (res as any) as T.LanguageServer.RefreshContextForIdeActionResponse;
   }
 
-  async getMatchingContextScopeItems(input: T.LanguageServer.GetMatchingContextScopeItemsRequestInput) {
+  async getMatchingContextScopeItems(input: T.LanguageServer.GetMatchingContextScopeItemsRequest): Promise<T.LanguageServer.GetMatchingContextScopeItemsResponse> {
     const req = new (PB as any).GetMatchingContextScopeItemsRequest(input as any);
-    return await this.client.getMatchingContextScopeItems(req);
+    const res = await this.client.getMatchingContextScopeItems(req);
+    return (res as any) as T.LanguageServer.GetMatchingContextScopeItemsResponse;
   }
 
-  async recordChatFeedback(input: T.LanguageServer.RecordChatFeedbackRequestInput) {
+  async recordChatFeedback(input: T.LanguageServer.RecordChatFeedbackRequest): Promise<T.LanguageServer.RecordChatFeedbackResponse> {
     const req = new (PB as any).RecordChatFeedbackRequest(input as any);
-    return await this.client.recordChatFeedback(req);
+    const res = await this.client.recordChatFeedback(req);
+    return (res as any) as T.LanguageServer.RecordChatFeedbackResponse;
   }
 
-  async recordChatPanelSession(input: T.LanguageServer.RecordChatPanelSessionRequestInput) {
+  async recordChatPanelSession(input: T.LanguageServer.RecordChatPanelSessionRequest): Promise<T.LanguageServer.RecordChatPanelSessionResponse> {
     const req = new (PB as any).RecordChatPanelSessionRequest(input as any);
-    return await this.client.recordChatPanelSession(req);
+    const res = await this.client.recordChatPanelSession(req);
+    return (res as any) as T.LanguageServer.RecordChatPanelSessionResponse;
   }
 
-  async shouldEnableUnleash(input: T.LanguageServer.ShouldEnableUnleashRequestInput) {
+  async shouldEnableUnleash(input: T.LanguageServer.ShouldEnableUnleashRequest): Promise<T.LanguageServer.ShouldEnableUnleashResponse> {
     const req = new (PB as any).ShouldEnableUnleashRequest(input as any);
-    return await this.client.shouldEnableUnleash(req);
+    const res = await this.client.shouldEnableUnleash(req);
+    return (res as any) as T.LanguageServer.ShouldEnableUnleashResponse;
   }
 
-  async getWorkspaceEditState(input: T.LanguageServer.GetWorkspaceEditStateRequestInput) {
+  async getWorkspaceEditState(input: T.LanguageServer.GetWorkspaceEditStateRequest): Promise<T.LanguageServer.GetWorkspaceEditStateResponse> {
     const req = new (PB as any).GetWorkspaceEditStateRequest(input as any);
-    return await this.client.getWorkspaceEditState(req);
+    const res = await this.client.getWorkspaceEditState(req);
+    return (res as any) as T.LanguageServer.GetWorkspaceEditStateResponse;
   }
 
-  async getRepoInfos(input: T.LanguageServer.GetRepoInfosRequestInput) {
+  async getRepoInfos(input: T.LanguageServer.GetRepoInfosRequest): Promise<T.LanguageServer.GetRepoInfosResponse> {
     const req = new (PB as any).GetRepoInfosRequest(input as any);
-    return await this.client.getRepoInfos(req);
+    const res = await this.client.getRepoInfos(req);
+    return (res as any) as T.LanguageServer.GetRepoInfosResponse;
   }
 
-  async getWorkspaceInfos(input: T.LanguageServer.GetWorkspaceInfosRequestInput) {
+  async getWorkspaceInfos(input: T.LanguageServer.GetWorkspaceInfosRequest): Promise<T.LanguageServer.GetWorkspaceInfosResponse> {
     const req = new (PB as any).GetWorkspaceInfosRequest(input as any);
-    return await this.client.getWorkspaceInfos(req);
+    const res = await this.client.getWorkspaceInfos(req);
+    return (res as any) as T.LanguageServer.GetWorkspaceInfosResponse;
   }
 
-  async createWorktree(input: T.LanguageServer.CreateWorktreeRequestInput) {
+  async createWorktree(input: T.LanguageServer.CreateWorktreeRequest): Promise<T.LanguageServer.CreateWorktreeResponse> {
     const req = new (PB as any).CreateWorktreeRequest(input as any);
-    return await this.client.createWorktree(req);
+    const res = await this.client.createWorktree(req);
+    return (res as any) as T.LanguageServer.CreateWorktreeResponse;
   }
 
-  async deleteWorktree(input: T.LanguageServer.DeleteWorktreeRequestInput) {
+  async deleteWorktree(input: T.LanguageServer.DeleteWorktreeRequest): Promise<T.LanguageServer.DeleteWorktreeResponse> {
     const req = new (PB as any).DeleteWorktreeRequest(input as any);
-    return await this.client.deleteWorktree(req);
+    const res = await this.client.deleteWorktree(req);
+    return (res as any) as T.LanguageServer.DeleteWorktreeResponse;
   }
 
-  async checkoutWorktree(input: T.LanguageServer.CheckoutWorktreeRequestInput) {
+  async checkoutWorktree(input: T.LanguageServer.CheckoutWorktreeRequest): Promise<T.LanguageServer.CheckoutWorktreeResponse> {
     const req = new (PB as any).CheckoutWorktreeRequest(input as any);
-    return await this.client.checkoutWorktree(req);
+    const res = await this.client.checkoutWorktree(req);
+    return (res as any) as T.LanguageServer.CheckoutWorktreeResponse;
   }
 
-  async getWorktreeDiff(input: T.LanguageServer.GetWorktreeDiffRequestInput) {
+  async getWorktreeDiff(input: T.LanguageServer.GetWorktreeDiffRequest): Promise<T.LanguageServer.GetWorktreeDiffResponse> {
     const req = new (PB as any).GetWorktreeDiffRequest(input as any);
-    return await this.client.getWorktreeDiff(req);
+    const res = await this.client.getWorktreeDiff(req);
+    return (res as any) as T.LanguageServer.GetWorktreeDiffResponse;
   }
 
-  async createCitcWorkspace(input: T.LanguageServer.CreateCitcWorkspaceRequestInput) {
+  async createCitcWorkspace(input: T.LanguageServer.CreateCitcWorkspaceRequest): Promise<T.LanguageServer.CreateCitcWorkspaceResponse> {
     const req = new (PB as any).CreateCitcWorkspaceRequest(input as any);
-    return await this.client.createCitcWorkspace(req);
+    const res = await this.client.createCitcWorkspace(req);
+    return (res as any) as T.LanguageServer.CreateCitcWorkspaceResponse;
   }
 
-  async setWorkingDirectories(input: T.LanguageServer.SetWorkingDirectoriesRequestInput) {
+  async setWorkingDirectories(input: T.LanguageServer.SetWorkingDirectoriesRequest): Promise<T.LanguageServer.SetWorkingDirectoriesResponse> {
     const req = new (PB as any).SetWorkingDirectoriesRequest(input as any);
-    return await this.client.setWorkingDirectories(req);
+    const res = await this.client.setWorkingDirectories(req);
+    return (res as any) as T.LanguageServer.SetWorkingDirectoriesResponse;
   }
 
-  async getWorkingDirectories(input: T.LanguageServer.GetWorkingDirectoriesRequestInput) {
+  async getWorkingDirectories(input: T.LanguageServer.GetWorkingDirectoriesRequest): Promise<T.LanguageServer.GetWorkingDirectoriesResponse> {
     const req = new (PB as any).GetWorkingDirectoriesRequest(input as any);
-    return await this.client.getWorkingDirectories(req);
+    const res = await this.client.getWorkingDirectories(req);
+    return (res as any) as T.LanguageServer.GetWorkingDirectoriesResponse;
   }
 
-  async getRevisionArtifact(input: T.LanguageServer.GetRevisionArtifactRequestInput) {
+  async getRevisionArtifact(input: T.LanguageServer.GetRevisionArtifactRequest): Promise<T.LanguageServer.GetRevisionArtifactResponse> {
     const req = new (PB as any).GetRevisionArtifactRequest(input as any);
-    return await this.client.getRevisionArtifact(req);
+    const res = await this.client.getRevisionArtifact(req);
+    return (res as any) as T.LanguageServer.GetRevisionArtifactResponse;
   }
 
-  async generateCommitMessage(input: T.LanguageServer.GenerateCommitMessageRequestInput) {
+  async generateCommitMessage(input: T.LanguageServer.GenerateCommitMessageRequest): Promise<T.LanguageServer.GenerateCommitMessageResponse> {
     const req = new (PB as any).GenerateCommitMessageRequest(input as any);
-    return await this.client.generateCommitMessage(req);
+    const res = await this.client.generateCommitMessage(req);
+    return (res as any) as T.LanguageServer.GenerateCommitMessageResponse;
   }
 
-  async recordCommitMessageSave(input: T.LanguageServer.RecordCommitMessageSaveRequestInput) {
+  async recordCommitMessageSave(input: T.LanguageServer.RecordCommitMessageSaveRequest): Promise<T.LanguageServer.RecordCommitMessageSaveResponse> {
     const req = new (PB as any).RecordCommitMessageSaveRequest(input as any);
-    return await this.client.recordCommitMessageSave(req);
+    const res = await this.client.recordCommitMessageSave(req);
+    return (res as any) as T.LanguageServer.RecordCommitMessageSaveResponse;
   }
 
-  async updatePRForWorktree(input: T.LanguageServer.UpdatePRForWorktreeRequestInput) {
+  async updatePRForWorktree(input: T.LanguageServer.UpdatePRForWorktreeRequest): Promise<T.LanguageServer.UpdatePRForWorktreeResponse> {
     const req = new (PB as any).UpdatePRForWorktreeRequest(input as any);
-    return await this.client.updatePRForWorktree(req);
+    const res = await this.client.updatePRForWorktree(req);
+    return (res as any) as T.LanguageServer.UpdatePRForWorktreeResponse;
   }
 
-  async sendActionToChatPanel(input: T.LanguageServer.SendActionToChatPanelRequestInput) {
+  async sendActionToChatPanel(input: T.LanguageServer.SendActionToChatPanelRequest): Promise<T.LanguageServer.SendActionToChatPanelResponse> {
     const req = new (PB as any).SendActionToChatPanelRequest(input as any);
-    return await this.client.sendActionToChatPanel(req);
+    const res = await this.client.sendActionToChatPanel(req);
+    return (res as any) as T.LanguageServer.SendActionToChatPanelResponse;
   }
 
-  async getUserSettings(input: T.LanguageServer.GetUserSettingsRequestInput) {
+  async getUserSettings(input: T.LanguageServer.GetUserSettingsRequest): Promise<T.LanguageServer.GetUserSettingsResponse> {
     const req = new (PB as any).GetUserSettingsRequest(input as any);
-    return await this.client.getUserSettings(req);
+    const res = await this.client.getUserSettings(req);
+    return (res as any) as T.LanguageServer.GetUserSettingsResponse;
   }
 
-  async setUserSettings(input: T.LanguageServer.SetUserSettingsRequestInput) {
+  async setUserSettings(input: T.LanguageServer.SetUserSettingsRequest): Promise<T.LanguageServer.SetUserSettingsResponse> {
     const req = new (PB as any).SetUserSettingsRequest(input as any);
-    return await this.client.setUserSettings(req);
+    const res = await this.client.setUserSettings(req);
+    return (res as any) as T.LanguageServer.SetUserSettingsResponse;
   }
 
-  async fetchUserInfo(input: T.LanguageServer.FetchUserInfoRequestInput) {
+  async fetchUserInfo(input: T.LanguageServer.FetchUserInfoRequest): Promise<T.LanguageServer.FetchUserInfoResponse> {
     const req = new (PB as any).FetchUserInfoRequest(input as any);
-    return await this.client.fetchUserInfo(req);
+    const res = await this.client.fetchUserInfo(req);
+    return (res as any) as T.LanguageServer.FetchUserInfoResponse;
   }
 
-  async setUserInfo(input: T.LanguageServer.SetUserInfoRequestInput) {
+  async setUserInfo(input: T.LanguageServer.SetUserInfoRequest): Promise<T.LanguageServer.SetUserInfoResponse> {
     const req = new (PB as any).SetUserInfoRequest(input as any);
-    return await this.client.setUserInfo(req);
+    const res = await this.client.setUserInfo(req);
+    return (res as any) as T.LanguageServer.SetUserInfoResponse;
   }
 
-  async getDebugDiagnostics(input: T.LanguageServer.GetDebugDiagnosticsRequestInput) {
+  async getDebugDiagnostics(input: T.LanguageServer.GetDebugDiagnosticsRequest): Promise<T.LanguageServer.GetDebugDiagnosticsResponse> {
     const req = new (PB as any).GetDebugDiagnosticsRequest(input as any);
-    return await this.client.getDebugDiagnostics(req);
+    const res = await this.client.getDebugDiagnostics(req);
+    return (res as any) as T.LanguageServer.GetDebugDiagnosticsResponse;
   }
 
-  async dumpFlightRecorder(input: T.LanguageServer.DumpFlightRecorderRequestInput) {
+  async dumpFlightRecorder(input: T.LanguageServer.DumpFlightRecorderRequest): Promise<T.LanguageServer.DumpFlightRecorderResponse> {
     const req = new (PB as any).DumpFlightRecorderRequest(input as any);
-    return await this.client.dumpFlightRecorder(req);
+    const res = await this.client.dumpFlightRecorder(req);
+    return (res as any) as T.LanguageServer.DumpFlightRecorderResponse;
   }
 
-  async dumpPprof(input: T.LanguageServer.DumpPprofRequestInput) {
+  async dumpPprof(input: T.LanguageServer.DumpPprofRequest): Promise<T.LanguageServer.DumpPprofResponse> {
     const req = new (PB as any).DumpPprofRequest(input as any);
-    return await this.client.dumpPprof(req);
+    const res = await this.client.dumpPprof(req);
+    return (res as any) as T.LanguageServer.DumpPprofResponse;
   }
 
-  async getUserAnalyticsSummary(input: T.LanguageServer.GetUserAnalyticsSummaryRequestInput) {
+  async getUserAnalyticsSummary(input: T.LanguageServer.GetUserAnalyticsSummaryRequest): Promise<T.LanguageServer.GetUserAnalyticsSummaryResponse> {
     const req = new (PB as any).GetUserAnalyticsSummaryRequest(input as any);
-    return await this.client.getUserAnalyticsSummary(req);
+    const res = await this.client.getUserAnalyticsSummary(req);
+    return (res as any) as T.LanguageServer.GetUserAnalyticsSummaryResponse;
   }
 
-  async getUserStatus(input: T.LanguageServer.GetUserStatusRequestInput) {
+  async getUserStatus(input: T.LanguageServer.GetUserStatusRequest): Promise<T.LanguageServer.GetUserStatusResponse> {
     const req = new (PB as any).GetUserStatusRequest(input as any);
-    return await this.client.getUserStatus(req);
+    const res = await this.client.getUserStatus(req);
+    return (res as any) as T.LanguageServer.GetUserStatusResponse;
   }
 
-  async getProfileData(input: T.LanguageServer.GetProfileDataRequestInput) {
+  async getProfileData(input: T.LanguageServer.GetProfileDataRequest): Promise<T.LanguageServer.GetProfileDataResponse> {
     const req = new (PB as any).GetProfileDataRequest(input as any);
-    return await this.client.getProfileData(req);
+    const res = await this.client.getProfileData(req);
+    return (res as any) as T.LanguageServer.GetProfileDataResponse;
   }
 
-  async getChangelog(input: T.LanguageServer.GetChangelogRequestInput) {
+  async getChangelog(input: T.LanguageServer.GetChangelogRequest): Promise<T.LanguageServer.GetChangelogResponse> {
     const req = new (PB as any).GetChangelogRequest(input as any);
-    return await this.client.getChangelog(req);
+    const res = await this.client.getChangelog(req);
+    return (res as any) as T.LanguageServer.GetChangelogResponse;
   }
 
-  async setupUniversitySandbox(input: T.LanguageServer.SetupUniversitySandboxRequestInput) {
+  async setupUniversitySandbox(input: T.LanguageServer.SetupUniversitySandboxRequest): Promise<T.LanguageServer.SetupUniversitySandboxResponse> {
     const req = new (PB as any).SetupUniversitySandboxRequest(input as any);
-    return await this.client.setupUniversitySandbox(req);
+    const res = await this.client.setupUniversitySandbox(req);
+    return (res as any) as T.LanguageServer.SetupUniversitySandboxResponse;
   }
 
-  async exit(input: T.LanguageServer.ExitRequestInput) {
+  async exit(input: T.LanguageServer.ExitRequest): Promise<T.LanguageServer.ExitResponse> {
     const req = new (PB as any).ExitRequest(input as any);
-    return await this.client.exit(req);
+    const res = await this.client.exit(req);
+    return (res as any) as T.LanguageServer.ExitResponse;
   }
 
-  async restart(input: T.LanguageServer.RestartRequestInput) {
+  async restart(input: T.LanguageServer.RestartRequest): Promise<T.LanguageServer.RestartResponse> {
     const req = new (PB as any).RestartRequest(input as any);
-    return await this.client.restart(req);
+    const res = await this.client.restart(req);
+    return (res as any) as T.LanguageServer.RestartResponse;
   }
 
-  async resetOnboarding(input: T.LanguageServer.ResetOnboardingRequestInput) {
+  async resetOnboarding(input: T.LanguageServer.ResetOnboardingRequest): Promise<T.LanguageServer.ResetOnboardingResponse> {
     const req = new (PB as any).ResetOnboardingRequest(input as any);
-    return await this.client.resetOnboarding(req);
+    const res = await this.client.resetOnboarding(req);
+    return (res as any) as T.LanguageServer.ResetOnboardingResponse;
   }
 
-  async skipOnboarding(input: T.LanguageServer.SkipOnboardingRequestInput) {
+  async skipOnboarding(input: T.LanguageServer.SkipOnboardingRequest): Promise<T.LanguageServer.SkipOnboardingResponse> {
     const req = new (PB as any).SkipOnboardingRequest(input as any);
-    return await this.client.skipOnboarding(req);
+    const res = await this.client.skipOnboarding(req);
+    return (res as any) as T.LanguageServer.SkipOnboardingResponse;
   }
 
-  async getTermsOfService(input: T.LanguageServer.GetTermsOfServiceRequestInput) {
+  async getTermsOfService(input: T.LanguageServer.GetTermsOfServiceRequest): Promise<T.LanguageServer.GetTermsOfServiceResponse> {
     const req = new (PB as any).GetTermsOfServiceRequest(input as any);
-    return await this.client.getTermsOfService(req);
+    const res = await this.client.getTermsOfService(req);
+    return (res as any) as T.LanguageServer.GetTermsOfServiceResponse;
   }
 
-  async acceptTermsOfService(input: T.LanguageServer.AcceptTermsOfServiceRequestInput) {
+  async acceptTermsOfService(input: T.LanguageServer.AcceptTermsOfServiceRequest): Promise<T.LanguageServer.AcceptTermsOfServiceResponse> {
     const req = new (PB as any).AcceptTermsOfServiceRequest(input as any);
-    return await this.client.acceptTermsOfService(req);
+    const res = await this.client.acceptTermsOfService(req);
+    return (res as any) as T.LanguageServer.AcceptTermsOfServiceResponse;
   }
 
-  async getUserTrajectoryDebug(input: T.LanguageServer.GetUserTrajectoryDebugRequestInput) {
+  async getUserTrajectoryDebug(input: T.LanguageServer.GetUserTrajectoryDebugRequest): Promise<T.LanguageServer.GetUserTrajectoryDebugResponse> {
     const req = new (PB as any).GetUserTrajectoryDebugRequest(input as any);
-    return await this.client.getUserTrajectoryDebug(req);
+    const res = await this.client.getUserTrajectoryDebug(req);
+    return (res as any) as T.LanguageServer.GetUserTrajectoryDebugResponse;
   }
 
-  async getUserTrajectoryDescriptions(input: T.LanguageServer.GetUserTrajectoryDescriptionsRequestInput) {
+  async getUserTrajectoryDescriptions(input: T.LanguageServer.GetUserTrajectoryDescriptionsRequest): Promise<T.LanguageServer.GetUserTrajectoryDescriptionsResponse> {
     const req = new (PB as any).GetUserTrajectoryDescriptionsRequest(input as any);
-    return await this.client.getUserTrajectoryDescriptions(req);
+    const res = await this.client.getUserTrajectoryDescriptions(req);
+    return (res as any) as T.LanguageServer.GetUserTrajectoryDescriptionsResponse;
   }
 
-  async getCascadeMemories(input: T.LanguageServer.GetCascadeMemoriesRequestInput) {
+  async getCascadeMemories(input: T.LanguageServer.GetCascadeMemoriesRequest): Promise<T.LanguageServer.GetCascadeMemoriesResponse> {
     const req = new (PB as any).GetCascadeMemoriesRequest(input as any);
-    return await this.client.getCascadeMemories(req);
+    const res = await this.client.getCascadeMemories(req);
+    return (res as any) as T.LanguageServer.GetCascadeMemoriesResponse;
   }
 
-  async deleteCascadeMemory(input: T.LanguageServer.DeleteCascadeMemoryRequestInput) {
+  async deleteCascadeMemory(input: T.LanguageServer.DeleteCascadeMemoryRequest): Promise<T.LanguageServer.DeleteCascadeMemoryResponse> {
     const req = new (PB as any).DeleteCascadeMemoryRequest(input as any);
-    return await this.client.deleteCascadeMemory(req);
+    const res = await this.client.deleteCascadeMemory(req);
+    return (res as any) as T.LanguageServer.DeleteCascadeMemoryResponse;
   }
 
-  async updateCascadeMemory(input: T.LanguageServer.UpdateCascadeMemoryRequestInput) {
+  async updateCascadeMemory(input: T.LanguageServer.UpdateCascadeMemoryRequest): Promise<T.LanguageServer.UpdateCascadeMemoryResponse> {
     const req = new (PB as any).UpdateCascadeMemoryRequest(input as any);
-    return await this.client.updateCascadeMemory(req);
+    const res = await this.client.updateCascadeMemory(req);
+    return (res as any) as T.LanguageServer.UpdateCascadeMemoryResponse;
   }
 
-  async getUserMemories(input: T.LanguageServer.GetUserMemoriesRequestInput) {
+  async getUserMemories(input: T.LanguageServer.GetUserMemoriesRequest): Promise<T.LanguageServer.GetUserMemoriesResponse> {
     const req = new (PB as any).GetUserMemoriesRequest(input as any);
-    return await this.client.getUserMemories(req);
+    const res = await this.client.getUserMemories(req);
+    return (res as any) as T.LanguageServer.GetUserMemoriesResponse;
   }
 
-  async updateConversationAnnotations(input: T.LanguageServer.UpdateConversationAnnotationsRequestInput) {
+  async updateConversationAnnotations(input: T.LanguageServer.UpdateConversationAnnotationsRequest): Promise<T.LanguageServer.UpdateConversationAnnotationsResponse> {
     const req = new (PB as any).UpdateConversationAnnotationsRequest(input as any);
-    return await this.client.updateConversationAnnotations(req);
+    const res = await this.client.updateConversationAnnotations(req);
+    return (res as any) as T.LanguageServer.UpdateConversationAnnotationsResponse;
   }
 
-  async startCascade(input: T.LanguageServer.StartCascadeRequestInput) {
+  async startCascade(input: T.LanguageServer.StartCascadeRequest): Promise<T.LanguageServer.StartCascadeResponse> {
     const req = new (PB as any).StartCascadeRequest(input as any);
-    return await this.client.startCascade(req);
+    const res = await this.client.startCascade(req);
+    return (res as any) as T.LanguageServer.StartCascadeResponse;
   }
 
-  async startBattleMode(input: T.LanguageServer.StartBattleModeRequestInput) {
+  async startBattleMode(input: T.LanguageServer.StartBattleModeRequest): Promise<T.LanguageServer.StartBattleModeResponse> {
     const req = new (PB as any).StartBattleModeRequest(input as any);
-    return await this.client.startBattleMode(req);
+    const res = await this.client.startBattleMode(req);
+    return (res as any) as T.LanguageServer.StartBattleModeResponse;
   }
 
-  async endBattleMode(input: T.LanguageServer.EndBattleModeRequestInput) {
+  async endBattleMode(input: T.LanguageServer.EndBattleModeRequest): Promise<T.LanguageServer.EndBattleModeResponse> {
     const req = new (PB as any).EndBattleModeRequest(input as any);
-    return await this.client.endBattleMode(req);
+    const res = await this.client.endBattleMode(req);
+    return (res as any) as T.LanguageServer.EndBattleModeResponse;
   }
 
-  async setOrVerifyStaticConfig(input: T.LanguageServer.SetOrVerifyStaticConfigRequestInput) {
+  async setOrVerifyStaticConfig(input: T.LanguageServer.SetOrVerifyStaticConfigRequest): Promise<T.LanguageServer.SetOrVerifyStaticConfigResponse> {
     const req = new (PB as any).SetOrVerifyStaticConfigRequest(input as any);
-    return await this.client.setOrVerifyStaticConfig(req);
+    const res = await this.client.setOrVerifyStaticConfig(req);
+    return (res as any) as T.LanguageServer.SetOrVerifyStaticConfigResponse;
   }
 
-  async forkConversation(input: T.LanguageServer.ForkConversationRequestInput) {
+  async forkConversation(input: T.LanguageServer.ForkConversationRequest): Promise<T.LanguageServer.ForkConversationResponse> {
     const req = new (PB as any).ForkConversationRequest(input as any);
-    return await this.client.forkConversation(req);
+    const res = await this.client.forkConversation(req);
+    return (res as any) as T.LanguageServer.ForkConversationResponse;
   }
 
-  async cancelCascadeInvocation(input: T.LanguageServer.CancelCascadeInvocationRequestInput) {
+  async cancelCascadeInvocation(input: T.LanguageServer.CancelCascadeInvocationRequest): Promise<T.LanguageServer.CancelCascadeInvocationResponse> {
     const req = new (PB as any).CancelCascadeInvocationRequest(input as any);
-    return await this.client.cancelCascadeInvocation(req);
+    const res = await this.client.cancelCascadeInvocation(req);
+    return (res as any) as T.LanguageServer.CancelCascadeInvocationResponse;
   }
 
-  async forceStopCascadeTree(input: T.LanguageServer.ForceStopCascadeTreeRequestInput) {
+  async forceStopCascadeTree(input: T.LanguageServer.ForceStopCascadeTreeRequest): Promise<T.LanguageServer.ForceStopCascadeTreeResponse> {
     const req = new (PB as any).ForceStopCascadeTreeRequest(input as any);
-    return await this.client.forceStopCascadeTree(req);
+    const res = await this.client.forceStopCascadeTree(req);
+    return (res as any) as T.LanguageServer.ForceStopCascadeTreeResponse;
   }
 
-  async cancelCascadeSteps(input: T.LanguageServer.CancelCascadeStepsRequestInput) {
+  async cancelCascadeSteps(input: T.LanguageServer.CancelCascadeStepsRequest): Promise<T.LanguageServer.CancelCascadeStepsResponse> {
     const req = new (PB as any).CancelCascadeStepsRequest(input as any);
-    return await this.client.cancelCascadeSteps(req);
+    const res = await this.client.cancelCascadeSteps(req);
+    return (res as any) as T.LanguageServer.CancelCascadeStepsResponse;
   }
 
-  async sendStepsToBackground(input: T.LanguageServer.SendStepsToBackgroundRequestInput) {
+  async sendStepsToBackground(input: T.LanguageServer.SendStepsToBackgroundRequest): Promise<T.LanguageServer.SendStepsToBackgroundResponse> {
     const req = new (PB as any).SendStepsToBackgroundRequest(input as any);
-    return await this.client.sendStepsToBackground(req);
+    const res = await this.client.sendStepsToBackground(req);
+    return (res as any) as T.LanguageServer.SendStepsToBackgroundResponse;
   }
 
-  async skipBrowserSubagent(input: T.LanguageServer.SkipBrowserSubagentRequestInput) {
+  async skipBrowserSubagent(input: T.LanguageServer.SkipBrowserSubagentRequest): Promise<T.LanguageServer.SkipBrowserSubagentResponse> {
     const req = new (PB as any).SkipBrowserSubagentRequest(input as any);
-    return await this.client.skipBrowserSubagent(req);
+    const res = await this.client.skipBrowserSubagent(req);
+    return (res as any) as T.LanguageServer.SkipBrowserSubagentResponse;
   }
 
-  async getCascadeModelConfigData(input: T.LanguageServer.GetCascadeModelConfigDataRequestInput) {
+  async getCascadeModelConfigData(input: T.LanguageServer.GetCascadeModelConfigDataRequest): Promise<T.LanguageServer.CascadeModelConfigData> {
     const req = new (PB as any).GetCascadeModelConfigDataRequest(input as any);
-    return await this.client.getCascadeModelConfigData(req);
+    const res = await this.client.getCascadeModelConfigData(req);
+    return (res as any) as T.LanguageServer.CascadeModelConfigData;
   }
 
-  async sendUserCascadeMessage(input: T.LanguageServer.SendUserCascadeMessageRequestInput) {
+  async sendUserCascadeMessage(input: T.LanguageServer.SendUserCascadeMessageRequest): Promise<T.LanguageServer.SendUserCascadeMessageResponse> {
     const req = new (PB as any).SendUserCascadeMessageRequest(input as any);
-    return await this.client.sendUserCascadeMessage(req);
+    const res = await this.client.sendUserCascadeMessage(req);
+    return (res as any) as T.LanguageServer.SendUserCascadeMessageResponse;
   }
 
-  async signalExecutableIdle(input: T.LanguageServer.SignalExecutableIdleRequestInput) {
+  async signalExecutableIdle(input: T.LanguageServer.SignalExecutableIdleRequest): Promise<T.LanguageServer.SignalExecutableIdleResponse> {
     const req = new (PB as any).SignalExecutableIdleRequest(input as any);
-    return await this.client.signalExecutableIdle(req);
+    const res = await this.client.signalExecutableIdle(req);
+    return (res as any) as T.LanguageServer.SignalExecutableIdleResponse;
   }
 
-  async sendAllQueuedMessages(input: T.LanguageServer.SendAllQueuedMessagesRequestInput) {
+  async sendAllQueuedMessages(input: T.LanguageServer.SendAllQueuedMessagesRequest): Promise<T.LanguageServer.SendAllQueuedMessagesResponse> {
     const req = new (PB as any).SendAllQueuedMessagesRequest(input as any);
-    return await this.client.sendAllQueuedMessages(req);
+    const res = await this.client.sendAllQueuedMessages(req);
+    return (res as any) as T.LanguageServer.SendAllQueuedMessagesResponse;
   }
 
-  async deleteQueuedUserInputStep(input: T.LanguageServer.DeleteQueuedUserInputStepRequestInput) {
+  async deleteQueuedUserInputStep(input: T.LanguageServer.DeleteQueuedUserInputStepRequest): Promise<T.LanguageServer.DeleteQueuedUserInputStepResponse> {
     const req = new (PB as any).DeleteQueuedUserInputStepRequest(input as any);
-    return await this.client.deleteQueuedUserInputStep(req);
+    const res = await this.client.deleteQueuedUserInputStep(req);
+    return (res as any) as T.LanguageServer.DeleteQueuedUserInputStepResponse;
   }
 
-  async revertToCascadeStep(input: T.LanguageServer.RevertToCascadeStepRequestInput) {
+  async revertToCascadeStep(input: T.LanguageServer.RevertToCascadeStepRequest): Promise<T.LanguageServer.RevertToCascadeStepResponse> {
     const req = new (PB as any).RevertToCascadeStepRequest(input as any);
-    return await this.client.revertToCascadeStep(req);
+    const res = await this.client.revertToCascadeStep(req);
+    return (res as any) as T.LanguageServer.RevertToCascadeStepResponse;
   }
 
-  async getRevertPreview(input: T.LanguageServer.GetRevertPreviewRequestInput) {
+  async getRevertPreview(input: T.LanguageServer.GetRevertPreviewRequest): Promise<T.LanguageServer.GetRevertPreviewResponse> {
     const req = new (PB as any).GetRevertPreviewRequest(input as any);
-    return await this.client.getRevertPreview(req);
+    const res = await this.client.getRevertPreview(req);
+    return (res as any) as T.LanguageServer.GetRevertPreviewResponse;
   }
 
-  async recordUserStepSnapshot(input: T.LanguageServer.RecordUserStepSnapshotRequestInput) {
+  async recordUserStepSnapshot(input: T.LanguageServer.RecordUserStepSnapshotRequest): Promise<T.LanguageServer.RecordUserStepSnapshotResponse> {
     const req = new (PB as any).RecordUserStepSnapshotRequest(input as any);
-    return await this.client.recordUserStepSnapshot(req);
+    const res = await this.client.recordUserStepSnapshot(req);
+    return (res as any) as T.LanguageServer.RecordUserStepSnapshotResponse;
   }
 
-  async getAllCascadeTrajectories(input: T.LanguageServer.GetAllCascadeTrajectoriesRequestInput) {
+  async getAllCascadeTrajectories(input: T.LanguageServer.GetAllCascadeTrajectoriesRequest): Promise<T.LanguageServer.GetAllCascadeTrajectoriesResponse> {
     const req = new (PB as any).GetAllCascadeTrajectoriesRequest(input as any);
-    return await this.client.getAllCascadeTrajectories(req);
+    const res = await this.client.getAllCascadeTrajectories(req);
+    return (res as any) as T.LanguageServer.GetAllCascadeTrajectoriesResponse;
   }
 
-  async handleCascadeUserInteraction(input: T.LanguageServer.HandleCascadeUserInteractionRequestInput) {
+  async handleCascadeUserInteraction(input: T.LanguageServer.HandleCascadeUserInteractionRequest): Promise<T.LanguageServer.HandleCascadeUserInteractionResponse> {
     const req = new (PB as any).HandleCascadeUserInteractionRequest(input as any);
-    return await this.client.handleCascadeUserInteraction(req);
+    const res = await this.client.handleCascadeUserInteraction(req);
+    return (res as any) as T.LanguageServer.HandleCascadeUserInteractionResponse;
   }
 
-  async acknowledgeCascadeCodeEdit(input: T.LanguageServer.AcknowledgeCascadeCodeEditRequestInput) {
+  async acknowledgeCascadeCodeEdit(input: T.LanguageServer.AcknowledgeCascadeCodeEditRequest): Promise<T.LanguageServer.AcknowledgeCascadeCodeEditResponse> {
     const req = new (PB as any).AcknowledgeCascadeCodeEditRequest(input as any);
-    return await this.client.acknowledgeCascadeCodeEdit(req);
+    const res = await this.client.acknowledgeCascadeCodeEdit(req);
+    return (res as any) as T.LanguageServer.AcknowledgeCascadeCodeEditResponse;
   }
 
-  async acknowledgeCodeActionStep(input: T.LanguageServer.AcknowledgeCodeActionStepRequestInput) {
+  async acknowledgeCodeActionStep(input: T.LanguageServer.AcknowledgeCodeActionStepRequest): Promise<T.LanguageServer.AcknowledgeCodeActionStepResponse> {
     const req = new (PB as any).AcknowledgeCodeActionStepRequest(input as any);
-    return await this.client.acknowledgeCodeActionStep(req);
+    const res = await this.client.acknowledgeCodeActionStep(req);
+    return (res as any) as T.LanguageServer.AcknowledgeCodeActionStepResponse;
   }
 
-  async getCodeValidationStates(input: T.LanguageServer.GetCodeValidationStatesRequestInput) {
+  async getCodeValidationStates(input: T.LanguageServer.GetCodeValidationStatesRequest): Promise<T.LanguageServer.GetCodeValidationStatesResponse> {
     const req = new (PB as any).GetCodeValidationStatesRequest(input as any);
-    return await this.client.getCodeValidationStates(req);
+    const res = await this.client.getCodeValidationStates(req);
+    return (res as any) as T.LanguageServer.GetCodeValidationStatesResponse;
   }
 
-  async deleteCascadeTrajectory(input: T.LanguageServer.DeleteCascadeTrajectoryRequestInput) {
+  async deleteCascadeTrajectory(input: T.LanguageServer.DeleteCascadeTrajectoryRequest): Promise<T.LanguageServer.DeleteCascadeTrajectoryResponse> {
     const req = new (PB as any).DeleteCascadeTrajectoryRequest(input as any);
-    return await this.client.deleteCascadeTrajectory(req);
+    const res = await this.client.deleteCascadeTrajectory(req);
+    return (res as any) as T.LanguageServer.DeleteCascadeTrajectoryResponse;
   }
 
-  async initializeCascadePanelState(input: T.LanguageServer.InitializeCascadePanelStateRequestInput) {
+  async initializeCascadePanelState(input: T.LanguageServer.InitializeCascadePanelStateRequest): Promise<T.LanguageServer.InitializeCascadePanelStateResponse> {
     const req = new (PB as any).InitializeCascadePanelStateRequest(input as any);
-    return await this.client.initializeCascadePanelState(req);
+    const res = await this.client.initializeCascadePanelState(req);
+    return (res as any) as T.LanguageServer.InitializeCascadePanelStateResponse;
   }
 
-  async requestAgentStatePageUpdate(input: T.JetskiCortex.AgentStatePageUpdateRequestInput) {
+  async requestAgentStatePageUpdate(input: T.LanguageServer.AgentStatePageUpdateRequest): Promise<T.LanguageServer.AgentStatePageUpdateResponse> {
     const req = new (PB as any).AgentStatePageUpdateRequest(input as any);
-    return await this.client.requestAgentStatePageUpdate(req);
+    const res = await this.client.requestAgentStatePageUpdate(req);
+    return (res as any) as T.LanguageServer.AgentStatePageUpdateResponse;
   }
 
-  async forceBackgroundResearchRefresh(input: T.LanguageServer.ForceBackgroundResearchRefreshRequestInput) {
+  async forceBackgroundResearchRefresh(input: T.LanguageServer.ForceBackgroundResearchRefreshRequest): Promise<T.LanguageServer.ForceBackgroundResearchRefreshResponse> {
     const req = new (PB as any).ForceBackgroundResearchRefreshRequest(input as any);
-    return await this.client.forceBackgroundResearchRefresh(req);
+    const res = await this.client.forceBackgroundResearchRefresh(req);
+    return (res as any) as T.LanguageServer.ForceBackgroundResearchRefreshResponse;
   }
 
-  async resolveOutstandingSteps(input: T.LanguageServer.ResolveOutstandingStepsRequestInput) {
+  async resolveOutstandingSteps(input: T.LanguageServer.ResolveOutstandingStepsRequest): Promise<T.LanguageServer.ResolveOutstandingStepsResponse> {
     const req = new (PB as any).ResolveOutstandingStepsRequest(input as any);
-    return await this.client.resolveOutstandingSteps(req);
+    const res = await this.client.resolveOutstandingSteps(req);
+    return (res as any) as T.LanguageServer.ResolveOutstandingStepsResponse;
   }
 
-  async refreshMcpServers(input: T.LanguageServer.RefreshMcpServersRequestInput) {
+  async refreshMcpServers(input: T.LanguageServer.RefreshMcpServersRequest): Promise<T.LanguageServer.RefreshMcpServersResponse> {
     const req = new (PB as any).RefreshMcpServersRequest(input as any);
-    return await this.client.refreshMcpServers(req);
+    const res = await this.client.refreshMcpServers(req);
+    return (res as any) as T.LanguageServer.RefreshMcpServersResponse;
   }
 
-  async getMcpServerStates(input: T.LanguageServer.GetMcpServerStatesRequestInput) {
+  async getMcpServerStates(input: T.LanguageServer.GetMcpServerStatesRequest): Promise<T.LanguageServer.GetMcpServerStatesResponse> {
     const req = new (PB as any).GetMcpServerStatesRequest(input as any);
-    return await this.client.getMcpServerStates(req);
+    const res = await this.client.getMcpServerStates(req);
+    return (res as any) as T.LanguageServer.GetMcpServerStatesResponse;
   }
 
-  async completeMcpOAuth(input: T.LanguageServer.CompleteMcpOAuthRequestInput) {
+  async completeMcpOAuth(input: T.LanguageServer.CompleteMcpOAuthRequest): Promise<T.LanguageServer.CompleteMcpOAuthResponse> {
     const req = new (PB as any).CompleteMcpOAuthRequest(input as any);
-    return await this.client.completeMcpOAuth(req);
+    const res = await this.client.completeMcpOAuth(req);
+    return (res as any) as T.LanguageServer.CompleteMcpOAuthResponse;
   }
 
-  async disconnectMcpOAuth(input: T.LanguageServer.DisconnectMcpOAuthRequestInput) {
+  async disconnectMcpOAuth(input: T.LanguageServer.DisconnectMcpOAuthRequest): Promise<T.LanguageServer.DisconnectMcpOAuthResponse> {
     const req = new (PB as any).DisconnectMcpOAuthRequest(input as any);
-    return await this.client.disconnectMcpOAuth(req);
+    const res = await this.client.disconnectMcpOAuth(req);
+    return (res as any) as T.LanguageServer.DisconnectMcpOAuthResponse;
   }
 
-  async getModelResponse(input: T.LanguageServer.GetModelResponseRequestInput) {
+  async getModelResponse(input: T.LanguageServer.GetModelResponseRequest): Promise<T.LanguageServer.GetModelResponseResponse> {
     const req = new (PB as any).GetModelResponseRequest(input as any);
-    return await this.client.getModelResponse(req);
+    const res = await this.client.getModelResponse(req);
+    return (res as any) as T.LanguageServer.GetModelResponseResponse;
   }
 
-  async saveMediaAsArtifact(input: T.LanguageServer.SaveMediaAsArtifactRequestInput) {
+  async saveMediaAsArtifact(input: T.LanguageServer.SaveMediaAsArtifactRequest): Promise<T.LanguageServer.SaveMediaAsArtifactResponse> {
     const req = new (PB as any).SaveMediaAsArtifactRequest(input as any);
-    return await this.client.saveMediaAsArtifact(req);
+    const res = await this.client.saveMediaAsArtifact(req);
+    return (res as any) as T.LanguageServer.SaveMediaAsArtifactResponse;
   }
 
-  async deleteMediaArtifact(input: T.LanguageServer.DeleteMediaArtifactRequestInput) {
+  async deleteMediaArtifact(input: T.LanguageServer.DeleteMediaArtifactRequest): Promise<T.LanguageServer.DeleteMediaArtifactResponse> {
     const req = new (PB as any).DeleteMediaArtifactRequest(input as any);
-    return await this.client.deleteMediaArtifact(req);
+    const res = await this.client.deleteMediaArtifact(req);
+    return (res as any) as T.LanguageServer.DeleteMediaArtifactResponse;
   }
 
-  async getWebDocsOptions(input: T.LanguageServer.GetWebDocsOptionsRequestInput) {
+  async getWebDocsOptions(input: T.LanguageServer.GetWebDocsOptionsRequest): Promise<T.LanguageServer.GetWebDocsOptionsResponse> {
     const req = new (PB as any).GetWebDocsOptionsRequest(input as any);
-    return await this.client.getWebDocsOptions(req);
+    const res = await this.client.getWebDocsOptions(req);
+    return (res as any) as T.LanguageServer.GetWebDocsOptionsResponse;
   }
 
-  async updateDevExperiments(input: T.LanguageServer.UpdateDevExperimentsRequestInput) {
+  async updateDevExperiments(input: T.LanguageServer.UpdateDevExperimentsRequest): Promise<T.LanguageServer.UpdateDevExperimentsResponse> {
     const req = new (PB as any).UpdateDevExperimentsRequest(input as any);
-    return await this.client.updateDevExperiments(req);
+    const res = await this.client.updateDevExperiments(req);
+    return (res as any) as T.LanguageServer.UpdateDevExperimentsResponse;
   }
 
-  async setBaseExperiments(input: T.LanguageServer.SetBaseExperimentsRequestInput) {
+  async setBaseExperiments(input: T.LanguageServer.SetBaseExperimentsRequest): Promise<T.LanguageServer.SetBaseExperimentsResponse> {
     const req = new (PB as any).SetBaseExperimentsRequest(input as any);
-    return await this.client.setBaseExperiments(req);
+    const res = await this.client.setBaseExperiments(req);
+    return (res as any) as T.LanguageServer.SetBaseExperimentsResponse;
   }
 
-  async getUnleashData(input: T.LanguageServer.GetUnleashDataRequestInput) {
+  async getUnleashData(input: T.LanguageServer.GetUnleashDataRequest): Promise<T.LanguageServer.GetUnleashDataResponse> {
     const req = new (PB as any).GetUnleashDataRequest(input as any);
-    return await this.client.getUnleashData(req);
+    const res = await this.client.getUnleashData(req);
+    return (res as any) as T.LanguageServer.GetUnleashDataResponse;
   }
 
-  async getModelStatuses(input: T.LanguageServer.GetModelStatusesRequestInput) {
+  async getModelStatuses(input: T.LanguageServer.GetModelStatusesRequest): Promise<T.LanguageServer.GetModelStatusesResponse> {
     const req = new (PB as any).GetModelStatusesRequest(input as any);
-    return await this.client.getModelStatuses(req);
+    const res = await this.client.getModelStatuses(req);
+    return (res as any) as T.LanguageServer.GetModelStatusesResponse;
   }
 
-  async getAllWorkflows(input: T.LanguageServer.GetAllWorkflowsRequestInput) {
+  async getAllWorkflows(input: T.LanguageServer.GetAllWorkflowsRequest): Promise<T.LanguageServer.GetAllWorkflowsResponse> {
     const req = new (PB as any).GetAllWorkflowsRequest(input as any);
-    return await this.client.getAllWorkflows(req);
+    const res = await this.client.getAllWorkflows(req);
+    return (res as any) as T.LanguageServer.GetAllWorkflowsResponse;
   }
 
-  async getAllCustomAgentConfigs(input: T.LanguageServer.GetAllCustomAgentConfigsRequestInput) {
+  async getAllCustomAgentConfigs(input: T.LanguageServer.GetAllCustomAgentConfigsRequest): Promise<T.LanguageServer.GetAllCustomAgentConfigsResponse> {
     const req = new (PB as any).GetAllCustomAgentConfigsRequest(input as any);
-    return await this.client.getAllCustomAgentConfigs(req);
+    const res = await this.client.getAllCustomAgentConfigs(req);
+    return (res as any) as T.LanguageServer.GetAllCustomAgentConfigsResponse;
   }
 
-  async copyBuiltinWorkflowToWorkspace(input: T.LanguageServer.CopyBuiltinWorkflowToWorkspaceRequestInput) {
+  async copyBuiltinWorkflowToWorkspace(input: T.LanguageServer.CopyBuiltinWorkflowToWorkspaceRequest): Promise<T.LanguageServer.CopyBuiltinWorkflowToWorkspaceResponse> {
     const req = new (PB as any).CopyBuiltinWorkflowToWorkspaceRequest(input as any);
-    return await this.client.copyBuiltinWorkflowToWorkspace(req);
+    const res = await this.client.copyBuiltinWorkflowToWorkspace(req);
+    return (res as any) as T.LanguageServer.CopyBuiltinWorkflowToWorkspaceResponse;
   }
 
-  async getAllRules(input: T.LanguageServer.GetAllRulesRequestInput) {
+  async getAllRules(input: T.LanguageServer.GetAllRulesRequest): Promise<T.LanguageServer.GetAllRulesResponse> {
     const req = new (PB as any).GetAllRulesRequest(input as any);
-    return await this.client.getAllRules(req);
+    const res = await this.client.getAllRules(req);
+    return (res as any) as T.LanguageServer.GetAllRulesResponse;
   }
 
-  async getAllSkills(input: T.LanguageServer.GetAllSkillsRequestInput) {
+  async getAllSkills(input: T.LanguageServer.GetAllSkillsRequest): Promise<T.LanguageServer.GetAllSkillsResponse> {
     const req = new (PB as any).GetAllSkillsRequest(input as any);
-    return await this.client.getAllSkills(req);
+    const res = await this.client.getAllSkills(req);
+    return (res as any) as T.LanguageServer.GetAllSkillsResponse;
   }
 
-  async getSkillMarketplaceLink(input: T.LanguageServer.GetSkillMarketplaceLinkRequestInput) {
+  async getSkillMarketplaceLink(input: T.LanguageServer.GetSkillMarketplaceLinkRequest): Promise<T.LanguageServer.GetSkillMarketplaceLinkResponse> {
     const req = new (PB as any).GetSkillMarketplaceLinkRequest(input as any);
-    return await this.client.getSkillMarketplaceLink(req);
+    const res = await this.client.getSkillMarketplaceLink(req);
+    return (res as any) as T.LanguageServer.GetSkillMarketplaceLinkResponse;
   }
 
-  async generateSkillInstallationCL(input: T.LanguageServer.GenerateSkillInstallationCLRequestInput) {
+  async generateSkillInstallationCL(input: T.LanguageServer.GenerateSkillInstallationCLRequest): Promise<T.LanguageServer.GenerateSkillInstallationCLResponse> {
     const req = new (PB as any).GenerateSkillInstallationCLRequest(input as any);
-    return await this.client.generateSkillInstallationCL(req);
+    const res = await this.client.generateSkillInstallationCL(req);
+    return (res as any) as T.LanguageServer.GenerateSkillInstallationCLResponse;
   }
 
-  async scanSkillsConfigFile(input: T.LanguageServer.ScanSkillsConfigFileRequestInput) {
+  async scanSkillsConfigFile(input: T.LanguageServer.ScanSkillsConfigFileRequest): Promise<T.LanguageServer.ScanSkillsConfigFileResponse> {
     const req = new (PB as any).ScanSkillsConfigFileRequest(input as any);
-    return await this.client.scanSkillsConfigFile(req);
+    const res = await this.client.scanSkillsConfigFile(req);
+    return (res as any) as T.LanguageServer.ScanSkillsConfigFileResponse;
   }
 
-  async listMcpResources(input: T.LanguageServer.ListMcpResourcesRequestInput) {
+  async listMcpResources(input: T.LanguageServer.ListMcpResourcesRequest): Promise<T.LanguageServer.ListMcpResourcesResponse> {
     const req = new (PB as any).ListMcpResourcesRequest(input as any);
-    return await this.client.listMcpResources(req);
+    const res = await this.client.listMcpResources(req);
+    return (res as any) as T.LanguageServer.ListMcpResourcesResponse;
   }
 
-  async listMcpPrompts(input: T.LanguageServer.ListMcpPromptsRequestInput) {
+  async listMcpPrompts(input: T.LanguageServer.ListMcpPromptsRequest): Promise<T.LanguageServer.ListMcpPromptsResponse> {
     const req = new (PB as any).ListMcpPromptsRequest(input as any);
-    return await this.client.listMcpPrompts(req);
+    const res = await this.client.listMcpPrompts(req);
+    return (res as any) as T.LanguageServer.ListMcpPromptsResponse;
   }
 
-  async getMcpPrompt(input: T.LanguageServer.GetMcpPromptRequestInput) {
+  async getMcpPrompt(input: T.LanguageServer.GetMcpPromptRequest): Promise<T.LanguageServer.GetMcpPromptResponse> {
     const req = new (PB as any).GetMcpPromptRequest(input as any);
-    return await this.client.getMcpPrompt(req);
+    const res = await this.client.getMcpPrompt(req);
+    return (res as any) as T.LanguageServer.GetMcpPromptResponse;
   }
 
-  async updateEnterpriseExperimentsFromUrl(input: T.LanguageServer.UpdateEnterpriseExperimentsFromUrlRequestInput) {
+  async updateEnterpriseExperimentsFromUrl(input: T.LanguageServer.UpdateEnterpriseExperimentsFromUrlRequest): Promise<T.LanguageServer.UpdateEnterpriseExperimentsFromUrlResponse> {
     const req = new (PB as any).UpdateEnterpriseExperimentsFromUrlRequest(input as any);
-    return await this.client.updateEnterpriseExperimentsFromUrl(req);
+    const res = await this.client.updateEnterpriseExperimentsFromUrl(req);
+    return (res as any) as T.LanguageServer.UpdateEnterpriseExperimentsFromUrlResponse;
   }
 
-  async importFromCursor(input: T.LanguageServer.ImportFromCursorRequestInput) {
+  async importFromCursor(input: T.LanguageServer.ImportFromCursorRequest): Promise<T.LanguageServer.ImportFromCursorResponse> {
     const req = new (PB as any).ImportFromCursorRequest(input as any);
-    return await this.client.importFromCursor(req);
+    const res = await this.client.importFromCursor(req);
+    return (res as any) as T.LanguageServer.ImportFromCursorResponse;
   }
 
-  async createCustomizationFile(input: T.LanguageServer.CreateCustomizationFileRequestInput) {
+  async createCustomizationFile(input: T.LanguageServer.CreateCustomizationFileRequest): Promise<T.LanguageServer.CreateCustomizationFileResponse> {
     const req = new (PB as any).CreateCustomizationFileRequest(input as any);
-    return await this.client.createCustomizationFile(req);
+    const res = await this.client.createCustomizationFile(req);
+    return (res as any) as T.LanguageServer.CreateCustomizationFileResponse;
   }
 
-  async listCustomizationPathsByFile(input: T.LanguageServer.ListCustomizationPathsByFileRequestInput) {
+  async listCustomizationPathsByFile(input: T.LanguageServer.ListCustomizationPathsByFileRequest): Promise<T.LanguageServer.ListCustomizationPathsByFileResponse> {
     const req = new (PB as any).ListCustomizationPathsByFileRequest(input as any);
-    return await this.client.listCustomizationPathsByFile(req);
+    const res = await this.client.listCustomizationPathsByFile(req);
+    return (res as any) as T.LanguageServer.ListCustomizationPathsByFileResponse;
   }
 
-  async updateCustomizationPathsFile(input: T.LanguageServer.UpdateCustomizationPathsFileRequestInput) {
+  async updateCustomizationPathsFile(input: T.LanguageServer.UpdateCustomizationPathsFileRequest): Promise<T.LanguageServer.UpdateCustomizationPathsFileResponse> {
     const req = new (PB as any).UpdateCustomizationPathsFileRequest(input as any);
-    return await this.client.updateCustomizationPathsFile(req);
+    const res = await this.client.updateCustomizationPathsFile(req);
+    return (res as any) as T.LanguageServer.UpdateCustomizationPathsFileResponse;
   }
 
-  async getTeamOrganizationalControls(input: T.LanguageServer.GetTeamOrganizationalControlsRequestInput) {
+  async getTeamOrganizationalControls(input: T.LanguageServer.GetTeamOrganizationalControlsRequest): Promise<T.LanguageServer.GetTeamOrganizationalControlsResponse> {
     const req = new (PB as any).GetTeamOrganizationalControlsRequest(input as any);
-    return await this.client.getTeamOrganizationalControls(req);
+    const res = await this.client.getTeamOrganizationalControls(req);
+    return (res as any) as T.LanguageServer.GetTeamOrganizationalControlsResponse;
   }
 
-  async recordUserGrep(input: T.LanguageServer.RecordUserGrepRequestInput) {
+  async recordUserGrep(input: T.LanguageServer.RecordUserGrepRequest): Promise<T.LanguageServer.RecordUserGrepResponse> {
     const req = new (PB as any).RecordUserGrepRequest(input as any);
-    return await this.client.recordUserGrep(req);
+    const res = await this.client.recordUserGrep(req);
+    return (res as any) as T.LanguageServer.RecordUserGrepResponse;
   }
 
-  async createTrajectoryShare(input: T.LanguageServer.CreateTrajectoryShareRequestInput) {
+  async createTrajectoryShare(input: T.LanguageServer.CreateTrajectoryShareRequest): Promise<T.LanguageServer.CreateTrajectoryShareResponse> {
     const req = new (PB as any).CreateTrajectoryShareRequest(input as any);
-    return await this.client.createTrajectoryShare(req);
+    const res = await this.client.createTrajectoryShare(req);
+    return (res as any) as T.LanguageServer.CreateTrajectoryShareResponse;
   }
 
-  async getCascadeTrajectory(input: T.LanguageServer.GetCascadeTrajectoryRequestInput) {
+  async getCascadeTrajectory(input: T.LanguageServer.GetCascadeTrajectoryRequest): Promise<T.LanguageServer.GetCascadeTrajectoryResponse> {
     const req = new (PB as any).GetCascadeTrajectoryRequest(input as any);
-    return await this.client.getCascadeTrajectory(req);
+    const res = await this.client.getCascadeTrajectory(req);
+    return (res as any) as T.LanguageServer.GetCascadeTrajectoryResponse;
   }
 
-  async getArtifactSnapshots(input: T.LanguageServer.GetArtifactSnapshotsRequestInput) {
+  async getArtifactSnapshots(input: T.LanguageServer.GetArtifactSnapshotsRequest): Promise<T.LanguageServer.GetArtifactSnapshotsResponse> {
     const req = new (PB as any).GetArtifactSnapshotsRequest(input as any);
-    return await this.client.getArtifactSnapshots(req);
+    const res = await this.client.getArtifactSnapshots(req);
+    return (res as any) as T.LanguageServer.GetArtifactSnapshotsResponse;
   }
 
-  async getUserTrajectory(input: T.LanguageServer.GetUserTrajectoryRequestInput) {
+  async getUserTrajectory(input: T.LanguageServer.GetUserTrajectoryRequest): Promise<T.LanguageServer.GetUserTrajectoryResponse> {
     const req = new (PB as any).GetUserTrajectoryRequest(input as any);
-    return await this.client.getUserTrajectory(req);
+    const res = await this.client.getUserTrajectory(req);
+    return (res as any) as T.LanguageServer.GetUserTrajectoryResponse;
   }
 
-  async getCascadeTrajectorySteps(input: T.LanguageServer.GetCascadeTrajectoryStepsRequestInput) {
+  async getCascadeTrajectorySteps(input: T.LanguageServer.GetCascadeTrajectoryStepsRequest): Promise<T.LanguageServer.GetCascadeTrajectoryStepsResponse> {
     const req = new (PB as any).GetCascadeTrajectoryStepsRequest(input as any);
-    return await this.client.getCascadeTrajectorySteps(req);
+    const res = await this.client.getCascadeTrajectorySteps(req);
+    return (res as any) as T.LanguageServer.GetCascadeTrajectoryStepsResponse;
   }
 
-  async getCascadeTrajectoryGeneratorMetadata(input: T.LanguageServer.GetCascadeTrajectoryGeneratorMetadataRequestInput) {
+  async getCascadeTrajectoryGeneratorMetadata(input: T.LanguageServer.GetCascadeTrajectoryGeneratorMetadataRequest): Promise<T.LanguageServer.GetCascadeTrajectoryGeneratorMetadataResponse> {
     const req = new (PB as any).GetCascadeTrajectoryGeneratorMetadataRequest(input as any);
-    return await this.client.getCascadeTrajectoryGeneratorMetadata(req);
+    const res = await this.client.getCascadeTrajectoryGeneratorMetadata(req);
+    return (res as any) as T.LanguageServer.GetCascadeTrajectoryGeneratorMetadataResponse;
   }
 
-  async getPatchAndCodeChange(input: T.LanguageServer.GetPatchAndCodeChangeRequestInput) {
+  async getPatchAndCodeChange(input: T.LanguageServer.GetPatchAndCodeChangeRequest): Promise<T.LanguageServer.GetPatchAndCodeChangeResponse> {
     const req = new (PB as any).GetPatchAndCodeChangeRequest(input as any);
-    return await this.client.getPatchAndCodeChange(req);
+    const res = await this.client.getPatchAndCodeChange(req);
+    return (res as any) as T.LanguageServer.GetPatchAndCodeChangeResponse;
   }
 
-  async convertTrajectoryToMarkdown(input: T.LanguageServer.ConvertTrajectoryToMarkdownRequestInput) {
+  async convertTrajectoryToMarkdown(input: T.LanguageServer.ConvertTrajectoryToMarkdownRequest): Promise<T.LanguageServer.ConvertTrajectoryToMarkdownResponse> {
     const req = new (PB as any).ConvertTrajectoryToMarkdownRequest(input as any);
-    return await this.client.convertTrajectoryToMarkdown(req);
+    const res = await this.client.convertTrajectoryToMarkdown(req);
+    return (res as any) as T.LanguageServer.ConvertTrajectoryToMarkdownResponse;
   }
 
-  async loadTrajectory(input: T.LanguageServer.LoadTrajectoryRequestInput) {
+  async loadTrajectory(input: T.LanguageServer.LoadTrajectoryRequest): Promise<T.LanguageServer.LoadTrajectoryResponse> {
     const req = new (PB as any).LoadTrajectoryRequest(input as any);
-    return await this.client.loadTrajectory(req);
+    const res = await this.client.loadTrajectory(req);
+    return (res as any) as T.LanguageServer.LoadTrajectoryResponse;
   }
 
-  async getAvailableCascadePlugins(input: T.LanguageServer.GetAvailableCascadePluginsRequestInput) {
+  async getAvailableCascadePlugins(input: T.LanguageServer.GetAvailableCascadePluginsRequest): Promise<T.LanguageServer.GetAvailableCascadePluginsResponse> {
     const req = new (PB as any).GetAvailableCascadePluginsRequest(input as any);
-    return await this.client.getAvailableCascadePlugins(req);
+    const res = await this.client.getAvailableCascadePlugins(req);
+    return (res as any) as T.LanguageServer.GetAvailableCascadePluginsResponse;
   }
 
-  async installCascadePlugin(input: T.LanguageServer.InstallCascadePluginRequestInput) {
+  async installCascadePlugin(input: T.LanguageServer.InstallCascadePluginRequest): Promise<T.LanguageServer.InstallCascadePluginResponse> {
     const req = new (PB as any).InstallCascadePluginRequest(input as any);
-    return await this.client.installCascadePlugin(req);
+    const res = await this.client.installCascadePlugin(req);
+    return (res as any) as T.LanguageServer.InstallCascadePluginResponse;
   }
 
-  async getCascadePluginById(input: T.LanguageServer.GetCascadePluginByIdRequestInput) {
+  async getCascadePluginById(input: T.LanguageServer.GetCascadePluginByIdRequest): Promise<T.LanguageServer.GetCascadePluginByIdResponse> {
     const req = new (PB as any).GetCascadePluginByIdRequest(input as any);
-    return await this.client.getCascadePluginById(req);
+    const res = await this.client.getCascadePluginById(req);
+    return (res as any) as T.LanguageServer.GetCascadePluginByIdResponse;
   }
 
-  async getAllPlugins(input: T.LanguageServer.GetAllPluginsRequestInput) {
+  async getAllPlugins(input: T.LanguageServer.GetAllPluginsRequest): Promise<T.LanguageServer.GetAllPluginsResponse> {
     const req = new (PB as any).GetAllPluginsRequest(input as any);
-    return await this.client.getAllPlugins(req);
+    const res = await this.client.getAllPlugins(req);
+    return (res as any) as T.LanguageServer.GetAllPluginsResponse;
   }
 
-  async updateCustomization(input: T.LanguageServer.UpdateCustomizationRequestInput) {
+  async updateCustomization(input: T.LanguageServer.UpdateCustomizationRequest): Promise<T.LanguageServer.UpdateCustomizationResponse> {
     const req = new (PB as any).UpdateCustomizationRequest(input as any);
-    return await this.client.updateCustomization(req);
+    const res = await this.client.updateCustomization(req);
+    return (res as any) as T.LanguageServer.UpdateCustomizationResponse;
   }
 
-  async getAgentScripts(input: T.LanguageServer.GetAgentScriptsRequestInput) {
+  async getAgentScripts(input: T.LanguageServer.GetAgentScriptsRequest): Promise<T.LanguageServer.GetAgentScriptsResponse> {
     const req = new (PB as any).GetAgentScriptsRequest(input as any);
-    return await this.client.getAgentScripts(req);
+    const res = await this.client.getAgentScripts(req);
+    return (res as any) as T.LanguageServer.GetAgentScriptsResponse;
   }
 
-  async saveAgentScriptCommandSpec(input: T.LanguageServer.SaveAgentScriptCommandSpecRequestInput) {
+  async saveAgentScriptCommandSpec(input: T.LanguageServer.SaveAgentScriptCommandSpecRequest): Promise<T.LanguageServer.SaveAgentScriptCommandSpecResponse> {
     const req = new (PB as any).SaveAgentScriptCommandSpecRequest(input as any);
-    return await this.client.saveAgentScriptCommandSpec(req);
+    const res = await this.client.saveAgentScriptCommandSpec(req);
+    return (res as any) as T.LanguageServer.SaveAgentScriptCommandSpecResponse;
   }
 
-  async recordLints(input: T.LanguageServer.RecordLintsRequestInput) {
+  async recordLints(input: T.LanguageServer.RecordLintsRequest): Promise<T.LanguageServer.RecordLintsResponse> {
     const req = new (PB as any).RecordLintsRequest(input as any);
-    return await this.client.recordLints(req);
+    const res = await this.client.recordLints(req);
+    return (res as any) as T.LanguageServer.RecordLintsResponse;
   }
 
-  async replayGroundTruthTrajectory(input: T.LanguageServer.ReplayGroundTruthTrajectoryRequestInput) {
+  async replayGroundTruthTrajectory(input: T.LanguageServer.ReplayGroundTruthTrajectoryRequest): Promise<T.LanguageServer.ReplayGroundTruthTrajectoryResponse> {
     const req = new (PB as any).ReplayGroundTruthTrajectoryRequest(input as any);
-    return await this.client.replayGroundTruthTrajectory(req);
+    const res = await this.client.replayGroundTruthTrajectory(req);
+    return (res as any) as T.LanguageServer.ReplayGroundTruthTrajectoryResponse;
   }
 
-  async createReplayWorkspace(input: T.LanguageServer.CreateReplayWorkspaceRequestInput) {
+  async createReplayWorkspace(input: T.LanguageServer.CreateReplayWorkspaceRequest): Promise<T.LanguageServer.CreateReplayWorkspaceResponse> {
     const req = new (PB as any).CreateReplayWorkspaceRequest(input as any);
-    return await this.client.createReplayWorkspace(req);
+    const res = await this.client.createReplayWorkspace(req);
+    return (res as any) as T.LanguageServer.CreateReplayWorkspaceResponse;
   }
 
-  async loadReplayConversation(input: T.LanguageServer.LoadReplayConversationRequestInput) {
+  async loadReplayConversation(input: T.LanguageServer.LoadReplayConversationRequest): Promise<T.LanguageServer.LoadReplayConversationResponse> {
     const req = new (PB as any).LoadReplayConversationRequest(input as any);
-    return await this.client.loadReplayConversation(req);
+    const res = await this.client.loadReplayConversation(req);
+    return (res as any) as T.LanguageServer.LoadReplayConversationResponse;
   }
 
-  async recordInteractiveCascadeFeedback(input: T.LanguageServer.RecordInteractiveCascadeFeedbackRequestInput) {
+  async recordInteractiveCascadeFeedback(input: T.LanguageServer.RecordInteractiveCascadeFeedbackRequest): Promise<T.LanguageServer.RecordInteractiveCascadeFeedbackResponse> {
     const req = new (PB as any).RecordInteractiveCascadeFeedbackRequest(input as any);
-    return await this.client.recordInteractiveCascadeFeedback(req);
+    const res = await this.client.recordInteractiveCascadeFeedback(req);
+    return (res as any) as T.LanguageServer.RecordInteractiveCascadeFeedbackResponse;
   }
 
-  async getCascadeNuxes(input: T.LanguageServer.GetCascadeNuxesRequestInput) {
+  async getCascadeNuxes(input: T.LanguageServer.GetCascadeNuxesRequest): Promise<T.LanguageServer.GetCascadeNuxesResponse> {
     const req = new (PB as any).GetCascadeNuxesRequest(input as any);
-    return await this.client.getCascadeNuxes(req);
+    const res = await this.client.getCascadeNuxes(req);
+    return (res as any) as T.LanguageServer.GetCascadeNuxesResponse;
   }
 
-  async getTranscription(input: T.LanguageServer.GetTranscriptionRequestInput) {
+  async getTranscription(input: T.LanguageServer.GetTranscriptionRequest): Promise<T.LanguageServer.GetTranscriptionResponse> {
     const req = new (PB as any).GetTranscriptionRequest(input as any);
-    return await this.client.getTranscription(req);
+    const res = await this.client.getTranscription(req);
+    return (res as any) as T.LanguageServer.GetTranscriptionResponse;
   }
 
-  async sendAudioChunk(input: T.LanguageServer.SendAudioChunkRequestInput) {
+  async sendAudioChunk(input: T.LanguageServer.SendAudioChunkRequest): Promise<T.LanguageServer.SendAudioChunkResponse> {
     const req = new (PB as any).SendAudioChunkRequest(input as any);
-    return await this.client.sendAudioChunk(req);
+    const res = await this.client.sendAudioChunk(req);
+    return (res as any) as T.LanguageServer.SendAudioChunkResponse;
   }
 
-  async endAudioSession(input: T.LanguageServer.EndAudioSessionRequestInput) {
+  async endAudioSession(input: T.LanguageServer.EndAudioSessionRequest): Promise<T.LanguageServer.EndAudioSessionResponse> {
     const req = new (PB as any).EndAudioSessionRequest(input as any);
-    return await this.client.endAudioSession(req);
+    const res = await this.client.endAudioSession(req);
+    return (res as any) as T.LanguageServer.EndAudioSessionResponse;
   }
 
-  async getStaticExperimentStatus(input: T.LanguageServer.GetStaticExperimentStatusRequestInput) {
+  async getStaticExperimentStatus(input: T.LanguageServer.GetStaticExperimentStatusRequest): Promise<T.LanguageServer.GetStaticExperimentStatusResponse> {
     const req = new (PB as any).GetStaticExperimentStatusRequest(input as any);
-    return await this.client.getStaticExperimentStatus(req);
+    const res = await this.client.getStaticExperimentStatus(req);
+    return (res as any) as T.LanguageServer.GetStaticExperimentStatusResponse;
   }
 
-  async recordAnalyticsEvent(input: T.LanguageServer.RecordAnalyticsEventRequestInput) {
+  async recordAnalyticsEvent(input: T.LanguageServer.RecordAnalyticsEventRequest): Promise<T.LanguageServer.RecordAnalyticsEventResponse> {
     const req = new (PB as any).RecordAnalyticsEventRequest(input as any);
-    return await this.client.recordAnalyticsEvent(req);
+    const res = await this.client.recordAnalyticsEvent(req);
+    return (res as any) as T.LanguageServer.RecordAnalyticsEventResponse;
   }
 
-  async recordError(input: T.LanguageServer.RecordErrorRequestInput) {
+  async recordError(input: T.LanguageServer.RecordErrorRequest): Promise<T.LanguageServer.RecordErrorResponse> {
     const req = new (PB as any).RecordErrorRequest(input as any);
-    return await this.client.recordError(req);
+    const res = await this.client.recordError(req);
+    return (res as any) as T.LanguageServer.RecordErrorResponse;
   }
 
-  async recordObservabilityData(input: T.LanguageServer.RecordObservabilityDataRequestInput) {
+  async recordObservabilityData(input: T.LanguageServer.RecordObservabilityDataRequest): Promise<T.LanguageServer.RecordObservabilityDataResponse> {
     const req = new (PB as any).RecordObservabilityDataRequest(input as any);
-    return await this.client.recordObservabilityData(req);
+    const res = await this.client.recordObservabilityData(req);
+    return (res as any) as T.LanguageServer.RecordObservabilityDataResponse;
   }
 
-  async listPages(input: T.LanguageServer.ListPagesRequestInput) {
+  async listPages(input: T.LanguageServer.ListPagesRequest): Promise<T.LanguageServer.ListPagesResponse> {
     const req = new (PB as any).ListPagesRequest(input as any);
-    return await this.client.listPages(req);
+    const res = await this.client.listPages(req);
+    return (res as any) as T.LanguageServer.ListPagesResponse;
   }
 
-  async browserValidateCascadeOrCancelOverlay(input: T.LanguageServer.BrowserValidateCascadeOrCancelOverlayRequestInput) {
+  async browserValidateCascadeOrCancelOverlay(input: T.LanguageServer.BrowserValidateCascadeOrCancelOverlayRequest): Promise<T.LanguageServer.BrowserValidateCascadeOrCancelOverlayResponse> {
     const req = new (PB as any).BrowserValidateCascadeOrCancelOverlayRequest(input as any);
-    return await this.client.browserValidateCascadeOrCancelOverlay(req);
+    const res = await this.client.browserValidateCascadeOrCancelOverlay(req);
+    return (res as any) as T.LanguageServer.BrowserValidateCascadeOrCancelOverlayResponse;
   }
 
-  async openUrl(input: T.LanguageServer.OpenUrlRequestInput) {
+  async openUrl(input: T.LanguageServer.OpenUrlRequest): Promise<T.LanguageServer.OpenUrlResponse> {
     const req = new (PB as any).OpenUrlRequest(input as any);
-    return await this.client.openUrl(req);
+    const res = await this.client.openUrl(req);
+    return (res as any) as T.LanguageServer.OpenUrlResponse;
   }
 
-  async focusUserPage(input: T.LanguageServer.FocusUserPageRequestInput) {
+  async focusUserPage(input: T.LanguageServer.FocusUserPageRequest): Promise<T.LanguageServer.FocusUserPageResponse> {
     const req = new (PB as any).FocusUserPageRequest(input as any);
-    return await this.client.focusUserPage(req);
+    const res = await this.client.focusUserPage(req);
+    return (res as any) as T.LanguageServer.FocusUserPageResponse;
   }
 
-  async addToBrowserWhitelist(input: T.LanguageServer.AddToBrowserWhitelistRequestInput) {
+  async addToBrowserWhitelist(input: T.LanguageServer.AddToBrowserWhitelistRequest): Promise<T.LanguageServer.AddToBrowserWhitelistResponse> {
     const req = new (PB as any).AddToBrowserWhitelistRequest(input as any);
-    return await this.client.addToBrowserWhitelist(req);
+    const res = await this.client.addToBrowserWhitelist(req);
+    return (res as any) as T.LanguageServer.AddToBrowserWhitelistResponse;
   }
 
-  async captureConsoleLogs(input: T.LanguageServer.CaptureConsoleLogsRequestInput) {
+  async captureConsoleLogs(input: T.LanguageServer.CaptureConsoleLogsRequest): Promise<T.LanguageServer.CaptureConsoleLogsResponse> {
     const req = new (PB as any).CaptureConsoleLogsRequest(input as any);
-    return await this.client.captureConsoleLogs(req);
+    const res = await this.client.captureConsoleLogs(req);
+    return (res as any) as T.LanguageServer.CaptureConsoleLogsResponse;
   }
 
-  async startScreenRecording(input: T.LanguageServer.StartScreenRecordingRequestInput) {
+  async startScreenRecording(input: T.LanguageServer.StartScreenRecordingRequest): Promise<T.LanguageServer.StartScreenRecordingResponse> {
     const req = new (PB as any).StartScreenRecordingRequest(input as any);
-    return await this.client.startScreenRecording(req);
+    const res = await this.client.startScreenRecording(req);
+    return (res as any) as T.LanguageServer.StartScreenRecordingResponse;
   }
 
-  async saveScreenRecording(input: T.LanguageServer.SaveScreenRecordingRequestInput) {
+  async saveScreenRecording(input: T.LanguageServer.SaveScreenRecordingRequest): Promise<T.LanguageServer.SaveScreenRecordingResponse> {
     const req = new (PB as any).SaveScreenRecordingRequest(input as any);
-    return await this.client.saveScreenRecording(req);
+    const res = await this.client.saveScreenRecording(req);
+    return (res as any) as T.LanguageServer.SaveScreenRecordingResponse;
   }
 
-  async getBrowserWhitelistFilePath(input: T.LanguageServer.GetBrowserWhitelistFilePathRequestInput) {
+  async getBrowserWhitelistFilePath(input: T.LanguageServer.GetBrowserWhitelistFilePathRequest): Promise<T.LanguageServer.GetBrowserWhitelistFilePathResponse> {
     const req = new (PB as any).GetBrowserWhitelistFilePathRequest(input as any);
-    return await this.client.getBrowserWhitelistFilePath(req);
+    const res = await this.client.getBrowserWhitelistFilePath(req);
+    return (res as any) as T.LanguageServer.GetBrowserWhitelistFilePathResponse;
   }
 
-  async handleScreenRecording(input: T.LanguageServer.HandleScreenRecordingRequestInput) {
+  async handleScreenRecording(input: T.LanguageServer.HandleScreenRecordingRequest): Promise<T.LanguageServer.HandleScreenRecordingResponse> {
     const req = new (PB as any).HandleScreenRecordingRequest(input as any);
-    return await this.client.handleScreenRecording(req);
+    const res = await this.client.handleScreenRecording(req);
+    return (res as any) as T.LanguageServer.HandleScreenRecordingResponse;
   }
 
-  async getAllBrowserWhitelistedUrls(input: T.LanguageServer.GetAllBrowserWhitelistedUrlsRequestInput) {
+  async getAllBrowserWhitelistedUrls(input: T.LanguageServer.GetAllBrowserWhitelistedUrlsRequest): Promise<T.LanguageServer.GetAllBrowserWhitelistedUrlsResponse> {
     const req = new (PB as any).GetAllBrowserWhitelistedUrlsRequest(input as any);
-    return await this.client.getAllBrowserWhitelistedUrls(req);
+    const res = await this.client.getAllBrowserWhitelistedUrls(req);
+    return (res as any) as T.LanguageServer.GetAllBrowserWhitelistedUrlsResponse;
   }
 
-  async captureScreenshot(input: T.LanguageServer.CaptureScreenshotRequestInput) {
+  async captureScreenshot(input: T.LanguageServer.CaptureScreenshotRequest): Promise<T.LanguageServer.CaptureScreenshotResponse> {
     const req = new (PB as any).CaptureScreenshotRequest(input as any);
-    return await this.client.captureScreenshot(req);
+    const res = await this.client.captureScreenshot(req);
+    return (res as any) as T.LanguageServer.CaptureScreenshotResponse;
   }
 
-  async smartOpenBrowser(input: T.LanguageServer.SmartOpenBrowserRequestInput) {
+  async smartOpenBrowser(input: T.LanguageServer.SmartOpenBrowserRequest): Promise<T.LanguageServer.SmartOpenBrowserResponse> {
     const req = new (PB as any).SmartOpenBrowserRequest(input as any);
-    return await this.client.smartOpenBrowser(req);
+    const res = await this.client.smartOpenBrowser(req);
+    return (res as any) as T.LanguageServer.SmartOpenBrowserResponse;
   }
 
-  async simulateSegFault(input: T.LanguageServer.SimulateSegFaultRequestInput) {
+  async simulateSegFault(input: T.LanguageServer.SimulateSegFaultRequest): Promise<T.LanguageServer.SimulateSegFaultResponse> {
     const req = new (PB as any).SimulateSegFaultRequest(input as any);
-    return await this.client.simulateSegFault(req);
+    const res = await this.client.simulateSegFault(req);
+    return (res as any) as T.LanguageServer.SimulateSegFaultResponse;
   }
 
-  async reconnectExtensionServer(input: T.LanguageServer.ReconnectExtensionServerRequestInput) {
+  async reconnectExtensionServer(input: T.LanguageServer.ReconnectExtensionServerRequest): Promise<T.LanguageServer.ReconnectExtensionServerResponse> {
     const req = new (PB as any).ReconnectExtensionServerRequest(input as any);
-    return await this.client.reconnectExtensionServer(req);
+    const res = await this.client.reconnectExtensionServer(req);
+    return (res as any) as T.LanguageServer.ReconnectExtensionServerResponse;
   }
 
-  async setCloudCodeURL(input: T.LanguageServer.SetCloudCodeURLRequestInput) {
+  async setCloudCodeURL(input: T.LanguageServer.SetCloudCodeURLRequest): Promise<T.LanguageServer.SetCloudCodeURLResponse> {
     const req = new (PB as any).SetCloudCodeURLRequest(input as any);
-    return await this.client.setCloudCodeURL(req);
+    const res = await this.client.setCloudCodeURL(req);
+    return (res as any) as T.LanguageServer.SetCloudCodeURLResponse;
   }
 
-  async getTokenBase(input: T.LanguageServer.GetTokenBaseRequestInput) {
+  async getTokenBase(input: T.LanguageServer.GetTokenBaseRequest): Promise<T.LanguageServer.GetTokenBaseResponse> {
     const req = new (PB as any).GetTokenBaseRequest(input as any);
-    return await this.client.getTokenBase(req);
+    const res = await this.client.getTokenBase(req);
+    return (res as any) as T.LanguageServer.GetTokenBaseResponse;
   }
 
-  async runCommand(input: T.LanguageServer.RunCommandRequestInput) {
+  async runCommand(input: T.LanguageServer.RunCommandRequest): Promise<T.LanguageServer.RunCommandResponse> {
     const req = new (PB as any).RunCommandRequest(input as any);
-    return await this.client.runCommand(req);
+    const res = await this.client.runCommand(req);
+    return (res as any) as T.LanguageServer.RunCommandResponse;
   }
 
-  async jetboxWriteState(input: T.LanguageServer.JetboxWriteStateRequestInput) {
+  async jetboxWriteState(input: T.LanguageServer.JetboxWriteStateRequest): Promise<T.LanguageServer.JetboxWriteStateResponse> {
     const req = new (PB as any).JetboxWriteStateRequest(input as any);
-    return await this.client.jetboxWriteState(req);
+    const res = await this.client.jetboxWriteState(req);
+    return (res as any) as T.LanguageServer.JetboxWriteStateResponse;
   }
 
-  async jetboxWriteSummary(input: T.LanguageServer.JetboxWriteSummaryRequestInput) {
+  async jetboxWriteSummary(input: T.LanguageServer.JetboxWriteSummaryRequest): Promise<T.LanguageServer.JetboxWriteSummaryResponse> {
     const req = new (PB as any).JetboxWriteSummaryRequest(input as any);
-    return await this.client.jetboxWriteSummary(req);
+    const res = await this.client.jetboxWriteSummary(req);
+    return (res as any) as T.LanguageServer.JetboxWriteSummaryResponse;
   }
 
-  async jetboxDeleteSummary(input: T.LanguageServer.JetboxDeleteSummaryRequestInput) {
+  async jetboxDeleteSummary(input: T.LanguageServer.JetboxDeleteSummaryRequest): Promise<T.LanguageServer.JetboxDeleteSummaryResponse> {
     const req = new (PB as any).JetboxDeleteSummaryRequest(input as any);
-    return await this.client.jetboxDeleteSummary(req);
+    const res = await this.client.jetboxDeleteSummary(req);
+    return (res as any) as T.LanguageServer.JetboxDeleteSummaryResponse;
   }
 
-  async searchFiles(input: T.LanguageServer.SearchFilesRequestInput) {
+  async searchFiles(input: T.LanguageServer.SearchFilesRequest): Promise<T.LanguageServer.SearchFilesResponse> {
     const req = new (PB as any).SearchFilesRequest(input as any);
-    return await this.client.searchFiles(req);
+    const res = await this.client.searchFiles(req);
+    return (res as any) as T.LanguageServer.SearchFilesResponse;
   }
 
-  async searchCode(input: T.LanguageServer.SearchCodeRequestInput) {
+  async searchCode(input: T.LanguageServer.SearchCodeRequest): Promise<T.LanguageServer.SearchCodeResponse> {
     const req = new (PB as any).SearchCodeRequest(input as any);
-    return await this.client.searchCode(req);
+    const res = await this.client.searchCode(req);
+    return (res as any) as T.LanguageServer.SearchCodeResponse;
   }
 
-  async searchConversations(input: T.LanguageServer.SearchConversationsRequestInput) {
+  async searchConversations(input: T.LanguageServer.SearchConversationsRequest): Promise<T.LanguageServer.SearchConversationsResponse> {
     const req = new (PB as any).SearchConversationsRequest(input as any);
-    return await this.client.searchConversations(req);
+    const res = await this.client.searchConversations(req);
+    return (res as any) as T.LanguageServer.SearchConversationsResponse;
   }
 
-  async jetboxGetLatestVersion(input: T.LanguageServer.JetboxGetLatestVersionRequestInput) {
+  async jetboxGetLatestVersion(input: T.LanguageServer.JetboxGetLatestVersionRequest): Promise<T.LanguageServer.JetboxGetLatestVersionResponse> {
     const req = new (PB as any).JetboxGetLatestVersionRequest(input as any);
-    return await this.client.jetboxGetLatestVersion(req);
+    const res = await this.client.jetboxGetLatestVersion(req);
+    return (res as any) as T.LanguageServer.JetboxGetLatestVersionResponse;
   }
 
-  async getAgentTeamMetadata(input: T.LanguageServer.GetAgentTeamMetadataRequestInput) {
+  async getAgentTeamMetadata(input: T.LanguageServer.GetAgentTeamMetadataRequest): Promise<T.LanguageServer.GetAgentTeamMetadataResponse> {
     const req = new (PB as any).GetAgentTeamMetadataRequest(input as any);
-    return await this.client.getAgentTeamMetadata(req);
+    const res = await this.client.getAgentTeamMetadata(req);
+    return (res as any) as T.LanguageServer.GetAgentTeamMetadataResponse;
   }
 
-  async getCodeFrequencyForRepo(input: T.LanguageServer.GetCodeFrequencyForRepoRequestInput) {
+  async getCodeFrequencyForRepo(input: T.LanguageServer.GetCodeFrequencyForRepoRequest): Promise<T.LanguageServer.GetCodeFrequencyForRepoResponse> {
     const req = new (PB as any).GetCodeFrequencyForRepoRequest(input as any);
-    return await this.client.getCodeFrequencyForRepo(req);
+    const res = await this.client.getCodeFrequencyForRepo(req);
+    return (res as any) as T.LanguageServer.GetCodeFrequencyForRepoResponse;
   }
 
-  async sendAgentMessage(input: T.LanguageServer.SendAgentMessageRequestInput) {
+  async sendAgentMessage(input: T.LanguageServer.SendAgentMessageRequest): Promise<T.LanguageServer.SendAgentMessageResponse> {
     const req = new (PB as any).SendAgentMessageRequest(input as any);
-    return await this.client.sendAgentMessage(req);
+    const res = await this.client.sendAgentMessage(req);
+    return (res as any) as T.LanguageServer.SendAgentMessageResponse;
   }
 
-  async getLoadCodeAssist(input: T.LanguageServer.GetLoadCodeAssistRequestInput) {
+  async getLoadCodeAssist(input: T.LanguageServer.GetLoadCodeAssistRequest): Promise<T.LanguageServer.GetLoadCodeAssistResponse> {
     const req = new (PB as any).GetLoadCodeAssistRequest(input as any);
-    return await this.client.getLoadCodeAssist(req);
+    const res = await this.client.getLoadCodeAssist(req);
+    return (res as any) as T.LanguageServer.GetLoadCodeAssistResponse;
   }
 
-  async getAvailableModels(input: T.LanguageServer.GetAvailableModelsRequestInput) {
+  async getAvailableModels(input: T.LanguageServer.GetAvailableModelsRequest): Promise<T.LanguageServer.GetAvailableModelsResponse> {
     const req = new (PB as any).GetAvailableModelsRequest(input as any);
-    return await this.client.getAvailableModels(req);
+    const res = await this.client.getAvailableModels(req);
+    return (res as any) as T.LanguageServer.GetAvailableModelsResponse;
   }
 
 }
