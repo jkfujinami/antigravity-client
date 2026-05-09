@@ -8,7 +8,6 @@ async function main() {
 
         console.log("\n--- Calling GetWorkingDirectories ---");
         const wdRes = await client.lsClient.getWorkingDirectories(new GetWorkingDirectoriesRequest());
-        
         console.log("Raw response (should be JSON now):");
         console.log(wdRes);
 
