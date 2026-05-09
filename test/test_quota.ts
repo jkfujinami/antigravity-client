@@ -142,10 +142,6 @@ async function main() {
         console.log(`  Has Used AG     : ${us.hasUsedAntigravity ?? "-"}`);
 
         console.log();
-
-        const dirs = await client.();
-        console.log(`  Working Directories: ${dirs}`);
-
     } catch (e) {
         console.error("❌ Error during quota check:", e);
     }
