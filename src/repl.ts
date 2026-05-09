@@ -133,16 +133,18 @@ async function startNewSession() {
 }
 
 function setupListeners(cascade: Cascade) {
+    const Events = Cascade.Events;
+
     // ── Step Tracking (via high-level events from SDK) ──
 
-    cascade.on('step:new', (ev: StepNewEvent) => {
+    cascade.on(Events.StepNew, (ev) => {
         // Only log significant steps (skip plannerResponse to reduce noise)
         if (ev.step.category !== 'response') {
             log(`${colors.magenta}[Step ${ev.step.index}] New: ${ev.step.description} (${ev.step.status})${colors.reset}`);
         }
     });
 
-    cascade.on('step:update', (ev: StepUpdateEvent) => {
+    cascade.on(Events.StepUpdate, (ev) => {
         if (ev.step.category !== 'response') {
             log(`${colors.magenta}[Step ${ev.step.index}] ${ev.previousStatus} -> ${ev.step.status} (${ev.step.description})${colors.reset}`);
         }
@@ -150,13 +152,13 @@ function setupListeners(cascade: Cascade) {
 
     // ── Text / Thinking Streaming ──
 
-    cascade.on('text:delta', (ev: TextDeltaEvent) => {
+    cascade.on(Events.Text, (ev) => {
         if (!state.isWaitingForApproval) {
             process.stdout.write(ev.delta);
         }
     });
 
-    cascade.on('thinking:delta', (ev: ThinkingDeltaEvent) => {
+    cascade.on(Events.Thinking, (ev) => {
         if (!state.isWaitingForApproval) {
             process.stdout.write(`${colors.gray}${ev.delta}${colors.reset}`);
         }
@@ -164,8 +166,8 @@ function setupListeners(cascade: Cascade) {
 
     // ── Command Output ──
 
-    cascade.on('command_output', (ev: any) => {
-        if (ev.outputType === 'stderr') {
+    cascade.on(Events.CommandOutput, (ev) => {
+        if (ev.stream === 'stderr') {
             process.stdout.write(`${colors.red}${ev.delta}${colors.reset}`);
         } else {
             process.stdout.write(ev.delta);
@@ -174,7 +176,7 @@ function setupListeners(cascade: Cascade) {
 
     // ── Approval Requests (via high-level event from SDK) ──
 
-    cascade.on('approval:needed', async (request: ApprovalRequest) => {
+    cascade.on(Events.Interaction, async (request: ApprovalRequest) => {
         if (!request.needsApproval) {
             log(`${colors.gray}[Auto-Run] ${request.description}${colors.reset}`);
             return;
@@ -191,7 +193,7 @@ function setupListeners(cascade: Cascade) {
 
     // ── Error ──
 
-    cascade.on('error', (err: any) => {
+    cascade.on(Events.Error, (err: any) => {
         log(`${colors.red}\nError: ${err}${colors.reset}`);
         if (!state.isWaitingForApproval) {
             if (rl) rl.prompt();
@@ -200,7 +202,7 @@ function setupListeners(cascade: Cascade) {
 
     // ── Done ──
 
-    cascade.on('done', () => {
+    cascade.on(Events.Done, () => {
         if (!state.isWaitingForApproval) {
             process.stdout.write('\n');
             if (rl) rl.prompt();
@@ -209,17 +211,11 @@ function setupListeners(cascade: Cascade) {
 
     // ── Debug Handler ──
 
-    cascade.on('raw_update', (ev: any) => {
+    cascade.on(Events.RawUpdate, (ev: any) => {
         if (state.debugMode) {
              const timestamp = new Date().toISOString();
-             const diff = ev.diff;
-             const logEntry = `\n[${timestamp}] RAW UPDATE:\n` + JSON.stringify(diff, (key, value) => {
-                 if (key === 'windowId') return undefined;
-                 if (key === 'view' && value?.case === 'file') return '[File View Content]';
-                 if (typeof value === 'bigint') return value.toString();
-                 if (value && value.type === 'Buffer') return `[Binary: ${value.data.length} bytes]`;
-                 return value;
-            }, 2) + "\n\n";
+             // CascadeState contains trajectory which can be huge
+             const logEntry = `\n[${timestamp}] RAW UPDATE (State changed)\n`;
 
             try {
                 fs.appendFileSync(path.join(process.cwd(), 'debug_log.log'), logEntry);
