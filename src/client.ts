@@ -6,12 +6,19 @@ import { AutoDetector } from "./autodetect.js";
 import { Launcher, type LauncherOptions } from "./server/launcher.js";
 import { readAuthStatus } from "./server/auth-reader.js";
 
-// --- Node.js Debug Hack: Make console.log(message) output clean JSON ---
+// --- Node.js Debug Hack: Make console.log output recursive and clean ---
+import util from "util";
 const inspectSymbol = Symbol.for("nodejs.util.inspect.custom");
-if (typeof process !== "undefined" && (Message.prototype as any)) {
-  (Message.prototype as any)[inspectSymbol] = function () {
-    return this.toJson();
-  };
+if (typeof process !== "undefined") {
+  util.inspect.defaultOptions.depth = null;
+  util.inspect.defaultOptions.colors = true;
+  util.inspect.defaultOptions.maxArrayLength = null;
+
+  if (Message.prototype as any) {
+    (Message.prototype as any)[inspectSymbol] = function () {
+      return this.toJson();
+    };
+  }
 }
 // -----------------------------------------------------------------------
 
@@ -30,6 +37,8 @@ import { CascadeConfig, CascadePlannerConfig, CascadeConversationalPlannerConfig
 import { CascadeTrajectorySummaries } from "./gen/exa/jetski_cortex_pb/jetski_cortex_pb.js";
 import { Cascade } from "./cascade.js";
 import { ServerInfo } from "./autodetect.js";
+import { T } from "./facade/index.js";
+import { LanguageServerFacade } from "./facade/services.js";
 
 /**
  * Options for connecting to an existing Antigravity Language Server.
@@ -86,6 +95,7 @@ export class AntigravityClient {
   public lsClient: PromiseClient<typeof LanguageServerService>;
   private csrfToken: string;
   private apiKey: string;
+  public readonly languageServer: LanguageServerFacade;
 
   private constructor(port: number, csrfToken: string, apiKey: string) {
     this.csrfToken = csrfToken;
@@ -106,7 +116,9 @@ export class AntigravityClient {
       ],
     });
 
+
     this.lsClient = createPromiseClient(LanguageServerService, this.transport);
+    this.languageServer = new LanguageServerFacade(this.transport);
   }
 
   /**
@@ -313,5 +325,7 @@ export class AntigravityClient {
       return response.response;
   }
 }
+
+export { T };
 
 
