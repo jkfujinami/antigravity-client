@@ -30,6 +30,8 @@ import { CascadeConfig, CascadePlannerConfig, CascadeConversationalPlannerConfig
 import { CascadeTrajectorySummaries } from "./gen/exa/jetski_cortex_pb/jetski_cortex_pb.js";
 import { Cascade } from "./cascade.js";
 import { ServerInfo } from "./autodetect.js";
+import { T } from "./facade/index.js";
+import { LanguageServerFacade } from "./facade/services.js";
 
 /**
  * Options for connecting to an existing Antigravity Language Server.
@@ -86,6 +88,7 @@ export class AntigravityClient {
   public lsClient: PromiseClient<typeof LanguageServerService>;
   private csrfToken: string;
   private apiKey: string;
+  public readonly languageServer: LanguageServerFacade;
 
   private constructor(port: number, csrfToken: string, apiKey: string) {
     this.csrfToken = csrfToken;
@@ -106,7 +109,9 @@ export class AntigravityClient {
       ],
     });
 
+
     this.lsClient = createPromiseClient(LanguageServerService, this.transport);
+    this.languageServer = new LanguageServerFacade(this.transport);
   }
 
   /**
@@ -313,5 +318,7 @@ export class AntigravityClient {
       return response.response;
   }
 }
+
+export { T };
 
 
