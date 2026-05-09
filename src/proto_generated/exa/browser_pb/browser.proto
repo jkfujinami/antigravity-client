@@ -2,6 +2,7 @@ syntax = "proto3";
 package exa.browser_pb;
 
 import "exa/codeium_common_pb/codeium_common.proto";
+import "google/protobuf/timestamp.proto";
 
 enum ClickType {
   CLICK_TYPE_UNSPECIFIED = 0;
@@ -34,7 +35,7 @@ message SerializablePageState {
   exa.codeium_common_pb.ImageData screenshot = 4;
   exa.browser_pb.AgentMousePosition agent_mouse_position = 5;
   exa.codeium_common_pb.ConsoleLogScopeItem console_logs = 6;
-  bytes added_time = 7;
+  google.protobuf.Timestamp added_time = 7;
   string serialized_dom_tree = 8;
   exa.codeium_common_pb.Media media_screenshot = 9;
 }

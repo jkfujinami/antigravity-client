@@ -1,0 +1,65 @@
+syntax = "proto3";
+package jetbox_state_pb;
+
+import "exa/codeium_common_pb/codeium_common.proto";
+
+enum PostOnboardingStepType {
+  POST_ONBOARDING_STEP_TYPE_UNSPECIFIED = 0;
+  POST_ONBOARDING_STEP_TYPE_MANAGER_WELCOME = 1;
+  POST_ONBOARDING_STEP_TYPE_USAGE_MODE = 2;
+  POST_ONBOARDING_STEP_TYPE_AGENT_CONFIGURATION = 3;
+  POST_ONBOARDING_STEP_TYPE_ADD_WORKSPACE = 4;
+}
+
+enum ThemeMode {
+  THEME_MODE_UNSPECIFIED = 0;
+  THEME_MODE_DARK = 1;
+  THEME_MODE_LIGHT = 2;
+}
+
+message PostOnboardingState {
+  repeated jetbox_state_pb.PostOnboardingStepType completed_steps = 1;
+}
+
+message UserSettings {
+  exa.codeium_common_pb.CascadeCommandsAutoExecution auto_execution_policy = 1;
+  exa.codeium_common_pb.ArtifactReviewMode artifact_review_mode = 2;
+  bool allow_agent_access_non_workspace_files = 3;
+  repeated string allowed_commands = 4;
+  repeated string denied_commands = 5;
+  exa.codeium_common_pb.PlanningMode planning_mode = 6;
+  bool secure_mode_enabled = 7;
+  bool allow_cascade_access_gitignore_files = 8;
+  bool enable_terminal_sandbox = 9;
+  bool disable_default_customizations = 10;
+  exa.codeium_common_pb.PermissionGrantsConfig global_permission_grants = 11;
+}
+
+message SidebarWorkspaceInfo {
+  bool is_collapsed = 1;
+  bool is_hidden = 2;
+}
+
+message CustomModelsConfig {
+  message CustomModelsEntry {
+    string key = 1;
+    exa.codeium_common_pb.ModelInfo value = 2;
+  }
+
+  repeated jetbox_state_pb.CustomModelsConfig.CustomModelsEntry custom_models = 1;
+}
+
+message State {
+  message SidebarWorkspacesEntry {
+    string key = 1;
+    jetbox_state_pb.SidebarWorkspaceInfo value = 2;
+  }
+
+  jetbox_state_pb.PostOnboardingState post_onboarding = 1;
+  jetbox_state_pb.UserSettings user_settings = 2;
+  repeated jetbox_state_pb.State.SidebarWorkspacesEntry sidebar_workspaces = 3;
+  exa.codeium_common_pb.Model last_selected_agent_model = 4;
+  jetbox_state_pb.CustomModelsConfig custom_models_config = 5;
+  repeated uint32 seen_nux_uids = 6;
+  jetbox_state_pb.ThemeMode theme_mode = 7;
+}

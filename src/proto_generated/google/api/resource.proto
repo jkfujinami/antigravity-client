@@ -1,0 +1,28 @@
+syntax = "proto3";
+package google.api;
+
+message ResourceDescriptor {
+  enum History {
+    HISTORY_UNSPECIFIED = 0;
+    ORIGINALLY_SINGLE_PATTERN = 1;
+    FUTURE_MULTI_PATTERN = 2;
+  }
+
+  enum Style {
+    STYLE_UNSPECIFIED = 0;
+    DECLARATIVE_FRIENDLY = 1;
+  }
+
+  string type = 1;
+  repeated string pattern = 2;
+  string name_field = 3;
+  google.api.ResourceDescriptor.History history = 4;
+  string plural = 5;
+  string singular = 6;
+  repeated google.api.ResourceDescriptor.Style style = 10;
+}
+
+message ResourceReference {
+  string type = 1;
+  string child_type = 2;
+}

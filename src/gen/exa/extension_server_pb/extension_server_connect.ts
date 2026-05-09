@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { BroadcastConversationDeletionRequest, BroadcastConversationDeletionResponse, CheckTerminalShellSupportRequest, CheckTerminalShellSupportResponse, ConversationPickerRequest, ConversationPickerResponse, EditNotebookRequest, EditNotebookResponse, EndAudioRecordingRequest, EndAudioRecordingResponse, ExecuteCommandRequest, FetchMCPAuthTokenRequest, FetchMCPAuthTokenResponse, FindAllReferencesRequest, FindAllReferencesResponse, FocusIDEWindowRequest, FocusIDEWindowResponse, GetBrowserOnboardingPortRequest, GetBrowserOnboardingPortResponse, GetChromeDevtoolsMcpUrlRequest, GetChromeDevtoolsMcpUrlResponse, GetCurrentAudioRecordingRequest, GetCurrentAudioRecordingResponse, GetDefinitionRequest, GetDefinitionResponse, GetLintErrorsRequest, GetLintErrorsResponse, GetSecretValueRequest, GetSecretValueResponse, HandleAsyncPostMessageRequest, HandleAsyncPostMessageResponse, HandleProposeCodeExtensionVerificationRequest, HandleProposeCodeExtensionVerificationResponse, InsertCodeAtCursorRequest, InsertCodeAtCursorResponse, IsAgentManagerEnabledRequest, IsAgentManagerEnabledResponse, LanguageServerStartedRequest, LanguageServerStartedResponse, LaunchBrowserRequest, LaunchBrowserResponse, LogEventRequest, LogEventResponse, OpenAntigravityRulesFileRequest, OpenAntigravityRulesFileResponse, OpenConfigurePluginsPageRequest, OpenConfigurePluginsPageResponse, OpenConversationWorkspaceQuickPickRequest, OpenConversationWorkspaceQuickPickResponse, OpenDiffZonesRequest, OpenDiffZonesResponse, OpenExternalUrlRequest, OpenExternalUrlResponse, OpenFilePointerRequest, OpenFilePointerResponse, OpenPluginConfigModalRequest, OpenPluginConfigModalResponse, OpenPluginPageRequest, OpenPluginPageResponse, OpenSettingRequest, OpenSettingResponse, OpenTerminalRequest, OpenTerminalResponse, OpenVirtualFileRequest, OpenVirtualFileResponse, PlaySoundRequest, PlaySoundResponse, PushUnifiedStateSyncUpdateRequest, PushUnifiedStateSyncUpdateResponse, ReadNotebookRequest, ReadNotebookResponse, ReadTerminalRequest, ReadTerminalResponse, RecordErrorRequest, RecordErrorResponse, RestartUserStatusUpdaterRequest, RestartUserStatusUpdaterResponse, RunExtensionCodeRequest, RunExtensionCodeResponse, SaveDocumentRequest, SaveDocumentResponse, SendTerminalInputRequest, SendTerminalInputResponse, ShowTerminalRequest, ShowTerminalResponse, StartAudioRecordingRequest, StartAudioRecordingResponse, StoreSecretValueRequest, StoreSecretValueResponse, SubscribeToUnifiedStateSyncTopicRequest, TerminalResearchResultRequest, TerminalResearchResultResponse, TerminateCommandRequest, TerminateCommandResponse, UnifiedStateSyncUpdate, UpdateCascadeTrajectorySummariesRequest, UpdateCascadeTrajectorySummariesResponse, UpdateDetailedViewWithCascadeInputRequest, UpdateDetailedViewWithCascadeInputResponse, WriteCascadeEditRequest, WriteCascadeEditResponse } from "./extension_server_pb.js";
+import { BroadcastConversationDeletionRequest, BroadcastConversationDeletionResponse, CheckTerminalShellSupportRequest, CheckTerminalShellSupportResponse, ConversationPickerRequest, ConversationPickerResponse, EditNotebookRequest, EditNotebookResponse, EndAudioRecordingRequest, EndAudioRecordingResponse, ExecuteCommandRequest, ExecuteNotebookRequest, ExecuteNotebookResponse, FindAllReferencesRequest, FindAllReferencesResponse, FocusIDEWindowRequest, FocusIDEWindowResponse, GetBrowserOnboardingPortRequest, GetBrowserOnboardingPortResponse, GetChromeDevtoolsMcpUrlRequest, GetChromeDevtoolsMcpUrlResponse, GetCurrentAudioRecordingRequest, GetCurrentAudioRecordingResponse, GetDefinitionRequest, GetDefinitionResponse, GetLintErrorsRequest, GetLintErrorsResponse, GetSecretValueRequest, GetSecretValueResponse, HandleAsyncPostMessageRequest, HandleAsyncPostMessageResponse, HandleProposeCodeExtensionVerificationRequest, HandleProposeCodeExtensionVerificationResponse, HeartbeatRequest, HeartbeatResponse, InsertCodeAtCursorRequest, InsertCodeAtCursorResponse, IsAgentManagerEnabledRequest, IsAgentManagerEnabledResponse, LanguageServerStartedRequest, LanguageServerStartedResponse, LaunchBrowserRequest, LaunchBrowserResponse, LogEventRequest, LogEventResponse, OpenAntigravityRulesFileRequest, OpenAntigravityRulesFileResponse, OpenConfigurePluginsPageRequest, OpenConfigurePluginsPageResponse, OpenConversationWorkspaceQuickPickRequest, OpenConversationWorkspaceQuickPickResponse, OpenDiffZonesRequest, OpenDiffZonesResponse, OpenExternalUrlRequest, OpenExternalUrlResponse, OpenFilePointerRequest, OpenFilePointerResponse, OpenPluginConfigModalRequest, OpenPluginConfigModalResponse, OpenPluginPageRequest, OpenPluginPageResponse, OpenSettingRequest, OpenSettingResponse, OpenTerminalRequest, OpenTerminalResponse, OpenVirtualFileRequest, OpenVirtualFileResponse, PlaySoundRequest, PlaySoundResponse, PushUnifiedStateSyncUpdateRequest, PushUnifiedStateSyncUpdateResponse, ReadNotebookRequest, ReadNotebookResponse, ReadTerminalRequest, ReadTerminalResponse, RecordErrorRequest, RecordErrorResponse, RestartUserStatusUpdaterRequest, RestartUserStatusUpdaterResponse, RunExtensionCodeRequest, RunExtensionCodeResponse, SaveDocumentRequest, SaveDocumentResponse, SendTerminalInputRequest, SendTerminalInputResponse, ShowTerminalRequest, ShowTerminalResponse, StartAudioRecordingRequest, StartAudioRecordingResponse, StoreSecretValueRequest, StoreSecretValueResponse, SubscribeToUnifiedStateSyncTopicRequest, TerminalResearchResultRequest, TerminalResearchResultResponse, TerminateCommandRequest, TerminateCommandResponse, UnifiedStateSyncUpdate, UpdateCascadeTrajectorySummariesRequest, UpdateCascadeTrajectorySummariesResponse, UpdateDetailedViewWithCascadeInputRequest, UpdateDetailedViewWithCascadeInputResponse, WriteCascadeEditRequest, WriteCascadeEditResponse } from "./extension_server_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 import { TerminalShellCommandStreamChunk } from "../codeium_common_pb/codeium_common_pb.js";
 import { SmartFocusConversationRequest, SmartFocusConversationResponse } from "../language_server_pb/language_server_pb.js";
@@ -285,6 +285,15 @@ export const ExtensionServerService = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc exa.extension_server_pb.ExtensionServerService.ExecuteNotebook
+     */
+    executeNotebook: {
+      name: "ExecuteNotebook",
+      I: ExecuteNotebookRequest,
+      O: ExecuteNotebookResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc exa.extension_server_pb.ExtensionServerService.StartAudioRecording
      */
     startAudioRecording: {
@@ -474,12 +483,12 @@ export const ExtensionServerService = {
       kind: MethodKind.Unary,
     },
     /**
-     * @generated from rpc exa.extension_server_pb.ExtensionServerService.FetchMCPAuthToken
+     * @generated from rpc exa.extension_server_pb.ExtensionServerService.Heartbeat
      */
-    fetchMCPAuthToken: {
-      name: "FetchMCPAuthToken",
-      I: FetchMCPAuthTokenRequest,
-      O: FetchMCPAuthTokenResponse,
+    heartbeat: {
+      name: "Heartbeat",
+      I: HeartbeatRequest,
+      O: HeartbeatResponse,
       kind: MethodKind.Unary,
     },
   }

@@ -4,6 +4,7 @@ package exa.opensearch_clients_pb;
 import "exa/chat_pb/chat.proto";
 import "exa/codeium_common_pb/codeium_common.proto";
 import "exa/index_pb/index.proto";
+import "google/protobuf/timestamp.proto";
 
 enum SearchMode {
   SEARCH_MODE_UNSPECIFIED = 0;
@@ -43,8 +44,8 @@ enum JobStatus {
 }
 
 message TimeRange {
-  bytes start = 1;
-  bytes end = 2;
+  google.protobuf.Timestamp start = 1;
+  google.protobuf.Timestamp end = 2;
 }
 
 message GithubUser {
@@ -293,9 +294,9 @@ message ConnectKnowledgeBaseAccountRequest {
   exa.index_pb.ManagementMetadata metadata = 7;
   exa.opensearch_clients_pb.ConnectorType connector = 2;
   string access_token = 3;
-  bytes access_token_expires_at = 4;
+  google.protobuf.Timestamp access_token_expires_at = 4;
   string refresh_token = 5;
-  bytes refresh_token_expires_at = 6;
+  google.protobuf.Timestamp refresh_token_expires_at = 6;
   exa.opensearch_clients_pb.ConnectorAdditionalParams additional_params = 8;
 }
 
@@ -354,9 +355,9 @@ message ConnectorState {
   bool initialized = 2;
   exa.opensearch_clients_pb.ConnectorConfig config = 3;
   repeated exa.opensearch_clients_pb.DocumentTypeCount document_type_counts = 4;
-  bytes last_indexed_at = 5;
-  bytes unhealthy_since = 6;
-  bytes last_configured_at = 7;
+  google.protobuf.Timestamp last_indexed_at = 5;
+  google.protobuf.Timestamp unhealthy_since = 6;
+  google.protobuf.Timestamp last_configured_at = 7;
 }
 
 message GetKnowledgeBaseConnectorStateRequest {

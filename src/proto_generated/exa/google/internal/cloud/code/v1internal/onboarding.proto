@@ -2,6 +2,8 @@ syntax = "proto3";
 package google.internal.cloud.code.v1internal;
 
 import "exa/google/internal/cloud/code/v1internal/credits.proto";
+import "google/rpc/error_details.proto";
+import "google/rpc/status.proto";
 
 message OnboardUserRequest {
   string tier_id = 1;
@@ -129,13 +131,14 @@ message OnboardUserStatus {
   google.internal.cloud.code.v1internal.OnboardUserStatus.StatusCode status_code = 1;
   string display_message = 2;
   string message_title = 4;
+  google.rpc.Help.Link help_link = 3;
 }
 
 message LoadCodeAssistResponse {
   google.internal.cloud.code.v1internal.UserTier current_tier = 1;
   repeated google.internal.cloud.code.v1internal.UserTier allowed_tiers = 2;
   string cloudaicompanion_project = 3;
-  bytes project_validation_error = 4;
+  google.rpc.Status project_validation_error = 4;
   repeated google.internal.cloud.code.v1internal.IneligibleTier ineligible_tiers = 5;
   bool gcp_managed = 6;
   string manage_subscription_uri = 7;
