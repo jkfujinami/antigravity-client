@@ -25,7 +25,7 @@ async function main() {
     });
 
     console.log("📨 Sending message...");
-    const msg = "Whoamiを実行してほしい.";
+    const msg = "Hello!なんか面白い創作の作品を考えて！<Thinking>...</Thinking>で徹底的に考えて！";
     await cascade.sendMessage(msg);
     console.log("\n✅ Message sent.");
 
