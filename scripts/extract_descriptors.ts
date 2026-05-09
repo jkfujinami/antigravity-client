@@ -22,6 +22,7 @@ import {
     renderProtoFile,
     shouldSkip,
 } from "./lib/proto_printer";
+import { computeDiff, analyzeImpact, printReport } from "./lib/schema_diff";
 
 // ═══════════════════════════════════════════════════════════════
 // メイン
@@ -293,88 +294,64 @@ function cmdSummary() {
 // ═══════════════════════════════════════════════════════════════
 
 function cmdDiff(args: string[]) {
-    const oldDir = getArg(args, "--old");
-    const newDir = getArg(args, "--new");
+    // 旧スキーマ: src/proto_generated のバンドルから再抽出 or 直接バンドル指定
+    // 新スキーマ: 現在の resource/ のバンドルから抽出
 
-    if (!oldDir || !newDir) {
-        console.error("Usage: diff --old <dir> --new <dir>");
-        process.exit(1);
-    }
+    console.log("📖 Old schema を解析中 (src/proto_generated のバンドルから)...");
+    const oldDescs = collectDescriptorsFromProtoDir(
+        getArg(args, "--old") || path.resolve(__dirname, "../src/proto_generated")
+    );
+    console.log(`   → ${oldDescs.size} descriptors`);
 
-    const oldFiles = collectProtoFiles(oldDir);
-    const newFiles = collectProtoFiles(newDir);
+    console.log("\n📖 New schema を解析中 (最新バンドルから)...");
+    const newDescs = collectAllDescriptors();
+    console.log(`   → ${newDescs.size} descriptors`);
 
-    const allNames = new Set([...oldFiles.keys(), ...newFiles.keys()]);
-
-    let added = 0, removed = 0, changed = 0, unchanged = 0;
-
-    console.log("\n═══ Proto Schema Diff ═══\n");
-
-    for (const name of [...allNames].sort()) {
-        const oldContent = oldFiles.get(name);
-        const newContent = newFiles.get(name);
-
-        if (!oldContent && newContent) {
-            console.log(`  [NEW]     ${name}`);
-            added++;
-        } else if (oldContent && !newContent) {
-            console.log(`  [REMOVED] ${name}`);
-            removed++;
-        } else if (oldContent && newContent) {
-            if (oldContent === newContent) {
-                unchanged++;
-            } else {
-                // 行レベルの差分をカウント
-                const oldLines = oldContent.split("\n");
-                const newLines = newContent.split("\n");
-                const addedLines = newLines.filter(l => !oldLines.includes(l));
-                const removedLines = oldLines.filter(l => !newLines.includes(l));
-
-                console.log(`  [CHANGED] ${name}  (+${addedLines.length} -${removedLines.length} lines)`);
-
-                // 重要な変更を表示
-                for (const line of addedLines) {
-                    const trimmed = line.trim();
-                    if (trimmed.startsWith("rpc ") || trimmed.startsWith("message ") || trimmed.startsWith("enum ")) {
-                        console.log(`    + ${trimmed}`);
-                    }
-                }
-                for (const line of removedLines) {
-                    const trimmed = line.trim();
-                    if (trimmed.startsWith("rpc ") || trimmed.startsWith("message ") || trimmed.startsWith("enum ")) {
-                        console.log(`    - ${trimmed}`);
-                    }
-                }
-
-                changed++;
-            }
-        }
-    }
-
-    console.log(`\n── Summary ──`);
-    console.log(`  New files:       ${added}`);
-    console.log(`  Removed files:   ${removed}`);
-    console.log(`  Changed files:   ${changed}`);
-    console.log(`  Unchanged files: ${unchanged}`);
+    const diff = computeDiff(oldDescs, newDescs);
+    const impacts = analyzeImpact(diff, newDescs);
+    printReport(diff, impacts);
 }
 
-function collectProtoFiles(dir: string): Map<string, string> {
-    const files = new Map<string, string>();
+/**
+ * 旧スキーマ用: generate_from_js.ts で生成済みの .proto ディレクトリから
+ * 再度バンドルを読んで比較するのではなく、現在のバンドルから old/new の両方を取る。
+ * ただし --old に proto ディレクトリが指定された場合はバンドルスキャンで対応。
+ *
+ * 実際にはバンドル直接比較が最も正確なため、old もバンドルから取る。
+ * ユーザが旧バンドルを resource/ に保存している場合に対応。
+ */
+function collectDescriptorsFromProtoDir(
+    _dir: string
+): Map<string, InstanceType<typeof FileDescriptorProto>> {
+    // 旧バンドルファイルが存在する場合はそこから抽出
+    const oldBundles = [
+        path.resolve(__dirname, "../resource/extension_formatted.old.js"),
+        path.resolve(__dirname, "../resource/chat_formatted.old.js"),
+    ];
 
-    function walk(d: string) {
-        for (const entry of fs.readdirSync(d, { withFileTypes: true })) {
-            const full = path.join(d, entry.name);
-            if (entry.isDirectory()) {
-                walk(full);
-            } else if (entry.name.endsWith(".proto")) {
-                const rel = path.relative(dir, full);
-                files.set(rel, fs.readFileSync(full, "utf8"));
+    const hasOldBundles = oldBundles.some(b => fs.existsSync(b));
+
+    if (hasOldBundles) {
+        const descs = new Map<string, InstanceType<typeof FileDescriptorProto>>();
+        for (const bundlePath of oldBundles) {
+            if (!fs.existsSync(bundlePath)) continue;
+            console.log(`   scanning: ${path.basename(bundlePath)}`);
+            const extracted = extractDescriptors(bundlePath);
+            for (const d of extracted) {
+                if (d.proto.name && d.proto.package) {
+                    const existing = descs.get(d.proto.name);
+                    if (!existing || d.proto.messageType.length > existing.messageType.length) {
+                        descs.set(d.proto.name, d.proto);
+                    }
+                }
             }
         }
+        return descs;
     }
 
-    if (fs.existsSync(dir)) walk(dir);
-    return files;
+    // 旧バンドルがない場合は現在のバンドルを old としても使う（差分ゼロになる）
+    console.log("   ⚠ 旧バンドル (.old.js) が見つかりません。現在のバンドルを old として使用します。");
+    return collectAllDescriptors();
 }
 
 // ═══════════════════════════════════════════════════════════════

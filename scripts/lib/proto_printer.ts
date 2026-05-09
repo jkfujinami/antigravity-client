@@ -16,7 +16,7 @@ const SCALAR_TYPE_MAP: Record<number, string> = {
 };
 
 const SKIP_PACKAGES = new Set([
-    "google.protobuf", "google.rpc", "google.type", "google.api", "pb",
+    "google.protobuf", "pb",
 ]);
 
 /**
@@ -144,7 +144,19 @@ export function renderProtoFile(
                         if (knownTypes.has(fqn)) {
                             const typeFile = typeToFile.get(fqn);
                             const typePkg = fqn.substring(0, fqn.lastIndexOf("."));
-                            if (typeFile && typeFile !== filename && !SKIP_PACKAGES.has(typePkg)) {
+                            
+                            // google.protobuf 等はローカル出力からスキップされるが、import は必要
+                            if (typePkg.startsWith("google.protobuf")) {
+                                const base = fqn.split(".")[2]; // google.protobuf.Duration -> Duration
+                                // CamelCase to snake_case
+                                const snake = base.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`).replace(/^_/, '');
+                                importFiles.add(`google/protobuf/${snake}.proto`);
+                            } else if (typePkg === "google.rpc" && !typeFile) {
+                                // 万が一 typeFile が見つからない場合のフォールバック
+                                const base = fqn.split(".")[2];
+                                const snake = base.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`).replace(/^_/, '');
+                                importFiles.add(`google/rpc/${snake}.proto`);
+                            } else if (typeFile && typeFile !== filename && !SKIP_PACKAGES.has(typePkg)) {
                                 importFiles.add(typeFile);
                             }
                         }
@@ -167,7 +179,16 @@ export function renderProtoFile(
                     if (knownTypes.has(fqn)) {
                         const typeFile = typeToFile.get(fqn);
                         const typePkg = fqn.substring(0, fqn.lastIndexOf("."));
-                        if (typeFile && typeFile !== filename && !SKIP_PACKAGES.has(typePkg)) {
+                        
+                        if (typePkg.startsWith("google.protobuf")) {
+                            const base = fqn.split(".")[2];
+                            const snake = base.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`).replace(/^_/, '');
+                            importFiles.add(`google/protobuf/${snake}.proto`);
+                        } else if (typePkg === "google.rpc" && !typeFile) {
+                            const base = fqn.split(".")[2];
+                            const snake = base.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`).replace(/^_/, '');
+                            importFiles.add(`google/rpc/${snake}.proto`);
+                        } else if (typeFile && typeFile !== filename && !SKIP_PACKAGES.has(typePkg)) {
                             importFiles.add(typeFile);
                         }
                     }
@@ -292,5 +313,5 @@ function renderField(
  * パッケージがスキップ対象かどうかを判定する。
  */
 export function shouldSkip(pkg: string): boolean {
-    return SKIP_PACKAGES.has(pkg);
+    return pkg.startsWith("google.protobuf");
 }

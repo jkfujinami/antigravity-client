@@ -1,9 +1,19 @@
 
 import { createPromiseClient, PromiseClient } from "@connectrpc/connect";
 import { createConnectTransport } from "@connectrpc/connect-node";
+import { Message } from "@bufbuild/protobuf";
 import { AutoDetector } from "./autodetect.js";
 import { Launcher, type LauncherOptions } from "./server/launcher.js";
 import { readAuthStatus } from "./server/auth-reader.js";
+
+// --- Node.js Debug Hack: Make console.log(message) output clean JSON ---
+const inspectSymbol = Symbol.for("nodejs.util.inspect.custom");
+if (typeof process !== "undefined" && (Message.prototype as any)) {
+  (Message.prototype as any)[inspectSymbol] = function () {
+    return this.toJson();
+  };
+}
+// -----------------------------------------------------------------------
 
 function resolveApiKey(explicit?: string): string {
     return explicit || process.env.ANTIGRAVITY_API_KEY || readAuthStatus().apiKey || "";

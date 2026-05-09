@@ -1,0 +1,331 @@
+syntax = "proto3";
+package devtools.cider.agent.trajectory_steps;
+
+message DummyStep {
+  message Args {
+    int32 a = 1;
+    int32 b = 2;
+  }
+
+  message Reply {
+    message Image {
+      string mime_type = 1;
+      bytes data = 2;
+    }
+
+    int32 a_plus_b = 1;
+    devtools.cider.agent.trajectory_steps.DummyStep.Reply.Image image_data = 2;
+  }
+
+  string tool_name = 1;
+  devtools.cider.agent.trajectory_steps.DummyStep.Args args = 2;
+  devtools.cider.agent.trajectory_steps.DummyStep.Reply reply = 3;
+}
+
+message ToolStatus {
+  string widget_update = 1;
+  string warning = 2;
+}
+
+message BuildCleanerStep {
+  message Args {
+    repeated string workspace_paths = 1;
+  }
+
+  message Issue {
+    string blaze_package = 1;
+    string action = 2;
+    string action_label = 3;
+    string status = 4;
+    string status_detail = 5;
+  }
+
+  message Reply {
+    repeated string updated_build_files = 1;
+    repeated devtools.cider.agent.trajectory_steps.BuildCleanerStep.Issue issues = 2;
+  }
+
+  string tool_name = 1;
+  devtools.cider.agent.trajectory_steps.BuildCleanerStep.Args args = 2;
+  devtools.cider.agent.trajectory_steps.BuildCleanerStep.Reply reply = 3;
+  devtools.cider.agent.trajectory_steps.ToolStatus tool_status = 4;
+}
+
+message BuildFailure {
+  string target = 1;
+  string stderr = 2;
+}
+
+message BuildReply {
+  string invocation_id = 5;
+  bool succeeded = 1;
+  string error_message = 2;
+  repeated devtools.cider.agent.trajectory_steps.BuildFailure failure_details = 3;
+}
+
+message BuildTargetsStep {
+  message Args {
+    repeated string targets = 1;
+    repeated string arguments = 2;
+  }
+
+  string tool_name = 1;
+  devtools.cider.agent.trajectory_steps.BuildTargetsStep.Args args = 2;
+  devtools.cider.agent.trajectory_steps.BuildReply reply = 3;
+}
+
+message TestReply {
+  string invocation_id = 8;
+  bool succeeded = 1;
+  string error_message = 2;
+  repeated devtools.cider.agent.trajectory_steps.BuildFailure build_failure_details = 3;
+  repeated devtools.cider.agent.trajectory_steps.TestFailure test_failure_details = 4;
+  string raw_lcov = 5;
+}
+
+message TestLog {
+  string target = 1;
+  string log = 2;
+}
+
+message TestFailure {
+  string target = 1;
+  string test_case = 2;
+  string failure_message = 3;
+}
+
+message TestTargetsStep {
+  message Args {
+    repeated string targets = 1;
+    repeated string arguments = 2;
+    repeated string coverage_files = 3;
+  }
+
+  string tool_name = 1;
+  devtools.cider.agent.trajectory_steps.TestTargetsStep.Args args = 2;
+  devtools.cider.agent.trajectory_steps.TestReply reply = 3;
+}
+
+message MomaStep {
+  message Args {
+    string query = 1;
+  }
+
+  message Result {
+    string uri = 1;
+    string title = 2;
+    string content = 3;
+  }
+
+  message Reply {
+    repeated devtools.cider.agent.trajectory_steps.MomaStep.Result search_results = 1;
+  }
+
+  string tool_name = 1;
+  devtools.cider.agent.trajectory_steps.MomaStep.Args args = 2;
+  devtools.cider.agent.trajectory_steps.MomaStep.Reply reply = 3;
+  devtools.cider.agent.trajectory_steps.ToolStatus tool_status = 4;
+}
+
+message LookupResult {
+  string uri = 1;
+  string content = 2;
+  string binary_content = 3;
+  string error = 4;
+  string title = 5;
+  string mime_type = 6;
+}
+
+message RetrieveContentStep {
+  message Args {
+    repeated string uri = 1;
+  }
+
+  message Reply {
+    repeated devtools.cider.agent.trajectory_steps.LookupResult results = 1;
+  }
+
+  string tool_name = 1;
+  devtools.cider.agent.trajectory_steps.RetrieveContentStep.Args args = 2;
+  devtools.cider.agent.trajectory_steps.RetrieveContentStep.Reply reply = 3;
+}
+
+message CritiqueStep {
+  message Args {
+    string changelist = 1;
+    bool include_code_changes = 2;
+    bool include_reviewer_comments = 3;
+    repeated string paths = 4;
+  }
+
+  message Reply {
+    string changelist_content = 1;
+    repeated devtools.cider.agent.trajectory_steps.CritiqueStep.Comment comments = 2;
+    repeated string modified_paths = 3;
+  }
+
+  message Comment {
+    string depot_path = 1;
+    string type = 2;
+    string author = 3;
+    string content = 4;
+    bool resolved = 5;
+    repeated devtools.cider.agent.trajectory_steps.CritiqueStep.Approval approval = 6;
+    repeated devtools.cider.agent.trajectory_steps.CritiqueStep.CommentReply replies = 7;
+  }
+
+  message Approval {
+    string type = 1;
+    string display_name = 2;
+    bool approved = 3;
+  }
+
+  message CommentReply {
+    string author = 1;
+    string content = 2;
+    string action = 3;
+  }
+
+  string tool_name = 1;
+  devtools.cider.agent.trajectory_steps.CritiqueStep.Args args = 2;
+  devtools.cider.agent.trajectory_steps.CritiqueStep.Reply reply = 3;
+  devtools.cider.agent.trajectory_steps.ToolStatus tool_status = 4;
+}
+
+message FindingsStep {
+  message Args {
+    string changelist = 1;
+  }
+
+  message Finding {
+    message Location {
+      string depot_path = 1;
+      int32 line_number_start = 2;
+      int32 line_number_end = 3;
+    }
+
+    string category = 1;
+    string subcategory = 2;
+    string description = 3;
+    bool actionable = 4;
+    devtools.cider.agent.trajectory_steps.FindingsStep.Finding.Location location = 5;
+  }
+
+  message Reply {
+    repeated devtools.cider.agent.trajectory_steps.FindingsStep.Finding findings = 1;
+  }
+
+  string tool_name = 1;
+  devtools.cider.agent.trajectory_steps.FindingsStep.Args args = 2;
+  devtools.cider.agent.trajectory_steps.FindingsStep.Reply reply = 3;
+  devtools.cider.agent.trajectory_steps.ToolStatus tool_status = 4;
+}
+
+message ProposeAICommentsStep {
+  message AIComment {
+    enum Side {
+      SIDE_UNSPECIFIED = 0;
+      SIDE_LEFT = 1;
+      SIDE_RIGHT = 2;
+    }
+
+    string file_path = 1;
+    devtools.cider.agent.trajectory_steps.ProposeAICommentsStep.AIComment.Side side = 2;
+    int32 line_number = 3;
+    string comment = 4;
+  }
+
+  message Args {
+    repeated devtools.cider.agent.trajectory_steps.ProposeAICommentsStep.AIComment comments = 1;
+  }
+
+  devtools.cider.agent.trajectory_steps.ProposeAICommentsStep.Args args = 2;
+}
+
+message StartCodeReviewStep {
+  message FileVersion {
+    oneof version {
+      devtools.cider.agent.trajectory_steps.StartCodeReviewStep.CritiqueSnapshot critique_snapshot = 1;
+      int64 piper_cl_number = 2;
+      int64 piper_file_revision = 3;
+    }
+  }
+
+  message CritiqueSnapshot {
+    int64 ocl_number = 1;
+    int64 snapshot_number = 2;
+  }
+
+  message Args {
+    message ExternalContext {
+      oneof context_data {
+        string g3doc_path = 1;
+      }
+    }
+
+    string user_prompt = 2;
+    repeated devtools.cider.agent.trajectory_steps.StartCodeReviewStep.Args.ExternalContext external_contexts = 3;
+    repeated string file_paths = 4;
+    oneof review_target {
+      devtools.cider.agent.trajectory_steps.StartCodeReviewStep.CritiqueSnapshot critique_snapshot = 1;
+    }
+  }
+
+  message G3DocData {
+    string g3doc_path = 1;
+    string content = 2;
+    devtools.cider.agent.trajectory_steps.StartCodeReviewStep.FileVersion file_version = 3;
+  }
+
+  message FileContentData {
+    string file_path = 1;
+    string content = 2;
+    devtools.cider.agent.trajectory_steps.StartCodeReviewStep.FileVersion file_version = 3;
+  }
+
+  message ContextData {
+    oneof context_data {
+      devtools.cider.agent.trajectory_steps.StartCodeReviewStep.G3DocData g3doc = 1;
+      devtools.cider.agent.trajectory_steps.StartCodeReviewStep.FileContentData file = 2;
+    }
+  }
+
+  message ChangedFileData {
+    enum FileOperation {
+      FILE_OPERATION_UNSPECIFIED = 0;
+      FILE_OPERATION_ADD = 1;
+      FILE_OPERATION_DELETE = 2;
+      FILE_OPERATION_MODIFY = 3;
+      FILE_OPERATION_RENAME = 4;
+      FILE_OPERATION_BRANCH = 5;
+    }
+
+    devtools.cider.agent.trajectory_steps.StartCodeReviewStep.ChangedFileData.FileOperation operation = 1;
+    string old_file_path = 2;
+    string new_file_path = 3;
+    string file_diff = 4;
+  }
+
+  message BugData {
+    int64 bug_id = 1;
+    string title = 2;
+    string description = 3;
+  }
+
+  message Tag {
+    string name = 1;
+    string value = 2;
+  }
+
+  message ChangeData {
+    string description = 1;
+    repeated devtools.cider.agent.trajectory_steps.StartCodeReviewStep.ChangedFileData files = 3;
+    repeated devtools.cider.agent.trajectory_steps.StartCodeReviewStep.BugData bugs = 2;
+    repeated devtools.cider.agent.trajectory_steps.StartCodeReviewStep.Tag tags = 4;
+  }
+
+  devtools.cider.agent.trajectory_steps.StartCodeReviewStep.Args args = 1;
+  devtools.cider.agent.trajectory_steps.StartCodeReviewStep.ChangeData change_data = 2;
+  repeated devtools.cider.agent.trajectory_steps.StartCodeReviewStep.ContextData context_data = 3;
+  bool continue_review = 4;
+}

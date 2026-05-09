@@ -469,6 +469,11 @@ export class CascadePluginRemoteConfigTemplate extends Message<CascadePluginRemo
    */
   headers: CascadePluginRemoteConfigTemplate_HeadersEntry[] = [];
 
+  /**
+   * @generated from field: string auth_provider_type = 3;
+   */
+  authProviderType = "";
+
   constructor(data?: PartialMessage<CascadePluginRemoteConfigTemplate>) {
     super();
     proto3.util.initPartial(data, this);
@@ -479,6 +484,7 @@ export class CascadePluginRemoteConfigTemplate extends Message<CascadePluginRemo
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "server_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "headers", kind: "message", T: CascadePluginRemoteConfigTemplate_HeadersEntry, repeated: true },
+    { no: 3, name: "auth_provider_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadePluginRemoteConfigTemplate {

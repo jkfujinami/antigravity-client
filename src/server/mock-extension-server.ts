@@ -17,7 +17,6 @@ import { ExtensionServerService } from "../gen/exa/extension_server_pb/extension
 import {
     LanguageServerStartedResponse,
     GetChromeDevtoolsMcpUrlResponse,
-    FetchMCPAuthTokenResponse,
     UnifiedStateSyncUpdate,
     LogEventResponse,
     RecordErrorResponse,
@@ -37,9 +36,9 @@ import {
 } from "../gen/exa/codeium_common_pb/codeium_common_pb.js";
 import { Timestamp } from "@bufbuild/protobuf";
 
-/** Encode a Timestamp as bytes (proto field is `bytes` due to well-known type fallback) */
-function timestampBytes(): Uint8Array<ArrayBuffer> {
-    return Timestamp.fromDate(new Date()).toBinary() as Uint8Array<ArrayBuffer>;
+/** Generate a Timestamp object for the current time */
+function currentTimestamp(): Timestamp {
+    return Timestamp.fromDate(new Date());
 }
 import * as http from "http";
 import { EventEmitter } from "events";
@@ -150,9 +149,6 @@ export class MockExtensionServer extends EventEmitter {
                     }
                 },
 
-                fetchMCPAuthToken() {
-                    return new FetchMCPAuthTokenResponse({ token: authData.apiKey });
-                },
 
                 logEvent() { return new LogEventResponse(); },
                 recordError() { return new RecordErrorResponse(); },
@@ -192,7 +188,7 @@ export class MockExtensionServer extends EventEmitter {
                                 commandLine: req.commandLine,
                                 cwd: req.cwd,
                                 shellPid: 0,
-                                startTime: timestampBytes(),
+                                startTime: currentTimestamp(),
                                 source: TerminalShellCommandSource.CASCADE,
                             })
                         }
@@ -211,7 +207,7 @@ export class MockExtensionServer extends EventEmitter {
                                 case: "trailer",
                                 value: new TerminalShellCommandTrailer({
                                     exitCode: 1,
-                                    endTime: timestampBytes()
+                                    endTime: currentTimestamp()
                                 })
                             }
                         });
@@ -262,7 +258,7 @@ export class MockExtensionServer extends EventEmitter {
                             case: "trailer",
                             value: new TerminalShellCommandTrailer({
                                 exitCode: exitCode,
-                                endTime: timestampBytes()
+                                endTime: currentTimestamp()
                             })
                         }
                     });
