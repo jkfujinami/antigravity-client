@@ -76,12 +76,20 @@ async function main() {
         });
 
         // 2. Text Streaming
-        cascade.on("text", (ev: any) => process.stdout.write(ev.delta || ""));
-        cascade.on("thinking", (ev: any) => process.stdout.write(`\x1b[90m${ev.delta}\x1b[0m`));
+        cascade.on(Cascade.Events.Text, (ev) => process.stdout.write(ev.delta || ""));
+        cascade.on(Cascade.Events.Thinking, (ev) => process.stdout.write(`\x1b[90m${ev.delta}\x1b[0m`));
 
-        cascade.on("error", (err: any) => {
+        cascade.on(Cascade.Events.Error, (err: any) => {
             console.error("\n❌ Error:", err);
+        })
+        cascade.on(Cascade.Events.Interaction, (ev) => {
+            console.log("\n\n=== INTERACTION ===");
+            console.log(ev);
         });
+        cascade.on(Cascade.Events.StepUpdate, (ev) => {
+            console.log("\n\n=== STEP ===");
+            console.log(ev);
+        })
         cascade.listen()
 
         // --- Send Request ---

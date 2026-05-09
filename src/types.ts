@@ -58,10 +58,23 @@ export function toRunStatus(raw: CascadeRunStatus): RunStatus {
 }
 
 // ════════════════════════════════════════════════════════════════
-// 3. ステップ種別カテゴリ
+// 3. Step 型の自動抽出
 // ════════════════════════════════════════════════════════════════
-// Step.step の oneof case (src/gen/gemini_coder_pb.ts L266-878) を分類
 
+/**
+ * trajectory.pb.ts の Step メッセージから oneof 'step' のすべてのケース (文字列リリテラル) を抽出します。
+ * これにより、エージェントが実行可能な全アクション（100種類以上）が自動的に型定義されます。
+ */
+export type StepType = Exclude<NonNullable<Step["step"]>["case"], undefined>;
+
+/**
+ * 特定の StepType に対応するペイロード (value) の型を取得します。
+ */
+export type StepValue<T extends StepType> = Extract<NonNullable<Step["step"]>, { case: T }>["value"];
+
+/** 
+ * Step カテゴリの定義 
+ */
 export type StepCategory =
     | "user_input"
     | "response"
@@ -79,33 +92,49 @@ export type StepCategory =
     | "system"
     | "other";
 
-const STEP_CATEGORY_MAP: Record<string, StepCategory> = {
+/**
+ * すべての StepType をカテゴリに分類するマップ。
+ * Record<StepType, StepCategory> を使うことで、Proto に新しい Step が追加された際に
+ * ここへの登録漏れがコンパイルエラーとして検出されます。
+ */
+const STEP_CATEGORY_MAP: Record<StepType, StepCategory> = {
+    // --- User & Planner ---
     userInput: "user_input",
     plannerResponse: "response",
+    askQuestion: "response",
+
+    // --- Commands & Shell ---
     runCommand: "command",
     commandStatus: "command_status",
     sendCommandInput: "send_input",
     shellExec: "command",
     readTerminal: "command",
+    blazeBuildTargets: "command",
+    blazeTestTargets: "command",
+    compile: "command",
+    compileApplet: "command",
+    restartDevServer: "command",
+
+    // --- File Operations ---
     viewFile: "file_view",
     viewFileOutline: "file_view",
     viewCodeItem: "file_view",
     listDirectory: "file_view",
     viewContentChunk: "file_view",
+    readNotebook: "file_view",
     writeToFile: "file_write",
+    writeBlob: "file_write",
     fileChange: "file_write",
     proposeCode: "file_write",
     fileBreakdown: "file_write",
     codeAction: "file_write",
     codeAcknowledgement: "file_write",
+    editNotebook: "file_write",
+    executeNotebook: "file_write",
     deleteDirectory: "file_delete",
     move: "file_move",
-    grepSearch: "search",
-    find: "search",
-    codeSearch: "search",
-    internalSearch: "search",
-    trajectorySearch: "search",
-    findAllReferences: "search",
+
+    // --- Browser ---
     openBrowserUrl: "browser",
     readBrowserPage: "browser",
     captureBrowserScreenshot: "browser",
@@ -131,12 +160,23 @@ const STEP_CATEGORY_MAP: Record<string, StepCategory> = {
     browserListNetworkRequests: "browser",
     browserGetNetworkRequest: "browser",
     captureBrowserConsoleLogs: "browser",
+
+    // --- Search & Knowledge ---
+    grepSearch: "search",
+    find: "search",
+    codeSearch: "search",
+    internalSearch: "search",
+    trajectorySearch: "search",
+    findAllReferences: "search",
+    retrieveContent: "search",
     searchWeb: "web",
     readUrlContent: "web",
     searchKnowledgeBase: "knowledge",
     lookupKnowledgeBase: "knowledge",
     knowledgeGeneration: "knowledge",
     knowledgeArtifacts: "knowledge",
+
+    // --- System & Meta ---
     systemMessage: "system",
     ephemeralMessage: "system",
     errorMessage: "system",
@@ -146,7 +186,6 @@ const STEP_CATEGORY_MAP: Record<string, StepCategory> = {
     notifyUser: "system",
     suggestedResponses: "system",
     lintDiff: "system",
-    compile: "system",
     gitCommit: "system",
     generateImage: "system",
     mcpTool: "system",
@@ -154,6 +193,10 @@ const STEP_CATEGORY_MAP: Record<string, StepCategory> = {
     readResource: "system",
     clipboard: "system",
     wait: "system",
+    critique: "system",
+    findings: "system",
+
+    // --- Other / To be categorized ---
     dummy: "other",
     generic: "other",
     planInput: "other",
@@ -165,18 +208,16 @@ const STEP_CATEGORY_MAP: Record<string, StepCategory> = {
     toolCallChoice: "other",
     trajectoryChoice: "other",
     brainUpdate: "other",
-    addAnnotation: "other",
     proposalFeedback: "other",
     conversationHistory: "other",
     kiInsertion: "other",
     agencyToolCall: "other",
+    invokeSubagent: "other",
     runExtensionCode: "other",
     workspaceApi: "other",
-    compileApplet: "other",
     installAppletDependencies: "other",
     installAppletPackage: "other",
     setUpFirebase: "other",
-    restartDevServer: "other",
     deployFirebase: "other",
     lintApplet: "other",
     defineNewEnvVariable: "other",
@@ -184,10 +225,10 @@ const STEP_CATEGORY_MAP: Record<string, StepCategory> = {
     postPrReview: "other",
 };
 
-/** カテゴリマップへのアクセス (テスト用にもエクスポート) */
-export function getStepCategory(stepCase: string | undefined): StepCategory {
+/** カテゴリマップへのアクセス */
+export function getStepCategory(stepCase: StepType | undefined): StepCategory {
     if (!stepCase) return "other";
-    return STEP_CATEGORY_MAP[stepCase] ?? "other";
+    return (STEP_CATEGORY_MAP as any)[stepCase] ?? "other";
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -204,13 +245,21 @@ export class CascadeStep {
     get raw(): Step { return this._raw; }
 
     /** ステップの oneof case 名 (例: "runCommand", "plannerResponse") */
-    get type(): string {
-        return this._raw.step?.case ?? "unknown";
+    get type(): StepType | "unknown" {
+        return (this._raw.step?.case as StepType) ?? "unknown";
+    }
+
+    /** 
+     * 指定した StepType かどうかを判定し、型を絞り込みます。
+     * if (step.is("runCommand")) { console.log(step.value.commandLine); } のように使います。
+     */
+    is<T extends StepType>(type: T): this is CascadeStep & { type: T, value: StepValue<T> } {
+        return this._raw.step?.case === type;
     }
 
     /** ステップのカテゴリ */
     get category(): StepCategory {
-        return getStepCategory(this._raw.step?.case);
+        return getStepCategory(this._raw.step?.case as StepType);
     }
 
     /** ステータス (SDK 文字列型) */
@@ -224,7 +273,7 @@ export class CascadeStep {
     }
 
     /** oneof の value への低レベルアクセス */
-    get value(): unknown {
+    get value(): any {
         return this._raw.step?.value;
     }
 
@@ -265,38 +314,48 @@ export class CascadeStep {
 
     /** runCommand ステップのコマンドライン */
     get commandLine(): string | undefined {
-        if (this._raw.step?.case !== "runCommand") return undefined;
-        const v = this._raw.step.value;
-        return v.proposedCommandLine || v.commandLine || undefined;
+        if (!this.is("runCommand")) return undefined;
+        return this.value.proposedCommandLine || this.value.commandLine || undefined;
     }
 
     /** runCommand ステップの stdout */
     get stdout(): string | undefined {
-        if (this._raw.step?.case !== "runCommand") return undefined;
-        return this._raw.step.value.stdout || undefined;
+        if (!this.is("runCommand")) return undefined;
+        return this.value.stdout || undefined;
     }
 
     /** runCommand ステップの stderr */
     get stderr(): string | undefined {
-        if (this._raw.step?.case !== "runCommand") return undefined;
-        return this._raw.step.value.stderr || undefined;
+        if (!this.is("runCommand")) return undefined;
+        return this.value.stderr || undefined;
     }
 
     /** plannerResponse ステップのレスポンステキスト */
     get responseText(): string | undefined {
-        if (this._raw.step?.case !== "plannerResponse") return undefined;
-        return this._raw.step.value.response || undefined;
+        if (!this.is("plannerResponse")) return undefined;
+        return this.value.response || undefined;
     }
 
     /** plannerResponse ステップの思考テキスト */
     get thinkingText(): string | undefined {
-        if (this._raw.step?.case !== "plannerResponse") return undefined;
-        return this._raw.step.value.thinking || undefined;
+        if (!this.is("plannerResponse")) return undefined;
+        return this.value.thinking || undefined;
     }
 }
 
 // ════════════════════════════════════════════════════════════════
-// 5. ApprovalRequest (承認リクエストオブジェクト)
+// 5. イベントペイロードの型定義
+// ════════════════════════════════════════════════════════════════
+
+export interface TextDeltaEvent { delta: string; fullText: string; stepIndex: number; }
+export interface ThinkingDeltaEvent { delta: string; fullText: string; stepIndex: number; }
+export interface CommandOutputEvent { delta: string; fullText: string; stream: "stdout" | "stderr"; stepIndex: number; }
+export interface StepNewEvent { step: CascadeStep; }
+export interface StepUpdateEvent { step: CascadeStep; previousStatus: StepStatus; }
+export interface StatusChangeEvent { status: RunStatus; previousStatus: RunStatus; }
+
+// ════════════════════════════════════════════════════════════════
+// 6. ApprovalRequest (承認リクエストオブジェクト)
 // ════════════════════════════════════════════════════════════════
 
 export type ApprovalType =
@@ -324,44 +383,13 @@ export interface ApprovalRequest {
 }
 
 // ════════════════════════════════════════════════════════════════
-// 6. 高レベルイベント型定義
+// 7. イベント名とペイロードの型マッピング
 // ════════════════════════════════════════════════════════════════
 
-export interface StepNewEvent {
-    step: CascadeStep;
-}
-
-export interface StepUpdateEvent {
-    step: CascadeStep;
-    previousStatus: StepStatus;
-}
-
-export interface TextDeltaEvent {
-    delta: string;
-    fullText: string;
-    stepIndex: number;
-}
-
-export interface ThinkingDeltaEvent {
-    delta: string;
-    fullText: string;
-    stepIndex: number;
-}
-
-export interface CommandOutputEvent {
-    delta: string;
-    fullText: string;
-    stream: "stdout" | "stderr";
-    stepIndex: number;
-}
-
-export interface StatusChangeEvent {
-    status: RunStatus;
-    previousStatus: RunStatus;
-}
+export { CascadeEvents, type CascadeEventPayloads } from "./event-types.js";
 
 // ════════════════════════════════════════════════════════════════
-// 7. PermissionScope の再エクスポート (repl.ts が直接 gen/ を参照しなくて済むように)
+// 8. PermissionScope の再エクスポート
 // ════════════════════════════════════════════════════════════════
 
 export { PermissionScope } from "./gen/exa/cortex_pb/cortex_pb.js";
