@@ -15,7 +15,7 @@ async function main() {
     console.log(`🚀 Started cascade: ${cascade.cascadeId}`);
 
     console.log("📨 Sending request: 'whoami を実行してください'");
-    await cascade.sendMessage("whoami コマンドを実行して、その結果を教えてください。");
+    await cascade.sendMessage("ls -a コマンドを実行して、その結果を教えてください。");
 
     // Listen for updates - FULL DEBUG MODE
     cascade.on("update", async (state) => {

@@ -153,14 +153,16 @@ export class Launcher extends EventEmitter {
         // Spawn LS process
         const metadataBin = createMetadataBinary();
         const lsArgs = [
-            `--extension_server_port=${mockPort}`,
-            `--workspace_id=${workspaceId}`,
-            `--gemini_dir=${geminiDir}`,
-            `--app_data_dir=antigravity_client`,
-            `--enable_lsp=true`,
-            `--csrf_token=${csrfToken}`,
-            `--random_port=true`,
-            `--cloud_code_endpoint=${cloudCodeEndpoint}`,
+            "--extension_server_port", String(mockPort),
+            "--workspace_id", workspaceId,
+            "--gemini_dir", geminiDir,
+            "--app_data_dir", "antigravity_client",
+            "--enable_lsp",
+            "--csrf_token", csrfToken,
+            "--http_server_port", "0",
+            "--https_server_port", "0",
+            "--lsp_port", "0",
+            "--cloud_code_endpoint", cloudCodeEndpoint,
         ];
 
         if (verbose) console.log(`[Launcher] Spawning: ${lsBinaryPath} ${lsArgs.join(" ")}`);

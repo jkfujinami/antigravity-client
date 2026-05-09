@@ -137,6 +137,9 @@ async function main() {
 
         console.log();
 
+        const dirs = await client.();
+        console.log(`  Working Directories: ${dirs}`);
+
     } catch (e) {
         console.error("❌ Error:", e);
     }
