@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import { Duration, Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
 import { CodeContextItem, ContextSnippetType, Embedding, GitRepoInfo, Metadata, ScmProvider, WorkspacePath } from "../codeium_common_pb/codeium_common_pb.js";
 
 /**
@@ -306,9 +306,9 @@ export class RepositoryConfig_AutoIndexConfig extends Message<RepositoryConfig_A
   branchName = "";
 
   /**
-   * @generated from field: bytes interval = 2;
+   * @generated from field: google.protobuf.Duration interval = 2;
    */
-  interval = new Uint8Array(0);
+  interval?: Duration;
 
   /**
    * @generated from field: int32 max_num_auto_indexes = 3;
@@ -324,7 +324,7 @@ export class RepositoryConfig_AutoIndexConfig extends Message<RepositoryConfig_A
   static readonly typeName = "exa.index_pb.RepositoryConfig.AutoIndexConfig";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "branch_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "interval", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "interval", kind: "message", T: Duration },
     { no: 3, name: "max_num_auto_indexes", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
   ]);
 
@@ -350,14 +350,14 @@ export class RepositoryConfig_AutoIndexConfig extends Message<RepositoryConfig_A
  */
 export class IndexConfig extends Message<IndexConfig> {
   /**
-   * @generated from field: bytes prune_time = 1;
+   * @generated from field: google.protobuf.Timestamp prune_time = 1;
    */
-  pruneTime = new Uint8Array(0);
+  pruneTime?: Timestamp;
 
   /**
-   * @generated from field: bytes prune_interval = 2;
+   * @generated from field: google.protobuf.Duration prune_interval = 2;
    */
-  pruneInterval = new Uint8Array(0);
+  pruneInterval?: Duration;
 
   /**
    * @generated from field: bool enable_prune = 3;
@@ -382,8 +382,8 @@ export class IndexConfig extends Message<IndexConfig> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.index_pb.IndexConfig";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "prune_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 2, name: "prune_interval", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: "prune_time", kind: "message", T: Timestamp },
+    { no: 2, name: "prune_interval", kind: "message", T: Duration },
     { no: 3, name: "enable_prune", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 4, name: "enable_smallest_repo_first", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 5, name: "enable_round_robin", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
@@ -464,9 +464,9 @@ export class ProgressBar extends Message<ProgressBar> {
   text = "";
 
   /**
-   * @generated from field: bytes remaining_time = 3;
+   * @generated from field: google.protobuf.Duration remaining_time = 3;
    */
-  remainingTime = new Uint8Array(0);
+  remainingTime?: Duration;
 
   constructor(data?: PartialMessage<ProgressBar>) {
     super();
@@ -478,7 +478,7 @@ export class ProgressBar extends Message<ProgressBar> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "progress", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
     { no: 2, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "remaining_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "remaining_time", kind: "message", T: Duration },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProgressBar {
@@ -523,19 +523,19 @@ export class Index extends Message<Index> {
   repoInfo?: GitRepoInfo;
 
   /**
-   * @generated from field: bytes created_at = 5;
+   * @generated from field: google.protobuf.Timestamp created_at = 5;
    */
-  createdAt = new Uint8Array(0);
+  createdAt?: Timestamp;
 
   /**
-   * @generated from field: bytes updated_at = 6;
+   * @generated from field: google.protobuf.Timestamp updated_at = 6;
    */
-  updatedAt = new Uint8Array(0);
+  updatedAt?: Timestamp;
 
   /**
-   * @generated from field: bytes scheduled_at = 13;
+   * @generated from field: google.protobuf.Timestamp scheduled_at = 13;
    */
-  scheduledAt = new Uint8Array(0);
+  scheduledAt?: Timestamp;
 
   /**
    * @generated from field: exa.index_pb.IndexingStatus status = 7;
@@ -594,9 +594,9 @@ export class Index extends Message<Index> {
     { no: 2, name: "repo_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "workspace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "repo_info", kind: "message", T: GitRepoInfo },
-    { no: 5, name: "created_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 6, name: "updated_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 13, name: "scheduled_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 5, name: "created_at", kind: "message", T: Timestamp },
+    { no: 6, name: "updated_at", kind: "message", T: Timestamp },
+    { no: 13, name: "scheduled_at", kind: "message", T: Timestamp },
     { no: 7, name: "status", kind: "enum", T: proto3.getEnumType(IndexingStatus) },
     { no: 8, name: "status_detail", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 9, name: "auto_indexed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
@@ -738,19 +738,19 @@ export class Repository extends Message<Repository> {
   config?: RepositoryConfig;
 
   /**
-   * @generated from field: bytes created_at = 4;
+   * @generated from field: google.protobuf.Timestamp created_at = 4;
    */
-  createdAt = new Uint8Array(0);
+  createdAt?: Timestamp;
 
   /**
-   * @generated from field: bytes updated_at = 5;
+   * @generated from field: google.protobuf.Timestamp updated_at = 5;
    */
-  updatedAt = new Uint8Array(0);
+  updatedAt?: Timestamp;
 
   /**
-   * @generated from field: bytes last_used_at = 6;
+   * @generated from field: google.protobuf.Timestamp last_used_at = 6;
    */
-  lastUsedAt = new Uint8Array(0);
+  lastUsedAt?: Timestamp;
 
   /**
    * @generated from field: exa.index_pb.Index latest_index = 3;
@@ -767,9 +767,9 @@ export class Repository extends Message<Repository> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "repo_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "config", kind: "message", T: RepositoryConfig },
-    { no: 4, name: "created_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 5, name: "updated_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 6, name: "last_used_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 4, name: "created_at", kind: "message", T: Timestamp },
+    { no: 5, name: "updated_at", kind: "message", T: Timestamp },
+    { no: 6, name: "last_used_at", kind: "message", T: Timestamp },
     { no: 3, name: "latest_index", kind: "message", T: Index },
   ]);
 
@@ -3281,9 +3281,9 @@ export class IndexerEvent_Update extends Message<IndexerEvent_Update> {
   paths: WorkspacePath[] = [];
 
   /**
-   * @generated from field: bytes mod_time = 3;
+   * @generated from field: google.protobuf.Timestamp mod_time = 3;
    */
-  modTime = new Uint8Array(0);
+  modTime?: Timestamp;
 
   /**
    * @generated from field: exa.index_pb.IndexerEvent.Update.AddWorkspaceInfo add_workspace_info = 4;
@@ -3300,7 +3300,7 @@ export class IndexerEvent_Update extends Message<IndexerEvent_Update> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "absolute_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "paths", kind: "message", T: WorkspacePath, repeated: true },
-    { no: 3, name: "mod_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "mod_time", kind: "message", T: Timestamp },
     { no: 4, name: "add_workspace_info", kind: "message", T: IndexerEvent_Update_AddWorkspaceInfo },
   ]);
 

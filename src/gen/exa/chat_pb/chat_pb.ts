@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message as Message$1, proto3, protoInt64 } from "@bufbuild/protobuf";
+import { Message as Message$1, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
 import { ChatMessageSource, ChatToolCall, CodeContextItem, CodeContextType, ContextInclusionType, Document, ExperimentConfig, ExperimentKey, GitRepoInfo, ImageData, KnowledgeBaseItemWithMetadata, Language, Media, Metadata, Model, PromptAnnotationRange, TextOrScopeItem } from "../codeium_common_pb/codeium_common_pb.js";
 import { DiffBlock } from "../diff_action_pb/diff_action_pb.js";
 
@@ -233,14 +233,14 @@ export class ChatMetrics extends Message$1<ChatMetrics> {
   numInputTokens = protoInt64.zero;
 
   /**
-   * @generated from field: bytes start_timestamp = 9;
+   * @generated from field: google.protobuf.Timestamp start_timestamp = 9;
    */
-  startTimestamp = new Uint8Array(0);
+  startTimestamp?: Timestamp;
 
   /**
-   * @generated from field: bytes end_timestamp = 10;
+   * @generated from field: google.protobuf.Timestamp end_timestamp = 10;
    */
-  endTimestamp = new Uint8Array(0);
+  endTimestamp?: Timestamp;
 
   /**
    * @generated from field: string active_document_absolute_path = 11;
@@ -284,8 +284,8 @@ export class ChatMetrics extends Message$1<ChatMetrics> {
     { no: 7, name: "num_prompt_tokens", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 8, name: "num_system_prompt_tokens", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 16, name: "num_input_tokens", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 9, name: "start_timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 10, name: "end_timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 9, name: "start_timestamp", kind: "message", T: Timestamp },
+    { no: 10, name: "end_timestamp", kind: "message", T: Timestamp },
     { no: 11, name: "active_document_absolute_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 12, name: "last_active_code_context_item", kind: "message", T: CodeContextItem },
     { no: 13, name: "num_indexed_files", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
@@ -966,9 +966,9 @@ export class ChatMessage extends Message$1<ChatMessage> {
   source = ChatMessageSource.UNSPECIFIED;
 
   /**
-   * @generated from field: bytes timestamp = 3;
+   * @generated from field: google.protobuf.Timestamp timestamp = 3;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   /**
    * @generated from field: string conversation_id = 4;
@@ -1029,7 +1029,7 @@ export class ChatMessage extends Message$1<ChatMessage> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "message_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "source", kind: "enum", T: proto3.getEnumType(ChatMessageSource) },
-    { no: 3, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "timestamp", kind: "message", T: Timestamp },
     { no: 4, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 9, name: "in_progress", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 10, name: "request", kind: "message", T: GetChatMessageRequest },
