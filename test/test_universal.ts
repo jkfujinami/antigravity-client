@@ -78,10 +78,12 @@ async function main() {
         // 2. Text Streaming
         cascade.on("text", (ev: any) => process.stdout.write(ev.delta || ""));
         cascade.on("thinking", (ev: any) => process.stdout.write(`\x1b[90m${ev.delta}\x1b[0m`));
+        cascade.on("runCommand", (ev: any) => process.stdout.write(ev.delta || ""));
 
         cascade.on("error", (err: any) => {
             console.error("\n❌ Error:", err);
         });
+        cascade.listen()
 
         // --- Send Request ---
         console.log("📨 Sending request...");
