@@ -46,6 +46,15 @@ async function main() {
         console.log(`Payload: "${msg}"`);
 
         // --- Event Listeners ---
+        cascade.on(Cascade.Events.All, (ev) => {
+            if (ev.event !== "rawUpdate") {
+                console.log(`\x1b[90m[EVENT] ${ev.event}:\x1b[0m`, ev.data);
+            }
+        });
+
+        cascade.on(Cascade.Events.Other, (step) => {
+            console.log(`\x1b[33m[UNHANDLED STEP] ${step.type}:\x1b[0m`, step.description);
+        });
 
         // 1. Interaction (The New Feature + AutoRun Flag)
         cascade.on("interaction", async (ev: any) => {
@@ -76,11 +85,15 @@ async function main() {
         });
 
         // 2. Text Streaming
-        cascade.on("text", (ev: any) => process.stdout.write(ev.delta || ""));
-        cascade.on("thinking", (ev: any) => process.stdout.write(`\x1b[90m${ev.delta}\x1b[0m`));
+        cascade.on(Cascade.Events.Text, (ev) => process.stdout.write(ev.delta || ""));
+        cascade.on(Cascade.Events.Thinking, (ev) => process.stdout.write(`\x1b[90m${ev.delta}\x1b[0m`));
 
-        cascade.on("error", (err: any) => {
+        cascade.on(Cascade.Events.Error, (err: any) => {
             console.error("\n❌ Error:", err);
+        })
+        cascade.on(Cascade.Events.Interaction, (ev) => {
+            console.log("\n\n=== INTERACTION ===");
+            console.log(ev);
         });
         cascade.listen()
 
