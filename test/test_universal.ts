@@ -46,6 +46,15 @@ async function main() {
         console.log(`Payload: "${msg}"`);
 
         // --- Event Listeners ---
+        cascade.on(Cascade.Events.All, (ev) => {
+            if (ev.event !== "rawUpdate") {
+                console.log(`\x1b[90m[EVENT] ${ev.event}:\x1b[0m`, ev.data);
+            }
+        });
+
+        cascade.on(Cascade.Events.Other, (step) => {
+            console.log(`\x1b[33m[UNHANDLED STEP] ${step.type}:\x1b[0m`, step.description);
+        });
 
         // 1. Interaction (The New Feature + AutoRun Flag)
         cascade.on("interaction", async (ev: any) => {
@@ -86,10 +95,6 @@ async function main() {
             console.log("\n\n=== INTERACTION ===");
             console.log(ev);
         });
-        cascade.on(Cascade.Events.StepUpdate, (ev) => {
-            console.log("\n\n=== STEP ===");
-            console.log(ev);
-        })
         cascade.listen()
 
         // --- Send Request ---

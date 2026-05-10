@@ -25,6 +25,8 @@ export const CascadeEvents = {
     Error: "error" as const,
     Done: "done" as const,
     RawUpdate: "rawUpdate" as const,
+    All: "all" as const,
+    Other: "other" as const,
 
     // Auto-generated Step-specific Events
     AgencyToolCall: "step:agencyToolCall" as const,
@@ -160,6 +162,8 @@ export interface CascadeEventPayloads {
     "error": any;
     "done": {};
     "rawUpdate": import("./gen/exa/jetski_cortex_pb/jetski_cortex_pb.js").CascadeState;
+    "all": { event: string; data: any };
+    "other": import("./types.js").CascadeStep;
 
     // Auto-generated Step Payload Mappings
     "step:agencyToolCall": import("./types.js").CascadeStep & { type: "agencyToolCall", value: StepValue<"agencyToolCall"> };

@@ -98,8 +98,32 @@ export class Cascade extends EventEmitter {
 
     // High-level event tracking (Phase 2: step tracking internalized from repl.ts)
     private _lastStepCount: number = 0;
-    private _stepStatusMap: Map<number, CortexStepStatus> = new Map();
+    private _stepStatusMap = new Map<number, CortexStepStatus>();
     private _lastCascadeStatus: CascadeRunStatus = CascadeRunStatus.UNSPECIFIED;
+
+    /**
+     * イベントを発火させます。
+     * 全てのイベントをバイパスする 'all' と、未購読のステップイベントを拾う 'other' をサポートします。
+     */
+    public override emit = <K extends keyof CascadeEventPayloads>(
+        event: K,
+        data: CascadeEventPayloads[K]
+    ): boolean => {
+        // 1. 本来のイベントを発火
+        const handled = super.emit(event as string, data);
+
+        // 2. デバッグ用 'all' イベントを発火 (無限ループ防止のため自分自身は除外)
+        if (event !== (CascadeEvents.All as any)) {
+            super.emit(CascadeEvents.All, { event: event as string, data });
+        }
+
+        // 3. 'other' イベントの処理 (個別 step イベントで、且つ誰も購読していない場合)
+        if (typeof event === "string" && event.startsWith("step:") && !handled && event !== "step:update") {
+            super.emit(CascadeEvents.Other, data);
+        }
+
+        return handled;
+    };
 
     constructor(
         public readonly cascadeId: string,
