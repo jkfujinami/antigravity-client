@@ -38,13 +38,19 @@ import {
     CascadeStep,
     toStepStatus,
     toRunStatus,
+    CascadeEvents,
+    type CascadeEventPayloads,
+    type StepType,
+    type StepValue,
+    type StepStatus,
+    type RunStatus,
     type ApprovalRequest,
     type StepNewEvent,
     type StepUpdateEvent,
     type TextDeltaEvent,
     type ThinkingDeltaEvent,
     type CommandOutputEvent,
-    type StatusChangeEvent,
+    type StatusChangeEvent
 } from "./types.js";
 
 export interface CascadeEvent {
@@ -75,6 +81,12 @@ export interface SendMessageOptions {
 }
 
 export class Cascade extends EventEmitter {
+    /** 
+     * 可利用なイベント名の定数セット。
+     * 補完を効かせるために cascade.on(Cascade.Events.Text, ...) のように使用してください。
+     */
+    static readonly Events = CascadeEvents;
+
     public state: CascadeState = new CascadeState();
     private isListening = false;
     private lastEmittedText: Record<number, string> = {};
@@ -86,8 +98,32 @@ export class Cascade extends EventEmitter {
 
     // High-level event tracking (Phase 2: step tracking internalized from repl.ts)
     private _lastStepCount: number = 0;
-    private _stepStatusMap: Map<number, CortexStepStatus> = new Map();
+    private _stepStatusMap = new Map<number, CortexStepStatus>();
     private _lastCascadeStatus: CascadeRunStatus = CascadeRunStatus.UNSPECIFIED;
+
+    /**
+     * イベントを発火させます。
+     * 全てのイベントをバイパスする 'all' と、未購読のステップイベントを拾う 'other' をサポートします。
+     */
+    public override emit = <K extends keyof CascadeEventPayloads>(
+        event: K,
+        data: CascadeEventPayloads[K]
+    ): boolean => {
+        // 1. 本来のイベントを発火
+        const handled = super.emit(event as string, data);
+
+        // 2. デバッグ用 'all' イベントを発火 (無限ループ防止のため自分自身は除外)
+        if (event !== (CascadeEvents.All as any)) {
+            super.emit(CascadeEvents.All, { event: event as string, data });
+        }
+
+        // 3. 'other' イベントの処理 (個別 step イベントで、且つ誰も購読していない場合)
+        if (typeof event === "string" && event.startsWith("step:") && !handled && event !== "step:update") {
+            super.emit(CascadeEvents.Other, data);
+        }
+
+        return handled;
+    };
 
     constructor(
         public readonly cascadeId: string,
@@ -96,6 +132,25 @@ export class Cascade extends EventEmitter {
     ) {
         super();
     }
+
+    // ── 型安全な EventEmitter オーバーロード ──
+
+    on<K extends keyof CascadeEventPayloads>(event: K, listener: (ev: CascadeEventPayloads[K]) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this {
+        return super.on(event, listener);
+    }
+
+    once<K extends keyof CascadeEventPayloads>(event: K, listener: (ev: CascadeEventPayloads[K]) => void): this;
+    once(event: string | symbol, listener: (...args: any[]) => void): this {
+        return super.once(event, listener);
+    }
+
+    emit<K extends keyof CascadeEventPayloads>(event: K, payload: CascadeEventPayloads[K]): boolean;
+    emit(event: string | symbol, ...args: any[]): boolean {
+        return super.emit(event, ...args);
+    }
+
+    // ──────────────────────────────────────────
 
     /**
      * Starts listening to reactive updates for this cascade.
@@ -165,7 +220,7 @@ export class Cascade extends EventEmitter {
     }
 
     private emitEvents() {
-        this.emit("update", this.state);
+        this.emit(CascadeEvents.RawUpdate, this.state);
 
         this.emitStatusChange();
 
@@ -184,7 +239,7 @@ export class Cascade extends EventEmitter {
 
         // Legacy done event (compatibility)
         if (currentStatus === CascadeRunStatus.IDLE && this.lastStatus !== CascadeRunStatus.IDLE) {
-            this.emit("done");
+            this.emit("done", {});
         }
         this.lastStatus = currentStatus;
 
@@ -192,10 +247,10 @@ export class Cascade extends EventEmitter {
         if (currentStatus !== this._lastCascadeStatus) {
             const prev = this._lastCascadeStatus;
             this._lastCascadeStatus = currentStatus;
-            this.emit("status_change", {
+            this.emit(CascadeEvents.StatusChange, {
                 status: toRunStatus(currentStatus),
                 previousStatus: toRunStatus(prev),
-            } satisfies StatusChangeEvent);
+            });
         }
     }
 
@@ -210,9 +265,18 @@ export class Cascade extends EventEmitter {
                 const step = steps[i];
                 if (!step) continue;
                 this._stepStatusMap.set(i, step.status);
-                this.emit("step:new", {
-                    step: new CascadeStep(step, i),
+                const cascadeStep = new CascadeStep(step, i);
+
+                // 1. 汎用イベント
+                this.emit("stepNew", {
+                    step: cascadeStep,
                 } satisfies StepNewEvent);
+
+                // 2. 個別ツールイベント (例: step:runCommand)
+                if (cascadeStep.type !== "unknown") {
+                    // 個別イベントはフラットに CascadeStep 自体をペイロードとして送る
+                    this.emit(`step:${cascadeStep.type}` as any, cascadeStep);
+                }
             }
             this._lastStepCount = steps.length;
         }
@@ -222,10 +286,10 @@ export class Cascade extends EventEmitter {
             if (!step) return;
             const prevStatus = this._stepStatusMap.get(index);
             if (prevStatus !== undefined && prevStatus !== step.status) {
-                this.emit("step:update", {
+                this.emit(CascadeEvents.StepUpdate, {
                     step: new CascadeStep(step, index),
                     previousStatus: toStepStatus(prevStatus),
-                } satisfies StepUpdateEvent);
+                });
             }
             this._stepStatusMap.set(index, step.status);
         });
@@ -240,8 +304,6 @@ export class Cascade extends EventEmitter {
             if (!step) return;
 
             const status = step.status;
-            const stepType = step.step?.case || "unknown";
-            const hasInteraction = !!step.requestedInteraction?.interaction?.case;
             const interactionCase = step.requestedInteraction?.interaction?.case || "none";
 
             // Debug: log all steps that have PENDING/RUNNING/WAITING status
@@ -280,7 +342,7 @@ export class Cascade extends EventEmitter {
             this.emittedInteractions.add(index);
 
             // Legacy event (compatibility)
-            this.emit("interaction", {
+            this.emit("interaction" as any, {
                 type: "interaction",
                 interaction: step.requestedInteraction,
                 stepIndex: index,
@@ -298,7 +360,7 @@ export class Cascade extends EventEmitter {
             }
 
             if (request) {
-                this.emit("approval:needed", request);
+                this.emit(CascadeEvents.Interaction, request);
             }
         });
     }
@@ -365,7 +427,7 @@ export class Cascade extends EventEmitter {
                 const target = resource?.target || "resource";
 
                 return {
-                    type: "permission",
+                    type: "other", // generic permission
                     description: `Permission Needed: ${action} on ${target}`,
                     stepIndex,
                     step: cascadeStep,
@@ -518,12 +580,10 @@ export class Cascade extends EventEmitter {
             const lastStdout = this.lastEmittedStdout[index] || "";
             if (stdout.length > lastStdout.length) {
                 const delta = stdout.substring(lastStdout.length);
-                // Legacy event (compatibility)
-                this.emit("command_output", {
-                    type: "command_output",
-                    text: stdout,
+                this.emit(CascadeEvents.CommandOutput, {
+                    fullText: stdout,
                     delta,
-                    outputType: "stdout",
+                    stream: "stdout",
                     stepIndex: index
                 });
                 this.lastEmittedStdout[index] = stdout;
@@ -533,12 +593,10 @@ export class Cascade extends EventEmitter {
             const lastStderr = this.lastEmittedStderr[index] || "";
             if (stderr.length > lastStderr.length) {
                 const delta = stderr.substring(lastStderr.length);
-                // Legacy event (compatibility)
-                this.emit("command_output", {
-                    type: "command_output",
-                    text: stderr,
+                this.emit(CascadeEvents.CommandOutput, {
+                    fullText: stderr,
                     delta,
-                    outputType: "stderr",
+                    stream: "stderr",
                     stepIndex: index
                 });
                 this.lastEmittedStderr[index] = stderr;
@@ -566,18 +624,11 @@ export class Cascade extends EventEmitter {
             const lastText = this.lastEmittedText[index] || "";
             if (response.length > lastText.length) {
                 const delta = response.substring(lastText.length);
-                // Legacy event (compatibility)
-                this.emit("text", {
-                    text: response,
-                    delta,
-                    stepIndex: index
-                });
-                // New high-level event
-                this.emit("text:delta", {
+                this.emit(CascadeEvents.Text, {
                     delta,
                     fullText: response,
                     stepIndex: index,
-                } satisfies TextDeltaEvent);
+                });
                 this.lastEmittedText[index] = response;
             }
 
@@ -585,18 +636,11 @@ export class Cascade extends EventEmitter {
             const lastThinking = this.lastEmittedThinking[index] || "";
             if (thinking.length > lastThinking.length) {
                 const delta = thinking.substring(lastThinking.length);
-                // Legacy event (compatibility)
-                this.emit("thinking", {
-                    text: thinking,
-                    delta,
-                    stepIndex: index
-                });
-                // New high-level event
-                this.emit("thinking:delta", {
+                this.emit(CascadeEvents.Thinking, {
                     delta,
                     fullText: thinking,
                     stepIndex: index,
-                } satisfies ThinkingDeltaEvent);
+                });
                 this.lastEmittedThinking[index] = thinking;
             }
         });
@@ -774,7 +818,7 @@ export class Cascade extends EventEmitter {
          interactionOneof.value = interactionValue;
 
          // Use the synced trajectoryId from state, falling back to cascadeId
-         const trajectoryId = this.state.trajectoryId || this.state.trajectory?.trajectoryId || this.cascadeId;
+         const trajectoryId = (this.state as any).trajectoryId || this.state.trajectory?.trajectoryId || this.cascadeId;
 
          const req = new HandleCascadeUserInteractionRequest({
             cascadeId: this.cascadeId,
