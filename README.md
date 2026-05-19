@@ -2,51 +2,74 @@
 
 A TypeScript client library and CLI tool for interacting with the **Antigravity Language Server (LS)** using the Connect (gRPC) protocol.
 
-このライブラリは、AI エージェントと直接やり取りするためのフル機能を備えた SDK です。本家 IDE 拡張機能と同じプロトコルを使用して、独自の自動化や UI を構築できます。
-
-## ⚠️ 免責事項 (Disclaimer)
-
-- **非公式ライブラリ**: 本プロジェクトは個人による非公式な実装であり、Google DeepMind または Google 社とは一切関係ありません。
-- **無保証**: 本ソフトウェアの使用によって生じた直接的・間接的な損害について、開発者は一切の責任を負いません。
-- **利用規約**: 本ライブラリを使用する際は、Antigravity (Google AI) の利用規約を遵守してください。
-- **対応プラットフォーム**: 現在 **macOS のみ** 対応しています。LS プロセスの自動検出（`lsof`）、バイナリパス、`state.vscdb` の読み取りパスがすべて macOS 固有です。Linux / Windows への対応は将来課題です。
-
-> **認証について**: API Key は `state.vscdb`（Antigravity IDE のローカルストレージ）から自動で読み取られます。環境変数 `ANTIGRAVITY_API_KEY` で明示指定することも可能です。
+This library is an unofficial API developed by reverse-engineering the frontend code and backend communication of the Antigravity IDE, reconstructing the original Protobuf schemas to provide programmatic access to its core features.
 
 ---
 
-## クイックスタート
+## 🤖 A Powerful Infrastructure for AI Agents
 
-### 方法 1: 既存の Antigravity IDE に接続（推奨）
+Antigravity LS is not just a tool; it is a **robust foundation for building autonomous AI agents.** By using this SDK, you can leverage the Language Server as a managed backend for your custom agents.
 
-```typescript
-import { AntigravityClient } from "antigravity-client";
+- **Managed Context & Sessions**: The LS server handles the complex heavy lifting of session management and context window optimization. This allows you to focus on high-layer development and agent logic rather than low-level state handling.
+- **Advanced Prompt Tuning**: Inject custom prompts and metadata at a per-message level. This granular control allows for precise adjustment of agent behavior in specific scenarios.
+- **Integrated Tooling & Search**: Seamlessly integrate web search, file indexing, and terminal execution. You can build custom agents that utilize these tools with surgical precision through a single SDK interface.
 
-const client = await AntigravityClient.connect();
-const status = await client.getUserStatus();
-console.log(status.userStatus?.name); 
+By offloading context management to the LS, you can spend your time engineering the "brain" of your agent rather than its infrastructure.
+
+---
+
+## ⚠️ Disclaimer
+
+- **Unofficial**: This project is an unofficial implementation and is not affiliated with Google or DeepMind.
+- **No Warranty**: The developers are not responsible for any damage caused by the use of this software.
+- **Terms of Service**: Please comply with the official Antigravity/Google AI terms of service when using this library.
+- **Platform**: Currently **macOS only**. Auto-detection, binary paths, and database reading are optimized for macOS.
+
+---
+
+## 🚀 Quick Start
+
+### Installation
+
+```bash
+npm install github:jkfujinami/antigravity-client
 ```
 
-### 方法 2: 独立 LS を起動して接続（IDE 不要）
+### Basic Usage
 
 ```typescript
 import { AntigravityClient } from "antigravity-client";
 
+// Connect to the existing IDE process
+const client = await AntigravityClient.connect();
+const status = await client.getUserStatus();
+console.log(`Connected as: ${status.userStatus?.name}`);
+```
+
+---
+
+## 🔌 Connection Methods
+
+### 1. Connect to Existing IDE (Recommended)
+Automatically detects the Language Server process started by the official Antigravity IDE.
+
+```typescript
+const client = await AntigravityClient.connect();
+```
+
+### 2. Standalone Launch (No IDE Required)
+Starts a Mock Extension Server and launches the LS binary independently.
+
+```typescript
 const client = await AntigravityClient.launch({
     workspacePath: "/path/to/project",
     verbose: true,
 });
-
-const status = await client.getUserStatus();
-console.log(status.userStatus?.name);
-
-// 使い終わったら停止
-await client.launcher.stop();
 ```
 
 ---
 
-## アーキテクチャ
+## 🏗️ Architecture
 
 ```
 ┌──────────────────┐       ┌───────────────────────┐       ┌─────────────┐
@@ -61,128 +84,10 @@ await client.launcher.stop();
                            └────────────────────────┘
 ```
 
-- **方法 1**: SDK が既存の LS プロセス（Antigravity IDE が起動したもの）を自動検出して接続
-- **方法 2**: SDK が Mock Extension Server + LS を自分で起動し、`state.vscdb` から認証トークンを読み取って LS に供給
+- **Method 1**: SDK auto-detects the LS process and connects directly.
+- **Method 2**: SDK launches its own Mock Extension Server to supply OAuth tokens to the LS via the USS (Unified State Sync) protocol.
 
 ---
 
-## 1. クライアント基本 (`AntigravityClient`)
-
-### 接続メソッド
-
-| メソッド | 説明 |
-| :--- | :--- |
-| `connect(options?)` | 既存の LS を自動検出して接続（推奨） |
-| `launch(options?)` | 独立 LS を起動して接続（IDE 不要） |
-| `listServers()` | 起動中の全 LS サーバー情報を取得 |
-| `connectWithServer(server)` | 特定のサーバーに直接接続 |
-
-### システム情報取得
-
-| メソッド | 説明 |
-| :--- | :--- |
-| `getUserStatus()` | ログイン状況・プラン・ユーザー情報 |
-| `getModelStatuses()` | AI モデルの稼働状況 |
-| `getAvailableModels()` | 利用可能なモデルを構造化 JSON で取得 |
-| `getWorkingDirectories()` | LS が認識しているプロジェクトパス |
-| `getSummariesStream()` | 会話サマリーの reactive stream |
-
-### セッション管理
-
-| メソッド | 説明 |
-| :--- | :--- |
-| `startCascade()` | 新しいチャットセッションを開始 |
-| `getCascade(cascadeId)` | 既存セッションを再開 |
-
----
-
-## 2. 対話管理 (`Cascade`)
-
-### メッセージと制御
-
-- `sendMessage(text, options?)` — AI にメッセージを送信。モデル変更も可能
-- `getHistory()` — 過去のやり取りを全取得
-- `cancel()` — 進行中の AI 処理を中断
-
-### 承認インタラクション
-
-- `approveCommand(stepIndex, proposed, submitted?)` — コマンド実行を承認
-- `approveFilePermission(stepIndex, pathUri, scope)` — ファイルアクセスを承認
-- `approveOpenBrowserUrl(stepIndex)` — URL を開くことを承認
-- `sendInteraction(stepIndex, case, value)` — 汎用インタラクション
-
----
-
-## 3. イベントシステム
-
-| イベント名 | 説明 |
-| :--- | :--- |
-| `text` | AI からの回答テキスト差分 |
-| `thinking` | AI の思考プロセス |
-| `status` | ステップの状態変化 |
-| `interaction` | 承認が必要なアクション |
-| `command_output` | コマンド実行の出力 |
-| `update` | CascadeState の更新 |
-| `done` | ターン完了 |
-| `error` | エラー |
-
----
-
-## 4. 独立 LS 管理 (`Launcher`)
-
-IDE を起動せずに LS を単独で管理するためのモジュール群。
-
-### `Launcher`
-
-```typescript
-import { Launcher } from "antigravity-client";
-
-const ls = await Launcher.start({
-    workspacePath: "/path/to/project",
-    verbose: true,
-});
-
-console.log(ls.httpsPort);  // Connect RPC ポート
-console.log(ls.csrfToken);  // CSRF トークン
-console.log(ls.pid);        // LS プロセス ID
-
-await ls.stop();
-```
-
-### `MockExtensionServer`
-
-LS が必要とする Extension Server の最小実装。OAuth トークンを USS (Unified State Sync) プロトコルで供給。
-
-### `readAuthData()`
-
-`state.vscdb` から認証情報を読み取るヘルパー。
-
-### 必要条件
-
-- Antigravity.app がインストールされていること
-- 一度は Antigravity IDE でログイン済みであること（`state.vscdb` にトークンが保存される）
-
----
-
-## 5. フォルダ構造
-
-```
-src/
-├── index.ts              # 全エクスポート
-├── client.ts             # AntigravityClient
-├── cascade.ts            # Cascade (チャットセッション管理)
-├── autodetect.ts         # LS プロセス自動検出
-├── repl.ts               # CLI REPL
-├── reactive/
-│   └── apply.ts          # Reactive Diff 適用
-├── server/               # 独立 LS 管理
-│   ├── index.ts          # エクスポート
-│   ├── launcher.ts       # LS 起動・管理
-│   ├── mock-extension-server.ts  # Mock Extension Server
-│   ├── auth-reader.ts    # state.vscdb からの認証読み取り
-│   └── metadata.ts       # LS stdin 初期化データ
-└── gen/                  # Proto 生成コード
-```
-
-## License
+## 📋 License
 MIT License
