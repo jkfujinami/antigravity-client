@@ -97,6 +97,11 @@ export class AntigravityClient {
   private apiKey: string;
   public readonly languageServer: LanguageServerFacade;
 
+  // Cached model lookup. Populated lazily on first resolveModelId / resolveDefaultModelId.
+  private _modelCache: Record<string, ModelInfo> | null = null;
+  private _defaultModelId: number | null = null;
+  private activeCascades: Set<Cascade> = new Set();
+
   private constructor(port: number, csrfToken: string, apiKey: string) {
     this.csrfToken = csrfToken;
     this.apiKey = apiKey;
@@ -232,6 +237,59 @@ export class AntigravityClient {
       return models;
   }
 
+  /**
+   * Resolve a model identifier to a numeric model id accepted by the LS.
+   * Accepts: numeric id (passed through), a `MODEL_NAMES.*` key, or a label key
+   * from `getAvailableModels()`. Falls back to the cached default when given
+   * an empty string / undefined.
+   *
+   * Cached after first call; invalidate by setting `_modelCache = null` if the
+   * LS catalog can change at runtime (typically it cannot during a session).
+   */
+  async resolveModelId(nameOrId?: number | string): Promise<number> {
+      if (typeof nameOrId === "number") return nameOrId;
+
+      if (!this._modelCache) {
+          this._modelCache = await this.getAvailableModels();
+      }
+      const models = this._modelCache;
+
+      // No name given → default
+      if (!nameOrId) {
+          if (this._defaultModelId !== null) return this._defaultModelId;
+          const flash = models["Gemini_3_Flash"];
+          if (flash?.modelId !== undefined) {
+              this._defaultModelId = flash.modelId;
+              return flash.modelId;
+          }
+          const firstRec = Object.values(models).find(
+              (m) => m.isRecommended && !m.disabled && m.modelId !== undefined
+          );
+          if (firstRec?.modelId !== undefined) {
+              this._defaultModelId = firstRec.modelId;
+              return firstRec.modelId;
+          }
+          throw new Error(
+              "resolveModelId: no model available from getAvailableModels(). " +
+              "Is the LS reachable and authenticated?"
+          );
+      }
+
+      // Named lookup
+      const direct = models[nameOrId];
+      if (direct?.modelId !== undefined) return direct.modelId;
+
+      throw new Error(
+          `resolveModelId: model "${nameOrId}" not found. ` +
+          `Available: ${Object.keys(models).join(", ")}`
+      );
+  }
+
+  /** Shortcut for resolveModelId() with no argument. */
+  async getDefaultModelId(): Promise<number> {
+      return this.resolveModelId();
+  }
+
   async getWorkingDirectories(): Promise<GetWorkingDirectoriesResponse> {
       const response = await this.lsClient.getWorkingDirectories({});
       return response;
@@ -282,7 +340,14 @@ export class AntigravityClient {
       });
 
       const { cascadeId } = await this.lsClient.startCascade(req);
-      const cascade = new Cascade(cascadeId, this.lsClient, this.apiKey);
+      const cascade = new Cascade(
+          cascadeId,
+          this.lsClient,
+          this.apiKey,
+          (nameOrId) => this.resolveModelId(nameOrId),
+      );
+
+      this.activeCascades.add(cascade);
 
       // Auto-start listening in background
       cascade.listen();
@@ -299,11 +364,53 @@ export class AntigravityClient {
   }
 
   /**
-   * Resumes an existing cascade by ID.
+   * Resumes an existing cascade by ID. Does NOT verify that the cascade is alive.
+   * Use `resumeCascade(id)` if you need a guaranteed-live cascade.
    */
   getCascade(cascadeId: string): Cascade {
-      const cascade = new Cascade(cascadeId, this.lsClient, this.apiKey);
+      const cascade = new Cascade(
+          cascadeId,
+          this.lsClient,
+          this.apiKey,
+          (nameOrId) => this.resolveModelId(nameOrId),
+      );
+      this.activeCascades.add(cascade);
       cascade.listen();
+      return cascade;
+  }
+
+  /**
+   * Cleans up all active cascade update streams and listener resources.
+   * Call this before stopping the Language Server process (e.g. client.launcher.stop()).
+   */
+  dispose(): void {
+      for (const cascade of this.activeCascades) {
+          try {
+              cascade.dispose();
+          } catch (e) {
+              // ignore errors during individual cascade disposal
+          }
+      }
+      this.activeCascades.clear();
+  }
+
+  /**
+   * Resumes an existing cascade and verifies it's still alive on the LS side by
+   * calling `getHistory()`. Throws a clear error if the cascade is missing,
+   * expired, or unreachable.
+   */
+  async resumeCascade(cascadeId: string): Promise<Cascade> {
+      const cascade = this.getCascade(cascadeId);
+      try {
+          const history = await cascade.getHistory();
+          if (!history?.trajectory) {
+              throw new Error("Cascade returned no trajectory (possibly expired).");
+          }
+      } catch (e: any) {
+          throw new Error(
+              `resumeCascade: failed to resume cascade "${cascadeId}": ${e?.message ?? e}`
+          );
+      }
       return cascade;
   }
 

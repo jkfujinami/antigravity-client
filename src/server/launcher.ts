@@ -51,6 +51,12 @@ export interface LauncherOptions {
     verbose?: boolean;
 }
 
+/**
+ * Events emitted by `Launcher`:
+ * - `"exit"`: `(code: number | null, signal: NodeJS.Signals | null) => void` — LS プロセス終了
+ * - `"error"`: `(err: Error) => void` — LS プロセスでの spawn / runtime error
+ * - `"log"`: `(line: string) => void` — LS の stdout/stderr 1 行ずつ
+ */
 export class Launcher extends EventEmitter {
     private mockServer: MockExtensionServer;
     private lsProcess: ChildProcess | null = null;
@@ -58,6 +64,23 @@ export class Launcher extends EventEmitter {
     private _csrfToken: string;
     private _workspaceId: string;
     private _running = false;
+
+    // ── Typed event signatures ──
+    on(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "log", listener: (line: string) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this {
+        return super.on(event, listener);
+    }
+
+    once(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
+    once(event: "error", listener: (err: Error) => void): this;
+    once(event: "log", listener: (line: string) => void): this;
+    once(event: string | symbol, listener: (...args: any[]) => void): this;
+    once(event: string | symbol, listener: (...args: any[]) => void): this {
+        return super.once(event, listener);
+    }
 
     private constructor(
         private options: Required<Pick<LauncherOptions, "lsBinaryPath" | "csrfToken" | "workspaceId" | "cloudCodeEndpoint" | "geminiDir" | "verbose">>,
@@ -193,10 +216,15 @@ export class Launcher extends EventEmitter {
         launcher.lsProcess.stdout?.on("data", (data) => logToDisk(data, "STDOUT"));
         launcher.lsProcess.stderr?.on("data", (data) => logToDisk(data, "STDERR"));
 
-        launcher.lsProcess.on("exit", (code) => {
+        launcher.lsProcess.on("exit", (code, signal) => {
             launcher._running = false;
-            launcher.emit("exit", code);
-            if (verbose) console.log(`[Launcher] LS exited with code ${code}`);
+            launcher.emit("exit", code, signal);
+            if (verbose) console.log(`[Launcher] LS exited with code ${code} signal=${signal}`);
+        });
+
+        launcher.lsProcess.on("error", (err) => {
+            launcher.emit("error", err);
+            if (verbose) console.error(`[Launcher] LS process error:`, err);
         });
 
         // Wait for LS to report ports (timeout 15s)
