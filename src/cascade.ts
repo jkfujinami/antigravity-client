@@ -45,12 +45,14 @@ import {
     type StepStatus,
     type RunStatus,
     type ApprovalRequest,
+    type ApprovalType,
     type StepNewEvent,
     type StepUpdateEvent,
     type TextDeltaEvent,
     type ThinkingDeltaEvent,
     type CommandOutputEvent,
-    type StatusChangeEvent
+    type StatusChangeEvent,
+    type RunResult,
 } from "./types.js";
 
 export interface CascadeEvent {
@@ -70,7 +72,15 @@ export interface CascadeEvent {
 }
 
 export interface SendMessageOptions {
-    model?: Model;
+    /**
+     * Model to use for this turn.
+     * - Pass a numeric id (e.g. from `client.getAvailableModels()`),
+     * - or a model name key (e.g. `"Gemini_3_Flash"` / one of `MODEL_NAMES`).
+     * If omitted, falls back to the cascade's default resolver (set at construction
+     * time by `client.startCascade()` / `client.getCascade()`) which resolves to
+     * `Gemini_3_Flash` or the first recommended model.
+     */
+    model?: Model | number | string;
     images?: {
         base64Data?: string;
         dataBytes?: Uint8Array;
@@ -79,6 +89,13 @@ export interface SendMessageOptions {
         uri?: string;
     }[];
 }
+
+/**
+ * Resolves a model identifier (number id or string name) to a numeric model id
+ * accepted by the LS. Wired up by `AntigravityClient` so it has access to
+ * `getAvailableModels()`.
+ */
+export type ModelResolver = (nameOrId: Model | number | string) => Promise<number>;
 
 export class Cascade extends EventEmitter {
     /** 
@@ -89,6 +106,7 @@ export class Cascade extends EventEmitter {
 
     public state: CascadeState = new CascadeState();
     private isListening = false;
+    private abortController: AbortController | null = null;
     private lastEmittedText: Record<number, string> = {};
     private lastEmittedThinking: Record<number, string> = {};
     private lastEmittedStdout: Record<number, string> = {};
@@ -128,7 +146,13 @@ export class Cascade extends EventEmitter {
     constructor(
         public readonly cascadeId: string,
         private lsClient: PromiseClient<typeof LanguageServerService>,
-        private apiKey: string
+        private apiKey: string,
+        /**
+         * Optional. When set, `sendMessage` without an explicit `model` will
+         * call this to obtain a numeric model id. Provided by
+         * `AntigravityClient.startCascade()` / `getCascade()`.
+         */
+        private modelResolver?: ModelResolver,
     ) {
         super();
     }
@@ -147,6 +171,124 @@ export class Cascade extends EventEmitter {
 
     // ──────────────────────────────────────────
 
+    // ── High-level helpers ──
+
+    /**
+     * Resolves once the cascade transitions to `idle` (= 1 ターン分の応答完了).
+     * If already idle, returns immediately. Optional timeout rejects with an
+     * Error if the cascade stays busy longer than `timeoutMs`.
+     */
+    waitForIdle(opts: { timeoutMs?: number } = {}): Promise<void> {
+        if (this.state.status === CascadeRunStatus.IDLE) return Promise.resolve();
+        return new Promise<void>((resolve, reject) => {
+            let timer: ReturnType<typeof setTimeout> | undefined;
+            const handler = (ev: { status: RunStatus; previousStatus: RunStatus }) => {
+                if (ev.status === "idle" && ev.previousStatus !== "idle") {
+                    this.off("statusChange", handler as any);
+                    if (timer) clearTimeout(timer);
+                    resolve();
+                }
+            };
+            this.on("statusChange", handler as any);
+            if (opts.timeoutMs && opts.timeoutMs > 0) {
+                timer = setTimeout(() => {
+                    this.off("statusChange", handler as any);
+                    reject(new Error(`waitForIdle: timeout after ${opts.timeoutMs}ms`));
+                }, opts.timeoutMs);
+            }
+        });
+    }
+
+    /**
+     * Waits for the current turn to complete by ensuring the cascade transitions 
+     * away from idle (i.e. starts running/processing) and then returns to idle.
+     */
+    waitForTurnComplete(opts: { timeoutMs?: number } = {}): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            let timer: ReturnType<typeof setTimeout> | undefined;
+            let hasLeftIdle = this.state.status !== CascadeRunStatus.IDLE;
+
+            const handler = (ev: { status: RunStatus; previousStatus: RunStatus }) => {
+                if (ev.status !== "idle") {
+                    hasLeftIdle = true;
+                }
+                if (hasLeftIdle && ev.status === "idle") {
+                    this.off("statusChange", handler as any);
+                    if (timer) clearTimeout(timer);
+                    resolve();
+                }
+            };
+
+            this.on("statusChange", handler as any);
+
+            if (opts.timeoutMs && opts.timeoutMs > 0) {
+                timer = setTimeout(() => {
+                    this.off("statusChange", handler as any);
+                    reject(new Error(`waitForTurnComplete: timeout after ${opts.timeoutMs}ms`));
+                }, opts.timeoutMs);
+            }
+        });
+    }
+
+    /**
+     * Cancels the in-flight turn and waits for the cascade to return to idle.
+     * Equivalent to `await cascade.cancel(); await cascade.waitForIdle()`.
+     */
+    async cancelAndWait(opts: { timeoutMs?: number } = {}): Promise<void> {
+        await this.cancel();
+        await this.waitForIdle(opts);
+    }
+
+    /**
+     * High-level "send + wait" wrapper. Sends a message, waits for the cascade
+     * to return to idle, and returns the response text, the new steps added in
+     * this turn, and the final status. Lets consumers avoid wiring up event
+     * listeners for one-shot turns.
+     *
+     * For long tasks pass `timeoutMs` to bound the wait. On timeout the
+     * cascade is NOT cancelled automatically — call `cascade.cancel()` yourself
+     * if you want to abort.
+     */
+    async run(
+        text: string,
+        opts: SendMessageOptions & { timeoutMs?: number } = {}
+    ): Promise<RunResult> {
+        const startStepCount = this.state.trajectory?.steps?.length ?? 0;
+        let collected = "";
+        const textHandler = (ev: { delta: string; fullText: string; stepIndex: number }) => {
+            if (ev.stepIndex >= startStepCount) collected += ev.delta;
+        };
+        this.on("text", textHandler as any);
+
+        let timedOut = false;
+        try {
+            await this.sendMessage(text, opts);
+            try {
+                await this.waitForTurnComplete({ timeoutMs: opts.timeoutMs });
+            } catch (e: any) {
+                if (e?.message?.startsWith("waitForTurnComplete: timeout")) {
+                    timedOut = true;
+                } else {
+                    throw e;
+                }
+            }
+
+            const allSteps = this.state.trajectory?.steps ?? [];
+            const newSteps = allSteps
+                .slice(startStepCount)
+                .map((s: Step, i: number) => new CascadeStep(s, startStepCount + i));
+
+            return {
+                text: collected,
+                newSteps,
+                finalStatus: toRunStatus(this.state.status),
+                timedOut,
+            };
+        } finally {
+            this.off("text", textHandler as any);
+        }
+    }
+
     /**
      * Starts listening to reactive updates for this cascade.
      *
@@ -159,6 +301,7 @@ export class Cascade extends EventEmitter {
     async listen() {
         if (this.isListening) return;
         this.isListening = true;
+        this.abortController = new AbortController();
 
         const retryDelay = 1000;
 
@@ -171,8 +314,9 @@ export class Cascade extends EventEmitter {
             };
 
             try {
+                const signal = this.abortController.signal;
                 // @ts-ignore - The method name might vary across SDK generations
-                for await (const res of this.lsClient.streamAgentStateUpdates(req)) {
+                for await (const res of this.lsClient.streamAgentStateUpdates(req, { signal })) {
                     const update = res.update;
                     if (!update) continue;
 
@@ -201,6 +345,10 @@ export class Cascade extends EventEmitter {
                     this.emitEvents();
                 }
             } catch (err: any) {
+                // If we were explicitly disposed, ignore connection errors and exit immediately
+                if (!this.isListening) {
+                    break;
+                }
                 if (err?.code === 1 || (err?.code === 2 && err?.message?.includes("canceled"))) {
                     break;
                 }
@@ -212,6 +360,18 @@ export class Cascade extends EventEmitter {
         }
 
         this.isListening = false;
+    }
+
+    /**
+     * Stops the reactive updates listener loop and cleans up active listeners and abort signals.
+     */
+    dispose() {
+        this.isListening = false;
+        if (this.abortController) {
+            this.abortController.abort();
+            this.abortController = null;
+        }
+        this.removeAllListeners();
     }
 
     private emitEvents() {
@@ -336,17 +496,7 @@ export class Cascade extends EventEmitter {
 
             this.emittedInteractions.add(index);
 
-            // Legacy event (compatibility)
-            this.emit("interaction" as any, {
-                type: "interaction",
-                interaction: step.requestedInteraction,
-                stepIndex: index,
-                autoRun,
-                needsApproval,
-                commandLine
-            });
-
-            // New high-level event
+            // High-level ApprovalRequest event
             let request: ApprovalRequest | null = null;
             if (step.requestedInteraction?.interaction?.case) {
                 request = this.buildApprovalRequest(step, index, autoRun, needsApproval, commandLine);
@@ -383,7 +533,9 @@ export class Cascade extends EventEmitter {
 
                 await cascade.approveFilePermission(stepIndex, spec.absolutePathUri, scopeValue);
             },
-            async deny() { /* no-op */ }
+            async deny() {
+                await cascade.denyFilePermission(stepIndex, spec.absolutePathUri);
+            }
         };
     }
 
@@ -412,22 +564,40 @@ export class Cascade extends EventEmitter {
                     async approve() {
                         await cascade.approveCommand(stepIndex, commandLine, commandLine);
                     },
-                    async deny() { /* no-op */ },
+                    async deny() {
+                        await cascade.denyCommand(stepIndex, commandLine, commandLine);
+                    },
                 };
 
             case "permission": {
                 const spec = interaction.interaction.value as any;
                 const resource = spec.resource;
-                const action = resource?.action || "unknown";
-                const target = resource?.target || "resource";
+                const action: string = resource?.action || "unknown";
+                const target: string = resource?.target || "resource";
+
+                // File-related permission actions are surfaced as `file_permission`
+                // so consumers can discriminate by `type` instead of parsing description.
+                const isFileAction =
+                    /(read|write|create|delete|modify|append|edit)_(file|dir|directory|path)/i.test(action) ||
+                    /^(file|dir|directory)_/i.test(action);
+                const isCommandAction = /^(command|shell|exec|run_command)$/i.test(action);
+
+                let reqType: ApprovalType = "other";
+                if (isFileAction) {
+                    reqType = "file_permission";
+                } else if (isCommandAction) {
+                    reqType = "run_command";
+                }
 
                 return {
-                    type: "other", // generic permission
+                    type: reqType,
                     description: `Permission Needed: ${action} on ${target}`,
                     stepIndex,
                     step: cascadeStep,
                     autoRun: false,
                     needsApproval: true,
+                    filePath: isFileAction ? target : undefined,
+                    commandLine: isCommandAction ? target : undefined,
                     async approve(scope: "once" | "conversation" | "global" = "once") {
                         const scopeValue = {
                             "once": 1, // PermissionScope.ONCE
@@ -468,7 +638,9 @@ export class Cascade extends EventEmitter {
                             : PermissionScope.ONCE;
                         await cascade.approveFilePermission(stepIndex, pathUri, permScope);
                     },
-                    async deny() { /* no-op */ },
+                    async deny() {
+                        await cascade.denyFilePermission(stepIndex, pathUri);
+                    },
                 };
             }
 
@@ -488,7 +660,9 @@ export class Cascade extends EventEmitter {
                     async approve() {
                         await cascade.approveOpenBrowserUrl(stepIndex);
                     },
-                    async deny() { /* no-op */ },
+                    async deny() {
+                        await cascade.denyOpenBrowserUrl(stepIndex);
+                    },
                 };
             }
 
@@ -652,6 +826,31 @@ export class Cascade extends EventEmitter {
             extensionVersion: "0.2.0",
         });
 
+        // Resolve model id: numeric → use as-is; string → look up via resolver;
+        // omitted → resolver default (typically Gemini_3_Flash).
+        let modelId: number;
+        if (typeof options.model === "number") {
+            modelId = options.model;
+        } else if (typeof options.model === "string") {
+            if (!this.modelResolver) {
+                throw new Error(
+                    `sendMessage: model "${options.model}" given as a string but ` +
+                    `this Cascade has no modelResolver. Use AntigravityClient.startCascade() ` +
+                    `or pass options.model as a numeric id.`
+                );
+            }
+            modelId = await this.modelResolver(options.model);
+        } else {
+            if (!this.modelResolver) {
+                throw new Error(
+                    "sendMessage: no model specified and no default resolver available. " +
+                    "Pass options.model (number or name) or construct this Cascade via AntigravityClient.startCascade()."
+                );
+            }
+            // Resolver returns the default model id when called with undefined/empty.
+            modelId = await this.modelResolver("");
+        }
+
         // Convert options.images to Media representations
         const mediaObjects = (options.images || []).map(img => {
             let uint8Array = img.dataBytes;
@@ -691,7 +890,7 @@ export class Cascade extends EventEmitter {
                     requestedModel: new ModelOrAlias({
                         choice: {
                             case: "model",
-                            value: options.model || 1084 // Gemini 3 Flash as reliable default
+                            value: modelId,
                         }
                     })
                 })
@@ -801,6 +1000,73 @@ export class Cascade extends EventEmitter {
             })
         });
 
+        await this.lsClient.handleCascadeUserInteraction(req);
+    }
+
+    /**
+     * Rejects a command execution request.
+     */
+    async denyCommand(stepIndex: number, proposedCommandLine: string, submittedCommandLine?: string) {
+        const trajectoryId = this.state.trajectory?.trajectoryId || this.cascadeId;
+        const req = new HandleCascadeUserInteractionRequest({
+            cascadeId: this.cascadeId,
+            interaction: new CascadeUserInteraction({
+                trajectoryId,
+                stepIndex,
+                interaction: {
+                    case: "runCommand",
+                    value: new CascadeRunCommandInteraction({
+                        proposedCommandLine,
+                        submittedCommandLine: submittedCommandLine || proposedCommandLine,
+                        confirm: false,
+                    }),
+                },
+            }),
+        });
+        await this.lsClient.handleCascadeUserInteraction(req);
+    }
+
+    /**
+     * Rejects a file permission request.
+     */
+    async denyFilePermission(stepIndex: number, absolutePathUri: string) {
+        const trajectoryId = this.state.trajectory?.trajectoryId || this.cascadeId;
+        const req = new HandleCascadeUserInteractionRequest({
+            cascadeId: this.cascadeId,
+            interaction: new CascadeUserInteraction({
+                trajectoryId,
+                stepIndex,
+                interaction: {
+                    case: "filePermission",
+                    value: new FilePermissionInteraction({
+                        absolutePathUri,
+                        scope: PermissionScope.ONCE,
+                        allow: false,
+                    }),
+                },
+            }),
+        });
+        await this.lsClient.handleCascadeUserInteraction(req);
+    }
+
+    /**
+     * Rejects an open browser URL request.
+     */
+    async denyOpenBrowserUrl(stepIndex: number) {
+        const trajectoryId = this.state.trajectory?.trajectoryId || this.cascadeId;
+        const req = new HandleCascadeUserInteractionRequest({
+            cascadeId: this.cascadeId,
+            interaction: new CascadeUserInteraction({
+                trajectoryId,
+                stepIndex,
+                interaction: {
+                    case: "openBrowserUrl",
+                    value: new CascadeOpenBrowserUrlInteraction({
+                        confirm: false,
+                    }),
+                },
+            }),
+        });
         await this.lsClient.handleCascadeUserInteraction(req);
     }
 

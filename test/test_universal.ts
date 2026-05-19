@@ -19,6 +19,7 @@ async function main() {
         }
 
         let cascade: Cascade | undefined;
+        cascade?.cancel
 
         if (cascadeId) {
             try {

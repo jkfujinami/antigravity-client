@@ -398,3 +398,38 @@ export { CascadeEvents, type CascadeEventPayloads } from "./event-types.js";
 // ════════════════════════════════════════════════════════════════
 
 export { PermissionScope } from "./gen/exa/cortex_pb/cortex_pb.js";
+
+// ════════════════════════════════════════════════════════════════
+// 9. 既知モデル名定数
+// ════════════════════════════════════════════════════════════════
+
+/**
+ * `client.getAvailableModels()` のキーに対応する既知モデル名。
+ * 数値 ID は LS のアプデで頻繁に変わるため、ここでは「ラベル名」だけを固定し、
+ * 実際の数値 ID は `client.resolveModelId(name)` で都度解決する設計。
+ */
+export const MODEL_NAMES = {
+    GEMINI_3_FLASH: "Gemini_3_Flash",
+    GEMINI_3_1_PRO_HIGH: "Gemini_3.1_Pro_High",
+    GEMINI_3_1_PRO_LOW: "Gemini_3.1_Pro_Low",
+    CLAUDE_SONNET_4_6_THINKING: "Claude_Sonnet_4.6_Thinking",
+    CLAUDE_OPUS_4_6_THINKING: "Claude_Opus_4.6_Thinking",
+    GPT_OSS_120B_MEDIUM: "GPT-OSS_120B_Medium",
+} as const;
+
+export type ModelName = typeof MODEL_NAMES[keyof typeof MODEL_NAMES];
+
+// ════════════════════════════════════════════════════════════════
+// 10. RunResult (cascade.run の戻り値)
+// ════════════════════════════════════════════════════════════════
+
+export interface RunResult {
+    /** 今回のターンで Gemini が出力したテキスト全文 (累積). */
+    text: string;
+    /** 今回のターンで新しく増えた step 群 (CascadeStep でラップ済み). */
+    newSteps: CascadeStep[];
+    /** ターン完了時のステータス. 通常 "idle"、cancel すると "canceling" / "idle". */
+    finalStatus: RunStatus;
+    /** タスクが timeoutMs を超えた場合 true. */
+    timedOut: boolean;
+}
