@@ -44,7 +44,7 @@ function collectSchema(descriptors: Map<string, InstanceType<typeof FileDescript
 
     for (const [, desc] of descriptors) {
         const pkg = desc.package || "";
-        collectMessages(desc.messageType as any[], pkg, messages);
+        collectMessages(desc.messageType as any[], pkg, messages, enums);
         collectEnums(desc.enumType as any[], pkg, enums);
         for (const s of desc.service as any[]) {
             const fullName = pkg ? `${pkg}.${s.name}` : s.name;
@@ -63,7 +63,7 @@ function collectSchema(descriptors: Map<string, InstanceType<typeof FileDescript
     return { messages, enums, services };
 }
 
-function collectMessages(msgs: any[], prefix: string, out: Map<string, MsgInfo>) {
+function collectMessages(msgs: any[], prefix: string, msgsOut: Map<string, MsgInfo>, enumsOut: Map<string, EnumInfo>) {
     for (const m of msgs) {
         const fullName = prefix ? `${prefix}.${m.name}` : m.name;
         const fields = new Map<number, FieldInfo>();
@@ -76,9 +76,9 @@ function collectMessages(msgs: any[], prefix: string, out: Map<string, MsgInfo>)
                 oneof: hasOneof ? oneofDecls[f.oneofIndex] : undefined,
             });
         }
-        out.set(fullName, { fullName, fields });
-        if (m.nestedType) collectMessages(m.nestedType, fullName, out);
-        if (m.enumType) collectEnums(m.enumType, fullName, out as any);
+        msgsOut.set(fullName, { fullName, fields });
+        if (m.nestedType) collectMessages(m.nestedType, fullName, msgsOut, enumsOut);
+        if (m.enumType) collectEnums(m.enumType, fullName, enumsOut);
     }
 }
 
