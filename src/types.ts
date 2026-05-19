@@ -220,9 +220,14 @@ const STEP_CATEGORY_MAP: Record<StepType, StepCategory> = {
     setUpFirebase: "other",
     deployFirebase: "other",
     lintApplet: "other",
-    defineNewEnvVariable: "other",
     checkDeployStatus: "other",
     postPrReview: "other",
+    buildCleaner: "other",
+    cloudsqlExecuteSql: "other",
+    cloudsqlUpdateSchema: "other",
+    moma: "other",
+    rpcAction: "other",
+    setUpCloudsql: "other",
 };
 
 /** カテゴリマップへのアクセス */

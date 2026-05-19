@@ -118,7 +118,7 @@ export class Cascade extends EventEmitter {
         }
 
         // 3. 'other' イベントの処理 (個別 step イベントで、且つ誰も購読していない場合)
-        if (typeof event === "string" && event.startsWith("step:") && !handled && event !== "step:update") {
+        if (typeof event === "string" && event.startsWith("step:") && !handled && (event as string) !== "step:update") {
             super.emit(CascadeEvents.Other, data);
         }
 
@@ -143,11 +143,6 @@ export class Cascade extends EventEmitter {
     once<K extends keyof CascadeEventPayloads>(event: K, listener: (ev: CascadeEventPayloads[K]) => void): this;
     once(event: string | symbol, listener: (...args: any[]) => void): this {
         return super.once(event, listener);
-    }
-
-    emit<K extends keyof CascadeEventPayloads>(event: K, payload: CascadeEventPayloads[K]): boolean;
-    emit(event: string | symbol, ...args: any[]): boolean {
-        return super.emit(event, ...args);
     }
 
     // ──────────────────────────────────────────
