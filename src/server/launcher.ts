@@ -22,7 +22,7 @@ import type { ServerInfo } from "../autodetect.js";
 import { createPromiseClient } from "@connectrpc/connect";
 import { createConnectTransport } from "@connectrpc/connect-node";
 import { LanguageServerService } from "../gen/exa/language_server_pb/language_server_connect.js";
-import { SetUserSettingsRequest } from "../gen/exa/language_server_pb/language_server_pb.js";
+import { SetUserSettingsRequest, AddTrackedWorkspaceRequest } from "../gen/exa/language_server_pb/language_server_pb.js";
 import { UserSettings, AgentBrowserTools, BrowserJsExecutionPolicy } from "../gen/exa/codeium_common_pb/codeium_common_pb.js";
 
 const DEFAULT_LS_BINARY = path.join(
@@ -245,6 +245,33 @@ export class Launcher extends EventEmitter {
                 if (verbose) console.log(`[Launcher] LS does not support SetUserSettings (ignoring).`);
             } else {
                 console.warn(`[Launcher] ⚠️ Failed to inject browser settings:`, e);
+            }
+        }
+
+        // Inject workspace path if provided
+        if (workspacePath) {
+            try {
+                const transport = createConnectTransport({
+                    baseUrl: `https://127.0.0.1:${launcher.httpsPort}`,
+                    httpVersion: "2",
+                    nodeOptions: { rejectUnauthorized: false },
+                    interceptors: [
+                        (next) => async (req) => {
+                            req.header.set("x-codeium-csrf-token", csrfToken);
+                            return await next(req);
+                        },
+                    ],
+                });
+                const lsClient = createPromiseClient(LanguageServerService, transport);
+
+                await lsClient.addTrackedWorkspace(new AddTrackedWorkspaceRequest({
+                    workspace: workspacePath,
+                    isPassiveWorkspace: false,
+                }));
+
+                if (verbose) console.log(`[Launcher] ✅ Tracked workspace injected: ${workspacePath}`);
+            } catch (e) {
+                console.warn(`[Launcher] ⚠️ Failed to inject tracked workspace:`, e);
             }
         }
 
