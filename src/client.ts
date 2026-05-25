@@ -31,7 +31,7 @@ import { LanguageServerService } from "./gen/exa/language_server_pb/language_ser
 import { Metadata, TextOrScopeItem, ModelOrAlias, Model, ModelAlias, ConversationalPlannerMode } from "./gen/exa/codeium_common_pb/codeium_common_pb.js";
 import { StartCascadeRequest, SendUserCascadeMessageRequest, GetCascadeTrajectoryRequest, GetUserStatusResponse, GetModelStatusesResponse, GetWorkingDirectoriesResponse, AddTrackedWorkspaceRequest, GetModelResponseRequest } from "./gen/exa/language_server_pb/language_server_pb.js";
 import { StreamReactiveUpdatesRequest, StreamReactiveUpdatesResponse } from "./gen/exa/reactive_component_pb/reactive_component_pb.js";
-import { CascadeConfig, CascadePlannerConfig, CascadeConversationalPlannerConfig } from "./gen/exa/cortex_pb/cortex_pb.js";
+import { CascadeConfig, CascadePlannerConfig, CascadeConversationalPlannerConfig, CortexTrajectorySource } from "./gen/exa/cortex_pb/cortex_pb.js";
 
 // Note: UnaryResponse might be needed depending on return types, but let's see what the service returns.
 import { CascadeTrajectorySummaries } from "./gen/exa/jetski_cortex_pb/jetski_cortex_pb.js";
@@ -337,6 +337,7 @@ export class AntigravityClient {
 
       const req = new StartCascadeRequest({
           metadata,
+          source: CortexTrajectorySource.CASCADE_CLIENT,
       });
 
       const { cascadeId } = await this.lsClient.startCascade(req);
