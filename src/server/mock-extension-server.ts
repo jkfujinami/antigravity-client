@@ -65,6 +65,7 @@ export interface LsInfo {
 
 export class MockExtensionServer extends EventEmitter {
     private server: http.Server | null = null;
+    private connections = new Set<import("net").Socket>();
     private authData: AuthData;
     private verbose: boolean;
     private cdpPort: number;
@@ -273,6 +274,13 @@ export class MockExtensionServer extends EventEmitter {
         const handler = connectNodeAdapter({ routes });
 
         this.server = http.createServer((req, res) => {
+        });
+        this.server.on("connection", (conn) => {
+            this.connections.add(conn);
+            conn.on("close", () => this.connections.delete(conn));
+        });
+
+        this.server.on("request", (req, res) => {
             // Suppress noisy polling RPCs for cleaner logs
             const isNoisyRpc = req.url?.includes('/GetChromeDevtoolsMcpUrl') ||
                                req.url?.includes('/PushUnifiedStateSyncUpdate');
@@ -405,6 +413,7 @@ export class MockExtensionServer extends EventEmitter {
     async stop(): Promise<void> {
         return new Promise((resolve) => {
             if (this.server) {
+                for (const conn of this.connections) conn.destroy();
                 this.server.close(() => resolve());
             } else {
                 resolve();
