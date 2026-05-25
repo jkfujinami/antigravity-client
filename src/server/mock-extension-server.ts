@@ -336,7 +336,8 @@ export class MockExtensionServer extends EventEmitter {
 
         const chromePaths = [
             "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-            "/usr/bin/google-chrome"
+            "/usr/bin/google-chrome",
+            "/usr/bin/google-chrome-stable"
         ];
         const chromePath = chromePaths.find(p => fs.existsSync(p));
 

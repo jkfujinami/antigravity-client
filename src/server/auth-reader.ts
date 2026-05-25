@@ -9,10 +9,9 @@ import { homedir } from "os";
 import * as path from "path";
 import { Topic } from "../gen/exa/unified_state_sync_pb/unified_state_sync_pb.js";
 
-const STATE_DB_PATH = path.join(
-    homedir(),
-    "Library/Application Support/Antigravity/User/globalStorage/state.vscdb"
-);
+const STATE_DB_PATH = process.platform === "darwin"
+    ? path.join(homedir(), "Library/Application Support/Antigravity/User/globalStorage/state.vscdb")
+    : path.join(homedir(), ".config/Antigravity/User/globalStorage/state.vscdb");
 
 export interface UssOAuthData {
     key: string;      // USS data map key (e.g. "oauthTokenInfoSentinelKey")
