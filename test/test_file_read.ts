@@ -25,7 +25,7 @@ async function main() {
     });
 
     // We can also see the state updates for tool execution
-    cascade.on("update", (state) => {
+    cascade.on("rawUpdate", (state) => {
         const steps = state.trajectory?.steps || [];
         const lastStep = steps[steps.length - 1];
         if (lastStep && lastStep.step?.case !== "plannerResponse" && lastStep.step?.case !== "userInput") {

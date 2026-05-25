@@ -18,7 +18,7 @@ async function main() {
     await cascade.sendMessage("ls -a コマンドを実行して、その結果を教えてください。");
 
     // Listen for updates - FULL DEBUG MODE
-    cascade.on("update", async (state) => {
+    cascade.on("rawUpdate", async (state) => {
         const steps = state.trajectory?.steps || [];
         console.log(`\n\n=== UPDATE DETECTED (${steps.length} Steps) ===`);
 
