@@ -86,19 +86,19 @@ export class AutoDetector {
   private async inspectProcess(pid: number): Promise<ServerInfo | null> {
     try {
       const { stdout: argsOut } = await execAsync(`ps -p ${pid} -o args=`);
-      const { stdout: lstartOut } = await execAsync(`ps -p ${pid} -o lstart=`);
+      const { stdout: lstartOut } = await execAsync(`LC_ALL=C ps -p ${pid} -o lstart=`);
 
       const portMatch = argsOut.match(/--extension_server_port\s+(\d+)/);
       const csrfMatch = argsOut.match(/--csrf_token\s+([a-f0-9-]+)/);
       const workspaceMatch = argsOut.match(/--workspace_id\s+([^\s]+)/);
 
-      if (!portMatch || !csrfMatch) {
+      if (!csrfMatch) {
          return null;
       }
 
       return {
         pid,
-        httpPort: parseInt(portMatch[1], 10),
+        httpPort: portMatch ? parseInt(portMatch[1], 10) : 0,
         csrfToken: csrfMatch[1],
         workspaceId: workspaceMatch ? workspaceMatch[1] : "unknown",
         startTime: new Date(lstartOut.trim())
