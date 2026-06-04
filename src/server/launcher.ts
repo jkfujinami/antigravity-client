@@ -25,10 +25,12 @@ import { LanguageServerService } from "../gen/exa/language_server_pb/language_se
 import { SetUserSettingsRequest, AddTrackedWorkspaceRequest } from "../gen/exa/language_server_pb/language_server_pb.js";
 import { UserSettings, AgentBrowserTools, BrowserJsExecutionPolicy } from "../gen/exa/codeium_common_pb/codeium_common_pb.js";
 
-const DEFAULT_LS_BINARY = path.join(
-    "/Applications/Antigravity.app/Contents/Resources/bin",
-    "language_server"
-);
+const DEFAULT_LS_BINARY = process.platform === "darwin"
+    ? path.join(
+        "/Applications/Antigravity.app/Contents/Resources/bin",
+        "language_server"
+      )
+    : "/opt/Antigravity/resources/bin/language_server";
 
 // Crash Monitoring Constants
 const RESTART_WINDOW_MS = 60000;
@@ -196,7 +198,7 @@ export class Launcher extends EventEmitter {
         this.lsProcess.stdin!.write(metadataBin);
         this.lsProcess.stdin!.end();
 
-        const logFile = "/Users/fujinami/workspace/Agent/ls_combined.log";
+        const logFile = path.join(os.tmpdir(), "antigravity_ls_combined.log");
         try { fs.appendFileSync(logFile, `\n--- LS Started at ${new Date().toISOString()} (PID: ${this.lsProcess.pid}) ---\n`); } catch (e) { }
 
         let stderrLength = 0;
@@ -278,10 +280,17 @@ export class Launcher extends EventEmitter {
             });
             const lsClient = createPromiseClient(LanguageServerService, transport);
 
+            const chromePaths = [
+                "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                "/usr/bin/google-chrome",
+                "/usr/bin/google-chrome-stable"
+            ];
+            const detectedChromePath = chromePaths.find(p => fs.existsSync(p)) || "";
+
             const browserSettings = new UserSettings({
                 agentBrowserTools: AgentBrowserTools.ENABLED,
                 browserCdpPort: this.mockServer.browserReady ? (this.fullOptions.cdpPort ?? 9222) : 0,
-                browserChromePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                browserChromePath: detectedChromePath || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
                 browserUserProfilePath: path.join(os.homedir(), ".gemini", "antigravity-browser-profile"),
                 browserJsExecutionPolicy: BrowserJsExecutionPolicy.TURBO,
             });
