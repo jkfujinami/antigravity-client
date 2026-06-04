@@ -86,6 +86,26 @@ export class MockExtensionServer extends EventEmitter {
     get port(): number { return this._port; }
     get lsInfo(): LsInfo { return this._lsInfo; }
 
+    /** Update auth data and push to active USS streams */
+    updateAuthData(newAuthData: AuthData) {
+        this.authData = newAuthData;
+        const topic = new Topic({
+            data: [
+                new Topic_DataEntry({
+                    key: newAuthData.ussOAuth.key,
+                    value: new Row({
+                        value: newAuthData.ussOAuth.value,
+                        eTag: BigInt(Date.now()),
+                    }),
+                }),
+            ],
+        });
+        const update = new UnifiedStateSyncUpdate({
+            updateType: { case: "initialState", value: topic }
+        });
+        this.emit("uss-update-uss-oauth", update);
+    }
+
     /**
      * Start the mock server. Returns the actual listening port.
      */
@@ -106,7 +126,7 @@ export class MockExtensionServer extends EventEmitter {
                     return new LanguageServerStartedResponse();
                 },
 
-                async *subscribeToUnifiedStateSyncTopic(req) {
+                async *subscribeToUnifiedStateSyncTopic(req, context) {
                     if (req.topic === "uss-oauth") {
                         const topic = new Topic({
                             data: [
@@ -128,9 +148,22 @@ export class MockExtensionServer extends EventEmitter {
                         });
                     }
 
-                    // Keep stream alive
-                    while (true) {
-                        await new Promise(resolve => setTimeout(resolve, 30000));
+                    // Keep stream alive and wait for dynamic updates
+                    while (!context.signal.aborted) {
+                        const update = await new Promise<UnifiedStateSyncUpdate | null>(resolve => {
+                            const handler = (upd: UnifiedStateSyncUpdate) => {
+                                context.signal.removeEventListener("abort", abortHandler);
+                                resolve(upd);
+                            };
+                            const abortHandler = () => {
+                                self.removeListener(`uss-update-${req.topic}`, handler);
+                                resolve(null);
+                            };
+                            self.once(`uss-update-${req.topic}`, handler);
+                            context.signal.addEventListener("abort", abortHandler, { once: true });
+                        });
+                        if (!update) break;
+                        yield update;
                     }
                 },
 

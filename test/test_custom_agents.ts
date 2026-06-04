@@ -17,7 +17,7 @@ async function main() {
             const res = await client.lsClient.getAllWorkflows(new GetAllWorkflowsRequest({ workspaceUris: uris }));
             console.log(`Found ${res.workflows.length} workflows.`);
             res.workflows.forEach(w => {
-                console.log(`\n- Name: ${w.name} (${w.displayName})`);
+                console.log(`\n- Name: ${w.name}`);
                 console.log(`  Description: ${w.description}`);
             });
         } catch (e: any) {
@@ -29,7 +29,7 @@ async function main() {
             console.log("\n--- Calling GetAllSkills ---");
             const res = await client.lsClient.getAllSkills(new GetAllSkillsRequest({ workspaceUris: uris }));
             console.log(`Found ${res.skills.length} skills.`);
-            res.skills.forEach(s => console.log(` - ${s.name} (${s.displayName})`));
+            res.skills.forEach(s => console.log(` - ${s.name}`));
         } catch (e: any) {
             console.log("GetAllSkills failed:", e.message);
         }

@@ -1,6 +1,7 @@
 
 import { AntigravityClient } from "../src/client.js";
 import { Model } from "../src/gen/exa/codeium_common_pb/codeium_common_pb.js";
+import { CascadeEvents } from "../src/event-types.js";
 
 async function main() {
     console.log("🔌 Connecting to Antigravity...");
@@ -12,20 +13,20 @@ async function main() {
     console.log(`✨ Cascade ID: ${cascade.cascadeId}`);
 
     // Listen to updates
-    cascade.on("text", (ev) => {
+    cascade.on(CascadeEvents.Text, (ev) => {
         process.stdout.write(ev.delta);
     });
 
-    cascade.on("thinking", (ev) => {
+    cascade.on(CascadeEvents.Thinking, (ev) => {
         process.stdout.write(`\x1b[90m${ev.delta}\x1b[0m`);
     });
 
-    cascade.on("error", (err) => {
+    cascade.on(CascadeEvents.Error, (err) => {
         console.error("\n❌ Cascade Error:", err);
     });
 
     // We can also see the state updates for tool execution
-    cascade.on("update", (state) => {
+    cascade.on(CascadeEvents.RawUpdate, (state) => {
         const steps = state.trajectory?.steps || [];
         const lastStep = steps[steps.length - 1];
         if (lastStep && lastStep.step?.case !== "plannerResponse" && lastStep.step?.case !== "userInput") {

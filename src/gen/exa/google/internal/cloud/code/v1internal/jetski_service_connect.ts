@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AgentPlugin, CheckUrlDenylistRequest, CheckUrlDenylistResponse, FetchFromTrawlerCacheRequest, FetchFromTrawlerCacheResponse, FetchUserInfoRequest, FetchUserInfoResponse, GetAgentPluginRequest, GetHealthRequest, Health, ListAgentPluginsRequest, ListAgentPluginsResponse, ListCascadeNuxesRequest, ListCascadeNuxesResponse, ListWebDocsOptionsRequest, ListWebDocsOptionsResponse, RecordTrajectoryAnalyticsRequest, RecordTrajectoryAnalyticsResponse, RewriteUriRequest, RewriteUriResponse, SetUserSettingsRequest, SetUserSettingsResponse, TabChatRequest, TabChatResponse } from "./jetski_service_pb.js";
+import { AgentPlugin, BattleModeOverridesRequest, BattleModeOverridesResponse, CheckUrlDenylistRequest, CheckUrlDenylistResponse, FetchFromTrawlerCacheRequest, FetchFromTrawlerCacheResponse, FetchUserInfoRequest, FetchUserInfoResponse, GetAgentPluginRequest, GetHealthRequest, Health, ListAgentPluginsRequest, ListAgentPluginsResponse, ListBuildWithGooglePluginsRequest, ListBuildWithGooglePluginsResponse, ListCascadeNuxesRequest, ListCascadeNuxesResponse, ListWebDocsOptionsRequest, ListWebDocsOptionsResponse, RecordTrajectoryAnalyticsRequest, RecordTrajectoryAnalyticsResponse, RegisterInteractionRequest, RegisterInteractionResponse, RewriteUriRequest, RewriteUriResponse, SetUserSettingsRequest, SetUserSettingsResponse, TabChatRequest, TabChatResponse } from "./jetski_service_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -19,6 +19,15 @@ export const JetskiService = {
       name: "ListAgentPlugins",
       I: ListAgentPluginsRequest,
       O: ListAgentPluginsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc google.internal.cloud.code.v1internal.JetskiService.ListBuildWithGooglePlugins
+     */
+    listBuildWithGooglePlugins: {
+      name: "ListBuildWithGooglePlugins",
+      I: ListBuildWithGooglePluginsRequest,
+      O: ListBuildWithGooglePluginsResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -118,6 +127,24 @@ export const JetskiService = {
       name: "FetchFromTrawlerCache",
       I: FetchFromTrawlerCacheRequest,
       O: FetchFromTrawlerCacheResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc google.internal.cloud.code.v1internal.JetskiService.RegisterInteraction
+     */
+    registerInteraction: {
+      name: "RegisterInteraction",
+      I: RegisterInteractionRequest,
+      O: RegisterInteractionResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc google.internal.cloud.code.v1internal.JetskiService.BattleModeOverrides
+     */
+    battleModeOverrides: {
+      name: "BattleModeOverrides",
+      I: BattleModeOverridesRequest,
+      O: BattleModeOverridesResponse,
       kind: MethodKind.Unary,
     },
   }

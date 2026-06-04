@@ -3,6 +3,7 @@ package gemini_coder;
 
 import "exa/cortex_pb/cortex.proto";
 import "exa/gemini_coder/cider/proto/trajectory_steps.proto";
+import "google/protobuf/any.proto";
 
 enum ExecutionStatus {
   EXECUTION_STATUS_UNSPECIFIED = 0;
@@ -34,6 +35,7 @@ message Trajectory {
   repeated exa.cortex_pb.ExecutorMetadata executor_metadatas = 9;
   exa.cortex_pb.CortexTrajectorySource source = 8;
   exa.cortex_pb.CortexTrajectoryMetadata metadata = 7;
+  repeated exa.cortex_pb.BattleModeInfo battle_mode_infos = 10;
 }
 
 message TaskDetails {
@@ -51,6 +53,7 @@ message Step {
   exa.cortex_pb.CortexErrorDetails error = 31;
   exa.cortex_pb.TrajectoryPermissions permissions = 133;
   gemini_coder.TaskDetails task_details = 148;
+  repeated google.protobuf.Any attachments = 155;
   exa.cortex_pb.RequestedInteraction requested_interaction = 56;
   repeated exa.cortex_pb.CompletedInteraction completed_interactions = 147;
   exa.cortex_pb.UserStepAnnotations user_annotations = 69;

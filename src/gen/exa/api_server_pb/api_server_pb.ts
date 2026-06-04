@@ -3192,6 +3192,11 @@ export class GetChatMessageRequest extends Message<GetChatMessageRequest> {
    */
   conversationId = "";
 
+  /**
+   * @generated from field: repeated exa.api_server_pb.GetChatMessageRequest.CustomMetadataEntry custom_metadata = 23;
+   */
+  customMetadata: GetChatMessageRequest_CustomMetadataEntry[] = [];
+
   constructor(data?: PartialMessage<GetChatMessageRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -3219,6 +3224,7 @@ export class GetChatMessageRequest extends Message<GetChatMessageRequest> {
     { no: 19, name: "language", kind: "enum", T: proto3.getEnumType(Language) },
     { no: 21, name: "enable_ai_credits", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 22, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 23, name: "custom_metadata", kind: "message", T: GetChatMessageRequest_CustomMetadataEntry, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetChatMessageRequest {
@@ -3235,6 +3241,49 @@ export class GetChatMessageRequest extends Message<GetChatMessageRequest> {
 
   static equals(a: GetChatMessageRequest | PlainMessage<GetChatMessageRequest> | undefined, b: GetChatMessageRequest | PlainMessage<GetChatMessageRequest> | undefined): boolean {
     return proto3.util.equals(GetChatMessageRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.api_server_pb.GetChatMessageRequest.CustomMetadataEntry
+ */
+export class GetChatMessageRequest_CustomMetadataEntry extends Message<GetChatMessageRequest_CustomMetadataEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: string value = 2;
+   */
+  value = "";
+
+  constructor(data?: PartialMessage<GetChatMessageRequest_CustomMetadataEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.api_server_pb.GetChatMessageRequest.CustomMetadataEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetChatMessageRequest_CustomMetadataEntry {
+    return new GetChatMessageRequest_CustomMetadataEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetChatMessageRequest_CustomMetadataEntry {
+    return new GetChatMessageRequest_CustomMetadataEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetChatMessageRequest_CustomMetadataEntry {
+    return new GetChatMessageRequest_CustomMetadataEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetChatMessageRequest_CustomMetadataEntry | PlainMessage<GetChatMessageRequest_CustomMetadataEntry> | undefined, b: GetChatMessageRequest_CustomMetadataEntry | PlainMessage<GetChatMessageRequest_CustomMetadataEntry> | undefined): boolean {
+    return proto3.util.equals(GetChatMessageRequest_CustomMetadataEntry, a, b);
   }
 }
 
@@ -9433,6 +9482,11 @@ export class GetWebSearchResultsRequest extends Message<GetWebSearchResultsReque
   query = "";
 
   /**
+   * @generated from field: exa.codeium_common_pb.Model model = 7;
+   */
+  model = Model.UNSPECIFIED;
+
+  /**
    * @generated from field: uint32 limit = 3;
    */
   limit = 0;
@@ -9462,6 +9516,7 @@ export class GetWebSearchResultsRequest extends Message<GetWebSearchResultsReque
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "metadata", kind: "message", T: Metadata },
     { no: 2, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "model", kind: "enum", T: proto3.getEnumType(Model) },
     { no: 3, name: "limit", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 4, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "third_party_config", kind: "message", T: ThirdPartyWebSearchConfig },

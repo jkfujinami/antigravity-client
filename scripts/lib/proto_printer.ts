@@ -39,10 +39,13 @@ function resolveType(
         // 既知の型で、スキップ対象パッケージに属さないものは OK
         if (knownTypes.has(fqn)) {
             const typePkg = fqn.substring(0, fqn.lastIndexOf("."));
-            if (!SKIP_PACKAGES.has(typePkg)) return fqn;
+            if (!shouldSkip(typePkg)) return fqn;
         }
 
-        // Google WKT は完全修飾名で返す（import は生成しない）
+        // google.* は常に FQN で返し、import の対象にする
+        if (fqn.startsWith("google.") && !fqn.startsWith("google.internal.")) {
+            return fqn;
+        }
         if (fqn.startsWith("google.protobuf.")) return fqn;
         if (fqn.startsWith("google.rpc.")) return fqn;
 
@@ -145,19 +148,16 @@ export function renderProtoFile(
                             const typeFile = typeToFile.get(fqn);
                             const typePkg = fqn.substring(0, fqn.lastIndexOf("."));
                             
-                            // google.protobuf 等はローカル出力からスキップされるが、import は必要
-                            if (typePkg.startsWith("google.protobuf")) {
-                                const base = fqn.split(".")[2]; // google.protobuf.Duration -> Duration
-                                // CamelCase to snake_case
-                                const snake = base.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`).replace(/^_/, '');
-                                importFiles.add(`google/protobuf/${snake}.proto`);
-                            } else if (typePkg === "google.rpc" && !typeFile) {
-                                // 万が一 typeFile が見つからない場合のフォールバック
-                                const base = fqn.split(".")[2];
-                                const snake = base.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`).replace(/^_/, '');
-                                importFiles.add(`google/rpc/${snake}.proto`);
-                            } else if (typeFile && typeFile !== filename && !SKIP_PACKAGES.has(typePkg)) {
+                            if (typeFile && typeFile !== filename) {
                                 importFiles.add(typeFile);
+                            } else if (typePkg.startsWith("google.protobuf")) {
+                                const base = fqn.split(".")[2];
+                                const snake = base.replace(/[A-Z]/g, (letter: string) => `_${letter.toLowerCase()}`).replace(/^_/, '');
+                                importFiles.add(`google/protobuf/${snake}.proto`);
+                            } else if (typePkg.startsWith("google.rpc")) {
+                                const base = fqn.split(".")[2];
+                                const snake = base.replace(/[A-Z]/g, (letter: string) => `_${letter.toLowerCase()}`).replace(/^_/, '');
+                                importFiles.add(`google/rpc/${snake}.proto`);
                             }
                         }
                     }
@@ -180,16 +180,16 @@ export function renderProtoFile(
                         const typeFile = typeToFile.get(fqn);
                         const typePkg = fqn.substring(0, fqn.lastIndexOf("."));
                         
-                        if (typePkg.startsWith("google.protobuf")) {
+                        if (typeFile && typeFile !== filename) {
+                            importFiles.add(typeFile);
+                        } else if (typePkg.startsWith("google.protobuf")) {
                             const base = fqn.split(".")[2];
                             const snake = base.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`).replace(/^_/, '');
                             importFiles.add(`google/protobuf/${snake}.proto`);
-                        } else if (typePkg === "google.rpc" && !typeFile) {
+                        } else if (typePkg.startsWith("google.rpc")) {
                             const base = fqn.split(".")[2];
                             const snake = base.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`).replace(/^_/, '');
                             importFiles.add(`google/rpc/${snake}.proto`);
-                        } else if (typeFile && typeFile !== filename && !SKIP_PACKAGES.has(typePkg)) {
-                            importFiles.add(typeFile);
                         }
                     }
                 }
@@ -313,5 +313,8 @@ function renderField(
  * パッケージがスキップ対象かどうかを判定する。
  */
 export function shouldSkip(pkg: string): boolean {
-    return pkg.startsWith("google.protobuf");
+    if (pkg.startsWith("google.internal.")) return false;
+    if (pkg.startsWith("google.")) return true;
+    if (pkg === "pb") return true;
+    return false;
 }

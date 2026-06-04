@@ -37,10 +37,10 @@ async function main() {
                     .filter(e => e.value)
                     .sort((a, b) => {
                         // lastModifiedTime is now bytes (Timestamp binary), compare raw
-                        const tA = a.value!.lastModifiedTime;
-                        const tB = b.value!.lastModifiedTime;
+                        const tA = a.value!.lastModifiedTime?.toString() || "";
+                        const tB = b.value!.lastModifiedTime?.toString() || "";
                         // Simple byte comparison (bigger = newer for Timestamp binary)
-                        return tB.toString() > tA.toString() ? 1 : -1;
+                        return tB > tA ? 1 : -1;
                     });
 
                 for (const entry of entries.slice(0, 15)) { // Show top 15

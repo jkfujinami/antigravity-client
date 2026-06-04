@@ -282,6 +282,16 @@ export class ModelDetails extends Message<ModelDetails> {
    */
   modelExperiments?: ModelExperiments;
 
+  /**
+   * @generated from field: bool supports_thought_circulation = 38;
+   */
+  supportsThoughtCirculation = false;
+
+  /**
+   * @generated from field: string vertex_model_id = 39;
+   */
+  vertexModelId = "";
+
   constructor(data?: PartialMessage<ModelDetails>) {
     super();
     proto3.util.initPartial(data, this);
@@ -327,6 +337,8 @@ export class ModelDetails extends Message<ModelDetails> {
     { no: 35, name: "thinking_level", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 36, name: "tool_response_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 37, name: "model_experiments", kind: "message", T: ModelExperiments },
+    { no: 38, name: "supports_thought_circulation", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 39, name: "vertex_model_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelDetails {
@@ -669,6 +681,55 @@ export class ModelExperiments_ExperimentsEntry extends Message<ModelExperiments_
 }
 
 /**
+ * @generated from message google.internal.cloud.code.v1internal.TieredModelConfig
+ */
+export class TieredModelConfig extends Message<TieredModelConfig> {
+  /**
+   * @generated from field: repeated string flash_lite = 1;
+   */
+  flashLite: string[] = [];
+
+  /**
+   * @generated from field: repeated string flash = 2;
+   */
+  flash: string[] = [];
+
+  /**
+   * @generated from field: repeated string pro = 3;
+   */
+  pro: string[] = [];
+
+  constructor(data?: PartialMessage<TieredModelConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.TieredModelConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "flash_lite", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 2, name: "flash", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "pro", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TieredModelConfig {
+    return new TieredModelConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TieredModelConfig {
+    return new TieredModelConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TieredModelConfig {
+    return new TieredModelConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TieredModelConfig | PlainMessage<TieredModelConfig> | undefined, b: TieredModelConfig | PlainMessage<TieredModelConfig> | undefined): boolean {
+    return proto3.util.equals(TieredModelConfig, a, b);
+  }
+}
+
+/**
  * @generated from message google.internal.cloud.code.v1internal.FetchAvailableModelsResponse
  */
 export class FetchAvailableModelsResponse extends Message<FetchAvailableModelsResponse> {
@@ -732,6 +793,16 @@ export class FetchAvailableModelsResponse extends Message<FetchAvailableModelsRe
    */
   battleModeModelSorts: ModelSort[] = [];
 
+  /**
+   * @generated from field: google.internal.cloud.code.v1internal.TieredModelConfig tiered_model_ids = 14;
+   */
+  tieredModelIds?: TieredModelConfig;
+
+  /**
+   * @generated from field: repeated int32 experiment_ids = 13;
+   */
+  experimentIds: number[] = [];
+
   constructor(data?: PartialMessage<FetchAvailableModelsResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -752,6 +823,8 @@ export class FetchAvailableModelsResponse extends Message<FetchAvailableModelsRe
     { no: 9, name: "deprecated_model_ids", kind: "message", T: FetchAvailableModelsResponse_DeprecatedModelIdsEntry, repeated: true },
     { no: 11, name: "audio_transcription_model_ids", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 12, name: "battle_mode_model_sorts", kind: "message", T: ModelSort, repeated: true },
+    { no: 14, name: "tiered_model_ids", kind: "message", T: TieredModelConfig },
+    { no: 13, name: "experiment_ids", kind: "scalar", T: 5 /* ScalarType.INT32 */, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FetchAvailableModelsResponse {

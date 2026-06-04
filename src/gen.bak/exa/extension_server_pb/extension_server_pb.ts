@@ -1024,6 +1024,16 @@ export class ExecuteCommandRequest extends Message<ExecuteCommandRequest> {
    */
   sandboxOverride = false;
 
+  /**
+   * @generated from field: string conversation_id = 7;
+   */
+  conversationId = "";
+
+  /**
+   * @generated from field: string terminal_host = 8;
+   */
+  terminalHost = "";
+
   constructor(data?: PartialMessage<ExecuteCommandRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1036,6 +1046,8 @@ export class ExecuteCommandRequest extends Message<ExecuteCommandRequest> {
     { no: 3, name: "cwd", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "terminal_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 6, name: "sandbox_override", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "terminal_host", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExecuteCommandRequest {
@@ -1206,6 +1218,11 @@ export class SaveDocumentRequest extends Message<SaveDocumentRequest> {
    */
   uri = "";
 
+  /**
+   * @generated from field: string conversation_id = 2;
+   */
+  conversationId = "";
+
   constructor(data?: PartialMessage<SaveDocumentRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1215,6 +1232,7 @@ export class SaveDocumentRequest extends Message<SaveDocumentRequest> {
   static readonly typeName = "exa.extension_server_pb.SaveDocumentRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SaveDocumentRequest {
@@ -1274,6 +1292,11 @@ export class ReadTerminalRequest extends Message<ReadTerminalRequest> {
    */
   processId = "";
 
+  /**
+   * @generated from field: string conversation_id = 2;
+   */
+  conversationId = "";
+
   constructor(data?: PartialMessage<ReadTerminalRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1283,6 +1306,7 @@ export class ReadTerminalRequest extends Message<ReadTerminalRequest> {
   static readonly typeName = "exa.extension_server_pb.ReadTerminalRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "process_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReadTerminalRequest {
@@ -1421,6 +1445,11 @@ export class SendTerminalInputRequest extends Message<SendTerminalInputRequest> 
    */
   input = "";
 
+  /**
+   * @generated from field: string conversation_id = 3;
+   */
+  conversationId = "";
+
   constructor(data?: PartialMessage<SendTerminalInputRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1431,6 +1460,7 @@ export class SendTerminalInputRequest extends Message<SendTerminalInputRequest> 
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "terminal_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "input", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendTerminalInputRequest {
@@ -1502,6 +1532,11 @@ export class TerminateCommandRequest extends Message<TerminateCommandRequest> {
    */
   terminalId = "";
 
+  /**
+   * @generated from field: string conversation_id = 2;
+   */
+  conversationId = "";
+
   constructor(data?: PartialMessage<TerminateCommandRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1511,6 +1546,7 @@ export class TerminateCommandRequest extends Message<TerminateCommandRequest> {
   static readonly typeName = "exa.extension_server_pb.TerminateCommandRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "terminal_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TerminateCommandRequest {
@@ -1570,6 +1606,11 @@ export class GetLintErrorsRequest extends Message<GetLintErrorsRequest> {
    */
   awaitNewLintsConfig?: GetLintErrorsRequest_AwaitNewLintsConfig;
 
+  /**
+   * @generated from field: string conversation_id = 5;
+   */
+  conversationId = "";
+
   constructor(data?: PartialMessage<GetLintErrorsRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1579,6 +1620,7 @@ export class GetLintErrorsRequest extends Message<GetLintErrorsRequest> {
   static readonly typeName = "exa.extension_server_pb.GetLintErrorsRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "await_new_lints_config", kind: "message", T: GetLintErrorsRequest_AwaitNewLintsConfig },
+    { no: 5, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetLintErrorsRequest {
@@ -2715,6 +2757,253 @@ export class ReadNotebookResponse extends Message<ReadNotebookResponse> {
 
   static equals(a: ReadNotebookResponse | PlainMessage<ReadNotebookResponse> | undefined, b: ReadNotebookResponse | PlainMessage<ReadNotebookResponse> | undefined): boolean {
     return proto3.util.equals(ReadNotebookResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.extension_server_pb.ExecuteNotebookRequest
+ */
+export class ExecuteNotebookRequest extends Message<ExecuteNotebookRequest> {
+  /**
+   * @generated from field: string absolute_path_uri = 1;
+   */
+  absolutePathUri = "";
+
+  /**
+   * @generated from field: repeated string cell_ids = 2;
+   */
+  cellIds: string[] = [];
+
+  /**
+   * @generated from field: repeated int32 cell_indices = 3;
+   */
+  cellIndices: number[] = [];
+
+  /**
+   * @generated from field: bool stop_on_error = 4;
+   */
+  stopOnError = false;
+
+  /**
+   * @generated from field: bool restart_kernel = 5;
+   */
+  restartKernel = false;
+
+  constructor(data?: PartialMessage<ExecuteNotebookRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.extension_server_pb.ExecuteNotebookRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "absolute_path_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "cell_ids", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "cell_indices", kind: "scalar", T: 5 /* ScalarType.INT32 */, repeated: true },
+    { no: 4, name: "stop_on_error", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "restart_kernel", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExecuteNotebookRequest {
+    return new ExecuteNotebookRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ExecuteNotebookRequest {
+    return new ExecuteNotebookRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ExecuteNotebookRequest {
+    return new ExecuteNotebookRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ExecuteNotebookRequest | PlainMessage<ExecuteNotebookRequest> | undefined, b: ExecuteNotebookRequest | PlainMessage<ExecuteNotebookRequest> | undefined): boolean {
+    return proto3.util.equals(ExecuteNotebookRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.extension_server_pb.ExecuteNotebookResponse
+ */
+export class ExecuteNotebookResponse extends Message<ExecuteNotebookResponse> {
+  /**
+   * @generated from field: exa.extension_server_pb.ExecuteNotebookResponse.ExecutionStatus status = 1;
+   */
+  status = ExecuteNotebookResponse_ExecutionStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: int32 executed_cells_count = 2;
+   */
+  executedCellsCount = 0;
+
+  /**
+   * @generated from field: repeated exa.extension_server_pb.ExecuteNotebookResponse.CellOutput cell_outputs = 3;
+   */
+  cellOutputs: ExecuteNotebookResponse_CellOutput[] = [];
+
+  /**
+   * @generated from field: string error_trace = 4;
+   */
+  errorTrace = "";
+
+  constructor(data?: PartialMessage<ExecuteNotebookResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.extension_server_pb.ExecuteNotebookResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "status", kind: "enum", T: proto3.getEnumType(ExecuteNotebookResponse_ExecutionStatus) },
+    { no: 2, name: "executed_cells_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "cell_outputs", kind: "message", T: ExecuteNotebookResponse_CellOutput, repeated: true },
+    { no: 4, name: "error_trace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExecuteNotebookResponse {
+    return new ExecuteNotebookResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ExecuteNotebookResponse {
+    return new ExecuteNotebookResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ExecuteNotebookResponse {
+    return new ExecuteNotebookResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ExecuteNotebookResponse | PlainMessage<ExecuteNotebookResponse> | undefined, b: ExecuteNotebookResponse | PlainMessage<ExecuteNotebookResponse> | undefined): boolean {
+    return proto3.util.equals(ExecuteNotebookResponse, a, b);
+  }
+}
+
+/**
+ * @generated from enum exa.extension_server_pb.ExecuteNotebookResponse.CellStatus
+ */
+export enum ExecuteNotebookResponse_CellStatus {
+  /**
+   * @generated from enum value: CELL_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CELL_STATUS_SUCCESS = 1;
+   */
+  SUCCESS = 1,
+
+  /**
+   * @generated from enum value: CELL_STATUS_FAILURE = 2;
+   */
+  FAILURE = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ExecuteNotebookResponse_CellStatus)
+proto3.util.setEnumType(ExecuteNotebookResponse_CellStatus, "exa.extension_server_pb.ExecuteNotebookResponse.CellStatus", [
+  { no: 0, name: "CELL_STATUS_UNSPECIFIED" },
+  { no: 1, name: "CELL_STATUS_SUCCESS" },
+  { no: 2, name: "CELL_STATUS_FAILURE" },
+]);
+
+/**
+ * @generated from enum exa.extension_server_pb.ExecuteNotebookResponse.ExecutionStatus
+ */
+export enum ExecuteNotebookResponse_ExecutionStatus {
+  /**
+   * @generated from enum value: EXECUTION_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: EXECUTION_STATUS_SUCCESS = 1;
+   */
+  SUCCESS = 1,
+
+  /**
+   * @generated from enum value: EXECUTION_STATUS_FAILURE = 2;
+   */
+  FAILURE = 2,
+
+  /**
+   * @generated from enum value: EXECUTION_STATUS_PARTIAL_SUCCESS = 3;
+   */
+  PARTIAL_SUCCESS = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ExecuteNotebookResponse_ExecutionStatus)
+proto3.util.setEnumType(ExecuteNotebookResponse_ExecutionStatus, "exa.extension_server_pb.ExecuteNotebookResponse.ExecutionStatus", [
+  { no: 0, name: "EXECUTION_STATUS_UNSPECIFIED" },
+  { no: 1, name: "EXECUTION_STATUS_SUCCESS" },
+  { no: 2, name: "EXECUTION_STATUS_FAILURE" },
+  { no: 3, name: "EXECUTION_STATUS_PARTIAL_SUCCESS" },
+]);
+
+/**
+ * @generated from message exa.extension_server_pb.ExecuteNotebookResponse.CellOutput
+ */
+export class ExecuteNotebookResponse_CellOutput extends Message<ExecuteNotebookResponse_CellOutput> {
+  /**
+   * @generated from field: string cell_id = 1;
+   */
+  cellId = "";
+
+  /**
+   * @generated from field: int32 cell_index = 2;
+   */
+  cellIndex = 0;
+
+  /**
+   * @generated from field: exa.extension_server_pb.ExecuteNotebookResponse.CellStatus status = 3;
+   */
+  status = ExecuteNotebookResponse_CellStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: string output_text = 4;
+   */
+  outputText = "";
+
+  /**
+   * @generated from field: bool output_text_truncated = 5;
+   */
+  outputTextTruncated = false;
+
+  /**
+   * @generated from field: bool generated_images = 6;
+   */
+  generatedImages = false;
+
+  /**
+   * @generated from field: string error_trace = 7;
+   */
+  errorTrace = "";
+
+  constructor(data?: PartialMessage<ExecuteNotebookResponse_CellOutput>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.extension_server_pb.ExecuteNotebookResponse.CellOutput";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "cell_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "cell_index", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "status", kind: "enum", T: proto3.getEnumType(ExecuteNotebookResponse_CellStatus) },
+    { no: 4, name: "output_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "output_text_truncated", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "generated_images", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: "error_trace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExecuteNotebookResponse_CellOutput {
+    return new ExecuteNotebookResponse_CellOutput().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ExecuteNotebookResponse_CellOutput {
+    return new ExecuteNotebookResponse_CellOutput().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ExecuteNotebookResponse_CellOutput {
+    return new ExecuteNotebookResponse_CellOutput().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ExecuteNotebookResponse_CellOutput | PlainMessage<ExecuteNotebookResponse_CellOutput> | undefined, b: ExecuteNotebookResponse_CellOutput | PlainMessage<ExecuteNotebookResponse_CellOutput> | undefined): boolean {
+    return proto3.util.equals(ExecuteNotebookResponse_CellOutput, a, b);
   }
 }
 
@@ -4213,149 +4502,64 @@ export class BroadcastConversationDeletionResponse extends Message<BroadcastConv
 }
 
 /**
- * @generated from message exa.extension_server_pb.FetchMCPAuthTokenRequest
+ * @generated from message exa.extension_server_pb.HeartbeatRequest
  */
-export class FetchMCPAuthTokenRequest extends Message<FetchMCPAuthTokenRequest> {
-  /**
-   * @generated from field: string server_url = 1;
-   */
-  serverUrl = "";
-
-  /**
-   * @generated from field: string url = 2;
-   */
-  url = "";
-
-  /**
-   * @generated from field: int32 status = 3;
-   */
-  status = 0;
-
-  /**
-   * @generated from field: string status_text = 4;
-   */
-  statusText = "";
-
-  /**
-   * @generated from field: repeated exa.extension_server_pb.FetchMCPAuthTokenRequest.HeadersEntry headers = 5;
-   */
-  headers: FetchMCPAuthTokenRequest_HeadersEntry[] = [];
-
-  /**
-   * @generated from field: string body = 6;
-   */
-  body = "";
-
-  constructor(data?: PartialMessage<FetchMCPAuthTokenRequest>) {
+export class HeartbeatRequest extends Message<HeartbeatRequest> {
+  constructor(data?: PartialMessage<HeartbeatRequest>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.extension_server_pb.FetchMCPAuthTokenRequest";
+  static readonly typeName = "exa.extension_server_pb.HeartbeatRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "server_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "status", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 4, name: "status_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "headers", kind: "message", T: FetchMCPAuthTokenRequest_HeadersEntry, repeated: true },
-    { no: 6, name: "body", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FetchMCPAuthTokenRequest {
-    return new FetchMCPAuthTokenRequest().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HeartbeatRequest {
+    return new HeartbeatRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FetchMCPAuthTokenRequest {
-    return new FetchMCPAuthTokenRequest().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HeartbeatRequest {
+    return new HeartbeatRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FetchMCPAuthTokenRequest {
-    return new FetchMCPAuthTokenRequest().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HeartbeatRequest {
+    return new HeartbeatRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: FetchMCPAuthTokenRequest | PlainMessage<FetchMCPAuthTokenRequest> | undefined, b: FetchMCPAuthTokenRequest | PlainMessage<FetchMCPAuthTokenRequest> | undefined): boolean {
-    return proto3.util.equals(FetchMCPAuthTokenRequest, a, b);
+  static equals(a: HeartbeatRequest | PlainMessage<HeartbeatRequest> | undefined, b: HeartbeatRequest | PlainMessage<HeartbeatRequest> | undefined): boolean {
+    return proto3.util.equals(HeartbeatRequest, a, b);
   }
 }
 
 /**
- * @generated from message exa.extension_server_pb.FetchMCPAuthTokenRequest.HeadersEntry
+ * @generated from message exa.extension_server_pb.HeartbeatResponse
  */
-export class FetchMCPAuthTokenRequest_HeadersEntry extends Message<FetchMCPAuthTokenRequest_HeadersEntry> {
-  /**
-   * @generated from field: string key = 1;
-   */
-  key = "";
-
-  /**
-   * @generated from field: string value = 2;
-   */
-  value = "";
-
-  constructor(data?: PartialMessage<FetchMCPAuthTokenRequest_HeadersEntry>) {
+export class HeartbeatResponse extends Message<HeartbeatResponse> {
+  constructor(data?: PartialMessage<HeartbeatResponse>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.extension_server_pb.FetchMCPAuthTokenRequest.HeadersEntry";
+  static readonly typeName = "exa.extension_server_pb.HeartbeatResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FetchMCPAuthTokenRequest_HeadersEntry {
-    return new FetchMCPAuthTokenRequest_HeadersEntry().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HeartbeatResponse {
+    return new HeartbeatResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FetchMCPAuthTokenRequest_HeadersEntry {
-    return new FetchMCPAuthTokenRequest_HeadersEntry().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HeartbeatResponse {
+    return new HeartbeatResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FetchMCPAuthTokenRequest_HeadersEntry {
-    return new FetchMCPAuthTokenRequest_HeadersEntry().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HeartbeatResponse {
+    return new HeartbeatResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: FetchMCPAuthTokenRequest_HeadersEntry | PlainMessage<FetchMCPAuthTokenRequest_HeadersEntry> | undefined, b: FetchMCPAuthTokenRequest_HeadersEntry | PlainMessage<FetchMCPAuthTokenRequest_HeadersEntry> | undefined): boolean {
-    return proto3.util.equals(FetchMCPAuthTokenRequest_HeadersEntry, a, b);
-  }
-}
-
-/**
- * @generated from message exa.extension_server_pb.FetchMCPAuthTokenResponse
- */
-export class FetchMCPAuthTokenResponse extends Message<FetchMCPAuthTokenResponse> {
-  /**
-   * @generated from field: string token = 1;
-   */
-  token = "";
-
-  constructor(data?: PartialMessage<FetchMCPAuthTokenResponse>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.extension_server_pb.FetchMCPAuthTokenResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FetchMCPAuthTokenResponse {
-    return new FetchMCPAuthTokenResponse().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FetchMCPAuthTokenResponse {
-    return new FetchMCPAuthTokenResponse().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FetchMCPAuthTokenResponse {
-    return new FetchMCPAuthTokenResponse().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: FetchMCPAuthTokenResponse | PlainMessage<FetchMCPAuthTokenResponse> | undefined, b: FetchMCPAuthTokenResponse | PlainMessage<FetchMCPAuthTokenResponse> | undefined): boolean {
-    return proto3.util.equals(FetchMCPAuthTokenResponse, a, b);
+  static equals(a: HeartbeatResponse | PlainMessage<HeartbeatResponse> | undefined, b: HeartbeatResponse | PlainMessage<HeartbeatResponse> | undefined): boolean {
+    return proto3.util.equals(HeartbeatResponse, a, b);
   }
 }
 

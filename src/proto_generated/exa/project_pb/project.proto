@@ -1,0 +1,78 @@
+syntax = "proto3";
+package exa.project_pb;
+
+import "exa/codeium_common_pb/codeium_common.proto";
+
+enum FolderType {
+  FOLDER_TYPE_UNSPECIFIED = 0;
+  FOLDER_TYPE_NORMAL_FOLDER = 1;
+  FOLDER_TYPE_GIT_FOLDER = 2;
+  FOLDER_TYPE_GOOGLE3_FOLDER = 3;
+  FOLDER_TYPE_NON_EXISTENT = 4;
+}
+
+message Resource {
+  oneof type {
+    string folder_uri = 1;
+    exa.project_pb.Google3 google3 = 2;
+    exa.project_pb.GitFolder git_folder = 3;
+  }
+}
+
+message Google3 {
+}
+
+message GitFolder {
+  string folder_uri = 1;
+  string default_branch = 2;
+  bool allow_write = 3;
+}
+
+message ConversationIds {
+  repeated string ids = 1;
+}
+
+message ProjectConversation {
+  string conversation_id = 1;
+  string environment_id = 2;
+}
+
+message ProjectConversations {
+  repeated exa.project_pb.ProjectConversation conversations = 1;
+}
+
+message Resources {
+  repeated exa.project_pb.Resource resources = 1;
+}
+
+message Environment {
+  string id = 1;
+  string name = 2;
+  exa.project_pb.Resources resources = 3;
+}
+
+message Environments {
+  repeated exa.project_pb.Environment environments = 1;
+}
+
+message PermissionGrants {
+  exa.codeium_common_pb.PermissionGrantsConfig permission_grants = 2;
+}
+
+message ProjectSettings {
+  exa.codeium_common_pb.AgentSettingPolicy file_access_policy = 1;
+  exa.codeium_common_pb.AgentSettingPolicy internet_policy = 2;
+  bool sandbox_mode = 3;
+  exa.codeium_common_pb.CascadeCommandsAutoExecution auto_execution_policy = 4;
+  exa.codeium_common_pb.ArtifactReviewMode artifact_review_mode = 5;
+}
+
+message Project {
+  string id = 1;
+  string name = 2;
+  exa.project_pb.ProjectConversations project_conversations = 8;
+  exa.project_pb.Resources project_resources = 6;
+  exa.project_pb.Environments environments = 7;
+  exa.project_pb.PermissionGrants permission_grants = 9;
+  exa.project_pb.ProjectSettings settings = 10;
+}

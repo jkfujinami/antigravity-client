@@ -5,6 +5,7 @@ import {
     CascadeUserInteraction,
 } from "../src/gen/exa/cortex_pb/cortex_pb.js";
 import { HandleCascadeUserInteractionRequest } from "../src/gen/exa/language_server_pb/language_server_pb.js";
+import { CascadeEvents } from "../src/event-types.js";
 
 async function main() {
     console.log("🔌 Connecting to Antigravity LS...");
@@ -18,7 +19,7 @@ async function main() {
     await cascade.sendMessage("ls -a コマンドを実行して、その結果を教えてください。");
 
     // Listen for updates - FULL DEBUG MODE
-    cascade.on("update", async (state) => {
+    cascade.on(CascadeEvents.RawUpdate, async (state) => {
         const steps = state.trajectory?.steps || [];
         console.log(`\n\n=== UPDATE DETECTED (${steps.length} Steps) ===`);
 
@@ -71,8 +72,8 @@ async function main() {
         });
     });
 
-    cascade.on("text", (ev) => process.stdout.write(ev.delta));
-    cascade.on("thinking", (ev) => process.stdout.write(`(thinking: ${ev.delta})`));
+    cascade.on(CascadeEvents.Text, (ev) => process.stdout.write(ev.delta));
+    cascade.on(CascadeEvents.Thinking, (ev) => process.stdout.write(`(thinking: ${ev.delta})`));
 
     // Keep alive long enough
     await new Promise(r => setTimeout(r, 60000));

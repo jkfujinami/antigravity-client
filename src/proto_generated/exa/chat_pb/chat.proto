@@ -3,6 +3,7 @@ package exa.chat_pb;
 
 import "exa/codeium_common_pb/codeium_common.proto";
 import "exa/diff_action_pb/diff_action.proto";
+import "google/protobuf/any.proto";
 import "google/protobuf/timestamp.proto";
 
 enum ChatFeedbackType {
@@ -163,6 +164,7 @@ message ChatMessagePrompt {
   string message_id = 1;
   exa.codeium_common_pb.ChatMessageSource source = 2;
   string prompt = 3;
+  exa.codeium_common_pb.Struct prompt_struct = 23;
   uint32 num_tokens = 4;
   bool safe_for_code_telemetry = 5;
   repeated exa.codeium_common_pb.ChatToolCall tool_calls = 6;
@@ -179,6 +181,7 @@ message ChatMessagePrompt {
   repeated exa.codeium_common_pb.PromptAnnotationRange prompt_annotation_ranges = 14;
   int32 step_idx = 18;
   string provider_assigned_message_id = 21;
+  repeated google.protobuf.Any side_channels = 22;
 }
 
 message ChatMessagePrompts {
@@ -196,6 +199,7 @@ message ChatToolDefinition {
   bool strict = 4;
   repeated string attribution_field_names = 5;
   string server_name = 6;
+  string original_name = 7;
 }
 
 message ChatToolChoice {

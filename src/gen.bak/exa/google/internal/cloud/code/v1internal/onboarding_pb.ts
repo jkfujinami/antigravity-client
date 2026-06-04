@@ -5,6 +5,8 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import { Help_Link } from "../../../../../../google/rpc/error_details_pb.js";
+import { Status } from "../../../../../../google/rpc/status_pb.js";
 import { Credits } from "./credits_pb.js";
 
 /**
@@ -753,6 +755,11 @@ export class OnboardUserStatus extends Message<OnboardUserStatus> {
    */
   messageTitle = "";
 
+  /**
+   * @generated from field: google.rpc.Help.Link help_link = 3;
+   */
+  helpLink?: Help_Link;
+
   constructor(data?: PartialMessage<OnboardUserStatus>) {
     super();
     proto3.util.initPartial(data, this);
@@ -764,6 +771,7 @@ export class OnboardUserStatus extends Message<OnboardUserStatus> {
     { no: 1, name: "status_code", kind: "enum", T: proto3.getEnumType(OnboardUserStatus_StatusCode) },
     { no: 2, name: "display_message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "message_title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "help_link", kind: "message", T: Help_Link },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): OnboardUserStatus {
@@ -829,9 +837,9 @@ export class LoadCodeAssistResponse extends Message<LoadCodeAssistResponse> {
   cloudaicompanionProject = "";
 
   /**
-   * @generated from field: bytes project_validation_error = 4;
+   * @generated from field: google.rpc.Status project_validation_error = 4;
    */
-  projectValidationError = new Uint8Array(0);
+  projectValidationError?: Status;
 
   /**
    * @generated from field: repeated google.internal.cloud.code.v1internal.IneligibleTier ineligible_tiers = 5;
@@ -879,7 +887,7 @@ export class LoadCodeAssistResponse extends Message<LoadCodeAssistResponse> {
     { no: 1, name: "current_tier", kind: "message", T: UserTier },
     { no: 2, name: "allowed_tiers", kind: "message", T: UserTier, repeated: true },
     { no: 3, name: "cloudaicompanion_project", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "project_validation_error", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 4, name: "project_validation_error", kind: "message", T: Status },
     { no: 5, name: "ineligible_tiers", kind: "message", T: IneligibleTier, repeated: true },
     { no: 6, name: "gcp_managed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 7, name: "manage_subscription_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },

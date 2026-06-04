@@ -4,8 +4,8 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
-import { CascadeConfig, CompletedInteraction, CortexErrorDetails, CortexStepAgencyToolCall, CortexStepAskQuestion, CortexStepBrainUpdate, CortexStepBrowserClickElement, CortexStepBrowserDragPixelToPixel, CortexStepBrowserGetDom, CortexStepBrowserGetNetworkRequest, CortexStepBrowserInput, CortexStepBrowserListNetworkRequests, CortexStepBrowserMouseDown, CortexStepBrowserMouseUp, CortexStepBrowserMouseWheel, CortexStepBrowserMoveMouse, CortexStepBrowserPressKey, CortexStepBrowserRefreshPage, CortexStepBrowserResizeWindow, CortexStepBrowserScroll, CortexStepBrowserScrollDown, CortexStepBrowserScrollUp, CortexStepBrowserSelectOption, CortexStepBrowserSubagent, CortexStepCaptureBrowserConsoleLogs, CortexStepCaptureBrowserScreenshot, CortexStepCheckDeployStatus, CortexStepCheckpoint, CortexStepClickBrowserPixel, CortexStepClipboard, CortexStepCloudSQLExecuteSQL, CortexStepCloudSQLSchemaUpdate, CortexStepCodeAcknowledgement, CortexStepCodeAction, CortexStepCodeSearch, CortexStepCommandStatus, CortexStepCompile, CortexStepCompileApplet, CortexStepConversationHistory, CortexStepDeleteDirectory, CortexStepDeployFirebase, CortexStepDummy, CortexStepEditNotebook, CortexStepEphemeralMessage, CortexStepErrorMessage, CortexStepExecuteBrowserJavaScript, CortexStepExecuteNotebook, CortexStepFileBreakdown, CortexStepFileChange, CortexStepFind, CortexStepFindAllReferences, CortexStepFinish, CortexStepGenerateImage, CortexStepGeneratorMetadata, CortexStepGeneric, CortexStepGitCommit, CortexStepGrepSearch, CortexStepInstallAppletDependencies, CortexStepInstallAppletPackage, CortexStepInternalSearch, CortexStepInvokeSubagent, CortexStepKIInsertion, CortexStepKnowledgeArtifacts, CortexStepKnowledgeGeneration, CortexStepLintApplet, CortexStepLintDiff, CortexStepListBrowserPages, CortexStepListDirectory, CortexStepListResources, CortexStepLookupKnowledgeBase, CortexStepManagerFeedback, CortexStepMcpTool, CortexStepMemory, CortexStepMetadata, CortexStepMove, CortexStepMquery, CortexStepNotifyUser, CortexStepOpenBrowserUrl, CortexStepPlanInput, CortexStepPlannerResponse, CortexStepPostPrReview, CortexStepProposalFeedback, CortexStepProposeCode, CortexStepReadBrowserPage, CortexStepReadNotebook, CortexStepReadResource, CortexStepReadTerminal, CortexStepReadUrlContent, CortexStepRestartDevServer, CortexStepRetrieveMemory, CortexStepRPCAction, CortexStepRunCommand, CortexStepRunExtensionCode, CortexStepSearchKnowledgeBase, CortexStepSearchWeb, CortexStepSendCommandInput, CortexStepSetUpCloudSql, CortexStepSetUpFirebase, CortexStepShellExec, CortexStepStatus, CortexStepSuggestedResponses, CortexStepSystemMessage, CortexStepTaskBoundary, CortexStepToolCallChoice, CortexStepToolCallProposal, CortexStepTrajectoryChoice, CortexStepTrajectorySearch, CortexStepType, CortexStepUserInput, CortexStepViewCodeItem, CortexStepViewContentChunk, CortexStepViewFile, CortexStepViewFileOutline, CortexStepWait, CortexStepWorkspaceAPI, CortexStepWriteBlob, CortexStepWriteToFile, CortexTrajectoryMetadata, CortexTrajectoryReference, CortexTrajectorySource, CortexTrajectoryType, ExecutorMetadata, RequestedInteraction, TrajectoryPermissions, UserStepAnnotations } from "../../cortex_pb/cortex_pb.js";
+import { Any, Message, proto3 } from "@bufbuild/protobuf";
+import { BattleModeInfo, CascadeConfig, CompletedInteraction, CortexErrorDetails, CortexStepAgencyToolCall, CortexStepAskQuestion, CortexStepBrainUpdate, CortexStepBrowserClickElement, CortexStepBrowserDragPixelToPixel, CortexStepBrowserGetDom, CortexStepBrowserGetNetworkRequest, CortexStepBrowserInput, CortexStepBrowserListNetworkRequests, CortexStepBrowserMouseDown, CortexStepBrowserMouseUp, CortexStepBrowserMouseWheel, CortexStepBrowserMoveMouse, CortexStepBrowserPressKey, CortexStepBrowserRefreshPage, CortexStepBrowserResizeWindow, CortexStepBrowserScroll, CortexStepBrowserScrollDown, CortexStepBrowserScrollUp, CortexStepBrowserSelectOption, CortexStepBrowserSubagent, CortexStepCaptureBrowserConsoleLogs, CortexStepCaptureBrowserScreenshot, CortexStepCheckDeployStatus, CortexStepCheckpoint, CortexStepClickBrowserPixel, CortexStepClipboard, CortexStepCloudSQLExecuteSQL, CortexStepCloudSQLSchemaUpdate, CortexStepCodeAcknowledgement, CortexStepCodeAction, CortexStepCodeSearch, CortexStepCommandStatus, CortexStepCompile, CortexStepCompileApplet, CortexStepConversationHistory, CortexStepDeleteDirectory, CortexStepDeployFirebase, CortexStepDummy, CortexStepEditNotebook, CortexStepEphemeralMessage, CortexStepErrorMessage, CortexStepExecuteBrowserJavaScript, CortexStepExecuteNotebook, CortexStepFileBreakdown, CortexStepFileChange, CortexStepFind, CortexStepFindAllReferences, CortexStepFinish, CortexStepGenerateImage, CortexStepGeneratorMetadata, CortexStepGeneric, CortexStepGitCommit, CortexStepGrepSearch, CortexStepInstallAppletDependencies, CortexStepInstallAppletPackage, CortexStepInternalSearch, CortexStepInvokeSubagent, CortexStepKIInsertion, CortexStepKnowledgeArtifacts, CortexStepKnowledgeGeneration, CortexStepLintApplet, CortexStepLintDiff, CortexStepListBrowserPages, CortexStepListDirectory, CortexStepListResources, CortexStepLookupKnowledgeBase, CortexStepManagerFeedback, CortexStepMcpTool, CortexStepMemory, CortexStepMetadata, CortexStepMove, CortexStepMquery, CortexStepNotifyUser, CortexStepOpenBrowserUrl, CortexStepPlanInput, CortexStepPlannerResponse, CortexStepPostPrReview, CortexStepProposalFeedback, CortexStepProposeCode, CortexStepReadBrowserPage, CortexStepReadNotebook, CortexStepReadResource, CortexStepReadTerminal, CortexStepReadUrlContent, CortexStepRestartDevServer, CortexStepRetrieveMemory, CortexStepRPCAction, CortexStepRunCommand, CortexStepRunExtensionCode, CortexStepSearchKnowledgeBase, CortexStepSearchWeb, CortexStepSendCommandInput, CortexStepSetUpCloudSql, CortexStepSetUpFirebase, CortexStepShellExec, CortexStepStatus, CortexStepSuggestedResponses, CortexStepSystemMessage, CortexStepTaskBoundary, CortexStepToolCallChoice, CortexStepToolCallProposal, CortexStepTrajectoryChoice, CortexStepTrajectorySearch, CortexStepType, CortexStepUserInput, CortexStepViewCodeItem, CortexStepViewContentChunk, CortexStepViewFile, CortexStepViewFileOutline, CortexStepWait, CortexStepWorkspaceAPI, CortexStepWriteBlob, CortexStepWriteToFile, CortexTrajectoryMetadata, CortexTrajectoryReference, CortexTrajectorySource, CortexTrajectoryType, ExecutorMetadata, RequestedInteraction, TrajectoryPermissions, UserStepAnnotations } from "../../cortex_pb/cortex_pb.js";
 import { BuildCleanerStep, BuildTargetsStep, CritiqueStep, FindingsStep, MomaStep, RetrieveContentStep, TestTargetsStep } from "../cider/proto/trajectory_steps_pb.js";
 
 /**
@@ -193,6 +193,11 @@ export class Trajectory extends Message<Trajectory> {
    */
   metadata?: CortexTrajectoryMetadata;
 
+  /**
+   * @generated from field: repeated exa.cortex_pb.BattleModeInfo battle_mode_infos = 10;
+   */
+  battleModeInfos: BattleModeInfo[] = [];
+
   constructor(data?: PartialMessage<Trajectory>) {
     super();
     proto3.util.initPartial(data, this);
@@ -210,6 +215,7 @@ export class Trajectory extends Message<Trajectory> {
     { no: 9, name: "executor_metadatas", kind: "message", T: ExecutorMetadata, repeated: true },
     { no: 8, name: "source", kind: "enum", T: proto3.getEnumType(CortexTrajectorySource) },
     { no: 7, name: "metadata", kind: "message", T: CortexTrajectoryMetadata },
+    { no: 10, name: "battle_mode_infos", kind: "message", T: BattleModeInfo, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Trajectory {
@@ -323,6 +329,11 @@ export class Step extends Message<Step> {
    * @generated from field: gemini_coder.TaskDetails task_details = 148;
    */
   taskDetails?: TaskDetails;
+
+  /**
+   * @generated from field: repeated google.protobuf.Any attachments = 155;
+   */
+  attachments: Any[] = [];
 
   /**
    * @generated from field: exa.cortex_pb.RequestedInteraction requested_interaction = 56;
@@ -1065,6 +1076,7 @@ export class Step extends Message<Step> {
     { no: 31, name: "error", kind: "message", T: CortexErrorDetails },
     { no: 133, name: "permissions", kind: "message", T: TrajectoryPermissions },
     { no: 148, name: "task_details", kind: "message", T: TaskDetails },
+    { no: 155, name: "attachments", kind: "message", T: Any, repeated: true },
     { no: 56, name: "requested_interaction", kind: "message", T: RequestedInteraction },
     { no: 147, name: "completed_interactions", kind: "message", T: CompletedInteraction, repeated: true },
     { no: 69, name: "user_annotations", kind: "message", T: UserStepAnnotations },

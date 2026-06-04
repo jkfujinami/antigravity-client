@@ -31,7 +31,9 @@ message CascadeState {
   repeated exa.cortex_pb.BackgroundCommand background_commands = 10;
   repeated exa.jetski_cortex_pb.BackgroundTask background_tasks = 13;
   bool has_active_children = 11;
+  bool fully_idle = 14;
   exa.jetski_cortex_pb.CreditUsageSummary credit_usage_summary = 12;
+  repeated exa.cortex_pb.AgentMessage pending_agent_messages = 15;
 }
 
 message AgentStateUpdate {
@@ -62,6 +64,13 @@ message AgentStateUpdate {
   bool has_active_children = 14;
   exa.jetski_cortex_pb.CreditUsageSummary credit_usage_summary = 15;
   exa.jetski_cortex_pb.ConversationCostSummary cost_summary = 16;
+  bool fully_idle = 18;
+  exa.jetski_cortex_pb.CompactionInfo compaction_info = 19;
+  exa.jetski_cortex_pb.PendingAgentMessagesUpdate pending_agent_messages_update = 20;
+}
+
+message CompactionInfo {
+  repeated int32 compacted_at_step_indices = 1;
 }
 
 message ModelPricingInfo {
@@ -126,6 +135,9 @@ message TrajectoryUpdate {
   exa.cortex_pb.CortexErrorDetails last_step_error = 7;
   exa.cortex_pb.CortexStepType last_step_type = 8;
   repeated exa.jetski_cortex_pb.CortexTrajectoryStepWithIndex waiting_steps = 9;
+  bool fully_idle = 10;
+  bool killed = 11;
+  repeated exa.cortex_pb.CortexTrajectoryReference parent_references = 12;
 }
 
 message StepsUpdate {
@@ -179,6 +191,12 @@ message BackgroundTasksUpdate {
   uint32 total_length = 3;
 }
 
+message PendingAgentMessagesUpdate {
+  repeated uint32 indices = 1;
+  repeated exa.cortex_pb.AgentMessage pending_agent_messages = 2;
+  uint32 total_length = 3;
+}
+
 message ConsumedCredits {
   repeated google.internal.cloud.code.v1internal.Credits credits = 1;
   uint32 first_step_index = 2;
@@ -207,6 +225,7 @@ message BaseTrajectoryIdentifier {
 message ForkFromIdentifier {
   string cascade_id = 1;
   int32 step_index = 2;
+  exa.cortex_pb.CortexTrajectoryReferenceType reference_type = 3;
 }
 
 message CortexTrajectoryStepWithIndex {
@@ -226,6 +245,7 @@ message ConversationAnnotations {
   int32 group_index = 10;
   string group_description = 11;
   bool pinned = 12;
+  repeated int64 cls = 13;
 }
 
 message CascadeTrajectorySummary {
@@ -244,6 +264,10 @@ message CascadeTrajectorySummary {
   exa.jetski_cortex_pb.ConversationAnnotations annotations = 15;
   exa.cortex_pb.CortexTrajectoryMetadata trajectory_metadata = 17;
   bool has_active_children = 18;
+  exa.cortex_pb.BattleModeInfo battle_mode_info = 19;
+  exa.cortex_pb.CortexTrajectorySource source = 20;
+  bool not_fully_idle = 21;
+  exa.cortex_pb.CortexTrajectoryType trajectory_type = 22;
 }
 
 message CascadeTrajectorySummaries {
@@ -259,7 +283,6 @@ message CortexStepUpdate {
   uint32 step_index = 1;
   oneof update {
     gemini_coder.Step step = 2;
-    exa.cortex_pb.CortexStepStatus status = 3;
   }
 }
 

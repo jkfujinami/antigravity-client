@@ -1034,6 +1034,11 @@ export class ExecuteCommandRequest extends Message<ExecuteCommandRequest> {
    */
   terminalHost = "";
 
+  /**
+   * @generated from field: repeated exa.extension_server_pb.ExecuteCommandRequest.EnvEntry env = 9;
+   */
+  env: ExecuteCommandRequest_EnvEntry[] = [];
+
   constructor(data?: PartialMessage<ExecuteCommandRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1048,6 +1053,7 @@ export class ExecuteCommandRequest extends Message<ExecuteCommandRequest> {
     { no: 6, name: "sandbox_override", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 7, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 8, name: "terminal_host", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "env", kind: "message", T: ExecuteCommandRequest_EnvEntry, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExecuteCommandRequest {
@@ -1064,6 +1070,49 @@ export class ExecuteCommandRequest extends Message<ExecuteCommandRequest> {
 
   static equals(a: ExecuteCommandRequest | PlainMessage<ExecuteCommandRequest> | undefined, b: ExecuteCommandRequest | PlainMessage<ExecuteCommandRequest> | undefined): boolean {
     return proto3.util.equals(ExecuteCommandRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.extension_server_pb.ExecuteCommandRequest.EnvEntry
+ */
+export class ExecuteCommandRequest_EnvEntry extends Message<ExecuteCommandRequest_EnvEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: string value = 2;
+   */
+  value = "";
+
+  constructor(data?: PartialMessage<ExecuteCommandRequest_EnvEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.extension_server_pb.ExecuteCommandRequest.EnvEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExecuteCommandRequest_EnvEntry {
+    return new ExecuteCommandRequest_EnvEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ExecuteCommandRequest_EnvEntry {
+    return new ExecuteCommandRequest_EnvEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ExecuteCommandRequest_EnvEntry {
+    return new ExecuteCommandRequest_EnvEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ExecuteCommandRequest_EnvEntry | PlainMessage<ExecuteCommandRequest_EnvEntry> | undefined, b: ExecuteCommandRequest_EnvEntry | PlainMessage<ExecuteCommandRequest_EnvEntry> | undefined): boolean {
+    return proto3.util.equals(ExecuteCommandRequest_EnvEntry, a, b);
   }
 }
 
