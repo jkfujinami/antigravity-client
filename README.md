@@ -351,6 +351,21 @@ These schemas were extracted from the Antigravity IDE's frontend bundle and cove
 
 ---
 
+## Tooling: Mock Generator
+
+When working with complex RPC methods (like `startCascade` or `startBattleMode`), building the exact TypeScript object literal to satisfy the generated ConnectRPC `PartialMessage` type can be tricky. This is especially true for `oneof` fields which require a specific `{ case: "...", value: ... }` structure.
+
+To prevent type errors , this project includes a high-fidelity mock generator that dumps perfectly typed boilerplate:
+
+```bash
+# Dump the exact structure required for a method
+npx tsx scripts/mock_gen.ts startCascade
+
+# Or extract a specific nested path (jq-style)
+npx tsx scripts/mock_gen.ts startCascade customAgentSpec.workspace
+```
+---
+
 ## Examples
 
 | File | Description |
