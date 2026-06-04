@@ -1,5 +1,5 @@
 /**
- * 既存のLSに接続し、利用可能なAIモデルの一覧を取得・表示するテスト
+ * Test that connects to an existing LS and fetches/displays the list of available AI models.
  */
 import { AntigravityClient } from "../src/index.js";
 import { Model } from "../src/gen/exa/codeium_common_pb/codeium_common_pb.js";
@@ -13,7 +13,7 @@ async function main() {
         const response = await client.languageServer.getAvailableModels({});
         
         console.log("--------------------------------------------------");
-        // response.response に実際のデータが入っている可能性があるため any で回避
+        // Data may live under response.response, so fall back via `any`
         const models = (response as any).models || (response.response as any)?.models || [];
         console.log(`🤖 Found ${models.length} Models:`);
         

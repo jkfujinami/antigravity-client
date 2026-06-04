@@ -1,5 +1,5 @@
 import { AntigravityClient, Cascade } from "../src/index.js";
-import type { TextDeltaEvent, ThinkingDeltaEvent } from "../src/types.js";
+import type { TextDeltaEvent, ThinkingDeltaEvent } from "../src/index.js";
 
 async function main() {
   try {

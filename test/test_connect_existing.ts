@@ -1,6 +1,6 @@
 /**
- * 既存のAntigravity LSプロセスに接続し、
- * ユーザー情報 (getUserStatus) を取得して終了するシンプルなテスト
+ * Simple test that connects to an existing Antigravity LS process, fetches
+ * user info (getUserStatus), and exits.
  */
 import { AntigravityClient } from "../src/index.js";
 

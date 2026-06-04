@@ -1,5 +1,5 @@
 /**
- * 既存のLSに接続し、過去のキャスケード（チャットスレッド）履歴一覧を取得するテスト
+ * Test that connects to an existing LS and fetches the list of past cascade (chat thread) histories.
  */
 import { AntigravityClient } from "../src/index.js";
 
@@ -9,7 +9,7 @@ async function main() {
         const client = await AntigravityClient.connect();
         
         console.log("📂 Fetching all cascade summaries...");
-        // lsClient (生gRPCラッパー) を通じて直接情報を取得
+        // Fetch directly via lsClient (the raw gRPC wrapper)
         const cascades = await client.languageServer.getAllCascadeTrajectories({});
 
         const summaries = cascades.trajectorySummaries || [];
@@ -17,7 +17,7 @@ async function main() {
         console.log("--------------------------------------------------");
         console.log(`✨ Found ${summaries.length} Active Cascades:`);
         
-        // 直近5件だけ表示する
+        // Show only the 5 most recent
         const recent = summaries.slice(-5);
         for (const entry of recent) {
             const id = entry.key;

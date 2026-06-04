@@ -18,7 +18,7 @@ import * as fs from "fs";
 import { MockExtensionServer, type LsInfo } from "./mock-extension-server.js";
 import { createMetadataBinary } from "./metadata.js";
 import { readAuthData, type AuthData } from "./auth-reader.js";
-import type { ServerInfo } from "../autodetect.js";
+import type { ServerInfo } from "../utils/autodetect.js";
 import { createPromiseClient } from "@connectrpc/connect";
 import { createConnectTransport } from "@connectrpc/connect-node";
 import { LanguageServerService } from "../gen/exa/language_server_pb/language_server_connect.js";

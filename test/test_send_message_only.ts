@@ -1,6 +1,6 @@
 /**
- * Cascadeを起動し、メッセージを送信するだけで終了するテスト
- * (ストリーミングの完了を待たない、またはストリームを処理せずに終了する)
+ * Test that starts a Cascade, sends a message, and then exits.
+ * (Does not wait for streaming to finish / exits without processing the stream.)
  */
 import { AntigravityClient } from "../src/index.js";
 
@@ -16,8 +16,8 @@ async function main() {
         const msg = "こんにちは！これは送信のみのテストです。";
         console.log(`📨 Sending message: "${msg}"`);
         
-        // cascade.run() は内部的に完了まで待機しますが、
-        // イベントリスナーを登録しないため出力を何も行いません。
+        // cascade.run() internally waits until completion, but since we register
+        // no event listeners it produces no output.
         await cascade.run(msg, { timeoutMs: 30000 });
         
         console.log("✅ Message sent and processed successfully.");

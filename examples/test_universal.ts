@@ -1,7 +1,7 @@
 import { AntigravityClient, Cascade } from "../src/index.js";
 import fs from 'fs';
 import path from 'path';
-import type { ApprovalRequest, TextDeltaEvent, ThinkingDeltaEvent } from "../src/types.js";
+import type { ApprovalRequest, TextDeltaEvent, ThinkingDeltaEvent } from "../src/index.js";
 
 const SESSION_FILE = path.join(process.cwd(), '.last_cascade_id');
 

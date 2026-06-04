@@ -4,5 +4,5 @@
     "rootDir": "."
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "scripts", "test", "src/gen.bak"]
+  "exclude": ["node_modules", "dist", "scripts", "test"]
 }

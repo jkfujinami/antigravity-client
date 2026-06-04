@@ -1,4 +1,4 @@
-import { AntigravityClient } from "../src/client.js";
+import { AntigravityClient } from "../src/index.js";
 import { GetAllWorkflowsRequest, GetAllSkillsRequest, GetWorkingDirectoriesRequest } from "../src/gen/exa/language_server_pb/language_server_pb.js";
 
 async function main() {

@@ -1,8 +1,8 @@
 /**
- * cascade.on() を利用して、Cascade から発行される各種イベントを捕捉・検証するテスト
+ * Test that uses cascade.on() to capture and verify the various events emitted by a Cascade.
  */
 import { AntigravityClient, Cascade } from "../src/index.js";
-import type { TextDeltaEvent, ThinkingDeltaEvent } from "../src/types.js";
+import type { TextDeltaEvent, ThinkingDeltaEvent } from "../src/index.js";
 
 async function main() {
     console.log("🔌 Connecting to Antigravity Language Server...");
@@ -15,22 +15,22 @@ async function main() {
 
         console.log("📡 Registering event listeners (cascade.on)...");
 
-        // テキストチャンクの受信
+        // Receive text chunks
         cascade.on(Cascade.Events.Text, (ev: TextDeltaEvent) => {
             process.stdout.write(ev.delta);
         });
 
-        // 思考プロセスチャンクの受信
+        // Receive thinking-process chunks
         cascade.on(Cascade.Events.Thinking, (ev: ThinkingDeltaEvent) => {
             process.stdout.write(`\x1b[90m${ev.delta}\x1b[0m`);
         });
 
-        // エラーの受信
+        // Receive errors
         cascade.on(Cascade.Events.Error, (err: any) => {
             console.error("\n❌ [Event: Error] ", err);
         });
 
-        // 実行完了イベントの受信
+        // Receive the run-completed event
         cascade.on(Cascade.Events.Done, () => {
             console.log("\n✅ [Event: Done] Cascade stream has naturally ended.");
         });
@@ -39,8 +39,8 @@ async function main() {
         console.log(`\n📨 Sending message: "${msg}"`);
         console.log("--------------------------------------------------");
         
-        // メッセージ送信（今回はストリーム完了まで待つために cascade.run を使うが、
-        // 内部でイベントが正しく発火し、RunCompleted が呼ばれるかをテストする）
+        // Send the message (we use cascade.run to wait for stream completion,
+        // but the point is to test that the events fire correctly internally).
         await cascade.run(msg, { timeoutMs: 60000 });
         
         console.log("--------------------------------------------------");

@@ -1,9 +1,9 @@
 /**
- * メッセージを送信し、その応答（テキストおよび思考プロセス）を
- * リアルタイムでストリーミング受信して画面に表示するテスト
+ * Test that sends a message and streams its response (text and thinking
+ * process) to the screen in real time.
  */
 import { AntigravityClient, Cascade } from "../src/index.js";
-import type { TextDeltaEvent, ThinkingDeltaEvent } from "../src/types.js";
+import type { TextDeltaEvent, ThinkingDeltaEvent } from "../src/index.js";
 
 async function main() {
     console.log("🔌 Connecting to Antigravity Language Server...");
@@ -14,7 +14,7 @@ async function main() {
         const cascade = await client.startCascade();
         console.log(`✨ Cascade ID: ${cascade.cascadeId}`);
 
-        // ストリーミングイベントの登録
+        // Register streaming event listeners
         cascade.on(Cascade.Events.Text, (ev: TextDeltaEvent) => {
             process.stdout.write(ev.delta);
         });
@@ -27,7 +27,7 @@ async function main() {
         console.log(`📨 Sending message: "${msg}"`);
         console.log("--------------------------------------------------");
         
-        // 応答を待機
+        // Wait for the response
         await cascade.run(msg, { timeoutMs: 60000 });
         
         console.log("\n--------------------------------------------------");

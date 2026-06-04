@@ -1,5 +1,5 @@
 import { AntigravityClient, Cascade } from "../src/index.js";
-import type { TextDeltaEvent } from "../src/types.js";
+import type { TextDeltaEvent } from "../src/index.js";
 
 async function main() {
     const cascadeId = process.argv[2];

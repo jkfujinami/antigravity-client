@@ -1,5 +1,5 @@
 import { AntigravityClient, Cascade } from "../src/index.js";
-import type { TextDeltaEvent, ThinkingDeltaEvent, StepNewEvent, ApprovalRequest, StepUpdateEvent, CommandOutputEvent } from "../src/types.js";
+import type { TextDeltaEvent, ThinkingDeltaEvent, StepNewEvent, ApprovalRequest, StepUpdateEvent, CommandOutputEvent } from "../src/index.js";
 
 async function main() {
     console.log("🔌 Connecting to Antigravity LS...");

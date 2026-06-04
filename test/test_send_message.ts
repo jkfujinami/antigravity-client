@@ -1,6 +1,6 @@
 /**
- * 低レイヤの sendMessage() メソッドを直接テストするスクリプト
- * (run()のようには待機せず、送信リクエストが通るかだけを確認する)
+ * Script that tests the low-level sendMessage() method directly.
+ * (Unlike run(), it does not wait — it only checks that the send request goes through.)
  */
 import { AntigravityClient } from "../src/index.js";
 
@@ -16,7 +16,7 @@ async function main() {
         const msg = "このメッセージは低レイヤの sendMessage() から送信されています。";
         console.log(`📨 Invoking sendMessage(): "${msg}"`);
         
-        // cascade.run() ではなく、直接 sendMessage() を叩く
+        // Call sendMessage() directly instead of cascade.run()
         await cascade.sendMessage(msg);
         
         console.log("✅ sendMessage() executed successfully.");

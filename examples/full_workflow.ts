@@ -1,5 +1,5 @@
 import { AntigravityClient, Cascade } from "../src/index.js";
-import type { CascadeStep, RunStatus, StepStatus, TextDeltaEvent, CommandOutputEvent, StatusChangeEvent, StepNewEvent } from "../src/types.js";
+import type { CascadeStep, RunStatus, StepStatus, TextDeltaEvent, CommandOutputEvent, StatusChangeEvent, StepNewEvent } from "../src/index.js";
 
 // UI Helpers (ANSI Colors)
 const colors = {

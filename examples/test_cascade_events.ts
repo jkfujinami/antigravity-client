@@ -6,8 +6,8 @@
  * Run: npx tsx test/test_cascade_events.ts
  */
 
-import { AntigravityClient } from "../src/client.js";
-import { Cascade } from "../src/cascade.js";
+import { AntigravityClient } from "../src/index.js";
+import { Cascade } from "../src/index.js";
 import type {
     CascadeStep,
     StepNewEvent,
@@ -16,8 +16,8 @@ import type {
     ThinkingDeltaEvent,
     StatusChangeEvent,
     ApprovalRequest,
-} from "../src/types.js";
-import { CascadeEvents } from "../src/event-types.js";
+} from "../src/index.js";
+import { CascadeEvents } from "../src/types/events.js";
 
 async function main() {
     console.log("🔌 Connecting to Language Server...");

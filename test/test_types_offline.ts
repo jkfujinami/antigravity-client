@@ -17,7 +17,7 @@ import {
     type StepStatus,
     type RunStatus,
     type StepCategory,
-} from "../src/types.js";
+} from "../src/index.js";
 
 let passed = 0;
 let failed = 0;

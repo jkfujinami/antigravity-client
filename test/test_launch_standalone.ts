@@ -1,6 +1,6 @@
 /**
- * Antigravity LSを独立して起動（Launch）し、
- * ユーザー情報を取得した後にLSをクリーンに停止・終了するテスト
+ * Test that launches the Antigravity LS standalone, fetches user info, then
+ * cleanly stops and shuts down the LS.
  */
 import { AntigravityClient } from "../src/index.js";
 
@@ -9,7 +9,7 @@ async function main() {
     try {
         const client = await AntigravityClient.launch({
             workspacePath: process.cwd(),
-            verbose: false, // ログが大量に出るのを防ぐ
+            verbose: false, // avoid flooding the console with logs
         });
         
         console.log(`✅ LS running (PID: ${client.launcher.pid}, HTTPS: ${client.launcher.httpsPort})`);

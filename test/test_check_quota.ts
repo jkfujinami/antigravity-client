@@ -1,5 +1,5 @@
 /**
- * 既存のLSに接続し、ユーザーのAPIクオータ（使用量・制限）を取得して表示するテスト
+ * Test that connects to an existing LS and fetches/displays the user's API quota (usage and limits).
  */
 import { AntigravityClient } from "../src/index.js";
 
