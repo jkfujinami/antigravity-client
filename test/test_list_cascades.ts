@@ -1,27 +1,46 @@
-
-import { AntigravityClient } from "../src/client.js";
+/**
+ * 既存のLSに接続し、過去のキャスケード（チャットスレッド）履歴一覧を取得するテスト
+ */
+import { AntigravityClient } from "../src/index.js";
 
 async function main() {
-  try {
-    const client = await AntigravityClient.connect();
-    console.log("🔌 Connected.");
+    console.log("🔌 Connecting to Antigravity Language Server...");
+    try {
+        const client = await AntigravityClient.connect();
+        
+        console.log("📂 Fetching all cascade summaries...");
+        // lsClient (生gRPCラッパー) を通じて直接情報を取得
+        const cascades = await client.languageServer.getAllCascadeTrajectories({});
 
-    console.log("📂 Fetching all cascades...");
-    const cascades = await (client as any).lsClient.getAllCascadeTrajectories({});
+        const summaries = cascades.trajectorySummaries || [];
+        
+        console.log("--------------------------------------------------");
+        console.log(`✨ Found ${summaries.length} Active Cascades:`);
+        
+        // 直近5件だけ表示する
+        const recent = summaries.slice(-5);
+        for (const entry of recent) {
+            const id = entry.key;
+            const summary = entry.value;
+            const rootId = summary?.trajectoryId || "N/A";
+            const lastUpdated = summary?.lastModifiedTime ? 
+                new Date(Number(summary.lastModifiedTime.seconds) * 1000).toLocaleString() : "Unknown";
+            
+            console.log(`- ID: ${id}`);
+            console.log(`  Root: ${rootId}`);
+            console.log(`  Updated: ${lastUpdated}`);
+        }
+        
+        if (summaries.length > 5) {
+             console.log(`... and ${summaries.length - 5} more.`);
+        }
+        console.log("--------------------------------------------------");
 
-    console.log("✨ Active Cascades:");
-    for (const [id, summary] of Object.entries(cascades.trajectorySummaries)) {
-        const sum = summary as any;
-        console.log(`- ID: ${id}`);
-        console.log(`  Summary: ${sum.summary || "(No summary)"}`);
-        console.log(`  Steps: ${sum.stepCount}`);
-        console.log(`  Modified: ${sum.lastModifiedTime ? new Date(Number(sum.lastModifiedTime.seconds) * 1000).toLocaleString() : "Unknown"}`);
-        console.log("");
+        console.log("🏁 Test completed cleanly.");
+        client.dispose();
+    } catch (e: unknown) {
+        console.error("❌ Fetch failed:", (e as Error).message);
     }
-
-  } catch (e) {
-    console.error("❌ Error:", e);
-  }
 }
 
 main();

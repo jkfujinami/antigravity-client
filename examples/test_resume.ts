@@ -27,7 +27,7 @@ async function main() {
                 if (val.thinking) console.log(`🧠 [Thinking]: ${val.thinking}`);
                 if (val.response) console.log(`📝 [Response]: ${val.response}`);
                 if (val.toolCalls?.length) {
-                    console.log(`🛠️ TOOLS: ${val.toolCalls.map((t) => t.toolCall?.case).join(", ")}`);
+                    console.log(`🛠️ TOOLS: ${val.toolCalls.map((t) => t.name).join(", ")}`);
                 }
             } else if (step.step.case === "userInput") {
                 const val = step.step.value;

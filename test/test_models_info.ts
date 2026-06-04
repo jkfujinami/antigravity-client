@@ -1,0 +1,46 @@
+/**
+ * 既存のLSに接続し、利用可能なAIモデルの一覧を取得・表示するテスト
+ */
+import { AntigravityClient } from "../src/index.js";
+import { Model } from "../src/gen/exa/codeium_common_pb/codeium_common_pb.js";
+
+async function main() {
+    console.log("🔌 Connecting to Antigravity Language Server...");
+    try {
+        const client = await AntigravityClient.connect();
+        
+        console.log("📡 Fetching Available Models...");
+        const response = await client.languageServer.getAvailableModels({});
+        
+        console.log("--------------------------------------------------");
+        // response.response に実際のデータが入っている可能性があるため any で回避
+        const models = (response as any).models || (response.response as any)?.models || [];
+        console.log(`🤖 Found ${models.length} Models:`);
+        
+        models.forEach((m: any) => {
+            const modelName = Model[m.model] || `Unknown(${m.model})`;
+            console.log(` - ${modelName} (Provider: ${m.provider}, Type: ${m.type})`);
+        });
+        console.log("--------------------------------------------------");
+
+        console.log("📡 Fetching User Model Configurations...");
+        const userStatus = await client.getUserStatus();
+        const configs = userStatus.userStatus?.cascadeModelConfigData?.clientModelConfigs || [];
+        
+        if (configs.length > 0) {
+            console.log(`✨ Found ${configs.length} Model Configs:`);
+            configs.forEach(c => {
+                const modelName = (c.modelOrAlias as any)?.model || "Unknown";
+                console.log(` - Model: ${modelName}, Label: ${c.label}, Recommended: ${c.isRecommended}`);
+            });
+        }
+        console.log("--------------------------------------------------");
+
+        console.log("🏁 Test completed cleanly.");
+        client.dispose();
+    } catch (e: unknown) {
+        console.error("❌ Models fetch failed:", (e as Error).message);
+    }
+}
+
+main();

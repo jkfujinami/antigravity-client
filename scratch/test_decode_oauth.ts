@@ -5,15 +5,14 @@ async function main() {
     try {
         console.log("🔓 Reading Unified State Sync OAuth Token from SQLite...");
         const uss = readUssOAuthData();
-        
+
         if (!uss.value) {
             console.error("❌ No OAuth token data found in SQLite!");
             return;
         }
 
         console.log("📦 Base64 value found. Length:", uss.value.length);
-        
-        // Base64 からバイナリにデコードして OAuthTokenInfo を復元
+
         const bytes = Buffer.from(uss.value, "base64");
         const tokenInfo = OAuthTokenInfo.fromBinary(bytes);
 
