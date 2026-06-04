@@ -5,7 +5,8 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
-import { ArtifactReviewMode, CascadeCommandsAutoExecution, Model, ModelInfo, PermissionGrantsConfig, PlanningMode } from "../codeium_common_pb/codeium_common_pb.js";
+import { AgentSettingPolicy, ArtifactReviewMode, BrowserJsExecutionPolicy, CascadeCommandsAutoExecution, Model, ModelInfo, PermissionGrantsConfig, PlanningMode } from "../codeium_common_pb/codeium_common_pb.js";
+import { Project } from "../project_pb/project_pb.js";
 
 /**
  * @generated from enum jetbox_state_pb.PostOnboardingStepType
@@ -46,6 +47,44 @@ proto3.util.setEnumType(PostOnboardingStepType, "jetbox_state_pb.PostOnboardingS
 ]);
 
 /**
+ * @generated from enum jetbox_state_pb.AgentEnvironment
+ */
+export enum AgentEnvironment {
+  /**
+   * @generated from enum value: AGENT_ENVIRONMENT_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: AGENT_ENVIRONMENT_LOCAL = 1;
+   */
+  LOCAL = 1,
+
+  /**
+   * @generated from enum value: AGENT_ENVIRONMENT_BACKGROUND_WORKTREE = 2;
+   */
+  BACKGROUND_WORKTREE = 2,
+
+  /**
+   * @generated from enum value: AGENT_ENVIRONMENT_BACKGROUND_CITC_WORKSPACE = 3;
+   */
+  BACKGROUND_CITC_WORKSPACE = 3,
+
+  /**
+   * @generated from enum value: AGENT_ENVIRONMENT_BACKGROUND_CITC_WORKSPACE_CLONE = 4;
+   */
+  BACKGROUND_CITC_WORKSPACE_CLONE = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(AgentEnvironment)
+proto3.util.setEnumType(AgentEnvironment, "jetbox_state_pb.AgentEnvironment", [
+  { no: 0, name: "AGENT_ENVIRONMENT_UNSPECIFIED" },
+  { no: 1, name: "AGENT_ENVIRONMENT_LOCAL" },
+  { no: 2, name: "AGENT_ENVIRONMENT_BACKGROUND_WORKTREE" },
+  { no: 3, name: "AGENT_ENVIRONMENT_BACKGROUND_CITC_WORKSPACE" },
+  { no: 4, name: "AGENT_ENVIRONMENT_BACKGROUND_CITC_WORKSPACE_CLONE" },
+]);
+
+/**
  * @generated from enum jetbox_state_pb.ThemeMode
  */
 export enum ThemeMode {
@@ -63,12 +102,70 @@ export enum ThemeMode {
    * @generated from enum value: THEME_MODE_LIGHT = 2;
    */
   LIGHT = 2,
+
+  /**
+   * @generated from enum value: THEME_MODE_INHERIT = 3;
+   */
+  INHERIT = 3,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ThemeMode)
 proto3.util.setEnumType(ThemeMode, "jetbox_state_pb.ThemeMode", [
   { no: 0, name: "THEME_MODE_UNSPECIFIED" },
   { no: 1, name: "THEME_MODE_DARK" },
   { no: 2, name: "THEME_MODE_LIGHT" },
+  { no: 3, name: "THEME_MODE_INHERIT" },
+]);
+
+/**
+ * @generated from enum jetbox_state_pb.AgentOnboardingState
+ */
+export enum AgentOnboardingState {
+  /**
+   * @generated from enum value: AGENT_ONBOARDING_STATE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: AGENT_ONBOARDING_STATE_INCOMPLETE = 1;
+   */
+  INCOMPLETE = 1,
+
+  /**
+   * @generated from enum value: AGENT_ONBOARDING_STATE_COMPLETED = 2;
+   */
+  COMPLETED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(AgentOnboardingState)
+proto3.util.setEnumType(AgentOnboardingState, "jetbox_state_pb.AgentOnboardingState", [
+  { no: 0, name: "AGENT_ONBOARDING_STATE_UNSPECIFIED" },
+  { no: 1, name: "AGENT_ONBOARDING_STATE_INCOMPLETE" },
+  { no: 2, name: "AGENT_ONBOARDING_STATE_COMPLETED" },
+]);
+
+/**
+ * @generated from enum jetbox_state_pb.MigrationStatus
+ */
+export enum MigrationStatus {
+  /**
+   * @generated from enum value: MIGRATION_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: MIGRATION_STATUS_STARTED = 1;
+   */
+  STARTED = 1,
+
+  /**
+   * @generated from enum value: MIGRATION_STATUS_COMPLETED = 2;
+   */
+  COMPLETED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(MigrationStatus)
+proto3.util.setEnumType(MigrationStatus, "jetbox_state_pb.MigrationStatus", [
+  { no: 0, name: "MIGRATION_STATUS_UNSPECIFIED" },
+  { no: 1, name: "MIGRATION_STATUS_STARTED" },
+  { no: 2, name: "MIGRATION_STATUS_COMPLETED" },
 ]);
 
 /**
@@ -167,6 +264,81 @@ export class UserSettings extends Message<UserSettings> {
    */
   globalPermissionGrants?: PermissionGrantsConfig;
 
+  /**
+   * @generated from field: jetbox_state_pb.AgentEnvironment agent_environment = 12;
+   */
+  agentEnvironment = AgentEnvironment.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool verbose_agent_chat = 13;
+   */
+  verboseAgentChat = false;
+
+  /**
+   * @generated from field: bool sandbox_allow_network = 14;
+   */
+  sandboxAllowNetwork = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.AgentSettingPolicy non_workspace_file_access_policy = 17;
+   */
+  nonWorkspaceFileAccessPolicy = AgentSettingPolicy.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.AgentSettingPolicy internet_access_policy = 18;
+   */
+  internetAccessPolicy = AgentSettingPolicy.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool allow_agent_access_gitignore_files = 19;
+   */
+  allowAgentAccessGitignoreFiles = false;
+
+  /**
+   * @generated from field: jetbox_state_pb.ThemeMode theme_mode = 20;
+   */
+  themeMode = ThemeMode.UNSPECIFIED;
+
+  /**
+   * @generated from field: jetbox_state_pb.CustomThemeSeeds custom_theme_seeds_light = 21;
+   */
+  customThemeSeedsLight?: CustomThemeSeeds;
+
+  /**
+   * @generated from field: jetbox_state_pb.CustomThemeSeeds custom_theme_seeds_dark = 22;
+   */
+  customThemeSeedsDark?: CustomThemeSeeds;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.BrowserJsExecutionPolicy browser_js_execution_policy = 23;
+   */
+  browserJsExecutionPolicy = BrowserJsExecutionPolicy.UNSPECIFIED;
+
+  /**
+   * @generated from field: int32 max_cloned_workspaces = 24;
+   */
+  maxClonedWorkspaces = 0;
+
+  /**
+   * @generated from field: int32 max_clones_per_workspace = 25;
+   */
+  maxClonesPerWorkspace = 0;
+
+  /**
+   * @generated from field: bool disable_eager_cloning = 26;
+   */
+  disableEagerCloning = false;
+
+  /**
+   * @generated from field: string gcp_region = 27;
+   */
+  gcpRegion = "";
+
+  /**
+   * @generated from field: bool remote_control_enabled = 28;
+   */
+  remoteControlEnabled = false;
+
   constructor(data?: PartialMessage<UserSettings>) {
     super();
     proto3.util.initPartial(data, this);
@@ -186,6 +358,21 @@ export class UserSettings extends Message<UserSettings> {
     { no: 9, name: "enable_terminal_sandbox", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 10, name: "disable_default_customizations", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 11, name: "global_permission_grants", kind: "message", T: PermissionGrantsConfig },
+    { no: 12, name: "agent_environment", kind: "enum", T: proto3.getEnumType(AgentEnvironment) },
+    { no: 13, name: "verbose_agent_chat", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 14, name: "sandbox_allow_network", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 17, name: "non_workspace_file_access_policy", kind: "enum", T: proto3.getEnumType(AgentSettingPolicy) },
+    { no: 18, name: "internet_access_policy", kind: "enum", T: proto3.getEnumType(AgentSettingPolicy) },
+    { no: 19, name: "allow_agent_access_gitignore_files", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 20, name: "theme_mode", kind: "enum", T: proto3.getEnumType(ThemeMode) },
+    { no: 21, name: "custom_theme_seeds_light", kind: "message", T: CustomThemeSeeds },
+    { no: 22, name: "custom_theme_seeds_dark", kind: "message", T: CustomThemeSeeds },
+    { no: 23, name: "browser_js_execution_policy", kind: "enum", T: proto3.getEnumType(BrowserJsExecutionPolicy) },
+    { no: 24, name: "max_cloned_workspaces", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 25, name: "max_clones_per_workspace", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 26, name: "disable_eager_cloning", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 27, name: "gcp_region", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 28, name: "remote_control_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserSettings {
@@ -329,6 +516,281 @@ export class CustomModelsConfig_CustomModelsEntry extends Message<CustomModelsCo
 }
 
 /**
+ * @generated from message jetbox_state_pb.CustomThemeSeeds
+ */
+export class CustomThemeSeeds extends Message<CustomThemeSeeds> {
+  /**
+   * @generated from field: string background = 1;
+   */
+  background = "";
+
+  /**
+   * @generated from field: string primary = 2;
+   */
+  primary = "";
+
+  /**
+   * @generated from field: string foreground_override = 3;
+   */
+  foregroundOverride = "";
+
+  /**
+   * @generated from field: string primary_foreground_override = 4;
+   */
+  primaryForegroundOverride = "";
+
+  constructor(data?: PartialMessage<CustomThemeSeeds>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "jetbox_state_pb.CustomThemeSeeds";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "background", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "primary", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "foreground_override", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "primary_foreground_override", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CustomThemeSeeds {
+    return new CustomThemeSeeds().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CustomThemeSeeds {
+    return new CustomThemeSeeds().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CustomThemeSeeds {
+    return new CustomThemeSeeds().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CustomThemeSeeds | PlainMessage<CustomThemeSeeds> | undefined, b: CustomThemeSeeds | PlainMessage<CustomThemeSeeds> | undefined): boolean {
+    return proto3.util.equals(CustomThemeSeeds, a, b);
+  }
+}
+
+/**
+ * @generated from message jetbox_state_pb.GoogleSpecificSettings
+ */
+export class GoogleSpecificSettings extends Message<GoogleSpecificSettings> {
+  /**
+   * @generated from field: bool google3_project_created = 1;
+   */
+  google3ProjectCreated = false;
+
+  constructor(data?: PartialMessage<GoogleSpecificSettings>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "jetbox_state_pb.GoogleSpecificSettings";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "google3_project_created", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GoogleSpecificSettings {
+    return new GoogleSpecificSettings().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GoogleSpecificSettings {
+    return new GoogleSpecificSettings().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GoogleSpecificSettings {
+    return new GoogleSpecificSettings().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GoogleSpecificSettings | PlainMessage<GoogleSpecificSettings> | undefined, b: GoogleSpecificSettings | PlainMessage<GoogleSpecificSettings> | undefined): boolean {
+    return proto3.util.equals(GoogleSpecificSettings, a, b);
+  }
+}
+
+/**
+ * @generated from message jetbox_state_pb.SeenNuxUids
+ */
+export class SeenNuxUids extends Message<SeenNuxUids> {
+  /**
+   * @generated from field: repeated int32 uids = 1;
+   */
+  uids: number[] = [];
+
+  constructor(data?: PartialMessage<SeenNuxUids>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "jetbox_state_pb.SeenNuxUids";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uids", kind: "scalar", T: 5 /* ScalarType.INT32 */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SeenNuxUids {
+    return new SeenNuxUids().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SeenNuxUids {
+    return new SeenNuxUids().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SeenNuxUids {
+    return new SeenNuxUids().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SeenNuxUids | PlainMessage<SeenNuxUids> | undefined, b: SeenNuxUids | PlainMessage<SeenNuxUids> | undefined): boolean {
+    return proto3.util.equals(SeenNuxUids, a, b);
+  }
+}
+
+/**
+ * @generated from message jetbox_state_pb.JetboxAppState
+ */
+export class JetboxAppState extends Message<JetboxAppState> {
+  /**
+   * @generated from field: jetbox_state_pb.PostOnboardingState post_onboarding = 1;
+   */
+  postOnboarding?: PostOnboardingState;
+
+  /**
+   * @generated from field: jetbox_state_pb.SeenNuxUids seen_nuxs = 2;
+   */
+  seenNuxs?: SeenNuxUids;
+
+  /**
+   * @generated from field: bool sidebar_workspaces_migrated = 3;
+   */
+  sidebarWorkspacesMigrated = false;
+
+  /**
+   * @generated from field: jetbox_state_pb.GoogleSpecificSettings google_settings = 4;
+   */
+  googleSettings?: GoogleSpecificSettings;
+
+  /**
+   * @generated from field: jetbox_state_pb.AgentOnboardingState agent_onboarding_completed = 5;
+   */
+  agentOnboardingCompleted = AgentOnboardingState.UNSPECIFIED;
+
+  /**
+   * @generated from field: repeated jetbox_state_pb.JetboxAppState.SidebarWorkspacesEntry sidebar_workspaces = 6;
+   */
+  sidebarWorkspaces: JetboxAppState_SidebarWorkspacesEntry[] = [];
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Model last_selected_agent_model = 10;
+   */
+  lastSelectedAgentModel = Model.UNSPECIFIED;
+
+  /**
+   * @generated from field: jetbox_state_pb.CustomModelsConfig custom_models_config = 11;
+   */
+  customModelsConfig?: CustomModelsConfig;
+
+  /**
+   * @generated from field: jetbox_state_pb.AgentEnvironment agent_environment = 13;
+   */
+  agentEnvironment = AgentEnvironment.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool user_config_migrated = 14;
+   */
+  userConfigMigrated = false;
+
+  /**
+   * @generated from field: jetbox_state_pb.MigrationStatus migrate_convos_into_projects = 16;
+   */
+  migrateConvosIntoProjects = MigrationStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: string installation_uuid = 17;
+   */
+  installationUuid = "";
+
+  constructor(data?: PartialMessage<JetboxAppState>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "jetbox_state_pb.JetboxAppState";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "post_onboarding", kind: "message", T: PostOnboardingState },
+    { no: 2, name: "seen_nuxs", kind: "message", T: SeenNuxUids },
+    { no: 3, name: "sidebar_workspaces_migrated", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "google_settings", kind: "message", T: GoogleSpecificSettings },
+    { no: 5, name: "agent_onboarding_completed", kind: "enum", T: proto3.getEnumType(AgentOnboardingState) },
+    { no: 6, name: "sidebar_workspaces", kind: "message", T: JetboxAppState_SidebarWorkspacesEntry, repeated: true },
+    { no: 10, name: "last_selected_agent_model", kind: "enum", T: proto3.getEnumType(Model) },
+    { no: 11, name: "custom_models_config", kind: "message", T: CustomModelsConfig },
+    { no: 13, name: "agent_environment", kind: "enum", T: proto3.getEnumType(AgentEnvironment) },
+    { no: 14, name: "user_config_migrated", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 16, name: "migrate_convos_into_projects", kind: "enum", T: proto3.getEnumType(MigrationStatus) },
+    { no: 17, name: "installation_uuid", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxAppState {
+    return new JetboxAppState().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxAppState {
+    return new JetboxAppState().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxAppState {
+    return new JetboxAppState().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxAppState | PlainMessage<JetboxAppState> | undefined, b: JetboxAppState | PlainMessage<JetboxAppState> | undefined): boolean {
+    return proto3.util.equals(JetboxAppState, a, b);
+  }
+}
+
+/**
+ * @generated from message jetbox_state_pb.JetboxAppState.SidebarWorkspacesEntry
+ */
+export class JetboxAppState_SidebarWorkspacesEntry extends Message<JetboxAppState_SidebarWorkspacesEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: jetbox_state_pb.SidebarWorkspaceInfo value = 2;
+   */
+  value?: SidebarWorkspaceInfo;
+
+  constructor(data?: PartialMessage<JetboxAppState_SidebarWorkspacesEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "jetbox_state_pb.JetboxAppState.SidebarWorkspacesEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "message", T: SidebarWorkspaceInfo },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxAppState_SidebarWorkspacesEntry {
+    return new JetboxAppState_SidebarWorkspacesEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxAppState_SidebarWorkspacesEntry {
+    return new JetboxAppState_SidebarWorkspacesEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxAppState_SidebarWorkspacesEntry {
+    return new JetboxAppState_SidebarWorkspacesEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxAppState_SidebarWorkspacesEntry | PlainMessage<JetboxAppState_SidebarWorkspacesEntry> | undefined, b: JetboxAppState_SidebarWorkspacesEntry | PlainMessage<JetboxAppState_SidebarWorkspacesEntry> | undefined): boolean {
+    return proto3.util.equals(JetboxAppState_SidebarWorkspacesEntry, a, b);
+  }
+}
+
+/**
  * @generated from message jetbox_state_pb.State
  */
 export class State extends Message<State> {
@@ -367,6 +829,36 @@ export class State extends Message<State> {
    */
   themeMode = ThemeMode.UNSPECIFIED;
 
+  /**
+   * @generated from field: jetbox_state_pb.Projects project_store = 10;
+   */
+  projectStore?: Projects;
+
+  /**
+   * @generated from field: bool sidebar_workspaces_migrated = 11;
+   */
+  sidebarWorkspacesMigrated = false;
+
+  /**
+   * @generated from field: jetbox_state_pb.CustomThemeSeeds custom_theme_seeds_light = 13;
+   */
+  customThemeSeedsLight?: CustomThemeSeeds;
+
+  /**
+   * @generated from field: jetbox_state_pb.CustomThemeSeeds custom_theme_seeds_dark = 14;
+   */
+  customThemeSeedsDark?: CustomThemeSeeds;
+
+  /**
+   * @generated from field: bool google3_project_created = 15;
+   */
+  google3ProjectCreated = false;
+
+  /**
+   * @generated from field: jetbox_state_pb.AgentOnboardingState agent_onboarding_completed = 16;
+   */
+  agentOnboardingCompleted = AgentOnboardingState.UNSPECIFIED;
+
   constructor(data?: PartialMessage<State>) {
     super();
     proto3.util.initPartial(data, this);
@@ -382,6 +874,12 @@ export class State extends Message<State> {
     { no: 5, name: "custom_models_config", kind: "message", T: CustomModelsConfig },
     { no: 6, name: "seen_nux_uids", kind: "scalar", T: 13 /* ScalarType.UINT32 */, repeated: true },
     { no: 7, name: "theme_mode", kind: "enum", T: proto3.getEnumType(ThemeMode) },
+    { no: 10, name: "project_store", kind: "message", T: Projects },
+    { no: 11, name: "sidebar_workspaces_migrated", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 13, name: "custom_theme_seeds_light", kind: "message", T: CustomThemeSeeds },
+    { no: 14, name: "custom_theme_seeds_dark", kind: "message", T: CustomThemeSeeds },
+    { no: 15, name: "google3_project_created", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 16, name: "agent_onboarding_completed", kind: "enum", T: proto3.getEnumType(AgentOnboardingState) },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): State {
@@ -441,6 +939,43 @@ export class State_SidebarWorkspacesEntry extends Message<State_SidebarWorkspace
 
   static equals(a: State_SidebarWorkspacesEntry | PlainMessage<State_SidebarWorkspacesEntry> | undefined, b: State_SidebarWorkspacesEntry | PlainMessage<State_SidebarWorkspacesEntry> | undefined): boolean {
     return proto3.util.equals(State_SidebarWorkspacesEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message jetbox_state_pb.Projects
+ */
+export class Projects extends Message<Projects> {
+  /**
+   * @generated from field: repeated exa.project_pb.Project projects = 1;
+   */
+  projects: Project[] = [];
+
+  constructor(data?: PartialMessage<Projects>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "jetbox_state_pb.Projects";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "projects", kind: "message", T: Project, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Projects {
+    return new Projects().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Projects {
+    return new Projects().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Projects {
+    return new Projects().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Projects | PlainMessage<Projects> | undefined, b: Projects | PlainMessage<Projects> | undefined): boolean {
+    return proto3.util.equals(Projects, a, b);
   }
 }
 

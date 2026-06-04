@@ -169,8 +169,9 @@ function cmdDump(args: string[]) {
 
         // サービス検索
         for (const s of desc.service) {
-            const fullName = pkg + "." + s.name;
-            if (fullName.includes(filter) || s.name.includes(filter)) {
+            const sName = s.name || "";
+            const fullName = pkg + "." + sName;
+            if (fullName.includes(filter) || sName.includes(filter)) {
                 console.log(`service ${fullName} {`);
                 for (const m of s.method) {
                     const inType = resolveForDump(m.inputType);
@@ -185,8 +186,9 @@ function cmdDump(args: string[]) {
 
         // Enum 検索
         for (const e of desc.enumType) {
-            const fullName = pkg + "." + e.name;
-            if (fullName.includes(filter) || e.name.includes(filter)) {
+            const eName = e.name || "";
+            const fullName = pkg + "." + eName;
+            if (fullName.includes(filter) || eName.includes(filter)) {
                 console.log(`enum ${fullName} {`);
                 for (const v of e.value) {
                     console.log(`  ${v.name} = ${v.number};`);

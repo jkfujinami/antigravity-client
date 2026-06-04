@@ -113,7 +113,7 @@ export function reconstruct(descriptors: ExtractedDescriptor[]): ParsedSchema {
         const fdp = d.proto;
         const pkg = fdp.package || "";
 
-        schema.files.set(fdp.name, pkg);
+        schema.files.set(fdp.name || "", pkg);
 
         // トップレベルメッセージ
         for (const msg of fdp.messageType) {
@@ -143,7 +143,8 @@ function processMessage(
     parentPrefix: string,
     schema: ParsedSchema
 ): void {
-    const fullName = parentPrefix ? `${parentPrefix}.${msg.name}` : msg.name;
+    const msgName = msg.name || "";
+    const fullName = parentPrefix ? `${parentPrefix}.${msgName}` : msgName;
 
     // map entry かどうかの判定
     const isMapEntry = msg.options?.mapEntry === true;
@@ -153,12 +154,12 @@ function processMessage(
     const mapEntries = new Map<string, InstanceType<typeof DescriptorProto>>();
     for (const nested of msg.nestedType) {
         if (nested.options?.mapEntry === true) {
-            mapEntries.set(`.${fullName}.${nested.name}`, nested);
+            mapEntries.set(`.${fullName}.${nested.name || ""}`, nested);
         }
     }
 
     // oneof 名のマッピング
-    const oneofNames: string[] = msg.oneofDecl.map(o => o.name);
+    const oneofNames: string[] = msg.oneofDecl.map(o => o.name || "");
 
     // フィールドを変換
     const fields: FieldDef[] = [];
@@ -173,14 +174,14 @@ function processMessage(
     // ネストされたメッセージを再帰処理
     for (const nested of msg.nestedType) {
         if (nested.options?.mapEntry === true) continue;
-        const nestedFullName = `${fullName}.${nested.name}`;
+        const nestedFullName = `${fullName}.${nested.name || ""}`;
         nestedMessages.push(nestedFullName);
         processMessage(nested, fullName, schema);
     }
 
     // ネストされた Enum
     for (const nested of msg.enumType) {
-        const nestedFullName = `${fullName}.${nested.name}`;
+        const nestedFullName = `${fullName}.${nested.name || ""}`;
         nestedEnums.push(nestedFullName);
         processEnum(nested, fullName, schema);
     }
@@ -198,8 +199,8 @@ function convertField(
     oneofNames: string[],
     mapEntries: Map<string, InstanceType<typeof DescriptorProto>>
 ): FieldDef | null {
-    const no = f.number;
-    const name = f.name;
+    const no = f.number || 0;
+    const name = f.name || "";
     const repeated = f.label === FieldDescriptorProto_Label.REPEATED;
 
     // map フィールドの検出
@@ -228,7 +229,7 @@ function convertField(
     // optional 判定: proto3 では oneof に属していない explicit optional は
     // oneofIndex が設定されるが、synthetic oneof として扱われる
     const hasOneofIndex = f.oneofIndex !== undefined && f.oneofIndex >= 0;
-    const oneofName = hasOneofIndex ? oneofNames[f.oneofIndex] : undefined;
+    const oneofName = hasOneofIndex ? oneofNames[f.oneofIndex as number] : undefined;
 
     // proto3 の synthetic oneof (optional フィールド) の検出
     // synthetic oneof の名前は "_fieldname" のパターン
@@ -241,7 +242,7 @@ function convertField(
         name,
         typeName,
         repeated,
-        optional: isOptional,
+        optional: isOptional || false,
         oneofName: realOneofName,
     };
 }
@@ -257,7 +258,7 @@ function resolveTypeName(f: InstanceType<typeof FieldDescriptorProto>): string {
     }
 
     // スカラー型
-    return SCALAR_TYPE_MAP[f.type] || `unknown(${f.type})`;
+    return SCALAR_TYPE_MAP[f.type as number] || `unknown(${f.type})`;
 }
 
 function processEnum(
@@ -265,11 +266,12 @@ function processEnum(
     parentPrefix: string,
     schema: ParsedSchema
 ): void {
-    const fullName = parentPrefix ? `${parentPrefix}.${enumDef.name}` : enumDef.name;
+    const enumDefName = enumDef.name || "";
+    const fullName = parentPrefix ? `${parentPrefix}.${enumDefName}` : enumDefName;
 
     const values: EnumValueDef[] = enumDef.value.map(v => ({
-        name: v.name,
-        number: v.number,
+        name: v.name || "",
+        number: v.number || 0,
     }));
 
     schema.enums.set(fullName, { fullName, values });
@@ -280,10 +282,11 @@ function processService(
     parentPrefix: string,
     schema: ParsedSchema
 ): void {
-    const fullName = parentPrefix ? `${parentPrefix}.${svc.name}` : svc.name;
+    const svcName = svc.name || "";
+    const fullName = parentPrefix ? `${parentPrefix}.${svcName}` : svcName;
 
     const methods: MethodDef[] = svc.method.map((m: InstanceType<typeof MethodDescriptorProto>) => ({
-        name: m.name,
+        name: m.name || "",
         inputType: m.inputType || "",
         outputType: m.outputType || "",
         clientStreaming: m.clientStreaming || false,

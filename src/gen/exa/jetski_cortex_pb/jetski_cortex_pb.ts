@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
-import { ArtifactSnapshot, BackgroundCommand, CascadeRunStatus, CortexErrorDetails, CortexStepGeneratorMetadata, CortexStepStatus, CortexStepType, CortexTrajectoryMetadata, CortexTrajectoryType, CortexWorkspaceMetadata, ExecutorMetadata, TaskSnapshot, TrajectoryFileDiff, TrajectoryScope } from "../cortex_pb/cortex_pb.js";
+import { AgentMessage, ArtifactSnapshot, BackgroundCommand, BattleModeInfo, CascadeRunStatus, CortexErrorDetails, CortexStepGeneratorMetadata, CortexStepType, CortexTrajectoryMetadata, CortexTrajectoryReference, CortexTrajectoryReferenceType, CortexTrajectorySource, CortexTrajectoryType, CortexWorkspaceMetadata, ExecutorMetadata, TaskSnapshot, TrajectoryFileDiff, TrajectoryScope } from "../cortex_pb/cortex_pb.js";
 import { Step, Trajectory } from "../gemini_coder/proto/trajectory_pb.js";
 import { Credits } from "../google/internal/cloud/code/v1internal/credits_pb.js";
 
@@ -149,9 +149,19 @@ export class CascadeState extends Message<CascadeState> {
   hasActiveChildren = false;
 
   /**
+   * @generated from field: bool fully_idle = 14;
+   */
+  fullyIdle = false;
+
+  /**
    * @generated from field: exa.jetski_cortex_pb.CreditUsageSummary credit_usage_summary = 12;
    */
   creditUsageSummary?: CreditUsageSummary;
+
+  /**
+   * @generated from field: repeated exa.cortex_pb.AgentMessage pending_agent_messages = 15;
+   */
+  pendingAgentMessages: AgentMessage[] = [];
 
   constructor(data?: PartialMessage<CascadeState>) {
     super();
@@ -173,7 +183,9 @@ export class CascadeState extends Message<CascadeState> {
     { no: 10, name: "background_commands", kind: "message", T: BackgroundCommand, repeated: true },
     { no: 13, name: "background_tasks", kind: "message", T: BackgroundTask, repeated: true },
     { no: 11, name: "has_active_children", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 14, name: "fully_idle", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 12, name: "credit_usage_summary", kind: "message", T: CreditUsageSummary },
+    { no: 15, name: "pending_agent_messages", kind: "message", T: AgentMessage, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeState {
@@ -282,6 +294,21 @@ export class AgentStateUpdate extends Message<AgentStateUpdate> {
    */
   costSummary?: ConversationCostSummary;
 
+  /**
+   * @generated from field: bool fully_idle = 18;
+   */
+  fullyIdle = false;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CompactionInfo compaction_info = 19;
+   */
+  compactionInfo?: CompactionInfo;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.PendingAgentMessagesUpdate pending_agent_messages_update = 20;
+   */
+  pendingAgentMessagesUpdate?: PendingAgentMessagesUpdate;
+
   constructor(data?: PartialMessage<AgentStateUpdate>) {
     super();
     proto3.util.initPartial(data, this);
@@ -307,6 +334,9 @@ export class AgentStateUpdate extends Message<AgentStateUpdate> {
     { no: 14, name: "has_active_children", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 15, name: "credit_usage_summary", kind: "message", T: CreditUsageSummary },
     { no: 16, name: "cost_summary", kind: "message", T: ConversationCostSummary },
+    { no: 18, name: "fully_idle", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 19, name: "compaction_info", kind: "message", T: CompactionInfo },
+    { no: 20, name: "pending_agent_messages_update", kind: "message", T: PendingAgentMessagesUpdate },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AgentStateUpdate {
@@ -409,6 +439,43 @@ export class AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry extends Messag
 
   static equals(a: AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry | PlainMessage<AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry> | undefined, b: AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry | PlainMessage<AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry> | undefined): boolean {
     return proto3.util.equals(AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.CompactionInfo
+ */
+export class CompactionInfo extends Message<CompactionInfo> {
+  /**
+   * @generated from field: repeated int32 compacted_at_step_indices = 1;
+   */
+  compactedAtStepIndices: number[] = [];
+
+  constructor(data?: PartialMessage<CompactionInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.CompactionInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "compacted_at_step_indices", kind: "scalar", T: 5 /* ScalarType.INT32 */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompactionInfo {
+    return new CompactionInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompactionInfo {
+    return new CompactionInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompactionInfo {
+    return new CompactionInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompactionInfo | PlainMessage<CompactionInfo> | undefined, b: CompactionInfo | PlainMessage<CompactionInfo> | undefined): boolean {
+    return proto3.util.equals(CompactionInfo, a, b);
   }
 }
 
@@ -877,6 +944,21 @@ export class TrajectoryUpdate extends Message<TrajectoryUpdate> {
    */
   waitingSteps: CortexTrajectoryStepWithIndex[] = [];
 
+  /**
+   * @generated from field: bool fully_idle = 10;
+   */
+  fullyIdle = false;
+
+  /**
+   * @generated from field: bool killed = 11;
+   */
+  killed = false;
+
+  /**
+   * @generated from field: repeated exa.cortex_pb.CortexTrajectoryReference parent_references = 12;
+   */
+  parentReferences: CortexTrajectoryReference[] = [];
+
   constructor(data?: PartialMessage<TrajectoryUpdate>) {
     super();
     proto3.util.initPartial(data, this);
@@ -894,6 +976,9 @@ export class TrajectoryUpdate extends Message<TrajectoryUpdate> {
     { no: 7, name: "last_step_error", kind: "message", T: CortexErrorDetails },
     { no: 8, name: "last_step_type", kind: "enum", T: proto3.getEnumType(CortexStepType) },
     { no: 9, name: "waiting_steps", kind: "message", T: CortexTrajectoryStepWithIndex, repeated: true },
+    { no: 10, name: "fully_idle", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 11, name: "killed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 12, name: "parent_references", kind: "message", T: CortexTrajectoryReference, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TrajectoryUpdate {
@@ -1324,6 +1409,55 @@ export class BackgroundTasksUpdate extends Message<BackgroundTasksUpdate> {
 }
 
 /**
+ * @generated from message exa.jetski_cortex_pb.PendingAgentMessagesUpdate
+ */
+export class PendingAgentMessagesUpdate extends Message<PendingAgentMessagesUpdate> {
+  /**
+   * @generated from field: repeated uint32 indices = 1;
+   */
+  indices: number[] = [];
+
+  /**
+   * @generated from field: repeated exa.cortex_pb.AgentMessage pending_agent_messages = 2;
+   */
+  pendingAgentMessages: AgentMessage[] = [];
+
+  /**
+   * @generated from field: uint32 total_length = 3;
+   */
+  totalLength = 0;
+
+  constructor(data?: PartialMessage<PendingAgentMessagesUpdate>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.PendingAgentMessagesUpdate";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "indices", kind: "scalar", T: 13 /* ScalarType.UINT32 */, repeated: true },
+    { no: 2, name: "pending_agent_messages", kind: "message", T: AgentMessage, repeated: true },
+    { no: 3, name: "total_length", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PendingAgentMessagesUpdate {
+    return new PendingAgentMessagesUpdate().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PendingAgentMessagesUpdate {
+    return new PendingAgentMessagesUpdate().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PendingAgentMessagesUpdate {
+    return new PendingAgentMessagesUpdate().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PendingAgentMessagesUpdate | PlainMessage<PendingAgentMessagesUpdate> | undefined, b: PendingAgentMessagesUpdate | PlainMessage<PendingAgentMessagesUpdate> | undefined): boolean {
+    return proto3.util.equals(PendingAgentMessagesUpdate, a, b);
+  }
+}
+
+/**
  * @generated from message exa.jetski_cortex_pb.ConsumedCredits
  */
 export class ConsumedCredits extends Message<ConsumedCredits> {
@@ -1537,6 +1671,11 @@ export class ForkFromIdentifier extends Message<ForkFromIdentifier> {
    */
   stepIndex = 0;
 
+  /**
+   * @generated from field: exa.cortex_pb.CortexTrajectoryReferenceType reference_type = 3;
+   */
+  referenceType = CortexTrajectoryReferenceType.UNSPECIFIED;
+
   constructor(data?: PartialMessage<ForkFromIdentifier>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1547,6 +1686,7 @@ export class ForkFromIdentifier extends Message<ForkFromIdentifier> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "step_index", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "reference_type", kind: "enum", T: proto3.getEnumType(CortexTrajectoryReferenceType) },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ForkFromIdentifier {
@@ -1668,6 +1808,11 @@ export class ConversationAnnotations extends Message<ConversationAnnotations> {
    */
   pinned = false;
 
+  /**
+   * @generated from field: repeated int64 cls = 13;
+   */
+  cls: bigint[] = [];
+
   constructor(data?: PartialMessage<ConversationAnnotations>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1687,6 +1832,7 @@ export class ConversationAnnotations extends Message<ConversationAnnotations> {
     { no: 10, name: "group_index", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 11, name: "group_description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 12, name: "pinned", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 13, name: "cls", kind: "scalar", T: 3 /* ScalarType.INT64 */, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConversationAnnotations {
@@ -1785,6 +1931,26 @@ export class CascadeTrajectorySummary extends Message<CascadeTrajectorySummary> 
    */
   hasActiveChildren = false;
 
+  /**
+   * @generated from field: exa.cortex_pb.BattleModeInfo battle_mode_info = 19;
+   */
+  battleModeInfo?: BattleModeInfo;
+
+  /**
+   * @generated from field: exa.cortex_pb.CortexTrajectorySource source = 20;
+   */
+  source = CortexTrajectorySource.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool not_fully_idle = 21;
+   */
+  notFullyIdle = false;
+
+  /**
+   * @generated from field: exa.cortex_pb.CortexTrajectoryType trajectory_type = 22;
+   */
+  trajectoryType = CortexTrajectoryType.UNSPECIFIED;
+
   constructor(data?: PartialMessage<CascadeTrajectorySummary>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1808,6 +1974,10 @@ export class CascadeTrajectorySummary extends Message<CascadeTrajectorySummary> 
     { no: 15, name: "annotations", kind: "message", T: ConversationAnnotations },
     { no: 17, name: "trajectory_metadata", kind: "message", T: CortexTrajectoryMetadata },
     { no: 18, name: "has_active_children", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 19, name: "battle_mode_info", kind: "message", T: BattleModeInfo },
+    { no: 20, name: "source", kind: "enum", T: proto3.getEnumType(CortexTrajectorySource) },
+    { no: 21, name: "not_fully_idle", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 22, name: "trajectory_type", kind: "enum", T: proto3.getEnumType(CortexTrajectoryType) },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeTrajectorySummary {
@@ -1925,12 +2095,6 @@ export class CortexStepUpdate extends Message<CortexStepUpdate> {
      */
     value: Step;
     case: "step";
-  } | {
-    /**
-     * @generated from field: exa.cortex_pb.CortexStepStatus status = 3;
-     */
-    value: CortexStepStatus;
-    case: "status";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<CortexStepUpdate>) {
@@ -1943,7 +2107,6 @@ export class CortexStepUpdate extends Message<CortexStepUpdate> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "step_index", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 2, name: "step", kind: "message", T: Step, oneof: "update" },
-    { no: 3, name: "status", kind: "enum", T: proto3.getEnumType(CortexStepStatus), oneof: "update" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CortexStepUpdate {

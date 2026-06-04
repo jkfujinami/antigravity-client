@@ -26,9 +26,23 @@ import { SetUserSettingsRequest, AddTrackedWorkspaceRequest } from "../gen/exa/l
 import { UserSettings, AgentBrowserTools, BrowserJsExecutionPolicy } from "../gen/exa/codeium_common_pb/codeium_common_pb.js";
 
 const DEFAULT_LS_BINARY = path.join(
-    "/Applications/Antigravity.app/Contents/Resources/app/extensions/antigravity/bin",
-    `language_server_${process.platform === "darwin" ? "macos" : "linux"}_${process.arch === "arm64" ? "arm" : "x64"}`
+    "/Applications/Antigravity.app/Contents/Resources/bin",
+    "language_server"
 );
+
+// Crash Monitoring Constants
+const RESTART_WINDOW_MS = 60000;
+const MAX_RESTARTS = 3;
+const RESTART_COOLDOWN_MS = 2000;
+const MAX_STDERR_BUFFER = 100000;
+const CRASH_TRIGGER_PHRASES = [
+    'panic:',
+    'fatal error:',
+    'unexpected fault address',
+    'runtime:',
+    'running GoogleExitFunction',
+    'panic serving',
+];
 
 export interface LauncherOptions {
     /** Path to the workspace directory */
@@ -53,9 +67,11 @@ export interface LauncherOptions {
 
 /**
  * Events emitted by `Launcher`:
- * - `"exit"`: `(code: number | null, signal: NodeJS.Signals | null) => void` — LS プロセス終了
- * - `"error"`: `(err: Error) => void` — LS プロセスでの spawn / runtime error
- * - `"log"`: `(line: string) => void` — LS の stdout/stderr 1 行ずつ
+ * - `"exit"`: `(code: number | null, signal: NodeJS.Signals | null) => void`
+ * - `"crash"`: `(code: number | null, signal: NodeJS.Signals | null, trace?: string) => void`
+ * - `"restarted"`: `() => void`
+ * - `"error"`: `(err: Error) => void`
+ * - `"log"`: `(line: string) => void`
  */
 export class Launcher extends EventEmitter {
     private mockServer: MockExtensionServer;
@@ -64,27 +80,15 @@ export class Launcher extends EventEmitter {
     private _csrfToken: string;
     private _workspaceId: string;
     private _running = false;
-
-    // ── Typed event signatures ──
-    on(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "log", listener: (line: string) => void): this;
-    on(event: string | symbol, listener: (...args: any[]) => void): this;
-    on(event: string | symbol, listener: (...args: any[]) => void): this {
-        return super.on(event, listener);
-    }
-
-    once(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
-    once(event: "error", listener: (err: Error) => void): this;
-    once(event: "log", listener: (line: string) => void): this;
-    once(event: string | symbol, listener: (...args: any[]) => void): this;
-    once(event: string | symbol, listener: (...args: any[]) => void): this {
-        return super.once(event, listener);
-    }
+    
+    private intentionalTermination = false;
+    private restartCount = 0;
+    private lastRestartTime = 0;
 
     private constructor(
         private options: Required<Pick<LauncherOptions, "lsBinaryPath" | "csrfToken" | "workspaceId" | "cloudCodeEndpoint" | "geminiDir" | "verbose">>,
         mockServer: MockExtensionServer,
+        private fullOptions: LauncherOptions,
     ) {
         super();
         this.mockServer = mockServer;
@@ -92,24 +96,14 @@ export class Launcher extends EventEmitter {
         this._workspaceId = options.workspaceId;
     }
 
-    /** HTTPS port for Connect RPC (available after start) */
     get httpsPort(): number { return this._lsInfo?.httpsPort ?? 0; }
-    /** HTTP port (available after start) */
     get httpPort(): number { return this._lsInfo?.httpPort ?? 0; }
-    /** LSP port (available after start) */
     get lspPort(): number { return this._lsInfo?.lspPort ?? 0; }
-    /** CSRF token used by this LS instance */
     get csrfToken(): string { return this._csrfToken; }
-    /** Workspace ID */
     get workspaceId(): string { return this._workspaceId; }
-    /** PID of the LS process */
     get pid(): number | undefined { return this.lsProcess?.pid; }
-    /** Whether the LS is running */
     get running(): boolean { return this._running; }
 
-    /**
-     * Returns a ServerInfo compatible with AntigravityClient.connectWithServer()
-     */
     get serverInfo(): ServerInfo {
         return {
             pid: this.lsProcess?.pid ?? 0,
@@ -121,9 +115,6 @@ export class Launcher extends EventEmitter {
         };
     }
 
-    /**
-     * Start an independent Language Server.
-     */
     static async start(options: LauncherOptions = {}): Promise<Launcher> {
         const workspacePath = options.workspacePath ?? process.cwd();
         const workspaceId = options.workspaceId ?? `indie-${path.basename(workspacePath)}`;
@@ -133,186 +124,234 @@ export class Launcher extends EventEmitter {
         const geminiDir = options.geminiDir ?? path.join(os.tmpdir(), `gemini_${workspaceId}`);
         const verbose = options.verbose ?? false;
 
-        // Validate LS binary exists
         if (!fs.existsSync(lsBinaryPath)) {
             throw new Error(`LS binary not found: ${lsBinaryPath}. Is Antigravity installed?`);
         }
 
-        // Read auth data
         const authData = options.authData ?? readAuthData();
         if (!authData.apiKey) {
             throw new Error("No auth data found. Please log in to Antigravity first.");
         }
 
-        // Create and start mock server
         const mockServer = new MockExtensionServer({
-            port: 0, // Random port
+            port: 0,
             authData,
             verbose,
             cdpPort: options.cdpPort,
         });
 
         const resolvedOptions = { lsBinaryPath, csrfToken, workspaceId, cloudCodeEndpoint, geminiDir, verbose };
-        const launcher = new Launcher(resolvedOptions, mockServer);
+        const launcher = new Launcher(resolvedOptions, mockServer, options);
 
-        // Ensure gemini dir exists
         fs.mkdirSync(geminiDir, { recursive: true });
 
-        // Start mock server
         const mockPort = await mockServer.start();
         if (verbose) console.log(`[Launcher] Mock Extension Server on port ${mockPort}`);
 
-        // Pre-launch Chrome with CDP before starting LS
-        // This ensures browser_liveness_utils.go finds a responsive CDP endpoint immediately.
         if (verbose) console.log(`[Launcher] Pre-launching CDP Chrome...`);
         const browserOk = await mockServer.ensureBrowserReady();
-        if (verbose) console.log(`[Launcher] Chrome pre-launch: ${browserOk ? 'OK' : 'FAILED (browser features may not work)'}`);
+        if (verbose) console.log(`[Launcher] Chrome pre-launch: ${browserOk ? 'OK' : 'FAILED'}`);
 
-        // Wait for LS to report its ports
+        await launcher.doStart();
+        return launcher;
+    }
+
+    private async doStart(isRestart = false): Promise<void> {
+        this.intentionalTermination = false;
+        
         const lsInfoPromise = new Promise<LsInfo>((resolve) => {
-            mockServer.once("ls-started", resolve);
+            this.mockServer.once("ls-started", resolve);
         });
 
-        // Spawn LS process
         const metadataBin = createMetadataBinary();
+        
+        // Advanced Injection Flags aligned with temp_app_asar
         const lsArgs = [
-            "--extension_server_port", String(mockPort),
-            "--workspace_id", workspaceId,
-            "--gemini_dir", geminiDir,
+            "--extension_server_port", String(this.mockServer.port),
+            "--workspace_id", this.options.workspaceId,
+            "--gemini_dir", this.options.geminiDir,
             "--app_data_dir", "antigravity_client",
             "--enable_lsp",
-            "--csrf_token", csrfToken,
+            "--enable_sidecars",
+            "--subclient_type", "hub",
+            "--override_ide_name", "antigravity",
+            "--csrf_token", this.options.csrfToken,
             "--http_server_port", "0",
             "--https_server_port", "0",
             "--lsp_port", "0",
-            "--cloud_code_endpoint", cloudCodeEndpoint,
+            "--cloud_code_endpoint", this.options.cloudCodeEndpoint,
         ];
 
-        if (verbose) console.log(`[Launcher] Spawning: ${lsBinaryPath} ${lsArgs.join(" ")}`);
+        if (this.options.verbose) console.log(`[Launcher] Spawning: ${this.options.lsBinaryPath} ${lsArgs.join(" ")}`);
 
-        launcher.lsProcess = spawn(lsBinaryPath, lsArgs, {
+        // Environment Synchronization
+        const env = { ...process.env };
+        env['AGY_BROWSER_ACTIVE_PORT_FILE'] = path.join(os.homedir(), ".gemini", "active_port.txt");
+
+        this.lsProcess = spawn(this.options.lsBinaryPath, lsArgs, {
             stdio: ["pipe", "pipe", "pipe"],
+            env
         });
 
-        // Write metadata to stdin
-        launcher.lsProcess.stdin!.write(metadataBin);
-        launcher.lsProcess.stdin!.end();
+        this.lsProcess.stdin!.write(metadataBin);
+        this.lsProcess.stdin!.end();
 
-        // Handle LS output and save it to a raw log file for debugging
         const logFile = "/Users/fujinami/workspace/Agent/ls_combined.log";
-        try {
-            fs.appendFileSync(logFile, `\n--- LS Started at ${new Date().toISOString()} (PID: ${launcher.lsProcess.pid}) ---\n`);
-        } catch (e) { }
+        try { fs.appendFileSync(logFile, `\n--- LS Started at ${new Date().toISOString()} (PID: ${this.lsProcess.pid}) ---\n`); } catch (e) { }
+
+        let stderrLength = 0;
+        const stderrChunks: string[] = [];
 
         const logToDisk = (data: Buffer, prefix: string) => {
-            const line = data.toString();
-            try {
-                fs.appendFileSync(logFile, `[${prefix}] ${line}`);
-            } catch (e) { }
-            if (verbose) process.stderr.write(`[LS:${prefix}] ${line}`);
-            launcher.emit("log", line);
+            const str = data.toString();
+            try { fs.appendFileSync(logFile, `[${prefix}] ${str}`); } catch (e) { }
+            if (this.options.verbose) process.stderr.write(`[LS:${prefix}] ${str}`);
+            this.emit("log", str);
+            
+            if (prefix === "STDERR") {
+                stderrChunks.push(str);
+                stderrLength += str.length;
+                while (stderrChunks.length > 0 && stderrLength > MAX_STDERR_BUFFER) {
+                    stderrLength -= stderrChunks.shift()!.length;
+                }
+            }
         };
 
-        launcher.lsProcess.stdout?.on("data", (data) => logToDisk(data, "STDOUT"));
-        launcher.lsProcess.stderr?.on("data", (data) => logToDisk(data, "STDERR"));
+        this.lsProcess.stdout?.on("data", (data) => logToDisk(data, "STDOUT"));
+        this.lsProcess.stderr?.on("data", (data) => logToDisk(data, "STDERR"));
 
-        launcher.lsProcess.on("exit", (code, signal) => {
-            launcher._running = false;
-            launcher.emit("exit", code, signal);
-            if (verbose) console.log(`[Launcher] LS exited with code ${code} signal=${signal}`);
+        const exitPromise = new Promise<{code: number|null, signal: NodeJS.Signals|null, trace?: string}>((resolve) => {
+            this.lsProcess!.on("exit", (code, signal) => {
+                this._running = false;
+                
+                const fullStderr = stderrChunks.join("");
+                const lines = fullStderr.split("\\n");
+                let trace: string | undefined;
+                let foundTrigger = false;
+                const crashLines = [];
+                for (const line of lines) {
+                    if (CRASH_TRIGGER_PHRASES.some(p => line.includes(p))) foundTrigger = true;
+                    if (foundTrigger) crashLines.push(line);
+                }
+                if (crashLines.length > 0) trace = crashLines.join("\\n");
+                
+                resolve({ code, signal, trace });
+            });
         });
 
-        launcher.lsProcess.on("error", (err) => {
-            launcher.emit("error", err);
-            if (verbose) console.error(`[Launcher] LS process error:`, err);
-        });
-
-        // Wait for LS to report ports (timeout 15s)
         const timeout = new Promise<never>((_, reject) =>
             setTimeout(() => reject(new Error("LS startup timeout (15s)")), 15000)
         );
 
-        launcher._lsInfo = await Promise.race([lsInfoPromise, timeout]);
-        launcher._running = true;
+        this._lsInfo = await Promise.race([lsInfoPromise, timeout]);
+        this._running = true;
 
-        if (verbose) {
-            console.log(`[Launcher] LS ready - HTTPS:${launcher.httpsPort} HTTP:${launcher.httpPort} LSP:${launcher.lspPort}`);
+        if (this.options.verbose) {
+            console.log(`[Launcher] LS ready - HTTPS:${this.httpsPort} HTTP:${this.httpPort} LSP:${this.lspPort}`);
         }
 
-        // Inject browser settings into the LS via SetUserSettings RPC
+        await this.injectSettingsAndWorkspace();
+
+        if (isRestart) {
+            this.emit("restarted");
+        }
+
+        // Setup crash monitor
+        void exitPromise.then((info) => {
+            this.emit("exit", info.code, info.signal);
+            if (!this.intentionalTermination) {
+                this.monitorLsCrashInternal(info);
+            }
+        });
+    }
+
+    private async injectSettingsAndWorkspace() {
         try {
             const transport = createConnectTransport({
-                baseUrl: `https://127.0.0.1:${launcher.httpsPort}`,
+                baseUrl: `https://127.0.0.1:${this.httpsPort}`,
                 httpVersion: "2",
                 nodeOptions: { rejectUnauthorized: false },
-                interceptors: [
-                    (next) => async (req) => {
-                        req.header.set("x-codeium-csrf-token", csrfToken);
-                        return await next(req);
-                    },
-                ],
+                interceptors: [(next) => async (req) => {
+                    req.header.set("x-codeium-csrf-token", this.csrfToken);
+                    return await next(req);
+                }],
             });
             const lsClient = createPromiseClient(LanguageServerService, transport);
 
             const browserSettings = new UserSettings({
                 agentBrowserTools: AgentBrowserTools.ENABLED,
-                browserCdpPort: mockServer.browserReady ? (options.cdpPort ?? 9222) : 0,
+                browserCdpPort: this.mockServer.browserReady ? (this.fullOptions.cdpPort ?? 9222) : 0,
                 browserChromePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
                 browserUserProfilePath: path.join(os.homedir(), ".gemini", "antigravity-browser-profile"),
                 browserJsExecutionPolicy: BrowserJsExecutionPolicy.TURBO,
             });
 
-            await lsClient.setUserSettings(new SetUserSettingsRequest({
-                userSettings: browserSettings,
-            }));
-
-            if (verbose) console.log(`[Launcher] ✅ Browser settings injected: agentBrowserTools=ENABLED, cdpPort=${browserSettings.browserCdpPort}, jsPolicy=TURBO`);
+            await lsClient.setUserSettings(new SetUserSettingsRequest({ userSettings: browserSettings }));
         } catch (e: any) {
-            if (e.code === 12) {
-                // Code 12 = Unimplemented
-                if (verbose) console.log(`[Launcher] LS does not support SetUserSettings (ignoring).`);
-            } else {
-                console.warn(`[Launcher] ⚠️ Failed to inject browser settings:`, e);
-            }
+            if (e.code !== 12) console.warn(`[Launcher] ⚠️ Failed to inject browser settings:`, e);
         }
 
-        // Inject workspace path if provided
-        if (workspacePath) {
+        if (this.fullOptions.workspacePath) {
             try {
                 const transport = createConnectTransport({
-                    baseUrl: `https://127.0.0.1:${launcher.httpsPort}`,
+                    baseUrl: `https://127.0.0.1:${this.httpsPort}`,
                     httpVersion: "2",
                     nodeOptions: { rejectUnauthorized: false },
-                    interceptors: [
-                        (next) => async (req) => {
-                            req.header.set("x-codeium-csrf-token", csrfToken);
-                            return await next(req);
-                        },
-                    ],
+                    interceptors: [(next) => async (req) => {
+                        req.header.set("x-codeium-csrf-token", this.csrfToken);
+                        return await next(req);
+                    }],
                 });
                 const lsClient = createPromiseClient(LanguageServerService, transport);
-
                 await lsClient.addTrackedWorkspace(new AddTrackedWorkspaceRequest({
-                    workspace: workspacePath,
+                    workspace: this.fullOptions.workspacePath,
                     isPassiveWorkspace: false,
                 }));
-
-                if (verbose) console.log(`[Launcher] ✅ Tracked workspace injected: ${workspacePath}`);
             } catch (e) {
                 console.warn(`[Launcher] ⚠️ Failed to inject tracked workspace:`, e);
             }
         }
-
-        return launcher;
     }
 
-    /**
-     * Stop the LS process and mock server.
-     */
+    private monitorLsCrashInternal(info: {code: number|null, signal: NodeJS.Signals|null, trace?: string}) {
+        if (this.intentionalTermination) return;
+
+        this.emit("crash", info.code, info.signal, info.trace);
+        
+        const summary = info.signal ? `killed by signal ${info.signal}` : `exited with code ${info.code}`;
+        console.error(`\\n[Launcher] LS crashed: ${summary}`);
+        if (info.trace) {
+            console.error('--- Crash Stack Trace ---');
+            console.error(info.trace);
+            console.error('--- End Crash Stack trace ---');
+        }
+
+        const now = Date.now();
+        if (now - this.lastRestartTime > RESTART_WINDOW_MS) {
+            this.restartCount = 0;
+        }
+        this.lastRestartTime = now;
+
+        if (this.restartCount >= MAX_RESTARTS) {
+            console.error(`[Launcher] LS crashed ${MAX_RESTARTS} times in a row. Giving up.`);
+            return;
+        }
+
+        this.restartCount++;
+        console.log(`[Launcher] Attempting restart ${this.restartCount}/${MAX_RESTARTS} in ${RESTART_COOLDOWN_MS / 1000}s...`);
+
+        setTimeout(() => {
+            if (this.intentionalTermination) return;
+            this.doStart(true).catch(err => {
+                console.error(`[Launcher] Failed to restart LS:`, err);
+            });
+        }, RESTART_COOLDOWN_MS);
+    }
+
     async stop(): Promise<void> {
+        this.intentionalTermination = true;
         if (this.lsProcess && !this.lsProcess.killed) {
             this.lsProcess.kill("SIGTERM");
-            // Wait for graceful shutdown (max 5s)
             await new Promise<void>((resolve) => {
                 const timer = setTimeout(() => {
                     this.lsProcess?.kill("SIGKILL");

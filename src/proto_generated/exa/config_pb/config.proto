@@ -1,0 +1,15 @@
+syntax = "proto3";
+package exa.config_pb;
+
+import "exa/cortex_pb/cortex.proto";
+import "exa/jetbox_state_pb/jetbox_state.proto";
+
+message UserConfig {
+  message SidecarsEntry {
+    string key = 1;
+    exa.cortex_pb.SidecarUserConfig value = 2;
+  }
+
+  repeated exa.config_pb.UserConfig.SidecarsEntry sidecars = 1;
+  jetbox_state_pb.UserSettings user_settings = 2;
+}

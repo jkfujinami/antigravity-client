@@ -17,41 +17,48 @@ export interface ExtractedDescriptor {
     offset: number;
 }
 
-/**
- * JS バンドルファイルから全ての Protobuf ディスクリプタを抽出する。
- *
- * @param bundlePath フォーマット済み JS バンドルへのパス
- * @returns 抽出・デコード済みのディスクリプタ配列
- */
 export function extractDescriptors(bundlePath: string): ExtractedDescriptor[] {
     if (!fs.existsSync(bundlePath)) {
         throw new Error(`Bundle not found: ${bundlePath}`);
     }
 
     const content = fs.readFileSync(bundlePath, "utf8");
-
-    // Rl("Base64", [...deps]) パターンを検索
-    // 最低50文字以上の Base64 を対象にし、短いノイズを除外
-    const regex = /Rl\s*\(\s*"([A-Za-z0-9+/=]{50,})"/g;
     const results: ExtractedDescriptor[] = [];
-    let match: RegExpExecArray | null;
+    const seenNames = new Set<string>();
 
-    while ((match = regex.exec(content)) !== null) {
-        const b64 = match[1];
-        const offset = match.index;
+    const tryExtract = (regex: RegExp) => {
+        let match: RegExpExecArray | null;
+        while ((match = regex.exec(content)) !== null) {
+            const b64 = match[1];
+            const offset = match.index;
 
-        try {
-            const binary = Buffer.from(b64, "base64");
-            const proto = FileDescriptorProto.fromBinary(binary);
+            try {
+                const binary = Buffer.from(b64, "base64");
+                const proto = FileDescriptorProto.fromBinary(binary);
 
-            // name フィールドが存在しないものはスキップ
-            if (!proto.name) continue;
+                // name フィールドが存在しないものはスキップ
+                if (!proto.name) continue;
 
-            results.push({ proto, rawBase64: b64, offset });
-        } catch {
-            // FileDescriptorProto としてパースできないものはスキップ
+                // 既に同じ名前のディスクリプタを抽出済みの場合はスキップ
+                if (seenNames.has(proto.name)) continue;
+                seenNames.add(proto.name);
+
+                results.push({ proto, rawBase64: b64, offset });
+            } catch {
+                // FileDescriptorProto としてパースできないものはスキップ
+            }
         }
-    }
+    };
+
+    // Legacy pattern: Rl("Base64", [...deps])
+    tryExtract(/Rl\s*\(\s*"([A-Za-z0-9+/=]{50,})"/g);
+
+    // v2.0 pattern 1: Strict matching for (0, a.W)("Base64") or a.W("Base64") even across newlines
+    tryExtract(/(?:[\w_]+\.[\w_]+|\(\s*0\s*,\s*[\w_]+\.[\w_]+\))\s*\(\s*["']([A-Za-z0-9+/=]{50,})["']/g);
+
+    // v2.0 pattern 2: Generic fallback to extract any large Base64 string that might be a protobuf descriptor
+    // This is necessary because formatting the JS bundle with line breaks might break strict AST-like regexes.
+    tryExtract(/(?:^|[^\w])(?:'|")([A-Za-z0-9+/=]{100,})(?:'|")/g);
 
     return results;
 }

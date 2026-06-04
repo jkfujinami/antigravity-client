@@ -14,10 +14,10 @@ import type {
     StepUpdateEvent,
     TextDeltaEvent,
     ThinkingDeltaEvent,
-    CommandOutputEvent,
     StatusChangeEvent,
     ApprovalRequest,
 } from "../src/types.js";
+import { CascadeEvents } from "../src/event-types.js";
 
 async function main() {
     console.log("🔌 Connecting to Language Server...");
@@ -53,32 +53,32 @@ async function main() {
     };
 
     // New events
-    cascade.on("step:new", (ev: StepNewEvent) => {
+    cascade.on(CascadeEvents.StepNew, (ev: StepNewEvent) => {
         received.stepNew.push(ev);
         console.log(`  [step:new] Step ${ev.step.index}: ${ev.step.type} (${ev.step.status}) - ${ev.step.description}`);
         console.log(`    category: ${ev.step.category}`);
     });
 
-    cascade.on("step:update", (ev: StepUpdateEvent) => {
+    cascade.on(CascadeEvents.StepUpdate, (ev: StepUpdateEvent) => {
         received.stepUpdate.push(ev);
         console.log(`  [step:update] Step ${ev.step.index}: ${ev.previousStatus} -> ${ev.step.status}`);
     });
 
-    cascade.on("text:delta", (ev: TextDeltaEvent) => {
+    cascade.on(CascadeEvents.Text, (ev: TextDeltaEvent) => {
         received.textDelta.push(ev);
         // Don't print individual deltas to reduce noise, just accumulate
     });
 
-    cascade.on("thinking:delta", (ev: ThinkingDeltaEvent) => {
+    cascade.on(CascadeEvents.Thinking, (ev: ThinkingDeltaEvent) => {
         received.thinkingDelta.push(ev);
     });
 
-    cascade.on("status_change", (ev: StatusChangeEvent) => {
+    cascade.on(CascadeEvents.StatusChange, (ev: StatusChangeEvent) => {
         received.statusChange.push(ev);
         console.log(`  [status_change] ${ev.previousStatus} -> ${ev.status}`);
     });
 
-    cascade.on("approval:needed", (ev: ApprovalRequest) => {
+    cascade.on(CascadeEvents.Interaction, (ev: ApprovalRequest) => {
         received.approvalNeeded.push(ev);
         console.log(`  [approval:needed] ${ev.type}: ${ev.description} (needsApproval: ${ev.needsApproval})`);
         console.log(`    .approve is function: ${typeof ev.approve === 'function'}`);

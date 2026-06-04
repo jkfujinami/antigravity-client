@@ -2,6 +2,7 @@ syntax = "proto3";
 package jetbox_state_pb;
 
 import "exa/codeium_common_pb/codeium_common.proto";
+import "exa/project_pb/project.proto";
 
 enum PostOnboardingStepType {
   POST_ONBOARDING_STEP_TYPE_UNSPECIFIED = 0;
@@ -11,10 +12,31 @@ enum PostOnboardingStepType {
   POST_ONBOARDING_STEP_TYPE_ADD_WORKSPACE = 4;
 }
 
+enum AgentEnvironment {
+  AGENT_ENVIRONMENT_UNSPECIFIED = 0;
+  AGENT_ENVIRONMENT_LOCAL = 1;
+  AGENT_ENVIRONMENT_BACKGROUND_WORKTREE = 2;
+  AGENT_ENVIRONMENT_BACKGROUND_CITC_WORKSPACE = 3;
+  AGENT_ENVIRONMENT_BACKGROUND_CITC_WORKSPACE_CLONE = 4;
+}
+
 enum ThemeMode {
   THEME_MODE_UNSPECIFIED = 0;
   THEME_MODE_DARK = 1;
   THEME_MODE_LIGHT = 2;
+  THEME_MODE_INHERIT = 3;
+}
+
+enum AgentOnboardingState {
+  AGENT_ONBOARDING_STATE_UNSPECIFIED = 0;
+  AGENT_ONBOARDING_STATE_INCOMPLETE = 1;
+  AGENT_ONBOARDING_STATE_COMPLETED = 2;
+}
+
+enum MigrationStatus {
+  MIGRATION_STATUS_UNSPECIFIED = 0;
+  MIGRATION_STATUS_STARTED = 1;
+  MIGRATION_STATUS_COMPLETED = 2;
 }
 
 message PostOnboardingState {
@@ -33,6 +55,21 @@ message UserSettings {
   bool enable_terminal_sandbox = 9;
   bool disable_default_customizations = 10;
   exa.codeium_common_pb.PermissionGrantsConfig global_permission_grants = 11;
+  jetbox_state_pb.AgentEnvironment agent_environment = 12;
+  bool verbose_agent_chat = 13;
+  bool sandbox_allow_network = 14;
+  exa.codeium_common_pb.AgentSettingPolicy non_workspace_file_access_policy = 17;
+  exa.codeium_common_pb.AgentSettingPolicy internet_access_policy = 18;
+  bool allow_agent_access_gitignore_files = 19;
+  jetbox_state_pb.ThemeMode theme_mode = 20;
+  jetbox_state_pb.CustomThemeSeeds custom_theme_seeds_light = 21;
+  jetbox_state_pb.CustomThemeSeeds custom_theme_seeds_dark = 22;
+  exa.codeium_common_pb.BrowserJsExecutionPolicy browser_js_execution_policy = 23;
+  int32 max_cloned_workspaces = 24;
+  int32 max_clones_per_workspace = 25;
+  bool disable_eager_cloning = 26;
+  string gcp_region = 27;
+  bool remote_control_enabled = 28;
 }
 
 message SidebarWorkspaceInfo {
@@ -49,6 +86,41 @@ message CustomModelsConfig {
   repeated jetbox_state_pb.CustomModelsConfig.CustomModelsEntry custom_models = 1;
 }
 
+message CustomThemeSeeds {
+  string background = 1;
+  string primary = 2;
+  string foreground_override = 3;
+  string primary_foreground_override = 4;
+}
+
+message GoogleSpecificSettings {
+  bool google3_project_created = 1;
+}
+
+message SeenNuxUids {
+  repeated int32 uids = 1;
+}
+
+message JetboxAppState {
+  message SidebarWorkspacesEntry {
+    string key = 1;
+    jetbox_state_pb.SidebarWorkspaceInfo value = 2;
+  }
+
+  jetbox_state_pb.PostOnboardingState post_onboarding = 1;
+  jetbox_state_pb.SeenNuxUids seen_nuxs = 2;
+  bool sidebar_workspaces_migrated = 3;
+  jetbox_state_pb.GoogleSpecificSettings google_settings = 4;
+  jetbox_state_pb.AgentOnboardingState agent_onboarding_completed = 5;
+  repeated jetbox_state_pb.JetboxAppState.SidebarWorkspacesEntry sidebar_workspaces = 6;
+  exa.codeium_common_pb.Model last_selected_agent_model = 10;
+  jetbox_state_pb.CustomModelsConfig custom_models_config = 11;
+  jetbox_state_pb.AgentEnvironment agent_environment = 13;
+  bool user_config_migrated = 14;
+  jetbox_state_pb.MigrationStatus migrate_convos_into_projects = 16;
+  string installation_uuid = 17;
+}
+
 message State {
   message SidebarWorkspacesEntry {
     string key = 1;
@@ -62,4 +134,14 @@ message State {
   jetbox_state_pb.CustomModelsConfig custom_models_config = 5;
   repeated uint32 seen_nux_uids = 6;
   jetbox_state_pb.ThemeMode theme_mode = 7;
+  jetbox_state_pb.Projects project_store = 10;
+  bool sidebar_workspaces_migrated = 11;
+  jetbox_state_pb.CustomThemeSeeds custom_theme_seeds_light = 13;
+  jetbox_state_pb.CustomThemeSeeds custom_theme_seeds_dark = 14;
+  bool google3_project_created = 15;
+  jetbox_state_pb.AgentOnboardingState agent_onboarding_completed = 16;
+}
+
+message Projects {
+  repeated exa.project_pb.Project projects = 1;
 }

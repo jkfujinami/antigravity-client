@@ -8,6 +8,7 @@ import "exa/codeium_common_pb/codeium_common.proto";
 import "exa/context_module_pb/context_module.proto";
 import "exa/diff_action_pb/diff_action.proto";
 import "exa/google/internal/cloud/code/v1internal/credits.proto";
+import "exa/hooks_pb/hooks.proto";
 import "exa/opensearch_clients_pb/opensearch_clients.proto";
 import "google/protobuf/any.proto";
 import "google/protobuf/duration.proto";
@@ -64,10 +65,24 @@ enum SidecarStatus {
   SIDECAR_STATUS_BACKOFF = 4;
 }
 
+enum SidecarErrorSource {
+  SIDECAR_ERROR_SOURCE_UNSPECIFIED = 0;
+  SIDECAR_ERROR_SOURCE_MANAGER = 1;
+  SIDECAR_ERROR_SOURCE_PROCESS = 2;
+}
+
 enum SidecarUIEntrypoint {
   SIDECAR_UI_ENTRYPOINT_UNSPECIFIED = 0;
   SIDECAR_UI_ENTRYPOINT_AUX_PANE = 1;
   SIDECAR_UI_ENTRYPOINT_FULL_PANE = 2;
+}
+
+enum BattleEndType {
+  BATTLE_END_TYPE_UNSPECIFIED = 0;
+  BATTLE_END_TYPE_WINNER = 1;
+  BATTLE_END_TYPE_TIE = 2;
+  BATTLE_END_TYPE_KILL = 3;
+  BATTLE_END_TYPE_SKIP = 4;
 }
 
 enum CortexTrajectorySource {
@@ -88,7 +103,6 @@ enum CortexTrajectorySource {
   CORTEX_TRAJECTORY_SOURCE_CLI = 17;
   CORTEX_TRAJECTORY_SOURCE_JETBOX = 18;
   CORTEX_TRAJECTORY_SOURCE_AGENT_API = 19;
-  CORTEX_TRAJECTORY_SOURCE_BATTLE_MODE = 20;
   CORTEX_TRAJECTORY_SOURCE_SUBAGENT = 16;
 }
 
@@ -107,12 +121,15 @@ enum CortexTrajectoryType {
   CORTEX_TRAJECTORY_TYPE_BRAIN_UPDATE = 16;
   CORTEX_TRAJECTORY_TYPE_BROWSER = 20;
   CORTEX_TRAJECTORY_TYPE_KNOWLEDGE_GENERATION = 21;
+  CORTEX_TRAJECTORY_TYPE_SIDE_QUESTION = 22;
 }
 
 enum CortexTrajectoryReferenceType {
   CORTEX_TRAJECTORY_REFERENCE_TYPE_UNSPECIFIED = 0;
   CORTEX_TRAJECTORY_REFERENCE_TYPE_PRUNE = 1;
   CORTEX_TRAJECTORY_REFERENCE_TYPE_FORK = 2;
+  CORTEX_TRAJECTORY_REFERENCE_TYPE_BATTLE_MODE = 3;
+  CORTEX_TRAJECTORY_REFERENCE_TYPE_THOUGHT_REWRITE = 4;
 }
 
 enum RetryReason {
@@ -228,6 +245,7 @@ enum PermissionScope {
   PERMISSION_SCOPE_CONVERSATION = 2;
   PERMISSION_SCOPE_WORKSPACE = 3;
   PERMISSION_SCOPE_GLOBAL = 4;
+  PERMISSION_SCOPE_PROJECT = 5;
 }
 
 enum CortexStepType {
@@ -710,6 +728,7 @@ message WorkflowSpec {
   exa.cortex_pb.CortexMemoryScope scope = 7;
   string base_dir = 8;
   bool disable_model_invocation = 9;
+  string plugin_name = 10;
 }
 
 message CortexPlanSummaryComponent {
@@ -1101,17 +1120,34 @@ message ToolSourceMetadata {
   exa.codeium_common_pb.ChatToolCall tool_call = 3;
 }
 
+message SidecarUserConfig {
+  bool enabled = 1;
+  string project_id = 2;
+}
+
 message SidecarConfig {
-  string command = 1;
+  message EnvEntry {
+    string key = 1;
+    string value = 2;
+  }
+
   string restart_policy = 2;
   repeated string args = 3;
-  bool disabled = 4;
   string description = 5;
+  bool has_web_ui = 6;
+  repeated exa.cortex_pb.SidecarConfig.EnvEntry env = 7;
+  string display_name = 8;
+  bool disabled = 4;
+  oneof mode {
+    string command = 1;
+    string builtin = 9;
+  }
 }
 
 message SidecarUIView {
   string url = 1;
   exa.cortex_pb.SidecarUIEntrypoint entrypoint = 2;
+  string path = 3;
 }
 
 message SidecarUIConfig {
@@ -1127,6 +1163,9 @@ message SidecarStatusInfo {
   int64 start_time_ms = 5;
   int32 web_port = 6;
   exa.cortex_pb.SidecarUIConfig ui_config = 7;
+  string base_url = 8;
+  exa.cortex_pb.SidecarUserConfig user_config = 9;
+  exa.cortex_pb.SidecarErrorSource error_source = 10;
 }
 
 message SidecarCommandSource {
@@ -1151,10 +1190,15 @@ message NewConversationEvent {
   string conversation_id = 2;
 }
 
+message ConversationMetadataEvent {
+  exa.cortex_pb.CortexTrajectoryMetadata metadata = 1;
+}
+
 message SidecarEventPayload {
   oneof event {
     exa.cortex_pb.SendMessageEvent send_message = 1;
     exa.cortex_pb.NewConversationEvent new_conversation = 2;
+    exa.cortex_pb.ConversationMetadataEvent conversation_metadata = 3;
   }
 }
 
@@ -1172,13 +1216,37 @@ message CortexTrajectoryMetadata {
   string parent_conversation_id = 5;
   string root_conversation_id = 6;
   repeated string workspace_uris = 7;
-  repeated string mapped_workspace_uris = 14;
   exa.cortex_pb.SubagentSpec subagent_spec = 8;
   exa.cortex_pb.CustomAgentSpec static_config = 10;
   exa.cortex_pb.ExecutableScriptSpec executable_spec = 11;
   exa.cortex_pb.SourceMetadata source_metadata = 12;
-  string battle_mode_source_conversation_id = 13;
+  repeated int32 mendel_experiment_ids = 15;
   exa.cortex_pb.AgentScriptItem agent_script = 4;
+  bool is_battle_mode_fork = 16;
+  string project_id = 18;
+  string environment_id = 19;
+  int32 nesting_depth = 17;
+}
+
+message BattleModeInfo {
+  message OriginalWorkspaceSnapshotsEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+
+  repeated string children_conversation_ids = 1;
+  string winning_conversation_id = 2;
+  int32 start_step_index = 3;
+  int32 end_step_index = 4;
+  google.protobuf.Timestamp start_timestamp = 5;
+  google.protobuf.Timestamp end_timestamp = 6;
+  string battle_id = 7;
+  repeated string children_trajectory_ids = 8;
+  exa.cortex_pb.BattleEndType end_type = 9;
+  repeated exa.codeium_common_pb.Model original_models = 13;
+  repeated exa.codeium_common_pb.Model models = 10;
+  repeated exa.cortex_pb.BattleModeInfo.OriginalWorkspaceSnapshotsEntry original_workspace_snapshots = 11;
+  repeated exa.cortex_pb.CascadeRunStatus children_trajectory_statuses = 12;
 }
 
 message CortexTrajectoryReference {
@@ -1187,6 +1255,7 @@ message CortexTrajectoryReference {
   int32 step_index = 2;
   exa.cortex_pb.CortexStepType step_type = 4;
   exa.cortex_pb.CortexTrajectoryReferenceType reference_type = 5;
+  string conversation_id = 6;
 }
 
 message ImplicitTrajectoryDescription {
@@ -1204,6 +1273,7 @@ message CortexStepGeneratorMetadata {
   string execution_id = 4;
   string error = 5;
   repeated int32 mendel_experiment_ids = 8;
+  string prompt_debug_str = 9;
   oneof metadata {
     exa.cortex_pb.ChatModelMetadata chat_model = 1;
     exa.cortex_pb.InjectedResponseMetadata injected = 7;
@@ -1256,6 +1326,11 @@ message RetryInfo {
 }
 
 message ChatModelMetadata {
+  message CustomMetadataEntry {
+    string key = 1;
+    string value = 2;
+  }
+
   string system_prompt = 1;
   repeated exa.chat_pb.ChatMessagePrompt message_prompts = 2;
   repeated exa.cortex_pb.MessagePromptMetadata message_metadata = 10;
@@ -1275,6 +1350,7 @@ message ChatModelMetadata {
   repeated exa.cortex_pb.RetryInfo retry_infos = 17;
   repeated google.internal.cloud.code.v1internal.Credits consumed_credits = 18;
   string response_model = 19;
+  repeated exa.cortex_pb.ChatModelMetadata.CustomMetadataEntry custom_metadata = 20;
 }
 
 message ContextWindowMetadata {
@@ -1312,6 +1388,7 @@ message SnapshotMetadata {
   string workspace_id = 2;
   uint32 snapshot_version = 3;
   exa.cortex_pb.WorkspaceType workspace_type = 4;
+  string client_id = 5;
 }
 
 message StatusTransition {
@@ -1356,6 +1433,7 @@ message CortexStepMetadata {
   string tool_summary = 30;
   string tool_action = 31;
   bool is_interrupting_step = 33;
+  repeated exa.hooks_pb.PreToolHookResult pre_tool_hook_results = 34;
 }
 
 message FileAccessPermission {
@@ -1429,6 +1507,8 @@ message CascadeExecutorConfig {
   bool store_gen_svc_request = 12;
   bool enable_tasks = 13;
   bool disable_empty_output_continuation = 14;
+  bool enable_afk_stop_hook = 15;
+  bool use_core_rewrite = 16;
 }
 
 message ForcedBrainUpdateConfig {
@@ -1487,6 +1567,9 @@ message TrajectoryConversionConfig {
   bool disable_step_id = 8;
   bool enable_tool_timestamp = 10;
   bool use_raw_user_message = 9;
+  bool disable_system_message_merging = 11;
+  bool enable_context_role = 12;
+  int32 max_tokens_per_step = 13;
 }
 
 message CascadeConversationalPlannerConfig {
@@ -1528,6 +1611,7 @@ message GrepToolConfig {
   bool allow_access_gitignore = 6;
   bool use_code_search = 7;
   bool disable_fallback_to_local_execution = 8;
+  bool force_disable = 9;
 }
 
 message FindToolConfig {
@@ -1541,6 +1625,7 @@ message FindToolConfig {
 message CodeSearchToolConfig {
   string cs_path = 1;
   bool use_eval_tag = 2;
+  bool force_disable = 3;
 }
 
 message GenerateImageToolConfig {
@@ -1566,6 +1651,7 @@ message AutoCommandConfig {
   repeated string user_allowlist = 2;
   repeated string user_denylist = 3;
   repeated string system_allowlist = 4;
+  repeated string sandbox_system_allowlist = 9;
   repeated string system_denylist = 5;
   repeated string system_denylist_regex = 8;
   repeated string system_nooplist = 7;
@@ -1573,6 +1659,7 @@ message AutoCommandConfig {
 }
 
 message ListDirToolConfig {
+  bool force_disable = 2;
 }
 
 message RunCommandToolConfig {
@@ -1589,6 +1676,8 @@ message RunCommandToolConfig {
   bool enable_pty = 13;
   bool enable_persistent_mode = 14;
   bool enable_midterm_output_processor = 8;
+  bool enable_terminal_sandbox = 15;
+  string execution_host = 16;
 }
 
 message KnowledgeBaseSearchToolConfig {
@@ -1632,6 +1721,7 @@ message CodeToolConfig {
   bool skip_replace_content_validation = 9;
   bool override_allow_action_on_unsaved_file = 8;
   bool use_sed_edit = 18;
+  bool force_disable = 19;
   bool use_replace_content_edit_tool = 3;
   bool use_replace_content_propose_code = 10;
   bool run_proposal_extension_verifier = 14;
@@ -1652,6 +1742,11 @@ message ViewFileToolConfig {
   uint32 max_total_outline_bytes = 9;
   uint32 max_bytes_per_outline_item = 11;
   uint32 show_full_file_bytes = 10;
+  bool force_disable = 17;
+}
+
+message WriteToFileToolConfig {
+  bool force_disable = 1;
 }
 
 message SuggestedResponseConfig {
@@ -1671,12 +1766,16 @@ message MemoryToolConfig {
 message McpToolConfig {
   bool force_disable = 1;
   uint32 max_output_bytes = 2;
+  bool enable_lazy_load = 3;
 }
 
 message InvokeSubagentToolConfig {
   bool enabled = 1;
   exa.codeium_common_pb.Model fast_model = 2;
   exa.codeium_common_pb.Model heavy_model = 3;
+  int32 max_nesting_depth = 4;
+  bool allow_task_mode = 5;
+  bool always_inherit_model = 6;
 }
 
 message AutoFixLintsConfig {
@@ -1808,6 +1907,8 @@ message AntigravityBrowserToolConfig {
   bool log_timeout_errors_instead_of_sentry = 24;
   bool skip_permission_checks = 25;
   bool display_on_crd = 26;
+  bool generate_recording_synchronously = 27;
+  bool enable_browser_subagent_v2 = 28;
 }
 
 message TrajectorySearchToolConfig {
@@ -1894,13 +1995,40 @@ message NotebookEditToolConfig {
   bool enabled = 1;
 }
 
+message SkillSearchToolConfig {
+  bool enabled = 1;
+  int32 rpc_timeout_seconds = 2;
+  bool include_experimental = 3;
+}
+
 message AskQuestionToolConfig {
   bool enabled = 1;
 }
 
+message AskPermissionToolConfig {
+  bool enabled = 1;
+}
+
+message AllowAlwaysConfig {
+  message DangerousSubcommands {
+    repeated string subcommands = 1;
+  }
+
+  message DangerousSubcommandsEntry {
+    string key = 1;
+    exa.cortex_pb.AllowAlwaysConfig.DangerousSubcommands value = 2;
+  }
+
+  repeated string dangerous_binaries = 1;
+  repeated string subcommand_tools = 2;
+  repeated exa.cortex_pb.AllowAlwaysConfig.DangerousSubcommandsEntry dangerous_subcommands = 3;
+}
+
 message PermissionConfig {
   exa.cortex_pb.EnterpriseToolConfig enterprise_config = 1;
-  exa.codeium_common_pb.PermissionGrantsConfig global_permission_grants = 2;
+  exa.codeium_common_pb.PermissionGrantsConfig effective_grants = 2;
+  exa.codeium_common_pb.PermissionGrantsConfig default_grants = 3;
+  exa.cortex_pb.AllowAlwaysConfig allow_always_config = 4;
 }
 
 message CascadeToolConfig {
@@ -1934,7 +2062,12 @@ message CascadeToolConfig {
   exa.cortex_pb.GenerateImageToolConfig generate_image = 40;
   exa.cortex_pb.AskQuestionToolConfig ask_question = 41;
   exa.cortex_pb.PermissionConfig permission_config = 42;
+  int32 user_interaction_timeout_seconds = 43;
+  exa.cortex_pb.AskPermissionToolConfig ask_permission = 44;
+  exa.cortex_pb.WriteToFileToolConfig write_to_file = 45;
+  exa.cortex_pb.SkillSearchToolConfig skill_search = 47;
   exa.cortex_pb.ToolDescriptionOverrideMap description_override_map = 22;
+  bool auto_allow_all_interactions = 46;
   bool disable_simple_research_tools = 29;
 }
 
@@ -1976,6 +2109,7 @@ message AgenticModeConfig {
 
   repeated exa.cortex_pb.AgenticModeConfig.InjectArtifactReminderThresholdMapEntry inject_artifact_reminder_threshold_map = 1;
   bool disable_artifact_reminders = 2;
+  bool use_slash_plan = 3;
 }
 
 message CustomAgentSystemPromptConfig {
@@ -2065,6 +2199,7 @@ message FunctionProvider {
 
   string name = 1;
   string url = 2;
+  string provider_origin_conversation_id = 4;
   exa.cortex_pb.FunctionProvider.Protocol protocol = 3;
 }
 
@@ -2148,6 +2283,7 @@ message WorkspacePaths {
 
 message CustomizationConfig {
   string customization_server_url = 1;
+  string customization_server_origin_conversation_id = 18;
   repeated string tool_names = 2;
   repeated string pre_invocation_hook_names = 3;
   repeated string post_invocation_hook_names = 4;
@@ -2161,6 +2297,7 @@ message CustomizationConfig {
   exa.cortex_pb.CustomizationDiscoveryConfig customization_discovery_config = 15;
   string agent_path = 16;
   bool enable_json_hooks = 17;
+  bool enable_teamwork_subagent = 19;
   oneof workspace {
     bool user_active_workspaces = 10;
     exa.cortex_pb.WorkspacePaths workspace_paths = 11;
@@ -2174,6 +2311,10 @@ message Experiments {
   }
 
   repeated exa.cortex_pb.Experiments.ValuesEntry values = 1;
+}
+
+message ContextEngineConfig {
+  bool enable_prehook = 1;
 }
 
 message ExperimentValue {
@@ -2204,6 +2345,9 @@ message CascadePlannerConfig {
   exa.cortex_pb.AgenticModeConfig agentic_mode_config = 35;
   bool no_wait_for_previous_tools = 37;
   exa.cortex_pb.Experiments experiments = 43;
+  bool disable_loop_detection = 47;
+  bool disable_subagent_config_adjustment = 48;
+  exa.cortex_pb.ContextEngineConfig context_engine_config = 50;
   oneof planner_type_config {
     exa.cortex_pb.CascadeConversationalPlannerConfig conversational = 2;
     exa.cortex_pb.CascadeConversationalPlannerConfig google = 26;
@@ -2294,6 +2438,7 @@ message PermissionGrant {
   exa.cortex_pb.PermissionResource resource = 1;
   bool allow = 2;
   exa.cortex_pb.PermissionScope scope = 3;
+  string user_deny_instruction = 4;
 }
 
 message FilePermissionInteraction {
@@ -2354,11 +2499,23 @@ message FilePermissionInteractionSpec {
 }
 
 message PermissionInteractionSpec {
+  enum PersistSuggestionType {
+    PERSIST_SUGGESTION_TYPE_UNSPECIFIED = 0;
+    PERSIST_SUGGESTION_TYPE_SUGGESTED = 1;
+    PERSIST_SUGGESTION_TYPE_BLOCKED = 2;
+  }
+
   exa.cortex_pb.PermissionResource resource = 1;
+  exa.cortex_pb.PermissionInteractionSpec.PersistSuggestionType persist_suggestion_type = 3;
+  string suggested_persist_pattern = 2;
+  string reason = 4;
 }
 
 message PermissionInteraction {
   bool allow = 1;
+  string edited_target = 6;
+  exa.codeium_common_pb.PermissionGrantsConfig turn_grants = 4;
+  string user_deny_instruction = 5;
   exa.cortex_pb.PermissionScope scope = 2;
   bool sandbox_override = 3;
 }
@@ -2429,6 +2586,7 @@ message RequestedInteraction {
 message CascadeUserInteraction {
   string trajectory_id = 1;
   uint32 step_index = 2;
+  bool timed_out = 24;
   oneof interaction {
     exa.cortex_pb.CascadeDeployInteraction deploy = 4;
     exa.cortex_pb.CascadeRunCommandInteraction run_command = 5;
@@ -2503,11 +2661,13 @@ message ArtifactSnapshot {
   string artifact_absolute_uri = 3;
   google.protobuf.Timestamp last_edited = 4;
   exa.cortex_pb.ArtifactReviewState review_state = 5;
+  exa.codeium_common_pb.ArtifactMetadata artifact_metadata = 6;
 }
 
 message SubagentSnapshot {
   exa.cortex_pb.SubagentSpec spec = 4;
   exa.cortex_pb.SubagentResult result = 5;
+  bool killed = 6;
 }
 
 message TaskSnapshot {
@@ -2517,6 +2677,7 @@ message TaskSnapshot {
   string description = 4;
   google.protobuf.Timestamp start_time = 5;
   uint32 step_index = 6;
+  string log_uri = 7;
 }
 
 message CortexStepCheckpoint {
@@ -2541,6 +2702,8 @@ message CortexStepCheckpoint {
   repeated string user_requests = 19;
   repeated exa.cortex_pb.SubagentSnapshot subagent_snapshots = 20;
   repeated exa.cortex_pb.TaskSnapshot running_task_snapshots = 21;
+  bool render_latest_checkpoint = 24;
+  int64 render_user_message_step_index = 25;
   repeated exa.cortex_pb.CortexStepCheckpoint.EditedFileMapEntry edited_file_map = 7;
   repeated uint32 included_step_indices = 3;
   string memory_summary = 8;
@@ -2555,12 +2718,21 @@ message CheckpointConfig {
   exa.codeium_common_pb.Model checkpoint_model = 7;
   bool enabled = 6;
   bool full_async = 13;
+  bool is_sync = 2;
   int32 max_user_requests = 16;
   int32 max_user_request_bytes = 17;
   int32 max_subagent_snapshots = 18;
   exa.cortex_pb.ModelAPIRetryConfig retry_config = 14;
   bool enable_fallback = 15;
   exa.cortex_pb.CheckpointStrategy strategy = 19;
+  string session_summary_prompt_override = 20;
+  bool disable_intent_only_checkpoint = 21;
+  bool use_last_planner_model = 23;
+  bool include_artifact_snapshots = 25;
+  bool include_subagent_snapshots = 26;
+  bool include_running_task_snapshots = 27;
+  bool include_conversation_log = 28;
+  bool include_last_user_message = 29;
 }
 
 message CortexStepMquery {
@@ -2987,6 +3159,8 @@ message CortexStepUserInput {
   exa.chat_client_server_pb.ChatClientRequestStreamClientType client_type = 8;
   exa.cortex_pb.CascadeConfig user_config = 12;
   exa.cortex_pb.CascadeConfig last_user_config = 13;
+  repeated google.protobuf.Any side_channels = 15;
+  repeated string tags = 16;
   string query = 1;
   repeated exa.codeium_common_pb.ImageData images = 5;
   repeated exa.codeium_common_pb.Media media = 9;
@@ -3013,6 +3187,7 @@ message CortexStepPlannerResponse {
   google.protobuf.Duration thinking_duration = 11;
   exa.codeium_common_pb.StopReason stop_reason = 12;
   exa.codeium_common_pb.RecitationMetadata recitation_metadata = 13;
+  repeated google.protobuf.Any side_channels = 17;
 }
 
 message CortexStepFileBreakdown {
@@ -3203,6 +3378,7 @@ message ExecutorMetadata {
   string execution_id = 9;
   exa.cortex_pb.CascadeConfig cascade_config = 10;
   repeated int32 mendel_experiment_ids = 11;
+  string execution_error = 12;
 }
 
 message TrajectoryFileDiff {
@@ -3422,6 +3598,7 @@ message CortexMemory {
   exa.cortex_pb.CortexMemoryMetadata metadata = 2;
   exa.cortex_pb.CortexMemorySource source = 3;
   exa.cortex_pb.CortexMemoryScope scope = 4;
+  string absolute_path = 7;
   oneof memory {
     exa.cortex_pb.CortexMemoryText text_memory = 5;
   }
@@ -3449,6 +3626,7 @@ message CortexMemoryScope {
 }
 
 message CortexMemoryGlobalScope {
+  string absolute_file_path = 1;
 }
 
 message CortexMemoryLocalScope {
@@ -3604,10 +3782,19 @@ message McpServerSpec {
   repeated exa.cortex_pb.McpServerSpec.ToolConfigEntry tool_config = 14;
   exa.cortex_pb.McpOAuthConfig oauth = 15;
   exa.cortex_pb.McpAuthProviderType auth_provider_type = 16;
+  string plugin_name = 17;
+}
+
+message McpTaskOptions {
+  bool suppress_completion_notification = 1;
+  string display_name = 2;
+  string description = 3;
 }
 
 message McpServerToolConfig {
   exa.cortex_pb.McpToolBackgroundMode background = 1;
+  bool eager = 2;
+  exa.cortex_pb.McpTaskOptions task_options = 3;
 }
 
 message McpOAuthConfig {
@@ -3641,8 +3828,11 @@ message McpHttpServerLaunchSpec {
 
 message StepRenderInfo {
   string title = 1;
+  string title_prefix = 5;
   string markdown = 2;
   bool hidden = 4;
+  string icon = 6;
+  string aggregation_key = 7;
 }
 
 message CortexStepMcpTool {
@@ -3760,6 +3950,9 @@ message EphemeralMessagesConfig {
   repeated exa.cortex_pb.BrowserEphemeralOption browser_ephemeral_options = 5;
   bool exclude_unleash_browser_ephemeral_options = 6;
   repeated string disabled_heuristics = 7;
+  bool use_allowlist = 8;
+  repeated string enabled_heuristics = 9;
+  repeated string static_messages = 10;
   uint32 num_steps = 2;
   repeated exa.cortex_pb.HeuristicPrompt heuristic_prompts = 3;
 }
@@ -3861,11 +4054,18 @@ message CodeSearchResults {
   string depot_path = 6;
 }
 
+message QueryCorrectionSuggestion {
+  string context = 1;
+  string reason = 2;
+  string suggestion = 3;
+}
+
 message CortexStepCodeSearch {
   string query = 1;
   bool only_paths = 6;
   bool allow_dirs = 7;
   repeated exa.cortex_pb.CodeSearchResults results = 5;
+  repeated exa.cortex_pb.QueryCorrectionSuggestion query_correction_suggestions = 8;
 }
 
 message CortexStepBrowserInput {
@@ -4078,10 +4278,16 @@ message ConversationHistoryConfig {
 }
 
 message CortexStepSystemMessage {
+  message MetadataEntry {
+    string key = 1;
+    string value = 2;
+  }
+
   string message = 1;
   exa.cortex_pb.StepRenderInfo render_info = 2;
   string event_type = 3;
   exa.cortex_pb.AgentMessage agent_message = 4;
+  repeated exa.cortex_pb.CortexStepSystemMessage.MetadataEntry metadata = 5;
 }
 
 message CortexStepWait {
@@ -4110,22 +4316,38 @@ message GenericStepResult {
     string value = 2;
   }
 
+  message DataEntry {
+    string key = 1;
+    google.protobuf.Any value = 2;
+  }
+
   string result = 1;
   repeated exa.codeium_common_pb.Media media = 4;
   repeated exa.cortex_pb.GenericStepResult.MetadataEntry metadata = 2;
-  google.protobuf.Any data = 5;
+  repeated exa.cortex_pb.GenericStepResult.DataEntry data = 5;
   exa.cortex_pb.StepRenderInfo step_render_info = 3;
 }
 
 message SubagentSpec {
+  enum ModelTier {
+    MODEL_TIER_UNSPECIFIED = 0;
+    MODEL_TIER_INHERIT = 1;
+    MODEL_TIER_FLASH_LITE = 2;
+    MODEL_TIER_FLASH = 3;
+    MODEL_TIER_PRO = 4;
+  }
+
   string type_name = 1;
   string role = 2;
   string initial_prompt = 3;
   exa.codeium_common_pb.Model model = 7;
+  exa.cortex_pb.SubagentSpec.ModelTier model_tier = 8;
+  bool run_as_task = 9;
   oneof workspace {
     bool inherit = 4;
     string branch = 5;
     string workspace_uri = 6;
+    string share = 10;
   }
 }
 
@@ -4137,6 +4359,7 @@ message SubagentResult {
 
 message CortexStepInvokeSubagent {
   repeated exa.cortex_pb.SubagentSpec subagents = 9;
+  bool task_mode = 11;
   repeated exa.cortex_pb.SubagentResult results = 10;
   string subagent_name = 1;
   string prompt = 2;

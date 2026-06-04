@@ -13,6 +13,7 @@ import {
 import {
     StreamAgentStateUpdatesRequest,
 } from "../src/gen/exa/jetski_cortex_pb/jetski_cortex_pb.js";
+import { CortexTrajectorySource } from "../src/gen/exa/cortex_pb/cortex_pb.js";
 import { AutoDetector } from "../src/autodetect.js";
 import { readAuthStatus } from "../src/server/auth-reader.js";
 import { Timestamp } from "@bufbuild/protobuf";
@@ -76,12 +77,15 @@ async function main() {
     });
 
     log(`${colors.blue}Initiating Cascade Session...${colors.reset}`);
-    const startRes = await lsClient.startCascade(new StartCascadeRequest({ metadata }));
+    const startRes = await lsClient.startCascade(new StartCascadeRequest({
+        metadata,
+        source: CortexTrajectorySource.CASCADE_CLIENT,
+    }));
     const cascadeId = startRes.cascadeId;
     log(`${colors.green}Cascade ID:${colors.reset} ${colors.bright}${cascadeId}${colors.reset}`);
 
     log(`${colors.magenta}Initializing 100% AgentStateUpdate Stream...${colors.reset}`);
-    
+
     // Track seen step indices and their last content lengths to only print diffs
     const seenIndices = new Set<number>();
     const lastContentLength = new Map<number, number>();
@@ -152,12 +156,12 @@ async function main() {
                                 }
                                 break;
 
-                            case "toolCall":
-                                // Tool calls are usually static once they appear in detail
+                            default:
+                                // Tool calls (e.g. runCommand, grepSearch) and other steps
                                 if (lastContentLength.get(stepIdx) === undefined) {
-                                    process.stdout.write(`${colors.yellow}🔨 Executing Tool: ${colors.bright}${value.toolName}${colors.reset} (${value.toolAction || "default"})\n`);
-                                    if (value.toolArguments) {
-                                        process.stdout.write(`${colors.dim}Args: ${JSON.stringify(value.toolArguments)}${colors.reset}\n`);
+                                    process.stdout.write(`${colors.yellow}🔨 Step: ${colors.bright}${type}${colors.reset}\n`);
+                                    if (value) {
+                                        process.stdout.write(`${colors.dim}Data: ${JSON.stringify(value)}${colors.reset}\n`);
                                     }
                                     lastContentLength.set(stepIdx, 1);
                                 }
@@ -203,17 +207,17 @@ async function main() {
                     value: { plannerMode: 1 }
                 },
                 requestedModel: {
-                    choice: { case: "model", value: 1084 } // Gemini 3 Flash
+                    choice: { case: "model", value: 1187 } // Gemini 3 Flash
                 }
             }
         } as any,
         blocking: false,
         clientType: 1,
     });
-    
+
     await lsClient.sendUserCascadeMessage(sendReq);
     await listener;
-    
+
     console.log(`\n${colors.dim}--- [100% Listener Diagnostic End] ---${colors.reset}\n`);
 }
 

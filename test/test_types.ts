@@ -121,11 +121,11 @@ const categoryCases: [string, StepCategory][] = [
 ];
 
 for (const [input, expected] of categoryCases) {
-    assertEqual(getStepCategory(input), expected, `"${input}" -> "${expected}"`);
+    assertEqual(getStepCategory(input as any), expected, `"${input}" -> "${expected}"`);
 }
 
 assertEqual(getStepCategory(undefined), "other", "undefined -> 'other'");
-assertEqual(getStepCategory("nonExistentStep"), "other", "Unknown step case -> 'other'");
+assertEqual(getStepCategory("nonExistentStep" as any), "other", "Unknown step case -> 'other'");
 
 // ── Test: CascadeStep (runCommand) ──
 

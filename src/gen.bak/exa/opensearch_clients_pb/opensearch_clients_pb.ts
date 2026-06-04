@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
 import { DocumentType, Embedding, IndexChoice, KnowledgeBaseGroup, KnowledgeBaseItemWithMetadata, KnowledgeBaseScopeItem, Metadata } from "../codeium_common_pb/codeium_common_pb.js";
 import { ChatMessagePrompt } from "../chat_pb/chat_pb.js";
 import { IndexingStatus, ManagementMetadata, RepositoryConfig, RequestIndexVersion } from "../index_pb/index_pb.js";
@@ -196,14 +196,14 @@ proto3.util.setEnumType(JobStatus, "exa.opensearch_clients_pb.JobStatus", [
  */
 export class TimeRange extends Message<TimeRange> {
   /**
-   * @generated from field: bytes start = 1;
+   * @generated from field: google.protobuf.Timestamp start = 1;
    */
-  start = new Uint8Array(0);
+  start?: Timestamp;
 
   /**
-   * @generated from field: bytes end = 2;
+   * @generated from field: google.protobuf.Timestamp end = 2;
    */
-  end = new Uint8Array(0);
+  end?: Timestamp;
 
   constructor(data?: PartialMessage<TimeRange>) {
     super();
@@ -213,8 +213,8 @@ export class TimeRange extends Message<TimeRange> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.opensearch_clients_pb.TimeRange";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "start", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 2, name: "end", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: "start", kind: "message", T: Timestamp },
+    { no: 2, name: "end", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TimeRange {
@@ -2350,9 +2350,9 @@ export class ConnectKnowledgeBaseAccountRequest extends Message<ConnectKnowledge
   accessToken = "";
 
   /**
-   * @generated from field: bytes access_token_expires_at = 4;
+   * @generated from field: google.protobuf.Timestamp access_token_expires_at = 4;
    */
-  accessTokenExpiresAt = new Uint8Array(0);
+  accessTokenExpiresAt?: Timestamp;
 
   /**
    * @generated from field: string refresh_token = 5;
@@ -2360,9 +2360,9 @@ export class ConnectKnowledgeBaseAccountRequest extends Message<ConnectKnowledge
   refreshToken = "";
 
   /**
-   * @generated from field: bytes refresh_token_expires_at = 6;
+   * @generated from field: google.protobuf.Timestamp refresh_token_expires_at = 6;
    */
-  refreshTokenExpiresAt = new Uint8Array(0);
+  refreshTokenExpiresAt?: Timestamp;
 
   /**
    * @generated from field: exa.opensearch_clients_pb.ConnectorAdditionalParams additional_params = 8;
@@ -2380,9 +2380,9 @@ export class ConnectKnowledgeBaseAccountRequest extends Message<ConnectKnowledge
     { no: 7, name: "metadata", kind: "message", T: ManagementMetadata },
     { no: 2, name: "connector", kind: "enum", T: proto3.getEnumType(ConnectorType) },
     { no: 3, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "access_token_expires_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 4, name: "access_token_expires_at", kind: "message", T: Timestamp },
     { no: 5, name: "refresh_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 6, name: "refresh_token_expires_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 6, name: "refresh_token_expires_at", kind: "message", T: Timestamp },
     { no: 8, name: "additional_params", kind: "message", T: ConnectorAdditionalParams },
   ]);
 
@@ -2866,19 +2866,19 @@ export class ConnectorState extends Message<ConnectorState> {
   documentTypeCounts: DocumentTypeCount[] = [];
 
   /**
-   * @generated from field: bytes last_indexed_at = 5;
+   * @generated from field: google.protobuf.Timestamp last_indexed_at = 5;
    */
-  lastIndexedAt = new Uint8Array(0);
+  lastIndexedAt?: Timestamp;
 
   /**
-   * @generated from field: bytes unhealthy_since = 6;
+   * @generated from field: google.protobuf.Timestamp unhealthy_since = 6;
    */
-  unhealthySince = new Uint8Array(0);
+  unhealthySince?: Timestamp;
 
   /**
-   * @generated from field: bytes last_configured_at = 7;
+   * @generated from field: google.protobuf.Timestamp last_configured_at = 7;
    */
-  lastConfiguredAt = new Uint8Array(0);
+  lastConfiguredAt?: Timestamp;
 
   constructor(data?: PartialMessage<ConnectorState>) {
     super();
@@ -2892,9 +2892,9 @@ export class ConnectorState extends Message<ConnectorState> {
     { no: 2, name: "initialized", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 3, name: "config", kind: "message", T: ConnectorConfig },
     { no: 4, name: "document_type_counts", kind: "message", T: DocumentTypeCount, repeated: true },
-    { no: 5, name: "last_indexed_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 6, name: "unhealthy_since", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 7, name: "last_configured_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 5, name: "last_indexed_at", kind: "message", T: Timestamp },
+    { no: 6, name: "unhealthy_since", kind: "message", T: Timestamp },
+    { no: 7, name: "last_configured_at", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConnectorState {
