@@ -1,8 +1,7 @@
-
-import { AntigravityClient } from "../src/client";
-import { Cascade } from "../src/cascade";
+import { AntigravityClient, Cascade } from "../src/index.js";
 import fs from 'fs';
 import path from 'path';
+import type { ApprovalRequest, TextDeltaEvent, ThinkingDeltaEvent } from "../src/types.js";
 
 const SESSION_FILE = path.join(process.cwd(), '.last_cascade_id');
 
@@ -15,21 +14,18 @@ async function main() {
         let cascadeId = "";
         if (fs.existsSync(SESSION_FILE)) {
             cascadeId = fs.readFileSync(SESSION_FILE, 'utf-8').trim();
-            // console.log(`📂 Found saved session ID: ${cascadeId}`);
         }
 
         let cascade: Cascade | undefined;
-        cascade?.cancel
 
         if (cascadeId) {
             try {
                 console.log(`♻️ Resuming cascade: ${cascadeId}...`);
-                cascade = client.getCascade(cascadeId);
-                // History fetch to verify session is alive
-                await cascade.getHistory();
+                // Using resumeCascade which validates if it is still alive
+                cascade = await client.resumeCascade(cascadeId);
                 console.log("✅ Resume successful.");
-            } catch (e) {
-                console.warn("⚠️ Failed to resume (maybe expired?), starting new one.");
+            } catch (e: unknown) {
+                console.warn(`⚠️ Failed to resume (${(e as Error).message}), starting new one.`);
                 cascade = undefined;
             }
         }
@@ -47,29 +43,22 @@ async function main() {
         console.log(`Payload: "${msg}"`);
 
         // --- Event Listeners ---
-        cascade.on(Cascade.Events.All, (ev) => {
+        cascade.on(Cascade.Events.All, (ev: { event: string; data: unknown }) => {
             if (ev.event !== "rawUpdate") {
                 console.log(`\x1b[90m[EVENT] ${ev.event}:\x1b[0m`, ev.data);
             }
         });
 
-        cascade.on(Cascade.Events.Other, (step) => {
-            console.log(`\x1b[33m[UNHANDLED STEP] ${step.type}:\x1b[0m`, step.description);
-        });
-
         // 1. Interaction (The New Feature + AutoRun Flag)
-        cascade.on("interaction", async (ev: any) => {
-            console.log(`\n\n🔔 [Interaction Request] Step ${ev.interaction.stepIndex || ev.stepIndex}`);
-            const interaction = ev.interaction!;
-            const autoRun = ev.autoRun; // Get the flag
-
-            if (interaction.interaction.case === "runCommand") {
-                const cmd = interaction.interaction.value.proposedCommandLine;
-                console.log(`   👉 AI wants to run command: \x1b[33m${cmd}\x1b[0m`);
-                const autoRunStr = autoRun ? '\x1b[32mYES\x1b[0m' : '\x1b[31mNO (Approval Required)\x1b[0m';
+        cascade.on(Cascade.Events.Interaction, async (req: ApprovalRequest) => {
+            console.log(`\n\n🔔 [Interaction Request] Step ${req.stepIndex}`);
+            
+            if (req.type === "run_command") {
+                console.log(`   👉 AI wants to run command: \x1b[33m${req.commandLine}\x1b[0m`);
+                const autoRunStr = req.autoRun ? '\x1b[32mYES\x1b[0m' : '\x1b[31mNO (Approval Required)\x1b[0m';
                 console.log(`   ⚙️  AutoRun Safe? : ${autoRunStr}`);
 
-                if (autoRun) {
+                if (req.autoRun) {
                      console.log("   🚀 Auto-running permitted by Server.");
                 } else {
                      console.log("   🤔 User approval would be required here.");
@@ -78,35 +67,33 @@ async function main() {
                 console.log("   🤖 Approving command in 1s anyway for test...");
                 await new Promise(r => setTimeout(r, 1000));
 
-                await cascade!.approveCommand(ev.stepIndex!, cmd);
-                console.log("   ✅ Command Approved!");
+                try {
+                    await req.approve();
+                    console.log("   ✅ Command Approved!");
+                } catch (e) {
+                    console.error("   ❌ Command Approval Failed", e);
+                }
             } else {
-                console.log("   ❓ Unknown interaction type:", interaction.interaction.case);
+                console.log("   ❓ Other interaction type:", req.type);
             }
         });
 
         // 2. Text Streaming
-        cascade.on(Cascade.Events.Text, (ev) => process.stdout.write(ev.delta || ""));
-        cascade.on(Cascade.Events.Thinking, (ev) => process.stdout.write(`\x1b[90m${ev.delta}\x1b[0m`));
+        cascade.on(Cascade.Events.Text, (ev: TextDeltaEvent) => process.stdout.write(ev.delta));
+        cascade.on(Cascade.Events.Thinking, (ev: ThinkingDeltaEvent) => process.stdout.write(`\x1b[90m${ev.delta}\x1b[0m`));
 
-        cascade.on(Cascade.Events.Error, (err: any) => {
+        cascade.on(Cascade.Events.Error, (err: unknown) => {
             console.error("\n❌ Error:", err);
-        })
-        cascade.on(Cascade.Events.Interaction, (ev) => {
-            console.log("\n\n=== INTERACTION ===");
-            console.log(ev);
         });
-        cascade.listen()
 
         // --- Send Request ---
         console.log("📨 Sending request...");
-        await cascade.sendMessage(msg);
+        await cascade.run(msg, { timeoutMs: 30000 });
+        console.log("\n✅ Request finished.");
+        
+        client.dispose();
 
-        // Keep alive for a bit to allow stream to complete
-        console.log("\n(Waiting for completion...)");
-        await new Promise(r => setTimeout(r, 15000));
-
-    } catch (err) {
+    } catch (err: unknown) {
         console.error("Main Error:", err);
     }
 }
