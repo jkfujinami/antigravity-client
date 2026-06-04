@@ -24,7 +24,7 @@ By offloading context management to the LS, you can spend your time engineering 
 - **Unofficial**: This project is an unofficial implementation and is not affiliated with Google or DeepMind.
 - **No Warranty**: The developers are not responsible for any damage caused by the use of this software.
 - **Terms of Service**: Please comply with the official Antigravity/Google AI terms of service when using this library.
-- **Platform**: Currently **macOS only**. Auto-detection, binary paths, and database reading are optimized for macOS.
+- **Platform**: Supports **macOS and Linux**. Auto-detection, binary paths, and database reading are optimized for these platforms (Windows is currently not supported).
 
 ---
 
