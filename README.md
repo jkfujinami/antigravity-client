@@ -25,6 +25,19 @@ Unlike the official SDK (which extends the IDE via the VS Code Extension API), t
 
 ---
 
+## 🤖 A Powerful Infrastructure for AI Agents
+
+Antigravity LS is not just a tool; it is a **robust foundation for building autonomous AI agents.** By using this SDK, you can leverage the Language Server as a managed backend for your custom agents.
+
+- **Managed Context & Sessions**: The LS server handles the complex heavy lifting of session management and context window optimization. This allows you to focus on high-layer development and agent logic rather than low-level state handling.
+- **Advanced Prompt Tuning**: Inject custom prompts and metadata at a per-message level. This granular control allows for precise adjustment of agent behavior in specific scenarios.
+- **Integrated Tooling & Search**: Seamlessly integrate web search, file indexing, and terminal execution. You can build custom agents that utilize these tools with surgical precision through a single SDK interface.
+- **Event-Driven Architecture**: The SDK features a modern, event-driven `Cascade` API, cleanly separating stream management, state parsing, and API interaction, making it highly extensible and easy to reason about.
+
+By offloading context management to the LS, you can spend your time engineering the "brain" of your agent rather than its infrastructure.
+
+---
+
 ## Quick Start
 
 ```bash
