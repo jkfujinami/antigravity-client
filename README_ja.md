@@ -2,7 +2,7 @@
 
 A TypeScript client library and CLI tool for interacting with the **Antigravity Language Server (LS)** using the Connect (gRPC) protocol.
 
-本ライブラリは、Antigravity IDE のフロントエンドコードとバックエンド通信のリバースエンジニアリングを通じて、消失した Protobuf スキーマを復元し、その核心的機能をプログラムから直接操作可能にした非公式 API です。
+本ライブラリは、Antigravity IDE のフロントエンドコードとバックエンド通信のリバースエンジニアリングを通じて、消失した Protobuf スキーマを復元し、その核心的機能をプログラムから直接操作可能にした非公式 API です。最新の Antigravity 2.0 アーキテクチャに完全対応しました。
 
 ---
 
