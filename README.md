@@ -1,6 +1,6 @@
 # Antigravity Client & SDK
 
-A TypeScript client library and CLI tool for interacting with the **Antigravity Language Server (LS)** using the Connect (gRPC) protocol.
+A TypeScript client library and CLI tool for interacting with the **Antigravity Language Server (LS)** using the Connect (gRPC) protocol. Fully compatible with Antigravity 2.0.
 
 This library is an unofficial API developed by reverse-engineering the frontend code and backend communication of the Antigravity IDE, reconstructing the original Protobuf schemas to provide programmatic access to its core features.
 

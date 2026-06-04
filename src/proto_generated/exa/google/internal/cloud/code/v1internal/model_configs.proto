@@ -57,6 +57,8 @@ message ModelDetails {
   int32 thinking_level = 35;
   string tool_response_key = 36;
   google.internal.cloud.code.v1internal.ModelExperiments model_experiments = 37;
+  bool supports_thought_circulation = 38;
+  string vertex_model_id = 39;
 }
 
 message ModelSort {
@@ -93,6 +95,12 @@ message ModelExperiments {
   repeated google.internal.cloud.code.v1internal.ModelExperiments.ExperimentsEntry experiments = 1;
 }
 
+message TieredModelConfig {
+  repeated string flash_lite = 1;
+  repeated string flash = 2;
+  repeated string pro = 3;
+}
+
 message FetchAvailableModelsResponse {
   message ModelsEntry {
     string key = 1;
@@ -116,4 +124,6 @@ message FetchAvailableModelsResponse {
   repeated google.internal.cloud.code.v1internal.FetchAvailableModelsResponse.DeprecatedModelIdsEntry deprecated_model_ids = 9;
   repeated string audio_transcription_model_ids = 11;
   repeated google.internal.cloud.code.v1internal.ModelSort battle_mode_model_sorts = 12;
+  google.internal.cloud.code.v1internal.TieredModelConfig tiered_model_ids = 14;
+  repeated int32 experiment_ids = 13;
 }

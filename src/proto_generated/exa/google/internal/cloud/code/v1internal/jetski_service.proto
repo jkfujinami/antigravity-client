@@ -15,6 +15,8 @@ enum CascadeNuxLocation {
   CASCADE_NUX_LOCATION_TOOLBAR = 9;
   CASCADE_NUX_LOCATION_MANAGER_BOTTOM_LEFT = 10;
   CASCADE_NUX_LOCATION_ARTIFACT_VIEW_BOTTOM_LEFT = 11;
+  CASCADE_NUX_LOCATION_CHAT_PANEL_BANNER = 12;
+  CASCADE_NUX_LOCATION_ALWAYS_MOUNTED = 13;
 }
 
 enum CascadeNuxIcon {
@@ -33,12 +35,21 @@ enum CascadeNuxTrigger {
   CASCADE_NUX_TRIGGER_MANAGER_ARTIFACT_OPENED = 7;
   CASCADE_NUX_TRIGGER_MANAGER_FILE_OPENED = 8;
   CASCADE_NUX_TRIGGER_MANAGER_CONVERSATION_AVAILABLE = 10;
+  CASCADE_NUX_TRIGGER_MANAGER_PROJECT_CREATED = 11;
+  CASCADE_NUX_TRIGGER_MANAGER_PROJECT_ENVIRONMENT_SELECTION = 12;
+  CASCADE_NUX_TRIGGER_MANAGER_CREATE_FIRST_PROJECT_DIALOG = 13;
 }
 
 enum NuxClient {
   NUX_CLIENT_UNSPECIFIED = 0;
   NUX_CLIENT_JETSKI = 1;
   NUX_CLIENT_ANTIGRAVITY = 2;
+}
+
+enum NUXInteractionType {
+  NUX_INTERACTION_TYPE_UNSPECIFIED = 0;
+  NUX_INTERACTION_TYPE_DISMISSED = 1;
+  NUX_INTERACTION_TYPE_ACCEPTED = 2;
 }
 
 message SetUserSettingsRequest {
@@ -77,6 +88,17 @@ message ListAgentPluginsRequest {
 
 message ListAgentPluginsResponse {
   repeated google.internal.cloud.code.v1internal.AgentPlugin agent_plugins = 1;
+  string next_page_token = 2;
+}
+
+message ListBuildWithGooglePluginsRequest {
+  string filter = 1;
+  int32 page_size = 2;
+  string page_token = 3;
+}
+
+message ListBuildWithGooglePluginsResponse {
+  repeated google.internal.cloud.code.v1internal.BuildWithGooglePlugin build_with_google_plugins = 1;
   string next_page_token = 2;
 }
 
@@ -137,6 +159,23 @@ message AgentPlugin {
   oneof configuration {
     google.internal.cloud.code.v1internal.AgentPluginLocalConfig local = 9;
     google.internal.cloud.code.v1internal.AgentPluginRemoteConfig remote = 10;
+  }
+}
+
+message GStaticSource {
+  string link = 1;
+}
+
+message BuildWithGooglePlugin {
+  message VersionShasEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  google.internal.cloud.code.v1internal.AgentPlugin plugin = 1;
+  repeated google.internal.cloud.code.v1internal.BuildWithGooglePlugin.VersionShasEntry version_shas = 4;
+  oneof source {
+    google.internal.cloud.code.v1internal.GStaticSource gstatic = 3;
   }
 }
 
@@ -201,6 +240,9 @@ message CascadeNux {
   string image_url = 14;
   string video_url = 15;
   google.internal.cloud.code.v1internal.NuxFilter filter = 16;
+  repeated google.internal.cloud.code.v1internal.NUXInteractionType available_interactions = 17;
+  string learn_more_button_text = 18;
+  string primary_cta_text = 19;
 }
 
 message NuxVersionFilter {
@@ -212,6 +254,26 @@ message NuxVersionFilter {
 message NuxFilter {
   repeated google.internal.cloud.code.v1internal.NuxClient clients = 1;
   google.internal.cloud.code.v1internal.NuxVersionFilter version_filter = 2;
+  repeated string subclients = 3;
+}
+
+message Interaction {
+  oneof interaction_data {
+    google.internal.cloud.code.v1internal.NUXInteraction nux_interaction = 1;
+  }
+}
+
+message NUXInteraction {
+  int32 nux_id = 1;
+  google.internal.cloud.code.v1internal.NUXInteractionType interaction_type = 2;
+}
+
+message RegisterInteractionRequest {
+  google.internal.cloud.code.v1internal.Interaction interaction = 1;
+}
+
+message RegisterInteractionResponse {
+  string message = 1;
 }
 
 message TabChatRequest {
@@ -252,14 +314,25 @@ message RecordTrajectoryAnalyticsResponse {
 
 message FetchFromTrawlerCacheRequest {
   string url = 1;
+  bool live_fetch = 2;
 }
 
 message FetchFromTrawlerCacheResponse {
   string content = 1;
 }
 
+message BattleModeOverridesRequest {
+  repeated string model_ids = 1;
+}
+
+message BattleModeOverridesResponse {
+  bool should_override = 1;
+  repeated string override_model_ids = 2;
+}
+
 service JetskiService {
   rpc ListAgentPlugins(google.internal.cloud.code.v1internal.ListAgentPluginsRequest) returns (google.internal.cloud.code.v1internal.ListAgentPluginsResponse);
+  rpc ListBuildWithGooglePlugins(google.internal.cloud.code.v1internal.ListBuildWithGooglePluginsRequest) returns (google.internal.cloud.code.v1internal.ListBuildWithGooglePluginsResponse);
   rpc GetAgentPlugin(google.internal.cloud.code.v1internal.GetAgentPluginRequest) returns (google.internal.cloud.code.v1internal.AgentPlugin);
   rpc ListCascadeNuxes(google.internal.cloud.code.v1internal.ListCascadeNuxesRequest) returns (google.internal.cloud.code.v1internal.ListCascadeNuxesResponse);
   rpc ListWebDocsOptions(google.internal.cloud.code.v1internal.ListWebDocsOptionsRequest) returns (google.internal.cloud.code.v1internal.ListWebDocsOptionsResponse);
@@ -271,4 +344,6 @@ service JetskiService {
   rpc GetHealth(google.internal.cloud.code.v1internal.GetHealthRequest) returns (google.internal.cloud.code.v1internal.Health);
   rpc RecordTrajectoryAnalytics(google.internal.cloud.code.v1internal.RecordTrajectoryAnalyticsRequest) returns (google.internal.cloud.code.v1internal.RecordTrajectoryAnalyticsResponse);
   rpc FetchFromTrawlerCache(google.internal.cloud.code.v1internal.FetchFromTrawlerCacheRequest) returns (google.internal.cloud.code.v1internal.FetchFromTrawlerCacheResponse);
+  rpc RegisterInteraction(google.internal.cloud.code.v1internal.RegisterInteractionRequest) returns (google.internal.cloud.code.v1internal.RegisterInteractionResponse);
+  rpc BattleModeOverrides(google.internal.cloud.code.v1internal.BattleModeOverridesRequest) returns (google.internal.cloud.code.v1internal.BattleModeOverridesResponse);
 }

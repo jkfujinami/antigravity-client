@@ -4,8 +4,8 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message as Message$1, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
-import { ChatMessageSource, ChatToolCall, CodeContextItem, CodeContextType, ContextInclusionType, Document, ExperimentConfig, ExperimentKey, GitRepoInfo, ImageData, KnowledgeBaseItemWithMetadata, Language, Media, Metadata, Model, PromptAnnotationRange, TextOrScopeItem } from "../codeium_common_pb/codeium_common_pb.js";
+import { Any, Message as Message$1, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
+import { ChatMessageSource, ChatToolCall, CodeContextItem, CodeContextType, ContextInclusionType, Document, ExperimentConfig, ExperimentKey, GitRepoInfo, ImageData, KnowledgeBaseItemWithMetadata, Language, Media, Metadata, Model, PromptAnnotationRange, Struct, TextOrScopeItem } from "../codeium_common_pb/codeium_common_pb.js";
 import { DiffBlock } from "../diff_action_pb/diff_action_pb.js";
 
 /**
@@ -1114,6 +1114,11 @@ export class ChatMessagePrompt extends Message$1<ChatMessagePrompt> {
   prompt = "";
 
   /**
+   * @generated from field: exa.codeium_common_pb.Struct prompt_struct = 23;
+   */
+  promptStruct?: Struct;
+
+  /**
    * @generated from field: uint32 num_tokens = 4;
    */
   numTokens = 0;
@@ -1193,6 +1198,11 @@ export class ChatMessagePrompt extends Message$1<ChatMessagePrompt> {
    */
   providerAssignedMessageId = "";
 
+  /**
+   * @generated from field: repeated google.protobuf.Any side_channels = 22;
+   */
+  sideChannels: Any[] = [];
+
   constructor(data?: PartialMessage<ChatMessagePrompt>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1204,6 +1214,7 @@ export class ChatMessagePrompt extends Message$1<ChatMessagePrompt> {
     { no: 1, name: "message_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "source", kind: "enum", T: proto3.getEnumType(ChatMessageSource) },
     { no: 3, name: "prompt", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 23, name: "prompt_struct", kind: "message", T: Struct },
     { no: 4, name: "num_tokens", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 5, name: "safe_for_code_telemetry", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 6, name: "tool_calls", kind: "message", T: ChatToolCall, repeated: true },
@@ -1220,6 +1231,7 @@ export class ChatMessagePrompt extends Message$1<ChatMessagePrompt> {
     { no: 14, name: "prompt_annotation_ranges", kind: "message", T: PromptAnnotationRange, repeated: true },
     { no: 18, name: "step_idx", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 21, name: "provider_assigned_message_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 22, name: "side_channels", kind: "message", T: Any, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatMessagePrompt {
@@ -1347,6 +1359,11 @@ export class ChatToolDefinition extends Message$1<ChatToolDefinition> {
    */
   serverName = "";
 
+  /**
+   * @generated from field: string original_name = 7;
+   */
+  originalName = "";
+
   constructor(data?: PartialMessage<ChatToolDefinition>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1361,6 +1378,7 @@ export class ChatToolDefinition extends Message$1<ChatToolDefinition> {
     { no: 4, name: "strict", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 5, name: "attribution_field_names", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 6, name: "server_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "original_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatToolDefinition {

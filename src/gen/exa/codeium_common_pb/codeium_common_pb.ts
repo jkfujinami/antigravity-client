@@ -2336,6 +2336,2506 @@ export enum Model {
    * @generated from enum value: MODEL_PLACEHOLDER_M150 = 1150;
    */
   PLACEHOLDER_M150 = 1150,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M151 = 1151;
+   */
+  PLACEHOLDER_M151 = 1151,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M152 = 1152;
+   */
+  PLACEHOLDER_M152 = 1152,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M153 = 1153;
+   */
+  PLACEHOLDER_M153 = 1153,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M154 = 1154;
+   */
+  PLACEHOLDER_M154 = 1154,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M155 = 1155;
+   */
+  PLACEHOLDER_M155 = 1155,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M156 = 1156;
+   */
+  PLACEHOLDER_M156 = 1156,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M157 = 1157;
+   */
+  PLACEHOLDER_M157 = 1157,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M158 = 1158;
+   */
+  PLACEHOLDER_M158 = 1158,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M159 = 1159;
+   */
+  PLACEHOLDER_M159 = 1159,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M160 = 1160;
+   */
+  PLACEHOLDER_M160 = 1160,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M161 = 1161;
+   */
+  PLACEHOLDER_M161 = 1161,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M162 = 1162;
+   */
+  PLACEHOLDER_M162 = 1162,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M163 = 1163;
+   */
+  PLACEHOLDER_M163 = 1163,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M164 = 1164;
+   */
+  PLACEHOLDER_M164 = 1164,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M165 = 1165;
+   */
+  PLACEHOLDER_M165 = 1165,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M166 = 1166;
+   */
+  PLACEHOLDER_M166 = 1166,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M167 = 1167;
+   */
+  PLACEHOLDER_M167 = 1167,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M168 = 1168;
+   */
+  PLACEHOLDER_M168 = 1168,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M169 = 1169;
+   */
+  PLACEHOLDER_M169 = 1169,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M170 = 1170;
+   */
+  PLACEHOLDER_M170 = 1170,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M171 = 1171;
+   */
+  PLACEHOLDER_M171 = 1171,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M172 = 1172;
+   */
+  PLACEHOLDER_M172 = 1172,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M173 = 1173;
+   */
+  PLACEHOLDER_M173 = 1173,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M174 = 1174;
+   */
+  PLACEHOLDER_M174 = 1174,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M175 = 1175;
+   */
+  PLACEHOLDER_M175 = 1175,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M176 = 1176;
+   */
+  PLACEHOLDER_M176 = 1176,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M177 = 1177;
+   */
+  PLACEHOLDER_M177 = 1177,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M178 = 1178;
+   */
+  PLACEHOLDER_M178 = 1178,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M179 = 1179;
+   */
+  PLACEHOLDER_M179 = 1179,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M180 = 1180;
+   */
+  PLACEHOLDER_M180 = 1180,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M181 = 1181;
+   */
+  PLACEHOLDER_M181 = 1181,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M182 = 1182;
+   */
+  PLACEHOLDER_M182 = 1182,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M183 = 1183;
+   */
+  PLACEHOLDER_M183 = 1183,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M184 = 1184;
+   */
+  PLACEHOLDER_M184 = 1184,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M185 = 1185;
+   */
+  PLACEHOLDER_M185 = 1185,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M186 = 1186;
+   */
+  PLACEHOLDER_M186 = 1186,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M187 = 1187;
+   */
+  PLACEHOLDER_M187 = 1187,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M188 = 1188;
+   */
+  PLACEHOLDER_M188 = 1188,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M189 = 1189;
+   */
+  PLACEHOLDER_M189 = 1189,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M190 = 1190;
+   */
+  PLACEHOLDER_M190 = 1190,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M191 = 1191;
+   */
+  PLACEHOLDER_M191 = 1191,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M192 = 1192;
+   */
+  PLACEHOLDER_M192 = 1192,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M193 = 1193;
+   */
+  PLACEHOLDER_M193 = 1193,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M194 = 1194;
+   */
+  PLACEHOLDER_M194 = 1194,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M195 = 1195;
+   */
+  PLACEHOLDER_M195 = 1195,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M196 = 1196;
+   */
+  PLACEHOLDER_M196 = 1196,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M197 = 1197;
+   */
+  PLACEHOLDER_M197 = 1197,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M198 = 1198;
+   */
+  PLACEHOLDER_M198 = 1198,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M199 = 1199;
+   */
+  PLACEHOLDER_M199 = 1199,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M200 = 1200;
+   */
+  PLACEHOLDER_M200 = 1200,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M201 = 1201;
+   */
+  PLACEHOLDER_M201 = 1201,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M202 = 1202;
+   */
+  PLACEHOLDER_M202 = 1202,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M203 = 1203;
+   */
+  PLACEHOLDER_M203 = 1203,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M204 = 1204;
+   */
+  PLACEHOLDER_M204 = 1204,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M205 = 1205;
+   */
+  PLACEHOLDER_M205 = 1205,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M206 = 1206;
+   */
+  PLACEHOLDER_M206 = 1206,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M207 = 1207;
+   */
+  PLACEHOLDER_M207 = 1207,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M208 = 1208;
+   */
+  PLACEHOLDER_M208 = 1208,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M209 = 1209;
+   */
+  PLACEHOLDER_M209 = 1209,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M210 = 1210;
+   */
+  PLACEHOLDER_M210 = 1210,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M211 = 1211;
+   */
+  PLACEHOLDER_M211 = 1211,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M212 = 1212;
+   */
+  PLACEHOLDER_M212 = 1212,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M213 = 1213;
+   */
+  PLACEHOLDER_M213 = 1213,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M214 = 1214;
+   */
+  PLACEHOLDER_M214 = 1214,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M215 = 1215;
+   */
+  PLACEHOLDER_M215 = 1215,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M216 = 1216;
+   */
+  PLACEHOLDER_M216 = 1216,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M217 = 1217;
+   */
+  PLACEHOLDER_M217 = 1217,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M218 = 1218;
+   */
+  PLACEHOLDER_M218 = 1218,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M219 = 1219;
+   */
+  PLACEHOLDER_M219 = 1219,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M220 = 1220;
+   */
+  PLACEHOLDER_M220 = 1220,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M221 = 1221;
+   */
+  PLACEHOLDER_M221 = 1221,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M222 = 1222;
+   */
+  PLACEHOLDER_M222 = 1222,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M223 = 1223;
+   */
+  PLACEHOLDER_M223 = 1223,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M224 = 1224;
+   */
+  PLACEHOLDER_M224 = 1224,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M225 = 1225;
+   */
+  PLACEHOLDER_M225 = 1225,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M226 = 1226;
+   */
+  PLACEHOLDER_M226 = 1226,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M227 = 1227;
+   */
+  PLACEHOLDER_M227 = 1227,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M228 = 1228;
+   */
+  PLACEHOLDER_M228 = 1228,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M229 = 1229;
+   */
+  PLACEHOLDER_M229 = 1229,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M230 = 1230;
+   */
+  PLACEHOLDER_M230 = 1230,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M231 = 1231;
+   */
+  PLACEHOLDER_M231 = 1231,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M232 = 1232;
+   */
+  PLACEHOLDER_M232 = 1232,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M233 = 1233;
+   */
+  PLACEHOLDER_M233 = 1233,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M234 = 1234;
+   */
+  PLACEHOLDER_M234 = 1234,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M235 = 1235;
+   */
+  PLACEHOLDER_M235 = 1235,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M236 = 1236;
+   */
+  PLACEHOLDER_M236 = 1236,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M237 = 1237;
+   */
+  PLACEHOLDER_M237 = 1237,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M238 = 1238;
+   */
+  PLACEHOLDER_M238 = 1238,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M239 = 1239;
+   */
+  PLACEHOLDER_M239 = 1239,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M240 = 1240;
+   */
+  PLACEHOLDER_M240 = 1240,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M241 = 1241;
+   */
+  PLACEHOLDER_M241 = 1241,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M242 = 1242;
+   */
+  PLACEHOLDER_M242 = 1242,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M243 = 1243;
+   */
+  PLACEHOLDER_M243 = 1243,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M244 = 1244;
+   */
+  PLACEHOLDER_M244 = 1244,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M245 = 1245;
+   */
+  PLACEHOLDER_M245 = 1245,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M246 = 1246;
+   */
+  PLACEHOLDER_M246 = 1246,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M247 = 1247;
+   */
+  PLACEHOLDER_M247 = 1247,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M248 = 1248;
+   */
+  PLACEHOLDER_M248 = 1248,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M249 = 1249;
+   */
+  PLACEHOLDER_M249 = 1249,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M250 = 1250;
+   */
+  PLACEHOLDER_M250 = 1250,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M251 = 1251;
+   */
+  PLACEHOLDER_M251 = 1251,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M252 = 1252;
+   */
+  PLACEHOLDER_M252 = 1252,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M253 = 1253;
+   */
+  PLACEHOLDER_M253 = 1253,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M254 = 1254;
+   */
+  PLACEHOLDER_M254 = 1254,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M255 = 1255;
+   */
+  PLACEHOLDER_M255 = 1255,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M256 = 1256;
+   */
+  PLACEHOLDER_M256 = 1256,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M257 = 1257;
+   */
+  PLACEHOLDER_M257 = 1257,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M258 = 1258;
+   */
+  PLACEHOLDER_M258 = 1258,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M259 = 1259;
+   */
+  PLACEHOLDER_M259 = 1259,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M260 = 1260;
+   */
+  PLACEHOLDER_M260 = 1260,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M261 = 1261;
+   */
+  PLACEHOLDER_M261 = 1261,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M262 = 1262;
+   */
+  PLACEHOLDER_M262 = 1262,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M263 = 1263;
+   */
+  PLACEHOLDER_M263 = 1263,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M264 = 1264;
+   */
+  PLACEHOLDER_M264 = 1264,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M265 = 1265;
+   */
+  PLACEHOLDER_M265 = 1265,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M266 = 1266;
+   */
+  PLACEHOLDER_M266 = 1266,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M267 = 1267;
+   */
+  PLACEHOLDER_M267 = 1267,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M268 = 1268;
+   */
+  PLACEHOLDER_M268 = 1268,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M269 = 1269;
+   */
+  PLACEHOLDER_M269 = 1269,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M270 = 1270;
+   */
+  PLACEHOLDER_M270 = 1270,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M271 = 1271;
+   */
+  PLACEHOLDER_M271 = 1271,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M272 = 1272;
+   */
+  PLACEHOLDER_M272 = 1272,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M273 = 1273;
+   */
+  PLACEHOLDER_M273 = 1273,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M274 = 1274;
+   */
+  PLACEHOLDER_M274 = 1274,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M275 = 1275;
+   */
+  PLACEHOLDER_M275 = 1275,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M276 = 1276;
+   */
+  PLACEHOLDER_M276 = 1276,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M277 = 1277;
+   */
+  PLACEHOLDER_M277 = 1277,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M278 = 1278;
+   */
+  PLACEHOLDER_M278 = 1278,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M279 = 1279;
+   */
+  PLACEHOLDER_M279 = 1279,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M280 = 1280;
+   */
+  PLACEHOLDER_M280 = 1280,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M281 = 1281;
+   */
+  PLACEHOLDER_M281 = 1281,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M282 = 1282;
+   */
+  PLACEHOLDER_M282 = 1282,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M283 = 1283;
+   */
+  PLACEHOLDER_M283 = 1283,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M284 = 1284;
+   */
+  PLACEHOLDER_M284 = 1284,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M285 = 1285;
+   */
+  PLACEHOLDER_M285 = 1285,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M286 = 1286;
+   */
+  PLACEHOLDER_M286 = 1286,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M287 = 1287;
+   */
+  PLACEHOLDER_M287 = 1287,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M288 = 1288;
+   */
+  PLACEHOLDER_M288 = 1288,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M289 = 1289;
+   */
+  PLACEHOLDER_M289 = 1289,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M290 = 1290;
+   */
+  PLACEHOLDER_M290 = 1290,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M291 = 1291;
+   */
+  PLACEHOLDER_M291 = 1291,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M292 = 1292;
+   */
+  PLACEHOLDER_M292 = 1292,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M293 = 1293;
+   */
+  PLACEHOLDER_M293 = 1293,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M294 = 1294;
+   */
+  PLACEHOLDER_M294 = 1294,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M295 = 1295;
+   */
+  PLACEHOLDER_M295 = 1295,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M296 = 1296;
+   */
+  PLACEHOLDER_M296 = 1296,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M297 = 1297;
+   */
+  PLACEHOLDER_M297 = 1297,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M298 = 1298;
+   */
+  PLACEHOLDER_M298 = 1298,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M299 = 1299;
+   */
+  PLACEHOLDER_M299 = 1299,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M300 = 1300;
+   */
+  PLACEHOLDER_M300 = 1300,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M301 = 1301;
+   */
+  PLACEHOLDER_M301 = 1301,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M302 = 1302;
+   */
+  PLACEHOLDER_M302 = 1302,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M303 = 1303;
+   */
+  PLACEHOLDER_M303 = 1303,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M304 = 1304;
+   */
+  PLACEHOLDER_M304 = 1304,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M305 = 1305;
+   */
+  PLACEHOLDER_M305 = 1305,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M306 = 1306;
+   */
+  PLACEHOLDER_M306 = 1306,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M307 = 1307;
+   */
+  PLACEHOLDER_M307 = 1307,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M308 = 1308;
+   */
+  PLACEHOLDER_M308 = 1308,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M309 = 1309;
+   */
+  PLACEHOLDER_M309 = 1309,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M310 = 1310;
+   */
+  PLACEHOLDER_M310 = 1310,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M311 = 1311;
+   */
+  PLACEHOLDER_M311 = 1311,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M312 = 1312;
+   */
+  PLACEHOLDER_M312 = 1312,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M313 = 1313;
+   */
+  PLACEHOLDER_M313 = 1313,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M314 = 1314;
+   */
+  PLACEHOLDER_M314 = 1314,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M315 = 1315;
+   */
+  PLACEHOLDER_M315 = 1315,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M316 = 1316;
+   */
+  PLACEHOLDER_M316 = 1316,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M317 = 1317;
+   */
+  PLACEHOLDER_M317 = 1317,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M318 = 1318;
+   */
+  PLACEHOLDER_M318 = 1318,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M319 = 1319;
+   */
+  PLACEHOLDER_M319 = 1319,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M320 = 1320;
+   */
+  PLACEHOLDER_M320 = 1320,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M321 = 1321;
+   */
+  PLACEHOLDER_M321 = 1321,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M322 = 1322;
+   */
+  PLACEHOLDER_M322 = 1322,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M323 = 1323;
+   */
+  PLACEHOLDER_M323 = 1323,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M324 = 1324;
+   */
+  PLACEHOLDER_M324 = 1324,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M325 = 1325;
+   */
+  PLACEHOLDER_M325 = 1325,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M326 = 1326;
+   */
+  PLACEHOLDER_M326 = 1326,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M327 = 1327;
+   */
+  PLACEHOLDER_M327 = 1327,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M328 = 1328;
+   */
+  PLACEHOLDER_M328 = 1328,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M329 = 1329;
+   */
+  PLACEHOLDER_M329 = 1329,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M330 = 1330;
+   */
+  PLACEHOLDER_M330 = 1330,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M331 = 1331;
+   */
+  PLACEHOLDER_M331 = 1331,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M332 = 1332;
+   */
+  PLACEHOLDER_M332 = 1332,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M333 = 1333;
+   */
+  PLACEHOLDER_M333 = 1333,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M334 = 1334;
+   */
+  PLACEHOLDER_M334 = 1334,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M335 = 1335;
+   */
+  PLACEHOLDER_M335 = 1335,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M336 = 1336;
+   */
+  PLACEHOLDER_M336 = 1336,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M337 = 1337;
+   */
+  PLACEHOLDER_M337 = 1337,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M338 = 1338;
+   */
+  PLACEHOLDER_M338 = 1338,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M339 = 1339;
+   */
+  PLACEHOLDER_M339 = 1339,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M340 = 1340;
+   */
+  PLACEHOLDER_M340 = 1340,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M341 = 1341;
+   */
+  PLACEHOLDER_M341 = 1341,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M342 = 1342;
+   */
+  PLACEHOLDER_M342 = 1342,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M343 = 1343;
+   */
+  PLACEHOLDER_M343 = 1343,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M344 = 1344;
+   */
+  PLACEHOLDER_M344 = 1344,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M345 = 1345;
+   */
+  PLACEHOLDER_M345 = 1345,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M346 = 1346;
+   */
+  PLACEHOLDER_M346 = 1346,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M347 = 1347;
+   */
+  PLACEHOLDER_M347 = 1347,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M348 = 1348;
+   */
+  PLACEHOLDER_M348 = 1348,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M349 = 1349;
+   */
+  PLACEHOLDER_M349 = 1349,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M350 = 1350;
+   */
+  PLACEHOLDER_M350 = 1350,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M351 = 1351;
+   */
+  PLACEHOLDER_M351 = 1351,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M352 = 1352;
+   */
+  PLACEHOLDER_M352 = 1352,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M353 = 1353;
+   */
+  PLACEHOLDER_M353 = 1353,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M354 = 1354;
+   */
+  PLACEHOLDER_M354 = 1354,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M355 = 1355;
+   */
+  PLACEHOLDER_M355 = 1355,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M356 = 1356;
+   */
+  PLACEHOLDER_M356 = 1356,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M357 = 1357;
+   */
+  PLACEHOLDER_M357 = 1357,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M358 = 1358;
+   */
+  PLACEHOLDER_M358 = 1358,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M359 = 1359;
+   */
+  PLACEHOLDER_M359 = 1359,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M360 = 1360;
+   */
+  PLACEHOLDER_M360 = 1360,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M361 = 1361;
+   */
+  PLACEHOLDER_M361 = 1361,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M362 = 1362;
+   */
+  PLACEHOLDER_M362 = 1362,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M363 = 1363;
+   */
+  PLACEHOLDER_M363 = 1363,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M364 = 1364;
+   */
+  PLACEHOLDER_M364 = 1364,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M365 = 1365;
+   */
+  PLACEHOLDER_M365 = 1365,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M366 = 1366;
+   */
+  PLACEHOLDER_M366 = 1366,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M367 = 1367;
+   */
+  PLACEHOLDER_M367 = 1367,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M368 = 1368;
+   */
+  PLACEHOLDER_M368 = 1368,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M369 = 1369;
+   */
+  PLACEHOLDER_M369 = 1369,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M370 = 1370;
+   */
+  PLACEHOLDER_M370 = 1370,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M371 = 1371;
+   */
+  PLACEHOLDER_M371 = 1371,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M372 = 1372;
+   */
+  PLACEHOLDER_M372 = 1372,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M373 = 1373;
+   */
+  PLACEHOLDER_M373 = 1373,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M374 = 1374;
+   */
+  PLACEHOLDER_M374 = 1374,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M375 = 1375;
+   */
+  PLACEHOLDER_M375 = 1375,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M376 = 1376;
+   */
+  PLACEHOLDER_M376 = 1376,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M377 = 1377;
+   */
+  PLACEHOLDER_M377 = 1377,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M378 = 1378;
+   */
+  PLACEHOLDER_M378 = 1378,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M379 = 1379;
+   */
+  PLACEHOLDER_M379 = 1379,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M380 = 1380;
+   */
+  PLACEHOLDER_M380 = 1380,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M381 = 1381;
+   */
+  PLACEHOLDER_M381 = 1381,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M382 = 1382;
+   */
+  PLACEHOLDER_M382 = 1382,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M383 = 1383;
+   */
+  PLACEHOLDER_M383 = 1383,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M384 = 1384;
+   */
+  PLACEHOLDER_M384 = 1384,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M385 = 1385;
+   */
+  PLACEHOLDER_M385 = 1385,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M386 = 1386;
+   */
+  PLACEHOLDER_M386 = 1386,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M387 = 1387;
+   */
+  PLACEHOLDER_M387 = 1387,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M388 = 1388;
+   */
+  PLACEHOLDER_M388 = 1388,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M389 = 1389;
+   */
+  PLACEHOLDER_M389 = 1389,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M390 = 1390;
+   */
+  PLACEHOLDER_M390 = 1390,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M391 = 1391;
+   */
+  PLACEHOLDER_M391 = 1391,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M392 = 1392;
+   */
+  PLACEHOLDER_M392 = 1392,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M393 = 1393;
+   */
+  PLACEHOLDER_M393 = 1393,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M394 = 1394;
+   */
+  PLACEHOLDER_M394 = 1394,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M395 = 1395;
+   */
+  PLACEHOLDER_M395 = 1395,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M396 = 1396;
+   */
+  PLACEHOLDER_M396 = 1396,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M397 = 1397;
+   */
+  PLACEHOLDER_M397 = 1397,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M398 = 1398;
+   */
+  PLACEHOLDER_M398 = 1398,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M399 = 1399;
+   */
+  PLACEHOLDER_M399 = 1399,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M400 = 1400;
+   */
+  PLACEHOLDER_M400 = 1400,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M401 = 1401;
+   */
+  PLACEHOLDER_M401 = 1401,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M402 = 1402;
+   */
+  PLACEHOLDER_M402 = 1402,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M403 = 1403;
+   */
+  PLACEHOLDER_M403 = 1403,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M404 = 1404;
+   */
+  PLACEHOLDER_M404 = 1404,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M405 = 1405;
+   */
+  PLACEHOLDER_M405 = 1405,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M406 = 1406;
+   */
+  PLACEHOLDER_M406 = 1406,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M407 = 1407;
+   */
+  PLACEHOLDER_M407 = 1407,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M408 = 1408;
+   */
+  PLACEHOLDER_M408 = 1408,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M409 = 1409;
+   */
+  PLACEHOLDER_M409 = 1409,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M410 = 1410;
+   */
+  PLACEHOLDER_M410 = 1410,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M411 = 1411;
+   */
+  PLACEHOLDER_M411 = 1411,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M412 = 1412;
+   */
+  PLACEHOLDER_M412 = 1412,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M413 = 1413;
+   */
+  PLACEHOLDER_M413 = 1413,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M414 = 1414;
+   */
+  PLACEHOLDER_M414 = 1414,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M415 = 1415;
+   */
+  PLACEHOLDER_M415 = 1415,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M416 = 1416;
+   */
+  PLACEHOLDER_M416 = 1416,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M417 = 1417;
+   */
+  PLACEHOLDER_M417 = 1417,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M418 = 1418;
+   */
+  PLACEHOLDER_M418 = 1418,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M419 = 1419;
+   */
+  PLACEHOLDER_M419 = 1419,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M420 = 1420;
+   */
+  PLACEHOLDER_M420 = 1420,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M421 = 1421;
+   */
+  PLACEHOLDER_M421 = 1421,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M422 = 1422;
+   */
+  PLACEHOLDER_M422 = 1422,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M423 = 1423;
+   */
+  PLACEHOLDER_M423 = 1423,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M424 = 1424;
+   */
+  PLACEHOLDER_M424 = 1424,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M425 = 1425;
+   */
+  PLACEHOLDER_M425 = 1425,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M426 = 1426;
+   */
+  PLACEHOLDER_M426 = 1426,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M427 = 1427;
+   */
+  PLACEHOLDER_M427 = 1427,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M428 = 1428;
+   */
+  PLACEHOLDER_M428 = 1428,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M429 = 1429;
+   */
+  PLACEHOLDER_M429 = 1429,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M430 = 1430;
+   */
+  PLACEHOLDER_M430 = 1430,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M431 = 1431;
+   */
+  PLACEHOLDER_M431 = 1431,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M432 = 1432;
+   */
+  PLACEHOLDER_M432 = 1432,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M433 = 1433;
+   */
+  PLACEHOLDER_M433 = 1433,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M434 = 1434;
+   */
+  PLACEHOLDER_M434 = 1434,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M435 = 1435;
+   */
+  PLACEHOLDER_M435 = 1435,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M436 = 1436;
+   */
+  PLACEHOLDER_M436 = 1436,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M437 = 1437;
+   */
+  PLACEHOLDER_M437 = 1437,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M438 = 1438;
+   */
+  PLACEHOLDER_M438 = 1438,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M439 = 1439;
+   */
+  PLACEHOLDER_M439 = 1439,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M440 = 1440;
+   */
+  PLACEHOLDER_M440 = 1440,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M441 = 1441;
+   */
+  PLACEHOLDER_M441 = 1441,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M442 = 1442;
+   */
+  PLACEHOLDER_M442 = 1442,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M443 = 1443;
+   */
+  PLACEHOLDER_M443 = 1443,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M444 = 1444;
+   */
+  PLACEHOLDER_M444 = 1444,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M445 = 1445;
+   */
+  PLACEHOLDER_M445 = 1445,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M446 = 1446;
+   */
+  PLACEHOLDER_M446 = 1446,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M447 = 1447;
+   */
+  PLACEHOLDER_M447 = 1447,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M448 = 1448;
+   */
+  PLACEHOLDER_M448 = 1448,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M449 = 1449;
+   */
+  PLACEHOLDER_M449 = 1449,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M450 = 1450;
+   */
+  PLACEHOLDER_M450 = 1450,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M451 = 1451;
+   */
+  PLACEHOLDER_M451 = 1451,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M452 = 1452;
+   */
+  PLACEHOLDER_M452 = 1452,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M453 = 1453;
+   */
+  PLACEHOLDER_M453 = 1453,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M454 = 1454;
+   */
+  PLACEHOLDER_M454 = 1454,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M455 = 1455;
+   */
+  PLACEHOLDER_M455 = 1455,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M456 = 1456;
+   */
+  PLACEHOLDER_M456 = 1456,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M457 = 1457;
+   */
+  PLACEHOLDER_M457 = 1457,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M458 = 1458;
+   */
+  PLACEHOLDER_M458 = 1458,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M459 = 1459;
+   */
+  PLACEHOLDER_M459 = 1459,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M460 = 1460;
+   */
+  PLACEHOLDER_M460 = 1460,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M461 = 1461;
+   */
+  PLACEHOLDER_M461 = 1461,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M462 = 1462;
+   */
+  PLACEHOLDER_M462 = 1462,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M463 = 1463;
+   */
+  PLACEHOLDER_M463 = 1463,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M464 = 1464;
+   */
+  PLACEHOLDER_M464 = 1464,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M465 = 1465;
+   */
+  PLACEHOLDER_M465 = 1465,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M466 = 1466;
+   */
+  PLACEHOLDER_M466 = 1466,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M467 = 1467;
+   */
+  PLACEHOLDER_M467 = 1467,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M468 = 1468;
+   */
+  PLACEHOLDER_M468 = 1468,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M469 = 1469;
+   */
+  PLACEHOLDER_M469 = 1469,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M470 = 1470;
+   */
+  PLACEHOLDER_M470 = 1470,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M471 = 1471;
+   */
+  PLACEHOLDER_M471 = 1471,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M472 = 1472;
+   */
+  PLACEHOLDER_M472 = 1472,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M473 = 1473;
+   */
+  PLACEHOLDER_M473 = 1473,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M474 = 1474;
+   */
+  PLACEHOLDER_M474 = 1474,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M475 = 1475;
+   */
+  PLACEHOLDER_M475 = 1475,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M476 = 1476;
+   */
+  PLACEHOLDER_M476 = 1476,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M477 = 1477;
+   */
+  PLACEHOLDER_M477 = 1477,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M478 = 1478;
+   */
+  PLACEHOLDER_M478 = 1478,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M479 = 1479;
+   */
+  PLACEHOLDER_M479 = 1479,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M480 = 1480;
+   */
+  PLACEHOLDER_M480 = 1480,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M481 = 1481;
+   */
+  PLACEHOLDER_M481 = 1481,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M482 = 1482;
+   */
+  PLACEHOLDER_M482 = 1482,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M483 = 1483;
+   */
+  PLACEHOLDER_M483 = 1483,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M484 = 1484;
+   */
+  PLACEHOLDER_M484 = 1484,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M485 = 1485;
+   */
+  PLACEHOLDER_M485 = 1485,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M486 = 1486;
+   */
+  PLACEHOLDER_M486 = 1486,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M487 = 1487;
+   */
+  PLACEHOLDER_M487 = 1487,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M488 = 1488;
+   */
+  PLACEHOLDER_M488 = 1488,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M489 = 1489;
+   */
+  PLACEHOLDER_M489 = 1489,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M490 = 1490;
+   */
+  PLACEHOLDER_M490 = 1490,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M491 = 1491;
+   */
+  PLACEHOLDER_M491 = 1491,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M492 = 1492;
+   */
+  PLACEHOLDER_M492 = 1492,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M493 = 1493;
+   */
+  PLACEHOLDER_M493 = 1493,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M494 = 1494;
+   */
+  PLACEHOLDER_M494 = 1494,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M495 = 1495;
+   */
+  PLACEHOLDER_M495 = 1495,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M496 = 1496;
+   */
+  PLACEHOLDER_M496 = 1496,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M497 = 1497;
+   */
+  PLACEHOLDER_M497 = 1497,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M498 = 1498;
+   */
+  PLACEHOLDER_M498 = 1498,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M499 = 1499;
+   */
+  PLACEHOLDER_M499 = 1499,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M500 = 1500;
+   */
+  PLACEHOLDER_M500 = 1500,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M501 = 1501;
+   */
+  PLACEHOLDER_M501 = 1501,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M502 = 1502;
+   */
+  PLACEHOLDER_M502 = 1502,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M503 = 1503;
+   */
+  PLACEHOLDER_M503 = 1503,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M504 = 1504;
+   */
+  PLACEHOLDER_M504 = 1504,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M505 = 1505;
+   */
+  PLACEHOLDER_M505 = 1505,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M506 = 1506;
+   */
+  PLACEHOLDER_M506 = 1506,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M507 = 1507;
+   */
+  PLACEHOLDER_M507 = 1507,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M508 = 1508;
+   */
+  PLACEHOLDER_M508 = 1508,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M509 = 1509;
+   */
+  PLACEHOLDER_M509 = 1509,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M510 = 1510;
+   */
+  PLACEHOLDER_M510 = 1510,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M511 = 1511;
+   */
+  PLACEHOLDER_M511 = 1511,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M512 = 1512;
+   */
+  PLACEHOLDER_M512 = 1512,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M513 = 1513;
+   */
+  PLACEHOLDER_M513 = 1513,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M514 = 1514;
+   */
+  PLACEHOLDER_M514 = 1514,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M515 = 1515;
+   */
+  PLACEHOLDER_M515 = 1515,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M516 = 1516;
+   */
+  PLACEHOLDER_M516 = 1516,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M517 = 1517;
+   */
+  PLACEHOLDER_M517 = 1517,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M518 = 1518;
+   */
+  PLACEHOLDER_M518 = 1518,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M519 = 1519;
+   */
+  PLACEHOLDER_M519 = 1519,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M520 = 1520;
+   */
+  PLACEHOLDER_M520 = 1520,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M521 = 1521;
+   */
+  PLACEHOLDER_M521 = 1521,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M522 = 1522;
+   */
+  PLACEHOLDER_M522 = 1522,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M523 = 1523;
+   */
+  PLACEHOLDER_M523 = 1523,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M524 = 1524;
+   */
+  PLACEHOLDER_M524 = 1524,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M525 = 1525;
+   */
+  PLACEHOLDER_M525 = 1525,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M526 = 1526;
+   */
+  PLACEHOLDER_M526 = 1526,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M527 = 1527;
+   */
+  PLACEHOLDER_M527 = 1527,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M528 = 1528;
+   */
+  PLACEHOLDER_M528 = 1528,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M529 = 1529;
+   */
+  PLACEHOLDER_M529 = 1529,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M530 = 1530;
+   */
+  PLACEHOLDER_M530 = 1530,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M531 = 1531;
+   */
+  PLACEHOLDER_M531 = 1531,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M532 = 1532;
+   */
+  PLACEHOLDER_M532 = 1532,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M533 = 1533;
+   */
+  PLACEHOLDER_M533 = 1533,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M534 = 1534;
+   */
+  PLACEHOLDER_M534 = 1534,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M535 = 1535;
+   */
+  PLACEHOLDER_M535 = 1535,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M536 = 1536;
+   */
+  PLACEHOLDER_M536 = 1536,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M537 = 1537;
+   */
+  PLACEHOLDER_M537 = 1537,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M538 = 1538;
+   */
+  PLACEHOLDER_M538 = 1538,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M539 = 1539;
+   */
+  PLACEHOLDER_M539 = 1539,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M540 = 1540;
+   */
+  PLACEHOLDER_M540 = 1540,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M541 = 1541;
+   */
+  PLACEHOLDER_M541 = 1541,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M542 = 1542;
+   */
+  PLACEHOLDER_M542 = 1542,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M543 = 1543;
+   */
+  PLACEHOLDER_M543 = 1543,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M544 = 1544;
+   */
+  PLACEHOLDER_M544 = 1544,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M545 = 1545;
+   */
+  PLACEHOLDER_M545 = 1545,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M546 = 1546;
+   */
+  PLACEHOLDER_M546 = 1546,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M547 = 1547;
+   */
+  PLACEHOLDER_M547 = 1547,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M548 = 1548;
+   */
+  PLACEHOLDER_M548 = 1548,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M549 = 1549;
+   */
+  PLACEHOLDER_M549 = 1549,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M550 = 1550;
+   */
+  PLACEHOLDER_M550 = 1550,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M551 = 1551;
+   */
+  PLACEHOLDER_M551 = 1551,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M552 = 1552;
+   */
+  PLACEHOLDER_M552 = 1552,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M553 = 1553;
+   */
+  PLACEHOLDER_M553 = 1553,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M554 = 1554;
+   */
+  PLACEHOLDER_M554 = 1554,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M555 = 1555;
+   */
+  PLACEHOLDER_M555 = 1555,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M556 = 1556;
+   */
+  PLACEHOLDER_M556 = 1556,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M557 = 1557;
+   */
+  PLACEHOLDER_M557 = 1557,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M558 = 1558;
+   */
+  PLACEHOLDER_M558 = 1558,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M559 = 1559;
+   */
+  PLACEHOLDER_M559 = 1559,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M560 = 1560;
+   */
+  PLACEHOLDER_M560 = 1560,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M561 = 1561;
+   */
+  PLACEHOLDER_M561 = 1561,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M562 = 1562;
+   */
+  PLACEHOLDER_M562 = 1562,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M563 = 1563;
+   */
+  PLACEHOLDER_M563 = 1563,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M564 = 1564;
+   */
+  PLACEHOLDER_M564 = 1564,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M565 = 1565;
+   */
+  PLACEHOLDER_M565 = 1565,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M566 = 1566;
+   */
+  PLACEHOLDER_M566 = 1566,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M567 = 1567;
+   */
+  PLACEHOLDER_M567 = 1567,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M568 = 1568;
+   */
+  PLACEHOLDER_M568 = 1568,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M569 = 1569;
+   */
+  PLACEHOLDER_M569 = 1569,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M570 = 1570;
+   */
+  PLACEHOLDER_M570 = 1570,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M571 = 1571;
+   */
+  PLACEHOLDER_M571 = 1571,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M572 = 1572;
+   */
+  PLACEHOLDER_M572 = 1572,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M573 = 1573;
+   */
+  PLACEHOLDER_M573 = 1573,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M574 = 1574;
+   */
+  PLACEHOLDER_M574 = 1574,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M575 = 1575;
+   */
+  PLACEHOLDER_M575 = 1575,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M576 = 1576;
+   */
+  PLACEHOLDER_M576 = 1576,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M577 = 1577;
+   */
+  PLACEHOLDER_M577 = 1577,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M578 = 1578;
+   */
+  PLACEHOLDER_M578 = 1578,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M579 = 1579;
+   */
+  PLACEHOLDER_M579 = 1579,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M580 = 1580;
+   */
+  PLACEHOLDER_M580 = 1580,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M581 = 1581;
+   */
+  PLACEHOLDER_M581 = 1581,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M582 = 1582;
+   */
+  PLACEHOLDER_M582 = 1582,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M583 = 1583;
+   */
+  PLACEHOLDER_M583 = 1583,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M584 = 1584;
+   */
+  PLACEHOLDER_M584 = 1584,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M585 = 1585;
+   */
+  PLACEHOLDER_M585 = 1585,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M586 = 1586;
+   */
+  PLACEHOLDER_M586 = 1586,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M587 = 1587;
+   */
+  PLACEHOLDER_M587 = 1587,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M588 = 1588;
+   */
+  PLACEHOLDER_M588 = 1588,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M589 = 1589;
+   */
+  PLACEHOLDER_M589 = 1589,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M590 = 1590;
+   */
+  PLACEHOLDER_M590 = 1590,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M591 = 1591;
+   */
+  PLACEHOLDER_M591 = 1591,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M592 = 1592;
+   */
+  PLACEHOLDER_M592 = 1592,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M593 = 1593;
+   */
+  PLACEHOLDER_M593 = 1593,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M594 = 1594;
+   */
+  PLACEHOLDER_M594 = 1594,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M595 = 1595;
+   */
+  PLACEHOLDER_M595 = 1595,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M596 = 1596;
+   */
+  PLACEHOLDER_M596 = 1596,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M597 = 1597;
+   */
+  PLACEHOLDER_M597 = 1597,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M598 = 1598;
+   */
+  PLACEHOLDER_M598 = 1598,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M599 = 1599;
+   */
+  PLACEHOLDER_M599 = 1599,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M600 = 1600;
+   */
+  PLACEHOLDER_M600 = 1600,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M601 = 1601;
+   */
+  PLACEHOLDER_M601 = 1601,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M602 = 1602;
+   */
+  PLACEHOLDER_M602 = 1602,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M603 = 1603;
+   */
+  PLACEHOLDER_M603 = 1603,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M604 = 1604;
+   */
+  PLACEHOLDER_M604 = 1604,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M605 = 1605;
+   */
+  PLACEHOLDER_M605 = 1605,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M606 = 1606;
+   */
+  PLACEHOLDER_M606 = 1606,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M607 = 1607;
+   */
+  PLACEHOLDER_M607 = 1607,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M608 = 1608;
+   */
+  PLACEHOLDER_M608 = 1608,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M609 = 1609;
+   */
+  PLACEHOLDER_M609 = 1609,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M610 = 1610;
+   */
+  PLACEHOLDER_M610 = 1610,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M611 = 1611;
+   */
+  PLACEHOLDER_M611 = 1611,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M612 = 1612;
+   */
+  PLACEHOLDER_M612 = 1612,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M613 = 1613;
+   */
+  PLACEHOLDER_M613 = 1613,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M614 = 1614;
+   */
+  PLACEHOLDER_M614 = 1614,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M615 = 1615;
+   */
+  PLACEHOLDER_M615 = 1615,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M616 = 1616;
+   */
+  PLACEHOLDER_M616 = 1616,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M617 = 1617;
+   */
+  PLACEHOLDER_M617 = 1617,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M618 = 1618;
+   */
+  PLACEHOLDER_M618 = 1618,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M619 = 1619;
+   */
+  PLACEHOLDER_M619 = 1619,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M620 = 1620;
+   */
+  PLACEHOLDER_M620 = 1620,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M621 = 1621;
+   */
+  PLACEHOLDER_M621 = 1621,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M622 = 1622;
+   */
+  PLACEHOLDER_M622 = 1622,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M623 = 1623;
+   */
+  PLACEHOLDER_M623 = 1623,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M624 = 1624;
+   */
+  PLACEHOLDER_M624 = 1624,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M625 = 1625;
+   */
+  PLACEHOLDER_M625 = 1625,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M626 = 1626;
+   */
+  PLACEHOLDER_M626 = 1626,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M627 = 1627;
+   */
+  PLACEHOLDER_M627 = 1627,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M628 = 1628;
+   */
+  PLACEHOLDER_M628 = 1628,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M629 = 1629;
+   */
+  PLACEHOLDER_M629 = 1629,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M630 = 1630;
+   */
+  PLACEHOLDER_M630 = 1630,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M631 = 1631;
+   */
+  PLACEHOLDER_M631 = 1631,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M632 = 1632;
+   */
+  PLACEHOLDER_M632 = 1632,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M633 = 1633;
+   */
+  PLACEHOLDER_M633 = 1633,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M634 = 1634;
+   */
+  PLACEHOLDER_M634 = 1634,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M635 = 1635;
+   */
+  PLACEHOLDER_M635 = 1635,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M636 = 1636;
+   */
+  PLACEHOLDER_M636 = 1636,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M637 = 1637;
+   */
+  PLACEHOLDER_M637 = 1637,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M638 = 1638;
+   */
+  PLACEHOLDER_M638 = 1638,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M639 = 1639;
+   */
+  PLACEHOLDER_M639 = 1639,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M640 = 1640;
+   */
+  PLACEHOLDER_M640 = 1640,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M641 = 1641;
+   */
+  PLACEHOLDER_M641 = 1641,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M642 = 1642;
+   */
+  PLACEHOLDER_M642 = 1642,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M643 = 1643;
+   */
+  PLACEHOLDER_M643 = 1643,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M644 = 1644;
+   */
+  PLACEHOLDER_M644 = 1644,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M645 = 1645;
+   */
+  PLACEHOLDER_M645 = 1645,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M646 = 1646;
+   */
+  PLACEHOLDER_M646 = 1646,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M647 = 1647;
+   */
+  PLACEHOLDER_M647 = 1647,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M648 = 1648;
+   */
+  PLACEHOLDER_M648 = 1648,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M649 = 1649;
+   */
+  PLACEHOLDER_M649 = 1649,
+
+  /**
+   * @generated from enum value: MODEL_PLACEHOLDER_M650 = 1650;
+   */
+  PLACEHOLDER_M650 = 1650,
 }
 // Retrieve enum metadata with: proto3.getEnumType(Model)
 proto3.util.setEnumType(Model, "exa.codeium_common_pb.Model", [
@@ -2530,6 +5030,506 @@ proto3.util.setEnumType(Model, "exa.codeium_common_pb.Model", [
   { no: 1148, name: "MODEL_PLACEHOLDER_M148" },
   { no: 1149, name: "MODEL_PLACEHOLDER_M149" },
   { no: 1150, name: "MODEL_PLACEHOLDER_M150" },
+  { no: 1151, name: "MODEL_PLACEHOLDER_M151" },
+  { no: 1152, name: "MODEL_PLACEHOLDER_M152" },
+  { no: 1153, name: "MODEL_PLACEHOLDER_M153" },
+  { no: 1154, name: "MODEL_PLACEHOLDER_M154" },
+  { no: 1155, name: "MODEL_PLACEHOLDER_M155" },
+  { no: 1156, name: "MODEL_PLACEHOLDER_M156" },
+  { no: 1157, name: "MODEL_PLACEHOLDER_M157" },
+  { no: 1158, name: "MODEL_PLACEHOLDER_M158" },
+  { no: 1159, name: "MODEL_PLACEHOLDER_M159" },
+  { no: 1160, name: "MODEL_PLACEHOLDER_M160" },
+  { no: 1161, name: "MODEL_PLACEHOLDER_M161" },
+  { no: 1162, name: "MODEL_PLACEHOLDER_M162" },
+  { no: 1163, name: "MODEL_PLACEHOLDER_M163" },
+  { no: 1164, name: "MODEL_PLACEHOLDER_M164" },
+  { no: 1165, name: "MODEL_PLACEHOLDER_M165" },
+  { no: 1166, name: "MODEL_PLACEHOLDER_M166" },
+  { no: 1167, name: "MODEL_PLACEHOLDER_M167" },
+  { no: 1168, name: "MODEL_PLACEHOLDER_M168" },
+  { no: 1169, name: "MODEL_PLACEHOLDER_M169" },
+  { no: 1170, name: "MODEL_PLACEHOLDER_M170" },
+  { no: 1171, name: "MODEL_PLACEHOLDER_M171" },
+  { no: 1172, name: "MODEL_PLACEHOLDER_M172" },
+  { no: 1173, name: "MODEL_PLACEHOLDER_M173" },
+  { no: 1174, name: "MODEL_PLACEHOLDER_M174" },
+  { no: 1175, name: "MODEL_PLACEHOLDER_M175" },
+  { no: 1176, name: "MODEL_PLACEHOLDER_M176" },
+  { no: 1177, name: "MODEL_PLACEHOLDER_M177" },
+  { no: 1178, name: "MODEL_PLACEHOLDER_M178" },
+  { no: 1179, name: "MODEL_PLACEHOLDER_M179" },
+  { no: 1180, name: "MODEL_PLACEHOLDER_M180" },
+  { no: 1181, name: "MODEL_PLACEHOLDER_M181" },
+  { no: 1182, name: "MODEL_PLACEHOLDER_M182" },
+  { no: 1183, name: "MODEL_PLACEHOLDER_M183" },
+  { no: 1184, name: "MODEL_PLACEHOLDER_M184" },
+  { no: 1185, name: "MODEL_PLACEHOLDER_M185" },
+  { no: 1186, name: "MODEL_PLACEHOLDER_M186" },
+  { no: 1187, name: "MODEL_PLACEHOLDER_M187" },
+  { no: 1188, name: "MODEL_PLACEHOLDER_M188" },
+  { no: 1189, name: "MODEL_PLACEHOLDER_M189" },
+  { no: 1190, name: "MODEL_PLACEHOLDER_M190" },
+  { no: 1191, name: "MODEL_PLACEHOLDER_M191" },
+  { no: 1192, name: "MODEL_PLACEHOLDER_M192" },
+  { no: 1193, name: "MODEL_PLACEHOLDER_M193" },
+  { no: 1194, name: "MODEL_PLACEHOLDER_M194" },
+  { no: 1195, name: "MODEL_PLACEHOLDER_M195" },
+  { no: 1196, name: "MODEL_PLACEHOLDER_M196" },
+  { no: 1197, name: "MODEL_PLACEHOLDER_M197" },
+  { no: 1198, name: "MODEL_PLACEHOLDER_M198" },
+  { no: 1199, name: "MODEL_PLACEHOLDER_M199" },
+  { no: 1200, name: "MODEL_PLACEHOLDER_M200" },
+  { no: 1201, name: "MODEL_PLACEHOLDER_M201" },
+  { no: 1202, name: "MODEL_PLACEHOLDER_M202" },
+  { no: 1203, name: "MODEL_PLACEHOLDER_M203" },
+  { no: 1204, name: "MODEL_PLACEHOLDER_M204" },
+  { no: 1205, name: "MODEL_PLACEHOLDER_M205" },
+  { no: 1206, name: "MODEL_PLACEHOLDER_M206" },
+  { no: 1207, name: "MODEL_PLACEHOLDER_M207" },
+  { no: 1208, name: "MODEL_PLACEHOLDER_M208" },
+  { no: 1209, name: "MODEL_PLACEHOLDER_M209" },
+  { no: 1210, name: "MODEL_PLACEHOLDER_M210" },
+  { no: 1211, name: "MODEL_PLACEHOLDER_M211" },
+  { no: 1212, name: "MODEL_PLACEHOLDER_M212" },
+  { no: 1213, name: "MODEL_PLACEHOLDER_M213" },
+  { no: 1214, name: "MODEL_PLACEHOLDER_M214" },
+  { no: 1215, name: "MODEL_PLACEHOLDER_M215" },
+  { no: 1216, name: "MODEL_PLACEHOLDER_M216" },
+  { no: 1217, name: "MODEL_PLACEHOLDER_M217" },
+  { no: 1218, name: "MODEL_PLACEHOLDER_M218" },
+  { no: 1219, name: "MODEL_PLACEHOLDER_M219" },
+  { no: 1220, name: "MODEL_PLACEHOLDER_M220" },
+  { no: 1221, name: "MODEL_PLACEHOLDER_M221" },
+  { no: 1222, name: "MODEL_PLACEHOLDER_M222" },
+  { no: 1223, name: "MODEL_PLACEHOLDER_M223" },
+  { no: 1224, name: "MODEL_PLACEHOLDER_M224" },
+  { no: 1225, name: "MODEL_PLACEHOLDER_M225" },
+  { no: 1226, name: "MODEL_PLACEHOLDER_M226" },
+  { no: 1227, name: "MODEL_PLACEHOLDER_M227" },
+  { no: 1228, name: "MODEL_PLACEHOLDER_M228" },
+  { no: 1229, name: "MODEL_PLACEHOLDER_M229" },
+  { no: 1230, name: "MODEL_PLACEHOLDER_M230" },
+  { no: 1231, name: "MODEL_PLACEHOLDER_M231" },
+  { no: 1232, name: "MODEL_PLACEHOLDER_M232" },
+  { no: 1233, name: "MODEL_PLACEHOLDER_M233" },
+  { no: 1234, name: "MODEL_PLACEHOLDER_M234" },
+  { no: 1235, name: "MODEL_PLACEHOLDER_M235" },
+  { no: 1236, name: "MODEL_PLACEHOLDER_M236" },
+  { no: 1237, name: "MODEL_PLACEHOLDER_M237" },
+  { no: 1238, name: "MODEL_PLACEHOLDER_M238" },
+  { no: 1239, name: "MODEL_PLACEHOLDER_M239" },
+  { no: 1240, name: "MODEL_PLACEHOLDER_M240" },
+  { no: 1241, name: "MODEL_PLACEHOLDER_M241" },
+  { no: 1242, name: "MODEL_PLACEHOLDER_M242" },
+  { no: 1243, name: "MODEL_PLACEHOLDER_M243" },
+  { no: 1244, name: "MODEL_PLACEHOLDER_M244" },
+  { no: 1245, name: "MODEL_PLACEHOLDER_M245" },
+  { no: 1246, name: "MODEL_PLACEHOLDER_M246" },
+  { no: 1247, name: "MODEL_PLACEHOLDER_M247" },
+  { no: 1248, name: "MODEL_PLACEHOLDER_M248" },
+  { no: 1249, name: "MODEL_PLACEHOLDER_M249" },
+  { no: 1250, name: "MODEL_PLACEHOLDER_M250" },
+  { no: 1251, name: "MODEL_PLACEHOLDER_M251" },
+  { no: 1252, name: "MODEL_PLACEHOLDER_M252" },
+  { no: 1253, name: "MODEL_PLACEHOLDER_M253" },
+  { no: 1254, name: "MODEL_PLACEHOLDER_M254" },
+  { no: 1255, name: "MODEL_PLACEHOLDER_M255" },
+  { no: 1256, name: "MODEL_PLACEHOLDER_M256" },
+  { no: 1257, name: "MODEL_PLACEHOLDER_M257" },
+  { no: 1258, name: "MODEL_PLACEHOLDER_M258" },
+  { no: 1259, name: "MODEL_PLACEHOLDER_M259" },
+  { no: 1260, name: "MODEL_PLACEHOLDER_M260" },
+  { no: 1261, name: "MODEL_PLACEHOLDER_M261" },
+  { no: 1262, name: "MODEL_PLACEHOLDER_M262" },
+  { no: 1263, name: "MODEL_PLACEHOLDER_M263" },
+  { no: 1264, name: "MODEL_PLACEHOLDER_M264" },
+  { no: 1265, name: "MODEL_PLACEHOLDER_M265" },
+  { no: 1266, name: "MODEL_PLACEHOLDER_M266" },
+  { no: 1267, name: "MODEL_PLACEHOLDER_M267" },
+  { no: 1268, name: "MODEL_PLACEHOLDER_M268" },
+  { no: 1269, name: "MODEL_PLACEHOLDER_M269" },
+  { no: 1270, name: "MODEL_PLACEHOLDER_M270" },
+  { no: 1271, name: "MODEL_PLACEHOLDER_M271" },
+  { no: 1272, name: "MODEL_PLACEHOLDER_M272" },
+  { no: 1273, name: "MODEL_PLACEHOLDER_M273" },
+  { no: 1274, name: "MODEL_PLACEHOLDER_M274" },
+  { no: 1275, name: "MODEL_PLACEHOLDER_M275" },
+  { no: 1276, name: "MODEL_PLACEHOLDER_M276" },
+  { no: 1277, name: "MODEL_PLACEHOLDER_M277" },
+  { no: 1278, name: "MODEL_PLACEHOLDER_M278" },
+  { no: 1279, name: "MODEL_PLACEHOLDER_M279" },
+  { no: 1280, name: "MODEL_PLACEHOLDER_M280" },
+  { no: 1281, name: "MODEL_PLACEHOLDER_M281" },
+  { no: 1282, name: "MODEL_PLACEHOLDER_M282" },
+  { no: 1283, name: "MODEL_PLACEHOLDER_M283" },
+  { no: 1284, name: "MODEL_PLACEHOLDER_M284" },
+  { no: 1285, name: "MODEL_PLACEHOLDER_M285" },
+  { no: 1286, name: "MODEL_PLACEHOLDER_M286" },
+  { no: 1287, name: "MODEL_PLACEHOLDER_M287" },
+  { no: 1288, name: "MODEL_PLACEHOLDER_M288" },
+  { no: 1289, name: "MODEL_PLACEHOLDER_M289" },
+  { no: 1290, name: "MODEL_PLACEHOLDER_M290" },
+  { no: 1291, name: "MODEL_PLACEHOLDER_M291" },
+  { no: 1292, name: "MODEL_PLACEHOLDER_M292" },
+  { no: 1293, name: "MODEL_PLACEHOLDER_M293" },
+  { no: 1294, name: "MODEL_PLACEHOLDER_M294" },
+  { no: 1295, name: "MODEL_PLACEHOLDER_M295" },
+  { no: 1296, name: "MODEL_PLACEHOLDER_M296" },
+  { no: 1297, name: "MODEL_PLACEHOLDER_M297" },
+  { no: 1298, name: "MODEL_PLACEHOLDER_M298" },
+  { no: 1299, name: "MODEL_PLACEHOLDER_M299" },
+  { no: 1300, name: "MODEL_PLACEHOLDER_M300" },
+  { no: 1301, name: "MODEL_PLACEHOLDER_M301" },
+  { no: 1302, name: "MODEL_PLACEHOLDER_M302" },
+  { no: 1303, name: "MODEL_PLACEHOLDER_M303" },
+  { no: 1304, name: "MODEL_PLACEHOLDER_M304" },
+  { no: 1305, name: "MODEL_PLACEHOLDER_M305" },
+  { no: 1306, name: "MODEL_PLACEHOLDER_M306" },
+  { no: 1307, name: "MODEL_PLACEHOLDER_M307" },
+  { no: 1308, name: "MODEL_PLACEHOLDER_M308" },
+  { no: 1309, name: "MODEL_PLACEHOLDER_M309" },
+  { no: 1310, name: "MODEL_PLACEHOLDER_M310" },
+  { no: 1311, name: "MODEL_PLACEHOLDER_M311" },
+  { no: 1312, name: "MODEL_PLACEHOLDER_M312" },
+  { no: 1313, name: "MODEL_PLACEHOLDER_M313" },
+  { no: 1314, name: "MODEL_PLACEHOLDER_M314" },
+  { no: 1315, name: "MODEL_PLACEHOLDER_M315" },
+  { no: 1316, name: "MODEL_PLACEHOLDER_M316" },
+  { no: 1317, name: "MODEL_PLACEHOLDER_M317" },
+  { no: 1318, name: "MODEL_PLACEHOLDER_M318" },
+  { no: 1319, name: "MODEL_PLACEHOLDER_M319" },
+  { no: 1320, name: "MODEL_PLACEHOLDER_M320" },
+  { no: 1321, name: "MODEL_PLACEHOLDER_M321" },
+  { no: 1322, name: "MODEL_PLACEHOLDER_M322" },
+  { no: 1323, name: "MODEL_PLACEHOLDER_M323" },
+  { no: 1324, name: "MODEL_PLACEHOLDER_M324" },
+  { no: 1325, name: "MODEL_PLACEHOLDER_M325" },
+  { no: 1326, name: "MODEL_PLACEHOLDER_M326" },
+  { no: 1327, name: "MODEL_PLACEHOLDER_M327" },
+  { no: 1328, name: "MODEL_PLACEHOLDER_M328" },
+  { no: 1329, name: "MODEL_PLACEHOLDER_M329" },
+  { no: 1330, name: "MODEL_PLACEHOLDER_M330" },
+  { no: 1331, name: "MODEL_PLACEHOLDER_M331" },
+  { no: 1332, name: "MODEL_PLACEHOLDER_M332" },
+  { no: 1333, name: "MODEL_PLACEHOLDER_M333" },
+  { no: 1334, name: "MODEL_PLACEHOLDER_M334" },
+  { no: 1335, name: "MODEL_PLACEHOLDER_M335" },
+  { no: 1336, name: "MODEL_PLACEHOLDER_M336" },
+  { no: 1337, name: "MODEL_PLACEHOLDER_M337" },
+  { no: 1338, name: "MODEL_PLACEHOLDER_M338" },
+  { no: 1339, name: "MODEL_PLACEHOLDER_M339" },
+  { no: 1340, name: "MODEL_PLACEHOLDER_M340" },
+  { no: 1341, name: "MODEL_PLACEHOLDER_M341" },
+  { no: 1342, name: "MODEL_PLACEHOLDER_M342" },
+  { no: 1343, name: "MODEL_PLACEHOLDER_M343" },
+  { no: 1344, name: "MODEL_PLACEHOLDER_M344" },
+  { no: 1345, name: "MODEL_PLACEHOLDER_M345" },
+  { no: 1346, name: "MODEL_PLACEHOLDER_M346" },
+  { no: 1347, name: "MODEL_PLACEHOLDER_M347" },
+  { no: 1348, name: "MODEL_PLACEHOLDER_M348" },
+  { no: 1349, name: "MODEL_PLACEHOLDER_M349" },
+  { no: 1350, name: "MODEL_PLACEHOLDER_M350" },
+  { no: 1351, name: "MODEL_PLACEHOLDER_M351" },
+  { no: 1352, name: "MODEL_PLACEHOLDER_M352" },
+  { no: 1353, name: "MODEL_PLACEHOLDER_M353" },
+  { no: 1354, name: "MODEL_PLACEHOLDER_M354" },
+  { no: 1355, name: "MODEL_PLACEHOLDER_M355" },
+  { no: 1356, name: "MODEL_PLACEHOLDER_M356" },
+  { no: 1357, name: "MODEL_PLACEHOLDER_M357" },
+  { no: 1358, name: "MODEL_PLACEHOLDER_M358" },
+  { no: 1359, name: "MODEL_PLACEHOLDER_M359" },
+  { no: 1360, name: "MODEL_PLACEHOLDER_M360" },
+  { no: 1361, name: "MODEL_PLACEHOLDER_M361" },
+  { no: 1362, name: "MODEL_PLACEHOLDER_M362" },
+  { no: 1363, name: "MODEL_PLACEHOLDER_M363" },
+  { no: 1364, name: "MODEL_PLACEHOLDER_M364" },
+  { no: 1365, name: "MODEL_PLACEHOLDER_M365" },
+  { no: 1366, name: "MODEL_PLACEHOLDER_M366" },
+  { no: 1367, name: "MODEL_PLACEHOLDER_M367" },
+  { no: 1368, name: "MODEL_PLACEHOLDER_M368" },
+  { no: 1369, name: "MODEL_PLACEHOLDER_M369" },
+  { no: 1370, name: "MODEL_PLACEHOLDER_M370" },
+  { no: 1371, name: "MODEL_PLACEHOLDER_M371" },
+  { no: 1372, name: "MODEL_PLACEHOLDER_M372" },
+  { no: 1373, name: "MODEL_PLACEHOLDER_M373" },
+  { no: 1374, name: "MODEL_PLACEHOLDER_M374" },
+  { no: 1375, name: "MODEL_PLACEHOLDER_M375" },
+  { no: 1376, name: "MODEL_PLACEHOLDER_M376" },
+  { no: 1377, name: "MODEL_PLACEHOLDER_M377" },
+  { no: 1378, name: "MODEL_PLACEHOLDER_M378" },
+  { no: 1379, name: "MODEL_PLACEHOLDER_M379" },
+  { no: 1380, name: "MODEL_PLACEHOLDER_M380" },
+  { no: 1381, name: "MODEL_PLACEHOLDER_M381" },
+  { no: 1382, name: "MODEL_PLACEHOLDER_M382" },
+  { no: 1383, name: "MODEL_PLACEHOLDER_M383" },
+  { no: 1384, name: "MODEL_PLACEHOLDER_M384" },
+  { no: 1385, name: "MODEL_PLACEHOLDER_M385" },
+  { no: 1386, name: "MODEL_PLACEHOLDER_M386" },
+  { no: 1387, name: "MODEL_PLACEHOLDER_M387" },
+  { no: 1388, name: "MODEL_PLACEHOLDER_M388" },
+  { no: 1389, name: "MODEL_PLACEHOLDER_M389" },
+  { no: 1390, name: "MODEL_PLACEHOLDER_M390" },
+  { no: 1391, name: "MODEL_PLACEHOLDER_M391" },
+  { no: 1392, name: "MODEL_PLACEHOLDER_M392" },
+  { no: 1393, name: "MODEL_PLACEHOLDER_M393" },
+  { no: 1394, name: "MODEL_PLACEHOLDER_M394" },
+  { no: 1395, name: "MODEL_PLACEHOLDER_M395" },
+  { no: 1396, name: "MODEL_PLACEHOLDER_M396" },
+  { no: 1397, name: "MODEL_PLACEHOLDER_M397" },
+  { no: 1398, name: "MODEL_PLACEHOLDER_M398" },
+  { no: 1399, name: "MODEL_PLACEHOLDER_M399" },
+  { no: 1400, name: "MODEL_PLACEHOLDER_M400" },
+  { no: 1401, name: "MODEL_PLACEHOLDER_M401" },
+  { no: 1402, name: "MODEL_PLACEHOLDER_M402" },
+  { no: 1403, name: "MODEL_PLACEHOLDER_M403" },
+  { no: 1404, name: "MODEL_PLACEHOLDER_M404" },
+  { no: 1405, name: "MODEL_PLACEHOLDER_M405" },
+  { no: 1406, name: "MODEL_PLACEHOLDER_M406" },
+  { no: 1407, name: "MODEL_PLACEHOLDER_M407" },
+  { no: 1408, name: "MODEL_PLACEHOLDER_M408" },
+  { no: 1409, name: "MODEL_PLACEHOLDER_M409" },
+  { no: 1410, name: "MODEL_PLACEHOLDER_M410" },
+  { no: 1411, name: "MODEL_PLACEHOLDER_M411" },
+  { no: 1412, name: "MODEL_PLACEHOLDER_M412" },
+  { no: 1413, name: "MODEL_PLACEHOLDER_M413" },
+  { no: 1414, name: "MODEL_PLACEHOLDER_M414" },
+  { no: 1415, name: "MODEL_PLACEHOLDER_M415" },
+  { no: 1416, name: "MODEL_PLACEHOLDER_M416" },
+  { no: 1417, name: "MODEL_PLACEHOLDER_M417" },
+  { no: 1418, name: "MODEL_PLACEHOLDER_M418" },
+  { no: 1419, name: "MODEL_PLACEHOLDER_M419" },
+  { no: 1420, name: "MODEL_PLACEHOLDER_M420" },
+  { no: 1421, name: "MODEL_PLACEHOLDER_M421" },
+  { no: 1422, name: "MODEL_PLACEHOLDER_M422" },
+  { no: 1423, name: "MODEL_PLACEHOLDER_M423" },
+  { no: 1424, name: "MODEL_PLACEHOLDER_M424" },
+  { no: 1425, name: "MODEL_PLACEHOLDER_M425" },
+  { no: 1426, name: "MODEL_PLACEHOLDER_M426" },
+  { no: 1427, name: "MODEL_PLACEHOLDER_M427" },
+  { no: 1428, name: "MODEL_PLACEHOLDER_M428" },
+  { no: 1429, name: "MODEL_PLACEHOLDER_M429" },
+  { no: 1430, name: "MODEL_PLACEHOLDER_M430" },
+  { no: 1431, name: "MODEL_PLACEHOLDER_M431" },
+  { no: 1432, name: "MODEL_PLACEHOLDER_M432" },
+  { no: 1433, name: "MODEL_PLACEHOLDER_M433" },
+  { no: 1434, name: "MODEL_PLACEHOLDER_M434" },
+  { no: 1435, name: "MODEL_PLACEHOLDER_M435" },
+  { no: 1436, name: "MODEL_PLACEHOLDER_M436" },
+  { no: 1437, name: "MODEL_PLACEHOLDER_M437" },
+  { no: 1438, name: "MODEL_PLACEHOLDER_M438" },
+  { no: 1439, name: "MODEL_PLACEHOLDER_M439" },
+  { no: 1440, name: "MODEL_PLACEHOLDER_M440" },
+  { no: 1441, name: "MODEL_PLACEHOLDER_M441" },
+  { no: 1442, name: "MODEL_PLACEHOLDER_M442" },
+  { no: 1443, name: "MODEL_PLACEHOLDER_M443" },
+  { no: 1444, name: "MODEL_PLACEHOLDER_M444" },
+  { no: 1445, name: "MODEL_PLACEHOLDER_M445" },
+  { no: 1446, name: "MODEL_PLACEHOLDER_M446" },
+  { no: 1447, name: "MODEL_PLACEHOLDER_M447" },
+  { no: 1448, name: "MODEL_PLACEHOLDER_M448" },
+  { no: 1449, name: "MODEL_PLACEHOLDER_M449" },
+  { no: 1450, name: "MODEL_PLACEHOLDER_M450" },
+  { no: 1451, name: "MODEL_PLACEHOLDER_M451" },
+  { no: 1452, name: "MODEL_PLACEHOLDER_M452" },
+  { no: 1453, name: "MODEL_PLACEHOLDER_M453" },
+  { no: 1454, name: "MODEL_PLACEHOLDER_M454" },
+  { no: 1455, name: "MODEL_PLACEHOLDER_M455" },
+  { no: 1456, name: "MODEL_PLACEHOLDER_M456" },
+  { no: 1457, name: "MODEL_PLACEHOLDER_M457" },
+  { no: 1458, name: "MODEL_PLACEHOLDER_M458" },
+  { no: 1459, name: "MODEL_PLACEHOLDER_M459" },
+  { no: 1460, name: "MODEL_PLACEHOLDER_M460" },
+  { no: 1461, name: "MODEL_PLACEHOLDER_M461" },
+  { no: 1462, name: "MODEL_PLACEHOLDER_M462" },
+  { no: 1463, name: "MODEL_PLACEHOLDER_M463" },
+  { no: 1464, name: "MODEL_PLACEHOLDER_M464" },
+  { no: 1465, name: "MODEL_PLACEHOLDER_M465" },
+  { no: 1466, name: "MODEL_PLACEHOLDER_M466" },
+  { no: 1467, name: "MODEL_PLACEHOLDER_M467" },
+  { no: 1468, name: "MODEL_PLACEHOLDER_M468" },
+  { no: 1469, name: "MODEL_PLACEHOLDER_M469" },
+  { no: 1470, name: "MODEL_PLACEHOLDER_M470" },
+  { no: 1471, name: "MODEL_PLACEHOLDER_M471" },
+  { no: 1472, name: "MODEL_PLACEHOLDER_M472" },
+  { no: 1473, name: "MODEL_PLACEHOLDER_M473" },
+  { no: 1474, name: "MODEL_PLACEHOLDER_M474" },
+  { no: 1475, name: "MODEL_PLACEHOLDER_M475" },
+  { no: 1476, name: "MODEL_PLACEHOLDER_M476" },
+  { no: 1477, name: "MODEL_PLACEHOLDER_M477" },
+  { no: 1478, name: "MODEL_PLACEHOLDER_M478" },
+  { no: 1479, name: "MODEL_PLACEHOLDER_M479" },
+  { no: 1480, name: "MODEL_PLACEHOLDER_M480" },
+  { no: 1481, name: "MODEL_PLACEHOLDER_M481" },
+  { no: 1482, name: "MODEL_PLACEHOLDER_M482" },
+  { no: 1483, name: "MODEL_PLACEHOLDER_M483" },
+  { no: 1484, name: "MODEL_PLACEHOLDER_M484" },
+  { no: 1485, name: "MODEL_PLACEHOLDER_M485" },
+  { no: 1486, name: "MODEL_PLACEHOLDER_M486" },
+  { no: 1487, name: "MODEL_PLACEHOLDER_M487" },
+  { no: 1488, name: "MODEL_PLACEHOLDER_M488" },
+  { no: 1489, name: "MODEL_PLACEHOLDER_M489" },
+  { no: 1490, name: "MODEL_PLACEHOLDER_M490" },
+  { no: 1491, name: "MODEL_PLACEHOLDER_M491" },
+  { no: 1492, name: "MODEL_PLACEHOLDER_M492" },
+  { no: 1493, name: "MODEL_PLACEHOLDER_M493" },
+  { no: 1494, name: "MODEL_PLACEHOLDER_M494" },
+  { no: 1495, name: "MODEL_PLACEHOLDER_M495" },
+  { no: 1496, name: "MODEL_PLACEHOLDER_M496" },
+  { no: 1497, name: "MODEL_PLACEHOLDER_M497" },
+  { no: 1498, name: "MODEL_PLACEHOLDER_M498" },
+  { no: 1499, name: "MODEL_PLACEHOLDER_M499" },
+  { no: 1500, name: "MODEL_PLACEHOLDER_M500" },
+  { no: 1501, name: "MODEL_PLACEHOLDER_M501" },
+  { no: 1502, name: "MODEL_PLACEHOLDER_M502" },
+  { no: 1503, name: "MODEL_PLACEHOLDER_M503" },
+  { no: 1504, name: "MODEL_PLACEHOLDER_M504" },
+  { no: 1505, name: "MODEL_PLACEHOLDER_M505" },
+  { no: 1506, name: "MODEL_PLACEHOLDER_M506" },
+  { no: 1507, name: "MODEL_PLACEHOLDER_M507" },
+  { no: 1508, name: "MODEL_PLACEHOLDER_M508" },
+  { no: 1509, name: "MODEL_PLACEHOLDER_M509" },
+  { no: 1510, name: "MODEL_PLACEHOLDER_M510" },
+  { no: 1511, name: "MODEL_PLACEHOLDER_M511" },
+  { no: 1512, name: "MODEL_PLACEHOLDER_M512" },
+  { no: 1513, name: "MODEL_PLACEHOLDER_M513" },
+  { no: 1514, name: "MODEL_PLACEHOLDER_M514" },
+  { no: 1515, name: "MODEL_PLACEHOLDER_M515" },
+  { no: 1516, name: "MODEL_PLACEHOLDER_M516" },
+  { no: 1517, name: "MODEL_PLACEHOLDER_M517" },
+  { no: 1518, name: "MODEL_PLACEHOLDER_M518" },
+  { no: 1519, name: "MODEL_PLACEHOLDER_M519" },
+  { no: 1520, name: "MODEL_PLACEHOLDER_M520" },
+  { no: 1521, name: "MODEL_PLACEHOLDER_M521" },
+  { no: 1522, name: "MODEL_PLACEHOLDER_M522" },
+  { no: 1523, name: "MODEL_PLACEHOLDER_M523" },
+  { no: 1524, name: "MODEL_PLACEHOLDER_M524" },
+  { no: 1525, name: "MODEL_PLACEHOLDER_M525" },
+  { no: 1526, name: "MODEL_PLACEHOLDER_M526" },
+  { no: 1527, name: "MODEL_PLACEHOLDER_M527" },
+  { no: 1528, name: "MODEL_PLACEHOLDER_M528" },
+  { no: 1529, name: "MODEL_PLACEHOLDER_M529" },
+  { no: 1530, name: "MODEL_PLACEHOLDER_M530" },
+  { no: 1531, name: "MODEL_PLACEHOLDER_M531" },
+  { no: 1532, name: "MODEL_PLACEHOLDER_M532" },
+  { no: 1533, name: "MODEL_PLACEHOLDER_M533" },
+  { no: 1534, name: "MODEL_PLACEHOLDER_M534" },
+  { no: 1535, name: "MODEL_PLACEHOLDER_M535" },
+  { no: 1536, name: "MODEL_PLACEHOLDER_M536" },
+  { no: 1537, name: "MODEL_PLACEHOLDER_M537" },
+  { no: 1538, name: "MODEL_PLACEHOLDER_M538" },
+  { no: 1539, name: "MODEL_PLACEHOLDER_M539" },
+  { no: 1540, name: "MODEL_PLACEHOLDER_M540" },
+  { no: 1541, name: "MODEL_PLACEHOLDER_M541" },
+  { no: 1542, name: "MODEL_PLACEHOLDER_M542" },
+  { no: 1543, name: "MODEL_PLACEHOLDER_M543" },
+  { no: 1544, name: "MODEL_PLACEHOLDER_M544" },
+  { no: 1545, name: "MODEL_PLACEHOLDER_M545" },
+  { no: 1546, name: "MODEL_PLACEHOLDER_M546" },
+  { no: 1547, name: "MODEL_PLACEHOLDER_M547" },
+  { no: 1548, name: "MODEL_PLACEHOLDER_M548" },
+  { no: 1549, name: "MODEL_PLACEHOLDER_M549" },
+  { no: 1550, name: "MODEL_PLACEHOLDER_M550" },
+  { no: 1551, name: "MODEL_PLACEHOLDER_M551" },
+  { no: 1552, name: "MODEL_PLACEHOLDER_M552" },
+  { no: 1553, name: "MODEL_PLACEHOLDER_M553" },
+  { no: 1554, name: "MODEL_PLACEHOLDER_M554" },
+  { no: 1555, name: "MODEL_PLACEHOLDER_M555" },
+  { no: 1556, name: "MODEL_PLACEHOLDER_M556" },
+  { no: 1557, name: "MODEL_PLACEHOLDER_M557" },
+  { no: 1558, name: "MODEL_PLACEHOLDER_M558" },
+  { no: 1559, name: "MODEL_PLACEHOLDER_M559" },
+  { no: 1560, name: "MODEL_PLACEHOLDER_M560" },
+  { no: 1561, name: "MODEL_PLACEHOLDER_M561" },
+  { no: 1562, name: "MODEL_PLACEHOLDER_M562" },
+  { no: 1563, name: "MODEL_PLACEHOLDER_M563" },
+  { no: 1564, name: "MODEL_PLACEHOLDER_M564" },
+  { no: 1565, name: "MODEL_PLACEHOLDER_M565" },
+  { no: 1566, name: "MODEL_PLACEHOLDER_M566" },
+  { no: 1567, name: "MODEL_PLACEHOLDER_M567" },
+  { no: 1568, name: "MODEL_PLACEHOLDER_M568" },
+  { no: 1569, name: "MODEL_PLACEHOLDER_M569" },
+  { no: 1570, name: "MODEL_PLACEHOLDER_M570" },
+  { no: 1571, name: "MODEL_PLACEHOLDER_M571" },
+  { no: 1572, name: "MODEL_PLACEHOLDER_M572" },
+  { no: 1573, name: "MODEL_PLACEHOLDER_M573" },
+  { no: 1574, name: "MODEL_PLACEHOLDER_M574" },
+  { no: 1575, name: "MODEL_PLACEHOLDER_M575" },
+  { no: 1576, name: "MODEL_PLACEHOLDER_M576" },
+  { no: 1577, name: "MODEL_PLACEHOLDER_M577" },
+  { no: 1578, name: "MODEL_PLACEHOLDER_M578" },
+  { no: 1579, name: "MODEL_PLACEHOLDER_M579" },
+  { no: 1580, name: "MODEL_PLACEHOLDER_M580" },
+  { no: 1581, name: "MODEL_PLACEHOLDER_M581" },
+  { no: 1582, name: "MODEL_PLACEHOLDER_M582" },
+  { no: 1583, name: "MODEL_PLACEHOLDER_M583" },
+  { no: 1584, name: "MODEL_PLACEHOLDER_M584" },
+  { no: 1585, name: "MODEL_PLACEHOLDER_M585" },
+  { no: 1586, name: "MODEL_PLACEHOLDER_M586" },
+  { no: 1587, name: "MODEL_PLACEHOLDER_M587" },
+  { no: 1588, name: "MODEL_PLACEHOLDER_M588" },
+  { no: 1589, name: "MODEL_PLACEHOLDER_M589" },
+  { no: 1590, name: "MODEL_PLACEHOLDER_M590" },
+  { no: 1591, name: "MODEL_PLACEHOLDER_M591" },
+  { no: 1592, name: "MODEL_PLACEHOLDER_M592" },
+  { no: 1593, name: "MODEL_PLACEHOLDER_M593" },
+  { no: 1594, name: "MODEL_PLACEHOLDER_M594" },
+  { no: 1595, name: "MODEL_PLACEHOLDER_M595" },
+  { no: 1596, name: "MODEL_PLACEHOLDER_M596" },
+  { no: 1597, name: "MODEL_PLACEHOLDER_M597" },
+  { no: 1598, name: "MODEL_PLACEHOLDER_M598" },
+  { no: 1599, name: "MODEL_PLACEHOLDER_M599" },
+  { no: 1600, name: "MODEL_PLACEHOLDER_M600" },
+  { no: 1601, name: "MODEL_PLACEHOLDER_M601" },
+  { no: 1602, name: "MODEL_PLACEHOLDER_M602" },
+  { no: 1603, name: "MODEL_PLACEHOLDER_M603" },
+  { no: 1604, name: "MODEL_PLACEHOLDER_M604" },
+  { no: 1605, name: "MODEL_PLACEHOLDER_M605" },
+  { no: 1606, name: "MODEL_PLACEHOLDER_M606" },
+  { no: 1607, name: "MODEL_PLACEHOLDER_M607" },
+  { no: 1608, name: "MODEL_PLACEHOLDER_M608" },
+  { no: 1609, name: "MODEL_PLACEHOLDER_M609" },
+  { no: 1610, name: "MODEL_PLACEHOLDER_M610" },
+  { no: 1611, name: "MODEL_PLACEHOLDER_M611" },
+  { no: 1612, name: "MODEL_PLACEHOLDER_M612" },
+  { no: 1613, name: "MODEL_PLACEHOLDER_M613" },
+  { no: 1614, name: "MODEL_PLACEHOLDER_M614" },
+  { no: 1615, name: "MODEL_PLACEHOLDER_M615" },
+  { no: 1616, name: "MODEL_PLACEHOLDER_M616" },
+  { no: 1617, name: "MODEL_PLACEHOLDER_M617" },
+  { no: 1618, name: "MODEL_PLACEHOLDER_M618" },
+  { no: 1619, name: "MODEL_PLACEHOLDER_M619" },
+  { no: 1620, name: "MODEL_PLACEHOLDER_M620" },
+  { no: 1621, name: "MODEL_PLACEHOLDER_M621" },
+  { no: 1622, name: "MODEL_PLACEHOLDER_M622" },
+  { no: 1623, name: "MODEL_PLACEHOLDER_M623" },
+  { no: 1624, name: "MODEL_PLACEHOLDER_M624" },
+  { no: 1625, name: "MODEL_PLACEHOLDER_M625" },
+  { no: 1626, name: "MODEL_PLACEHOLDER_M626" },
+  { no: 1627, name: "MODEL_PLACEHOLDER_M627" },
+  { no: 1628, name: "MODEL_PLACEHOLDER_M628" },
+  { no: 1629, name: "MODEL_PLACEHOLDER_M629" },
+  { no: 1630, name: "MODEL_PLACEHOLDER_M630" },
+  { no: 1631, name: "MODEL_PLACEHOLDER_M631" },
+  { no: 1632, name: "MODEL_PLACEHOLDER_M632" },
+  { no: 1633, name: "MODEL_PLACEHOLDER_M633" },
+  { no: 1634, name: "MODEL_PLACEHOLDER_M634" },
+  { no: 1635, name: "MODEL_PLACEHOLDER_M635" },
+  { no: 1636, name: "MODEL_PLACEHOLDER_M636" },
+  { no: 1637, name: "MODEL_PLACEHOLDER_M637" },
+  { no: 1638, name: "MODEL_PLACEHOLDER_M638" },
+  { no: 1639, name: "MODEL_PLACEHOLDER_M639" },
+  { no: 1640, name: "MODEL_PLACEHOLDER_M640" },
+  { no: 1641, name: "MODEL_PLACEHOLDER_M641" },
+  { no: 1642, name: "MODEL_PLACEHOLDER_M642" },
+  { no: 1643, name: "MODEL_PLACEHOLDER_M643" },
+  { no: 1644, name: "MODEL_PLACEHOLDER_M644" },
+  { no: 1645, name: "MODEL_PLACEHOLDER_M645" },
+  { no: 1646, name: "MODEL_PLACEHOLDER_M646" },
+  { no: 1647, name: "MODEL_PLACEHOLDER_M647" },
+  { no: 1648, name: "MODEL_PLACEHOLDER_M648" },
+  { no: 1649, name: "MODEL_PLACEHOLDER_M649" },
+  { no: 1650, name: "MODEL_PLACEHOLDER_M650" },
 ]);
 
 /**
@@ -3724,11 +6724,6 @@ export enum ChatMessageSource {
   SYSTEM = 2,
 
   /**
-   * @generated from enum value: CHAT_MESSAGE_SOURCE_UNKNOWN = 3;
-   */
-  UNKNOWN = 3,
-
-  /**
    * @generated from enum value: CHAT_MESSAGE_SOURCE_TOOL = 4;
    */
   TOOL = 4,
@@ -3737,15 +6732,26 @@ export enum ChatMessageSource {
    * @generated from enum value: CHAT_MESSAGE_SOURCE_SYSTEM_PROMPT = 5;
    */
   SYSTEM_PROMPT = 5,
+
+  /**
+   * @generated from enum value: CHAT_MESSAGE_SOURCE_CONTEXT = 6;
+   */
+  CONTEXT = 6,
+
+  /**
+   * @generated from enum value: CHAT_MESSAGE_SOURCE_UNKNOWN = 3;
+   */
+  UNKNOWN = 3,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ChatMessageSource)
 proto3.util.setEnumType(ChatMessageSource, "exa.codeium_common_pb.ChatMessageSource", [
   { no: 0, name: "CHAT_MESSAGE_SOURCE_UNSPECIFIED" },
   { no: 1, name: "CHAT_MESSAGE_SOURCE_USER" },
   { no: 2, name: "CHAT_MESSAGE_SOURCE_SYSTEM" },
-  { no: 3, name: "CHAT_MESSAGE_SOURCE_UNKNOWN" },
   { no: 4, name: "CHAT_MESSAGE_SOURCE_TOOL" },
   { no: 5, name: "CHAT_MESSAGE_SOURCE_SYSTEM_PROMPT" },
+  { no: 6, name: "CHAT_MESSAGE_SOURCE_CONTEXT" },
+  { no: 3, name: "CHAT_MESSAGE_SOURCE_UNKNOWN" },
 ]);
 
 /**
@@ -4697,6 +7703,11 @@ export enum CascadeCommandsAutoExecution {
    * @generated from enum value: CASCADE_COMMANDS_AUTO_EXECUTION_EAGER = 3;
    */
   EAGER = 3,
+
+  /**
+   * @generated from enum value: CASCADE_COMMANDS_AUTO_EXECUTION_PROCEED_IN_SANDBOX = 4;
+   */
+  PROCEED_IN_SANDBOX = 4,
 }
 // Retrieve enum metadata with: proto3.getEnumType(CascadeCommandsAutoExecution)
 proto3.util.setEnumType(CascadeCommandsAutoExecution, "exa.codeium_common_pb.CascadeCommandsAutoExecution", [
@@ -4704,6 +7715,7 @@ proto3.util.setEnumType(CascadeCommandsAutoExecution, "exa.codeium_common_pb.Cas
   { no: 1, name: "CASCADE_COMMANDS_AUTO_EXECUTION_OFF" },
   { no: 2, name: "CASCADE_COMMANDS_AUTO_EXECUTION_AUTO" },
   { no: 3, name: "CASCADE_COMMANDS_AUTO_EXECUTION_EAGER" },
+  { no: 4, name: "CASCADE_COMMANDS_AUTO_EXECUTION_PROCEED_IN_SANDBOX" },
 ]);
 
 /**
@@ -5301,6 +8313,16 @@ export enum CascadeNUXLocation {
    * @generated from enum value: CASCADE_NUX_LOCATION_ARTIFACT_VIEW_BOTTOM_LEFT = 11;
    */
   CASCADE_NUX_LOCATION_ARTIFACT_VIEW_BOTTOM_LEFT = 11,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_LOCATION_CHAT_PANEL_BANNER = 12;
+   */
+  CASCADE_NUX_LOCATION_CHAT_PANEL_BANNER = 12,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_LOCATION_ALWAYS_MOUNTED = 13;
+   */
+  CASCADE_NUX_LOCATION_ALWAYS_MOUNTED = 13,
 }
 // Retrieve enum metadata with: proto3.getEnumType(CascadeNUXLocation)
 proto3.util.setEnumType(CascadeNUXLocation, "exa.codeium_common_pb.CascadeNUXLocation", [
@@ -5314,6 +8336,8 @@ proto3.util.setEnumType(CascadeNUXLocation, "exa.codeium_common_pb.CascadeNUXLoc
   { no: 9, name: "CASCADE_NUX_LOCATION_TOOLBAR" },
   { no: 10, name: "CASCADE_NUX_LOCATION_MANAGER_BOTTOM_LEFT" },
   { no: 11, name: "CASCADE_NUX_LOCATION_ARTIFACT_VIEW_BOTTOM_LEFT" },
+  { no: 12, name: "CASCADE_NUX_LOCATION_CHAT_PANEL_BANNER" },
+  { no: 13, name: "CASCADE_NUX_LOCATION_ALWAYS_MOUNTED" },
 ]);
 
 /**
@@ -5390,6 +8414,21 @@ export enum CascadeNUXTrigger {
    * @generated from enum value: CASCADE_NUX_TRIGGER_MANAGER_CONVERSATION_AVAILABLE = 10;
    */
   CASCADE_NUX_TRIGGER_MANAGER_CONVERSATION_AVAILABLE = 10,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_TRIGGER_MANAGER_PROJECT_CREATED = 11;
+   */
+  CASCADE_NUX_TRIGGER_MANAGER_PROJECT_CREATED = 11,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_TRIGGER_MANAGER_PROJECT_ENVIRONMENT_SELECTION = 12;
+   */
+  CASCADE_NUX_TRIGGER_MANAGER_PROJECT_ENVIRONMENT_SELECTION = 12,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_TRIGGER_MANAGER_CREATE_FIRST_PROJECT_DIALOG = 13;
+   */
+  CASCADE_NUX_TRIGGER_MANAGER_CREATE_FIRST_PROJECT_DIALOG = 13,
 }
 // Retrieve enum metadata with: proto3.getEnumType(CascadeNUXTrigger)
 proto3.util.setEnumType(CascadeNUXTrigger, "exa.codeium_common_pb.CascadeNUXTrigger", [
@@ -5402,6 +8441,9 @@ proto3.util.setEnumType(CascadeNUXTrigger, "exa.codeium_common_pb.CascadeNUXTrig
   { no: 7, name: "CASCADE_NUX_TRIGGER_MANAGER_ARTIFACT_OPENED" },
   { no: 8, name: "CASCADE_NUX_TRIGGER_MANAGER_FILE_OPENED" },
   { no: 10, name: "CASCADE_NUX_TRIGGER_MANAGER_CONVERSATION_AVAILABLE" },
+  { no: 11, name: "CASCADE_NUX_TRIGGER_MANAGER_PROJECT_CREATED" },
+  { no: 12, name: "CASCADE_NUX_TRIGGER_MANAGER_PROJECT_ENVIRONMENT_SELECTION" },
+  { no: 13, name: "CASCADE_NUX_TRIGGER_MANAGER_CREATE_FIRST_PROJECT_DIALOG" },
 ]);
 
 /**
@@ -5457,6 +8499,32 @@ proto3.util.setEnumType(DetectAndUseProxy, "exa.codeium_common_pb.DetectAndUsePr
 ]);
 
 /**
+ * @generated from enum exa.codeium_common_pb.CascadeNUXInteractionType
+ */
+export enum CascadeNUXInteractionType {
+  /**
+   * @generated from enum value: CASCADE_NUX_INTERACTION_TYPE_UNSPECIFIED = 0;
+   */
+  CASCADE_NUX_INTERACTION_TYPE_UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_INTERACTION_TYPE_DISMISSED = 1;
+   */
+  CASCADE_NUX_INTERACTION_TYPE_DISMISSED = 1,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_INTERACTION_TYPE_ACCEPTED = 2;
+   */
+  CASCADE_NUX_INTERACTION_TYPE_ACCEPTED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CascadeNUXInteractionType)
+proto3.util.setEnumType(CascadeNUXInteractionType, "exa.codeium_common_pb.CascadeNUXInteractionType", [
+  { no: 0, name: "CASCADE_NUX_INTERACTION_TYPE_UNSPECIFIED" },
+  { no: 1, name: "CASCADE_NUX_INTERACTION_TYPE_DISMISSED" },
+  { no: 2, name: "CASCADE_NUX_INTERACTION_TYPE_ACCEPTED" },
+]);
+
+/**
  * @generated from enum exa.codeium_common_pb.BrowserJsExecutionPolicy
  */
 export enum BrowserJsExecutionPolicy {
@@ -5492,6 +8560,38 @@ proto3.util.setEnumType(BrowserJsExecutionPolicy, "exa.codeium_common_pb.Browser
   { no: 2, name: "BROWSER_JS_EXECUTION_POLICY_ALWAYS_ASK" },
   { no: 3, name: "BROWSER_JS_EXECUTION_POLICY_MODEL_DECIDES" },
   { no: 4, name: "BROWSER_JS_EXECUTION_POLICY_TURBO" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.AgentSettingPolicy
+ */
+export enum AgentSettingPolicy {
+  /**
+   * @generated from enum value: AGENT_SETTING_POLICY_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: AGENT_SETTING_POLICY_ALLOW = 1;
+   */
+  ALLOW = 1,
+
+  /**
+   * @generated from enum value: AGENT_SETTING_POLICY_ASK = 2;
+   */
+  ASK = 2,
+
+  /**
+   * @generated from enum value: AGENT_SETTING_POLICY_DENY = 3;
+   */
+  DENY = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(AgentSettingPolicy)
+proto3.util.setEnumType(AgentSettingPolicy, "exa.codeium_common_pb.AgentSettingPolicy", [
+  { no: 0, name: "AGENT_SETTING_POLICY_UNSPECIFIED" },
+  { no: 1, name: "AGENT_SETTING_POLICY_ALLOW" },
+  { no: 2, name: "AGENT_SETTING_POLICY_ASK" },
+  { no: 3, name: "AGENT_SETTING_POLICY_DENY" },
 ]);
 
 /**
@@ -5848,6 +8948,11 @@ export enum ContextScopeType {
    * @generated from enum value: CONTEXT_SCOPE_TYPE_TERMINAL = 24;
    */
   TERMINAL = 24,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_SLASH_COMMAND = 25;
+   */
+  SLASH_COMMAND = 25,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ContextScopeType)
 proto3.util.setEnumType(ContextScopeType, "exa.codeium_common_pb.ContextScopeType", [
@@ -5876,6 +8981,33 @@ proto3.util.setEnumType(ContextScopeType, "exa.codeium_common_pb.ContextScopeTyp
   { no: 22, name: "CONTEXT_SCOPE_TYPE_CONVERSATION" },
   { no: 23, name: "CONTEXT_SCOPE_TYPE_USER_ACTIVITY" },
   { no: 24, name: "CONTEXT_SCOPE_TYPE_TERMINAL" },
+  { no: 25, name: "CONTEXT_SCOPE_TYPE_SLASH_COMMAND" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.SlashCommandType
+ */
+export enum SlashCommandType {
+  /**
+   * @generated from enum value: SLASH_COMMAND_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: SLASH_COMMAND_TYPE_SYSTEM = 1;
+   */
+  SYSTEM = 1,
+
+  /**
+   * @generated from enum value: SLASH_COMMAND_TYPE_SKILL = 2;
+   */
+  SKILL = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(SlashCommandType)
+proto3.util.setEnumType(SlashCommandType, "exa.codeium_common_pb.SlashCommandType", [
+  { no: 0, name: "SLASH_COMMAND_TYPE_UNSPECIFIED" },
+  { no: 1, name: "SLASH_COMMAND_TYPE_SYSTEM" },
+  { no: 2, name: "SLASH_COMMAND_TYPE_SKILL" },
 ]);
 
 /**
@@ -8208,6 +11340,20 @@ proto3.util.setEnumType(BrowserJsAutoRunPolicy, "exa.codeium_common_pb.BrowserJs
   { no: 1, name: "BROWSER_JS_AUTO_RUN_POLICY_DISABLED" },
   { no: 2, name: "BROWSER_JS_AUTO_RUN_POLICY_MODEL_DECIDES" },
   { no: 3, name: "BROWSER_JS_AUTO_RUN_POLICY_ENABLED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.NullValue
+ */
+export enum NullValue {
+  /**
+   * @generated from enum value: NULL_VALUE = 0;
+   */
+  NULL_VALUE = 0,
+}
+// Retrieve enum metadata with: proto3.getEnumType(NullValue)
+proto3.util.setEnumType(NullValue, "exa.codeium_common_pb.NullValue", [
+  { no: 0, name: "NULL_VALUE" },
 ]);
 
 /**
@@ -10779,6 +13925,11 @@ export class Metadata extends Message<Metadata> {
    */
   regionCode = "";
 
+  /**
+   * @generated from field: string product_name = 31;
+   */
+  productName = "";
+
   constructor(data?: PartialMessage<Metadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -10805,6 +13956,7 @@ export class Metadata extends Message<Metadata> {
     { no: 6, name: "disable_telemetry", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 18, name: "user_tags", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 30, name: "region_code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 31, name: "product_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Metadata {
@@ -12126,6 +15278,11 @@ export class ClientModelConfig extends Message<ClientModelConfig> {
    */
   supportedMimeTypes: ClientModelConfig_SupportedMimeTypesEntry[] = [];
 
+  /**
+   * @generated from field: bool supports_thought_circulation = 19;
+   */
+  supportsThoughtCirculation = false;
+
   constructor(data?: PartialMessage<ClientModelConfig>) {
     super();
     proto3.util.initPartial(data, this);
@@ -12152,6 +15309,7 @@ export class ClientModelConfig extends Message<ClientModelConfig> {
     { no: 16, name: "tag_title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 17, name: "tag_description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 18, name: "supported_mime_types", kind: "message", T: ClientModelConfig_SupportedMimeTypesEntry, repeated: true },
+    { no: 19, name: "supports_thought_circulation", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientModelConfig {
@@ -12362,6 +15520,16 @@ export class CascadeModelConfigData extends Message<CascadeModelConfigData> {
    */
   defaultOverrideModelConfig?: DefaultOverrideModelConfig;
 
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ClientModelConfig battle_mode_model_configs = 4;
+   */
+  battleModeModelConfigs: ClientModelConfig[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ClientModelSort battle_mode_model_sorts = 5;
+   */
+  battleModeModelSorts: ClientModelSort[] = [];
+
   constructor(data?: PartialMessage<CascadeModelConfigData>) {
     super();
     proto3.util.initPartial(data, this);
@@ -12373,6 +15541,8 @@ export class CascadeModelConfigData extends Message<CascadeModelConfigData> {
     { no: 1, name: "client_model_configs", kind: "message", T: ClientModelConfig, repeated: true },
     { no: 2, name: "client_model_sorts", kind: "message", T: ClientModelSort, repeated: true },
     { no: 3, name: "default_override_model_config", kind: "message", T: DefaultOverrideModelConfig },
+    { no: 4, name: "battle_mode_model_configs", kind: "message", T: ClientModelConfig, repeated: true },
+    { no: 5, name: "battle_mode_model_sorts", kind: "message", T: ClientModelSort, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeModelConfigData {
@@ -14558,6 +17728,21 @@ export class CascadeNUXConfig extends Message<CascadeNUXConfig> {
    */
   videoUrl = "";
 
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.CascadeNUXInteractionType available_interactions = 16;
+   */
+  availableInteractions: CascadeNUXInteractionType[] = [];
+
+  /**
+   * @generated from field: string learn_more_button_text = 17;
+   */
+  learnMoreButtonText = "";
+
+  /**
+   * @generated from field: string primary_cta_text = 18;
+   */
+  primaryCtaText = "";
+
   constructor(data?: PartialMessage<CascadeNUXConfig>) {
     super();
     proto3.util.initPartial(data, this);
@@ -14578,6 +17763,9 @@ export class CascadeNUXConfig extends Message<CascadeNUXConfig> {
     { no: 13, name: "body", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 14, name: "image_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 15, name: "video_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 16, name: "available_interactions", kind: "enum", T: proto3.getEnumType(CascadeNUXInteractionType), repeated: true },
+    { no: 17, name: "learn_more_button_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 18, name: "primary_cta_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeNUXConfig {
@@ -15220,6 +18408,11 @@ export class ModelFeatures extends Message<ModelFeatures> {
    */
   requiresNoXmlToolExamples = false;
 
+  /**
+   * @generated from field: bool supports_thought_circulation = 30;
+   */
+  supportsThoughtCirculation = false;
+
   constructor(data?: PartialMessage<ModelFeatures>) {
     super();
     proto3.util.initPartial(data, this);
@@ -15254,6 +18447,7 @@ export class ModelFeatures extends Message<ModelFeatures> {
     { no: 24, name: "supports_model_info_override", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 25, name: "requires_lead_in_generation", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 26, name: "requires_no_xml_tool_examples", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 30, name: "supports_thought_circulation", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelFeatures {
@@ -15528,6 +18722,16 @@ export class ModelInfo extends Message<ModelInfo> {
    */
   toolResponseKey = "";
 
+  /**
+   * @generated from field: uint32 tokens_per_image = 22;
+   */
+  tokensPerImage = 0;
+
+  /**
+   * @generated from field: string vertex_model_id = 23;
+   */
+  vertexModelId = "";
+
   constructor(data?: PartialMessage<ModelInfo>) {
     super();
     proto3.util.initPartial(data, this);
@@ -15557,6 +18761,8 @@ export class ModelInfo extends Message<ModelInfo> {
     { no: 19, name: "thinking_level", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 20, name: "display_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 21, name: "tool_response_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 22, name: "tokens_per_image", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 23, name: "vertex_model_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelInfo {
@@ -17663,6 +20869,11 @@ export class ConversationScopeItem extends Message<ConversationScopeItem> {
    */
   lastModifiedTime?: Timestamp;
 
+  /**
+   * @generated from field: string source = 4;
+   */
+  source = "";
+
   constructor(data?: PartialMessage<ConversationScopeItem>) {
     super();
     proto3.util.initPartial(data, this);
@@ -17674,6 +20885,7 @@ export class ConversationScopeItem extends Message<ConversationScopeItem> {
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "last_modified_time", kind: "message", T: Timestamp },
+    { no: 4, name: "source", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConversationScopeItem {
@@ -17794,6 +21006,141 @@ export class TerminalScopeItem extends Message<TerminalScopeItem> {
 
   static equals(a: TerminalScopeItem | PlainMessage<TerminalScopeItem> | undefined, b: TerminalScopeItem | PlainMessage<TerminalScopeItem> | undefined): boolean {
     return proto3.util.equals(TerminalScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.SlashCommandInfo
+ */
+export class SlashCommandInfo extends Message<SlashCommandInfo> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string model_facing_text = 2;
+   */
+  modelFacingText = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.SlashCommandType type = 3;
+   */
+  type = SlashCommandType.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<SlashCommandInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.SlashCommandInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "model_facing_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "type", kind: "enum", T: proto3.getEnumType(SlashCommandType) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SlashCommandInfo {
+    return new SlashCommandInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SlashCommandInfo {
+    return new SlashCommandInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SlashCommandInfo {
+    return new SlashCommandInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SlashCommandInfo | PlainMessage<SlashCommandInfo> | undefined, b: SlashCommandInfo | PlainMessage<SlashCommandInfo> | undefined): boolean {
+    return proto3.util.equals(SlashCommandInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.SlashCommandScopeItem
+ */
+export class SlashCommandScopeItem extends Message<SlashCommandScopeItem> {
+  /**
+   * @generated from field: exa.codeium_common_pb.SlashCommandInfo info = 1;
+   */
+  info?: SlashCommandInfo;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.SlashCommandScopeItem.ArgumentValuesEntry argument_values = 2;
+   */
+  argumentValues: SlashCommandScopeItem_ArgumentValuesEntry[] = [];
+
+  constructor(data?: PartialMessage<SlashCommandScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.SlashCommandScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "info", kind: "message", T: SlashCommandInfo },
+    { no: 2, name: "argument_values", kind: "message", T: SlashCommandScopeItem_ArgumentValuesEntry, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SlashCommandScopeItem {
+    return new SlashCommandScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SlashCommandScopeItem {
+    return new SlashCommandScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SlashCommandScopeItem {
+    return new SlashCommandScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SlashCommandScopeItem | PlainMessage<SlashCommandScopeItem> | undefined, b: SlashCommandScopeItem | PlainMessage<SlashCommandScopeItem> | undefined): boolean {
+    return proto3.util.equals(SlashCommandScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.SlashCommandScopeItem.ArgumentValuesEntry
+ */
+export class SlashCommandScopeItem_ArgumentValuesEntry extends Message<SlashCommandScopeItem_ArgumentValuesEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: string value = 2;
+   */
+  value = "";
+
+  constructor(data?: PartialMessage<SlashCommandScopeItem_ArgumentValuesEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.SlashCommandScopeItem.ArgumentValuesEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SlashCommandScopeItem_ArgumentValuesEntry {
+    return new SlashCommandScopeItem_ArgumentValuesEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SlashCommandScopeItem_ArgumentValuesEntry {
+    return new SlashCommandScopeItem_ArgumentValuesEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SlashCommandScopeItem_ArgumentValuesEntry {
+    return new SlashCommandScopeItem_ArgumentValuesEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SlashCommandScopeItem_ArgumentValuesEntry | PlainMessage<SlashCommandScopeItem_ArgumentValuesEntry> | undefined, b: SlashCommandScopeItem_ArgumentValuesEntry | PlainMessage<SlashCommandScopeItem_ArgumentValuesEntry> | undefined): boolean {
+    return proto3.util.equals(SlashCommandScopeItem_ArgumentValuesEntry, a, b);
   }
 }
 
@@ -17954,6 +21301,12 @@ export class ContextScopeItem extends Message<ContextScopeItem> {
      */
     value: McpPromptScopeItem;
     case: "mcpPrompt";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.SlashCommandScopeItem slash_command = 27;
+     */
+    value: SlashCommandScopeItem;
+    case: "slashCommand";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<ContextScopeItem>) {
@@ -17989,6 +21342,7 @@ export class ContextScopeItem extends Message<ContextScopeItem> {
     { no: 24, name: "user_activity", kind: "message", T: UserActivityScopeItem, oneof: "scope_item" },
     { no: 25, name: "terminal", kind: "message", T: TerminalScopeItem, oneof: "scope_item" },
     { no: 26, name: "mcp_prompt", kind: "message", T: McpPromptScopeItem, oneof: "scope_item" },
+    { no: 27, name: "slash_command", kind: "message", T: SlashCommandScopeItem, oneof: "scope_item" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ContextScopeItem {
@@ -18687,6 +22041,11 @@ export class ChatToolCall extends Message<ChatToolCall> {
    */
   originalArgumentsJson = "";
 
+  /**
+   * @generated from field: string original_name = 9;
+   */
+  originalName = "";
+
   constructor(data?: PartialMessage<ChatToolCall>) {
     super();
     proto3.util.initPartial(data, this);
@@ -18703,6 +22062,7 @@ export class ChatToolCall extends Message<ChatToolCall> {
     { no: 6, name: "thought_signature", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 7, name: "thinking_signature", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
     { no: 8, name: "original_arguments_json", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "original_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatToolCall {
@@ -24890,6 +28250,208 @@ export class PermissionGrantsConfig extends Message<PermissionGrantsConfig> {
 
   static equals(a: PermissionGrantsConfig | PlainMessage<PermissionGrantsConfig> | undefined, b: PermissionGrantsConfig | PlainMessage<PermissionGrantsConfig> | undefined): boolean {
     return proto3.util.equals(PermissionGrantsConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Struct
+ */
+export class Struct extends Message<Struct> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Field fields = 1;
+   */
+  fields: Field[] = [];
+
+  constructor(data?: PartialMessage<Struct>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Struct";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "fields", kind: "message", T: Field, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Struct {
+    return new Struct().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Struct {
+    return new Struct().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Struct {
+    return new Struct().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Struct | PlainMessage<Struct> | undefined, b: Struct | PlainMessage<Struct> | undefined): boolean {
+    return proto3.util.equals(Struct, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Field
+ */
+export class Field extends Message<Field> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Value value = 2;
+   */
+  value?: Value;
+
+  constructor(data?: PartialMessage<Field>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Field";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "message", T: Value },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Field {
+    return new Field().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Field {
+    return new Field().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Field {
+    return new Field().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Field | PlainMessage<Field> | undefined, b: Field | PlainMessage<Field> | undefined): boolean {
+    return proto3.util.equals(Field, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Value
+ */
+export class Value extends Message<Value> {
+  /**
+   * @generated from oneof exa.codeium_common_pb.Value.kind
+   */
+  kind: {
+    /**
+     * @generated from field: exa.codeium_common_pb.NullValue null_value = 1;
+     */
+    value: NullValue;
+    case: "nullValue";
+  } | {
+    /**
+     * @generated from field: double number_value = 2;
+     */
+    value: number;
+    case: "numberValue";
+  } | {
+    /**
+     * @generated from field: string string_value = 3;
+     */
+    value: string;
+    case: "stringValue";
+  } | {
+    /**
+     * @generated from field: bool bool_value = 4;
+     */
+    value: boolean;
+    case: "boolValue";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.Struct struct_value = 5;
+     */
+    value: Struct;
+    case: "structValue";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.ListValue list_value = 6;
+     */
+    value: ListValue;
+    case: "listValue";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.Media media = 7;
+     */
+    value: Media;
+    case: "media";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<Value>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Value";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "null_value", kind: "enum", T: proto3.getEnumType(NullValue), oneof: "kind" },
+    { no: 2, name: "number_value", kind: "scalar", T: 1 /* ScalarType.DOUBLE */, oneof: "kind" },
+    { no: 3, name: "string_value", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "kind" },
+    { no: 4, name: "bool_value", kind: "scalar", T: 8 /* ScalarType.BOOL */, oneof: "kind" },
+    { no: 5, name: "struct_value", kind: "message", T: Struct, oneof: "kind" },
+    { no: 6, name: "list_value", kind: "message", T: ListValue, oneof: "kind" },
+    { no: 7, name: "media", kind: "message", T: Media, oneof: "kind" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Value {
+    return new Value().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Value {
+    return new Value().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Value {
+    return new Value().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Value | PlainMessage<Value> | undefined, b: Value | PlainMessage<Value> | undefined): boolean {
+    return proto3.util.equals(Value, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ListValue
+ */
+export class ListValue extends Message<ListValue> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Value values = 1;
+   */
+  values: Value[] = [];
+
+  constructor(data?: PartialMessage<ListValue>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ListValue";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "values", kind: "message", T: Value, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListValue {
+    return new ListValue().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListValue {
+    return new ListValue().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListValue {
+    return new ListValue().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ListValue | PlainMessage<ListValue> | undefined, b: ListValue | PlainMessage<ListValue> | undefined): boolean {
+    return proto3.util.equals(ListValue, a, b);
   }
 }
 

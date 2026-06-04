@@ -4,9 +4,85 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
+import { ArtifactSnapshot, BackgroundCommand, CascadeRunStatus, CortexErrorDetails, CortexStepGeneratorMetadata, CortexStepStatus, CortexStepType, CortexTrajectoryMetadata, CortexTrajectoryType, CortexWorkspaceMetadata, ExecutorMetadata, TaskSnapshot, TrajectoryFileDiff, TrajectoryScope } from "../cortex_pb/cortex_pb.js";
 import { Step, Trajectory } from "../gemini_coder/proto/trajectory_pb.js";
-import { ArtifactSnapshot, CascadeRunStatus, CortexStepGeneratorMetadata, CortexStepStatus, CortexWorkspaceMetadata, ExecutorMetadata, TrajectoryFileDiff, TrajectoryScope } from "../cortex_pb/cortex_pb.js";
+import { Credits } from "../google/internal/cloud/code/v1internal/credits_pb.js";
+
+/**
+ * @generated from enum exa.jetski_cortex_pb.ClientTrajectoryVerbosity
+ */
+export enum ClientTrajectoryVerbosity {
+  /**
+   * @generated from enum value: CLIENT_TRAJECTORY_VERBOSITY_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CLIENT_TRAJECTORY_VERBOSITY_DEBUG = 1;
+   */
+  DEBUG = 1,
+
+  /**
+   * @generated from enum value: CLIENT_TRAJECTORY_VERBOSITY_PROD_UI = 2;
+   */
+  PROD_UI = 2,
+
+  /**
+   * @generated from enum value: CLIENT_TRAJECTORY_VERBOSITY_FULL = 3;
+   */
+  FULL = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ClientTrajectoryVerbosity)
+proto3.util.setEnumType(ClientTrajectoryVerbosity, "exa.jetski_cortex_pb.ClientTrajectoryVerbosity", [
+  { no: 0, name: "CLIENT_TRAJECTORY_VERBOSITY_UNSPECIFIED" },
+  { no: 1, name: "CLIENT_TRAJECTORY_VERBOSITY_DEBUG" },
+  { no: 2, name: "CLIENT_TRAJECTORY_VERBOSITY_PROD_UI" },
+  { no: 3, name: "CLIENT_TRAJECTORY_VERBOSITY_FULL" },
+]);
+
+/**
+ * @generated from message exa.jetski_cortex_pb.BackgroundTask
+ */
+export class BackgroundTask extends Message<BackgroundTask> {
+  /**
+   * @generated from field: exa.cortex_pb.TaskSnapshot task_snapshot = 1;
+   */
+  taskSnapshot?: TaskSnapshot;
+
+  /**
+   * @generated from field: gemini_coder.Step step = 2;
+   */
+  step?: Step;
+
+  constructor(data?: PartialMessage<BackgroundTask>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.BackgroundTask";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "task_snapshot", kind: "message", T: TaskSnapshot },
+    { no: 2, name: "step", kind: "message", T: Step },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BackgroundTask {
+    return new BackgroundTask().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BackgroundTask {
+    return new BackgroundTask().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BackgroundTask {
+    return new BackgroundTask().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BackgroundTask | PlainMessage<BackgroundTask> | undefined, b: BackgroundTask | PlainMessage<BackgroundTask> | undefined): boolean {
+    return proto3.util.equals(BackgroundTask, a, b);
+  }
+}
 
 /**
  * @generated from message exa.jetski_cortex_pb.CascadeState
@@ -57,6 +133,26 @@ export class CascadeState extends Message<CascadeState> {
    */
   trajectoryFileDiffs: TrajectoryFileDiff[] = [];
 
+  /**
+   * @generated from field: repeated exa.cortex_pb.BackgroundCommand background_commands = 10;
+   */
+  backgroundCommands: BackgroundCommand[] = [];
+
+  /**
+   * @generated from field: repeated exa.jetski_cortex_pb.BackgroundTask background_tasks = 13;
+   */
+  backgroundTasks: BackgroundTask[] = [];
+
+  /**
+   * @generated from field: bool has_active_children = 11;
+   */
+  hasActiveChildren = false;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CreditUsageSummary credit_usage_summary = 12;
+   */
+  creditUsageSummary?: CreditUsageSummary;
+
   constructor(data?: PartialMessage<CascadeState>) {
     super();
     proto3.util.initPartial(data, this);
@@ -74,6 +170,10 @@ export class CascadeState extends Message<CascadeState> {
     { no: 5, name: "queued_steps", kind: "message", T: Step, repeated: true },
     { no: 6, name: "artifact_snapshots", kind: "message", T: ArtifactSnapshot, repeated: true },
     { no: 9, name: "trajectory_file_diffs", kind: "message", T: TrajectoryFileDiff, repeated: true },
+    { no: 10, name: "background_commands", kind: "message", T: BackgroundCommand, repeated: true },
+    { no: 13, name: "background_tasks", kind: "message", T: BackgroundTask, repeated: true },
+    { no: 11, name: "has_active_children", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 12, name: "credit_usage_summary", kind: "message", T: CreditUsageSummary },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeState {
@@ -138,6 +238,11 @@ export class AgentStateUpdate extends Message<AgentStateUpdate> {
   subtrajectoryUpdates: AgentStateUpdate_SubtrajectoryUpdatesEntry[] = [];
 
   /**
+   * @generated from field: repeated exa.jetski_cortex_pb.AgentStateUpdate.StepScopedSubtrajectoryUpdatesEntry step_scoped_subtrajectory_updates = 13;
+   */
+  stepScopedSubtrajectoryUpdates: AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry[] = [];
+
+  /**
    * @generated from field: exa.jetski_cortex_pb.QueuedStepsUpdate queued_steps_update = 9;
    */
   queuedStepsUpdate?: QueuedStepsUpdate;
@@ -151,6 +256,31 @@ export class AgentStateUpdate extends Message<AgentStateUpdate> {
    * @generated from field: exa.jetski_cortex_pb.TrajectoryFileDiffsUpdate trajectory_file_diffs_update = 11;
    */
   trajectoryFileDiffsUpdate?: TrajectoryFileDiffsUpdate;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.BackgroundCommandsUpdate background_commands_update = 12;
+   */
+  backgroundCommandsUpdate?: BackgroundCommandsUpdate;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.BackgroundTasksUpdate background_tasks_update = 17;
+   */
+  backgroundTasksUpdate?: BackgroundTasksUpdate;
+
+  /**
+   * @generated from field: bool has_active_children = 14;
+   */
+  hasActiveChildren = false;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CreditUsageSummary credit_usage_summary = 15;
+   */
+  creditUsageSummary?: CreditUsageSummary;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.ConversationCostSummary cost_summary = 16;
+   */
+  costSummary?: ConversationCostSummary;
 
   constructor(data?: PartialMessage<AgentStateUpdate>) {
     super();
@@ -168,9 +298,15 @@ export class AgentStateUpdate extends Message<AgentStateUpdate> {
     { no: 6, name: "executor_metadata", kind: "message", T: ExecutorMetadata },
     { no: 7, name: "main_trajectory_update", kind: "message", T: TrajectoryUpdate },
     { no: 8, name: "subtrajectory_updates", kind: "message", T: AgentStateUpdate_SubtrajectoryUpdatesEntry, repeated: true },
+    { no: 13, name: "step_scoped_subtrajectory_updates", kind: "message", T: AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry, repeated: true },
     { no: 9, name: "queued_steps_update", kind: "message", T: QueuedStepsUpdate },
     { no: 10, name: "artifact_snapshots_update", kind: "message", T: ArtifactSnapshotsUpdate },
     { no: 11, name: "trajectory_file_diffs_update", kind: "message", T: TrajectoryFileDiffsUpdate },
+    { no: 12, name: "background_commands_update", kind: "message", T: BackgroundCommandsUpdate },
+    { no: 17, name: "background_tasks_update", kind: "message", T: BackgroundTasksUpdate },
+    { no: 14, name: "has_active_children", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 15, name: "credit_usage_summary", kind: "message", T: CreditUsageSummary },
+    { no: 16, name: "cost_summary", kind: "message", T: ConversationCostSummary },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AgentStateUpdate {
@@ -234,6 +370,465 @@ export class AgentStateUpdate_SubtrajectoryUpdatesEntry extends Message<AgentSta
 }
 
 /**
+ * @generated from message exa.jetski_cortex_pb.AgentStateUpdate.StepScopedSubtrajectoryUpdatesEntry
+ */
+export class AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry extends Message<AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry> {
+  /**
+   * @generated from field: uint32 key = 1;
+   */
+  key = 0;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.TrajectoryUpdate value = 2;
+   */
+  value?: TrajectoryUpdate;
+
+  constructor(data?: PartialMessage<AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.AgentStateUpdate.StepScopedSubtrajectoryUpdatesEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "value", kind: "message", T: TrajectoryUpdate },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry {
+    return new AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry {
+    return new AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry {
+    return new AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry | PlainMessage<AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry> | undefined, b: AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry | PlainMessage<AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry> | undefined): boolean {
+    return proto3.util.equals(AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.ModelPricingInfo
+ */
+export class ModelPricingInfo extends Message<ModelPricingInfo> {
+  /**
+   * @generated from field: float input_price_per_million_tokens = 1;
+   */
+  inputPricePerMillionTokens = 0;
+
+  /**
+   * @generated from field: float output_price_per_million_tokens = 2;
+   */
+  outputPricePerMillionTokens = 0;
+
+  /**
+   * @generated from field: float cache_read_price_per_million_tokens = 3;
+   */
+  cacheReadPricePerMillionTokens = 0;
+
+  /**
+   * @generated from field: string model_name = 4;
+   */
+  modelName = "";
+
+  constructor(data?: PartialMessage<ModelPricingInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.ModelPricingInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "input_price_per_million_tokens", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 2, name: "output_price_per_million_tokens", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 3, name: "cache_read_price_per_million_tokens", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 4, name: "model_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelPricingInfo {
+    return new ModelPricingInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModelPricingInfo {
+    return new ModelPricingInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModelPricingInfo {
+    return new ModelPricingInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ModelPricingInfo | PlainMessage<ModelPricingInfo> | undefined, b: ModelPricingInfo | PlainMessage<ModelPricingInfo> | undefined): boolean {
+    return proto3.util.equals(ModelPricingInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.CostCategory
+ */
+export class CostCategory extends Message<CostCategory> {
+  /**
+   * @generated from field: int64 tokens = 1;
+   */
+  tokens = protoInt64.zero;
+
+  /**
+   * @generated from field: float estimated_cost_usd = 2;
+   */
+  estimatedCostUsd = 0;
+
+  constructor(data?: PartialMessage<CostCategory>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.CostCategory";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "tokens", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 2, name: "estimated_cost_usd", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CostCategory {
+    return new CostCategory().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CostCategory {
+    return new CostCategory().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CostCategory {
+    return new CostCategory().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CostCategory | PlainMessage<CostCategory> | undefined, b: CostCategory | PlainMessage<CostCategory> | undefined): boolean {
+    return proto3.util.equals(CostCategory, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.CostDisplaySection
+ */
+export class CostDisplaySection extends Message<CostDisplaySection> {
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CostCategory input = 1;
+   */
+  input?: CostCategory;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CostCategory cache_read = 2;
+   */
+  cacheRead?: CostCategory;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CostCategory output = 3;
+   */
+  output?: CostCategory;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CostCategory thinking = 4;
+   */
+  thinking?: CostCategory;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CostCategory response = 5;
+   */
+  response?: CostCategory;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CostCategory tools = 6;
+   */
+  tools?: CostCategory;
+
+  /**
+   * @generated from field: repeated exa.jetski_cortex_pb.CostDisplaySection.ToolBreakdownEntry tool_breakdown = 7;
+   */
+  toolBreakdown: CostDisplaySection_ToolBreakdownEntry[] = [];
+
+  /**
+   * @generated from field: int32 generation_count = 8;
+   */
+  generationCount = 0;
+
+  /**
+   * @generated from field: float estimated_cost_usd = 9;
+   */
+  estimatedCostUsd = 0;
+
+  constructor(data?: PartialMessage<CostDisplaySection>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.CostDisplaySection";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "input", kind: "message", T: CostCategory },
+    { no: 2, name: "cache_read", kind: "message", T: CostCategory },
+    { no: 3, name: "output", kind: "message", T: CostCategory },
+    { no: 4, name: "thinking", kind: "message", T: CostCategory },
+    { no: 5, name: "response", kind: "message", T: CostCategory },
+    { no: 6, name: "tools", kind: "message", T: CostCategory },
+    { no: 7, name: "tool_breakdown", kind: "message", T: CostDisplaySection_ToolBreakdownEntry, repeated: true },
+    { no: 8, name: "generation_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 9, name: "estimated_cost_usd", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CostDisplaySection {
+    return new CostDisplaySection().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CostDisplaySection {
+    return new CostDisplaySection().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CostDisplaySection {
+    return new CostDisplaySection().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CostDisplaySection | PlainMessage<CostDisplaySection> | undefined, b: CostDisplaySection | PlainMessage<CostDisplaySection> | undefined): boolean {
+    return proto3.util.equals(CostDisplaySection, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.CostDisplaySection.ToolBreakdownEntry
+ */
+export class CostDisplaySection_ToolBreakdownEntry extends Message<CostDisplaySection_ToolBreakdownEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CostCategory value = 2;
+   */
+  value?: CostCategory;
+
+  constructor(data?: PartialMessage<CostDisplaySection_ToolBreakdownEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.CostDisplaySection.ToolBreakdownEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "message", T: CostCategory },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CostDisplaySection_ToolBreakdownEntry {
+    return new CostDisplaySection_ToolBreakdownEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CostDisplaySection_ToolBreakdownEntry {
+    return new CostDisplaySection_ToolBreakdownEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CostDisplaySection_ToolBreakdownEntry {
+    return new CostDisplaySection_ToolBreakdownEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CostDisplaySection_ToolBreakdownEntry | PlainMessage<CostDisplaySection_ToolBreakdownEntry> | undefined, b: CostDisplaySection_ToolBreakdownEntry | PlainMessage<CostDisplaySection_ToolBreakdownEntry> | undefined): boolean {
+    return proto3.util.equals(CostDisplaySection_ToolBreakdownEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.TurnCostSummary
+ */
+export class TurnCostSummary extends Message<TurnCostSummary> {
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CostDisplaySection turn = 1;
+   */
+  turn?: CostDisplaySection;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CostDisplaySection subagent = 2;
+   */
+  subagent?: CostDisplaySection;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CostDisplaySection cumulative_total = 3;
+   */
+  cumulativeTotal?: CostDisplaySection;
+
+  constructor(data?: PartialMessage<TurnCostSummary>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.TurnCostSummary";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "turn", kind: "message", T: CostDisplaySection },
+    { no: 2, name: "subagent", kind: "message", T: CostDisplaySection },
+    { no: 3, name: "cumulative_total", kind: "message", T: CostDisplaySection },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TurnCostSummary {
+    return new TurnCostSummary().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TurnCostSummary {
+    return new TurnCostSummary().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TurnCostSummary {
+    return new TurnCostSummary().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TurnCostSummary | PlainMessage<TurnCostSummary> | undefined, b: TurnCostSummary | PlainMessage<TurnCostSummary> | undefined): boolean {
+    return proto3.util.equals(TurnCostSummary, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.ConversationCostSummary
+ */
+export class ConversationCostSummary extends Message<ConversationCostSummary> {
+  /**
+   * @generated from field: repeated exa.jetski_cortex_pb.ConversationCostSummary.TurnCostsEntry turn_costs = 1;
+   */
+  turnCosts: ConversationCostSummary_TurnCostsEntry[] = [];
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.TurnCostSummary total = 2;
+   */
+  total?: TurnCostSummary;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.ModelPricingInfo pricing = 3;
+   */
+  pricing?: ModelPricingInfo;
+
+  /**
+   * @generated from field: repeated exa.jetski_cortex_pb.ConversationCostSummary.SubagentCostsEntry subagent_costs = 4;
+   */
+  subagentCosts: ConversationCostSummary_SubagentCostsEntry[] = [];
+
+  constructor(data?: PartialMessage<ConversationCostSummary>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.ConversationCostSummary";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "turn_costs", kind: "message", T: ConversationCostSummary_TurnCostsEntry, repeated: true },
+    { no: 2, name: "total", kind: "message", T: TurnCostSummary },
+    { no: 3, name: "pricing", kind: "message", T: ModelPricingInfo },
+    { no: 4, name: "subagent_costs", kind: "message", T: ConversationCostSummary_SubagentCostsEntry, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConversationCostSummary {
+    return new ConversationCostSummary().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConversationCostSummary {
+    return new ConversationCostSummary().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConversationCostSummary {
+    return new ConversationCostSummary().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConversationCostSummary | PlainMessage<ConversationCostSummary> | undefined, b: ConversationCostSummary | PlainMessage<ConversationCostSummary> | undefined): boolean {
+    return proto3.util.equals(ConversationCostSummary, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.ConversationCostSummary.TurnCostsEntry
+ */
+export class ConversationCostSummary_TurnCostsEntry extends Message<ConversationCostSummary_TurnCostsEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.TurnCostSummary value = 2;
+   */
+  value?: TurnCostSummary;
+
+  constructor(data?: PartialMessage<ConversationCostSummary_TurnCostsEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.ConversationCostSummary.TurnCostsEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "message", T: TurnCostSummary },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConversationCostSummary_TurnCostsEntry {
+    return new ConversationCostSummary_TurnCostsEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConversationCostSummary_TurnCostsEntry {
+    return new ConversationCostSummary_TurnCostsEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConversationCostSummary_TurnCostsEntry {
+    return new ConversationCostSummary_TurnCostsEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConversationCostSummary_TurnCostsEntry | PlainMessage<ConversationCostSummary_TurnCostsEntry> | undefined, b: ConversationCostSummary_TurnCostsEntry | PlainMessage<ConversationCostSummary_TurnCostsEntry> | undefined): boolean {
+    return proto3.util.equals(ConversationCostSummary_TurnCostsEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.ConversationCostSummary.SubagentCostsEntry
+ */
+export class ConversationCostSummary_SubagentCostsEntry extends Message<ConversationCostSummary_SubagentCostsEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.CostDisplaySection value = 2;
+   */
+  value?: CostDisplaySection;
+
+  constructor(data?: PartialMessage<ConversationCostSummary_SubagentCostsEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.ConversationCostSummary.SubagentCostsEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "message", T: CostDisplaySection },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConversationCostSummary_SubagentCostsEntry {
+    return new ConversationCostSummary_SubagentCostsEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConversationCostSummary_SubagentCostsEntry {
+    return new ConversationCostSummary_SubagentCostsEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConversationCostSummary_SubagentCostsEntry {
+    return new ConversationCostSummary_SubagentCostsEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConversationCostSummary_SubagentCostsEntry | PlainMessage<ConversationCostSummary_SubagentCostsEntry> | undefined, b: ConversationCostSummary_SubagentCostsEntry | PlainMessage<ConversationCostSummary_SubagentCostsEntry> | undefined): boolean {
+    return proto3.util.equals(ConversationCostSummary_SubagentCostsEntry, a, b);
+  }
+}
+
+/**
  * @generated from message exa.jetski_cortex_pb.TrajectoryUpdate
  */
 export class TrajectoryUpdate extends Message<TrajectoryUpdate> {
@@ -252,6 +847,36 @@ export class TrajectoryUpdate extends Message<TrajectoryUpdate> {
    */
   executorMetadatasUpdate?: ExecutorMetadatasUpdate;
 
+  /**
+   * @generated from field: exa.cortex_pb.CortexTrajectoryType trajectory_type = 4;
+   */
+  trajectoryType = CortexTrajectoryType.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.cortex_pb.CortexTrajectoryMetadata metadata = 5;
+   */
+  metadata?: CortexTrajectoryMetadata;
+
+  /**
+   * @generated from field: exa.cortex_pb.CascadeRunStatus status = 6;
+   */
+  status = CascadeRunStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.cortex_pb.CortexErrorDetails last_step_error = 7;
+   */
+  lastStepError?: CortexErrorDetails;
+
+  /**
+   * @generated from field: exa.cortex_pb.CortexStepType last_step_type = 8;
+   */
+  lastStepType = CortexStepType.UNSPECIFIED;
+
+  /**
+   * @generated from field: repeated exa.jetski_cortex_pb.CortexTrajectoryStepWithIndex waiting_steps = 9;
+   */
+  waitingSteps: CortexTrajectoryStepWithIndex[] = [];
+
   constructor(data?: PartialMessage<TrajectoryUpdate>) {
     super();
     proto3.util.initPartial(data, this);
@@ -263,6 +888,12 @@ export class TrajectoryUpdate extends Message<TrajectoryUpdate> {
     { no: 1, name: "steps_update", kind: "message", T: StepsUpdate },
     { no: 2, name: "generator_metadatas_update", kind: "message", T: GeneratorMetadatasUpdate },
     { no: 3, name: "executor_metadatas_update", kind: "message", T: ExecutorMetadatasUpdate },
+    { no: 4, name: "trajectory_type", kind: "enum", T: proto3.getEnumType(CortexTrajectoryType) },
+    { no: 5, name: "metadata", kind: "message", T: CortexTrajectoryMetadata },
+    { no: 6, name: "status", kind: "enum", T: proto3.getEnumType(CascadeRunStatus) },
+    { no: 7, name: "last_step_error", kind: "message", T: CortexErrorDetails },
+    { no: 8, name: "last_step_type", kind: "enum", T: proto3.getEnumType(CortexStepType) },
+    { no: 9, name: "waiting_steps", kind: "message", T: CortexTrajectoryStepWithIndex, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TrajectoryUpdate {
@@ -301,6 +932,11 @@ export class StepsUpdate extends Message<StepsUpdate> {
    */
   totalLength = 0;
 
+  /**
+   * @generated from field: exa.jetski_cortex_pb.Slice page_bounds = 4;
+   */
+  pageBounds?: Slice;
+
   constructor(data?: PartialMessage<StepsUpdate>) {
     super();
     proto3.util.initPartial(data, this);
@@ -312,6 +948,7 @@ export class StepsUpdate extends Message<StepsUpdate> {
     { no: 1, name: "indices", kind: "scalar", T: 13 /* ScalarType.UINT32 */, repeated: true },
     { no: 2, name: "steps", kind: "message", T: Step, repeated: true },
     { no: 3, name: "total_length", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "page_bounds", kind: "message", T: Slice },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StepsUpdate {
@@ -350,6 +987,11 @@ export class GeneratorMetadatasUpdate extends Message<GeneratorMetadatasUpdate> 
    */
   totalLength = 0;
 
+  /**
+   * @generated from field: exa.jetski_cortex_pb.Slice page_bounds = 4;
+   */
+  pageBounds?: Slice;
+
   constructor(data?: PartialMessage<GeneratorMetadatasUpdate>) {
     super();
     proto3.util.initPartial(data, this);
@@ -361,6 +1003,7 @@ export class GeneratorMetadatasUpdate extends Message<GeneratorMetadatasUpdate> 
     { no: 1, name: "indices", kind: "scalar", T: 13 /* ScalarType.UINT32 */, repeated: true },
     { no: 2, name: "generator_metadatas", kind: "message", T: CortexStepGeneratorMetadata, repeated: true },
     { no: 3, name: "total_length", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "page_bounds", kind: "message", T: Slice },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GeneratorMetadatasUpdate {
@@ -399,6 +1042,11 @@ export class ExecutorMetadatasUpdate extends Message<ExecutorMetadatasUpdate> {
    */
   totalLength = 0;
 
+  /**
+   * @generated from field: exa.jetski_cortex_pb.Slice page_bounds = 4;
+   */
+  pageBounds?: Slice;
+
   constructor(data?: PartialMessage<ExecutorMetadatasUpdate>) {
     super();
     proto3.util.initPartial(data, this);
@@ -410,6 +1058,7 @@ export class ExecutorMetadatasUpdate extends Message<ExecutorMetadatasUpdate> {
     { no: 1, name: "indices", kind: "scalar", T: 13 /* ScalarType.UINT32 */, repeated: true },
     { no: 2, name: "executor_metadatas", kind: "message", T: ExecutorMetadata, repeated: true },
     { no: 3, name: "total_length", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "page_bounds", kind: "message", T: Slice },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExecutorMetadatasUpdate {
@@ -577,6 +1226,190 @@ export class TrajectoryFileDiffsUpdate extends Message<TrajectoryFileDiffsUpdate
 }
 
 /**
+ * @generated from message exa.jetski_cortex_pb.BackgroundCommandsUpdate
+ */
+export class BackgroundCommandsUpdate extends Message<BackgroundCommandsUpdate> {
+  /**
+   * @generated from field: repeated uint32 indices = 1;
+   */
+  indices: number[] = [];
+
+  /**
+   * @generated from field: repeated exa.cortex_pb.BackgroundCommand background_commands = 2;
+   */
+  backgroundCommands: BackgroundCommand[] = [];
+
+  /**
+   * @generated from field: uint32 total_length = 3;
+   */
+  totalLength = 0;
+
+  constructor(data?: PartialMessage<BackgroundCommandsUpdate>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.BackgroundCommandsUpdate";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "indices", kind: "scalar", T: 13 /* ScalarType.UINT32 */, repeated: true },
+    { no: 2, name: "background_commands", kind: "message", T: BackgroundCommand, repeated: true },
+    { no: 3, name: "total_length", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BackgroundCommandsUpdate {
+    return new BackgroundCommandsUpdate().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BackgroundCommandsUpdate {
+    return new BackgroundCommandsUpdate().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BackgroundCommandsUpdate {
+    return new BackgroundCommandsUpdate().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BackgroundCommandsUpdate | PlainMessage<BackgroundCommandsUpdate> | undefined, b: BackgroundCommandsUpdate | PlainMessage<BackgroundCommandsUpdate> | undefined): boolean {
+    return proto3.util.equals(BackgroundCommandsUpdate, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.BackgroundTasksUpdate
+ */
+export class BackgroundTasksUpdate extends Message<BackgroundTasksUpdate> {
+  /**
+   * @generated from field: repeated uint32 indices = 1;
+   */
+  indices: number[] = [];
+
+  /**
+   * @generated from field: repeated exa.jetski_cortex_pb.BackgroundTask background_tasks = 2;
+   */
+  backgroundTasks: BackgroundTask[] = [];
+
+  /**
+   * @generated from field: uint32 total_length = 3;
+   */
+  totalLength = 0;
+
+  constructor(data?: PartialMessage<BackgroundTasksUpdate>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.BackgroundTasksUpdate";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "indices", kind: "scalar", T: 13 /* ScalarType.UINT32 */, repeated: true },
+    { no: 2, name: "background_tasks", kind: "message", T: BackgroundTask, repeated: true },
+    { no: 3, name: "total_length", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BackgroundTasksUpdate {
+    return new BackgroundTasksUpdate().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BackgroundTasksUpdate {
+    return new BackgroundTasksUpdate().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BackgroundTasksUpdate {
+    return new BackgroundTasksUpdate().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BackgroundTasksUpdate | PlainMessage<BackgroundTasksUpdate> | undefined, b: BackgroundTasksUpdate | PlainMessage<BackgroundTasksUpdate> | undefined): boolean {
+    return proto3.util.equals(BackgroundTasksUpdate, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.ConsumedCredits
+ */
+export class ConsumedCredits extends Message<ConsumedCredits> {
+  /**
+   * @generated from field: repeated google.internal.cloud.code.v1internal.Credits credits = 1;
+   */
+  credits: Credits[] = [];
+
+  /**
+   * @generated from field: uint32 first_step_index = 2;
+   */
+  firstStepIndex = 0;
+
+  /**
+   * @generated from field: uint32 last_step_index = 3;
+   */
+  lastStepIndex = 0;
+
+  constructor(data?: PartialMessage<ConsumedCredits>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.ConsumedCredits";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "credits", kind: "message", T: Credits, repeated: true },
+    { no: 2, name: "first_step_index", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "last_step_index", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConsumedCredits {
+    return new ConsumedCredits().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConsumedCredits {
+    return new ConsumedCredits().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConsumedCredits {
+    return new ConsumedCredits().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConsumedCredits | PlainMessage<ConsumedCredits> | undefined, b: ConsumedCredits | PlainMessage<ConsumedCredits> | undefined): boolean {
+    return proto3.util.equals(ConsumedCredits, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.CreditUsageSummary
+ */
+export class CreditUsageSummary extends Message<CreditUsageSummary> {
+  /**
+   * @generated from field: repeated exa.jetski_cortex_pb.ConsumedCredits consumed_credits = 1;
+   */
+  consumedCredits: ConsumedCredits[] = [];
+
+  constructor(data?: PartialMessage<CreditUsageSummary>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.CreditUsageSummary";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "consumed_credits", kind: "message", T: ConsumedCredits, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreditUsageSummary {
+    return new CreditUsageSummary().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreditUsageSummary {
+    return new CreditUsageSummary().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreditUsageSummary {
+    return new CreditUsageSummary().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreditUsageSummary | PlainMessage<CreditUsageSummary> | undefined, b: CreditUsageSummary | PlainMessage<CreditUsageSummary> | undefined): boolean {
+    return proto3.util.equals(CreditUsageSummary, a, b);
+  }
+}
+
+/**
  * @generated from message exa.jetski_cortex_pb.ImplicitTrajectory
  */
 export class ImplicitTrajectory extends Message<ImplicitTrajectory> {
@@ -650,6 +1483,12 @@ export class BaseTrajectoryIdentifier extends Message<BaseTrajectoryIdentifier> 
      */
     value: Trajectory;
     case: "trajectory";
+  } | {
+    /**
+     * @generated from field: exa.jetski_cortex_pb.ForkFromIdentifier fork_from = 5;
+     */
+    value: ForkFromIdentifier;
+    case: "forkFrom";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<BaseTrajectoryIdentifier>) {
@@ -664,6 +1503,7 @@ export class BaseTrajectoryIdentifier extends Message<BaseTrajectoryIdentifier> 
     { no: 2, name: "implicit_trajectory_file_uri", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "identifier" },
     { no: 3, name: "last_active_doc", kind: "scalar", T: 8 /* ScalarType.BOOL */, oneof: "identifier" },
     { no: 4, name: "trajectory", kind: "message", T: Trajectory, oneof: "identifier" },
+    { no: 5, name: "fork_from", kind: "message", T: ForkFromIdentifier, oneof: "identifier" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BaseTrajectoryIdentifier {
@@ -680,6 +1520,49 @@ export class BaseTrajectoryIdentifier extends Message<BaseTrajectoryIdentifier> 
 
   static equals(a: BaseTrajectoryIdentifier | PlainMessage<BaseTrajectoryIdentifier> | undefined, b: BaseTrajectoryIdentifier | PlainMessage<BaseTrajectoryIdentifier> | undefined): boolean {
     return proto3.util.equals(BaseTrajectoryIdentifier, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.ForkFromIdentifier
+ */
+export class ForkFromIdentifier extends Message<ForkFromIdentifier> {
+  /**
+   * @generated from field: string cascade_id = 1;
+   */
+  cascadeId = "";
+
+  /**
+   * @generated from field: int32 step_index = 2;
+   */
+  stepIndex = 0;
+
+  constructor(data?: PartialMessage<ForkFromIdentifier>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.ForkFromIdentifier";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "step_index", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ForkFromIdentifier {
+    return new ForkFromIdentifier().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ForkFromIdentifier {
+    return new ForkFromIdentifier().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ForkFromIdentifier {
+    return new ForkFromIdentifier().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ForkFromIdentifier | PlainMessage<ForkFromIdentifier> | undefined, b: ForkFromIdentifier | PlainMessage<ForkFromIdentifier> | undefined): boolean {
+    return proto3.util.equals(ForkFromIdentifier, a, b);
   }
 }
 
@@ -746,9 +1629,9 @@ export class ConversationAnnotations extends Message<ConversationAnnotations> {
   archived = false;
 
   /**
-   * @generated from field: bytes archival_status_timestamp = 5;
+   * @generated from field: google.protobuf.Timestamp archival_status_timestamp = 5;
    */
-  archivalStatusTimestamp = new Uint8Array(0);
+  archivalStatusTimestamp?: Timestamp;
 
   /**
    * @generated from field: bool starred = 6;
@@ -756,9 +1639,34 @@ export class ConversationAnnotations extends Message<ConversationAnnotations> {
   starred = false;
 
   /**
-   * @generated from field: bytes last_user_view_time = 7;
+   * @generated from field: google.protobuf.Timestamp last_user_view_time = 7;
    */
-  lastUserViewTime = new Uint8Array(0);
+  lastUserViewTime?: Timestamp;
+
+  /**
+   * @generated from field: bool marked_as_unread = 8;
+   */
+  markedAsUnread = false;
+
+  /**
+   * @generated from field: string group_id = 9;
+   */
+  groupId = "";
+
+  /**
+   * @generated from field: int32 group_index = 10;
+   */
+  groupIndex = 0;
+
+  /**
+   * @generated from field: string group_description = 11;
+   */
+  groupDescription = "";
+
+  /**
+   * @generated from field: bool pinned = 12;
+   */
+  pinned = false;
 
   constructor(data?: PartialMessage<ConversationAnnotations>) {
     super();
@@ -771,9 +1679,14 @@ export class ConversationAnnotations extends Message<ConversationAnnotations> {
     { no: 1, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "tags", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 4, name: "archived", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 5, name: "archival_status_timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 5, name: "archival_status_timestamp", kind: "message", T: Timestamp },
     { no: 6, name: "starred", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 7, name: "last_user_view_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 7, name: "last_user_view_time", kind: "message", T: Timestamp },
+    { no: 8, name: "marked_as_unread", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 9, name: "group_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "group_index", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 11, name: "group_description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 12, name: "pinned", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConversationAnnotations {
@@ -808,9 +1721,9 @@ export class CascadeTrajectorySummary extends Message<CascadeTrajectorySummary> 
   stepCount = 0;
 
   /**
-   * @generated from field: bytes last_modified_time = 3;
+   * @generated from field: google.protobuf.Timestamp last_modified_time = 3;
    */
-  lastModifiedTime = new Uint8Array(0);
+  lastModifiedTime?: Timestamp;
 
   /**
    * @generated from field: string trajectory_id = 4;
@@ -823,9 +1736,9 @@ export class CascadeTrajectorySummary extends Message<CascadeTrajectorySummary> 
   status = CascadeRunStatus.UNSPECIFIED;
 
   /**
-   * @generated from field: bytes created_time = 7;
+   * @generated from field: google.protobuf.Timestamp created_time = 7;
    */
-  createdTime = new Uint8Array(0);
+  createdTime?: Timestamp;
 
   /**
    * @generated from field: repeated exa.jetski_cortex_pb.CortexTrajectoryStepWithIndex waiting_steps = 8;
@@ -838,9 +1751,9 @@ export class CascadeTrajectorySummary extends Message<CascadeTrajectorySummary> 
   workspaces: CortexWorkspaceMetadata[] = [];
 
   /**
-   * @generated from field: bytes last_user_input_time = 10;
+   * @generated from field: google.protobuf.Timestamp last_user_input_time = 10;
    */
-  lastUserInputTime = new Uint8Array(0);
+  lastUserInputTime?: Timestamp;
 
   /**
    * @generated from field: uint32 last_user_input_step_index = 16;
@@ -862,6 +1775,16 @@ export class CascadeTrajectorySummary extends Message<CascadeTrajectorySummary> 
    */
   annotations?: ConversationAnnotations;
 
+  /**
+   * @generated from field: exa.cortex_pb.CortexTrajectoryMetadata trajectory_metadata = 17;
+   */
+  trajectoryMetadata?: CortexTrajectoryMetadata;
+
+  /**
+   * @generated from field: bool has_active_children = 18;
+   */
+  hasActiveChildren = false;
+
   constructor(data?: PartialMessage<CascadeTrajectorySummary>) {
     super();
     proto3.util.initPartial(data, this);
@@ -872,17 +1795,19 @@ export class CascadeTrajectorySummary extends Message<CascadeTrajectorySummary> 
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "summary", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "step_count", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 3, name: "last_modified_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "last_modified_time", kind: "message", T: Timestamp },
     { no: 4, name: "trajectory_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "status", kind: "enum", T: proto3.getEnumType(CascadeRunStatus) },
-    { no: 7, name: "created_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 7, name: "created_time", kind: "message", T: Timestamp },
     { no: 8, name: "waiting_steps", kind: "message", T: CortexTrajectoryStepWithIndex, repeated: true },
     { no: 9, name: "workspaces", kind: "message", T: CortexWorkspaceMetadata, repeated: true },
-    { no: 10, name: "last_user_input_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 10, name: "last_user_input_time", kind: "message", T: Timestamp },
     { no: 16, name: "last_user_input_step_index", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 12, name: "latest_notify_user_step", kind: "message", T: CortexTrajectoryStepWithIndex },
     { no: 14, name: "latest_task_boundary_step", kind: "message", T: CortexTrajectoryStepWithIndex },
     { no: 15, name: "annotations", kind: "message", T: ConversationAnnotations },
+    { no: 17, name: "trajectory_metadata", kind: "message", T: CortexTrajectoryMetadata },
+    { no: 18, name: "has_active_children", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeTrajectorySummary {
@@ -1039,6 +1964,49 @@ export class CortexStepUpdate extends Message<CortexStepUpdate> {
 }
 
 /**
+ * @generated from message exa.jetski_cortex_pb.Slice
+ */
+export class Slice extends Message<Slice> {
+  /**
+   * @generated from field: int32 start_index = 1;
+   */
+  startIndex = 0;
+
+  /**
+   * @generated from field: int32 end_index_exclusive = 2;
+   */
+  endIndexExclusive = 0;
+
+  constructor(data?: PartialMessage<Slice>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.Slice";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "start_index", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "end_index_exclusive", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Slice {
+    return new Slice().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Slice {
+    return new Slice().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Slice {
+    return new Slice().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Slice | PlainMessage<Slice> | undefined, b: Slice | PlainMessage<Slice> | undefined): boolean {
+    return proto3.util.equals(Slice, a, b);
+  }
+}
+
+/**
  * @generated from message exa.jetski_cortex_pb.StreamAgentStateUpdatesRequest
  */
 export class StreamAgentStateUpdatesRequest extends Message<StreamAgentStateUpdatesRequest> {
@@ -1052,6 +2020,26 @@ export class StreamAgentStateUpdatesRequest extends Message<StreamAgentStateUpda
    */
   subscriberId = "";
 
+  /**
+   * @generated from field: exa.jetski_cortex_pb.Slice initial_steps_page_bounds = 3;
+   */
+  initialStepsPageBounds?: Slice;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.ClientTrajectoryVerbosity trajectory_verbosity = 4;
+   */
+  trajectoryVerbosity = ClientTrajectoryVerbosity.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.Slice initial_generator_metadatas_page_bounds = 5;
+   */
+  initialGeneratorMetadatasPageBounds?: Slice;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.Slice initial_executor_metadatas_page_bounds = 6;
+   */
+  initialExecutorMetadatasPageBounds?: Slice;
+
   constructor(data?: PartialMessage<StreamAgentStateUpdatesRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1062,6 +2050,10 @@ export class StreamAgentStateUpdatesRequest extends Message<StreamAgentStateUpda
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "subscriber_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "initial_steps_page_bounds", kind: "message", T: Slice },
+    { no: 4, name: "trajectory_verbosity", kind: "enum", T: proto3.getEnumType(ClientTrajectoryVerbosity) },
+    { no: 5, name: "initial_generator_metadatas_page_bounds", kind: "message", T: Slice },
+    { no: 6, name: "initial_executor_metadatas_page_bounds", kind: "message", T: Slice },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StreamAgentStateUpdatesRequest {
@@ -1115,6 +2107,98 @@ export class StreamAgentStateUpdatesResponse extends Message<StreamAgentStateUpd
 
   static equals(a: StreamAgentStateUpdatesResponse | PlainMessage<StreamAgentStateUpdatesResponse> | undefined, b: StreamAgentStateUpdatesResponse | PlainMessage<StreamAgentStateUpdatesResponse> | undefined): boolean {
     return proto3.util.equals(StreamAgentStateUpdatesResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.AgentStatePageUpdateRequest
+ */
+export class AgentStatePageUpdateRequest extends Message<AgentStatePageUpdateRequest> {
+  /**
+   * @generated from field: string conversation_id = 1;
+   */
+  conversationId = "";
+
+  /**
+   * @generated from field: string subscriber_id = 2;
+   */
+  subscriberId = "";
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.Slice step_page_bounds = 3;
+   */
+  stepPageBounds?: Slice;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.Slice generator_metadatas_page_bounds = 4;
+   */
+  generatorMetadatasPageBounds?: Slice;
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.Slice executor_metadatas_page_bounds = 5;
+   */
+  executorMetadatasPageBounds?: Slice;
+
+  constructor(data?: PartialMessage<AgentStatePageUpdateRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.AgentStatePageUpdateRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "subscriber_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "step_page_bounds", kind: "message", T: Slice },
+    { no: 4, name: "generator_metadatas_page_bounds", kind: "message", T: Slice },
+    { no: 5, name: "executor_metadatas_page_bounds", kind: "message", T: Slice },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AgentStatePageUpdateRequest {
+    return new AgentStatePageUpdateRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AgentStatePageUpdateRequest {
+    return new AgentStatePageUpdateRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AgentStatePageUpdateRequest {
+    return new AgentStatePageUpdateRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AgentStatePageUpdateRequest | PlainMessage<AgentStatePageUpdateRequest> | undefined, b: AgentStatePageUpdateRequest | PlainMessage<AgentStatePageUpdateRequest> | undefined): boolean {
+    return proto3.util.equals(AgentStatePageUpdateRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.AgentStatePageUpdateResponse
+ */
+export class AgentStatePageUpdateResponse extends Message<AgentStatePageUpdateResponse> {
+  constructor(data?: PartialMessage<AgentStatePageUpdateResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.AgentStatePageUpdateResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AgentStatePageUpdateResponse {
+    return new AgentStatePageUpdateResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AgentStatePageUpdateResponse {
+    return new AgentStatePageUpdateResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AgentStatePageUpdateResponse {
+    return new AgentStatePageUpdateResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AgentStatePageUpdateResponse | PlainMessage<AgentStatePageUpdateResponse> | undefined, b: AgentStatePageUpdateResponse | PlainMessage<AgentStatePageUpdateResponse> | undefined): boolean {
+    return proto3.util.equals(AgentStatePageUpdateResponse, a, b);
   }
 }
 

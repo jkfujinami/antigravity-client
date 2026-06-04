@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
 import { BrowserPageMetadata, ConsoleLogScopeItem, DOMTree, ImageData, Media } from "../codeium_common_pb/codeium_common_pb.js";
 
 /**
@@ -156,9 +156,9 @@ export class SerializablePageState extends Message<SerializablePageState> {
   consoleLogs?: ConsoleLogScopeItem;
 
   /**
-   * @generated from field: bytes added_time = 7;
+   * @generated from field: google.protobuf.Timestamp added_time = 7;
    */
-  addedTime = new Uint8Array(0);
+  addedTime?: Timestamp;
 
   /**
    * @generated from field: string serialized_dom_tree = 8;
@@ -184,7 +184,7 @@ export class SerializablePageState extends Message<SerializablePageState> {
     { no: 4, name: "screenshot", kind: "message", T: ImageData },
     { no: 5, name: "agent_mouse_position", kind: "message", T: AgentMousePosition },
     { no: 6, name: "console_logs", kind: "message", T: ConsoleLogScopeItem },
-    { no: 7, name: "added_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 7, name: "added_time", kind: "message", T: Timestamp },
     { no: 8, name: "serialized_dom_tree", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 9, name: "media_screenshot", kind: "message", T: Media },
   ]);

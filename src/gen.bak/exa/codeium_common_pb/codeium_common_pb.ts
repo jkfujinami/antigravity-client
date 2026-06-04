@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import { Duration, Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
 import { UserTier } from "../google/internal/cloud/code/v1internal/onboarding_pb.js";
 import { Credits } from "../google/internal/cloud/code/v1internal/credits_pb.js";
 
@@ -1468,6 +1468,11 @@ export enum Model {
   GOOGLE_GEMINI_TRAINING_POLICY = 323,
 
   /**
+   * @generated from enum value: MODEL_GOOGLE_GEMINI_EXAMPLE_GEMAX_SAMPLER = 354;
+   */
+  GOOGLE_GEMINI_EXAMPLE_GEMAX_SAMPLER = 354,
+
+  /**
    * @generated from enum value: MODEL_GOOGLE_GEMINI_INTERNAL_BYOM = 326;
    */
   GOOGLE_GEMINI_INTERNAL_BYOM = 326,
@@ -2351,6 +2356,7 @@ proto3.util.setEnumType(Model, "exa.codeium_common_pb.Model", [
   { no: 346, name: "MODEL_GOOGLE_JARVIS_PROXY" },
   { no: 349, name: "MODEL_GOOGLE_JARVIS_V4S" },
   { no: 323, name: "MODEL_GOOGLE_GEMINI_TRAINING_POLICY" },
+  { no: 354, name: "MODEL_GOOGLE_GEMINI_EXAMPLE_GEMAX_SAMPLER" },
   { no: 326, name: "MODEL_GOOGLE_GEMINI_INTERNAL_BYOM" },
   { no: 344, name: "MODEL_GOOGLE_GEMINI_INTERNAL_TAB_FLASH_LITE" },
   { no: 345, name: "MODEL_GOOGLE_GEMINI_INTERNAL_TAB_JUMP_FLASH_LITE" },
@@ -7996,6 +8002,21 @@ export enum RefreshCustomizationType {
    * @generated from enum value: REFRESH_CUSTOMIZATION_TYPE_AGENT = 4;
    */
   AGENT = 4,
+
+  /**
+   * @generated from enum value: REFRESH_CUSTOMIZATION_TYPE_PLUGIN = 5;
+   */
+  PLUGIN = 5,
+
+  /**
+   * @generated from enum value: REFRESH_CUSTOMIZATION_TYPE_HOOKS = 6;
+   */
+  HOOKS = 6,
+
+  /**
+   * @generated from enum value: REFRESH_CUSTOMIZATION_TYPE_MCP = 7;
+   */
+  MCP = 7,
 }
 // Retrieve enum metadata with: proto3.getEnumType(RefreshCustomizationType)
 proto3.util.setEnumType(RefreshCustomizationType, "exa.codeium_common_pb.RefreshCustomizationType", [
@@ -8004,6 +8025,9 @@ proto3.util.setEnumType(RefreshCustomizationType, "exa.codeium_common_pb.Refresh
   { no: 2, name: "REFRESH_CUSTOMIZATION_TYPE_WORKFLOW" },
   { no: 3, name: "REFRESH_CUSTOMIZATION_TYPE_SKILL" },
   { no: 4, name: "REFRESH_CUSTOMIZATION_TYPE_AGENT" },
+  { no: 5, name: "REFRESH_CUSTOMIZATION_TYPE_PLUGIN" },
+  { no: 6, name: "REFRESH_CUSTOMIZATION_TYPE_HOOKS" },
+  { no: 7, name: "REFRESH_CUSTOMIZATION_TYPE_MCP" },
 ]);
 
 /**
@@ -9164,14 +9188,14 @@ export class TeamOrganizationalControls extends Message<TeamOrganizationalContro
   commandModelLabels: string[] = [];
 
   /**
-   * @generated from field: bytes created_at = 4;
+   * @generated from field: google.protobuf.Timestamp created_at = 4;
    */
-  createdAt = new Uint8Array(0);
+  createdAt?: Timestamp;
 
   /**
-   * @generated from field: bytes updated_at = 5;
+   * @generated from field: google.protobuf.Timestamp updated_at = 5;
    */
-  updatedAt = new Uint8Array(0);
+  updatedAt?: Timestamp;
 
   /**
    * @generated from field: repeated string extension_model_labels = 6;
@@ -9189,8 +9213,8 @@ export class TeamOrganizationalControls extends Message<TeamOrganizationalContro
     { no: 1, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "cascade_model_labels", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 3, name: "command_model_labels", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 4, name: "created_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 5, name: "updated_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 4, name: "created_at", kind: "message", T: Timestamp },
+    { no: 5, name: "updated_at", kind: "message", T: Timestamp },
     { no: 6, name: "extension_model_labels", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
   ]);
 
@@ -10721,9 +10745,9 @@ export class Metadata extends Message<Metadata> {
   userTierId = "";
 
   /**
-   * @generated from field: bytes ls_timestamp = 16;
+   * @generated from field: google.protobuf.Timestamp ls_timestamp = 16;
    */
-  lsTimestamp = new Uint8Array(0);
+  lsTimestamp?: Timestamp;
 
   /**
    * @generated from field: string trigger_id = 25;
@@ -10774,7 +10798,7 @@ export class Metadata extends Message<Metadata> {
     { no: 10, name: "session_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 24, name: "device_fingerprint", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 29, name: "user_tier_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 16, name: "ls_timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 16, name: "ls_timestamp", kind: "message", T: Timestamp },
     { no: 25, name: "trigger_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 27, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
@@ -11409,19 +11433,19 @@ export class WorkspaceIndexData extends Message<WorkspaceIndexData> {
   workspaceUriForTelemetry = "";
 
   /**
-   * @generated from field: bytes indexing_start = 2;
+   * @generated from field: google.protobuf.Timestamp indexing_start = 2;
    */
-  indexingStart = new Uint8Array(0);
+  indexingStart?: Timestamp;
 
   /**
-   * @generated from field: bytes indexing_end = 3;
+   * @generated from field: google.protobuf.Timestamp indexing_end = 3;
    */
-  indexingEnd = new Uint8Array(0);
+  indexingEnd?: Timestamp;
 
   /**
-   * @generated from field: bytes embedding_duration = 4;
+   * @generated from field: google.protobuf.Duration embedding_duration = 4;
    */
-  embeddingDuration = new Uint8Array(0);
+  embeddingDuration?: Duration;
 
   /**
    * @generated from field: int64 num_files_total = 5;
@@ -11467,9 +11491,9 @@ export class WorkspaceIndexData extends Message<WorkspaceIndexData> {
   static readonly typeName = "exa.codeium_common_pb.WorkspaceIndexData";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "workspace_uri_for_telemetry", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "indexing_start", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "indexing_end", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 4, name: "embedding_duration", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "indexing_start", kind: "message", T: Timestamp },
+    { no: 3, name: "indexing_end", kind: "message", T: Timestamp },
+    { no: 4, name: "embedding_duration", kind: "message", T: Duration },
     { no: 5, name: "num_files_total", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
     { no: 6, name: "num_files_to_embed", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
     { no: 7, name: "num_nodes_total", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
@@ -11652,9 +11676,9 @@ export class PartialIndexMetadata extends Message<PartialIndexMetadata> {
   numIndexedFiles = 0;
 
   /**
-   * @generated from field: bytes cutoff_timestamp = 3;
+   * @generated from field: google.protobuf.Timestamp cutoff_timestamp = 3;
    */
-  cutoffTimestamp = new Uint8Array(0);
+  cutoffTimestamp?: Timestamp;
 
   constructor(data?: PartialMessage<PartialIndexMetadata>) {
     super();
@@ -11666,7 +11690,7 @@ export class PartialIndexMetadata extends Message<PartialIndexMetadata> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "num_total_files", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 2, name: "num_indexed_files", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 3, name: "cutoff_timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "cutoff_timestamp", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PartialIndexMetadata {
@@ -11975,9 +11999,9 @@ export class QuotaInfo extends Message<QuotaInfo> {
   remainingFraction = 0;
 
   /**
-   * @generated from field: bytes reset_time = 2;
+   * @generated from field: google.protobuf.Timestamp reset_time = 2;
    */
-  resetTime = new Uint8Array(0);
+  resetTime?: Timestamp;
 
   constructor(data?: PartialMessage<QuotaInfo>) {
     super();
@@ -11988,7 +12012,7 @@ export class QuotaInfo extends Message<QuotaInfo> {
   static readonly typeName = "exa.codeium_common_pb.QuotaInfo";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "remaining_fraction", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-    { no: 2, name: "reset_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "reset_time", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QuotaInfo {
@@ -12748,14 +12772,14 @@ export class PlanStatus extends Message<PlanStatus> {
   planInfo?: PlanInfo;
 
   /**
-   * @generated from field: bytes plan_start = 2;
+   * @generated from field: google.protobuf.Timestamp plan_start = 2;
    */
-  planStart = new Uint8Array(0);
+  planStart?: Timestamp;
 
   /**
-   * @generated from field: bytes plan_end = 3;
+   * @generated from field: google.protobuf.Timestamp plan_end = 3;
    */
-  planEnd = new Uint8Array(0);
+  planEnd?: Timestamp;
 
   /**
    * @generated from field: int32 available_prompt_credits = 8;
@@ -12801,8 +12825,8 @@ export class PlanStatus extends Message<PlanStatus> {
   static readonly typeName = "exa.codeium_common_pb.PlanStatus";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "plan_info", kind: "message", T: PlanInfo },
-    { no: 2, name: "plan_start", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "plan_end", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "plan_start", kind: "message", T: Timestamp },
+    { no: 3, name: "plan_end", kind: "message", T: Timestamp },
     { no: 8, name: "available_prompt_credits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 9, name: "available_flow_credits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 4, name: "available_flex_credits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
@@ -12943,6 +12967,11 @@ export class UserStatus extends Message<UserStatus> {
    */
   userDataCollectionForceDisabled = false;
 
+  /**
+   * @generated from field: string profile_picture_url = 38;
+   */
+  profilePictureUrl = "";
+
   constructor(data?: PartialMessage<UserStatus>) {
     super();
     proto3.util.initPartial(data, this);
@@ -12973,6 +13002,7 @@ export class UserStatus extends Message<UserStatus> {
     { no: 35, name: "g1_tier", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 36, name: "user_tier", kind: "message", T: UserTier },
     { no: 37, name: "user_data_collection_force_disabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 38, name: "profile_picture_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserStatus {
@@ -13724,9 +13754,9 @@ export class CompletionStatistics extends Message<CompletionStatistics> {
  */
 export class CompletionByDateEntry extends Message<CompletionByDateEntry> {
   /**
-   * @generated from field: bytes timestamp = 1;
+   * @generated from field: google.protobuf.Timestamp timestamp = 1;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   /**
    * @generated from field: exa.codeium_common_pb.CompletionStatistics completion_statistics = 2;
@@ -13741,7 +13771,7 @@ export class CompletionByDateEntry extends Message<CompletionByDateEntry> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.codeium_common_pb.CompletionByDateEntry";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: "timestamp", kind: "message", T: Timestamp },
     { no: 2, name: "completion_statistics", kind: "message", T: CompletionStatistics },
   ]);
 
@@ -13931,9 +13961,9 @@ export class ChatStats extends Message<ChatStats> {
  */
 export class ChatStatsByDateEntry extends Message<ChatStatsByDateEntry> {
   /**
-   * @generated from field: bytes timestamp = 1;
+   * @generated from field: google.protobuf.Timestamp timestamp = 1;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   /**
    * @generated from field: exa.codeium_common_pb.ChatStats chat_stats = 2;
@@ -13948,7 +13978,7 @@ export class ChatStatsByDateEntry extends Message<ChatStatsByDateEntry> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.codeium_common_pb.ChatStatsByDateEntry";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: "timestamp", kind: "message", T: Timestamp },
     { no: 2, name: "chat_stats", kind: "message", T: ChatStats },
   ]);
 
@@ -14163,9 +14193,9 @@ export class CommandStats_NumCommandsBySourceEntry extends Message<CommandStats_
  */
 export class CommandStatsByDateEntry extends Message<CommandStatsByDateEntry> {
   /**
-   * @generated from field: bytes timestamp = 1;
+   * @generated from field: google.protobuf.Timestamp timestamp = 1;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   /**
    * @generated from field: exa.codeium_common_pb.CommandStats command_stats = 2;
@@ -14180,7 +14210,7 @@ export class CommandStatsByDateEntry extends Message<CommandStatsByDateEntry> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.codeium_common_pb.CommandStatsByDateEntry";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: "timestamp", kind: "message", T: Timestamp },
     { no: 2, name: "command_stats", kind: "message", T: CommandStats },
   ]);
 
@@ -14216,9 +14246,9 @@ export class UserTableStats extends Message<UserTableStats> {
   email = "";
 
   /**
-   * @generated from field: bytes last_update_time = 3;
+   * @generated from field: google.protobuf.Timestamp last_update_time = 3;
    */
-  lastUpdateTime = new Uint8Array(0);
+  lastUpdateTime?: Timestamp;
 
   /**
    * @generated from field: string api_key = 4;
@@ -14241,24 +14271,24 @@ export class UserTableStats extends Message<UserTableStats> {
   role = "";
 
   /**
-   * @generated from field: bytes signup_time = 8;
+   * @generated from field: google.protobuf.Timestamp signup_time = 8;
    */
-  signupTime = new Uint8Array(0);
+  signupTime?: Timestamp;
 
   /**
-   * @generated from field: bytes last_autocomplete_usage_time = 9;
+   * @generated from field: google.protobuf.Timestamp last_autocomplete_usage_time = 9;
    */
-  lastAutocompleteUsageTime = new Uint8Array(0);
+  lastAutocompleteUsageTime?: Timestamp;
 
   /**
-   * @generated from field: bytes last_chat_usage_time = 10;
+   * @generated from field: google.protobuf.Timestamp last_chat_usage_time = 10;
    */
-  lastChatUsageTime = new Uint8Array(0);
+  lastChatUsageTime?: Timestamp;
 
   /**
-   * @generated from field: bytes last_command_usage_time = 11;
+   * @generated from field: google.protobuf.Timestamp last_command_usage_time = 11;
    */
-  lastCommandUsageTime = new Uint8Array(0);
+  lastCommandUsageTime?: Timestamp;
 
   /**
    * @generated from field: int64 prompt_credits_used = 12;
@@ -14275,15 +14305,15 @@ export class UserTableStats extends Message<UserTableStats> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "last_update_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "last_update_time", kind: "message", T: Timestamp },
     { no: 4, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "disable_codeium", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 6, name: "active_days", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 7, name: "role", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 8, name: "signup_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 9, name: "last_autocomplete_usage_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 10, name: "last_chat_usage_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 11, name: "last_command_usage_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 8, name: "signup_time", kind: "message", T: Timestamp },
+    { no: 9, name: "last_autocomplete_usage_time", kind: "message", T: Timestamp },
+    { no: 10, name: "last_chat_usage_time", kind: "message", T: Timestamp },
+    { no: 11, name: "last_command_usage_time", kind: "message", T: Timestamp },
     { no: 12, name: "prompt_credits_used", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
   ]);
 
@@ -14314,9 +14344,9 @@ export class CascadeNUXState extends Message<CascadeNUXState> {
   event = CascadeNUXEvent.CASCADE_NUX_EVENT_UNSPECIFIED;
 
   /**
-   * @generated from field: bytes timestamp = 2;
+   * @generated from field: google.protobuf.Timestamp timestamp = 2;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   constructor(data?: PartialMessage<CascadeNUXState>) {
     super();
@@ -14327,7 +14357,7 @@ export class CascadeNUXState extends Message<CascadeNUXState> {
   static readonly typeName = "exa.codeium_common_pb.CascadeNUXState";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "event", kind: "enum", T: proto3.getEnumType(CascadeNUXEvent) },
-    { no: 2, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "timestamp", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeNUXState {
@@ -14357,9 +14387,9 @@ export class UserNUXState extends Message<UserNUXState> {
   event = UserNUXEvent.USER_NUX_EVENT_UNSPECIFIED;
 
   /**
-   * @generated from field: bytes timestamp = 2;
+   * @generated from field: google.protobuf.Timestamp timestamp = 2;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   constructor(data?: PartialMessage<UserNUXState>) {
     super();
@@ -14370,7 +14400,7 @@ export class UserNUXState extends Message<UserNUXState> {
   static readonly typeName = "exa.codeium_common_pb.UserNUXState";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "event", kind: "enum", T: proto3.getEnumType(UserNUXEvent) },
-    { no: 2, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "timestamp", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserNUXState {
@@ -15151,6 +15181,11 @@ export class ModelFeatures extends Message<ModelFeatures> {
   supportsThinking = false;
 
   /**
+   * @generated from field: bool supports_adaptive_thinking = 29;
+   */
+  supportsAdaptiveThinking = false;
+
+  /**
    * @generated from field: bool supports_raw_thinking = 21;
    */
   supportsRawThinking = false;
@@ -15211,6 +15246,7 @@ export class ModelFeatures extends Message<ModelFeatures> {
     { no: 13, name: "supports_cumulative_context", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 14, name: "tab_jump_print_line_range", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 15, name: "supports_thinking", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 29, name: "supports_adaptive_thinking", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 21, name: "supports_raw_thinking", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 17, name: "supports_estimate_token_counter", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 18, name: "add_cursor_to_find_replace_target", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
@@ -15477,6 +15513,21 @@ export class ModelInfo extends Message<ModelInfo> {
    */
   useCcpaForEval = false;
 
+  /**
+   * @generated from field: int32 thinking_level = 19;
+   */
+  thinkingLevel = 0;
+
+  /**
+   * @generated from field: string display_name = 20;
+   */
+  displayName = "";
+
+  /**
+   * @generated from field: string tool_response_key = 21;
+   */
+  toolResponseKey = "";
+
   constructor(data?: PartialMessage<ModelInfo>) {
     super();
     proto3.util.initPartial(data, this);
@@ -15503,6 +15554,9 @@ export class ModelInfo extends Message<ModelInfo> {
     { no: 16, name: "thinking_budget", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 17, name: "min_thinking_budget", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 18, name: "use_ccpa_for_eval", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 19, name: "thinking_level", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 20, name: "display_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 21, name: "tool_response_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelInfo {
@@ -15899,9 +15953,9 @@ export class CompletionExampleWithMetadata extends Message<CompletionExampleWith
   name = "";
 
   /**
-   * @generated from field: bytes time = 4;
+   * @generated from field: google.protobuf.Timestamp time = 4;
    */
-  time = new Uint8Array(0);
+  time?: Timestamp;
 
   constructor(data?: PartialMessage<CompletionExampleWithMetadata>) {
     super();
@@ -15913,7 +15967,7 @@ export class CompletionExampleWithMetadata extends Message<CompletionExampleWith
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "example", kind: "message", T: CompletionExample },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 4, name: "time", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionExampleWithMetadata {
@@ -17605,9 +17659,9 @@ export class ConversationScopeItem extends Message<ConversationScopeItem> {
   title = "";
 
   /**
-   * @generated from field: bytes last_modified_time = 3;
+   * @generated from field: google.protobuf.Timestamp last_modified_time = 3;
    */
-  lastModifiedTime = new Uint8Array(0);
+  lastModifiedTime?: Timestamp;
 
   constructor(data?: PartialMessage<ConversationScopeItem>) {
     super();
@@ -17619,7 +17673,7 @@ export class ConversationScopeItem extends Message<ConversationScopeItem> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "last_modified_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "last_modified_time", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConversationScopeItem {
@@ -18001,14 +18055,14 @@ export class NodeExecutionRecord extends Message<NodeExecutionRecord> {
   nodeName = "";
 
   /**
-   * @generated from field: bytes start_time = 2;
+   * @generated from field: google.protobuf.Timestamp start_time = 2;
    */
-  startTime = new Uint8Array(0);
+  startTime?: Timestamp;
 
   /**
-   * @generated from field: bytes end_time = 3;
+   * @generated from field: google.protobuf.Timestamp end_time = 3;
    */
-  endTime = new Uint8Array(0);
+  endTime?: Timestamp;
 
   /**
    * @generated from field: bytes graph_state_json = 5;
@@ -18034,8 +18088,8 @@ export class NodeExecutionRecord extends Message<NodeExecutionRecord> {
   static readonly typeName = "exa.codeium_common_pb.NodeExecutionRecord";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "node_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "start_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 3, name: "end_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "start_time", kind: "message", T: Timestamp },
+    { no: 3, name: "end_time", kind: "message", T: Timestamp },
     { no: 5, name: "graph_state_json", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
     { no: 6, name: "graph_state_json_num_bytes", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
     { no: 4, name: "subgraph_execution", kind: "message", T: GraphExecutionState },
@@ -18367,6 +18421,11 @@ export class CompletionDelta extends Message<CompletionDelta> {
   deltaThinking = "";
 
   /**
+   * @generated from field: string delta_raw_thinking = 17;
+   */
+  deltaRawThinking = "";
+
+  /**
    * @generated from field: bytes delta_signature = 7;
    */
   deltaSignature = new Uint8Array(0);
@@ -18416,6 +18475,7 @@ export class CompletionDelta extends Message<CompletionDelta> {
     { no: 4, name: "usage", kind: "message", T: ModelUsageStats },
     { no: 5, name: "delta_tool_calls", kind: "message", T: ChatToolCall, repeated: true },
     { no: 6, name: "delta_thinking", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 17, name: "delta_raw_thinking", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 7, name: "delta_signature", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
     { no: 8, name: "thinking_redacted", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 11, name: "citation_metadata", kind: "message", T: CitationMetadata },
@@ -18883,9 +18943,9 @@ export class Document extends Message<Document> {
   linesCutoffEnd = 0;
 
   /**
-   * @generated from field: bytes timestamp = 16;
+   * @generated from field: google.protobuf.Timestamp timestamp = 16;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   /**
    * @generated from field: bool is_dirty = 17;
@@ -18920,7 +18980,7 @@ export class Document extends Message<Document> {
     { no: 11, name: "is_cutoff_end", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 14, name: "lines_cutoff_start", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 15, name: "lines_cutoff_end", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 16, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 16, name: "timestamp", kind: "message", T: Timestamp },
     { no: 17, name: "is_dirty", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 18, name: "is_synthetic", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
@@ -19575,9 +19635,9 @@ export class PostgresDbStats extends Message<PostgresDbStats> {
  */
 export class LastUpdateRecord extends Message<LastUpdateRecord> {
   /**
-   * @generated from field: bytes time = 1;
+   * @generated from field: google.protobuf.Timestamp time = 1;
    */
-  time = new Uint8Array(0);
+  time?: Timestamp;
 
   /**
    * @generated from field: exa.codeium_common_pb.LastUpdateType type = 2;
@@ -19592,7 +19652,7 @@ export class LastUpdateRecord extends Message<LastUpdateRecord> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.codeium_common_pb.LastUpdateRecord";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: "time", kind: "message", T: Timestamp },
     { no: 2, name: "type", kind: "enum", T: proto3.getEnumType(LastUpdateType) },
   ]);
 
@@ -20380,9 +20440,9 @@ export class KnowledgeBaseItem extends Message<KnowledgeBaseItem> {
   title = "";
 
   /**
-   * @generated from field: bytes timestamp = 5;
+   * @generated from field: google.protobuf.Timestamp timestamp = 5;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   /**
    * @generated from field: repeated exa.codeium_common_pb.KnowledgeBaseChunk chunks = 6;
@@ -20425,7 +20485,7 @@ export class KnowledgeBaseItem extends Message<KnowledgeBaseItem> {
     { no: 1, name: "document_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 5, name: "timestamp", kind: "message", T: Timestamp },
     { no: 6, name: "chunks", kind: "message", T: KnowledgeBaseChunk, repeated: true },
     { no: 7, name: "summary", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 9, name: "dom_tree", kind: "message", T: DOMTree },
@@ -20886,9 +20946,9 @@ export class TerminalShellCommandHeader extends Message<TerminalShellCommandHead
   cwd = "";
 
   /**
-   * @generated from field: bytes start_time = 5;
+   * @generated from field: google.protobuf.Timestamp start_time = 5;
    */
-  startTime = new Uint8Array(0);
+  startTime?: Timestamp;
 
   /**
    * @generated from field: exa.codeium_common_pb.TerminalShellCommandSource source = 6;
@@ -20908,7 +20968,7 @@ export class TerminalShellCommandHeader extends Message<TerminalShellCommandHead
     { no: 2, name: "shell_pid", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 3, name: "command_line", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "cwd", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "start_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 5, name: "start_time", kind: "message", T: Timestamp },
     { no: 6, name: "source", kind: "enum", T: proto3.getEnumType(TerminalShellCommandSource) },
   ]);
 
@@ -20976,9 +21036,9 @@ export class TerminalShellCommandTrailer extends Message<TerminalShellCommandTra
   exitCode = 0;
 
   /**
-   * @generated from field: bytes end_time = 2;
+   * @generated from field: google.protobuf.Timestamp end_time = 2;
    */
-  endTime = new Uint8Array(0);
+  endTime?: Timestamp;
 
   constructor(data?: PartialMessage<TerminalShellCommandTrailer>) {
     super();
@@ -20989,7 +21049,7 @@ export class TerminalShellCommandTrailer extends Message<TerminalShellCommandTra
   static readonly typeName = "exa.codeium_common_pb.TerminalShellCommandTrailer";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "exit_code", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 2, name: "end_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "end_time", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TerminalShellCommandTrailer {
@@ -21101,19 +21161,19 @@ export class TerminalShellCommand extends Message<TerminalShellCommand> {
   exitCode = 0;
 
   /**
-   * @generated from field: bytes start_time = 6;
+   * @generated from field: google.protobuf.Timestamp start_time = 6;
    */
-  startTime = new Uint8Array(0);
+  startTime?: Timestamp;
 
   /**
-   * @generated from field: bytes end_time = 7;
+   * @generated from field: google.protobuf.Timestamp end_time = 7;
    */
-  endTime = new Uint8Array(0);
+  endTime?: Timestamp;
 
   /**
-   * @generated from field: bytes last_updated_time = 11;
+   * @generated from field: google.protobuf.Timestamp last_updated_time = 11;
    */
-  lastUpdatedTime = new Uint8Array(0);
+  lastUpdatedTime?: Timestamp;
 
   /**
    * @generated from field: exa.codeium_common_pb.TerminalShellCommandStatus status = 8;
@@ -21139,9 +21199,9 @@ export class TerminalShellCommand extends Message<TerminalShellCommand> {
     { no: 3, name: "cwd", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "output", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
     { no: 5, name: "exit_code", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 6, name: "start_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 7, name: "end_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 11, name: "last_updated_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 6, name: "start_time", kind: "message", T: Timestamp },
+    { no: 7, name: "end_time", kind: "message", T: Timestamp },
+    { no: 11, name: "last_updated_time", kind: "message", T: Timestamp },
     { no: 8, name: "status", kind: "enum", T: proto3.getEnumType(TerminalShellCommandStatus) },
     { no: 9, name: "source", kind: "enum", T: proto3.getEnumType(TerminalShellCommandSource) },
   ]);
@@ -21248,14 +21308,14 @@ export class AntigravityProject extends Message<AntigravityProject> {
   projectName = "";
 
   /**
-   * @generated from field: bytes created_at = 6;
+   * @generated from field: google.protobuf.Timestamp created_at = 6;
    */
-  createdAt = new Uint8Array(0);
+  createdAt?: Timestamp;
 
   /**
-   * @generated from field: bytes updated_at = 7;
+   * @generated from field: google.protobuf.Timestamp updated_at = 7;
    */
-  updatedAt = new Uint8Array(0);
+  updatedAt?: Timestamp;
 
   /**
    * @generated from field: string domain = 8;
@@ -21268,19 +21328,19 @@ export class AntigravityProject extends Message<AntigravityProject> {
   subdomainName = "";
 
   /**
-   * @generated from field: bytes expires_at = 10;
+   * @generated from field: google.protobuf.Timestamp expires_at = 10;
    */
-  expiresAt = new Uint8Array(0);
+  expiresAt?: Timestamp;
 
   /**
-   * @generated from field: bytes claimed_at = 11;
+   * @generated from field: google.protobuf.Timestamp claimed_at = 11;
    */
-  claimedAt = new Uint8Array(0);
+  claimedAt?: Timestamp;
 
   /**
-   * @generated from field: bytes deprovisioned_at = 12;
+   * @generated from field: google.protobuf.Timestamp deprovisioned_at = 12;
    */
-  deprovisionedAt = new Uint8Array(0);
+  deprovisionedAt?: Timestamp;
 
   /**
    * @generated from field: string provider_team_id = 14;
@@ -21305,13 +21365,13 @@ export class AntigravityProject extends Message<AntigravityProject> {
     { no: 3, name: "deployment_provider", kind: "enum", T: proto3.getEnumType(DeploymentProvider) },
     { no: 4, name: "provider_project_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "project_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 6, name: "created_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 7, name: "updated_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 6, name: "created_at", kind: "message", T: Timestamp },
+    { no: 7, name: "updated_at", kind: "message", T: Timestamp },
     { no: 8, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 9, name: "subdomain_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 10, name: "expires_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 11, name: "claimed_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 12, name: "deprovisioned_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 10, name: "expires_at", kind: "message", T: Timestamp },
+    { no: 11, name: "claimed_at", kind: "message", T: Timestamp },
+    { no: 12, name: "deprovisioned_at", kind: "message", T: Timestamp },
     { no: 14, name: "provider_team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 13, name: "project_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
@@ -21378,14 +21438,14 @@ export class AntigravityDeployment extends Message<AntigravityDeployment> {
   workspacePath = "";
 
   /**
-   * @generated from field: bytes created_at = 7;
+   * @generated from field: google.protobuf.Timestamp created_at = 7;
    */
-  createdAt = new Uint8Array(0);
+  createdAt?: Timestamp;
 
   /**
-   * @generated from field: bytes updated_at = 8;
+   * @generated from field: google.protobuf.Timestamp updated_at = 8;
    */
-  updatedAt = new Uint8Array(0);
+  updatedAt?: Timestamp;
 
   /**
    * @generated from field: string domain = 16;
@@ -21403,9 +21463,9 @@ export class AntigravityDeployment extends Message<AntigravityDeployment> {
   providerTeamId = "";
 
   /**
-   * @generated from field: bytes expires_at = 11;
+   * @generated from field: google.protobuf.Timestamp expires_at = 11;
    */
-  expiresAt = new Uint8Array(0);
+  expiresAt?: Timestamp;
 
   /**
    * @generated from field: string deployment_url = 12;
@@ -21413,14 +21473,14 @@ export class AntigravityDeployment extends Message<AntigravityDeployment> {
   deploymentUrl = "";
 
   /**
-   * @generated from field: bytes claimed_at = 15;
+   * @generated from field: google.protobuf.Timestamp claimed_at = 15;
    */
-  claimedAt = new Uint8Array(0);
+  claimedAt?: Timestamp;
 
   /**
-   * @generated from field: bytes deprovisioned_at = 13;
+   * @generated from field: google.protobuf.Timestamp deprovisioned_at = 13;
    */
-  deprovisionedAt = new Uint8Array(0);
+  deprovisionedAt?: Timestamp;
 
   /**
    * @generated from field: string build_status_url = 9;
@@ -21448,15 +21508,15 @@ export class AntigravityDeployment extends Message<AntigravityDeployment> {
     { no: 4, name: "project_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "project_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 6, name: "workspace_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 7, name: "created_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 8, name: "updated_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 7, name: "created_at", kind: "message", T: Timestamp },
+    { no: 8, name: "updated_at", kind: "message", T: Timestamp },
     { no: 16, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 17, name: "subdomain_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 20, name: "provider_team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 11, name: "expires_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 11, name: "expires_at", kind: "message", T: Timestamp },
     { no: 12, name: "deployment_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 15, name: "claimed_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 13, name: "deprovisioned_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 15, name: "claimed_at", kind: "message", T: Timestamp },
+    { no: 13, name: "deprovisioned_at", kind: "message", T: Timestamp },
     { no: 9, name: "build_status_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 10, name: "project_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
@@ -22456,9 +22516,9 @@ export class UnleashContext_PropertiesEntry extends Message<UnleashContext_Prope
  */
 export class BrowserStateSnapshot extends Message<BrowserStateSnapshot> {
   /**
-   * @generated from field: bytes timestamp = 1;
+   * @generated from field: google.protobuf.Timestamp timestamp = 1;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   /**
    * @generated from field: string user_active_page_id = 2;
@@ -22478,7 +22538,7 @@ export class BrowserStateSnapshot extends Message<BrowserStateSnapshot> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.codeium_common_pb.BrowserStateSnapshot";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: "timestamp", kind: "message", T: Timestamp },
     { no: 2, name: "user_active_page_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "pages", kind: "message", T: BrowserPageMetadata, repeated: true },
   ]);
@@ -22545,9 +22605,9 @@ export class BrowserPageMetadata extends Message<BrowserPageMetadata> {
   devicePixelRatio = 0;
 
   /**
-   * @generated from field: bytes last_visited_time = 7;
+   * @generated from field: google.protobuf.Timestamp last_visited_time = 7;
    */
-  lastVisitedTime = new Uint8Array(0);
+  lastVisitedTime?: Timestamp;
 
   constructor(data?: PartialMessage<BrowserPageMetadata>) {
     super();
@@ -22565,7 +22625,7 @@ export class BrowserPageMetadata extends Message<BrowserPageMetadata> {
     { no: 9, name: "page_height", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 6, name: "favicon_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 8, name: "device_pixel_ratio", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-    { no: 7, name: "last_visited_time", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 7, name: "last_visited_time", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BrowserPageMetadata {
@@ -22700,9 +22760,9 @@ export class BrowserScrollInteraction extends Message<BrowserScrollInteraction> 
  */
 export class BrowserInteraction extends Message<BrowserInteraction> {
   /**
-   * @generated from field: bytes timestamp = 1;
+   * @generated from field: google.protobuf.Timestamp timestamp = 1;
    */
-  timestamp = new Uint8Array(0);
+  timestamp?: Timestamp;
 
   /**
    * @generated from field: exa.codeium_common_pb.BrowserPageMetadata page_metadata = 2;
@@ -22734,7 +22794,7 @@ export class BrowserInteraction extends Message<BrowserInteraction> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.codeium_common_pb.BrowserInteraction";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "timestamp", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 1, name: "timestamp", kind: "message", T: Timestamp },
     { no: 2, name: "page_metadata", kind: "message", T: BrowserPageMetadata },
     { no: 3, name: "click", kind: "message", T: BrowserClickInteraction, oneof: "interaction" },
     { no: 4, name: "scroll", kind: "message", T: BrowserScrollInteraction, oneof: "interaction" },
@@ -23669,19 +23729,24 @@ export class ArtifactMetadata extends Message<ArtifactMetadata> {
   summary = "";
 
   /**
-   * @generated from field: bytes created_at = 3;
+   * @generated from field: google.protobuf.Timestamp created_at = 3;
    */
-  createdAt = new Uint8Array(0);
+  createdAt?: Timestamp;
 
   /**
-   * @generated from field: bytes updated_at = 4;
+   * @generated from field: google.protobuf.Timestamp updated_at = 4;
    */
-  updatedAt = new Uint8Array(0);
+  updatedAt?: Timestamp;
 
   /**
    * @generated from field: int64 version = 5;
    */
   version = protoInt64.zero;
+
+  /**
+   * @generated from field: bool request_feedback = 6;
+   */
+  requestFeedback = false;
 
   constructor(data?: PartialMessage<ArtifactMetadata>) {
     super();
@@ -23693,9 +23758,10 @@ export class ArtifactMetadata extends Message<ArtifactMetadata> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "artifact_type", kind: "enum", T: proto3.getEnumType(ArtifactType) },
     { no: 2, name: "summary", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "created_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
-    { no: 4, name: "updated_at", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "created_at", kind: "message", T: Timestamp },
+    { no: 4, name: "updated_at", kind: "message", T: Timestamp },
     { no: 5, name: "version", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 6, name: "request_feedback", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ArtifactMetadata {
@@ -24775,6 +24841,55 @@ export class LogResponse extends Message<LogResponse> {
 
   static equals(a: LogResponse | PlainMessage<LogResponse> | undefined, b: LogResponse | PlainMessage<LogResponse> | undefined): boolean {
     return proto3.util.equals(LogResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.PermissionGrantsConfig
+ */
+export class PermissionGrantsConfig extends Message<PermissionGrantsConfig> {
+  /**
+   * @generated from field: repeated string allow = 1;
+   */
+  allow: string[] = [];
+
+  /**
+   * @generated from field: repeated string deny = 2;
+   */
+  deny: string[] = [];
+
+  /**
+   * @generated from field: repeated string ask = 3;
+   */
+  ask: string[] = [];
+
+  constructor(data?: PartialMessage<PermissionGrantsConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.PermissionGrantsConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "allow", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 2, name: "deny", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "ask", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PermissionGrantsConfig {
+    return new PermissionGrantsConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PermissionGrantsConfig {
+    return new PermissionGrantsConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PermissionGrantsConfig {
+    return new PermissionGrantsConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PermissionGrantsConfig | PlainMessage<PermissionGrantsConfig> | undefined, b: PermissionGrantsConfig | PlainMessage<PermissionGrantsConfig> | undefined): boolean {
+    return proto3.util.equals(PermissionGrantsConfig, a, b);
   }
 }
 

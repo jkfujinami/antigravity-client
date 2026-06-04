@@ -46,7 +46,7 @@ function collectSchema(descriptors: Map<string, InstanceType<typeof FileDescript
         const pkg = desc.package || "";
         collectMessages(desc.messageType as any[], pkg, messages, enums);
         collectEnums(desc.enumType as any[], pkg, enums);
-        for (const s of desc.service as any[]) {
+        for (const s of (desc.service || []) as any[]) {
             const fullName = pkg ? `${pkg}.${s.name}` : s.name;
             const methods = new Map<string, MethodInfo>();
             for (const m of (s.method || [])) {
@@ -64,6 +64,7 @@ function collectSchema(descriptors: Map<string, InstanceType<typeof FileDescript
 }
 
 function collectMessages(msgs: any[], prefix: string, msgsOut: Map<string, MsgInfo>, enumsOut: Map<string, EnumInfo>) {
+    if (!msgs) return;
     for (const m of msgs) {
         const fullName = prefix ? `${prefix}.${m.name}` : m.name;
         const fields = new Map<number, FieldInfo>();
@@ -83,6 +84,7 @@ function collectMessages(msgs: any[], prefix: string, msgsOut: Map<string, MsgIn
 }
 
 function collectEnums(enums: any[], prefix: string, out: Map<string, EnumInfo>) {
+    if (!enums) return;
     for (const e of enums) {
         const fullName = prefix ? `${prefix}.${e.name}` : e.name;
         const values = new Map<number, EnumValueInfo>();

@@ -128,12 +128,18 @@ message CheckTerminalShellSupportResponse {
 }
 
 message ExecuteCommandRequest {
+  message EnvEntry {
+    string key = 1;
+    string value = 2;
+  }
+
   string command_line = 5;
   string cwd = 3;
   string terminal_id = 4;
   bool sandbox_override = 6;
   string conversation_id = 7;
   string terminal_host = 8;
+  repeated exa.extension_server_pb.ExecuteCommandRequest.EnvEntry env = 9;
 }
 
 message ShowTerminalRequest {

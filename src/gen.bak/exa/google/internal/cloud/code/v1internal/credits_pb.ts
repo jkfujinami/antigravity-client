@@ -20,6 +20,11 @@ export class Credits extends Message<Credits> {
    */
   creditAmount = protoInt64.zero;
 
+  /**
+   * @generated from field: int64 minimum_credit_amount_for_usage = 3;
+   */
+  minimumCreditAmountForUsage = protoInt64.zero;
+
   constructor(data?: PartialMessage<Credits>) {
     super();
     proto3.util.initPartial(data, this);
@@ -30,6 +35,7 @@ export class Credits extends Message<Credits> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "credit_type", kind: "enum", T: proto3.getEnumType(Credits_CreditType) },
     { no: 2, name: "credit_amount", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: "minimum_credit_amount_for_usage", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Credits {

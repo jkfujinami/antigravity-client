@@ -410,6 +410,11 @@ message RecordAsyncTelemetryResponse {
 }
 
 message GetChatMessageRequest {
+  message CustomMetadataEntry {
+    string key = 1;
+    string value = 2;
+  }
+
   exa.codeium_common_pb.Metadata metadata = 1;
   string prompt = 2;
   repeated exa.chat_pb.ChatMessagePrompt chat_message_prompts = 3;
@@ -429,6 +434,7 @@ message GetChatMessageRequest {
   exa.codeium_common_pb.Language language = 19;
   bool enable_ai_credits = 21;
   string conversation_id = 22;
+  repeated exa.api_server_pb.GetChatMessageRequest.CustomMetadataEntry custom_metadata = 23;
 }
 
 message GetChatMessageResponse {
@@ -1168,6 +1174,7 @@ message RecordCascadeUsageResponse {
 message GetWebSearchResultsRequest {
   exa.codeium_common_pb.Metadata metadata = 1;
   string query = 2;
+  exa.codeium_common_pb.Model model = 7;
   uint32 limit = 3;
   string domain = 4;
   exa.codeium_common_pb.ThirdPartyWebSearchConfig third_party_config = 5;

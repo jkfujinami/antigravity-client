@@ -118,7 +118,7 @@ function discover(cls: any) {
             if (EXCLUDED_FIELDS.has(f.name)) continue;
             const { tsType, refs } = resolveType(f);
             msg.fields.push({
-                name: f.name.replace(/_([a-z])/g, (_, c) => c.toUpperCase()),
+                name: String(f.name).replace(/_([a-z])/g, (_: string, c: string) => c.toUpperCase()),
                 tsType: f.repeated ? `${tsType}[]` : tsType,
                 refs
             });
