@@ -81,11 +81,20 @@ function resolvePath(obj: any, path: string): any {
 
 function main() {
     const methodName = process.argv[2];
-    const jsonPath = process.argv[3]; // e.g. customAgentSpec.cascadeConfig
+    const targetArg = process.argv[3]; // 'req' or 'res' (optional, defaults to 'req')
+    let jsonPath = process.argv[4];
 
     if (!methodName) {
-        console.error("Usage: npx tsx scripts/mock_gen.ts <MethodName> [optional.json.path]");
+        console.error("Usage: npx tsx scripts/mock_gen.ts <MethodName> [req|res] [optional.json.path]");
         process.exit(1);
+    }
+
+    let targetType = "req";
+    if (targetArg === "req" || targetArg === "res") {
+        targetType = targetArg;
+    } else if (targetArg) {
+        // If it's not 'req' or 'res', assume it's the json path for backward compatibility
+        jsonPath = targetArg;
     }
 
     const methods = LanguageServerService.methods as Record<string, any>;
@@ -100,13 +109,13 @@ function main() {
         }
     }
 
-    const RequestClass = method.I;
-    if (!RequestClass) {
-        console.error(`❌ Request class not found for method '${methodName}'.`);
+    const TargetClass = targetType === "req" ? method.I : method.O;
+    if (!TargetClass) {
+        console.error(`❌ ${targetType.toUpperCase()} class not found for method '${methodName}'.`);
         process.exit(1);
     }
 
-    const mockData = generateMock(RequestClass);
+    const mockData = generateMock(TargetClass);
     const extractedData = resolvePath(mockData, jsonPath);
 
     if (extractedData === undefined) {
@@ -114,7 +123,8 @@ function main() {
         process.exit(1);
     }
 
-    console.log(`\n=== Type-Safe Mock for '${methodName}'${jsonPath ? ` at path '${jsonPath}'` : ""} ===\n`);
+    console.log(`\n=== Type-Safe Mock for '${methodName}' (${targetType.toUpperCase()})${jsonPath ? ` at path '${jsonPath}'` : ""} ===\n`);
+
     
     // Use util.inspect to output a valid JS/TS object literal structure (better than JSON.stringify for oneofs and types)
     console.log(util.inspect(extractedData, { depth: null, colors: true, compact: false, breakLength: 80 }));

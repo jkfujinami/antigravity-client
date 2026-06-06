@@ -5,7 +5,7 @@ async function main() {
     console.log("🔌 Connecting to Antigravity LS...");
     try {
         const client = await AntigravityClient.connect({ autoDetect: true });
-        
+
         console.log("✅ Connected! Exposing raw capabilities...\n");
 
         // 1. Raw Filesystem Access bypassing Node's fs
@@ -34,10 +34,11 @@ async function main() {
             const mcpStates = await client.lsClient.getMcpServerStates({});
             console.log(`   Current MCP Servers loaded: ${mcpStates.states.length}`);
             if (mcpStates.states.length > 0) {
-                console.log(`   First MCP Server: ${mcpStates.states[0].name} (Status: ${mcpStates.states[0].status})`);
+                console.log(`   First MCP Server: ${mcpStates.states[0].serverInfo?.name} (Status: ${mcpStates.states[0].status})`);
             }
         } catch (e: any) {
             console.log(`   MCP States fetch skipped or failed: ${e.message}`);
+            
         }
         console.log();
 
@@ -86,7 +87,7 @@ async function main() {
             toolGroups: []
         };
         console.log(`   Injecting CustomAgentSpec: ${JSON.stringify(fakeCustomAgent)}`);
-        
+
         console.log("\n✅ All deep feature tests completed successfully.");
         console.log("\n💥 Fun fact: You could call 'client.lsClient.simulateSegFault({})' here to intentionally crash the LS process!");
         client.dispose();

@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cli": "tsx src/repl.ts",
+    "mcp": "tsx src/cli/mcp_server.ts",
     "build": "tsc -p tsconfig.build.json",
     "prepare": "tsc -p tsconfig.build.json"
   },
