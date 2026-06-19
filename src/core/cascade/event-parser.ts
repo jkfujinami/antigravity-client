@@ -37,7 +37,12 @@ export class CascadeEventParser {
     private lastEmittedThinking: Record<number, string> = {};
     private lastEmittedStdout: Record<number, string> = {};
     private lastEmittedStderr: Record<number, string> = {};
-    private emittedInteractions = new Set<number>();
+    // ステップindex → 直近に emit した interaction の内容シグネチャ。
+    // 同じステップでも要求内容が変われば再 emit する必要があるため index だけでは不足。
+    // 例: パイプ付きコマンド "ls ... | grep ..." は LS が "ls" の許可 → 承認後に
+    //     "grep" の許可を「同じステップ index」で要求し直す。index だけの dedup だと
+    //     2回目を取りこぼし、ステップが永久に WAITING のまま固まる。
+    private emittedInteractions = new Map<number, string>();
     private lastStatus: CascadeRunStatus = CascadeRunStatus.UNSPECIFIED;
 
     private _lastStepCount: number = 0;
@@ -148,7 +153,19 @@ export class CascadeEventParser {
                 // For auto-approval we may eventually need special handling so a WAITING step can proceed even without an interactionCase
                 return;
             }
-            if (this.emittedInteractions.has(index)) return;
+
+            // 要求内容のシグネチャ。同一ステップでも内容が変われば(例: ls→grep)再 emit する。
+            const reqValue: any = step.requestedInteraction?.interaction?.value;
+            const reqResource = reqValue?.resource;
+            const interactionSig = [
+                interactionCase,
+                reqResource?.action ?? "",
+                reqResource?.target ?? "",
+                reqValue?.proposedCommandLine ?? reqValue?.commandLine ?? "",
+                inlineFilePermission ? `inline:${inlineFilePermission?.absolutePathUri ?? ""}` : "",
+            ].join("|");
+
+            if (this.emittedInteractions.get(index) === interactionSig) return;
 
             // Compute autoRun / needsApproval / commandLine for legacy event
             let autoRun = false;
@@ -164,7 +181,7 @@ export class CascadeEventParser {
                 needsApproval = true;
             }
 
-            this.emittedInteractions.add(index);
+            this.emittedInteractions.set(index, interactionSig);
 
             // High-level ApprovalRequest event
             let request: ApprovalRequest | null = null;
