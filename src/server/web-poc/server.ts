@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * web-poc/server.ts — Serve the 本家 Antigravity UI as a web app.
  *
@@ -60,7 +61,10 @@ const APP_DATA_DIR = process.argv[4] || process.env.APP_DATA_DIR || "antigravity
 const SHIM_PATH = "/__ag_shim.js";
 const SHIM_FILE = path.join(__dirname, "preload-shim.js");
 const SHIM_TAG = `<script src="${SHIM_PATH}"></script>`;
-const CERT_DIR = path.join(__dirname, "certs");
+// Generated TLS certs live OUTSIDE the package tree (a private key must never be
+// shipped in the npm tarball), in a stable per-user dir so the browser only warns
+// once. ensureCert() creates them here on first run.
+const CERT_DIR = path.join(os.homedir(), ".gemini", "web-poc-certs");
 
 // Hop-by-hop headers — illegal in HTTP/2 responses, must be stripped.
 const HOP_BY_HOP = [
