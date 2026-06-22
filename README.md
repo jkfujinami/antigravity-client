@@ -247,8 +247,15 @@ console.log(response); // "Paris"
 Run the **stock Antigravity IDE web UI in a plain browser** — no Electron, no IDE install required. `npm run web` launches a standalone Language Server and serves its *unmodified* frontend through a reverse proxy that speaks HTTP/2 to the browser and injects a web port of Electron's `preload.js`, so the original bundle runs untouched.
 
 ```bash
+# Installed as a dependency — run via npx:
+npx antigravity-web
+# …or install globally for a bare `antigravity-web` command:
+npm install -g github:jkfujinami/antigravity-client
+
+# From a checkout of this repo:
 npm run web
-# → open https://localhost:8765/  (accept the self-signed cert warning once)
+
+# → then open https://localhost:8765/  (accept the self-signed cert warning once)
 ```
 
 By default it points at your real `~/.gemini` profile with `appDataDir: "antigravity"` (the IDE's namespace), so your existing **Projects and conversations show up** in the browser. **Close the Antigravity IDE first** — two Language Servers writing the same state can corrupt it. Use an isolated profile to run alongside the IDE safely.
@@ -260,8 +267,11 @@ npm run web -- /path/to/project
 # Isolated profile (safe to run while the IDE is open)
 npm run web -- /path/to/project /tmp/gemini_iso antigravity_client
 
-# Env vars work too
-PORT=9000 GEMINI_DIR=~/.gemini APP_DATA_DIR=antigravity npm run web
+# The antigravity-web bin takes the same positional args directly (no `--`)
+antigravity-web /path/to/project /tmp/gemini_iso antigravity_client
+
+# Env vars work with either form
+PORT=9000 GEMINI_DIR=~/.gemini APP_DATA_DIR=antigravity npx antigravity-web
 ```
 
 | Option | Positional | Env | Default |

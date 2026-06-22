@@ -247,7 +247,14 @@ console.log(response); // "パリ"
 **本家 Antigravity IDE の Web UI をブラウザで動くようにする機能** — Electron も IDE のインストールも不要です。`npm run web` はスタンドアロンの Language Server を起動し、その無改造のフロントエンドをリバースプロキシ経由で配信します。プロキシはブラウザに対して HTTP/2 で通信し、Electron の `preload.js` を Web 移植した shim を注入するため、元の bundle はそのまま動きます。
 
 ```bash
+# 依存として入れた場合 — npx で起動:
+npx antigravity-web
+# …またはグローバル導入で素の `antigravity-web` コマンドに:
+npm install -g github:jkfujinami/antigravity-client
+
+# この repo のチェックアウトから:
 npm run web
+
 # → https://localhost:8765/ を開く（自己署名証明書の警告は初回のみ承認）
 ```
 
@@ -260,8 +267,11 @@ npm run web -- /path/to/project
 # 隔離プロファイル（IDE を開いたまま安全に実行できる）
 npm run web -- /path/to/project /tmp/gemini_iso antigravity_client
 
-# 環境変数でも指定可能
-PORT=9000 GEMINI_DIR=~/.gemini APP_DATA_DIR=antigravity npm run web
+# antigravity-web bin は同じ位置引数を直接受け取る（`--` 不要）
+antigravity-web /path/to/project /tmp/gemini_iso antigravity_client
+
+# 環境変数はどちらの形式でも効く
+PORT=9000 GEMINI_DIR=~/.gemini APP_DATA_DIR=antigravity npx antigravity-web
 ```
 
 | 項目 | 位置引数 | 環境変数 | 既定値 |
