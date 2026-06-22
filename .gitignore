@@ -139,3 +139,5 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .last_cascade_id
 temp_app_asar
+# web-poc self-signed certs
+src/server/web-poc/certs/

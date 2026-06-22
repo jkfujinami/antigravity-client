@@ -12,14 +12,13 @@ async function main() {
         console.log("📡 Fetching Available Models...");
         const response = await client.languageServer.getAvailableModels({});
         
-        console.log("--------------------------------------------------");
-        // Data may live under response.response, so fall back via `any`
         const models = (response as any).models || (response.response as any)?.models || [];
         console.log(`🤖 Found ${models.length} Models:`);
         
         models.forEach((m: any) => {
-            const modelName = Model[m.model] || `Unknown(${m.model})`;
-            console.log(` - ${modelName} (Provider: ${m.provider}, Type: ${m.type})`);
+            const details = m.value;
+            const modelEnumName = details ? (Model[details.model] || `Unknown(${details.model})`) : "Unknown";
+            console.log(` - Key: ${m.key}, DisplayName: ${details?.displayName}, Enum: ${modelEnumName}, Provider: ${details?.modelProvider}`);
         });
         console.log("--------------------------------------------------");
 
