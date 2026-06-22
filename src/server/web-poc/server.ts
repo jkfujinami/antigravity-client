@@ -23,12 +23,14 @@
  *   - Strips CSP/HSTS on HTML and hop-by-hop headers (illegal in h2) on every
  *     response.
  *
- * Run:  npx tsx src/server/web-poc/server.ts [workspacePath] [geminiDir]
+ * Run:  npx tsx src/server/web-poc/server.ts [workspacePath] [geminiDir] [appDataDir]
  *       PORT=8765 VERBOSE=1 npx tsx src/server/web-poc/server.ts
- *       GEMINI_DIR=~/.gemini npx tsx src/server/web-poc/server.ts
+ *       GEMINI_DIR=~/.gemini APP_DATA_DIR=antigravity npx tsx src/server/web-poc/server.ts
  *
- * geminiDir defaults to the real ~/.gemini profile so existing Projects show
- * up; pass a different dir (argv[3] / GEMINI_DIR) for an isolated profile.
+ * geminiDir defaults to the real ~/.gemini profile and appDataDir to "antigravity"
+ * (the IDE's namespace), so the UI shows your existing Projects AND conversations.
+ * Override either (argv[3]/GEMINI_DIR, argv[4]/APP_DATA_DIR) for an isolated profile.
+ * Close the Antigravity IDE first — two LS writing the same state can corrupt it.
  *
  * The cert is self-signed, so the browser shows a one-time warning — click
  * "Advanced → proceed to localhost". https://localhost is a secure context.
@@ -50,6 +52,11 @@ const WORKSPACE = process.argv[2] || process.cwd();
 // point at an isolated/alternate profile. Don't share ~/.gemini with a running
 // Antigravity IDE (two LS writing the same state can corrupt it).
 const GEMINI_DIR = process.argv[3] || process.env.GEMINI_DIR || path.join(os.homedir(), ".gemini");
+// App-data namespace under GEMINI_DIR (LS --app_data_dir). Conversations/history
+// live in <GEMINI_DIR>/<appDataDir>/. Defaults to "antigravity" — the real IDE's
+// namespace — so the web UI shows your existing conversations too; override with
+// argv[4] or APP_DATA_DIR (e.g. "antigravity_client") for an isolated namespace.
+const APP_DATA_DIR = process.argv[4] || process.env.APP_DATA_DIR || "antigravity";
 const SHIM_PATH = "/__ag_shim.js";
 const SHIM_FILE = path.join(__dirname, "preload-shim.js");
 const SHIM_TAG = `<script src="${SHIM_PATH}"></script>`;
@@ -87,8 +94,8 @@ function ensureCert(): { key: Buffer; cert: Buffer } {
 }
 
 async function main() {
-  console.log(`[poc] Launching language_server (workspace: ${WORKSPACE}, geminiDir: ${GEMINI_DIR})...`);
-  const launcher = await Launcher.start({ workspacePath: WORKSPACE, geminiDir: GEMINI_DIR, verbose: !!process.env.VERBOSE });
+  console.log(`[poc] Launching language_server (workspace: ${WORKSPACE}, geminiDir: ${GEMINI_DIR}, appDataDir: ${APP_DATA_DIR})...`);
+  const launcher = await Launcher.start({ workspacePath: WORKSPACE, geminiDir: GEMINI_DIR, appDataDir: APP_DATA_DIR, verbose: !!process.env.VERBOSE });
 
   const upstreamHost = "127.0.0.1";
   const upstreamPort = launcher.httpsPort;

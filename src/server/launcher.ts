@@ -61,6 +61,13 @@ export interface LauncherOptions {
     authData?: AuthData;
     /** Gemini config directory */
     geminiDir?: string;
+    /**
+     * App-data namespace under geminiDir, passed as `--app_data_dir`. Conversations/
+     * history live in `<geminiDir>/<appDataDir>/`. Defaults to the isolated
+     * "antigravity_client" so we don't clobber the IDE; set "antigravity" to share
+     * the real IDE's history.
+     */
+    appDataDir?: string;
     /** Chrome DevTools Protocol port (default: 9222) */
     cdpPort?: number;
     /** Verbose logging */
@@ -88,7 +95,7 @@ export class Launcher extends EventEmitter {
     private lastRestartTime = 0;
 
     private constructor(
-        private options: Required<Pick<LauncherOptions, "lsBinaryPath" | "csrfToken" | "workspaceId" | "cloudCodeEndpoint" | "geminiDir" | "verbose">>,
+        private options: Required<Pick<LauncherOptions, "lsBinaryPath" | "csrfToken" | "workspaceId" | "cloudCodeEndpoint" | "geminiDir" | "appDataDir" | "verbose">>,
         mockServer: MockExtensionServer,
         private fullOptions: LauncherOptions,
     ) {
@@ -124,6 +131,7 @@ export class Launcher extends EventEmitter {
         const lsBinaryPath = options.lsBinaryPath ?? DEFAULT_LS_BINARY;
         const cloudCodeEndpoint = options.cloudCodeEndpoint ?? "https://daily-cloudcode-pa.googleapis.com";
         const geminiDir = options.geminiDir ?? path.join(os.tmpdir(), `gemini_${workspaceId}`);
+        const appDataDir = options.appDataDir ?? "antigravity_client";
         const verbose = options.verbose ?? false;
 
         if (!fs.existsSync(lsBinaryPath)) {
@@ -142,7 +150,7 @@ export class Launcher extends EventEmitter {
             cdpPort: options.cdpPort,
         });
 
-        const resolvedOptions = { lsBinaryPath, csrfToken, workspaceId, cloudCodeEndpoint, geminiDir, verbose };
+        const resolvedOptions = { lsBinaryPath, csrfToken, workspaceId, cloudCodeEndpoint, geminiDir, appDataDir, verbose };
         const launcher = new Launcher(resolvedOptions, mockServer, options);
 
         fs.mkdirSync(geminiDir, { recursive: true });
@@ -172,7 +180,7 @@ export class Launcher extends EventEmitter {
             "--extension_server_port", String(this.mockServer.port),
             "--workspace_id", this.options.workspaceId,
             "--gemini_dir", this.options.geminiDir,
-            "--app_data_dir", "antigravity_client",
+            "--app_data_dir", this.options.appDataDir,
             "--enable_lsp",
             "--enable_sidecars",
             "--subclient_type", "hub",

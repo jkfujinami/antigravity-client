@@ -242,6 +242,40 @@ console.log(response); // "Paris"
 
 ---
 
+## Web UI (Browser)
+
+Run the **stock Antigravity IDE web UI in a plain browser** — no Electron, no IDE install required. `npm run web` launches a standalone Language Server and serves its *unmodified* frontend through a reverse proxy that speaks HTTP/2 to the browser and injects a web port of Electron's `preload.js`, so the original bundle runs untouched.
+
+```bash
+npm run web
+# → open https://localhost:8765/  (accept the self-signed cert warning once)
+```
+
+By default it points at your real `~/.gemini` profile with `appDataDir: "antigravity"` (the IDE's namespace), so your existing **Projects and conversations show up** in the browser. **Close the Antigravity IDE first** — two Language Servers writing the same state can corrupt it. Use an isolated profile to run alongside the IDE safely.
+
+```bash
+# Positional args:  [workspacePath] [geminiDir] [appDataDir]
+npm run web -- /path/to/project
+
+# Isolated profile (safe to run while the IDE is open)
+npm run web -- /path/to/project /tmp/gemini_iso antigravity_client
+
+# Env vars work too
+PORT=9000 GEMINI_DIR=~/.gemini APP_DATA_DIR=antigravity npm run web
+```
+
+| Option | Positional | Env | Default |
+|--------|-----------|-----|---------|
+| Workspace path | `argv[2]` | — | `cwd()` |
+| Gemini profile dir | `argv[3]` | `GEMINI_DIR` | `~/.gemini` |
+| App-data namespace | `argv[4]` | `APP_DATA_DIR` | `antigravity` |
+| Listen port | — | `PORT` | `8765` |
+| Verbose logging | — | `VERBOSE` | off |
+
+> **Why HTTP/2?** The UI opens many long-lived server-streams at once (notably one `WatchDirectory` per open file). Over HTTP/1.1 a browser caps at ~6 connections per origin, starving the extra streams so the file view spins forever. HTTP/2 multiplexes them all over a single connection — exactly what the native app does — which is why the proxy serves the browser over TLS h2.
+
+---
+
 ## Architecture
 
 ```

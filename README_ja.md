@@ -242,6 +242,37 @@ console.log(response); // "パリ"
 
 ---
 
+## Web UI（ブラウザ）
+
+**本家 Antigravity IDE の Web UI をブラウザで動くようにする機能** — Electron も IDE のインストールも不要です。`npm run web` はスタンドアロンの Language Server を起動し、その無改造のフロントエンドをリバースプロキシ経由で配信します。プロキシはブラウザに対して HTTP/2 で通信し、Electron の `preload.js` を Web 移植した shim を注入するため、元の bundle はそのまま動きます。
+
+```bash
+npm run web
+# → https://localhost:8765/ を開く（自己署名証明書の警告は初回のみ承認）
+```
+
+既定では実プロファイル `~/.gemini` を `appDataDir: "antigravity"`（IDE の名前空間）で参照するため、**既存の Projects と会話履歴がブラウザに表示されます**。**先に Antigravity IDE を閉じてください** — 同じ状態を 2 つの Language Server が書き込むと破損する恐れがあります。IDE と併用したい場合は隔離プロファイルを使ってください。
+
+```bash
+# 位置引数:  [workspacePath] [geminiDir] [appDataDir]
+npm run web -- /path/to/project
+
+# 隔離プロファイル（IDE を開いたまま安全に実行できる）
+npm run web -- /path/to/project /tmp/gemini_iso antigravity_client
+
+# 環境変数でも指定可能
+PORT=9000 GEMINI_DIR=~/.gemini APP_DATA_DIR=antigravity npm run web
+```
+
+| 項目 | 位置引数 | 環境変数 | 既定値 |
+|------|---------|---------|--------|
+| ワークスペースパス | `argv[2]` | — | `cwd()` |
+| Gemini プロファイルdir | `argv[3]` | `GEMINI_DIR` | `~/.gemini` |
+| app-data 名前空間 | `argv[4]` | `APP_DATA_DIR` | `antigravity` |
+| 待ち受けポート | — | `PORT` | `8765` |
+| 詳細ログ | — | `VERBOSE` | off |
+---
+
 ## アーキテクチャ
 
 ```
