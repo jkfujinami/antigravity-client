@@ -107,8 +107,8 @@ function findOpenssl(): string {
  */
 function ensureCert(): { key: Buffer; cert: Buffer } {
   // 1. External certificate via environment variables
-  const extCert = process.env.TLS_CERT;
-  const extKey = process.env.TLS_KEY;
+  const extCert = process.env.TLS_CERT?.trim();
+  const extKey = process.env.TLS_KEY?.trim();
   if (extCert && extKey) {
     if (!fs.existsSync(extCert)) throw new Error(`[poc] TLS_CERT file not found: ${extCert}`);
     if (!fs.existsSync(extKey)) throw new Error(`[poc] TLS_KEY file not found: ${extKey}`);
