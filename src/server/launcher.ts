@@ -30,6 +30,11 @@ const DEFAULT_LS_BINARY = process.platform === "darwin"
         "/Applications/Antigravity.app/Contents/Resources/bin",
         "language_server"
       )
+    : process.platform === "win32"
+    ? path.join(
+        process.env.LOCALAPPDATA || path.join(os.homedir(), "AppData", "Local"),
+        "Programs", "Antigravity", "resources", "bin", "language_server.exe"
+      )
     : "/opt/Antigravity/resources/bin/language_server";
 
 // Crash Monitoring Constants
@@ -291,14 +296,18 @@ export class Launcher extends EventEmitter {
             const chromePaths = [
                 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
                 "/usr/bin/google-chrome",
-                "/usr/bin/google-chrome-stable"
+                "/usr/bin/google-chrome-stable",
+                "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+                "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
             ];
             const detectedChromePath = chromePaths.find(p => fs.existsSync(p)) || "";
 
             const browserSettings = new UserSettings({
                 agentBrowserTools: AgentBrowserTools.ENABLED,
                 browserCdpPort: this.mockServer.browserReady ? (this.fullOptions.cdpPort ?? 9222) : 0,
-                browserChromePath: detectedChromePath || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                browserChromePath: detectedChromePath || (process.platform === "win32"
+                    ? "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+                    : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"),
                 browserUserProfilePath: path.join(os.homedir(), ".gemini", "antigravity-browser-profile"),
                 browserJsExecutionPolicy: BrowserJsExecutionPolicy.TURBO,
             });
@@ -371,7 +380,14 @@ export class Launcher extends EventEmitter {
             this.lsProcess.kill("SIGTERM");
             await new Promise<void>((resolve) => {
                 const timer = setTimeout(() => {
-                    this.lsProcess?.kill("SIGKILL");
+                    if (process.platform === "win32") {
+                        // SIGKILL is not reliable on Windows; use taskkill
+                        try {
+                            require("child_process").execSync(`taskkill /F /PID ${this.lsProcess!.pid}`, { stdio: "ignore" });
+                        } catch { /* already exited */ }
+                    } else {
+                        this.lsProcess?.kill("SIGKILL");
+                    }
                     resolve();
                 }, 5000);
                 this.lsProcess!.once("exit", () => {

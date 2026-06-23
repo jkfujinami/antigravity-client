@@ -198,7 +198,9 @@ export class MockExtensionServer extends EventEmitter {
                 },
 
                 checkTerminalShellSupport() {
-                    const shellPath = process.env.SHELL || "/bin/sh";
+                    const shellPath = process.platform === "win32"
+                        ? (process.env.COMSPEC || "C:\\Windows\\System32\\cmd.exe")
+                        : (process.env.SHELL || "/bin/sh");
                     const shellName = require("path").basename(shellPath);
                     if (self.verbose) console.log(`[MockExtSrv] CheckTerminalShellSupport requested, returning ${shellName}`);
                     return new CheckTerminalShellSupportResponse({
@@ -378,7 +380,9 @@ export class MockExtensionServer extends EventEmitter {
         const chromePaths = [
             "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
             "/usr/bin/google-chrome",
-            "/usr/bin/google-chrome-stable"
+            "/usr/bin/google-chrome-stable",
+            "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+            "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
         ];
         const chromePath = chromePaths.find(p => fs.existsSync(p));
 

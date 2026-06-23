@@ -87,12 +87,27 @@ function ensureCert(): { key: Buffer; cert: Buffer } {
   if (!fs.existsSync(keyPath) || !fs.existsSync(certPath)) {
     fs.mkdirSync(CERT_DIR, { recursive: true });
     console.log("[poc] generating self-signed localhost cert…");
-    execFileSync("openssl", [
-      "req", "-x509", "-newkey", "rsa:2048", "-nodes",
-      "-keyout", keyPath, "-out", certPath, "-days", "3650",
-      "-subj", "/CN=localhost",
-      "-addext", "subjectAltName=DNS:localhost,IP:127.0.0.1",
-    ], { stdio: "ignore" });
+    // On some Windows openssl builds, -subj needs //CN= instead of /CN=
+    const subj = process.platform === "win32" ? "//CN=localhost" : "/CN=localhost";
+    try {
+      execFileSync("openssl", [
+        "req", "-x509", "-newkey", "rsa:2048", "-nodes",
+        "-keyout", keyPath, "-out", certPath, "-days", "3650",
+        "-subj", subj,
+        "-addext", "subjectAltName=DNS:localhost,IP:127.0.0.1",
+      ], { stdio: "ignore" });
+    } catch (e) {
+      throw new Error(
+        `[poc] Failed to generate TLS certificate. openssl is required.\n` +
+        (process.platform === "win32"
+          ? `On Windows, install OpenSSL via one of:\n` +
+            `  - Git for Windows (includes openssl): https://git-scm.com/\n` +
+            `  - choco install openssl\n` +
+            `  - winget install ShiningLight.OpenSSL\n`
+          : `Please install openssl and try again.\n`) +
+        `Or manually place key.pem and cert.pem in: ${CERT_DIR}`
+      );
+    }
   }
   return { key: fs.readFileSync(keyPath), cert: fs.readFileSync(certPath) };
 }

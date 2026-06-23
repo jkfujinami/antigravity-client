@@ -376,9 +376,11 @@ SDK を通じてデータがローカルマシンの外部に送信されるこ�
 |-----------------|:---:|:---:|
 | **macOS** (arm64/x64) | ✅ | ✅ |
 | **Linux** (x64) | ✅ | ✅ |
-| **Windows** | ❌ | ❌ |
+| **Windows** (x64) | ✅ | ✅ |
 
 > Linux サポートは [@Masterisk-F](https://github.com/Masterisk-F) によるコントリビューション ([#7](https://github.com/jkfujinami/antigravity-client/pull/7))。
+>
+> **Windows の注意事項:** Web UI (`npm run web`) は TLS 証明書生成のために `openssl` が PATH 上に必要です。[Git for Windows](https://git-scm.com/)、`choco install openssl`、または `winget install ShiningLight.OpenSSL` でインストールしてください。
 
 ---
 
