@@ -148,6 +148,27 @@ function ensureCert(): { key: Buffer; cert: Buffer } {
   return { key: fs.readFileSync(keyPath), cert: fs.readFileSync(certPath) };
 }
 
+/**
+ * Access control: only allow connections from localhost or Tailscale CGNAT range.
+ * This prevents unauthorized access from the local Wi-Fi network, which is critical
+ * because the proxy auto-injects CSRF tokens and the UI can execute terminal commands.
+ */
+function isAllowedClient(remoteAddress: string | undefined): boolean {
+  if (!remoteAddress) return false;
+  // Normalize IPv6-mapped IPv4 (e.g., ::ffff:127.0.0.1 → 127.0.0.1)
+  const ip = remoteAddress.replace(/^::ffff:/, "");
+  // Allow localhost
+  if (ip === "127.0.0.1" || ip === "::1") return true;
+  // Allow Tailscale CGNAT range (100.64.0.0/10 → 100.64.x.x – 100.127.x.x)
+  const parts = ip.split(".");
+  if (parts.length === 4) {
+    const first = parseInt(parts[0], 10);
+    const second = parseInt(parts[1], 10);
+    if (first === 100 && second >= 64 && second <= 127) return true;
+  }
+  return false;
+}
+
 async function main() {
   console.log(`[poc] Launching language_server (workspace: ${WORKSPACE}, geminiDir: ${GEMINI_DIR}, appDataDir: ${APP_DATA_DIR})...`);
   const launcher = await Launcher.start({ workspacePath: WORKSPACE, geminiDir: GEMINI_DIR, appDataDir: APP_DATA_DIR, verbose: !!process.env.VERBOSE });
@@ -165,6 +186,14 @@ async function main() {
   const agent = new https.Agent({ rejectUnauthorized: false, maxSockets: Infinity, keepAlive: true });
 
   const handler = (req: http2.Http2ServerRequest, res: http2.Http2ServerResponse) => {
+    // --- Access control: reject requests from untrusted networks ---
+    const clientIp = req.socket.remoteAddress;
+    if (!isAllowedClient(clientIp)) {
+      console.warn(`[poc] BLOCKED connection from ${clientIp}`);
+      res.writeHead(403);
+      res.end("Forbidden: access is restricted to localhost and Tailscale VPN.");
+      return;
+    }
     // Serve the shim itself.
     if (req.url === SHIM_PATH) {
       res.writeHead(200, {
