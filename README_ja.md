@@ -380,7 +380,11 @@ SDK を通じてデータがローカルマシンの外部に送信されるこ�
 
 > Linux サポートは [@Masterisk-F](https://github.com/Masterisk-F) によるコントリビューション ([#7](https://github.com/jkfujinami/antigravity-client/pull/7))。
 >
-> **Windows の注意事項:** Web UI (`npm run web`) は TLS 証明書生成のために `openssl` が PATH 上に必要です。[Git for Windows](https://git-scm.com/)、`choco install openssl`、または `winget install ShiningLight.OpenSSL` でインストールしてください。
+> Windows サポートは [@Yusuke-forcode](https://github.com/Yusuke-forcode) によるコントリビューション ([#9](https://github.com/jkfujinami/antigravity-client/pull/9))。
+>
+> **Windows の注意事項:** Web UI (`npm run web`) は TLS 証明書生成のために `openssl` が PATH 上に必要です。[Git for Windows](https://git-scm.com/)、`choco install openssl`、または `winget install ShiningLight.OpenSSL` でインストールしてください。自前の証明書を `TLS_CERT` / `TLS_KEY` 環境変数で渡すこともできます（Tailscale の HTTPS 証明書や mkcert など）。
+>
+> **Windows の注意事項（自動検出）:** 起動中の LS に *attach* する場合、HTTPS ポートは「リッスン中の最小ポート番号」から推定します。macOS/Linux では FD（ファイルディスクリプタ）の open 順でポートを対応付けるため堅牢ですが、Windows は FD 順を取得できないため最小ポート番号を代理指標として使います。Windows が ephemeral ポートを非連番で割り当てた場合や動的範囲（49152〜65535）でラップした場合、ポートを誤判定することがあります。standalone（自前起動）モードは LS の起動ログから直接ポートを読むため影響を受けません。
 
 ---
 

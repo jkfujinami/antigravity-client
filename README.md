@@ -383,7 +383,11 @@ No data leaves the local machine through the SDK. The LS binary itself communica
 
 > Linux support contributed by [@Masterisk-F](https://github.com/Masterisk-F) ([#7](https://github.com/jkfujinami/antigravity-client/pull/7)).
 >
+> Windows support contributed by [@Yusuke-forcode](https://github.com/Yusuke-forcode) ([#9](https://github.com/jkfujinami/antigravity-client/pull/9)).
+>
 > **Windows note:** The Web UI requires `openssl` for self-signed cert generation. If Git for Windows is installed, its bundled openssl is auto-detected. Otherwise install via `choco install openssl` or `winget install ShiningLight.OpenSSL`. You can also supply your own certificates via `TLS_CERT` / `TLS_KEY` environment variables (e.g., Tailscale HTTPS certs or mkcert).
+>
+> **Windows note (auto-detection):** When *attaching* to an already-running LS, the HTTPS port is inferred from the lowest listening port. On macOS/Linux this is robust (ports are matched by file-descriptor open order); Windows exposes no FD order, so the lowest port number is used as a best-effort proxy. It can occasionally mis-identify the port if Windows allocated the ephemeral ports non-sequentially or wrapped around the dynamic range (49152–65535). Standalone (launched) mode is unaffected — the port is read directly from the LS startup log.
 
 ---
 
