@@ -95,8 +95,28 @@ function findOpenssl(): string {
   return "openssl"; // fall back to PATH
 }
 
-/** Generate a self-signed localhost cert on first run; reuse it afterwards. */
+/**
+ * Load TLS credentials.
+ * Priority: TLS_CERT/TLS_KEY env vars → existing self-signed → generate new self-signed.
+ *
+ * For Tailscale HTTPS (recommended for remote access):
+ *   tailscale cert --cert-file ~/.gemini/web-poc-certs/tailscale.crt \
+ *                  --key-file  ~/.gemini/web-poc-certs/tailscale.key \
+ *                  <hostname>.ts.net
+ *   TLS_CERT=~/.gemini/web-poc-certs/tailscale.crt TLS_KEY=~/.gemini/web-poc-certs/tailscale.key npm run web
+ */
 function ensureCert(): { key: Buffer; cert: Buffer } {
+  // 1. External certificate via environment variables
+  const extCert = process.env.TLS_CERT;
+  const extKey = process.env.TLS_KEY;
+  if (extCert && extKey) {
+    if (!fs.existsSync(extCert)) throw new Error(`[poc] TLS_CERT file not found: ${extCert}`);
+    if (!fs.existsSync(extKey)) throw new Error(`[poc] TLS_KEY file not found: ${extKey}`);
+    console.log(`[poc] using external TLS cert: ${extCert}`);
+    return { key: fs.readFileSync(extKey), cert: fs.readFileSync(extCert) };
+  }
+
+  // 2. Self-signed certificate (generate on first run)
   const keyPath = path.join(CERT_DIR, "key.pem");
   const certPath = path.join(CERT_DIR, "cert.pem");
   if (!fs.existsSync(keyPath) || !fs.existsSync(certPath)) {
