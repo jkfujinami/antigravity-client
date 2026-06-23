@@ -16,25 +16,25 @@
 
 ## これは何？
 
-**Antigravity Language Server (LS)** の Go バイナリと、ConnectRPC (gRPC-Web) プロトコルで直接通信するスタンドアロンの TypeScript ライブラリです。IDE のフロントエンドコードをリバースエンジニアリングし、元の Protobuf スキーマを再構築することで開発されました。
+**Antigravity Language Server (LS)** のバイナリと、ConnectRPC (gRPC-Web) プロトコルを通じて直接通信するための、スタンドアロンな TypeScript ライブラリです。公式 IDE のフロントエンドコードをリバースエンジニアリングし、Protobuf スキーマを独自に再構築して開発されました。
 
-公式 SDK（VS Code Extension API を通じて IDE を拡張するもの）とは異なり、このプロジェクトは LS プロセスそのものと通信します。すべての RPC メソッド、すべての Protobuf メッセージ、すべてのストリーミングエンドポイントに制限なくアクセスできます。
+IDE の拡張機能を開発するための公式 SDK とは異なり、このライブラリは LS プロセスそのものと通信を行います。そのため、すべての RPC メソッド、Protobuf メッセージ、およびストリーミングエンドポイントに対して無制限にアクセスすることが可能です。
 
 > [!IMPORTANT]
-> これは VS Code 拡張機能 SDK では**ありません**。ConnectRPC 経由で Language Server バイナリと直接通信する低レベルクライアントライブラリです。IDE が起動していなくても動作します。
+> これは VS Code の拡張機能用 SDK では**ありません**。ConnectRPC を介して Language Server バイナリと直接通信を行うための、低レベルなクライアントライブラリです。IDE が起動していなくても単独で動作します。
 
 ---
 
 ## 🤖 AI エージェントのための強力なインフラストラクチャ
 
-Antigravity LS は単なるツールではなく、**自律型 AI エージェントを構築するための堅牢な基盤**です。この SDK を使うことで、Language Server をカスタムエージェントのマネージドバックエンドとして活用できます。
+Antigravity LS は単なるツールではなく、**自律型 AI エージェントを構築するための堅牢な基盤**です。この SDK を使うことで、Language Server をカスタムエージェントのバックエンドとして活用できます。
 
-- **マネージドコンテキスト & セッション**: LS サーバーがセッション管理やコンテキストウィンドウの最適化といった複雑な処理を担います。低レベルの状態管理ではなく、エージェントロジックの開発に集中できます。
-- **高度なプロンプトチューニング**: メッセージ単位でカスタムプロンプトやメタデータを注入可能。特定のシナリオにおけるエージェントの振る舞いを精密に調整できます。
-- **統合ツーリング & 検索**: Web 検索、ファイルインデックス、ターミナル実行をシームレスに統合。単一の SDK インターフェースを通じて、これらのツールを精密に制御するカスタムエージェントを構築できます。
-- **イベント駆動アーキテクチャ**: モダンなイベント駆動の `Cascade` API を備え、ストリーム管理・状態パース・API インタラクションを明確に分離。高い拡張性と可読性を実現しています。
+- **コンテキストとセッションの管理**: LS サーバーが、セッション管理やコンテキストウィンドウの最適化などの複雑な処理を担います。これにより、低レベルな状態管理を気にすることなく、エージェントのロジック開発に集中できます。
+- **高度なプロンプトチューニング**: メッセージ単位でカスタムプロンプトやメタデータを注入可能です。特定のシナリオにおけるエージェントの振る舞いを精密に調整できます。
+- **ツールと検索の統合**: Web 検索、ファイルのインデックス作成、ターミナル実行などの機能をシームレスに統合しています。単一の SDK インターフェースを通じて、これらのツールを正確に制御するカスタムエージェントを構築できます。
+- **イベント駆動アーキテクチャ**: モダンなイベント駆動型の `Cascade` API を備えており、ストリーム管理、状態のパース、API のやり取りを明確に分離しています。これにより、高い拡張性とコードの可読性を実現しています。
 
-コンテキスト管理を LS にオフロードすることで、インフラではなくエージェントの「頭脳」のエンジニアリングに時間を使えます。
+コンテキストの管理を LS に任せることで、インフラストラクチャではなく、エージェントの「頭脳」となる部分の開発に専念できます。
 
 ---
 
@@ -58,7 +58,7 @@ console.log(`接続完了: ${status.userStatus?.name}`);
 
 ### Language Server との直接通信
 
-SDK は LS のサービス定義から抽出した **188 の RPC メソッド** すべてをラップする型安全な `LanguageServerFacade` を公開します。各メソッドは完全に型付けされた Protobuf メッセージを受け取り、返却します。
+本 SDK は、LS のサービス定義から抽出した **188 個の RPC メソッド** すべてをラップする、型安全な `LanguageServerFacade` を提供します。各メソッドは、完全に型付けされた Protobuf メッセージの送受信をサポートします。
 
 ```typescript
 const client = await AntigravityClient.connect();
@@ -73,11 +73,11 @@ const userStatus = await client.getUserStatus();
 ```
 
 > [!NOTE]
-> ファサード層（`src/facade/`）は再構築した Protobuf スキーマから自動生成されています。各メソッドはリクエストメッセージの形状に一致するプレーンオブジェクトを受け取り、型付きレスポンスを返します。
+> ファサード層（`src/facade/`）は、再構築した Protobuf スキーマから自動生成されています。各メソッドはリクエストメッセージの形状に一致するプレーンオブジェクトを受け取り、型付けされたレスポンスを返します。
 
 ### イベント駆動 Cascade API
 
-`Cascade` クラスは AI エージェントからのリアルタイムストリーミングを管理します。内部では `CascadeStreamHandler`（gRPC ストリームのライフサイクル管理）と `CascadeEventParser`（状態差分の計算とイベント発火）の2つのモジュールに分離されており、高レベルイベント（`text`, `thinking`, `statusChange`）からステップ単位の詳細イベント（`step:runCommand`, `step:writeToFile`, `step:browserSubagent` など）まで、**130 の型付きイベント** を発火します。
+`Cascade` クラスは、AI エージェントからのリアルタイムなストリーミングを管理します。内部的には `CascadeStreamHandler`（gRPC ストリームのライフサイクル管理）と `CascadeEventParser`（状態差分の計算とイベントの発火）の 2 つのモジュールに分かれています。高レベルなイベント（`text`、`thinking`、`statusChange`）から、ステップごとの詳細なイベント（`step:runCommand`、`step:writeToFile`、`step:browserSubagent` など）まで、**130 種類の型付けされたイベント** を発火させます。
 
 ```typescript
 const cascade = await client.startCascade();
@@ -105,9 +105,9 @@ cascade.on(Cascade.Events.Interaction, async (req) => {
 });
 ```
 
-### 高レベル便利メソッド
+### 便利な高レベルメソッド
 
-シンプルなユースケースでは、イベントの配線を省略できます。
+シンプルなユースケースの場合、イベントの配線（リスナーの登録）を省略して実行できます。
 
 ```typescript
 // ワンショット: プロンプト送信 → 完了待機 → 結果取得
@@ -127,9 +127,9 @@ await cascade.waitForTurnComplete();
 await cascade.cancelAndWait();
 ```
 
-### 承認制御
+### 承認の制御
 
-ターミナルコマンド、ファイル編集、ブラウザ操作など、エージェントのアクションをプログラム的に承認・拒否できます。
+ターミナルでのコマンド実行、ファイルの編集、ブラウザの操作など、エージェントのアクションをプログラムで自動的に承認・拒否できます。
 
 ```typescript
 // ターミナルコマンド
@@ -148,9 +148,9 @@ await cascade.denyOpenBrowserUrl(stepIndex);
 await cascade.sendInteraction(stepIndex, "permission", { allow: true, scope: 1 });
 ```
 
-### モデル選択
+### モデルの選択
 
-利用可能なモデルの照会と、メッセージごとのモデル指定が可能です。
+利用可能なモデルを照会し、メッセージごとに使用するモデルを指定できます。
 
 ```typescript
 // 利用可能なモデル一覧
@@ -175,7 +175,7 @@ await cascade.sendMessage("このスクリーンショットの内容は？", {
 
 ### スタンドアロンモード（IDE 不要）
 
-Antigravity IDE が起動していなくても、独立した Language Server プロセスを起動できます。SDK が Mock Extension Server を立ち上げ、USS プロトコル経由で OAuth トークンを供給します。
+Antigravity IDE が起動していなくても、独立した Language Server プロセスを起動できます。SDK が Mock Extension Server を立ち上げ、USS プロトコルを介して OAuth トークンを供給します。
 
 ```typescript
 const client = await AntigravityClient.launch({
@@ -242,35 +242,35 @@ console.log(response); // "パリ"
 
 ---
 
-## Web UI（ブラウザ）
+## Web UI（ブラウザで実行）
 
-**本家 Antigravity IDE の Web UI をブラウザで動くようにする機能** — Electron も IDE のインストールも不要です。`npm run web` はスタンドアロンの Language Server を起動し、その無改造のフロントエンドをリバースプロキシ経由で配信します。プロキシはブラウザに対して HTTP/2 で通信し、Electron の `preload.js` を Web 移植した shim を注入するため、元の bundle はそのまま動きます。
+**本家の Antigravity IDE の Web UI を標準のブラウザ上で実行できます。**Electron や IDE のインストールは一切不要です。`npm run web` コマンドを実行すると、スタンドアロンの Language Server が起動し、そのフロントエンドが無改造のままリバースプロキシ経由で配信されます。このプロキシはブラウザと HTTP/2 で通信し、Electron の `preload.js` の Web 用 shim を注入するため、元のバンドルファイルに手を加えることなく動作します。
 
 ```bash
-# 依存として入れた場合 — npx で起動:
+# 依存関係としてインストールした場合（npx で起動）:
 npx antigravity-web
-# …またはグローバル導入で素の `antigravity-web` コマンドに:
+# またはグローバルにインストールして直接 antigravity-web コマンドを使用:
 npm install -g github:jkfujinami/antigravity-client
 
-# この repo のチェックアウトから:
+# このリポジトリをクローンして実行する場合:
 npm run web
 
-# → https://localhost:8765/ を開く（自己署名証明書の警告は初回のみ承認）
+# → https://localhost:8765/ にアクセスします（初回の自己署名証明書の警告は承認してください）
 ```
 
-既定では実プロファイル `~/.gemini` を `appDataDir: "antigravity"`（IDE の名前空間）で参照するため、**既存の Projects と会話履歴がブラウザに表示されます**。**先に Antigravity IDE を閉じてください** — 同じ状態を 2 つの Language Server が書き込むと破損する恐れがあります。IDE と併用したい場合は隔離プロファイルを使ってください。
+既定では実際のプロファイルである `~/.gemini` を `appDataDir: "antigravity"`（IDE の名前空間）として参照するため、**既存のプロジェクトや会話履歴がそのままブラウザ上に表示されます**。ただし、**実行前に必ず Antigravity IDE を閉じてください**。2 つの Language Server が同じ状態を同時に書き込むと、データが破損する恐れがあります。IDE と同時に使用したい場合は、隔離プロファイル（Isolated profile）を使用してください。
 
 ```bash
 # 位置引数:  [workspacePath] [geminiDir] [appDataDir]
 npm run web -- /path/to/project
 
-# 隔離プロファイル（IDE を開いたまま安全に実行できる）
+# 隔離プロファイル（IDE を開いたままでも安全に実行できます）
 npm run web -- /path/to/project /tmp/gemini_iso antigravity_client
 
-# antigravity-web bin は同じ位置引数を直接受け取る（`--` 不要）
+# antigravity-web コマンドは位置引数を直接受け取ります（`--` は不要です）
 antigravity-web /path/to/project /tmp/gemini_iso antigravity_client
 
-# 環境変数はどちらの形式でも効く
+# 環境変数はどちらの形式でも使用可能です
 PORT=9000 GEMINI_DIR=~/.gemini APP_DATA_DIR=antigravity npx antigravity-web
 ```
 
@@ -279,8 +279,11 @@ PORT=9000 GEMINI_DIR=~/.gemini APP_DATA_DIR=antigravity npx antigravity-web
 | ワークスペースパス | `argv[2]` | — | `cwd()` |
 | Gemini プロファイルdir | `argv[3]` | `GEMINI_DIR` | `~/.gemini` |
 | app-data 名前空間 | `argv[4]` | `APP_DATA_DIR` | `antigravity` |
-| 待ち受けポート | — | `PORT` | `8765` |
-| 詳細ログ | — | `VERBOSE` | off |
+| リッスンポート | — | `PORT` | `8765` |
+| 詳細ロギング | — | `VERBOSE` | off |
+
+> **なぜ HTTP/2 なのか？** UI は多数の長期的なサーバーストリームを同時に開きます（特に、開いているファイルごとの `WatchDirectory` など）。HTTP/1.1 では、ブラウザはオリジンごとに約 6 つの接続に制限されているため、追加のストリームが枯渇し、ファイルビューが永遠にロード状態になります。HTTP/2 はこれらを 1 つの接続上で多重化するため（ネイティブアプリとまったく同じ動作）、プロキシは TLS h2 を介してブラウザにサービスを提供します。
+
 ---
 
 ## アーキテクチャ
