@@ -80,17 +80,33 @@ function injectShim(html: string): string {
   return SHIM_TAG + html;
 }
 
+/** Find the openssl binary — checks common bundled locations on Windows first. */
+function findOpenssl(): string {
+  if (process.platform === "win32") {
+    const candidates = [
+      path.join(process.env.ProgramFiles || "C:\\Program Files", "Git", "usr", "bin", "openssl.exe"),
+      path.join(process.env["ProgramFiles(x86)"] || "C:\\Program Files (x86)", "Git", "usr", "bin", "openssl.exe"),
+      path.join(process.env.ProgramFiles || "C:\\Program Files", "OpenSSL-Win64", "bin", "openssl.exe"),
+      path.join(process.env.ProgramFiles || "C:\\Program Files", "OpenSSL", "bin", "openssl.exe"),
+    ];
+    const found = candidates.find(p => fs.existsSync(p));
+    if (found) return found;
+  }
+  return "openssl"; // fall back to PATH
+}
+
 /** Generate a self-signed localhost cert on first run; reuse it afterwards. */
 function ensureCert(): { key: Buffer; cert: Buffer } {
   const keyPath = path.join(CERT_DIR, "key.pem");
   const certPath = path.join(CERT_DIR, "cert.pem");
   if (!fs.existsSync(keyPath) || !fs.existsSync(certPath)) {
     fs.mkdirSync(CERT_DIR, { recursive: true });
-    console.log("[poc] generating self-signed localhost cert…");
+    const opensslBin = findOpenssl();
+    console.log(`[poc] generating self-signed localhost cert… (${opensslBin})`);
     // On some Windows openssl builds, -subj needs //CN= instead of /CN=
     const subj = process.platform === "win32" ? "//CN=localhost" : "/CN=localhost";
     try {
-      execFileSync("openssl", [
+      execFileSync(opensslBin, [
         "req", "-x509", "-newkey", "rsa:2048", "-nodes",
         "-keyout", keyPath, "-out", certPath, "-days", "3650",
         "-subj", subj,
