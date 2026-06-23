@@ -366,8 +366,8 @@ src/
 All communication happens through three local channels:
 
 1. **ConnectRPC over TLS** — The SDK connects to the LS binary on `127.0.0.1` via HTTP/2 with a per-session CSRF token. This is the same protocol the IDE uses internally.
-2. **Read-only SQLite** — For standalone mode, the SDK reads `state.vscdb` to extract OAuth tokens. No writes.
-3. **Process inspection** — Auto-detection uses `ps` and `lsof` to find running LS processes and their ports.
+2. **Read-only SQLite** — For standalone mode, the SDK reads `state.vscdb` via `better-sqlite3` to extract OAuth tokens. No writes, no external `sqlite3` CLI dependency.
+3. **Process inspection** — Auto-detection uses `ps`/`lsof` (macOS/Linux) or PowerShell `Get-CimInstance`/`Get-NetTCPConnection` (Windows) to find running LS processes and their ports.
 
 No data leaves the local machine through the SDK. The LS binary itself communicates with Google's backend, but the SDK only talks to the LS.
 
@@ -379,9 +379,11 @@ No data leaves the local machine through the SDK. The LS binary itself communica
 |----------|:-:|:-:|
 | **macOS** (arm64/x64) | ✅ | ✅ |
 | **Linux** (x64) | ✅ | ✅ |
-| **Windows** | ❌ | ❌ |
+| **Windows** (x64) | ✅ | ✅ |
 
 > Linux support contributed by [@Masterisk-F](https://github.com/Masterisk-F) ([#7](https://github.com/jkfujinami/antigravity-client/pull/7)).
+>
+> **Windows note:** The Web UI requires `openssl` for self-signed cert generation. If Git for Windows is installed, its bundled openssl is auto-detected. Otherwise install via `choco install openssl` or `winget install ShiningLight.OpenSSL`. You can also supply your own certificates via `TLS_CERT` / `TLS_KEY` environment variables (e.g., Tailscale HTTPS certs or mkcert).
 
 ---
 
