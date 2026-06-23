@@ -10,7 +10,7 @@
  *   // ... use with AntigravityClient ...
  *   await ls.stop();
  */
-import { spawn, ChildProcess } from "child_process";
+import { spawn, ChildProcess, execSync } from "child_process";
 import { EventEmitter } from "events";
 import * as path from "path";
 import * as os from "os";
@@ -383,7 +383,7 @@ export class Launcher extends EventEmitter {
                     if (process.platform === "win32") {
                         // SIGKILL is not reliable on Windows; use taskkill
                         try {
-                            require("child_process").execSync(`taskkill /F /PID ${this.lsProcess!.pid}`, { stdio: "ignore" });
+                            execSync(`taskkill /F /PID ${this.lsProcess!.pid}`, { stdio: "ignore" });
                         } catch { /* already exited */ }
                     } else {
                         this.lsProcess?.kill("SIGKILL");
