@@ -7,14 +7,69 @@
 import Database from "better-sqlite3";
 import { homedir } from "os";
 import * as path from "path";
+import * as fs from "fs";
 import { Topic } from "../gen/exa/unified_state_sync_pb/unified_state_sync_pb.js";
 import { OAuthTokenInfo } from "../gen/exa/language_server_pb/language_server_pb.js";
 
-const STATE_DB_PATH = process.platform === "darwin"
-    ? path.join(homedir(), "Library/Application Support/Antigravity/User/globalStorage/state.vscdb")
-    : process.platform === "win32"
-    ? path.join(process.env.APPDATA || path.join(homedir(), "AppData", "Roaming"), "Antigravity", "User", "globalStorage", "state.vscdb")
-    : path.join(homedir(), ".config/Antigravity/User/globalStorage/state.vscdb");
+/**
+ * Per-OS base directory that holds VSCode-style app profiles (…/<AppName>/User/…).
+ */
+function profileBaseDir(): string {
+    return process.platform === "darwin"
+        ? path.join(homedir(), "Library", "Application Support")
+        : process.platform === "win32"
+        ? (process.env.APPDATA || path.join(homedir(), "AppData", "Roaming"))
+        : path.join(homedir(), ".config");
+}
+
+/**
+ * Candidate state.vscdb paths, in preference order.
+ *
+ * Antigravity ships as two products that store auth in SEPARATE profile folders:
+ *   - "Antigravity"      → the standalone app (Electron, productName "Antigravity")
+ *   - "Antigravity IDE"  → the IDE (VSCode fork, nameShort "Antigravity IDE")
+ * A user may be logged into either, so we probe both on every platform.
+ */
+function stateDbCandidates(): string[] {
+    const base = profileBaseDir();
+    return ["Antigravity", "Antigravity IDE"].map(
+        name => path.join(base, name, "User", "globalStorage", "state.vscdb"),
+    );
+}
+
+/** True if this DB holds a non-empty OAuth token (the real, durable credential). */
+function dbHasOAuthToken(dbPath: string): boolean {
+    try {
+        const db = new Database(dbPath, { readonly: true });
+        try {
+            const row = db.prepare("SELECT value FROM ItemTable WHERE key='antigravityUnifiedStateSync.oauthToken'").get() as { value: string } | undefined;
+            if (!row) return false;
+            const topic = Topic.fromBinary(Buffer.from(row.value, "base64"));
+            const entry = topic.data.find(e => e.key === "oauthTokenInfoSentinelKey");
+            return !!entry?.value?.value;
+        } finally {
+            db.close();
+        }
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Resolve which state.vscdb to read.
+ * Priority: AG_STATE_DB override → first candidate that actually has an OAuth token
+ * → first candidate that exists → the standalone path (so errors stay meaningful).
+ */
+function resolveStateDbPath(): string {
+    const override = process.env.AG_STATE_DB?.trim();
+    if (override) return override;
+    const candidates = stateDbCandidates();
+    return (
+        candidates.find(p => fs.existsSync(p) && dbHasOAuthToken(p)) ??
+        candidates.find(p => fs.existsSync(p)) ??
+        candidates[0]
+    );
+}
 
 export interface UssOAuthData {
     key: string;      // USS data map key (e.g. "oauthTokenInfoSentinelKey")
@@ -39,7 +94,7 @@ export interface AuthData {
  */
 function readLegacyAuthStatus(): { apiKey: string; email: string; name: string } {
     try {
-        const db = new Database(STATE_DB_PATH, { readonly: true });
+        const db = new Database(resolveStateDbPath(), { readonly: true });
         try {
             const row = db.prepare("SELECT value FROM ItemTable WHERE key='antigravityAuthStatus'").get() as { value: string } | undefined;
             if (!row) return { apiKey: "", email: "", name: "" };
@@ -100,7 +155,7 @@ export function readAuthStatus(): { apiKey: string; email: string; name: string 
  */
 export function readUssOAuthData(): UssOAuthData {
     try {
-        const db = new Database(STATE_DB_PATH, { readonly: true });
+        const db = new Database(resolveStateDbPath(), { readonly: true });
         try {
             const row = db.prepare("SELECT value FROM ItemTable WHERE key='antigravityUnifiedStateSync.oauthToken'").get() as { value: string } | undefined;
             if (!row) return { key: "oauthTokenInfoSentinelKey", value: "" };
