@@ -50,9 +50,100 @@ export class HookToolCall extends Message<HookToolCall> {
 }
 
 /**
+ * @generated from message exa.hooks_pb.HookSystemMessage
+ */
+export class HookSystemMessage extends Message<HookSystemMessage> {
+  /**
+   * @generated from field: string system_message = 1;
+   */
+  systemMessage = "";
+
+  /**
+   * @generated from field: repeated exa.hooks_pb.HookSystemMessage.MetadataEntry metadata = 2;
+   */
+  metadata: HookSystemMessage_MetadataEntry[] = [];
+
+  constructor(data?: PartialMessage<HookSystemMessage>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.hooks_pb.HookSystemMessage";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "system_message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "metadata", kind: "message", T: HookSystemMessage_MetadataEntry, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookSystemMessage {
+    return new HookSystemMessage().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HookSystemMessage {
+    return new HookSystemMessage().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HookSystemMessage {
+    return new HookSystemMessage().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: HookSystemMessage | PlainMessage<HookSystemMessage> | undefined, b: HookSystemMessage | PlainMessage<HookSystemMessage> | undefined): boolean {
+    return proto3.util.equals(HookSystemMessage, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.hooks_pb.HookSystemMessage.MetadataEntry
+ */
+export class HookSystemMessage_MetadataEntry extends Message<HookSystemMessage_MetadataEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: string value = 2;
+   */
+  value = "";
+
+  constructor(data?: PartialMessage<HookSystemMessage_MetadataEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.hooks_pb.HookSystemMessage.MetadataEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookSystemMessage_MetadataEntry {
+    return new HookSystemMessage_MetadataEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HookSystemMessage_MetadataEntry {
+    return new HookSystemMessage_MetadataEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HookSystemMessage_MetadataEntry {
+    return new HookSystemMessage_MetadataEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: HookSystemMessage_MetadataEntry | PlainMessage<HookSystemMessage_MetadataEntry> | undefined, b: HookSystemMessage_MetadataEntry | PlainMessage<HookSystemMessage_MetadataEntry> | undefined): boolean {
+    return proto3.util.equals(HookSystemMessage_MetadataEntry, a, b);
+  }
+}
+
+/**
  * @generated from message exa.hooks_pb.HookInjectedStep
  */
 export class HookInjectedStep extends Message<HookInjectedStep> {
+  /**
+   * @generated from field: string model_api_content_id = 5;
+   */
+  modelApiContentId = "";
+
   /**
    * @generated from oneof exa.hooks_pb.HookInjectedStep.step
    */
@@ -74,6 +165,12 @@ export class HookInjectedStep extends Message<HookInjectedStep> {
      */
     value: string;
     case: "ephemeralMessage";
+  } | {
+    /**
+     * @generated from field: exa.hooks_pb.HookSystemMessage system_message = 4;
+     */
+    value: HookSystemMessage;
+    case: "systemMessage";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<HookInjectedStep>) {
@@ -84,9 +181,11 @@ export class HookInjectedStep extends Message<HookInjectedStep> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.hooks_pb.HookInjectedStep";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 5, name: "model_api_content_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 1, name: "tool_call", kind: "message", T: HookToolCall, oneof: "step" },
     { no: 2, name: "user_message", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "step" },
     { no: 3, name: "ephemeral_message", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "step" },
+    { no: 4, name: "system_message", kind: "message", T: HookSystemMessage, oneof: "step" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookInjectedStep {
@@ -130,6 +229,11 @@ export class HookArgsCommon extends Message<HookArgsCommon> {
    */
   artifactDirectoryPath = "";
 
+  /**
+   * @generated from field: string execution_id = 5;
+   */
+  executionId = "";
+
   constructor(data?: PartialMessage<HookArgsCommon>) {
     super();
     proto3.util.initPartial(data, this);
@@ -142,6 +246,7 @@ export class HookArgsCommon extends Message<HookArgsCommon> {
     { no: 2, name: "workspace_paths", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 3, name: "transcript_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "artifact_directory_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "execution_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookArgsCommon {

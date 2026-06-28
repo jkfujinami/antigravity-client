@@ -84,6 +84,9 @@ export class MockExtensionServer extends EventEmitter {
     /** Whether the CDP browser has been confirmed ready */
     get browserReady(): boolean { return this._browserReady; }
 
+    /** OAuth access token (= Metadata.apiKey) supplied to the LS at startup. */
+    get apiKey(): string { return this.authData.apiKey; }
+
     get port(): number { return this._port; }
     get lsInfo(): LsInfo { return this._lsInfo; }
 

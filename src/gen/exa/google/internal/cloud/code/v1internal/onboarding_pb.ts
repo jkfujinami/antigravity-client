@@ -405,6 +405,11 @@ export enum IneligibleTier_IneligibleTierReasonCodes {
    * @generated from enum value: GOOGLE_TOS_NOT_SUPPORTED_BY_CLIENT = 11;
    */
   GOOGLE_TOS_NOT_SUPPORTED_BY_CLIENT = 11,
+
+  /**
+   * @generated from enum value: UNSUPPORTED_CLIENT = 12;
+   */
+  UNSUPPORTED_CLIENT = 12,
 }
 // Retrieve enum metadata with: proto3.getEnumType(IneligibleTier_IneligibleTierReasonCodes)
 proto3.util.setEnumType(IneligibleTier_IneligibleTierReasonCodes, "google.internal.cloud.code.v1internal.IneligibleTier.IneligibleTierReasonCodes", [
@@ -420,6 +425,7 @@ proto3.util.setEnumType(IneligibleTier_IneligibleTierReasonCodes, "google.intern
   { no: 9, name: "RESTRICTED_DASHER_USER" },
   { no: 10, name: "VALIDATION_REQUIRED" },
   { no: 11, name: "GOOGLE_TOS_NOT_SUPPORTED_BY_CLIENT" },
+  { no: 12, name: "UNSUPPORTED_CLIENT" },
 ]);
 
 /**

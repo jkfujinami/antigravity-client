@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AgentPlugin, BattleModeOverridesRequest, BattleModeOverridesResponse, CheckUrlDenylistRequest, CheckUrlDenylistResponse, FetchFromTrawlerCacheRequest, FetchFromTrawlerCacheResponse, FetchUserInfoRequest, FetchUserInfoResponse, GetAgentPluginRequest, GetHealthRequest, Health, ListAgentPluginsRequest, ListAgentPluginsResponse, ListBuildWithGooglePluginsRequest, ListBuildWithGooglePluginsResponse, ListCascadeNuxesRequest, ListCascadeNuxesResponse, ListWebDocsOptionsRequest, ListWebDocsOptionsResponse, RecordTrajectoryAnalyticsRequest, RecordTrajectoryAnalyticsResponse, RegisterInteractionRequest, RegisterInteractionResponse, RewriteUriRequest, RewriteUriResponse, SetUserSettingsRequest, SetUserSettingsResponse, TabChatRequest, TabChatResponse } from "./jetski_service_pb.js";
+import { AgentPlugin, BattleModeAutoTriggerRequest, BattleModeAutoTriggerResponse, BattleModeOverridesRequest, BattleModeOverridesResponse, CheckUrlDenylistRequest, CheckUrlDenylistResponse, FetchFromTrawlerCacheRequest, FetchFromTrawlerCacheResponse, FetchUserInfoRequest, FetchUserInfoResponse, GetAgentPluginRequest, GetHealthRequest, Health, ListAgentPluginsRequest, ListAgentPluginsResponse, ListBuildWithGooglePluginsRequest, ListBuildWithGooglePluginsResponse, ListCascadeNuxesRequest, ListCascadeNuxesResponse, ListWebDocsOptionsRequest, ListWebDocsOptionsResponse, RecordTrajectoryAnalyticsRequest, RecordTrajectoryAnalyticsResponse, RegisterInteractionRequest, RegisterInteractionResponse, RewriteUriRequest, RewriteUriResponse, SetUserSettingsRequest, SetUserSettingsResponse, TabChatRequest, TabChatResponse } from "./jetski_service_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -145,6 +145,15 @@ export const JetskiService = {
       name: "BattleModeOverrides",
       I: BattleModeOverridesRequest,
       O: BattleModeOverridesResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc google.internal.cloud.code.v1internal.JetskiService.BattleModeAutoTrigger
+     */
+    battleModeAutoTrigger: {
+      name: "BattleModeAutoTrigger",
+      I: BattleModeAutoTriggerRequest,
+      O: BattleModeAutoTriggerResponse,
       kind: MethodKind.Unary,
     },
   }

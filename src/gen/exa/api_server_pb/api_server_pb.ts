@@ -705,6 +705,11 @@ export class GetImageGenerationRequest extends Message<GetImageGenerationRequest
    */
   stepIndex = 0;
 
+  /**
+   * @generated from field: string aspect_ratio = 9;
+   */
+  aspectRatio = "";
+
   constructor(data?: PartialMessage<GetImageGenerationRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -721,6 +726,7 @@ export class GetImageGenerationRequest extends Message<GetImageGenerationRequest
     { no: 6, name: "input_media", kind: "message", T: Media, repeated: true },
     { no: 7, name: "trajectory_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 8, name: "step_index", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 9, name: "aspect_ratio", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetImageGenerationRequest {

@@ -13930,6 +13930,16 @@ export class Metadata extends Message<Metadata> {
    */
   productName = "";
 
+  /**
+   * @generated from field: string environment_type = 32;
+   */
+  environmentType = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.RuntimeEnvironment runtime_environment = 33;
+   */
+  runtimeEnvironment?: RuntimeEnvironment;
+
   constructor(data?: PartialMessage<Metadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -13957,6 +13967,8 @@ export class Metadata extends Message<Metadata> {
     { no: 18, name: "user_tags", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 30, name: "region_code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 31, name: "product_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 32, name: "environment_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 33, name: "runtime_environment", kind: "message", T: RuntimeEnvironment },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Metadata {
@@ -13973,6 +13985,67 @@ export class Metadata extends Message<Metadata> {
 
   static equals(a: Metadata | PlainMessage<Metadata> | undefined, b: Metadata | PlainMessage<Metadata> | undefined): boolean {
     return proto3.util.equals(Metadata, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.RuntimeEnvironment
+ */
+export class RuntimeEnvironment extends Message<RuntimeEnvironment> {
+  /**
+   * @generated from field: string host = 1;
+   */
+  host = "";
+
+  /**
+   * @generated from field: string binary = 2;
+   */
+  binary = "";
+
+  /**
+   * @generated from field: string viewport_width_cohort = 3;
+   */
+  viewportWidthCohort = "";
+
+  /**
+   * @generated from field: string user_cohort = 4;
+   */
+  userCohort = "";
+
+  /**
+   * @generated from field: string os = 5;
+   */
+  os = "";
+
+  constructor(data?: PartialMessage<RuntimeEnvironment>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.RuntimeEnvironment";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "host", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "binary", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "viewport_width_cohort", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "user_cohort", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "os", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RuntimeEnvironment {
+    return new RuntimeEnvironment().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RuntimeEnvironment {
+    return new RuntimeEnvironment().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RuntimeEnvironment {
+    return new RuntimeEnvironment().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RuntimeEnvironment | PlainMessage<RuntimeEnvironment> | undefined, b: RuntimeEnvironment | PlainMessage<RuntimeEnvironment> | undefined): boolean {
+    return proto3.util.equals(RuntimeEnvironment, a, b);
   }
 }
 
@@ -18413,6 +18486,11 @@ export class ModelFeatures extends Message<ModelFeatures> {
    */
   supportsThoughtCirculation = false;
 
+  /**
+   * @generated from field: bool supports_deferred_tool_loading = 31;
+   */
+  supportsDeferredToolLoading = false;
+
   constructor(data?: PartialMessage<ModelFeatures>) {
     super();
     proto3.util.initPartial(data, this);
@@ -18448,6 +18526,7 @@ export class ModelFeatures extends Message<ModelFeatures> {
     { no: 25, name: "requires_lead_in_generation", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 26, name: "requires_no_xml_tool_examples", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 30, name: "supports_thought_circulation", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 31, name: "supports_deferred_tool_loading", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelFeatures {
@@ -18732,6 +18811,16 @@ export class ModelInfo extends Message<ModelInfo> {
    */
   vertexModelId = "";
 
+  /**
+   * @generated from field: exa.codeium_common_pb.ModelProvider model_provider = 24;
+   */
+  modelProvider = ModelProvider.UNSPECIFIED;
+
+  /**
+   * @generated from field: string model_url = 25;
+   */
+  modelUrl = "";
+
   constructor(data?: PartialMessage<ModelInfo>) {
     super();
     proto3.util.initPartial(data, this);
@@ -18763,6 +18852,8 @@ export class ModelInfo extends Message<ModelInfo> {
     { no: 21, name: "tool_response_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 22, name: "tokens_per_image", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 23, name: "vertex_model_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 24, name: "model_provider", kind: "enum", T: proto3.getEnumType(ModelProvider) },
+    { no: 25, name: "model_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelInfo {
@@ -19540,6 +19631,61 @@ export class TextBlock extends Message<TextBlock> {
 
   static equals(a: TextBlock | PlainMessage<TextBlock> | undefined, b: TextBlock | PlainMessage<TextBlock> | undefined): boolean {
     return proto3.util.equals(TextBlock, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.DynamicContextScopeItem
+ */
+export class DynamicContextScopeItem extends Message<DynamicContextScopeItem> {
+  /**
+   * @generated from field: string provider_label = 1;
+   */
+  providerLabel = "";
+
+  /**
+   * @generated from field: string item_value = 2;
+   */
+  itemValue = "";
+
+  /**
+   * @generated from field: string item_label = 3;
+   */
+  itemLabel = "";
+
+  /**
+   * @generated from field: string uri = 4;
+   */
+  uri = "";
+
+  constructor(data?: PartialMessage<DynamicContextScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.DynamicContextScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "provider_label", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "item_value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "item_label", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DynamicContextScopeItem {
+    return new DynamicContextScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DynamicContextScopeItem {
+    return new DynamicContextScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DynamicContextScopeItem {
+    return new DynamicContextScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DynamicContextScopeItem | PlainMessage<DynamicContextScopeItem> | undefined, b: DynamicContextScopeItem | PlainMessage<DynamicContextScopeItem> | undefined): boolean {
+    return proto3.util.equals(DynamicContextScopeItem, a, b);
   }
 }
 
@@ -21028,6 +21174,11 @@ export class SlashCommandInfo extends Message<SlashCommandInfo> {
    */
   type = SlashCommandType.UNSPECIFIED;
 
+  /**
+   * @generated from field: string icon = 4;
+   */
+  icon = "";
+
   constructor(data?: PartialMessage<SlashCommandInfo>) {
     super();
     proto3.util.initPartial(data, this);
@@ -21039,6 +21190,7 @@ export class SlashCommandInfo extends Message<SlashCommandInfo> {
     { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "model_facing_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "type", kind: "enum", T: proto3.getEnumType(SlashCommandType) },
+    { no: 4, name: "icon", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SlashCommandInfo {
@@ -21307,6 +21459,12 @@ export class ContextScopeItem extends Message<ContextScopeItem> {
      */
     value: SlashCommandScopeItem;
     case: "slashCommand";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.DynamicContextScopeItem dynamic_context = 28;
+     */
+    value: DynamicContextScopeItem;
+    case: "dynamicContext";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<ContextScopeItem>) {
@@ -21343,6 +21501,7 @@ export class ContextScopeItem extends Message<ContextScopeItem> {
     { no: 25, name: "terminal", kind: "message", T: TerminalScopeItem, oneof: "scope_item" },
     { no: 26, name: "mcp_prompt", kind: "message", T: McpPromptScopeItem, oneof: "scope_item" },
     { no: 27, name: "slash_command", kind: "message", T: SlashCommandScopeItem, oneof: "scope_item" },
+    { no: 28, name: "dynamic_context", kind: "message", T: DynamicContextScopeItem, oneof: "scope_item" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ContextScopeItem {
@@ -27108,6 +27267,11 @@ export class ArtifactMetadata extends Message<ArtifactMetadata> {
    */
   requestFeedback = false;
 
+  /**
+   * @generated from field: bool user_facing = 7;
+   */
+  userFacing = false;
+
   constructor(data?: PartialMessage<ArtifactMetadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -27122,6 +27286,7 @@ export class ArtifactMetadata extends Message<ArtifactMetadata> {
     { no: 4, name: "updated_at", kind: "message", T: Timestamp },
     { no: 5, name: "version", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
     { no: 6, name: "request_feedback", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: "user_facing", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ArtifactMetadata {

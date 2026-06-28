@@ -584,6 +584,11 @@ export class BuildTargetsStep_Args extends Message<BuildTargetsStep_Args> {
    */
   arguments: string[] = [];
 
+  /**
+   * @generated from field: uint64 wait_ms_before_async = 3;
+   */
+  waitMsBeforeAsync = protoInt64.zero;
+
   constructor(data?: PartialMessage<BuildTargetsStep_Args>) {
     super();
     proto3.util.initPartial(data, this);
@@ -594,6 +599,7 @@ export class BuildTargetsStep_Args extends Message<BuildTargetsStep_Args> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "targets", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 2, name: "arguments", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "wait_ms_before_async", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BuildTargetsStep_Args {
@@ -840,6 +846,11 @@ export class TestTargetsStep_Args extends Message<TestTargetsStep_Args> {
    */
   coverageFiles: string[] = [];
 
+  /**
+   * @generated from field: uint64 wait_ms_before_async = 4;
+   */
+  waitMsBeforeAsync = protoInt64.zero;
+
   constructor(data?: PartialMessage<TestTargetsStep_Args>) {
     super();
     proto3.util.initPartial(data, this);
@@ -851,6 +862,7 @@ export class TestTargetsStep_Args extends Message<TestTargetsStep_Args> {
     { no: 1, name: "targets", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 2, name: "arguments", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 3, name: "coverage_files", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 4, name: "wait_ms_before_async", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TestTargetsStep_Args {

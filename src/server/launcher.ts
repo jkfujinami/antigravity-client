@@ -144,7 +144,10 @@ export class Launcher extends EventEmitter {
         }
 
         const authData = options.authData ?? readAuthData();
-        if (!authData.apiKey) {
+        // Gate on the real, durable credential — the OAuth token (present in both
+        // standalone and IDE profiles) — NOT the optional/expirable `apiKey` access
+        // token cache. This is what actually authenticates the LS (served over USS).
+        if (!authData.ussOAuth.value) {
             throw new Error("No auth data found. Please log in to Antigravity first.");
         }
 
@@ -178,7 +181,10 @@ export class Launcher extends EventEmitter {
             this.mockServer.once("ls-started", resolve);
         });
 
-        const metadataBin = createMetadataBinary();
+        // Match the real client's startup handshake: Metadata.apiKey =
+        // OAuthTokenInfo.accessToken (best-effort; the LS refreshes it from the
+        // OAuth token it receives over USS regardless).
+        const metadataBin = createMetadataBinary({ apiKey: this.mockServer.apiKey });
         
         // Advanced Injection Flags aligned with temp_app_asar
         const lsArgs = [

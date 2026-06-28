@@ -292,6 +292,16 @@ export class ModelDetails extends Message<ModelDetails> {
    */
   vertexModelId = "";
 
+  /**
+   * @generated from field: bool supports_deferred_tool_loading = 40;
+   */
+  supportsDeferredToolLoading = false;
+
+  /**
+   * @generated from field: string model_url = 41;
+   */
+  modelUrl = "";
+
   constructor(data?: PartialMessage<ModelDetails>) {
     super();
     proto3.util.initPartial(data, this);
@@ -339,6 +349,8 @@ export class ModelDetails extends Message<ModelDetails> {
     { no: 37, name: "model_experiments", kind: "message", T: ModelExperiments },
     { no: 38, name: "supports_thought_circulation", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 39, name: "vertex_model_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 40, name: "supports_deferred_tool_loading", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 41, name: "model_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelDetails {

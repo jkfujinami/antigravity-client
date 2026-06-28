@@ -106,6 +106,11 @@ export class Resource extends Message<Resource> {
  * @generated from message exa.project_pb.Google3
  */
 export class Google3 extends Message<Google3> {
+  /**
+   * @generated from field: exa.project_pb.Google3.ForkType fork_type = 1;
+   */
+  forkType = Google3_ForkType.UNSPECIFIED;
+
   constructor(data?: PartialMessage<Google3>) {
     super();
     proto3.util.initPartial(data, this);
@@ -114,6 +119,7 @@ export class Google3 extends Message<Google3> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.project_pb.Google3";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "fork_type", kind: "enum", T: proto3.getEnumType(Google3_ForkType) },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Google3 {
@@ -132,6 +138,38 @@ export class Google3 extends Message<Google3> {
     return proto3.util.equals(Google3, a, b);
   }
 }
+
+/**
+ * @generated from enum exa.project_pb.Google3.ForkType
+ */
+export enum Google3_ForkType {
+  /**
+   * @generated from enum value: FORK_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: FORK_TYPE_PIPER = 1;
+   */
+  PIPER = 1,
+
+  /**
+   * @generated from enum value: FORK_TYPE_JJ = 2;
+   */
+  JJ = 2,
+
+  /**
+   * @generated from enum value: FORK_TYPE_FIG = 3;
+   */
+  FIG = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(Google3_ForkType)
+proto3.util.setEnumType(Google3_ForkType, "exa.project_pb.Google3.ForkType", [
+  { no: 0, name: "FORK_TYPE_UNSPECIFIED" },
+  { no: 1, name: "FORK_TYPE_PIPER" },
+  { no: 2, name: "FORK_TYPE_JJ" },
+  { no: 3, name: "FORK_TYPE_FIG" },
+]);
 
 /**
  * @generated from message exa.project_pb.GitFolder

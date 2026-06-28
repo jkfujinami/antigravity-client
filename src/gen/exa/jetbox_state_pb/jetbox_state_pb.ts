@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
 import { AgentSettingPolicy, ArtifactReviewMode, BrowserJsExecutionPolicy, CascadeCommandsAutoExecution, Model, ModelInfo, PermissionGrantsConfig, PlanningMode } from "../codeium_common_pb/codeium_common_pb.js";
 import { Project } from "../project_pb/project_pb.js";
 
@@ -117,6 +117,38 @@ proto3.util.setEnumType(ThemeMode, "jetbox_state_pb.ThemeMode", [
 ]);
 
 /**
+ * @generated from enum jetbox_state_pb.ConversationWidth
+ */
+export enum ConversationWidth {
+  /**
+   * @generated from enum value: CONVERSATION_WIDTH_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CONVERSATION_WIDTH_DEFAULT = 1;
+   */
+  DEFAULT = 1,
+
+  /**
+   * @generated from enum value: CONVERSATION_WIDTH_NARROW = 2;
+   */
+  NARROW = 2,
+
+  /**
+   * @generated from enum value: CONVERSATION_WIDTH_WIDE = 3;
+   */
+  WIDE = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ConversationWidth)
+proto3.util.setEnumType(ConversationWidth, "jetbox_state_pb.ConversationWidth", [
+  { no: 0, name: "CONVERSATION_WIDTH_UNSPECIFIED" },
+  { no: 1, name: "CONVERSATION_WIDTH_DEFAULT" },
+  { no: 2, name: "CONVERSATION_WIDTH_NARROW" },
+  { no: 3, name: "CONVERSATION_WIDTH_WIDE" },
+]);
+
+/**
  * @generated from enum jetbox_state_pb.AgentOnboardingState
  */
 export enum AgentOnboardingState {
@@ -166,6 +198,38 @@ proto3.util.setEnumType(MigrationStatus, "jetbox_state_pb.MigrationStatus", [
   { no: 0, name: "MIGRATION_STATUS_UNSPECIFIED" },
   { no: 1, name: "MIGRATION_STATUS_STARTED" },
   { no: 2, name: "MIGRATION_STATUS_COMPLETED" },
+]);
+
+/**
+ * @generated from enum jetbox_state_pb.RetroactiveMigrationStatus
+ */
+export enum RetroactiveMigrationStatus {
+  /**
+   * @generated from enum value: RETROACTIVE_MIGRATION_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: RETROACTIVE_MIGRATION_STATUS_STARTED = 1;
+   */
+  STARTED = 1,
+
+  /**
+   * @generated from enum value: RETROACTIVE_MIGRATION_STATUS_COMPLETED_RAN = 2;
+   */
+  COMPLETED_RAN = 2,
+
+  /**
+   * @generated from enum value: RETROACTIVE_MIGRATION_STATUS_COMPLETED_UNNECESSARY = 3;
+   */
+  COMPLETED_UNNECESSARY = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(RetroactiveMigrationStatus)
+proto3.util.setEnumType(RetroactiveMigrationStatus, "jetbox_state_pb.RetroactiveMigrationStatus", [
+  { no: 0, name: "RETROACTIVE_MIGRATION_STATUS_UNSPECIFIED" },
+  { no: 1, name: "RETROACTIVE_MIGRATION_STATUS_STARTED" },
+  { no: 2, name: "RETROACTIVE_MIGRATION_STATUS_COMPLETED_RAN" },
+  { no: 3, name: "RETROACTIVE_MIGRATION_STATUS_COMPLETED_UNNECESSARY" },
 ]);
 
 /**
@@ -339,6 +403,21 @@ export class UserSettings extends Message<UserSettings> {
    */
   remoteControlEnabled = false;
 
+  /**
+   * @generated from field: bool use_ai_credits = 29;
+   */
+  useAiCredits = false;
+
+  /**
+   * @generated from field: string active_profile = 30;
+   */
+  activeProfile = "";
+
+  /**
+   * @generated from field: jetbox_state_pb.ConversationWidth conversation_width = 31;
+   */
+  conversationWidth = ConversationWidth.UNSPECIFIED;
+
   constructor(data?: PartialMessage<UserSettings>) {
     super();
     proto3.util.initPartial(data, this);
@@ -373,6 +452,9 @@ export class UserSettings extends Message<UserSettings> {
     { no: 26, name: "disable_eager_cloning", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 27, name: "gcp_region", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 28, name: "remote_control_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 29, name: "use_ai_credits", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 30, name: "active_profile", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 31, name: "conversation_width", kind: "enum", T: proto3.getEnumType(ConversationWidth) },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserSettings {
@@ -708,6 +790,21 @@ export class JetboxAppState extends Message<JetboxAppState> {
    */
   installationUuid = "";
 
+  /**
+   * @generated from field: jetbox_state_pb.MigrationStatus migrate_internal_projects = 18;
+   */
+  migrateInternalProjects = MigrationStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: jetbox_state_pb.RetroactiveMigrationStatus migrate_retroactive_projects = 19;
+   */
+  migrateRetroactiveProjects = RetroactiveMigrationStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: int64 opted_out_best_of_n_auto_trigger_at = 20;
+   */
+  optedOutBestOfNAutoTriggerAt = protoInt64.zero;
+
   constructor(data?: PartialMessage<JetboxAppState>) {
     super();
     proto3.util.initPartial(data, this);
@@ -728,6 +825,9 @@ export class JetboxAppState extends Message<JetboxAppState> {
     { no: 14, name: "user_config_migrated", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 16, name: "migrate_convos_into_projects", kind: "enum", T: proto3.getEnumType(MigrationStatus) },
     { no: 17, name: "installation_uuid", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 18, name: "migrate_internal_projects", kind: "enum", T: proto3.getEnumType(MigrationStatus) },
+    { no: 19, name: "migrate_retroactive_projects", kind: "enum", T: proto3.getEnumType(RetroactiveMigrationStatus) },
+    { no: 20, name: "opted_out_best_of_n_auto_trigger_at", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxAppState {

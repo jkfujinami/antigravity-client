@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
-import { AgentMessage, ArtifactSnapshot, BackgroundCommand, BattleModeInfo, CascadeRunStatus, CortexErrorDetails, CortexStepGeneratorMetadata, CortexStepType, CortexTrajectoryMetadata, CortexTrajectoryReference, CortexTrajectoryReferenceType, CortexTrajectorySource, CortexTrajectoryType, CortexWorkspaceMetadata, ExecutorMetadata, TaskSnapshot, TrajectoryFileDiff, TrajectoryScope } from "../cortex_pb/cortex_pb.js";
+import { AccumulatedSection, AgentMessage, ArtifactSnapshot, BackgroundCommand, BattleModeInfo, CascadeRunStatus, CortexErrorDetails, CortexStepGeneratorMetadata, CortexStepType, CortexTrajectoryMetadata, CortexTrajectoryReference, CortexTrajectoryReferenceType, CortexTrajectorySource, CortexTrajectoryType, CortexWorkspaceMetadata, ExecutorMetadata, TaskSnapshot, TrajectoryFileDiff, TrajectoryScope } from "../cortex_pb/cortex_pb.js";
 import { Step, Trajectory } from "../gemini_coder/proto/trajectory_pb.js";
 import { Credits } from "../google/internal/cloud/code/v1internal/credits_pb.js";
 
@@ -163,6 +163,11 @@ export class CascadeState extends Message<CascadeState> {
    */
   pendingAgentMessages: AgentMessage[] = [];
 
+  /**
+   * @generated from field: repeated exa.cortex_pb.AccumulatedSection accumulated_sections = 16;
+   */
+  accumulatedSections: AccumulatedSection[] = [];
+
   constructor(data?: PartialMessage<CascadeState>) {
     super();
     proto3.util.initPartial(data, this);
@@ -186,6 +191,7 @@ export class CascadeState extends Message<CascadeState> {
     { no: 14, name: "fully_idle", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 12, name: "credit_usage_summary", kind: "message", T: CreditUsageSummary },
     { no: 15, name: "pending_agent_messages", kind: "message", T: AgentMessage, repeated: true },
+    { no: 16, name: "accumulated_sections", kind: "message", T: AccumulatedSection, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeState {
@@ -309,6 +315,16 @@ export class AgentStateUpdate extends Message<AgentStateUpdate> {
    */
   pendingAgentMessagesUpdate?: PendingAgentMessagesUpdate;
 
+  /**
+   * @generated from field: repeated string bookmarks = 21;
+   */
+  bookmarks: string[] = [];
+
+  /**
+   * @generated from field: exa.jetski_cortex_pb.AccumulatedSectionsUpdate accumulated_sections_update = 22;
+   */
+  accumulatedSectionsUpdate?: AccumulatedSectionsUpdate;
+
   constructor(data?: PartialMessage<AgentStateUpdate>) {
     super();
     proto3.util.initPartial(data, this);
@@ -337,6 +353,8 @@ export class AgentStateUpdate extends Message<AgentStateUpdate> {
     { no: 18, name: "fully_idle", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 19, name: "compaction_info", kind: "message", T: CompactionInfo },
     { no: 20, name: "pending_agent_messages_update", kind: "message", T: PendingAgentMessagesUpdate },
+    { no: 21, name: "bookmarks", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 22, name: "accumulated_sections_update", kind: "message", T: AccumulatedSectionsUpdate },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AgentStateUpdate {
@@ -439,6 +457,43 @@ export class AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry extends Messag
 
   static equals(a: AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry | PlainMessage<AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry> | undefined, b: AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry | PlainMessage<AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry> | undefined): boolean {
     return proto3.util.equals(AgentStateUpdate_StepScopedSubtrajectoryUpdatesEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.AccumulatedSectionsUpdate
+ */
+export class AccumulatedSectionsUpdate extends Message<AccumulatedSectionsUpdate> {
+  /**
+   * @generated from field: repeated exa.cortex_pb.AccumulatedSection accumulated_sections = 1;
+   */
+  accumulatedSections: AccumulatedSection[] = [];
+
+  constructor(data?: PartialMessage<AccumulatedSectionsUpdate>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.AccumulatedSectionsUpdate";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "accumulated_sections", kind: "message", T: AccumulatedSection, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AccumulatedSectionsUpdate {
+    return new AccumulatedSectionsUpdate().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AccumulatedSectionsUpdate {
+    return new AccumulatedSectionsUpdate().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AccumulatedSectionsUpdate {
+    return new AccumulatedSectionsUpdate().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AccumulatedSectionsUpdate | PlainMessage<AccumulatedSectionsUpdate> | undefined, b: AccumulatedSectionsUpdate | PlainMessage<AccumulatedSectionsUpdate> | undefined): boolean {
+    return proto3.util.equals(AccumulatedSectionsUpdate, a, b);
   }
 }
 
@@ -959,6 +1014,11 @@ export class TrajectoryUpdate extends Message<TrajectoryUpdate> {
    */
   parentReferences: CortexTrajectoryReference[] = [];
 
+  /**
+   * @generated from field: exa.jetski_cortex_pb.BattleModeInfosUpdate battle_mode_infos_update = 13;
+   */
+  battleModeInfosUpdate?: BattleModeInfosUpdate;
+
   constructor(data?: PartialMessage<TrajectoryUpdate>) {
     super();
     proto3.util.initPartial(data, this);
@@ -979,6 +1039,7 @@ export class TrajectoryUpdate extends Message<TrajectoryUpdate> {
     { no: 10, name: "fully_idle", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 11, name: "killed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 12, name: "parent_references", kind: "message", T: CortexTrajectoryReference, repeated: true },
+    { no: 13, name: "battle_mode_infos_update", kind: "message", T: BattleModeInfosUpdate },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TrajectoryUpdate {
@@ -1160,6 +1221,55 @@ export class ExecutorMetadatasUpdate extends Message<ExecutorMetadatasUpdate> {
 
   static equals(a: ExecutorMetadatasUpdate | PlainMessage<ExecutorMetadatasUpdate> | undefined, b: ExecutorMetadatasUpdate | PlainMessage<ExecutorMetadatasUpdate> | undefined): boolean {
     return proto3.util.equals(ExecutorMetadatasUpdate, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.jetski_cortex_pb.BattleModeInfosUpdate
+ */
+export class BattleModeInfosUpdate extends Message<BattleModeInfosUpdate> {
+  /**
+   * @generated from field: repeated uint32 indices = 1;
+   */
+  indices: number[] = [];
+
+  /**
+   * @generated from field: repeated exa.cortex_pb.BattleModeInfo battle_mode_infos = 2;
+   */
+  battleModeInfos: BattleModeInfo[] = [];
+
+  /**
+   * @generated from field: uint32 total_length = 3;
+   */
+  totalLength = 0;
+
+  constructor(data?: PartialMessage<BattleModeInfosUpdate>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.jetski_cortex_pb.BattleModeInfosUpdate";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "indices", kind: "scalar", T: 13 /* ScalarType.UINT32 */, repeated: true },
+    { no: 2, name: "battle_mode_infos", kind: "message", T: BattleModeInfo, repeated: true },
+    { no: 3, name: "total_length", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BattleModeInfosUpdate {
+    return new BattleModeInfosUpdate().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BattleModeInfosUpdate {
+    return new BattleModeInfosUpdate().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BattleModeInfosUpdate {
+    return new BattleModeInfosUpdate().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BattleModeInfosUpdate | PlainMessage<BattleModeInfosUpdate> | undefined, b: BattleModeInfosUpdate | PlainMessage<BattleModeInfosUpdate> | undefined): boolean {
+    return proto3.util.equals(BattleModeInfosUpdate, a, b);
   }
 }
 
@@ -1813,6 +1923,11 @@ export class ConversationAnnotations extends Message<ConversationAnnotations> {
    */
   cls: bigint[] = [];
 
+  /**
+   * @generated from field: string active_profile = 14;
+   */
+  activeProfile = "";
+
   constructor(data?: PartialMessage<ConversationAnnotations>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1833,6 +1948,7 @@ export class ConversationAnnotations extends Message<ConversationAnnotations> {
     { no: 11, name: "group_description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 12, name: "pinned", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 13, name: "cls", kind: "scalar", T: 3 /* ScalarType.INT64 */, repeated: true },
+    { no: 14, name: "active_profile", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConversationAnnotations {
@@ -1951,6 +2067,11 @@ export class CascadeTrajectorySummary extends Message<CascadeTrajectorySummary> 
    */
   trajectoryType = CortexTrajectoryType.UNSPECIFIED;
 
+  /**
+   * @generated from field: bool killed = 23;
+   */
+  killed = false;
+
   constructor(data?: PartialMessage<CascadeTrajectorySummary>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1978,6 +2099,7 @@ export class CascadeTrajectorySummary extends Message<CascadeTrajectorySummary> 
     { no: 20, name: "source", kind: "enum", T: proto3.getEnumType(CortexTrajectorySource) },
     { no: 21, name: "not_fully_idle", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 22, name: "trajectory_type", kind: "enum", T: proto3.getEnumType(CortexTrajectoryType) },
+    { no: 23, name: "killed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeTrajectorySummary {

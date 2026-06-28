@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64, Struct } from "@bufbuild/protobuf";
+import { Message, proto3, protoInt64, Struct, Timestamp } from "@bufbuild/protobuf";
 import { GetChatMessageRequest, GetChatMessageResponse } from "../../../../../api_server_pb/api_server_pb.js";
 
 /**
@@ -1871,6 +1871,11 @@ export class NuxFilter extends Message<NuxFilter> {
    */
   subclients: string[] = [];
 
+  /**
+   * @generated from field: repeated string user_tiers = 4;
+   */
+  userTiers: string[] = [];
+
   constructor(data?: PartialMessage<NuxFilter>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1882,6 +1887,7 @@ export class NuxFilter extends Message<NuxFilter> {
     { no: 1, name: "clients", kind: "enum", T: proto3.getEnumType(NuxClient), repeated: true },
     { no: 2, name: "version_filter", kind: "message", T: NuxVersionFilter },
     { no: 3, name: "subclients", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 4, name: "user_tiers", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): NuxFilter {
@@ -2470,6 +2476,16 @@ export class BattleModeOverridesRequest extends Message<BattleModeOverridesReque
    */
   modelIds: string[] = [];
 
+  /**
+   * @generated from field: bool auto_triggered = 2;
+   */
+  autoTriggered = false;
+
+  /**
+   * @generated from field: string trigger_tag = 3;
+   */
+  triggerTag = "";
+
   constructor(data?: PartialMessage<BattleModeOverridesRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -2479,6 +2495,8 @@ export class BattleModeOverridesRequest extends Message<BattleModeOverridesReque
   static readonly typeName = "google.internal.cloud.code.v1internal.BattleModeOverridesRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "model_ids", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 2, name: "auto_triggered", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "trigger_tag", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BattleModeOverridesRequest {
@@ -2538,6 +2556,92 @@ export class BattleModeOverridesResponse extends Message<BattleModeOverridesResp
 
   static equals(a: BattleModeOverridesResponse | PlainMessage<BattleModeOverridesResponse> | undefined, b: BattleModeOverridesResponse | PlainMessage<BattleModeOverridesResponse> | undefined): boolean {
     return proto3.util.equals(BattleModeOverridesResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.BattleModeAutoTriggerRequest
+ */
+export class BattleModeAutoTriggerRequest extends Message<BattleModeAutoTriggerRequest> {
+  /**
+   * @generated from field: google.protobuf.Timestamp last_auto_trigger_request_time = 1;
+   */
+  lastAutoTriggerRequestTime?: Timestamp;
+
+  /**
+   * @generated from field: string model_id = 2;
+   */
+  modelId = "";
+
+  constructor(data?: PartialMessage<BattleModeAutoTriggerRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.BattleModeAutoTriggerRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "last_auto_trigger_request_time", kind: "message", T: Timestamp },
+    { no: 2, name: "model_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BattleModeAutoTriggerRequest {
+    return new BattleModeAutoTriggerRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BattleModeAutoTriggerRequest {
+    return new BattleModeAutoTriggerRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BattleModeAutoTriggerRequest {
+    return new BattleModeAutoTriggerRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BattleModeAutoTriggerRequest | PlainMessage<BattleModeAutoTriggerRequest> | undefined, b: BattleModeAutoTriggerRequest | PlainMessage<BattleModeAutoTriggerRequest> | undefined): boolean {
+    return proto3.util.equals(BattleModeAutoTriggerRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.BattleModeAutoTriggerResponse
+ */
+export class BattleModeAutoTriggerResponse extends Message<BattleModeAutoTriggerResponse> {
+  /**
+   * @generated from field: int32 target_battle_n = 1;
+   */
+  targetBattleN = 0;
+
+  /**
+   * @generated from field: string trigger_tag = 2;
+   */
+  triggerTag = "";
+
+  constructor(data?: PartialMessage<BattleModeAutoTriggerResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.BattleModeAutoTriggerResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "target_battle_n", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "trigger_tag", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BattleModeAutoTriggerResponse {
+    return new BattleModeAutoTriggerResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BattleModeAutoTriggerResponse {
+    return new BattleModeAutoTriggerResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BattleModeAutoTriggerResponse {
+    return new BattleModeAutoTriggerResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BattleModeAutoTriggerResponse | PlainMessage<BattleModeAutoTriggerResponse> | undefined, b: BattleModeAutoTriggerResponse | PlainMessage<BattleModeAutoTriggerResponse> | undefined): boolean {
+    return proto3.util.equals(BattleModeAutoTriggerResponse, a, b);
   }
 }
 

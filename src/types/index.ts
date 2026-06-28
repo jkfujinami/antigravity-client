@@ -176,6 +176,7 @@ const STEP_CATEGORY_MAP: Record<StepType, StepCategory> = {
     lookupKnowledgeBase: "knowledge",
     knowledgeGeneration: "knowledge",
     knowledgeArtifacts: "knowledge",
+    directoryRules: "knowledge",
 
     // --- System & Meta ---
     systemMessage: "system",
