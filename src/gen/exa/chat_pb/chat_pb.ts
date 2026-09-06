@@ -5,8 +5,10 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Any, Message as Message$1, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
-import { ChatMessageSource, ChatToolCall, CodeContextItem, CodeContextType, ContextInclusionType, Document, ExperimentConfig, ExperimentKey, GitRepoInfo, ImageData, KnowledgeBaseItemWithMetadata, Language, Media, Metadata, Model, PromptAnnotationRange, Struct, TextOrScopeItem } from "../codeium_common_pb/codeium_common_pb.js";
+import { ChatMessageSource, ChatToolCall, CodeContextItem, CodeContextType, ContextInclusionType, Document, ExperimentConfig, ExperimentKey, GitRepoInfo, ImageData, KnowledgeBaseItemWithMetadata, Language, Media, Metadata, Model, PromptAnnotationRange, TextOrScopeItem } from "../codeium_common_pb/codeium_common_pb.js";
 import { DiffBlock } from "../diff_action_pb/diff_action_pb.js";
+import { Struct } from "../learning/genai/api/interactions/proto/content_pb.js";
+import { ModelNativeToolType } from "../cortex_pb/model_native_tool_type_pb.js";
 
 /**
  * @generated from enum exa.chat_pb.ChatFeedbackType
@@ -1114,7 +1116,7 @@ export class ChatMessagePrompt extends Message$1<ChatMessagePrompt> {
   prompt = "";
 
   /**
-   * @generated from field: exa.codeium_common_pb.Struct prompt_struct = 23;
+   * @generated from field: genai.Struct prompt_struct = 25;
    */
   promptStruct?: Struct;
 
@@ -1203,6 +1205,11 @@ export class ChatMessagePrompt extends Message$1<ChatMessagePrompt> {
    */
   sideChannels: Any[] = [];
 
+  /**
+   * @generated from field: repeated google.protobuf.Any passback_context = 24;
+   */
+  passbackContext: Any[] = [];
+
   constructor(data?: PartialMessage<ChatMessagePrompt>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1214,7 +1221,7 @@ export class ChatMessagePrompt extends Message$1<ChatMessagePrompt> {
     { no: 1, name: "message_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "source", kind: "enum", T: proto3.getEnumType(ChatMessageSource) },
     { no: 3, name: "prompt", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 23, name: "prompt_struct", kind: "message", T: Struct },
+    { no: 25, name: "prompt_struct", kind: "message", T: Struct },
     { no: 4, name: "num_tokens", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 5, name: "safe_for_code_telemetry", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 6, name: "tool_calls", kind: "message", T: ChatToolCall, repeated: true },
@@ -1232,6 +1239,7 @@ export class ChatMessagePrompt extends Message$1<ChatMessagePrompt> {
     { no: 18, name: "step_idx", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 21, name: "provider_assigned_message_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 22, name: "side_channels", kind: "message", T: Any, repeated: true },
+    { no: 24, name: "passback_context", kind: "message", T: Any, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatMessagePrompt {
@@ -1364,6 +1372,11 @@ export class ChatToolDefinition extends Message$1<ChatToolDefinition> {
    */
   originalName = "";
 
+  /**
+   * @generated from field: exa.cortex_pb.ModelNativeToolType model_native_tool_type = 8;
+   */
+  modelNativeToolType = ModelNativeToolType.UNSPECIFIED;
+
   constructor(data?: PartialMessage<ChatToolDefinition>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1379,6 +1392,7 @@ export class ChatToolDefinition extends Message$1<ChatToolDefinition> {
     { no: 5, name: "attribution_field_names", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 6, name: "server_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 7, name: "original_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "model_native_tool_type", kind: "enum", T: proto3.getEnumType(ModelNativeToolType) },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatToolDefinition {

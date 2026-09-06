@@ -52,7 +52,7 @@ async function main() {
         // 1. Interaction (The New Feature + AutoRun Flag)
         cascade.on(Cascade.Events.Interaction, async (req: ApprovalRequest) => {
             console.log(`\n\n🔔 [Interaction Request] Step ${req.stepIndex}`);
-            
+
             if (req.type === "run_command") {
                 console.log(`   👉 AI wants to run command: \x1b[33m${req.commandLine}\x1b[0m`);
                 const autoRunStr = req.autoRun ? '\x1b[32mYES\x1b[0m' : '\x1b[31mNO (Approval Required)\x1b[0m';
@@ -88,10 +88,8 @@ async function main() {
 
         // --- Send Request ---
         console.log("📨 Sending request...");
-        await cascade.run(msg, { timeoutMs: 30000 });
+        await cascade.sendMessage(msg, { model: 1018 });
         console.log("\n✅ Request finished.");
-        
-        client.dispose();
 
     } catch (err: unknown) {
         console.error("Main Error:", err);

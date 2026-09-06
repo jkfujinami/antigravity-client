@@ -1,0 +1,6 @@
+syntax = "proto3";
+package google.internal.cloud.code.v1internal;
+
+message Entitlement {
+  string user_tier = 1;
+}

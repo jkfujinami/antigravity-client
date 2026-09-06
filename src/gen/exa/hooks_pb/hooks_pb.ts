@@ -5,6 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Struct } from "@bufbuild/protobuf";
+import { Media } from "../codeium_common_pb/codeium_common_pb.js";
 
 /**
  * @generated from message exa.hooks_pb.HookToolCall
@@ -63,6 +64,11 @@ export class HookSystemMessage extends Message<HookSystemMessage> {
    */
   metadata: HookSystemMessage_MetadataEntry[] = [];
 
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Media media = 3;
+   */
+  media: Media[] = [];
+
   constructor(data?: PartialMessage<HookSystemMessage>) {
     super();
     proto3.util.initPartial(data, this);
@@ -73,6 +79,7 @@ export class HookSystemMessage extends Message<HookSystemMessage> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "system_message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "metadata", kind: "message", T: HookSystemMessage_MetadataEntry, repeated: true },
+    { no: 3, name: "media", kind: "message", T: Media, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookSystemMessage {
@@ -136,6 +143,184 @@ export class HookSystemMessage_MetadataEntry extends Message<HookSystemMessage_M
 }
 
 /**
+ * @generated from message exa.hooks_pb.HookErrorMessage
+ */
+export class HookErrorMessage extends Message<HookErrorMessage> {
+  /**
+   * @generated from field: string model_message = 1;
+   */
+  modelMessage = "";
+
+  /**
+   * @generated from field: string user_message = 2;
+   */
+  userMessage = "";
+
+  constructor(data?: PartialMessage<HookErrorMessage>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.hooks_pb.HookErrorMessage";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "model_message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "user_message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookErrorMessage {
+    return new HookErrorMessage().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HookErrorMessage {
+    return new HookErrorMessage().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HookErrorMessage {
+    return new HookErrorMessage().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: HookErrorMessage | PlainMessage<HookErrorMessage> | undefined, b: HookErrorMessage | PlainMessage<HookErrorMessage> | undefined): boolean {
+    return proto3.util.equals(HookErrorMessage, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.hooks_pb.HookUserMessage
+ */
+export class HookUserMessage extends Message<HookUserMessage> {
+  /**
+   * @generated from field: string content = 1;
+   */
+  content = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Media media = 2;
+   */
+  media: Media[] = [];
+
+  constructor(data?: PartialMessage<HookUserMessage>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.hooks_pb.HookUserMessage";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "media", kind: "message", T: Media, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookUserMessage {
+    return new HookUserMessage().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HookUserMessage {
+    return new HookUserMessage().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HookUserMessage {
+    return new HookUserMessage().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: HookUserMessage | PlainMessage<HookUserMessage> | undefined, b: HookUserMessage | PlainMessage<HookUserMessage> | undefined): boolean {
+    return proto3.util.equals(HookUserMessage, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.hooks_pb.HookEphemeralMessage
+ */
+export class HookEphemeralMessage extends Message<HookEphemeralMessage> {
+  /**
+   * @generated from field: string content = 1;
+   */
+  content = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Media media = 2;
+   */
+  media: Media[] = [];
+
+  /**
+   * @generated from field: repeated exa.hooks_pb.HookEphemeralMessage.MetadataEntry metadata = 3;
+   */
+  metadata: HookEphemeralMessage_MetadataEntry[] = [];
+
+  constructor(data?: PartialMessage<HookEphemeralMessage>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.hooks_pb.HookEphemeralMessage";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "media", kind: "message", T: Media, repeated: true },
+    { no: 3, name: "metadata", kind: "message", T: HookEphemeralMessage_MetadataEntry, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookEphemeralMessage {
+    return new HookEphemeralMessage().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HookEphemeralMessage {
+    return new HookEphemeralMessage().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HookEphemeralMessage {
+    return new HookEphemeralMessage().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: HookEphemeralMessage | PlainMessage<HookEphemeralMessage> | undefined, b: HookEphemeralMessage | PlainMessage<HookEphemeralMessage> | undefined): boolean {
+    return proto3.util.equals(HookEphemeralMessage, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.hooks_pb.HookEphemeralMessage.MetadataEntry
+ */
+export class HookEphemeralMessage_MetadataEntry extends Message<HookEphemeralMessage_MetadataEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: string value = 2;
+   */
+  value = "";
+
+  constructor(data?: PartialMessage<HookEphemeralMessage_MetadataEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.hooks_pb.HookEphemeralMessage.MetadataEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookEphemeralMessage_MetadataEntry {
+    return new HookEphemeralMessage_MetadataEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HookEphemeralMessage_MetadataEntry {
+    return new HookEphemeralMessage_MetadataEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HookEphemeralMessage_MetadataEntry {
+    return new HookEphemeralMessage_MetadataEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: HookEphemeralMessage_MetadataEntry | PlainMessage<HookEphemeralMessage_MetadataEntry> | undefined, b: HookEphemeralMessage_MetadataEntry | PlainMessage<HookEphemeralMessage_MetadataEntry> | undefined): boolean {
+    return proto3.util.equals(HookEphemeralMessage_MetadataEntry, a, b);
+  }
+}
+
+/**
  * @generated from message exa.hooks_pb.HookInjectedStep
  */
 export class HookInjectedStep extends Message<HookInjectedStep> {
@@ -171,6 +356,24 @@ export class HookInjectedStep extends Message<HookInjectedStep> {
      */
     value: HookSystemMessage;
     case: "systemMessage";
+  } | {
+    /**
+     * @generated from field: exa.hooks_pb.HookErrorMessage error_message = 6;
+     */
+    value: HookErrorMessage;
+    case: "errorMessage";
+  } | {
+    /**
+     * @generated from field: exa.hooks_pb.HookUserMessage hook_user_message = 7;
+     */
+    value: HookUserMessage;
+    case: "hookUserMessage";
+  } | {
+    /**
+     * @generated from field: exa.hooks_pb.HookEphemeralMessage hook_ephemeral_message = 8;
+     */
+    value: HookEphemeralMessage;
+    case: "hookEphemeralMessage";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<HookInjectedStep>) {
@@ -186,6 +389,9 @@ export class HookInjectedStep extends Message<HookInjectedStep> {
     { no: 2, name: "user_message", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "step" },
     { no: 3, name: "ephemeral_message", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "step" },
     { no: 4, name: "system_message", kind: "message", T: HookSystemMessage, oneof: "step" },
+    { no: 6, name: "error_message", kind: "message", T: HookErrorMessage, oneof: "step" },
+    { no: 7, name: "hook_user_message", kind: "message", T: HookUserMessage, oneof: "step" },
+    { no: 8, name: "hook_ephemeral_message", kind: "message", T: HookEphemeralMessage, oneof: "step" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookInjectedStep {
@@ -234,6 +440,21 @@ export class HookArgsCommon extends Message<HookArgsCommon> {
    */
   executionId = "";
 
+  /**
+   * @generated from field: string model_name = 6;
+   */
+  modelName = "";
+
+  /**
+   * @generated from field: bool is_battle_mode = 7;
+   */
+  isBattleMode = false;
+
+  /**
+   * @generated from field: string last_user_input = 8;
+   */
+  lastUserInput = "";
+
   constructor(data?: PartialMessage<HookArgsCommon>) {
     super();
     proto3.util.initPartial(data, this);
@@ -247,6 +468,9 @@ export class HookArgsCommon extends Message<HookArgsCommon> {
     { no: 3, name: "transcript_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "artifact_directory_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "execution_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "model_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "is_battle_mode", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 8, name: "last_user_input", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookArgsCommon {
@@ -308,6 +532,12 @@ export class HookArgs extends Message<HookArgs> {
      */
     value: StopHookArgs;
     case: "stopHookArgs";
+  } | {
+    /**
+     * @generated from field: exa.hooks_pb.SessionStartHookArgs session_start_hook_args = 7;
+     */
+    value: SessionStartHookArgs;
+    case: "sessionStartHookArgs";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<HookArgs>) {
@@ -324,6 +554,7 @@ export class HookArgs extends Message<HookArgs> {
     { no: 1, name: "pre_invocation_hook_args", kind: "message", T: PreInvocationHookArgs, oneof: "args" },
     { no: 5, name: "post_invocation_hook_args", kind: "message", T: PostInvocationHookArgs, oneof: "args" },
     { no: 4, name: "stop_hook_args", kind: "message", T: StopHookArgs, oneof: "args" },
+    { no: 7, name: "session_start_hook_args", kind: "message", T: SessionStartHookArgs, oneof: "args" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookArgs {
@@ -472,6 +703,11 @@ export class PostToolHookArgs extends Message<PostToolHookArgs> {
    */
   error = "";
 
+  /**
+   * @generated from field: string result = 4;
+   */
+  result = "";
+
   constructor(data?: PartialMessage<PostToolHookArgs>) {
     super();
     proto3.util.initPartial(data, this);
@@ -483,6 +719,7 @@ export class PostToolHookArgs extends Message<PostToolHookArgs> {
     { no: 1, name: "step_idx", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 2, name: "tool_call", kind: "message", T: HookToolCall },
     { no: 3, name: "error", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "result", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PostToolHookArgs {
@@ -627,6 +864,16 @@ export class PostInvocationHookArgs extends Message<PostInvocationHookArgs> {
    */
   initialNumSteps = 0;
 
+  /**
+   * @generated from field: string model_output = 3;
+   */
+  modelOutput = "";
+
+  /**
+   * @generated from field: string model_thinking = 4;
+   */
+  modelThinking = "";
+
   constructor(data?: PartialMessage<PostInvocationHookArgs>) {
     super();
     proto3.util.initPartial(data, this);
@@ -637,6 +884,8 @@ export class PostInvocationHookArgs extends Message<PostInvocationHookArgs> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "invocation_num", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 2, name: "initial_num_steps", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "model_output", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "model_thinking", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PostInvocationHookArgs {
@@ -723,6 +972,11 @@ export class StopHookArgs extends Message<StopHookArgs> {
    */
   fullyIdle = false;
 
+  /**
+   * @generated from field: string final_model_output = 5;
+   */
+  finalModelOutput = "";
+
   constructor(data?: PartialMessage<StopHookArgs>) {
     super();
     proto3.util.initPartial(data, this);
@@ -735,6 +989,7 @@ export class StopHookArgs extends Message<StopHookArgs> {
     { no: 2, name: "termination_reason", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "error", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "fully_idle", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "final_model_output", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StopHookArgs {
@@ -794,6 +1049,210 @@ export class StopHookResult extends Message<StopHookResult> {
 
   static equals(a: StopHookResult | PlainMessage<StopHookResult> | undefined, b: StopHookResult | PlainMessage<StopHookResult> | undefined): boolean {
     return proto3.util.equals(StopHookResult, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.hooks_pb.SessionStartHookArgs
+ */
+export class SessionStartHookArgs extends Message<SessionStartHookArgs> {
+  constructor(data?: PartialMessage<SessionStartHookArgs>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.hooks_pb.SessionStartHookArgs";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SessionStartHookArgs {
+    return new SessionStartHookArgs().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SessionStartHookArgs {
+    return new SessionStartHookArgs().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SessionStartHookArgs {
+    return new SessionStartHookArgs().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SessionStartHookArgs | PlainMessage<SessionStartHookArgs> | undefined, b: SessionStartHookArgs | PlainMessage<SessionStartHookArgs> | undefined): boolean {
+    return proto3.util.equals(SessionStartHookArgs, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.hooks_pb.SessionStartHookResult
+ */
+export class SessionStartHookResult extends Message<SessionStartHookResult> {
+  /**
+   * @generated from field: repeated exa.hooks_pb.HookInjectedStep inject_steps = 1;
+   */
+  injectSteps: HookInjectedStep[] = [];
+
+  constructor(data?: PartialMessage<SessionStartHookResult>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.hooks_pb.SessionStartHookResult";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "inject_steps", kind: "message", T: HookInjectedStep, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SessionStartHookResult {
+    return new SessionStartHookResult().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SessionStartHookResult {
+    return new SessionStartHookResult().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SessionStartHookResult {
+    return new SessionStartHookResult().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SessionStartHookResult | PlainMessage<SessionStartHookResult> | undefined, b: SessionStartHookResult | PlainMessage<SessionStartHookResult> | undefined): boolean {
+    return proto3.util.equals(SessionStartHookResult, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.hooks_pb.CommandHook
+ */
+export class CommandHook extends Message<CommandHook> {
+  /**
+   * @generated from field: string command = 1;
+   */
+  command = "";
+
+  constructor(data?: PartialMessage<CommandHook>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.hooks_pb.CommandHook";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "command", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CommandHook {
+    return new CommandHook().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CommandHook {
+    return new CommandHook().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CommandHook {
+    return new CommandHook().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CommandHook | PlainMessage<CommandHook> | undefined, b: CommandHook | PlainMessage<CommandHook> | undefined): boolean {
+    return proto3.util.equals(CommandHook, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.hooks_pb.PromptHook
+ */
+export class PromptHook extends Message<PromptHook> {
+  /**
+   * @generated from field: string prompt = 1;
+   */
+  prompt = "";
+
+  /**
+   * @generated from field: string model = 2;
+   */
+  model = "";
+
+  constructor(data?: PartialMessage<PromptHook>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.hooks_pb.PromptHook";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "prompt", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "model", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PromptHook {
+    return new PromptHook().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PromptHook {
+    return new PromptHook().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PromptHook {
+    return new PromptHook().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PromptHook | PlainMessage<PromptHook> | undefined, b: PromptHook | PlainMessage<PromptHook> | undefined): boolean {
+    return proto3.util.equals(PromptHook, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.hooks_pb.HookHandlerConfig
+ */
+export class HookHandlerConfig extends Message<HookHandlerConfig> {
+  /**
+   * @generated from field: int32 timeout = 1;
+   */
+  timeout = 0;
+
+  /**
+   * @generated from oneof exa.hooks_pb.HookHandlerConfig.handler
+   */
+  handler: {
+    /**
+     * @generated from field: exa.hooks_pb.CommandHook command = 2;
+     */
+    value: CommandHook;
+    case: "command";
+  } | {
+    /**
+     * @generated from field: exa.hooks_pb.PromptHook prompt = 3;
+     */
+    value: PromptHook;
+    case: "prompt";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<HookHandlerConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.hooks_pb.HookHandlerConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "timeout", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "command", kind: "message", T: CommandHook, oneof: "handler" },
+    { no: 3, name: "prompt", kind: "message", T: PromptHook, oneof: "handler" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HookHandlerConfig {
+    return new HookHandlerConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HookHandlerConfig {
+    return new HookHandlerConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HookHandlerConfig {
+    return new HookHandlerConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: HookHandlerConfig | PlainMessage<HookHandlerConfig> | undefined, b: HookHandlerConfig | PlainMessage<HookHandlerConfig> | undefined): boolean {
+    return proto3.util.equals(HookHandlerConfig, a, b);
   }
 }
 

@@ -162,6 +162,11 @@ export class VcsConflictFile extends Message<VcsConflictFile> {
    */
   theirs?: VcsConflictFile_Side;
 
+  /**
+   * @generated from field: string uri = 4;
+   */
+  uri = "";
+
   constructor(data?: PartialMessage<VcsConflictFile>) {
     super();
     proto3.util.initPartial(data, this);
@@ -173,6 +178,7 @@ export class VcsConflictFile extends Message<VcsConflictFile> {
     { no: 1, name: "path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "yours", kind: "message", T: VcsConflictFile_Side },
     { no: 3, name: "theirs", kind: "message", T: VcsConflictFile_Side },
+    { no: 4, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VcsConflictFile {
@@ -460,9 +466,9 @@ export class VcsCommit_Message extends Message<VcsCommit_Message> {
   subject = "";
 
   /**
-   * @generated from field: string body = 2;
+   * @generated from field: string description = 2;
    */
-  body = "";
+  description = "";
 
   constructor(data?: PartialMessage<VcsCommit_Message>) {
     super();
@@ -473,7 +479,7 @@ export class VcsCommit_Message extends Message<VcsCommit_Message> {
   static readonly typeName = "exa.vcs_pb.VcsCommit.Message";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "subject", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "body", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VcsCommit_Message {
@@ -517,6 +523,16 @@ export class VcsCommit_Status extends Message<VcsCommit_Status> {
    */
   isSecret = false;
 
+  /**
+   * @generated from field: bool is_empty = 5;
+   */
+  isEmpty = false;
+
+  /**
+   * @generated from field: bool has_conflict = 6;
+   */
+  hasConflict = false;
+
   constructor(data?: PartialMessage<VcsCommit_Status>) {
     super();
     proto3.util.initPartial(data, this);
@@ -529,6 +545,8 @@ export class VcsCommit_Status extends Message<VcsCommit_Status> {
     { no: 2, name: "is_submitted", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 3, name: "is_draft", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 4, name: "is_secret", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "is_empty", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "has_conflict", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VcsCommit_Status {
@@ -746,6 +764,49 @@ export class VcsWorkspaceState extends Message<VcsWorkspaceState> {
 
   static equals(a: VcsWorkspaceState | PlainMessage<VcsWorkspaceState> | undefined, b: VcsWorkspaceState | PlainMessage<VcsWorkspaceState> | undefined): boolean {
     return proto3.util.equals(VcsWorkspaceState, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.vcs_pb.JJWorktree
+ */
+export class JJWorktree extends Message<JJWorktree> {
+  /**
+   * @generated from field: string base_commit_description = 2;
+   */
+  baseCommitDescription = "";
+
+  /**
+   * @generated from field: string uri = 3;
+   */
+  uri = "";
+
+  constructor(data?: PartialMessage<JJWorktree>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.vcs_pb.JJWorktree";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 2, name: "base_commit_description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JJWorktree {
+    return new JJWorktree().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JJWorktree {
+    return new JJWorktree().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JJWorktree {
+    return new JJWorktree().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JJWorktree | PlainMessage<JJWorktree> | undefined, b: JJWorktree | PlainMessage<JJWorktree> | undefined): boolean {
+    return proto3.util.equals(JJWorktree, a, b);
   }
 }
 

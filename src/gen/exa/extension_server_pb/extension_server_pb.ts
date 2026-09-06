@@ -9,6 +9,7 @@ import { CascadeTrajectorySummaries } from "../jetski_cortex_pb/jetski_cortex_pb
 import { CodeDiagnostic, DocumentPosition, ErrorTrace, GRPCStatus, LspReference, ProductEventType } from "../codeium_common_pb/codeium_common_pb.js";
 import { HandleStreamingCommandRequest, HandleStreamingCommandResponse, ValidationState } from "../language_server_pb/language_server_pb.js";
 import { Step } from "../gemini_coder/proto/trajectory_pb.js";
+import { NotebookBlob } from "../cortex_pb/cortex_pb.js";
 import { AppliedUpdate, Topic, UpdateRequest } from "../unified_state_sync_pb/unified_state_sync_pb.js";
 
 /**
@@ -2780,6 +2781,11 @@ export class ReadNotebookResponse extends Message<ReadNotebookResponse> {
    */
   readCellCount = 0;
 
+  /**
+   * @generated from field: repeated exa.cortex_pb.NotebookBlob blobs = 3;
+   */
+  blobs: NotebookBlob[] = [];
+
   constructor(data?: PartialMessage<ReadNotebookResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -2790,6 +2796,7 @@ export class ReadNotebookResponse extends Message<ReadNotebookResponse> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "flattened_content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "read_cell_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "blobs", kind: "message", T: NotebookBlob, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReadNotebookResponse {
@@ -3022,6 +3029,11 @@ export class ExecuteNotebookResponse_CellOutput extends Message<ExecuteNotebookR
    */
   errorTrace = "";
 
+  /**
+   * @generated from field: repeated exa.cortex_pb.NotebookBlob blobs = 8;
+   */
+  blobs: NotebookBlob[] = [];
+
   constructor(data?: PartialMessage<ExecuteNotebookResponse_CellOutput>) {
     super();
     proto3.util.initPartial(data, this);
@@ -3037,6 +3049,7 @@ export class ExecuteNotebookResponse_CellOutput extends Message<ExecuteNotebookR
     { no: 5, name: "output_text_truncated", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 6, name: "generated_images", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 7, name: "error_trace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "blobs", kind: "message", T: NotebookBlob, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExecuteNotebookResponse_CellOutput {

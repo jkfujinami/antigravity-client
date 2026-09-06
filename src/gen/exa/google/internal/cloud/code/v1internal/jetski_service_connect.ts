@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AgentPlugin, BattleModeAutoTriggerRequest, BattleModeAutoTriggerResponse, BattleModeOverridesRequest, BattleModeOverridesResponse, CheckUrlDenylistRequest, CheckUrlDenylistResponse, FetchFromTrawlerCacheRequest, FetchFromTrawlerCacheResponse, FetchUserInfoRequest, FetchUserInfoResponse, GetAgentPluginRequest, GetHealthRequest, Health, ListAgentPluginsRequest, ListAgentPluginsResponse, ListBuildWithGooglePluginsRequest, ListBuildWithGooglePluginsResponse, ListCascadeNuxesRequest, ListCascadeNuxesResponse, ListWebDocsOptionsRequest, ListWebDocsOptionsResponse, RecordTrajectoryAnalyticsRequest, RecordTrajectoryAnalyticsResponse, RegisterInteractionRequest, RegisterInteractionResponse, RewriteUriRequest, RewriteUriResponse, SetUserSettingsRequest, SetUserSettingsResponse, TabChatRequest, TabChatResponse } from "./jetski_service_pb.js";
+import { AgentPlugin, BattleModeAutoTriggerRequest, BattleModeAutoTriggerResponse, BattleModeOverridesRequest, BattleModeOverridesResponse, CheckUrlAntivirusRequest, CheckUrlAntivirusResponse, CheckUrlDenylistRequest, CheckUrlDenylistResponse, FetchFromTrawlerCacheRequest, FetchFromTrawlerCacheResponse, FetchUserInfoRequest, FetchUserInfoResponse, GetAgentPluginRequest, GetBundleWriteMintRequest, GetBundleWriteMintResponse, GetHealthRequest, Health, ListAgentPluginsRequest, ListAgentPluginsResponse, ListBuildWithGooglePluginsRequest, ListBuildWithGooglePluginsResponse, ListCascadeNuxesRequest, ListCascadeNuxesResponse, ListWebDocsOptionsRequest, ListWebDocsOptionsResponse, ProvisionConversationBundleDirRequest, ProvisionConversationBundleDirResponse, RecordTrajectoryAnalyticsRequest, RecordTrajectoryAnalyticsResponse, RegisterInteractionRequest, RegisterInteractionResponse, RewriteUriRequest, RewriteUriResponse, SetUserSettingsRequest, SetUserSettingsResponse, TabChatRequest, TabChatResponse, UploadPerformanceProfileRequest, UploadPerformanceProfileResponse, WriteTrajectoryACLsRequest, WriteTrajectoryACLsResponse } from "./jetski_service_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -103,6 +103,15 @@ export const JetskiService = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc google.internal.cloud.code.v1internal.JetskiService.CheckUrlAntivirus
+     */
+    checkUrlAntivirus: {
+      name: "CheckUrlAntivirus",
+      I: CheckUrlAntivirusRequest,
+      O: CheckUrlAntivirusResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc google.internal.cloud.code.v1internal.JetskiService.GetHealth
      */
     getHealth: {
@@ -118,6 +127,15 @@ export const JetskiService = {
       name: "RecordTrajectoryAnalytics",
       I: RecordTrajectoryAnalyticsRequest,
       O: RecordTrajectoryAnalyticsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc google.internal.cloud.code.v1internal.JetskiService.WriteTrajectoryACLs
+     */
+    writeTrajectoryACLs: {
+      name: "WriteTrajectoryACLs",
+      I: WriteTrajectoryACLsRequest,
+      O: WriteTrajectoryACLsResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -154,6 +172,33 @@ export const JetskiService = {
       name: "BattleModeAutoTrigger",
       I: BattleModeAutoTriggerRequest,
       O: BattleModeAutoTriggerResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc google.internal.cloud.code.v1internal.JetskiService.UploadPerformanceProfile
+     */
+    uploadPerformanceProfile: {
+      name: "UploadPerformanceProfile",
+      I: UploadPerformanceProfileRequest,
+      O: UploadPerformanceProfileResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc google.internal.cloud.code.v1internal.JetskiService.ProvisionConversationBundleDir
+     */
+    provisionConversationBundleDir: {
+      name: "ProvisionConversationBundleDir",
+      I: ProvisionConversationBundleDirRequest,
+      O: ProvisionConversationBundleDirResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc google.internal.cloud.code.v1internal.JetskiService.GetBundleWriteMint
+     */
+    getBundleWriteMint: {
+      name: "GetBundleWriteMint",
+      I: GetBundleWriteMintRequest,
+      O: GetBundleWriteMintResponse,
       kind: MethodKind.Unary,
     },
   }

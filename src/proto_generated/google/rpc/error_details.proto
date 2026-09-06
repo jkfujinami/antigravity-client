@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package google.rpc;
+
+import "google/protobuf/duration.proto";
+
+// Describes when the clients can retry a failed request.
+message RetryInfo {
+  google.protobuf.Duration retry_delay = 1;
+}
+
+// Describes additional debugging info.
+message DebugInfo {
+  repeated string stack_entries = 1;
+  string detail = 2;
+}
+
+// Describes how a quota check failed.
+message QuotaFailure {
+  message Violation {
+    string subject = 1;
+    string description = 2;
+  }
+  repeated Violation violations = 1;
+}
+
+// Describes the cause of the error with structured details.
+message ErrorInfo {
+  string reason = 1;
+  string domain = 2;
+  map<string, string> metadata = 3;
+}
+
+// Describes what preconditions have failed.
+message PreconditionFailure {
+  message Violation {
+    string type = 1;
+    string subject = 2;
+    string description = 3;
+  }
+  repeated Violation violations = 1;
+}
+
+// Describes violations in a client request.
+message BadRequest {
+  message FieldViolation {
+    string field = 1;
+    string description = 2;
+  }
+  repeated FieldViolation field_violations = 1;
+}
+
+// Contains metadata about the request that clients can attach.
+message RequestInfo {
+  string request_id = 1;
+  string serving_data = 2;
+}
+
+// Describes the resource that is being accessed.
+message ResourceInfo {
+  string resource_type = 1;
+  string resource_name = 2;
+  string owner = 3;
+  string description = 4;
+}
+
+// Provides links to documentation or for performing an out-of-band action.
+message Help {
+  message Link {
+    string description = 1;
+    string url = 2;
+  }
+  repeated Link links = 1;
+}
+
+// Provides a localized error message.
+message LocalizedMessage {
+  string locale = 1;
+  string message = 2;
+}

@@ -2325,6 +2325,16 @@ export class StreamAgentStateUpdatesRequest extends Message<StreamAgentStateUpda
    */
   initialExecutorMetadatasPageBounds?: Slice;
 
+  /**
+   * @generated from field: bool disable_rehydration = 7;
+   */
+  disableRehydration = false;
+
+  /**
+   * @generated from field: bool enable_latency_telemetry = 8;
+   */
+  enableLatencyTelemetry = false;
+
   constructor(data?: PartialMessage<StreamAgentStateUpdatesRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -2339,6 +2349,8 @@ export class StreamAgentStateUpdatesRequest extends Message<StreamAgentStateUpda
     { no: 4, name: "trajectory_verbosity", kind: "enum", T: proto3.getEnumType(ClientTrajectoryVerbosity) },
     { no: 5, name: "initial_generator_metadatas_page_bounds", kind: "message", T: Slice },
     { no: 6, name: "initial_executor_metadatas_page_bounds", kind: "message", T: Slice },
+    { no: 7, name: "disable_rehydration", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 8, name: "enable_latency_telemetry", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StreamAgentStateUpdatesRequest {

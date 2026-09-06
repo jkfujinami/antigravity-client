@@ -5,6 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
+import { Entitlement } from "./entitlement_pb.js";
 import { APIProvider, Model, ModelProvider, PromptTemplaterType, ToolFormatterType } from "../../../../../codeium_common_pb/codeium_common_pb.js";
 
 /**
@@ -21,6 +22,16 @@ export class FetchAvailableModelsRequest extends Message<FetchAvailableModelsReq
    */
   requestId = "";
 
+  /**
+   * @generated from field: google.internal.cloud.code.v1internal.Entitlement entitlement = 9;
+   */
+  entitlement?: Entitlement;
+
+  /**
+   * @generated from field: string location = 3;
+   */
+  location = "";
+
   constructor(data?: PartialMessage<FetchAvailableModelsRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -31,6 +42,8 @@ export class FetchAvailableModelsRequest extends Message<FetchAvailableModelsReq
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "project", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "request_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "entitlement", kind: "message", T: Entitlement },
+    { no: 3, name: "location", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FetchAvailableModelsRequest {
@@ -302,6 +315,11 @@ export class ModelDetails extends Message<ModelDetails> {
    */
   modelUrl = "";
 
+  /**
+   * @generated from field: bool supports_adaptive_thinking = 42;
+   */
+  supportsAdaptiveThinking = false;
+
   constructor(data?: PartialMessage<ModelDetails>) {
     super();
     proto3.util.initPartial(data, this);
@@ -351,6 +369,7 @@ export class ModelDetails extends Message<ModelDetails> {
     { no: 39, name: "vertex_model_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 40, name: "supports_deferred_tool_loading", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 41, name: "model_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 42, name: "supports_adaptive_thinking", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelDetails {

@@ -208,6 +208,7 @@ const STEP_CATEGORY_MAP: Record<StepType, StepCategory> = {
     managerFeedback: "other",
     toolCallProposal: "other",
     toolCallChoice: "other",
+    toolSearch: "other",
     trajectoryChoice: "other",
     brainUpdate: "other",
     proposalFeedback: "other",

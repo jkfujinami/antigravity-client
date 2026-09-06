@@ -1,0 +1,115 @@
+syntax = "proto3";
+package exa.vcs_pb;
+
+enum VcsType {
+  VCS_TYPE_UNSPECIFIED = 0;
+  VCS_TYPE_PIPER = 1;
+  VCS_TYPE_FIG = 2;
+  VCS_TYPE_JJ = 3;
+  VCS_TYPE_GIT = 4;
+}
+
+message VcsFileChange {
+  enum Operation {
+    OPERATION_UNKNOWN = 0;
+    OPERATION_ADDED = 1;
+    OPERATION_MODIFIED = 2;
+    OPERATION_DELETED = 3;
+    OPERATION_RENAMED = 4;
+    OPERATION_COPIED = 5;
+  }
+
+  string uri = 1;
+  exa.vcs_pb.VcsFileChange.Operation operation = 2;
+  string original_uri = 3;
+  string content_hash = 4;
+}
+
+message VcsConflictFile {
+  message Side {
+    string label = 2;
+  }
+
+  string path = 1;
+  exa.vcs_pb.VcsConflictFile.Side yours = 2;
+  exa.vcs_pb.VcsConflictFile.Side theirs = 3;
+  string uri = 4;
+}
+
+message VcsConflictState {
+  enum Operation {
+    OPERATION_UNKNOWN = 0;
+    OPERATION_MERGE = 1;
+    OPERATION_REBASE = 2;
+    OPERATION_CHERRY_PICK = 3;
+    OPERATION_EVOLVE = 4;
+  }
+
+  bool in_conflict = 1;
+  exa.vcs_pb.VcsConflictState.Operation operation = 2;
+  repeated exa.vcs_pb.VcsConflictFile conflicts = 3;
+}
+
+message VcsCommit {
+  message Author {
+    string name = 1;
+    string email = 2;
+    string ldap = 3;
+  }
+
+  message Message {
+    string subject = 1;
+    string description = 2;
+  }
+
+  message Status {
+    bool is_active = 1;
+    bool is_submitted = 2;
+    bool is_draft = 3;
+    bool is_secret = 4;
+    bool is_empty = 5;
+    bool has_conflict = 6;
+  }
+
+  message Refs {
+    repeated string branches = 1;
+    repeated string bookmarks = 2;
+    repeated string tags = 3;
+  }
+
+  message Evolution {
+    bool is_obsolete = 1;
+    bool is_orphaned = 2;
+    bool is_divergent = 3;
+    repeated string successors = 4;
+    repeated string precursors = 5;
+  }
+
+  string id = 1;
+  string change_id = 2;
+  repeated string parent_ids = 3;
+  exa.vcs_pb.VcsCommit.Author author = 4;
+  int64 timestamp_ms = 5;
+  exa.vcs_pb.VcsCommit.Message message = 6;
+  exa.vcs_pb.VcsCommit.Status status = 7;
+  exa.vcs_pb.VcsCommit.Refs refs = 8;
+  exa.vcs_pb.VcsCommit.Evolution evolution = 9;
+}
+
+message VcsWorkspaceState {
+  exa.vcs_pb.VcsType vcs_type = 1;
+  string current_ref = 2;
+  string active_commit_id = 3;
+  repeated exa.vcs_pb.VcsCommit commits = 4;
+  repeated exa.vcs_pb.VcsFileChange working_directory_changes = 5;
+  exa.vcs_pb.VcsConflictState conflict_state = 6;
+  repeated exa.vcs_pb.VcsFileChange staged_changes = 7;
+  repeated exa.vcs_pb.VcsFileChange branch_changes = 8;
+  string merge_base_commit_id = 9;
+  string target_branch = 10;
+}
+
+message JJWorktree {
+  string base_commit_description = 2;
+  string uri = 3;
+}

@@ -7180,6 +7180,11 @@ export enum ModelProvider {
    * @generated from enum value: MODEL_PROVIDER_DEEPSEEK = 6;
    */
   DEEPSEEK = 6,
+
+  /**
+   * @generated from enum value: MODEL_PROVIDER_GLM = 7;
+   */
+  GLM = 7,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ModelProvider)
 proto3.util.setEnumType(ModelProvider, "exa.codeium_common_pb.ModelProvider", [
@@ -7190,6 +7195,7 @@ proto3.util.setEnumType(ModelProvider, "exa.codeium_common_pb.ModelProvider", [
   { no: 4, name: "MODEL_PROVIDER_GOOGLE" },
   { no: 5, name: "MODEL_PROVIDER_XAI" },
   { no: 6, name: "MODEL_PROVIDER_DEEPSEEK" },
+  { no: 7, name: "MODEL_PROVIDER_GLM" },
 ]);
 
 /**
@@ -8323,6 +8329,11 @@ export enum CascadeNUXLocation {
    * @generated from enum value: CASCADE_NUX_LOCATION_ALWAYS_MOUNTED = 13;
    */
   CASCADE_NUX_LOCATION_ALWAYS_MOUNTED = 13,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_LOCATION_UI_PLUGINS = 14;
+   */
+  CASCADE_NUX_LOCATION_UI_PLUGINS = 14,
 }
 // Retrieve enum metadata with: proto3.getEnumType(CascadeNUXLocation)
 proto3.util.setEnumType(CascadeNUXLocation, "exa.codeium_common_pb.CascadeNUXLocation", [
@@ -8338,6 +8349,7 @@ proto3.util.setEnumType(CascadeNUXLocation, "exa.codeium_common_pb.CascadeNUXLoc
   { no: 11, name: "CASCADE_NUX_LOCATION_ARTIFACT_VIEW_BOTTOM_LEFT" },
   { no: 12, name: "CASCADE_NUX_LOCATION_CHAT_PANEL_BANNER" },
   { no: 13, name: "CASCADE_NUX_LOCATION_ALWAYS_MOUNTED" },
+  { no: 14, name: "CASCADE_NUX_LOCATION_UI_PLUGINS" },
 ]);
 
 /**
@@ -8429,6 +8441,11 @@ export enum CascadeNUXTrigger {
    * @generated from enum value: CASCADE_NUX_TRIGGER_MANAGER_CREATE_FIRST_PROJECT_DIALOG = 13;
    */
   CASCADE_NUX_TRIGGER_MANAGER_CREATE_FIRST_PROJECT_DIALOG = 13,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_TRIGGER_MANAGER_PLUGINS_DASHBOARD_OPENED = 14;
+   */
+  CASCADE_NUX_TRIGGER_MANAGER_PLUGINS_DASHBOARD_OPENED = 14,
 }
 // Retrieve enum metadata with: proto3.getEnumType(CascadeNUXTrigger)
 proto3.util.setEnumType(CascadeNUXTrigger, "exa.codeium_common_pb.CascadeNUXTrigger", [
@@ -8444,6 +8461,7 @@ proto3.util.setEnumType(CascadeNUXTrigger, "exa.codeium_common_pb.CascadeNUXTrig
   { no: 11, name: "CASCADE_NUX_TRIGGER_MANAGER_PROJECT_CREATED" },
   { no: 12, name: "CASCADE_NUX_TRIGGER_MANAGER_PROJECT_ENVIRONMENT_SELECTION" },
   { no: 13, name: "CASCADE_NUX_TRIGGER_MANAGER_CREATE_FIRST_PROJECT_DIALOG" },
+  { no: 14, name: "CASCADE_NUX_TRIGGER_MANAGER_PLUGINS_DASHBOARD_OPENED" },
 ]);
 
 /**
@@ -11343,20 +11361,6 @@ proto3.util.setEnumType(BrowserJsAutoRunPolicy, "exa.codeium_common_pb.BrowserJs
 ]);
 
 /**
- * @generated from enum exa.codeium_common_pb.NullValue
- */
-export enum NullValue {
-  /**
-   * @generated from enum value: NULL_VALUE = 0;
-   */
-  NULL_VALUE = 0,
-}
-// Retrieve enum metadata with: proto3.getEnumType(NullValue)
-proto3.util.setEnumType(NullValue, "exa.codeium_common_pb.NullValue", [
-  { no: 0, name: "NULL_VALUE" },
-]);
-
-/**
  * @generated from message exa.codeium_common_pb.CompletionsRequest
  */
 export class CompletionsRequest extends Message<CompletionsRequest> {
@@ -11558,24 +11562,9 @@ export class CompletionConfiguration extends Message<CompletionConfiguration> {
   maxTokens = protoInt64.zero;
 
   /**
-   * @generated from field: uint64 max_newlines = 3;
-   */
-  maxNewlines = protoInt64.zero;
-
-  /**
-   * @generated from field: double min_log_probability = 4;
-   */
-  minLogProbability = 0;
-
-  /**
    * @generated from field: double temperature = 5;
    */
   temperature = 0;
-
-  /**
-   * @generated from field: double first_temperature = 6;
-   */
-  firstTemperature = 0;
 
   /**
    * @generated from field: uint64 top_k = 7;
@@ -11598,6 +11587,31 @@ export class CompletionConfiguration extends Message<CompletionConfiguration> {
   seed = protoInt64.zero;
 
   /**
+   * @generated from field: bool last_message_is_partial = 15;
+   */
+  lastMessageIsPartial = false;
+
+  /**
+   * @generated from field: bool disable_parallel_tool_calls = 17;
+   */
+  disableParallelToolCalls = false;
+
+  /**
+   * @generated from field: uint64 max_newlines = 3;
+   */
+  maxNewlines = protoInt64.zero;
+
+  /**
+   * @generated from field: double min_log_probability = 4;
+   */
+  minLogProbability = 0;
+
+  /**
+   * @generated from field: double first_temperature = 6;
+   */
+  firstTemperature = 0;
+
+  /**
    * @generated from field: double fim_eot_prob_threshold = 11;
    */
   fimEotProbThreshold = 0;
@@ -11618,19 +11632,9 @@ export class CompletionConfiguration extends Message<CompletionConfiguration> {
   sqrtLenNormalizedLogProbScore = false;
 
   /**
-   * @generated from field: bool last_message_is_partial = 15;
-   */
-  lastMessageIsPartial = false;
-
-  /**
    * @generated from field: bool return_logprob = 16;
    */
   returnLogprob = false;
-
-  /**
-   * @generated from field: bool disable_parallel_tool_calls = 17;
-   */
-  disableParallelToolCalls = false;
 
   constructor(data?: PartialMessage<CompletionConfiguration>) {
     super();
@@ -11642,21 +11646,21 @@ export class CompletionConfiguration extends Message<CompletionConfiguration> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "num_completions", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
     { no: 2, name: "max_tokens", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 3, name: "max_newlines", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 4, name: "min_log_probability", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
     { no: 5, name: "temperature", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
-    { no: 6, name: "first_temperature", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
     { no: 7, name: "top_k", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
     { no: 8, name: "top_p", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
     { no: 9, name: "stop_patterns", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
     { no: 10, name: "seed", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 15, name: "last_message_is_partial", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 17, name: "disable_parallel_tool_calls", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "max_newlines", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 4, name: "min_log_probability", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 6, name: "first_temperature", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
     { no: 11, name: "fim_eot_prob_threshold", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
     { no: 12, name: "use_fim_eot_threshold", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 13, name: "do_not_score_stop_tokens", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 14, name: "sqrt_len_normalized_log_prob_score", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 15, name: "last_message_is_partial", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 16, name: "return_logprob", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 17, name: "disable_parallel_tool_calls", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionConfiguration {
@@ -12176,6 +12180,92 @@ export class ExperimentMultilineModelThresholdPayload extends Message<Experiment
 
   static equals(a: ExperimentMultilineModelThresholdPayload | PlainMessage<ExperimentMultilineModelThresholdPayload> | undefined, b: ExperimentMultilineModelThresholdPayload | PlainMessage<ExperimentMultilineModelThresholdPayload> | undefined): boolean {
     return proto3.util.equals(ExperimentMultilineModelThresholdPayload, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ErrorSamplingConfig
+ */
+export class ErrorSamplingConfig extends Message<ErrorSamplingConfig> {
+  /**
+   * @generated from field: double sample_rate = 1;
+   */
+  sampleRate = 0;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ErrorSamplingConfig.ErrorMatchToSampleRateEntry error_match_to_sample_rate = 2;
+   */
+  errorMatchToSampleRate: ErrorSamplingConfig_ErrorMatchToSampleRateEntry[] = [];
+
+  constructor(data?: PartialMessage<ErrorSamplingConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ErrorSamplingConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "sample_rate", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 2, name: "error_match_to_sample_rate", kind: "message", T: ErrorSamplingConfig_ErrorMatchToSampleRateEntry, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ErrorSamplingConfig {
+    return new ErrorSamplingConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ErrorSamplingConfig {
+    return new ErrorSamplingConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ErrorSamplingConfig {
+    return new ErrorSamplingConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ErrorSamplingConfig | PlainMessage<ErrorSamplingConfig> | undefined, b: ErrorSamplingConfig | PlainMessage<ErrorSamplingConfig> | undefined): boolean {
+    return proto3.util.equals(ErrorSamplingConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ErrorSamplingConfig.ErrorMatchToSampleRateEntry
+ */
+export class ErrorSamplingConfig_ErrorMatchToSampleRateEntry extends Message<ErrorSamplingConfig_ErrorMatchToSampleRateEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: double value = 2;
+   */
+  value = 0;
+
+  constructor(data?: PartialMessage<ErrorSamplingConfig_ErrorMatchToSampleRateEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ErrorSamplingConfig.ErrorMatchToSampleRateEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ErrorSamplingConfig_ErrorMatchToSampleRateEntry {
+    return new ErrorSamplingConfig_ErrorMatchToSampleRateEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ErrorSamplingConfig_ErrorMatchToSampleRateEntry {
+    return new ErrorSamplingConfig_ErrorMatchToSampleRateEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ErrorSamplingConfig_ErrorMatchToSampleRateEntry {
+    return new ErrorSamplingConfig_ErrorMatchToSampleRateEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ErrorSamplingConfig_ErrorMatchToSampleRateEntry | PlainMessage<ErrorSamplingConfig_ErrorMatchToSampleRateEntry> | undefined, b: ErrorSamplingConfig_ErrorMatchToSampleRateEntry | PlainMessage<ErrorSamplingConfig_ErrorMatchToSampleRateEntry> | undefined): boolean {
+    return proto3.util.equals(ErrorSamplingConfig_ErrorMatchToSampleRateEntry, a, b);
   }
 }
 
@@ -13940,6 +14030,11 @@ export class Metadata extends Message<Metadata> {
    */
   runtimeEnvironment?: RuntimeEnvironment;
 
+  /**
+   * @generated from field: exa.codeium_common_pb.ExperimentConfig experiment_config = 35;
+   */
+  experimentConfig?: ExperimentConfig;
+
   constructor(data?: PartialMessage<Metadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -13969,6 +14064,7 @@ export class Metadata extends Message<Metadata> {
     { no: 31, name: "product_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 32, name: "environment_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 33, name: "runtime_environment", kind: "message", T: RuntimeEnvironment },
+    { no: 35, name: "experiment_config", kind: "message", T: ExperimentConfig },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Metadata {
@@ -14017,6 +14113,16 @@ export class RuntimeEnvironment extends Message<RuntimeEnvironment> {
    */
   os = "";
 
+  /**
+   * @generated from field: string environment_type = 6;
+   */
+  environmentType = "";
+
+  /**
+   * @generated from field: string identity_type = 7;
+   */
+  identityType = "";
+
   constructor(data?: PartialMessage<RuntimeEnvironment>) {
     super();
     proto3.util.initPartial(data, this);
@@ -14030,6 +14136,8 @@ export class RuntimeEnvironment extends Message<RuntimeEnvironment> {
     { no: 3, name: "viewport_width_cohort", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "user_cohort", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "os", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "environment_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "identity_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RuntimeEnvironment {
@@ -15356,6 +15464,16 @@ export class ClientModelConfig extends Message<ClientModelConfig> {
    */
   supportsThoughtCirculation = false;
 
+  /**
+   * @generated from field: string model_url = 20;
+   */
+  modelUrl = "";
+
+  /**
+   * @generated from field: string model_id = 21;
+   */
+  modelId = "";
+
   constructor(data?: PartialMessage<ClientModelConfig>) {
     super();
     proto3.util.initPartial(data, this);
@@ -15383,6 +15501,8 @@ export class ClientModelConfig extends Message<ClientModelConfig> {
     { no: 17, name: "tag_description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 18, name: "supported_mime_types", kind: "message", T: ClientModelConfig_SupportedMimeTypesEntry, repeated: true },
     { no: 19, name: "supports_thought_circulation", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 20, name: "model_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 21, name: "model_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientModelConfig {
@@ -26423,6 +26543,11 @@ export class MetricsRecord extends Message<MetricsRecord> {
   value = 0;
 
   /**
+   * @generated from field: string value_breakdown = 10;
+   */
+  valueBreakdown = "";
+
+  /**
    * @generated from field: repeated exa.codeium_common_pb.MetricsRecord.DetailsEntry details = 3;
    */
   details: MetricsRecord_DetailsEntry[] = [];
@@ -26458,6 +26583,7 @@ export class MetricsRecord extends Message<MetricsRecord> {
     { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 9, name: "metadata", kind: "message", T: MetricsMetadata },
     { no: 2, name: "value", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 10, name: "value_breakdown", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "details", kind: "message", T: MetricsRecord_DetailsEntry, repeated: true },
     { no: 6, name: "error", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 7, name: "trajectory_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
@@ -28415,208 +28541,6 @@ export class PermissionGrantsConfig extends Message<PermissionGrantsConfig> {
 
   static equals(a: PermissionGrantsConfig | PlainMessage<PermissionGrantsConfig> | undefined, b: PermissionGrantsConfig | PlainMessage<PermissionGrantsConfig> | undefined): boolean {
     return proto3.util.equals(PermissionGrantsConfig, a, b);
-  }
-}
-
-/**
- * @generated from message exa.codeium_common_pb.Struct
- */
-export class Struct extends Message<Struct> {
-  /**
-   * @generated from field: repeated exa.codeium_common_pb.Field fields = 1;
-   */
-  fields: Field[] = [];
-
-  constructor(data?: PartialMessage<Struct>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.codeium_common_pb.Struct";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "fields", kind: "message", T: Field, repeated: true },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Struct {
-    return new Struct().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Struct {
-    return new Struct().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Struct {
-    return new Struct().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: Struct | PlainMessage<Struct> | undefined, b: Struct | PlainMessage<Struct> | undefined): boolean {
-    return proto3.util.equals(Struct, a, b);
-  }
-}
-
-/**
- * @generated from message exa.codeium_common_pb.Field
- */
-export class Field extends Message<Field> {
-  /**
-   * @generated from field: string name = 1;
-   */
-  name = "";
-
-  /**
-   * @generated from field: exa.codeium_common_pb.Value value = 2;
-   */
-  value?: Value;
-
-  constructor(data?: PartialMessage<Field>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.codeium_common_pb.Field";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "value", kind: "message", T: Value },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Field {
-    return new Field().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Field {
-    return new Field().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Field {
-    return new Field().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: Field | PlainMessage<Field> | undefined, b: Field | PlainMessage<Field> | undefined): boolean {
-    return proto3.util.equals(Field, a, b);
-  }
-}
-
-/**
- * @generated from message exa.codeium_common_pb.Value
- */
-export class Value extends Message<Value> {
-  /**
-   * @generated from oneof exa.codeium_common_pb.Value.kind
-   */
-  kind: {
-    /**
-     * @generated from field: exa.codeium_common_pb.NullValue null_value = 1;
-     */
-    value: NullValue;
-    case: "nullValue";
-  } | {
-    /**
-     * @generated from field: double number_value = 2;
-     */
-    value: number;
-    case: "numberValue";
-  } | {
-    /**
-     * @generated from field: string string_value = 3;
-     */
-    value: string;
-    case: "stringValue";
-  } | {
-    /**
-     * @generated from field: bool bool_value = 4;
-     */
-    value: boolean;
-    case: "boolValue";
-  } | {
-    /**
-     * @generated from field: exa.codeium_common_pb.Struct struct_value = 5;
-     */
-    value: Struct;
-    case: "structValue";
-  } | {
-    /**
-     * @generated from field: exa.codeium_common_pb.ListValue list_value = 6;
-     */
-    value: ListValue;
-    case: "listValue";
-  } | {
-    /**
-     * @generated from field: exa.codeium_common_pb.Media media = 7;
-     */
-    value: Media;
-    case: "media";
-  } | { case: undefined; value?: undefined } = { case: undefined };
-
-  constructor(data?: PartialMessage<Value>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.codeium_common_pb.Value";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "null_value", kind: "enum", T: proto3.getEnumType(NullValue), oneof: "kind" },
-    { no: 2, name: "number_value", kind: "scalar", T: 1 /* ScalarType.DOUBLE */, oneof: "kind" },
-    { no: 3, name: "string_value", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "kind" },
-    { no: 4, name: "bool_value", kind: "scalar", T: 8 /* ScalarType.BOOL */, oneof: "kind" },
-    { no: 5, name: "struct_value", kind: "message", T: Struct, oneof: "kind" },
-    { no: 6, name: "list_value", kind: "message", T: ListValue, oneof: "kind" },
-    { no: 7, name: "media", kind: "message", T: Media, oneof: "kind" },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Value {
-    return new Value().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Value {
-    return new Value().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Value {
-    return new Value().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: Value | PlainMessage<Value> | undefined, b: Value | PlainMessage<Value> | undefined): boolean {
-    return proto3.util.equals(Value, a, b);
-  }
-}
-
-/**
- * @generated from message exa.codeium_common_pb.ListValue
- */
-export class ListValue extends Message<ListValue> {
-  /**
-   * @generated from field: repeated exa.codeium_common_pb.Value values = 1;
-   */
-  values: Value[] = [];
-
-  constructor(data?: PartialMessage<ListValue>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.codeium_common_pb.ListValue";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "values", kind: "message", T: Value, repeated: true },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListValue {
-    return new ListValue().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListValue {
-    return new ListValue().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListValue {
-    return new ListValue().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: ListValue | PlainMessage<ListValue> | undefined, b: ListValue | PlainMessage<ListValue> | undefined): boolean {
-    return proto3.util.equals(ListValue, a, b);
   }
 }
 

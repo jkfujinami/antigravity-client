@@ -70,6 +70,11 @@ export enum CascadeNuxLocation {
    * @generated from enum value: CASCADE_NUX_LOCATION_ALWAYS_MOUNTED = 13;
    */
   ALWAYS_MOUNTED = 13,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_LOCATION_UI_PLUGINS = 14;
+   */
+  UI_PLUGINS = 14,
 }
 // Retrieve enum metadata with: proto3.getEnumType(CascadeNuxLocation)
 proto3.util.setEnumType(CascadeNuxLocation, "google.internal.cloud.code.v1internal.CascadeNuxLocation", [
@@ -85,6 +90,7 @@ proto3.util.setEnumType(CascadeNuxLocation, "google.internal.cloud.code.v1intern
   { no: 11, name: "CASCADE_NUX_LOCATION_ARTIFACT_VIEW_BOTTOM_LEFT" },
   { no: 12, name: "CASCADE_NUX_LOCATION_CHAT_PANEL_BANNER" },
   { no: 13, name: "CASCADE_NUX_LOCATION_ALWAYS_MOUNTED" },
+  { no: 14, name: "CASCADE_NUX_LOCATION_UI_PLUGINS" },
 ]);
 
 /**
@@ -176,6 +182,11 @@ export enum CascadeNuxTrigger {
    * @generated from enum value: CASCADE_NUX_TRIGGER_MANAGER_CREATE_FIRST_PROJECT_DIALOG = 13;
    */
   MANAGER_CREATE_FIRST_PROJECT_DIALOG = 13,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_TRIGGER_MANAGER_PLUGINS_DASHBOARD_OPENED = 14;
+   */
+  MANAGER_PLUGINS_DASHBOARD_OPENED = 14,
 }
 // Retrieve enum metadata with: proto3.getEnumType(CascadeNuxTrigger)
 proto3.util.setEnumType(CascadeNuxTrigger, "google.internal.cloud.code.v1internal.CascadeNuxTrigger", [
@@ -191,6 +202,7 @@ proto3.util.setEnumType(CascadeNuxTrigger, "google.internal.cloud.code.v1interna
   { no: 11, name: "CASCADE_NUX_TRIGGER_MANAGER_PROJECT_CREATED" },
   { no: 12, name: "CASCADE_NUX_TRIGGER_MANAGER_PROJECT_ENVIRONMENT_SELECTION" },
   { no: 13, name: "CASCADE_NUX_TRIGGER_MANAGER_CREATE_FIRST_PROJECT_DIALOG" },
+  { no: 14, name: "CASCADE_NUX_TRIGGER_MANAGER_PLUGINS_DASHBOARD_OPENED" },
 ]);
 
 /**
@@ -244,6 +256,154 @@ proto3.util.setEnumType(NUXInteractionType, "google.internal.cloud.code.v1intern
   { no: 1, name: "NUX_INTERACTION_TYPE_DISMISSED" },
   { no: 2, name: "NUX_INTERACTION_TYPE_ACCEPTED" },
 ]);
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.ProvisionConversationBundleDirRequest
+ */
+export class ProvisionConversationBundleDirRequest extends Message<ProvisionConversationBundleDirRequest> {
+  constructor(data?: PartialMessage<ProvisionConversationBundleDirRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.ProvisionConversationBundleDirRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProvisionConversationBundleDirRequest {
+    return new ProvisionConversationBundleDirRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProvisionConversationBundleDirRequest {
+    return new ProvisionConversationBundleDirRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProvisionConversationBundleDirRequest {
+    return new ProvisionConversationBundleDirRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ProvisionConversationBundleDirRequest | PlainMessage<ProvisionConversationBundleDirRequest> | undefined, b: ProvisionConversationBundleDirRequest | PlainMessage<ProvisionConversationBundleDirRequest> | undefined): boolean {
+    return proto3.util.equals(ProvisionConversationBundleDirRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.ProvisionConversationBundleDirResponse
+ */
+export class ProvisionConversationBundleDirResponse extends Message<ProvisionConversationBundleDirResponse> {
+  /**
+   * @generated from field: string bundle_dir = 1;
+   */
+  bundleDir = "";
+
+  constructor(data?: PartialMessage<ProvisionConversationBundleDirResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.ProvisionConversationBundleDirResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "bundle_dir", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProvisionConversationBundleDirResponse {
+    return new ProvisionConversationBundleDirResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProvisionConversationBundleDirResponse {
+    return new ProvisionConversationBundleDirResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProvisionConversationBundleDirResponse {
+    return new ProvisionConversationBundleDirResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ProvisionConversationBundleDirResponse | PlainMessage<ProvisionConversationBundleDirResponse> | undefined, b: ProvisionConversationBundleDirResponse | PlainMessage<ProvisionConversationBundleDirResponse> | undefined): boolean {
+    return proto3.util.equals(ProvisionConversationBundleDirResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.GetBundleWriteMintRequest
+ */
+export class GetBundleWriteMintRequest extends Message<GetBundleWriteMintRequest> {
+  constructor(data?: PartialMessage<GetBundleWriteMintRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.GetBundleWriteMintRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetBundleWriteMintRequest {
+    return new GetBundleWriteMintRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetBundleWriteMintRequest {
+    return new GetBundleWriteMintRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetBundleWriteMintRequest {
+    return new GetBundleWriteMintRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetBundleWriteMintRequest | PlainMessage<GetBundleWriteMintRequest> | undefined, b: GetBundleWriteMintRequest | PlainMessage<GetBundleWriteMintRequest> | undefined): boolean {
+    return proto3.util.equals(GetBundleWriteMintRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.GetBundleWriteMintResponse
+ */
+export class GetBundleWriteMintResponse extends Message<GetBundleWriteMintResponse> {
+  /**
+   * @generated from field: string bundle_dir = 1;
+   */
+  bundleDir = "";
+
+  /**
+   * @generated from field: bytes bundle_write_mint = 2;
+   */
+  bundleWriteMint = new Uint8Array(0);
+
+  /**
+   * @generated from field: google.protobuf.Timestamp mint_expiry_time = 3;
+   */
+  mintExpiryTime?: Timestamp;
+
+  constructor(data?: PartialMessage<GetBundleWriteMintResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.GetBundleWriteMintResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "bundle_dir", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "bundle_write_mint", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 3, name: "mint_expiry_time", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetBundleWriteMintResponse {
+    return new GetBundleWriteMintResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetBundleWriteMintResponse {
+    return new GetBundleWriteMintResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetBundleWriteMintResponse {
+    return new GetBundleWriteMintResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetBundleWriteMintResponse | PlainMessage<GetBundleWriteMintResponse> | undefined, b: GetBundleWriteMintResponse | PlainMessage<GetBundleWriteMintResponse> | undefined): boolean {
+    return proto3.util.equals(GetBundleWriteMintResponse, a, b);
+  }
+}
 
 /**
  * @generated from message google.internal.cloud.code.v1internal.SetUserSettingsRequest
@@ -1180,6 +1340,43 @@ export class GStaticSource extends Message<GStaticSource> {
 }
 
 /**
+ * @generated from message google.internal.cloud.code.v1internal.Google3Source
+ */
+export class Google3Source extends Message<Google3Source> {
+  /**
+   * @generated from field: string depot_path = 1;
+   */
+  depotPath = "";
+
+  constructor(data?: PartialMessage<Google3Source>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.Google3Source";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "depot_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Google3Source {
+    return new Google3Source().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Google3Source {
+    return new Google3Source().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Google3Source {
+    return new Google3Source().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Google3Source | PlainMessage<Google3Source> | undefined, b: Google3Source | PlainMessage<Google3Source> | undefined): boolean {
+    return proto3.util.equals(Google3Source, a, b);
+  }
+}
+
+/**
  * @generated from message google.internal.cloud.code.v1internal.BuildWithGooglePlugin
  */
 export class BuildWithGooglePlugin extends Message<BuildWithGooglePlugin> {
@@ -1202,6 +1399,12 @@ export class BuildWithGooglePlugin extends Message<BuildWithGooglePlugin> {
      */
     value: GStaticSource;
     case: "gstatic";
+  } | {
+    /**
+     * @generated from field: google.internal.cloud.code.v1internal.Google3Source google3 = 5;
+     */
+    value: Google3Source;
+    case: "google3";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<BuildWithGooglePlugin>) {
@@ -1215,6 +1418,7 @@ export class BuildWithGooglePlugin extends Message<BuildWithGooglePlugin> {
     { no: 1, name: "plugin", kind: "message", T: AgentPlugin },
     { no: 4, name: "version_shas", kind: "message", T: BuildWithGooglePlugin_VersionShasEntry, repeated: true },
     { no: 3, name: "gstatic", kind: "message", T: GStaticSource, oneof: "source" },
+    { no: 5, name: "google3", kind: "message", T: Google3Source, oneof: "source" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BuildWithGooglePlugin {
@@ -2222,6 +2426,86 @@ export class CheckUrlDenylistResponse extends Message<CheckUrlDenylistResponse> 
 }
 
 /**
+ * @generated from message google.internal.cloud.code.v1internal.CheckUrlAntivirusRequest
+ */
+export class CheckUrlAntivirusRequest extends Message<CheckUrlAntivirusRequest> {
+  /**
+   * @generated from field: string url = 1;
+   */
+  url = "";
+
+  constructor(data?: PartialMessage<CheckUrlAntivirusRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.CheckUrlAntivirusRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CheckUrlAntivirusRequest {
+    return new CheckUrlAntivirusRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CheckUrlAntivirusRequest {
+    return new CheckUrlAntivirusRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CheckUrlAntivirusRequest {
+    return new CheckUrlAntivirusRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CheckUrlAntivirusRequest | PlainMessage<CheckUrlAntivirusRequest> | undefined, b: CheckUrlAntivirusRequest | PlainMessage<CheckUrlAntivirusRequest> | undefined): boolean {
+    return proto3.util.equals(CheckUrlAntivirusRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.CheckUrlAntivirusResponse
+ */
+export class CheckUrlAntivirusResponse extends Message<CheckUrlAntivirusResponse> {
+  /**
+   * @generated from field: bool is_clean = 1;
+   */
+  isClean = false;
+
+  /**
+   * @generated from field: string reason = 2;
+   */
+  reason = "";
+
+  constructor(data?: PartialMessage<CheckUrlAntivirusResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.CheckUrlAntivirusResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "is_clean", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "reason", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CheckUrlAntivirusResponse {
+    return new CheckUrlAntivirusResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CheckUrlAntivirusResponse {
+    return new CheckUrlAntivirusResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CheckUrlAntivirusResponse {
+    return new CheckUrlAntivirusResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CheckUrlAntivirusResponse | PlainMessage<CheckUrlAntivirusResponse> | undefined, b: CheckUrlAntivirusResponse | PlainMessage<CheckUrlAntivirusResponse> | undefined): boolean {
+    return proto3.util.equals(CheckUrlAntivirusResponse, a, b);
+  }
+}
+
+/**
  * @generated from message google.internal.cloud.code.v1internal.GetHealthRequest
  */
 export class GetHealthRequest extends Message<GetHealthRequest> {
@@ -2384,6 +2668,74 @@ export class RecordTrajectoryAnalyticsResponse extends Message<RecordTrajectoryA
 
   static equals(a: RecordTrajectoryAnalyticsResponse | PlainMessage<RecordTrajectoryAnalyticsResponse> | undefined, b: RecordTrajectoryAnalyticsResponse | PlainMessage<RecordTrajectoryAnalyticsResponse> | undefined): boolean {
     return proto3.util.equals(RecordTrajectoryAnalyticsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.WriteTrajectoryACLsRequest
+ */
+export class WriteTrajectoryACLsRequest extends Message<WriteTrajectoryACLsRequest> {
+  /**
+   * @generated from field: string trajectory_id = 1;
+   */
+  trajectoryId = "";
+
+  constructor(data?: PartialMessage<WriteTrajectoryACLsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.WriteTrajectoryACLsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "trajectory_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WriteTrajectoryACLsRequest {
+    return new WriteTrajectoryACLsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WriteTrajectoryACLsRequest {
+    return new WriteTrajectoryACLsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WriteTrajectoryACLsRequest {
+    return new WriteTrajectoryACLsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WriteTrajectoryACLsRequest | PlainMessage<WriteTrajectoryACLsRequest> | undefined, b: WriteTrajectoryACLsRequest | PlainMessage<WriteTrajectoryACLsRequest> | undefined): boolean {
+    return proto3.util.equals(WriteTrajectoryACLsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.WriteTrajectoryACLsResponse
+ */
+export class WriteTrajectoryACLsResponse extends Message<WriteTrajectoryACLsResponse> {
+  constructor(data?: PartialMessage<WriteTrajectoryACLsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.WriteTrajectoryACLsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WriteTrajectoryACLsResponse {
+    return new WriteTrajectoryACLsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WriteTrajectoryACLsResponse {
+    return new WriteTrajectoryACLsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WriteTrajectoryACLsResponse {
+    return new WriteTrajectoryACLsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WriteTrajectoryACLsResponse | PlainMessage<WriteTrajectoryACLsResponse> | undefined, b: WriteTrajectoryACLsResponse | PlainMessage<WriteTrajectoryACLsResponse> | undefined): boolean {
+    return proto3.util.equals(WriteTrajectoryACLsResponse, a, b);
   }
 }
 
@@ -2573,6 +2925,11 @@ export class BattleModeAutoTriggerRequest extends Message<BattleModeAutoTriggerR
    */
   modelId = "";
 
+  /**
+   * @generated from field: string prompt = 3;
+   */
+  prompt = "";
+
   constructor(data?: PartialMessage<BattleModeAutoTriggerRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -2583,6 +2940,7 @@ export class BattleModeAutoTriggerRequest extends Message<BattleModeAutoTriggerR
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "last_auto_trigger_request_time", kind: "message", T: Timestamp },
     { no: 2, name: "model_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "prompt", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BattleModeAutoTriggerRequest {
@@ -2616,6 +2974,11 @@ export class BattleModeAutoTriggerResponse extends Message<BattleModeAutoTrigger
    */
   triggerTag = "";
 
+  /**
+   * @generated from field: string banner_text = 3;
+   */
+  bannerText = "";
+
   constructor(data?: PartialMessage<BattleModeAutoTriggerResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -2626,6 +2989,7 @@ export class BattleModeAutoTriggerResponse extends Message<BattleModeAutoTrigger
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "target_battle_n", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 2, name: "trigger_tag", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "banner_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BattleModeAutoTriggerResponse {
@@ -2644,4 +3008,141 @@ export class BattleModeAutoTriggerResponse extends Message<BattleModeAutoTrigger
     return proto3.util.equals(BattleModeAutoTriggerResponse, a, b);
   }
 }
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.UploadPerformanceProfileRequest
+ */
+export class UploadPerformanceProfileRequest extends Message<UploadPerformanceProfileRequest> {
+  /**
+   * @generated from field: google.internal.cloud.code.v1internal.PerformanceProfile performance_profile = 1;
+   */
+  performanceProfile?: PerformanceProfile;
+
+  constructor(data?: PartialMessage<UploadPerformanceProfileRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.UploadPerformanceProfileRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "performance_profile", kind: "message", T: PerformanceProfile },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UploadPerformanceProfileRequest {
+    return new UploadPerformanceProfileRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UploadPerformanceProfileRequest {
+    return new UploadPerformanceProfileRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UploadPerformanceProfileRequest {
+    return new UploadPerformanceProfileRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UploadPerformanceProfileRequest | PlainMessage<UploadPerformanceProfileRequest> | undefined, b: UploadPerformanceProfileRequest | PlainMessage<UploadPerformanceProfileRequest> | undefined): boolean {
+    return proto3.util.equals(UploadPerformanceProfileRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.UploadPerformanceProfileResponse
+ */
+export class UploadPerformanceProfileResponse extends Message<UploadPerformanceProfileResponse> {
+  constructor(data?: PartialMessage<UploadPerformanceProfileResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.UploadPerformanceProfileResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UploadPerformanceProfileResponse {
+    return new UploadPerformanceProfileResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UploadPerformanceProfileResponse {
+    return new UploadPerformanceProfileResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UploadPerformanceProfileResponse {
+    return new UploadPerformanceProfileResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UploadPerformanceProfileResponse | PlainMessage<UploadPerformanceProfileResponse> | undefined, b: UploadPerformanceProfileResponse | PlainMessage<UploadPerformanceProfileResponse> | undefined): boolean {
+    return proto3.util.equals(UploadPerformanceProfileResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message google.internal.cloud.code.v1internal.PerformanceProfile
+ */
+export class PerformanceProfile extends Message<PerformanceProfile> {
+  /**
+   * @generated from field: bytes profile_bytes = 1;
+   */
+  profileBytes = new Uint8Array(0);
+
+  /**
+   * @generated from field: google.internal.cloud.code.v1internal.PerformanceProfile.Type profile_type = 2;
+   */
+  profileType = PerformanceProfile_Type.TYPE_UNSPECIFIED;
+
+  constructor(data?: PartialMessage<PerformanceProfile>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.internal.cloud.code.v1internal.PerformanceProfile";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "profile_bytes", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "profile_type", kind: "enum", T: proto3.getEnumType(PerformanceProfile_Type) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PerformanceProfile {
+    return new PerformanceProfile().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PerformanceProfile {
+    return new PerformanceProfile().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PerformanceProfile {
+    return new PerformanceProfile().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PerformanceProfile | PlainMessage<PerformanceProfile> | undefined, b: PerformanceProfile | PlainMessage<PerformanceProfile> | undefined): boolean {
+    return proto3.util.equals(PerformanceProfile, a, b);
+  }
+}
+
+/**
+ * @generated from enum google.internal.cloud.code.v1internal.PerformanceProfile.Type
+ */
+export enum PerformanceProfile_Type {
+  /**
+   * @generated from enum value: TYPE_UNSPECIFIED = 0;
+   */
+  TYPE_UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CPU = 1;
+   */
+  CPU = 1,
+
+  /**
+   * @generated from enum value: HEAP = 2;
+   */
+  HEAP = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(PerformanceProfile_Type)
+proto3.util.setEnumType(PerformanceProfile_Type, "google.internal.cloud.code.v1internal.PerformanceProfile.Type", [
+  { no: 0, name: "TYPE_UNSPECIFIED" },
+  { no: 1, name: "CPU" },
+  { no: 2, name: "HEAP" },
+]);
 

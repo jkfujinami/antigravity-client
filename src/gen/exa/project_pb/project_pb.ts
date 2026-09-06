@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
 import { AgentSettingPolicy, ArtifactReviewMode, CascadeCommandsAutoExecution, PermissionGrantsConfig } from "../codeium_common_pb/codeium_common_pb.js";
 
 /**
@@ -526,6 +526,16 @@ export class ProjectSettings extends Message<ProjectSettings> {
    */
   artifactReviewMode = ArtifactReviewMode.UNSPECIFIED;
 
+  /**
+   * @generated from field: bool enable_permissioned_github = 6;
+   */
+  enablePermissionedGithub = false;
+
+  /**
+   * @generated from field: string shell_setup_script = 7;
+   */
+  shellSetupScript = "";
+
   constructor(data?: PartialMessage<ProjectSettings>) {
     super();
     proto3.util.initPartial(data, this);
@@ -539,6 +549,8 @@ export class ProjectSettings extends Message<ProjectSettings> {
     { no: 3, name: "sandbox_mode", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 4, name: "auto_execution_policy", kind: "enum", T: proto3.getEnumType(CascadeCommandsAutoExecution) },
     { no: 5, name: "artifact_review_mode", kind: "enum", T: proto3.getEnumType(ArtifactReviewMode) },
+    { no: 6, name: "enable_permissioned_github", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: "shell_setup_script", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProjectSettings {
@@ -597,6 +609,21 @@ export class Project extends Message<Project> {
    */
   settings?: ProjectSettings;
 
+  /**
+   * @generated from field: google.protobuf.Timestamp updated_at = 11;
+   */
+  updatedAt?: Timestamp;
+
+  /**
+   * @generated from field: bool is_workspace_only = 12;
+   */
+  isWorkspaceOnly = false;
+
+  /**
+   * @generated from field: bool archived = 13;
+   */
+  archived = false;
+
   constructor(data?: PartialMessage<Project>) {
     super();
     proto3.util.initPartial(data, this);
@@ -612,6 +639,9 @@ export class Project extends Message<Project> {
     { no: 7, name: "environments", kind: "message", T: Environments },
     { no: 9, name: "permission_grants", kind: "message", T: PermissionGrants },
     { no: 10, name: "settings", kind: "message", T: ProjectSettings },
+    { no: 11, name: "updated_at", kind: "message", T: Timestamp },
+    { no: 12, name: "is_workspace_only", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 13, name: "archived", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Project {

@@ -71,6 +71,7 @@ export const CascadeEvents = {
     Critique: "step:critique" as const,
     DeleteDirectory: "step:deleteDirectory" as const,
     DeployFirebase: "step:deployFirebase" as const,
+    DirectoryRules: "step:directoryRules" as const,
     Dummy: "step:dummy" as const,
     EditNotebook: "step:editNotebook" as const,
     EphemeralMessage: "step:ephemeralMessage" as const,
@@ -135,6 +136,7 @@ export const CascadeEvents = {
     TaskBoundary: "step:taskBoundary" as const,
     ToolCallChoice: "step:toolCallChoice" as const,
     ToolCallProposal: "step:toolCallProposal" as const,
+    ToolSearch: "step:toolSearch" as const,
     TrajectoryChoice: "step:trajectoryChoice" as const,
     TrajectorySearch: "step:trajectorySearch" as const,
     UserInput: "step:userInput" as const,
@@ -208,6 +210,7 @@ export interface CascadeEventPayloads {
     "step:critique": import("./index.js").CascadeStep & { type: "critique", value: StepValue<"critique"> };
     "step:deleteDirectory": import("./index.js").CascadeStep & { type: "deleteDirectory", value: StepValue<"deleteDirectory"> };
     "step:deployFirebase": import("./index.js").CascadeStep & { type: "deployFirebase", value: StepValue<"deployFirebase"> };
+    "step:directoryRules": import("./index.js").CascadeStep & { type: "directoryRules", value: StepValue<"directoryRules"> };
     "step:dummy": import("./index.js").CascadeStep & { type: "dummy", value: StepValue<"dummy"> };
     "step:editNotebook": import("./index.js").CascadeStep & { type: "editNotebook", value: StepValue<"editNotebook"> };
     "step:ephemeralMessage": import("./index.js").CascadeStep & { type: "ephemeralMessage", value: StepValue<"ephemeralMessage"> };
@@ -272,6 +275,7 @@ export interface CascadeEventPayloads {
     "step:taskBoundary": import("./index.js").CascadeStep & { type: "taskBoundary", value: StepValue<"taskBoundary"> };
     "step:toolCallChoice": import("./index.js").CascadeStep & { type: "toolCallChoice", value: StepValue<"toolCallChoice"> };
     "step:toolCallProposal": import("./index.js").CascadeStep & { type: "toolCallProposal", value: StepValue<"toolCallProposal"> };
+    "step:toolSearch": import("./index.js").CascadeStep & { type: "toolSearch", value: StepValue<"toolSearch"> };
     "step:trajectoryChoice": import("./index.js").CascadeStep & { type: "trajectoryChoice", value: StepValue<"trajectoryChoice"> };
     "step:trajectorySearch": import("./index.js").CascadeStep & { type: "trajectorySearch", value: StepValue<"trajectorySearch"> };
     "step:userInput": import("./index.js").CascadeStep & { type: "userInput", value: StepValue<"userInput"> };

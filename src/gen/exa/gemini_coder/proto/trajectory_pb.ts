@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Any, Message, proto3 } from "@bufbuild/protobuf";
-import { BattleModeInfo, CascadeConfig, CompletedInteraction, CortexErrorDetails, CortexStepAgencyToolCall, CortexStepAskQuestion, CortexStepBrainUpdate, CortexStepBrowserClickElement, CortexStepBrowserDragPixelToPixel, CortexStepBrowserGetDom, CortexStepBrowserGetNetworkRequest, CortexStepBrowserInput, CortexStepBrowserListNetworkRequests, CortexStepBrowserMouseDown, CortexStepBrowserMouseUp, CortexStepBrowserMouseWheel, CortexStepBrowserMoveMouse, CortexStepBrowserPressKey, CortexStepBrowserRefreshPage, CortexStepBrowserResizeWindow, CortexStepBrowserScroll, CortexStepBrowserScrollDown, CortexStepBrowserScrollUp, CortexStepBrowserSelectOption, CortexStepBrowserSubagent, CortexStepCaptureBrowserConsoleLogs, CortexStepCaptureBrowserScreenshot, CortexStepCheckDeployStatus, CortexStepCheckpoint, CortexStepClickBrowserPixel, CortexStepClipboard, CortexStepCloudSQLExecuteSQL, CortexStepCloudSQLSchemaUpdate, CortexStepCodeAcknowledgement, CortexStepCodeAction, CortexStepCodeSearch, CortexStepCommandStatus, CortexStepCompile, CortexStepCompileApplet, CortexStepConversationHistory, CortexStepDeleteDirectory, CortexStepDeployFirebase, CortexStepDirectoryRules, CortexStepDummy, CortexStepEditNotebook, CortexStepEphemeralMessage, CortexStepErrorMessage, CortexStepExecuteBrowserJavaScript, CortexStepExecuteNotebook, CortexStepFileBreakdown, CortexStepFileChange, CortexStepFind, CortexStepFindAllReferences, CortexStepFinish, CortexStepGenerateImage, CortexStepGeneratorMetadata, CortexStepGeneric, CortexStepGitCommit, CortexStepGrepSearch, CortexStepInstallAppletDependencies, CortexStepInstallAppletPackage, CortexStepInternalSearch, CortexStepInvokeSubagent, CortexStepKIInsertion, CortexStepKnowledgeArtifacts, CortexStepKnowledgeGeneration, CortexStepLintApplet, CortexStepLintDiff, CortexStepListBrowserPages, CortexStepListDirectory, CortexStepListResources, CortexStepLookupKnowledgeBase, CortexStepManagerFeedback, CortexStepMcpTool, CortexStepMemory, CortexStepMetadata, CortexStepMove, CortexStepMquery, CortexStepNotifyUser, CortexStepOpenBrowserUrl, CortexStepPlanInput, CortexStepPlannerResponse, CortexStepPostPrReview, CortexStepProposalFeedback, CortexStepProposeCode, CortexStepReadBrowserPage, CortexStepReadNotebook, CortexStepReadResource, CortexStepReadTerminal, CortexStepReadUrlContent, CortexStepRestartDevServer, CortexStepRetrieveMemory, CortexStepRPCAction, CortexStepRunCommand, CortexStepRunExtensionCode, CortexStepSearchKnowledgeBase, CortexStepSearchWeb, CortexStepSendCommandInput, CortexStepSetUpCloudSql, CortexStepSetUpFirebase, CortexStepShellExec, CortexStepStatus, CortexStepSuggestedResponses, CortexStepSystemMessage, CortexStepTaskBoundary, CortexStepToolCallChoice, CortexStepToolCallProposal, CortexStepTrajectoryChoice, CortexStepTrajectorySearch, CortexStepType, CortexStepUserInput, CortexStepViewCodeItem, CortexStepViewContentChunk, CortexStepViewFile, CortexStepViewFileOutline, CortexStepWait, CortexStepWorkspaceAPI, CortexStepWriteBlob, CortexStepWriteToFile, CortexTrajectoryMetadata, CortexTrajectoryReference, CortexTrajectorySource, CortexTrajectoryType, ExecutorMetadata, RequestedInteraction, TrajectoryPermissions, UserStepAnnotations } from "../../cortex_pb/cortex_pb.js";
+import { BattleModeInfo, CascadeConfig, CompletedInteraction, CortexErrorDetails, CortexStepAgencyToolCall, CortexStepAskQuestion, CortexStepBrainUpdate, CortexStepBrowserClickElement, CortexStepBrowserDragPixelToPixel, CortexStepBrowserGetDom, CortexStepBrowserGetNetworkRequest, CortexStepBrowserInput, CortexStepBrowserListNetworkRequests, CortexStepBrowserMouseDown, CortexStepBrowserMouseUp, CortexStepBrowserMouseWheel, CortexStepBrowserMoveMouse, CortexStepBrowserPressKey, CortexStepBrowserRefreshPage, CortexStepBrowserResizeWindow, CortexStepBrowserScroll, CortexStepBrowserScrollDown, CortexStepBrowserScrollUp, CortexStepBrowserSelectOption, CortexStepBrowserSubagent, CortexStepCaptureBrowserConsoleLogs, CortexStepCaptureBrowserScreenshot, CortexStepCheckDeployStatus, CortexStepCheckpoint, CortexStepClickBrowserPixel, CortexStepClipboard, CortexStepCloudSQLExecuteSQL, CortexStepCloudSQLSchemaUpdate, CortexStepCodeAcknowledgement, CortexStepCodeAction, CortexStepCodeSearch, CortexStepCommandStatus, CortexStepCompile, CortexStepCompileApplet, CortexStepConversationHistory, CortexStepDeleteDirectory, CortexStepDeployFirebase, CortexStepDirectoryRules, CortexStepDummy, CortexStepEditNotebook, CortexStepEphemeralMessage, CortexStepErrorMessage, CortexStepExecuteBrowserJavaScript, CortexStepExecuteNotebook, CortexStepFileBreakdown, CortexStepFileChange, CortexStepFind, CortexStepFindAllReferences, CortexStepFinish, CortexStepGenerateImage, CortexStepGeneratorMetadata, CortexStepGeneric, CortexStepGitCommit, CortexStepGrepSearch, CortexStepInstallAppletDependencies, CortexStepInstallAppletPackage, CortexStepInternalSearch, CortexStepInvokeSubagent, CortexStepKIInsertion, CortexStepKnowledgeArtifacts, CortexStepKnowledgeGeneration, CortexStepLintApplet, CortexStepLintDiff, CortexStepListBrowserPages, CortexStepListDirectory, CortexStepListResources, CortexStepLookupKnowledgeBase, CortexStepManagerFeedback, CortexStepMcpTool, CortexStepMemory, CortexStepMetadata, CortexStepMove, CortexStepMquery, CortexStepNotifyUser, CortexStepOpenBrowserUrl, CortexStepPlanInput, CortexStepPlannerResponse, CortexStepPostPrReview, CortexStepProposalFeedback, CortexStepProposeCode, CortexStepReadBrowserPage, CortexStepReadNotebook, CortexStepReadResource, CortexStepReadTerminal, CortexStepReadUrlContent, CortexStepRestartDevServer, CortexStepRetrieveMemory, CortexStepRPCAction, CortexStepRunCommand, CortexStepRunExtensionCode, CortexStepSearchKnowledgeBase, CortexStepSearchWeb, CortexStepSendCommandInput, CortexStepSetUpCloudSql, CortexStepSetUpFirebase, CortexStepShellExec, CortexStepStatus, CortexStepSuggestedResponses, CortexStepSystemMessage, CortexStepTaskBoundary, CortexStepToolCallChoice, CortexStepToolCallProposal, CortexStepToolSearch, CortexStepTrajectoryChoice, CortexStepTrajectorySearch, CortexStepType, CortexStepUserInput, CortexStepViewCodeItem, CortexStepViewContentChunk, CortexStepViewFile, CortexStepViewFileOutline, CortexStepWait, CortexStepWorkspaceAPI, CortexStepWriteBlob, CortexStepWriteToFile, CortexTrajectoryMetadata, CortexTrajectoryReference, CortexTrajectorySource, CortexTrajectoryType, ExecutorMetadata, RequestedInteraction, TrajectoryPermissions, UserStepAnnotations } from "../../cortex_pb/cortex_pb.js";
 import { BuildCleanerStep, BuildTargetsStep, CritiqueStep, FindingsStep, MomaStep, RetrieveContentStep, TestTargetsStep } from "../cider/proto/trajectory_steps_pb.js";
 
 /**
@@ -264,6 +264,11 @@ export class TaskDetails extends Message<TaskDetails> {
    */
   requiresInputApproval = false;
 
+  /**
+   * @generated from field: bool is_daemon = 6;
+   */
+  isDaemon = false;
+
   constructor(data?: PartialMessage<TaskDetails>) {
     super();
     proto3.util.initPartial(data, this);
@@ -277,6 +282,7 @@ export class TaskDetails extends Message<TaskDetails> {
     { no: 3, name: "progress", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "requires_input_approval", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "is_daemon", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TaskDetails {
@@ -372,12 +378,6 @@ export class Step extends Message<Step> {
     case: "finish";
   } | {
     /**
-     * @generated from field: exa.cortex_pb.CortexStepMquery mquery = 9;
-     */
-    value: CortexStepMquery;
-    case: "mquery";
-  } | {
-    /**
      * @generated from field: exa.cortex_pb.CortexStepCodeAction code_action = 10;
      */
     value: CortexStepCodeAction;
@@ -394,18 +394,6 @@ export class Step extends Message<Step> {
      */
     value: CortexStepGrepSearch;
     case: "grepSearch";
-  } | {
-    /**
-     * @generated from field: exa.cortex_pb.CortexStepCompile compile = 16;
-     */
-    value: CortexStepCompile;
-    case: "compile";
-  } | {
-    /**
-     * @generated from field: exa.cortex_pb.CortexStepViewCodeItem view_code_item = 22;
-     */
-    value: CortexStepViewCodeItem;
-    case: "viewCodeItem";
   } | {
     /**
      * @generated from field: exa.cortex_pb.CortexStepErrorMessage error_message = 24;
@@ -444,12 +432,6 @@ export class Step extends Message<Step> {
     case: "readUrlContent";
   } | {
     /**
-     * @generated from field: exa.cortex_pb.CortexStepViewContentChunk view_content_chunk = 41;
-     */
-    value: CortexStepViewContentChunk;
-    case: "viewContentChunk";
-  } | {
-    /**
      * @generated from field: exa.cortex_pb.CortexStepSearchWeb search_web = 42;
      */
     value: CortexStepSearchWeb;
@@ -466,12 +448,6 @@ export class Step extends Message<Step> {
      */
     value: CortexStepClipboard;
     case: "clipboard";
-  } | {
-    /**
-     * @generated from field: exa.cortex_pb.CortexStepViewFileOutline view_file_outline = 58;
-     */
-    value: CortexStepViewFileOutline;
-    case: "viewFileOutline";
   } | {
     /**
      * @generated from field: exa.cortex_pb.CortexStepListResources list_resources = 62;
@@ -496,12 +472,6 @@ export class Step extends Message<Step> {
      */
     value: CortexStepOpenBrowserUrl;
     case: "openBrowserUrl";
-  } | {
-    /**
-     * @generated from field: exa.cortex_pb.CortexStepTrajectorySearch trajectory_search = 72;
-     */
-    value: CortexStepTrajectorySearch;
-    case: "trajectorySearch";
   } | {
     /**
      * @generated from field: exa.cortex_pb.CortexStepExecuteBrowserJavaScript execute_browser_javascript = 73;
@@ -604,18 +574,6 @@ export class Step extends Message<Step> {
      */
     value: CortexStepBrowserPressKey;
     case: "browserPressKey";
-  } | {
-    /**
-     * @generated from field: exa.cortex_pb.CortexStepTaskBoundary task_boundary = 93;
-     */
-    value: CortexStepTaskBoundary;
-    case: "taskBoundary";
-  } | {
-    /**
-     * @generated from field: exa.cortex_pb.CortexStepNotifyUser notify_user = 94;
-     */
-    value: CortexStepNotifyUser;
-    case: "notifyUser";
   } | {
     /**
      * @generated from field: exa.cortex_pb.CortexStepCodeAcknowledgement code_acknowledgement = 95;
@@ -726,12 +684,6 @@ export class Step extends Message<Step> {
     case: "kiInsertion";
   } | {
     /**
-     * @generated from field: exa.cortex_pb.CortexStepWorkspaceAPI workspace_api = 136;
-     */
-    value: CortexStepWorkspaceAPI;
-    case: "workspaceApi";
-  } | {
-    /**
      * @generated from field: exa.cortex_pb.CortexStepInvokeSubagent invoke_subagent = 143;
      */
     value: CortexStepInvokeSubagent;
@@ -754,6 +706,12 @@ export class Step extends Message<Step> {
      */
     value: CortexStepDirectoryRules;
     case: "directoryRules";
+  } | {
+    /**
+     * @generated from field: exa.cortex_pb.CortexStepToolSearch tool_search = 157;
+     */
+    value: CortexStepToolSearch;
+    case: "toolSearch";
   } | {
     /**
      * @generated from field: exa.cortex_pb.CortexStepExecuteNotebook execute_notebook = 150;
@@ -954,6 +912,60 @@ export class Step extends Message<Step> {
     case: "dummy";
   } | {
     /**
+     * @generated from field: exa.cortex_pb.CortexStepMquery mquery = 9;
+     */
+    value: CortexStepMquery;
+    case: "mquery";
+  } | {
+    /**
+     * @generated from field: exa.cortex_pb.CortexStepCompile compile = 16;
+     */
+    value: CortexStepCompile;
+    case: "compile";
+  } | {
+    /**
+     * @generated from field: exa.cortex_pb.CortexStepViewCodeItem view_code_item = 22;
+     */
+    value: CortexStepViewCodeItem;
+    case: "viewCodeItem";
+  } | {
+    /**
+     * @generated from field: exa.cortex_pb.CortexStepViewContentChunk view_content_chunk = 41;
+     */
+    value: CortexStepViewContentChunk;
+    case: "viewContentChunk";
+  } | {
+    /**
+     * @generated from field: exa.cortex_pb.CortexStepViewFileOutline view_file_outline = 58;
+     */
+    value: CortexStepViewFileOutline;
+    case: "viewFileOutline";
+  } | {
+    /**
+     * @generated from field: exa.cortex_pb.CortexStepTrajectorySearch trajectory_search = 72;
+     */
+    value: CortexStepTrajectorySearch;
+    case: "trajectorySearch";
+  } | {
+    /**
+     * @generated from field: exa.cortex_pb.CortexStepTaskBoundary task_boundary = 93;
+     */
+    value: CortexStepTaskBoundary;
+    case: "taskBoundary";
+  } | {
+    /**
+     * @generated from field: exa.cortex_pb.CortexStepNotifyUser notify_user = 94;
+     */
+    value: CortexStepNotifyUser;
+    case: "notifyUser";
+  } | {
+    /**
+     * @generated from field: exa.cortex_pb.CortexStepWorkspaceAPI workspace_api = 136;
+     */
+    value: CortexStepWorkspaceAPI;
+    case: "workspaceApi";
+  } | {
+    /**
      * @generated from field: exa.cortex_pb.CortexStepPlanInput plan_input = 8;
      */
     value: CortexStepPlanInput;
@@ -1089,28 +1101,22 @@ export class Step extends Message<Step> {
     { no: 6, name: "subtrajectory", kind: "message", T: Trajectory },
     { no: 140, name: "generic", kind: "message", T: CortexStepGeneric, oneof: "step" },
     { no: 12, name: "finish", kind: "message", T: CortexStepFinish, oneof: "step" },
-    { no: 9, name: "mquery", kind: "message", T: CortexStepMquery, oneof: "step" },
     { no: 10, name: "code_action", kind: "message", T: CortexStepCodeAction, oneof: "step" },
     { no: 11, name: "git_commit", kind: "message", T: CortexStepGitCommit, oneof: "step" },
     { no: 13, name: "grep_search", kind: "message", T: CortexStepGrepSearch, oneof: "step" },
-    { no: 16, name: "compile", kind: "message", T: CortexStepCompile, oneof: "step" },
-    { no: 22, name: "view_code_item", kind: "message", T: CortexStepViewCodeItem, oneof: "step" },
     { no: 24, name: "error_message", kind: "message", T: CortexStepErrorMessage, oneof: "step" },
     { no: 28, name: "run_command", kind: "message", T: CortexStepRunCommand, oneof: "step" },
     { no: 34, name: "find", kind: "message", T: CortexStepFind, oneof: "step" },
     { no: 36, name: "suggested_responses", kind: "message", T: CortexStepSuggestedResponses, oneof: "step" },
     { no: 37, name: "command_status", kind: "message", T: CortexStepCommandStatus, oneof: "step" },
     { no: 40, name: "read_url_content", kind: "message", T: CortexStepReadUrlContent, oneof: "step" },
-    { no: 41, name: "view_content_chunk", kind: "message", T: CortexStepViewContentChunk, oneof: "step" },
     { no: 42, name: "search_web", kind: "message", T: CortexStepSearchWeb, oneof: "step" },
     { no: 47, name: "mcp_tool", kind: "message", T: CortexStepMcpTool, oneof: "step" },
     { no: 55, name: "clipboard", kind: "message", T: CortexStepClipboard, oneof: "step" },
-    { no: 58, name: "view_file_outline", kind: "message", T: CortexStepViewFileOutline, oneof: "step" },
     { no: 62, name: "list_resources", kind: "message", T: CortexStepListResources, oneof: "step" },
     { no: 63, name: "read_resource", kind: "message", T: CortexStepReadResource, oneof: "step" },
     { no: 64, name: "lint_diff", kind: "message", T: CortexStepLintDiff, oneof: "step" },
     { no: 67, name: "open_browser_url", kind: "message", T: CortexStepOpenBrowserUrl, oneof: "step" },
-    { no: 72, name: "trajectory_search", kind: "message", T: CortexStepTrajectorySearch, oneof: "step" },
     { no: 73, name: "execute_browser_javascript", kind: "message", T: CortexStepExecuteBrowserJavaScript, oneof: "step" },
     { no: 74, name: "list_browser_pages", kind: "message", T: CortexStepListBrowserPages, oneof: "step" },
     { no: 75, name: "capture_browser_screenshot", kind: "message", T: CortexStepCaptureBrowserScreenshot, oneof: "step" },
@@ -1128,8 +1134,6 @@ export class Step extends Message<Step> {
     { no: 137, name: "browser_list_network_requests", kind: "message", T: CortexStepBrowserListNetworkRequests, oneof: "step" },
     { no: 138, name: "browser_get_network_request", kind: "message", T: CortexStepBrowserGetNetworkRequest, oneof: "step" },
     { no: 92, name: "browser_press_key", kind: "message", T: CortexStepBrowserPressKey, oneof: "step" },
-    { no: 93, name: "task_boundary", kind: "message", T: CortexStepTaskBoundary, oneof: "step" },
-    { no: 94, name: "notify_user", kind: "message", T: CortexStepNotifyUser, oneof: "step" },
     { no: 95, name: "code_acknowledgement", kind: "message", T: CortexStepCodeAcknowledgement, oneof: "step" },
     { no: 96, name: "internal_search", kind: "message", T: CortexStepInternalSearch, oneof: "step" },
     { no: 97, name: "browser_subagent", kind: "message", T: CortexStepBrowserSubagent, oneof: "step" },
@@ -1148,11 +1152,11 @@ export class Step extends Message<Step> {
     { no: 114, name: "system_message", kind: "message", T: CortexStepSystemMessage, oneof: "step" },
     { no: 115, name: "wait", kind: "message", T: CortexStepWait, oneof: "step" },
     { no: 129, name: "ki_insertion", kind: "message", T: CortexStepKIInsertion, oneof: "step" },
-    { no: 136, name: "workspace_api", kind: "message", T: CortexStepWorkspaceAPI, oneof: "step" },
     { no: 143, name: "invoke_subagent", kind: "message", T: CortexStepInvokeSubagent, oneof: "step" },
     { no: 152, name: "rpc_action", kind: "message", T: CortexStepRPCAction, oneof: "step" },
     { no: 154, name: "ask_question", kind: "message", T: CortexStepAskQuestion, oneof: "step" },
     { no: 156, name: "directory_rules", kind: "message", T: CortexStepDirectoryRules, oneof: "step" },
+    { no: 157, name: "tool_search", kind: "message", T: CortexStepToolSearch, oneof: "step" },
     { no: 150, name: "execute_notebook", kind: "message", T: CortexStepExecuteNotebook, oneof: "step" },
     { no: 144, name: "read_notebook", kind: "message", T: CortexStepReadNotebook, oneof: "step" },
     { no: 141, name: "edit_notebook", kind: "message", T: CortexStepEditNotebook, oneof: "step" },
@@ -1186,6 +1190,15 @@ export class Step extends Message<Step> {
     { no: 100, name: "move", kind: "message", T: CortexStepMove, oneof: "step" },
     { no: 103, name: "ephemeral_message", kind: "message", T: CortexStepEphemeralMessage, oneof: "step" },
     { no: 7, name: "dummy", kind: "message", T: CortexStepDummy, oneof: "step" },
+    { no: 9, name: "mquery", kind: "message", T: CortexStepMquery, oneof: "step" },
+    { no: 16, name: "compile", kind: "message", T: CortexStepCompile, oneof: "step" },
+    { no: 22, name: "view_code_item", kind: "message", T: CortexStepViewCodeItem, oneof: "step" },
+    { no: 41, name: "view_content_chunk", kind: "message", T: CortexStepViewContentChunk, oneof: "step" },
+    { no: 58, name: "view_file_outline", kind: "message", T: CortexStepViewFileOutline, oneof: "step" },
+    { no: 72, name: "trajectory_search", kind: "message", T: CortexStepTrajectorySearch, oneof: "step" },
+    { no: 93, name: "task_boundary", kind: "message", T: CortexStepTaskBoundary, oneof: "step" },
+    { no: 94, name: "notify_user", kind: "message", T: CortexStepNotifyUser, oneof: "step" },
+    { no: 136, name: "workspace_api", kind: "message", T: CortexStepWorkspaceAPI, oneof: "step" },
     { no: 8, name: "plan_input", kind: "message", T: CortexStepPlanInput, oneof: "step" },
     { no: 21, name: "file_breakdown", kind: "message", T: CortexStepFileBreakdown, oneof: "step" },
     { no: 23, name: "write_to_file", kind: "message", T: CortexStepWriteToFile, oneof: "step" },

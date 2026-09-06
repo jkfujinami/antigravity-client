@@ -1,0 +1,57 @@
+syntax = "proto3";
+package google.internal.cloud.code.v1internal;
+
+import "google/protobuf/timestamp.proto";
+
+message RetrieveUserQuotaRequest {
+  string project = 1;
+}
+
+message RetrieveUserQuotaResponse {
+  enum TokenType {
+    TOKEN_TYPE_UNSPECIFIED = 0;
+    REQUESTS = 1;
+    WTUS = 2;
+  }
+
+  message BucketInfo {
+    google.protobuf.Timestamp reset_time = 2;
+    google.internal.cloud.code.v1internal.RetrieveUserQuotaResponse.TokenType token_type = 3;
+    string model_id = 4;
+    oneof remaining {
+      int64 remaining_amount = 1;
+      float remaining_fraction = 5;
+    }
+  }
+
+  repeated google.internal.cloud.code.v1internal.RetrieveUserQuotaResponse.BucketInfo buckets = 1;
+}
+
+message RetrieveUserQuotaSummaryRequest {
+  string project = 1;
+}
+
+message QuotaSummaryBucket {
+  string bucket_id = 1;
+  string display_name = 2;
+  string description = 7;
+  string window = 3;
+  bool disabled = 8;
+  google.protobuf.Timestamp reset_time = 6;
+  oneof remaining {
+    float remaining_fraction = 4;
+    int64 remaining_amount = 5;
+  }
+}
+
+message QuotaSummaryGroup {
+  string display_name = 2;
+  string description = 3;
+  repeated google.internal.cloud.code.v1internal.QuotaSummaryBucket buckets = 1;
+}
+
+message RetrieveUserQuotaSummaryResponse {
+  repeated google.internal.cloud.code.v1internal.QuotaSummaryBucket buckets = 1;
+  repeated google.internal.cloud.code.v1internal.QuotaSummaryGroup groups = 2;
+  string description = 3;
+}

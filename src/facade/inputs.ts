@@ -3,35 +3,72 @@
 
 /* eslint-disable */
 
-import { APIProvider, AgentBrowserTools, AnnotationsConfig, ArtifactApprovalStatus, ArtifactReviewMode, ArtifactType, AutoContinueOnMaxGeneratorInvocations, AutocompleteSpeed, BrowserJsAutoRunPolicy, BrowserJsExecutionPolicy, CascadeCommandsAutoExecution, CascadeInputAutocomplete, CascadeNUXIcon, CascadeNUXLocation, CascadeNUXTrigger, CascadeRunExtensionCode, CascadeRunExtensionCodeAutoRun, CascadeWebSearchTool, ChatMessageSource, CodeContextType, ContextScopeType, ContextSnippetType, ConversationalPlannerMode, DeploymentBuildStatus, DeploymentProvider, DetectAndUseProxy, DocumentType, EventType, ExperimentKey, ExperimentSource, IndexChoice, Language, MarkdownNodeType, Model, ModelAlias, ModelPricingType, ModelProvider, ModelStatus, ModelType, Permission, PlanMode, PlanningMode, PromptAnnotationKind, PromptTemplaterType, ProviderSource, RefreshCustomizationType, RememberLastModelSelection, ScmProvider, ScmType, StatusLevel, StopReason, TabEnabled, TabToJump, TeamsFeatures, TeamsTier, TerminalShellCommandSource, TerminalShellCommandStatus, ThemePreference, ThirdPartyWebSearchProvider, ToolFormatterType, TransactionStatus, UserFeatures, UserTeamStatus, WorkingDirectoryStatus } from "../gen/exa/codeium_common_pb/codeium_common_pb.js";
-import { AcknowledgementType, AgentMode, ArtifactReviewStatus, AutoRunDecision, BrainEntryType, BrainUpdateTrigger, BrowserActionWaitingReason, BrowserEphemeralOption, BrowserSubagentContextConfig_ContextType, BrowserSubagentMode, BrowserToolSetMode, CascadeRunStatus, CheckpointStrategy, ClickFeedbackConfig_FeedbackType, CloudSQLUpdateSchemaErrorCode, CloudSQLUpdateSchemaResult, CodeAcknowledgementScope, CodeHeuristicFailure, CommandOutputPriority, CortexMemorySource, CortexMemoryTrigger, CortexStepCompileTool, CortexStepExecuteNotebook_CellStatus, CortexStepExecuteNotebook_ExecutionStatus, CortexStepManagerFeedbackStatus, CortexStepStatus, CortexStepType, CortexTrajectoryReferenceType, CortexTrajectorySource, CortexTrajectoryType, EditNotebookOperation, EphemeralMessagePersistenceLevel, ExecutorTerminationReason, FileChangeType, FilePermissionInteractionSpec_BlockReason, FindResultType, FunctionProvider_Protocol, InteractiveCascadeEditImportance, LintDiffType, McpAuthProviderType, McpServerStatus, McpToolBackgroundMode, MemoryActionType, MessagePriority, PermissionScope, RecordingGenerationStatus, ReplaceToolVariant, RetryReason, RunExtensionCodeAutoRunDecision, SearchWebType, SectionOverrideMode, SemanticCodebaseSearchType, SetUpCloudSqlErrorCode, SetUpCloudSqlResult, SetUpFirebaseErrorCode, SetUpFirebaseRequest, SetUpFirebaseResult, SidecarStatus, SidecarUIEntrypoint, TaskDeltaType, TaskStatus, TokenSource, TokenType, TrajectorySearchIdType, TrajectoryShareStatus, TruncationReason } from "../gen/exa/cortex_pb/cortex_pb.js";
-import { AgentMessageOrigin, ClientTrajectoryVerbosity, CodeRevertActionType, CustomizationFileType, CustomizationPathsOperation, FileType, ForkTarget, IdeAction, SidecarAction } from "../gen/exa/language_server_pb/language_server_pb.js";
+import { APIProvider, AgentBrowserTools, AgentSettingPolicy, AnnotationsConfig, ArtifactApprovalStatus, ArtifactReviewMode, ArtifactType, AutoContinueOnMaxGeneratorInvocations, AutocompleteSpeed, BrowserJsAutoRunPolicy, BrowserJsExecutionPolicy, CascadeCommandsAutoExecution, CascadeInputAutocomplete, CascadeNUXIcon, CascadeNUXInteractionType, CascadeNUXLocation, CascadeNUXTrigger, CascadeRunExtensionCode, CascadeRunExtensionCodeAutoRun, CascadeWebSearchTool, ChatMessageSource, CodeContextType, ContextScopeType, ContextSnippetType, ConversationalPlannerMode, DeploymentBuildStatus, DeploymentProvider, DetectAndUseProxy, DocumentType, EventType, ExperimentKey, ExperimentSource, IndexChoice, Language, MarkdownNodeType, Model, ModelAlias, ModelPricingType, ModelProvider, ModelStatus, ModelType, Permission, PlanMode, PlanningMode, PromptAnnotationKind, PromptTemplaterType, ProviderSource, RefreshCustomizationType, RememberLastModelSelection, ScmProvider, ScmType, SlashCommandType, StatusLevel, StopReason, TabEnabled, TabToJump, TeamsFeatures, TeamsTier, TerminalShellCommandSource, TerminalShellCommandStatus, ThemePreference, ThirdPartyWebSearchProvider, ToolFormatterType, TransactionStatus, UserFeatures, UserTeamStatus, WorkingDirectoryStatus } from "../gen/exa/codeium_common_pb/codeium_common_pb.js";
+import { AcknowledgementType, AgentMode, ArtifactReviewStatus, AutoInteractionBehavior, AutoRunDecision, BattleEndType, BrainEntryType, BrainUpdateTrigger, BrowserActionWaitingReason, BrowserEphemeralOption, BrowserSubagentContextConfig_ContextType, BrowserSubagentMode, BrowserToolSetMode, CascadeRunStatus, CheckpointStrategy, ClickFeedbackConfig_FeedbackType, CloudSQLUpdateSchemaErrorCode, CloudSQLUpdateSchemaResult, CodeAcknowledgementScope, CodeHeuristicFailure, CommandOutputPriority, ComponentResolutionPolicy_ResolutionPolicy, CortexMemorySource, CortexMemoryTrigger, CortexStepCompileTool, CortexStepExecuteNotebook_CellStatus, CortexStepExecuteNotebook_ExecutionStatus, CortexStepManagerFeedbackStatus, CortexStepStatus, CortexStepType, CortexTrajectoryReferenceType, CortexTrajectorySource, CortexTrajectoryType, EditNotebookOperation, EphemeralMessagePersistenceLevel, ExecutorTerminationReason, FileChangeType, FilePermissionInteractionSpec_BlockReason, FindResultType, FirebasePlatform, FirebaseProduct, FunctionProvider_Protocol, InteractiveCascadeEditImportance, LintDiffType, McpAuthProviderType, McpServerStatus, McpToolBackgroundMode, MemoryActionType, MessageDeliveryStrategy, MessagePriority, ModelTier, PermissionInteractionSpec_PersistSuggestionType, PermissionInteractionSpec_TriggerSource_Type, PermissionScope, PolicyGuardianConfig_FailMode, RecordingGenerationStatus, RenderLocation, ReplaceToolVariant, RetryReason, RunCommandToolConfig_SearchFallbackMode, RunExtensionCodeAutoRunDecision, SearchWebType, SectionOverrideMode, SemanticCodebaseSearchType, SetUpCloudSqlErrorCode, SetUpCloudSqlResult, SetUpFirebaseErrorCode, SetUpFirebaseRequest, SetUpFirebaseResult, SidecarErrorSource, SidecarStatus, SidecarUIEntrypoint, TaskDeltaType, TaskStatus, TokenSource, TokenType, TrajectorySearchIdType, TrajectoryShareStatus, TruncationReason, WorkspaceType } from "../gen/exa/cortex_pb/cortex_pb.js";
+import { AgentMessageOrigin, CaseSensitivity, CheckoutMode, ClientTrajectoryVerbosity, CodeRevertActionType, CompletionFeedback, CustomizationFileType, CustomizationPathsOperation, EndBattleModeErrorType, FetchAdminControlsResponse_AgentControls_FileAccessPolicy, FetchAdminControlsResponse_AgentControls_TerminalCommandAutoExecutionPolicy, FetchAdminControlsResponse_JavascriptExecutionPolicy, FileType, ForkTarget, IdeAction, MergeStrategy, SidecarAction, WorkspaceResourceType } from "../gen/exa/language_server_pb/language_server_pb.js";
 import { CacheControlType, ChatFeedbackType } from "../gen/exa/chat_pb/chat_pb.js";
 import { UnifiedDiffLineType } from "../gen/exa/diff_action_pb/diff_action_pb.js";
+import { VcsConflictState_Operation, VcsFileChange_Operation, VcsType } from "../gen/exa/vcs_pb/vcs_pb.js";
 import { ClickType, ScrollDirection, WindowState } from "../gen/exa/browser_pb/browser_pb.js";
 import { ChatClientRequestStreamClientType } from "../gen/exa/chat_client_server_pb/chat_client_server_pb.js";
 import { ConnectorType } from "../gen/exa/opensearch_clients_pb/opensearch_clients_pb.js";
+import { AudioContent_MimeType, CodeExecutionCallContent_CodeExecutionCallArguments_Language, DocumentContent_MimeType, GoogleSearch_SearchType, ImageContent_MimeType, MediaResolution, UrlContextResultContent_UrlContextResult_Status, VideoContent_MimeType } from "../gen/exa/learning/genai/api/interactions/proto/content_pb.js";
+import { ModelNativeToolType } from "../gen/exa/cortex_pb/model_native_tool_type_pb.js";
 import { ClientTrajectoryVerbosity as JetskiCortexClientTrajectoryVerbosity } from "../gen/exa/jetski_cortex_pb/jetski_cortex_pb.js";
 import { IntentType, RelevanceReason } from "../gen/exa/code_edit/code_edit_pb/code_edit_pb.js";
-import { PostOnboardingStepType, ThemeMode } from "../gen/exa/jetbox_state_pb/jetbox_state_pb.js";
+import { AgentEnvironment, AgentOnboardingState, ConversationWidth, MigrationStatus, PostOnboardingStepType, RetroactiveMigrationStatus, ThemeMode } from "../gen/exa/jetbox_state_pb/jetbox_state_pb.js";
+import { FolderType, Google3_ForkType } from "../gen/exa/project_pb/project_pb.js";
 
-export { APIProvider, AgentBrowserTools, AnnotationsConfig, ArtifactApprovalStatus, ArtifactReviewMode, ArtifactType, AutoContinueOnMaxGeneratorInvocations, AutocompleteSpeed, BrowserJsAutoRunPolicy, BrowserJsExecutionPolicy, CascadeCommandsAutoExecution, CascadeInputAutocomplete, CascadeNUXIcon, CascadeNUXLocation, CascadeNUXTrigger, CascadeRunExtensionCode, CascadeRunExtensionCodeAutoRun, CascadeWebSearchTool, ChatMessageSource, CodeContextType, ContextScopeType, ContextSnippetType, ConversationalPlannerMode, DeploymentBuildStatus, DeploymentProvider, DetectAndUseProxy, DocumentType, EventType, ExperimentKey, ExperimentSource, IndexChoice, Language, MarkdownNodeType, Model, ModelAlias, ModelPricingType, ModelProvider, ModelStatus, ModelType, Permission, PlanMode, PlanningMode, PromptAnnotationKind, PromptTemplaterType, ProviderSource, RefreshCustomizationType, RememberLastModelSelection, ScmProvider, ScmType, StatusLevel, StopReason, TabEnabled, TabToJump, TeamsFeatures, TeamsTier, TerminalShellCommandSource, TerminalShellCommandStatus, ThemePreference, ThirdPartyWebSearchProvider, ToolFormatterType, TransactionStatus, UserFeatures, UserTeamStatus, WorkingDirectoryStatus };
-export { AcknowledgementType, AgentMode, ArtifactReviewStatus, AutoRunDecision, BrainEntryType, BrainUpdateTrigger, BrowserActionWaitingReason, BrowserEphemeralOption, BrowserSubagentContextConfig_ContextType, BrowserSubagentMode, BrowserToolSetMode, CascadeRunStatus, CheckpointStrategy, ClickFeedbackConfig_FeedbackType, CloudSQLUpdateSchemaErrorCode, CloudSQLUpdateSchemaResult, CodeAcknowledgementScope, CodeHeuristicFailure, CommandOutputPriority, CortexMemorySource, CortexMemoryTrigger, CortexStepCompileTool, CortexStepExecuteNotebook_CellStatus, CortexStepExecuteNotebook_ExecutionStatus, CortexStepManagerFeedbackStatus, CortexStepStatus, CortexStepType, CortexTrajectoryReferenceType, CortexTrajectorySource, CortexTrajectoryType, EditNotebookOperation, EphemeralMessagePersistenceLevel, ExecutorTerminationReason, FileChangeType, FilePermissionInteractionSpec_BlockReason, FindResultType, FunctionProvider_Protocol, InteractiveCascadeEditImportance, LintDiffType, McpAuthProviderType, McpServerStatus, McpToolBackgroundMode, MemoryActionType, MessagePriority, PermissionScope, RecordingGenerationStatus, ReplaceToolVariant, RetryReason, RunExtensionCodeAutoRunDecision, SearchWebType, SectionOverrideMode, SemanticCodebaseSearchType, SetUpCloudSqlErrorCode, SetUpCloudSqlResult, SetUpFirebaseErrorCode, SetUpFirebaseRequest, SetUpFirebaseResult, SidecarStatus, SidecarUIEntrypoint, TaskDeltaType, TaskStatus, TokenSource, TokenType, TrajectorySearchIdType, TrajectoryShareStatus, TruncationReason };
-export { AgentMessageOrigin, ClientTrajectoryVerbosity, CodeRevertActionType, CustomizationFileType, CustomizationPathsOperation, FileType, ForkTarget, IdeAction, SidecarAction };
+export { APIProvider, AgentBrowserTools, AgentSettingPolicy, AnnotationsConfig, ArtifactApprovalStatus, ArtifactReviewMode, ArtifactType, AutoContinueOnMaxGeneratorInvocations, AutocompleteSpeed, BrowserJsAutoRunPolicy, BrowserJsExecutionPolicy, CascadeCommandsAutoExecution, CascadeInputAutocomplete, CascadeNUXIcon, CascadeNUXInteractionType, CascadeNUXLocation, CascadeNUXTrigger, CascadeRunExtensionCode, CascadeRunExtensionCodeAutoRun, CascadeWebSearchTool, ChatMessageSource, CodeContextType, ContextScopeType, ContextSnippetType, ConversationalPlannerMode, DeploymentBuildStatus, DeploymentProvider, DetectAndUseProxy, DocumentType, EventType, ExperimentKey, ExperimentSource, IndexChoice, Language, MarkdownNodeType, Model, ModelAlias, ModelPricingType, ModelProvider, ModelStatus, ModelType, Permission, PlanMode, PlanningMode, PromptAnnotationKind, PromptTemplaterType, ProviderSource, RefreshCustomizationType, RememberLastModelSelection, ScmProvider, ScmType, SlashCommandType, StatusLevel, StopReason, TabEnabled, TabToJump, TeamsFeatures, TeamsTier, TerminalShellCommandSource, TerminalShellCommandStatus, ThemePreference, ThirdPartyWebSearchProvider, ToolFormatterType, TransactionStatus, UserFeatures, UserTeamStatus, WorkingDirectoryStatus };
+export { AcknowledgementType, AgentMode, ArtifactReviewStatus, AutoInteractionBehavior, AutoRunDecision, BattleEndType, BrainEntryType, BrainUpdateTrigger, BrowserActionWaitingReason, BrowserEphemeralOption, BrowserSubagentContextConfig_ContextType, BrowserSubagentMode, BrowserToolSetMode, CascadeRunStatus, CheckpointStrategy, ClickFeedbackConfig_FeedbackType, CloudSQLUpdateSchemaErrorCode, CloudSQLUpdateSchemaResult, CodeAcknowledgementScope, CodeHeuristicFailure, CommandOutputPriority, ComponentResolutionPolicy_ResolutionPolicy, CortexMemorySource, CortexMemoryTrigger, CortexStepCompileTool, CortexStepExecuteNotebook_CellStatus, CortexStepExecuteNotebook_ExecutionStatus, CortexStepManagerFeedbackStatus, CortexStepStatus, CortexStepType, CortexTrajectoryReferenceType, CortexTrajectorySource, CortexTrajectoryType, EditNotebookOperation, EphemeralMessagePersistenceLevel, ExecutorTerminationReason, FileChangeType, FilePermissionInteractionSpec_BlockReason, FindResultType, FirebasePlatform, FirebaseProduct, FunctionProvider_Protocol, InteractiveCascadeEditImportance, LintDiffType, McpAuthProviderType, McpServerStatus, McpToolBackgroundMode, MemoryActionType, MessageDeliveryStrategy, MessagePriority, ModelTier, PermissionInteractionSpec_PersistSuggestionType, PermissionInteractionSpec_TriggerSource_Type, PermissionScope, PolicyGuardianConfig_FailMode, RecordingGenerationStatus, RenderLocation, ReplaceToolVariant, RetryReason, RunCommandToolConfig_SearchFallbackMode, RunExtensionCodeAutoRunDecision, SearchWebType, SectionOverrideMode, SemanticCodebaseSearchType, SetUpCloudSqlErrorCode, SetUpCloudSqlResult, SetUpFirebaseErrorCode, SetUpFirebaseRequest, SetUpFirebaseResult, SidecarErrorSource, SidecarStatus, SidecarUIEntrypoint, TaskDeltaType, TaskStatus, TokenSource, TokenType, TrajectorySearchIdType, TrajectoryShareStatus, TruncationReason, WorkspaceType };
+export { AgentMessageOrigin, CaseSensitivity, CheckoutMode, ClientTrajectoryVerbosity, CodeRevertActionType, CompletionFeedback, CustomizationFileType, CustomizationPathsOperation, EndBattleModeErrorType, FetchAdminControlsResponse_AgentControls_FileAccessPolicy, FetchAdminControlsResponse_AgentControls_TerminalCommandAutoExecutionPolicy, FetchAdminControlsResponse_JavascriptExecutionPolicy, FileType, ForkTarget, IdeAction, MergeStrategy, SidecarAction, WorkspaceResourceType };
 export { CacheControlType, ChatFeedbackType };
 export { UnifiedDiffLineType };
+export { VcsConflictState_Operation, VcsFileChange_Operation, VcsType };
 export { ClickType, ScrollDirection, WindowState };
 export { ChatClientRequestStreamClientType };
 export { ConnectorType };
+export { AudioContent_MimeType, CodeExecutionCallContent_CodeExecutionCallArguments_Language, DocumentContent_MimeType, GoogleSearch_SearchType, ImageContent_MimeType, MediaResolution, UrlContextResultContent_UrlContextResult_Status, VideoContent_MimeType };
+export { ModelNativeToolType };
 export { JetskiCortexClientTrajectoryVerbosity };
 export { IntentType, RelevanceReason };
-export { PostOnboardingStepType, ThemeMode };
+export { AgentEnvironment, AgentOnboardingState, ConversationWidth, MigrationStatus, PostOnboardingStepType, RetroactiveMigrationStatus, ThemeMode };
+export { FolderType, Google3_ForkType };
 
 export interface AcceptTermsOfServiceRequest {
   version?: string;
 }
 
 export interface AcceptTermsOfServiceResponse {
+}
+
+export interface AccumulatedItem {
+  id?: string;
+  value?: any;
+  renderInfo?: AccumulatedItemRenderInfo;
+}
+
+export interface AccumulatedItemRenderInfo {
+  icon?: string;
+  label?: string;
+  markdown?: string;
+  fileUri?: string;
+  fileDiff?: TrajectoryFileDiff;
+  taskView?: AccumulatedItemRenderInfo_TaskView;
+}
+
+export interface AccumulatedItemRenderInfo_TaskView {
+  header?: string;
+  logUri?: string;
+}
+
+export interface AccumulatedSection {
+  key?: string;
+  title?: string;
+  icon?: string;
+  locations?: RenderLocation[];
+  items?: AccumulatedItem[];
+  maxVisibleItems?: number;
 }
 
 export interface AcknowledgeCascadeCodeEditRequest {
@@ -129,6 +166,14 @@ export interface ActionSpecSed_FileContentEntry {
   value?: string;
 }
 
+export interface AddEnvironmentToProjectRequest {
+  projectId?: string;
+  environment?: Environment;
+}
+
+export interface AddEnvironmentToProjectResponse {
+}
+
 export interface AddToBrowserWhitelistRequest {
   hostname?: string;
   hostnames?: string[];
@@ -172,6 +217,7 @@ export interface AgentDiscoveryConfig {
 export interface AgenticModeConfig {
   injectArtifactReminderThresholdMap?: AgenticModeConfig_InjectArtifactReminderThresholdMapEntry[];
   disableArtifactReminders?: boolean;
+  useSlashPlan?: boolean;
 }
 
 export interface AgenticModeConfig_InjectArtifactReminderThresholdMapEntry {
@@ -197,6 +243,7 @@ export interface AgentMessage {
   renderDetails?: MessageRenderDetails;
   hideFromUser?: boolean;
   sourceMetadata?: SourceMetadata;
+  deliveryStrategy?: MessageDeliveryStrategy;
   content?: string;
   stepPayload?: Uint8Array;
 }
@@ -204,6 +251,7 @@ export interface AgentMessage {
 export interface AgentScriptCommandSpec {
   command?: string;
   args?: string[];
+  workDir?: CustomizationPath;
 }
 
 export interface AgentScriptConfigPath {
@@ -218,6 +266,8 @@ export interface AgentScriptItem {
   hidden?: boolean;
   subagent?: boolean;
   mainAgent?: boolean;
+  disableModelSelection?: boolean;
+  modelTier?: ModelTier;
   commandSpec?: AgentScriptCommandSpec;
   pythonSpec?: AgentScriptPythonSpec;
   configPath?: AgentScriptConfigPath;
@@ -249,9 +299,30 @@ export interface AgentTeamTask {
   taskFileUri?: string;
 }
 
+export interface AllowAlwaysConfig {
+  dangerousBinaries?: string[];
+  subcommandTools?: string[];
+  dangerousSubcommands?: AllowAlwaysConfig_DangerousSubcommandsEntry[];
+}
+
+export interface AllowAlwaysConfig_DangerousSubcommands {
+  subcommands?: string[];
+}
+
+export interface AllowAlwaysConfig_DangerousSubcommandsEntry {
+  key?: string;
+  value?: AllowAlwaysConfig_DangerousSubcommands;
+}
+
 export interface AllowedModelConfig {
   modelOrAlias?: ModelOrAlias;
   creditMultiplier?: number;
+}
+
+export interface AndroidConfig {
+  packageName?: string;
+  sha1Certificate?: string;
+  sha256Certificate?: string;
 }
 
 export interface AntigravityBrowserToolConfig {
@@ -281,6 +352,9 @@ export interface AntigravityBrowserToolConfig {
   logTimeoutErrorsInsteadOfSentry?: boolean;
   skipPermissionChecks?: boolean;
   displayOnCrd?: boolean;
+  generateRecordingSynchronously?: boolean;
+  enableBrowserSubagentV2?: boolean;
+  enableArk?: boolean;
 }
 
 export interface AntigravityDeployment {
@@ -312,6 +386,11 @@ export interface ApprovalInteraction {
 export interface ApprovalInteractionSpec {
 }
 
+export interface ArgumentOverride {
+  staticValue?: any;
+  omit?: boolean;
+}
+
 export interface ArtifactComment {
   artifactUri?: string;
   comment?: string;
@@ -341,6 +420,7 @@ export interface ArtifactMetadata {
   updatedAt?: any;
   version?: bigint;
   requestFeedback?: boolean;
+  userFacing?: boolean;
 }
 
 export interface ArtifactReviewState {
@@ -361,10 +441,16 @@ export interface ArtifactSelectionTarget {
 
 export interface ArtifactSnapshot {
   artifactName?: string;
-  content?: string;
   artifactAbsoluteUri?: string;
   lastEdited?: any;
   reviewState?: ArtifactReviewState;
+  artifactMetadata?: ArtifactMetadata;
+  content?: string;
+  urlArtifactPayload?: UrlArtifactPayload;
+}
+
+export interface AskPermissionToolConfig {
+  enabled?: boolean;
 }
 
 export interface AskQuestionEntry {
@@ -394,11 +480,43 @@ export interface AskQuestionToolConfig {
   enabled?: boolean;
 }
 
+export interface AudioContent {
+  mimeType?: AudioContent_MimeType;
+  channels?: number;
+  sampleRate?: number;
+  data?: Uint8Array;
+  uri?: string;
+}
+
+export interface AuthLogoutRequest {
+}
+
+export interface AuthLogoutResponse {
+}
+
+export interface AuthResult {
+  hasValidAuth?: boolean;
+  uiMessage?: string;
+  isGcpTos?: boolean;
+  projectId?: string;
+  location?: string;
+  grantedScopes?: string[];
+  wifProvider?: string;
+  ineligible?: IneligibleInfo;
+  verificationRequired?: VerificationRequired;
+  tosViolation?: TosErrorInfo;
+  generalError?: GeneralError;
+  projectRequired?: ProjectRequiredInfo;
+  headlessAuthRequired?: HeadlessAuthRequired;
+  licenseRequired?: LicenseRequiredInfo;
+}
+
 export interface AutoCommandConfig {
   enableModelAutoRun?: boolean;
   userAllowlist?: string[];
   userDenylist?: string[];
   systemAllowlist?: string[];
+  sandboxSystemAllowlist?: string[];
   systemDenylist?: string[];
   systemDenylistRegex?: string[];
   systemNooplist?: string[];
@@ -410,12 +528,53 @@ export interface AutoFixLintsConfig {
   notifyingPrompt?: string;
 }
 
+export interface BackupGeminiDirRequest {
+}
+
+export interface BackupGeminiDirResponse {
+  backupDirUri?: string;
+}
+
 export interface BaseTrajectoryIdentifier {
   cascadeId?: string;
   implicitTrajectoryFileUri?: string;
   lastActiveDoc?: boolean;
   trajectory?: Trajectory;
   forkFrom?: ForkFromIdentifier;
+}
+
+export interface BattleModeConfig {
+  maxTurns?: number;
+}
+
+export interface BattleModeInfo {
+  childrenConversationIds?: string[];
+  winningConversationId?: string;
+  startStepIndex?: number;
+  endStepIndex?: number;
+  startTimestamp?: any;
+  endTimestamp?: any;
+  battleId?: string;
+  childrenTrajectoryIds?: string[];
+  endType?: BattleEndType;
+  originalModels?: Model[];
+  models?: Model[];
+  originalWorkspaceSnapshots?: BattleModeInfo_OriginalWorkspaceSnapshotsEntry[];
+  childrenTrajectoryStatuses?: CascadeRunStatus[];
+  eliminated?: boolean[];
+  eliminationTime?: any[];
+  forkedFromHistory?: boolean;
+  triggerTag?: string;
+  referenceConversationId?: string;
+}
+
+export interface BattleModeInfo_OriginalWorkspaceSnapshotsEntry {
+  key?: string;
+  value?: number;
+}
+
+export interface BattleModeMetadata {
+  clonedWorkspaceUris?: string[];
 }
 
 export interface Blobref {
@@ -586,6 +745,11 @@ export interface BuildTargetsStep {
 export interface BuildTargetsStep_Args {
   targets?: string[];
   arguments?: string[];
+  waitMsBeforeAsync?: bigint;
+}
+
+export interface BuiltinAgentConfig {
+  defaultAgent?: DefaultAgentConfig;
 }
 
 export interface CacheBreakpointMetadata {
@@ -666,6 +830,8 @@ export interface CascadeConfig {
   messageConfig?: MessageConfig;
   useDbTrajectory?: boolean;
   agentApiConfig?: AgentApiConfig;
+  dynamicWorkspaceUris?: string[];
+  battleModeConfig?: BattleModeConfig;
 }
 
 export interface CascadeConfirmBrowserSetupInteraction {
@@ -713,6 +879,12 @@ export interface CascadeExecutorConfig {
   storeGenSvcRequest?: boolean;
   enableTasks?: boolean;
   disableEmptyOutputContinuation?: boolean;
+  enableAfkStopHook?: boolean;
+  useCoreRewrite?: boolean;
+  useCoreDirect?: boolean;
+  commandAssessorConfig?: CommandAssessorConfig;
+  cortexSnapshotRevert?: boolean;
+  maxStopHookContinuations?: number;
 }
 
 export interface CascadeMcpInteraction {
@@ -726,6 +898,8 @@ export interface CascadeModelConfigData {
   clientModelConfigs?: ClientModelConfig[];
   clientModelSorts?: ClientModelSort[];
   defaultOverrideModelConfig?: DefaultOverrideModelConfig;
+  battleModeModelConfigs?: ClientModelConfig[];
+  battleModeModelSorts?: ClientModelSort[];
 }
 
 export interface CascadeNUXConfig {
@@ -741,6 +915,9 @@ export interface CascadeNUXConfig {
   body?: string;
   imageUrl?: string;
   videoUrl?: string;
+  availableInteractions?: CascadeNUXInteractionType[];
+  learnMoreButtonText?: string;
+  primaryCtaText?: string;
 }
 
 export interface CascadeOpenBrowserSetupInteraction {
@@ -756,6 +933,7 @@ export interface CascadeOpenBrowserUrlInteractionSpec {
 
 export interface CascadePlannerConfig {
   customizationConfig?: CustomizationConfig;
+  customizationDiscoveryConfig?: CustomizationDiscoveryConfig;
   promptSectionCustomizationConfig?: PromptSectionCustomizationConfig;
   toolConfig?: CascadeToolConfig;
   stepStringConverterConfig?: StepStringConverterConfig;
@@ -774,6 +952,13 @@ export interface CascadePlannerConfig {
   agenticModeConfig?: AgenticModeConfig;
   noWaitForPreviousTools?: boolean;
   experiments?: Experiments;
+  disableLoopDetection?: boolean;
+  loopErrorModelMessage?: string;
+  disableSubagentConfigAdjustment?: boolean;
+  useAiCredits?: boolean;
+  supportsLatexRendering?: boolean;
+  autonomous?: boolean;
+  completionConfigOverride?: CompletionConfiguration;
   conversational?: CascadeConversationalPlannerConfig;
   google?: CascadeConversationalPlannerConfig;
   cider?: CascadeConversationalPlannerConfig;
@@ -910,8 +1095,19 @@ export interface CascadeToolConfig {
   generateImage?: GenerateImageToolConfig;
   askQuestion?: AskQuestionToolConfig;
   permissionConfig?: PermissionConfig;
+  userInteractionTimeoutSeconds?: number;
+  askPermission?: AskPermissionToolConfig;
+  writeToFile?: WriteToFileToolConfig;
+  skillSearch?: SkillSearchToolConfig;
   descriptionOverrideMap?: ToolDescriptionOverrideMap;
+  autoAllowAllInteractions?: boolean;
+  autoInteractionBehavior?: AutoInteractionBehavior;
   disableSimpleResearchTools?: boolean;
+  schedule?: ScheduleToolConfig;
+  forceDisableToolCalling?: boolean;
+  forceEnableSendMessageTool?: boolean;
+  strictArgumentValidation?: boolean;
+  readUrlContent?: ReadUrlContentToolConfig;
 }
 
 export interface CascadeTrajectorySummary {
@@ -930,11 +1126,17 @@ export interface CascadeTrajectorySummary {
   annotations?: ConversationAnnotations;
   trajectoryMetadata?: CortexTrajectoryMetadata;
   hasActiveChildren?: boolean;
+  battleModeInfo?: BattleModeInfo;
+  source?: CortexTrajectorySource;
+  notFullyIdle?: boolean;
+  trajectoryType?: CortexTrajectoryType;
+  killed?: boolean;
 }
 
 export interface CascadeUserInteraction {
   trajectoryId?: string;
   stepIndex?: number;
+  timedOut?: boolean;
   deploy?: CascadeDeployInteraction;
   runCommand?: CascadeRunCommandInteraction;
   openBrowserUrl?: CascadeOpenBrowserUrlInteraction;
@@ -973,6 +1175,7 @@ export interface ChatMessagePrompt {
   messageId?: string;
   source?: ChatMessageSource;
   prompt?: string;
+  promptStruct?: GenaiStruct;
   numTokens?: number;
   safeForCodeTelemetry?: boolean;
   toolCalls?: ChatToolCall[];
@@ -989,6 +1192,8 @@ export interface ChatMessagePrompt {
   promptAnnotationRanges?: PromptAnnotationRange[];
   stepIdx?: number;
   providerAssignedMessageId?: string;
+  sideChannels?: any[];
+  passbackContext?: any[];
 }
 
 export interface ChatModelMetadata {
@@ -998,7 +1203,6 @@ export interface ChatModelMetadata {
   model?: Model;
   usage?: ModelUsageStats;
   modelCost?: number;
-  lastCacheIndex?: number;
   toolChoice?: ChatToolChoice;
   tools?: ChatToolDefinition[];
   chatStartMetadata?: ChatStartMetadata;
@@ -1011,6 +1215,15 @@ export interface ChatModelMetadata {
   retryInfos?: RetryInfo[];
   consumedCredits?: any[];
   responseModel?: string;
+  responseModelFull?: string;
+  customMetadata?: ChatModelMetadata_CustomMetadataEntry[];
+  modelDisplayName?: string;
+  lastCacheIndex?: number;
+}
+
+export interface ChatModelMetadata_CustomMetadataEntry {
+  key?: string;
+  value?: string;
 }
 
 export interface ChatStartMetadata {
@@ -1018,12 +1231,12 @@ export interface ChatStartMetadata {
   startStepIndex?: number;
   checkpointIndex?: number;
   stepsCoveredByCheckpoint?: number[];
+  timeSinceLastInvocation?: any;
+  contextWindowMetadata?: ContextWindowMetadata;
   latestStableMessageIndex?: number;
   cacheBreakpoints?: CacheBreakpointMetadata[];
   systemPromptCache?: CacheBreakpointMetadata;
-  timeSinceLastInvocation?: any;
   cacheRequest?: CacheRequestOptions;
-  contextWindowMetadata?: ContextWindowMetadata;
 }
 
 export interface ChatStats {
@@ -1058,6 +1271,7 @@ export interface ChatToolCall {
   thoughtSignature?: string;
   thinkingSignature?: Uint8Array;
   originalArgumentsJson?: string;
+  originalName?: string;
 }
 
 export interface ChatToolChoice {
@@ -1072,6 +1286,24 @@ export interface ChatToolDefinition {
   strict?: boolean;
   attributionFieldNames?: string[];
   serverName?: string;
+  originalName?: string;
+  modelNativeToolType?: ModelNativeToolType;
+}
+
+export interface CheckDevToolsActivePortRequest {
+}
+
+export interface CheckDevToolsActivePortResponse {
+  exists?: boolean;
+}
+
+export interface CheckoutCommitRequest {
+  workspaceUri?: string;
+  commitId?: string;
+  mode?: CheckoutMode;
+}
+
+export interface CheckoutCommitResponse {
 }
 
 export interface CheckoutSummary {
@@ -1084,6 +1316,7 @@ export interface CheckoutWorktreeRequest {
   worktreeDirUri?: string;
   targetWorkspaceUri?: string;
   deleteWorktreeAfterCheckout?: boolean;
+  mergeStrategy?: MergeStrategy;
 }
 
 export interface CheckoutWorktreeResponse {
@@ -1102,12 +1335,23 @@ export interface CheckpointConfig {
   checkpointModel?: Model;
   enabled?: boolean;
   fullAsync?: boolean;
+  isSync?: boolean;
   maxUserRequests?: number;
   maxUserRequestBytes?: number;
   maxSubagentSnapshots?: number;
   retryConfig?: ModelAPIRetryConfig;
   enableFallback?: boolean;
   strategy?: CheckpointStrategy;
+  sessionSummaryPromptOverride?: string;
+  disableIntentOnlyCheckpoint?: boolean;
+  useLastPlannerModel?: boolean;
+  includeArtifactSnapshots?: boolean;
+  includeSubagentSnapshots?: boolean;
+  includeRunningTaskSnapshots?: boolean;
+  includeConversationLog?: boolean;
+  includeLastUserMessage?: boolean;
+  checkpointPromptOverride?: string;
+  continuationPromptOverride?: string;
 }
 
 export interface Citation {
@@ -1152,6 +1396,9 @@ export interface ClientModelConfig {
   tagTitle?: string;
   tagDescription?: string;
   supportedMimeTypes?: ClientModelConfig_SupportedMimeTypesEntry[];
+  supportsThoughtCirculation?: boolean;
+  modelUrl?: string;
+  modelId?: string;
 }
 
 export interface ClientModelConfig_SupportedMimeTypesEntry {
@@ -1167,6 +1414,14 @@ export interface ClientModelGroup {
 export interface ClientModelSort {
   name?: string;
   groups?: ClientModelGroup[];
+}
+
+export interface CloseTerminalRequest {
+  terminalId?: string;
+  force?: boolean;
+}
+
+export interface CloseTerminalResponse {
 }
 
 export interface CodeAcknowledgementConverterConfig {
@@ -1250,6 +1505,20 @@ export interface CodeEditRevertPreview {
   actionType?: CodeRevertActionType;
 }
 
+export interface CodeExecutionCallContent {
+  arguments?: CodeExecutionCallContent_CodeExecutionCallArguments;
+}
+
+export interface CodeExecutionCallContent_CodeExecutionCallArguments {
+  language?: CodeExecutionCallContent_CodeExecutionCallArguments_Language;
+  code?: string;
+}
+
+export interface CodeExecutionResultContent {
+  result?: string;
+  isError?: boolean;
+}
+
 export interface CodeFrequencyRecord {
   numCommits?: number;
   linesAdded?: number;
@@ -1268,11 +1537,25 @@ export interface CodeSearchResults {
   matches?: CodeSearchMatch[];
   changelist?: string;
   depotPath?: string;
+  totalMatchesInFile?: number;
 }
 
 export interface CodeSearchToolConfig {
   csPath?: string;
   useEvalTag?: boolean;
+  forceDisable?: boolean;
+  g3boxMaxRetries?: number;
+  g3boxRetryBackoffMs?: number;
+  g3boxMaxRetryBackoffMs?: number;
+  g3boxTimeoutMs?: number;
+  g3boxRpcTimeoutMs?: number;
+  restrictToGoogle?: boolean;
+  hideToolTagInDi?: boolean;
+  omitMetadataFromOutput?: boolean;
+  maxNumResults?: number;
+  maxMatchesPerFile?: number;
+  useDetailedSearchGuidanceInDi?: boolean;
+  maxTokens?: number;
 }
 
 export interface CodeToolConfig {
@@ -1290,6 +1573,8 @@ export interface CodeToolConfig {
   skipReplaceContentValidation?: boolean;
   overrideAllowActionOnUnsavedFile?: boolean;
   useSedEdit?: boolean;
+  forceDisable?: boolean;
+  disableArtifactMetadata?: boolean;
   useReplaceContentEditTool?: boolean;
   useReplaceContentProposeCode?: boolean;
   runProposalExtensionVerifier?: boolean;
@@ -1298,6 +1583,12 @@ export interface CodeToolConfig {
 export interface CodingAgentConfig {
   googleMode?: boolean;
   agenticMode?: boolean;
+}
+
+export interface CommandAssessorConfig {
+  enabled?: boolean;
+  policyGuardianConfig?: PolicyGuardianConfig;
+  allowExperimentalMonitors?: boolean;
 }
 
 export interface CommandContentTarget {
@@ -1313,6 +1604,7 @@ export interface CommandStatusToolConfig {
   outputStabilizationDurationSeconds?: number;
   enableInputDetection?: boolean;
   inputDetectionModel?: Model;
+  forceDisable?: boolean;
 }
 
 export interface CommitMessageData {
@@ -1349,21 +1641,21 @@ export interface CompletionByLanguageEntry {
 export interface CompletionConfiguration {
   numCompletions?: bigint;
   maxTokens?: bigint;
-  maxNewlines?: bigint;
-  minLogProbability?: number;
   temperature?: number;
-  firstTemperature?: number;
   topK?: bigint;
   topP?: number;
   stopPatterns?: string[];
   seed?: bigint;
+  lastMessageIsPartial?: boolean;
+  disableParallelToolCalls?: boolean;
+  maxNewlines?: bigint;
+  minLogProbability?: number;
+  firstTemperature?: number;
   fimEotProbThreshold?: number;
   useFimEotThreshold?: boolean;
   doNotScoreStopTokens?: boolean;
   sqrtLenNormalizedLogProbScore?: boolean;
-  lastMessageIsPartial?: boolean;
   returnLogprob?: boolean;
-  disableParallelToolCalls?: boolean;
 }
 
 export interface CompletionStatistics {
@@ -1376,6 +1668,11 @@ export interface CompletionStatistics {
   activeDeveloperHours?: number;
 }
 
+export interface ComponentResolutionPolicy {
+  unknownComponentPolicy?: ComponentResolutionPolicy_ResolutionPolicy;
+  emptyComponentPolicy?: ComponentResolutionPolicy_ResolutionPolicy;
+}
+
 export interface ConsoleLogLine {
   timestampStr?: string;
   type?: string;
@@ -1386,6 +1683,17 @@ export interface ConsoleLogLine {
 export interface ConsoleLogScopeItem {
   lines?: ConsoleLogLine[];
   serverAddress?: string;
+}
+
+export interface Content {
+  text?: TextContent;
+  image?: ImageContent;
+  audio?: AudioContent;
+  document?: DocumentContent;
+  video?: VideoContent;
+  thought?: ThoughtContent;
+  toolCall?: ToolCallContent;
+  toolResult?: ToolResultContent;
 }
 
 export interface ContextModuleResult {
@@ -1425,6 +1733,8 @@ export interface ContextScopeItem {
   userActivity?: UserActivityScopeItem;
   terminal?: TerminalScopeItem;
   mcpPrompt?: McpPromptScopeItem;
+  slashCommand?: SlashCommandScopeItem;
+  dynamicContext?: DynamicContextScopeItem;
 }
 
 export interface ContextSubrange {
@@ -1437,6 +1747,7 @@ export interface ContextWindowMetadata {
   estimatedTokensUsed?: number;
   truncationReason?: TruncationReason;
   tokenBreakdown?: TokenBreakdown;
+  maxContextTokens?: number;
 }
 
 export interface ConversationAnnotations {
@@ -1451,6 +1762,8 @@ export interface ConversationAnnotations {
   groupIndex?: number;
   groupDescription?: string;
   pinned?: boolean;
+  cls?: bigint[];
+  activeProfile?: string;
 }
 
 export interface ConversationHistoryConfig {
@@ -1462,10 +1775,14 @@ export interface ConversationHistoryConfig {
   maxArtifactSummaryChars?: number;
 }
 
+export interface ConversationMetadataEvent {
+}
+
 export interface ConversationScopeItem {
   id?: string;
   title?: string;
   lastModifiedTime?: any;
+  source?: string;
 }
 
 export interface ConversationSearchResult {
@@ -1507,6 +1824,8 @@ export interface CortexErrorDetails {
   details?: string;
   errorId?: string;
   rpcErrorDetails?: string[];
+  sherlogLink?: string;
+  userErrorNumber?: string;
 }
 
 export interface CortexMemory {
@@ -1514,6 +1833,7 @@ export interface CortexMemory {
   title?: string;
   source?: CortexMemorySource;
   scope?: CortexMemoryScope;
+  absolutePath?: string;
   textMemory?: CortexMemoryText;
 }
 
@@ -1521,6 +1841,7 @@ export interface CortexMemoryAllScope {
 }
 
 export interface CortexMemoryGlobalScope {
+  absoluteFilePath?: string;
 }
 
 export interface CortexMemoryLocalScope {
@@ -1773,9 +2094,12 @@ export interface CortexStepCheckpoint {
   userRequests?: string[];
   subagentSnapshots?: SubagentSnapshot[];
   runningTaskSnapshots?: TaskSnapshot[];
+  renderLatestCheckpoint?: boolean;
+  renderUserMessageStepIndex?: bigint;
   editedFileMap?: CortexStepCheckpoint_EditedFileMapEntry[];
   includedStepIndices?: number[];
   memorySummary?: string;
+  accumulatedSections?: AccumulatedSection[];
 }
 
 export interface CortexStepCheckpoint_EditedFileMapEntry {
@@ -1843,13 +2167,19 @@ export interface CortexStepCodeAction {
   filePermissionRequest?: FilePermissionInteractionSpec;
   description?: string;
   markdownValidationError?: string;
+  diffStats?: DiffStats;
 }
 
 export interface CortexStepCodeSearch {
   query?: string;
   onlyPaths?: boolean;
   allowDirs?: boolean;
+  maxNumResults?: number;
+  maxMatchesPerFile?: number;
+  maxTokens?: number;
   results?: CodeSearchResults[];
+  queryCorrectionSuggestions?: QueryCorrectionSuggestion[];
+  estimatedTotalResults?: number;
 }
 
 export interface CortexStepCommandStatus {
@@ -1907,6 +2237,11 @@ export interface CortexStepDeleteDirectory {
 
 export interface CortexStepDeployFirebase {
   errorMessage?: string;
+}
+
+export interface CortexStepDirectoryRules {
+  content?: string;
+  ruleFileUris?: string[];
 }
 
 export interface CortexStepDummy {
@@ -1988,6 +2323,7 @@ export interface CortexStepExecuteNotebook_Args {
   cellIndices?: number[];
   stopOnError?: boolean;
   restartKernel?: boolean;
+  useMessageBridge?: boolean;
 }
 
 export interface CortexStepExecuteNotebook_CellOutput {
@@ -1998,6 +2334,7 @@ export interface CortexStepExecuteNotebook_CellOutput {
   outputTextTruncated?: boolean;
   generatedImages?: boolean;
   errorTrace?: string;
+  blobs?: NotebookBlob[];
 }
 
 export interface CortexStepExecuteNotebook_Reply {
@@ -2062,6 +2399,7 @@ export interface CortexStepGenerateImage {
   prompt?: string;
   imagePaths?: string[];
   imageName?: string;
+  aspectRatio?: string;
   generatedImage?: ImageData;
   modelName?: string;
   generatedMedia?: Media;
@@ -2073,6 +2411,8 @@ export interface CortexStepGeneratorMetadata {
   executionId?: string;
   error?: string;
   mendelExperimentIds?: number[];
+  promptDebugStr?: string;
+  hasEverUsedNonGoogleModel?: boolean;
   chatModel?: ChatModelMetadata;
   injected?: InjectedResponseMetadata;
 }
@@ -2131,6 +2471,7 @@ export interface CortexStepInternalSearch {
 
 export interface CortexStepInvokeSubagent {
   subagents?: SubagentSpec[];
+  taskMode?: boolean;
   results?: SubagentResult[];
   subagentName?: string;
   prompt?: string;
@@ -2273,6 +2614,8 @@ export interface CortexStepPlannerResponse {
   thinkingDuration?: any;
   stopReason?: StopReason;
   recitationMetadata?: RecitationMetadata;
+  sideChannels?: any[];
+  passbackContext?: any[];
 }
 
 export interface CortexStepPostPrReview {
@@ -2319,6 +2662,7 @@ export interface CortexStepReadNotebook_Args {
 export interface CortexStepReadNotebook_Reply {
   flattenedContent?: string;
   readCellCount?: number;
+  blobs?: NotebookBlob[];
 }
 
 export interface CortexStepReadResource {
@@ -2375,6 +2719,8 @@ export interface CortexStepRunCommand {
   requestedTerminalId?: string;
   sandboxOverride?: boolean;
   runPersistent?: boolean;
+  notificationTimeoutSeconds?: bigint;
+  isDaemon?: boolean;
   blocking?: boolean;
   commandId?: string;
   exitCode?: number;
@@ -2385,6 +2731,9 @@ export interface CortexStepRunCommand {
   combinedOutputSnapshot?: RunCommandOutput;
   usedIdeTerminal?: boolean;
   rawDebugOutput?: string;
+  sandboxErrors?: string;
+  shellName?: string;
+  isTrustedCli?: boolean;
   command?: string;
   args?: string[];
   stdout?: string;
@@ -2454,6 +2803,9 @@ export interface CortexStepSetUpFirebase {
   appConfig?: SetUpFirebaseAppConfig;
   firestoreRegion?: string;
   databaseId?: string;
+  androidConfig?: AndroidConfig;
+  platform?: FirebasePlatform;
+  requestedProducts?: FirebaseProduct[];
 }
 
 export interface CortexStepShellExec {
@@ -2472,6 +2824,7 @@ export interface CortexStepSystemMessage {
   renderInfo?: StepRenderInfo;
   eventType?: string;
   agentMessage?: AgentMessage;
+  media?: Media[];
 }
 
 export interface CortexStepTaskBoundary {
@@ -2492,6 +2845,11 @@ export interface CortexStepToolCallChoice {
 
 export interface CortexStepToolCallProposal {
   toolCall?: ChatToolCall;
+}
+
+export interface CortexStepToolSearch {
+  functionNames?: string[];
+  response?: any;
 }
 
 export interface CortexStepTrajectoryChoice {
@@ -2516,13 +2874,17 @@ export interface CortexStepUserInput {
   artifactComments?: ArtifactComment[];
   fileDiffComments?: FileDiffComment[];
   fileComments?: FileComment[];
-  isQueuedMessage?: boolean;
   clientType?: ChatClientRequestStreamClientType;
   userConfig?: CascadeConfig;
   lastUserConfig?: CascadeConfig;
+  sideChannels?: any[];
+  tags?: string[];
+  userIdentity?: UserIdentity;
+  userAgentSpec?: CustomAgentSpec;
+  media?: Media[];
+  isQueuedMessage?: boolean;
   query?: string;
   images?: ImageData[];
-  media?: Media[];
 }
 
 export interface CortexStepViewCodeItem {
@@ -2543,6 +2905,8 @@ export interface CortexStepViewFile {
   startLine?: number;
   endLine?: number;
   content?: string;
+  contentOffset?: number;
+  lineRangeBytes?: number;
   isSkillFile?: boolean;
   skillMetadata?: SkillMetadata;
   rawContent?: string;
@@ -2606,13 +2970,19 @@ export interface CortexTrajectoryMetadata {
   parentConversationId?: string;
   rootConversationId?: string;
   workspaceUris?: string[];
-  mappedWorkspaceUris?: string[];
   subagentSpec?: SubagentSpec;
   staticConfig?: CustomAgentSpec;
   executableSpec?: ExecutableScriptSpec;
   sourceMetadata?: SourceMetadata;
-  battleModeSourceConversationId?: string;
+  mendelExperimentIds?: number[];
   agentScript?: AgentScriptItem;
+  isBattleModeFork?: boolean;
+  projectId?: string;
+  environmentId?: string;
+  nestingDepth?: number;
+  tags?: string[];
+  replacements?: StringReplacement[];
+  battleModeMetadata?: BattleModeMetadata;
 }
 
 export interface CortexTrajectoryReference {
@@ -2621,6 +2991,7 @@ export interface CortexTrajectoryReference {
   stepIndex?: number;
   stepType?: CortexStepType;
   referenceType?: CortexTrajectoryReferenceType;
+  conversationId?: string;
 }
 
 export interface CortexTrajectoryStepWithIndex {
@@ -2640,6 +3011,7 @@ export interface CreateCitcWorkspaceRequest {
   media?: Media[];
   cloneCurrentWorkspace?: boolean;
   sourceWorkspaceUri?: string;
+  vcsType?: VcsType;
 }
 
 export interface CreateCitcWorkspaceResponse {
@@ -2657,14 +3029,55 @@ export interface CreateCustomizationFileResponse {
   filePath?: string;
 }
 
-export interface CreateReplayWorkspaceRequest {
-  trajectoryId?: string;
-  stepIndex?: number;
-  workspaceName?: string;
-  targetUser?: string;
+export interface CreateDebugBundleRequest {
+  extraFiles?: CreateDebugBundleRequest_ExtraFilesEntry[];
 }
 
-export interface CreateReplayWorkspaceResponse {
+export interface CreateDebugBundleRequest_ExtraFilesEntry {
+  key?: string;
+  value?: Uint8Array;
+}
+
+export interface CreateDebugBundleResponse {
+  bundleUri?: string;
+}
+
+export interface CreateMagicProjectRequest {
+  items?: TextOrScopeItem[];
+  media?: Media[];
+  projectId?: string;
+  vcsType?: VcsType;
+}
+
+export interface CreateMagicProjectResponse {
+  projectId?: string;
+}
+
+export interface CreateProjectRequest {
+  project?: Project;
+}
+
+export interface CreateProjectResponse {
+}
+
+export interface CreateScratchProjectFolderRequest {
+  name?: string;
+}
+
+export interface CreateScratchProjectFolderResponse {
+  folderUri?: string;
+  isGitRepo?: boolean;
+  errorMessage?: string;
+}
+
+export interface CreateTerminalRequest {
+  workspaceUri?: string;
+  conversationId?: string;
+  projectId?: string;
+}
+
+export interface CreateTerminalResponse {
+  terminal?: TerminalInfo;
 }
 
 export interface CreateTrajectoryShareRequest {
@@ -2678,6 +3091,7 @@ export interface CreateTrajectoryShareResponse {
 
 export interface CreateWorktreeRequest {
   repoPath?: string;
+  repoUri?: string;
   baseBranchName?: string;
   planInfo?: PlanInfo;
   items?: TextOrScopeItem[];
@@ -2757,6 +3171,7 @@ export interface CustomAgentSpec {
   customAgent?: CustomAgentConfig;
   codingAgent?: CodingAgentConfig;
   agentConfig?: AgentConfig;
+  builtinAgent?: BuiltinAgentConfig;
   userActiveWorkspaces?: boolean;
   workspacePaths?: WorkspacePaths;
 }
@@ -2767,6 +3182,7 @@ export interface CustomAgentSystemPromptConfig {
 
 export interface CustomizationConfig {
   customizationServerUrl?: string;
+  customizationServerOriginConversationId?: string;
   toolNames?: string[];
   preInvocationHookNames?: string[];
   postInvocationHookNames?: string[];
@@ -2780,6 +3196,9 @@ export interface CustomizationConfig {
   customizationDiscoveryConfig?: CustomizationDiscoveryConfig;
   agentPath?: string;
   enableJsonHooks?: boolean;
+  enableTeamworkSubagent?: boolean;
+  strictArgumentValidation?: boolean;
+  functionCallTimeoutSeconds?: number;
   userActiveWorkspaces?: boolean;
   workspacePaths?: WorkspacePaths;
 }
@@ -2788,6 +3207,11 @@ export interface CustomizationDiscoveryConfig {
   skills?: SkillsConfig;
   agents?: AgentDiscoveryConfig;
   mcp?: McpDiscoveryConfig;
+  plugins?: PluginDiscoveryConfig;
+  profiles?: ProfilesConfig;
+  rules?: RulesDiscoveryConfig;
+  overrideWorkspacePath?: string;
+  agentPath?: string;
 }
 
 export interface CustomizationPath {
@@ -2798,6 +3222,12 @@ export interface CustomizationPath {
 
 export interface CustomizationPathsList {
   paths?: string[];
+}
+
+export interface CustomizationSourceConfig {
+  exclude?: string[];
+  inherits?: ProfilePathEntry[];
+  entries?: ProfilePathEntry[];
 }
 
 export interface CustomModelsConfig {
@@ -2815,6 +3245,13 @@ export interface CustomPromptSection {
   insertBeforeSection?: string;
 }
 
+export interface CustomThemeSeeds {
+  background?: string;
+  primary?: string;
+  foregroundOverride?: string;
+  primaryForegroundOverride?: string;
+}
+
 export interface DeclarativeMixinConfig {
   providers?: FunctionProvider[];
   promptSections?: PromptSectionItem[];
@@ -2824,11 +3261,30 @@ export interface DeclarativeMixinConfig {
   preToolHooks?: NamedItem[];
   postToolHooks?: NamedItem[];
   stopHooks?: NamedItem[];
+  resolutionPolicy?: ComponentResolutionPolicy;
+}
+
+export interface DefaultAgentConfig {
+  isGoogle?: boolean;
+  finishToolSchema?: string;
+  isInteractive?: boolean;
+  forceContribVariant?: string;
 }
 
 export interface DefaultOverrideModelConfig {
   modelOrAlias?: ModelOrAlias;
   versionId?: string;
+}
+
+export interface DefaultProjectEnvironment {
+}
+
+export interface DeleteAgentMessageRequest {
+  messageId?: string;
+  recipient?: string;
+}
+
+export interface DeleteAgentMessageResponse {
 }
 
 export interface DeleteCascadeMemoryRequest {
@@ -2861,6 +3317,22 @@ export interface DeleteMediaArtifactResponse {
   errorMessage?: string;
 }
 
+export interface DeletePluginRequest {
+  pluginId?: string;
+}
+
+export interface DeletePluginResponse {
+  success?: boolean;
+  message?: string;
+}
+
+export interface DeleteProjectRequest {
+  id?: string;
+}
+
+export interface DeleteProjectResponse {
+}
+
 export interface DeleteQueuedUserInputStepRequest {
   cascadeId?: string;
   stepIndex?: number;
@@ -2887,6 +3359,18 @@ export interface DeployTarget {
   domain?: string;
 }
 
+export interface DetectBattleModeAutoTriggerRequest {
+  cascadeId?: string;
+  model?: Model;
+  userMessage?: SendUserCascadeMessageRequest;
+}
+
+export interface DetectBattleModeAutoTriggerResponse {
+  targetBattleN?: number;
+  triggerTag?: string;
+  bannerText?: string;
+}
+
 export interface DiffBlock {
   startLine?: number;
   endLine?: number;
@@ -2901,6 +3385,27 @@ export interface DiffCommentInfo {
 
 export interface DiffList {
   diffs?: DiffBlock[];
+}
+
+export interface DiffStats {
+  additions?: number;
+  deletions?: number;
+}
+
+export interface DisassembleProjectRequest {
+  projectId?: string;
+}
+
+export interface DisassembleProjectResponse {
+  newProjectIds?: string[];
+}
+
+export interface DiscardFileChangesRequest {
+  workspaceUri?: string;
+  uris?: string[];
+}
+
+export interface DiscardFileChangesResponse {
 }
 
 export interface DisconnectMcpOAuthRequest {
@@ -2929,6 +3434,12 @@ export interface Document {
   timestamp?: any;
   isDirty?: boolean;
   isSynthetic?: boolean;
+}
+
+export interface DocumentContent {
+  mimeType?: DocumentContent_MimeType;
+  data?: Uint8Array;
+  uri?: string;
 }
 
 export interface DocumentLinesElement {
@@ -3011,6 +3522,23 @@ export interface DOMTree_MapEntry {
   value?: DOMNode;
 }
 
+export interface DownloadBuildWithGooglePluginRequest {
+  pluginId?: string;
+}
+
+export interface DownloadBuildWithGooglePluginResponse {
+  success?: boolean;
+  message?: string;
+}
+
+export interface DriveFileResult {
+  fileId?: string;
+  name?: string;
+  url?: string;
+  mimeType?: string;
+  resourceType?: WorkspaceResourceType;
+}
+
 export interface DumpFlightRecorderRequest {
   traceFilePath?: string;
 }
@@ -3027,6 +3555,18 @@ export interface DumpPprofRequest {
 export interface DumpPprofResponse {
 }
 
+export interface DynamicContextScopeItem {
+  providerLabel?: string;
+  itemValue?: string;
+  itemLabel?: string;
+  uri?: string;
+}
+
+export interface EditorState {
+  activeDocument?: Document;
+  otherDocuments?: Document[];
+}
+
 export interface ElicitationInteraction {
   action?: string;
   contentJson?: string;
@@ -3040,6 +3580,15 @@ export interface ElicitationInteractionSpec {
   url?: string;
 }
 
+export interface EliminateBattleModeArmRequest {
+  sourceConversationId?: string;
+  eliminatedConversationId?: string;
+}
+
+export interface EliminateBattleModeArmResponse {
+  battleModeInfo?: BattleModeInfo;
+}
+
 export interface EndAudioSessionRequest {
   sessionId?: string;
 }
@@ -3047,17 +3596,37 @@ export interface EndAudioSessionRequest {
 export interface EndAudioSessionResponse {
 }
 
+export interface EndBattleModeError {
+  errorType?: EndBattleModeErrorType;
+  errorMessage?: string;
+}
+
 export interface EndBattleModeRequest {
   winnerConversationId?: string;
+  mergeStrategy?: MergeStrategy;
+  endType?: BattleEndType;
+  sourceConversationId?: string;
 }
 
 export interface EndBattleModeResponse {
   mainConversationId?: string;
+  error?: EndBattleModeError;
+  winningModel?: Model;
 }
 
 export interface EnterpriseToolConfig {
   enforceWorkspaceValidation?: boolean;
   customWorkspace?: string[];
+}
+
+export interface Environment {
+  id?: string;
+  name?: string;
+  resources?: Resources;
+}
+
+export interface Environments {
+  environments?: Environment[];
 }
 
 export interface EphemeralMessagesConfig {
@@ -3066,6 +3635,9 @@ export interface EphemeralMessagesConfig {
   browserEphemeralOptions?: BrowserEphemeralOption[];
   excludeUnleashBrowserEphemeralOptions?: boolean;
   disabledHeuristics?: string[];
+  useAllowlist?: boolean;
+  enabledHeuristics?: string[];
+  staticMessages?: string[];
   numSteps?: number;
   heuristicPrompts?: HeuristicPrompt[];
 }
@@ -3105,6 +3677,10 @@ export interface ExecutorMetadata {
   executionId?: string;
   cascadeConfig?: CascadeConfig;
   mendelExperimentIds?: number[];
+  executionError?: string;
+  hasEverUsedNonGoogleModel?: boolean;
+  beforeSnapshot?: SnapshotMetadata;
+  afterSnapshot?: SnapshotMetadata;
 }
 
 export interface ExitRequest {
@@ -3168,11 +3744,77 @@ export interface FastApplyFallbackInfo {
   usedRepairFallback?: boolean;
 }
 
+export interface FetchAdminControlsRequest {
+}
+
+export interface FetchAdminControlsResponse {
+  adminControlsApplicable?: boolean;
+  agentControls?: FetchAdminControlsResponse_AgentControls;
+  browserControls?: FetchAdminControlsResponse_BrowserControls;
+  mcpControls?: FetchAdminControlsResponse_McpControls;
+}
+
+export interface FetchAdminControlsResponse_AgentControls {
+  sandboxModeEnabled?: boolean;
+  outsideWorkspaceFileAccessPolicy?: FetchAdminControlsResponse_AgentControls_FileAccessPolicy;
+  terminalCommandAutoExecutionPolicy?: FetchAdminControlsResponse_AgentControls_TerminalCommandAutoExecutionPolicy;
+}
+
+export interface FetchAdminControlsResponse_BrowserControls {
+  browserEnabled?: boolean;
+  javascriptExecutionPolicy?: FetchAdminControlsResponse_JavascriptExecutionPolicy;
+  actuationAllowedUrls?: string[];
+}
+
+export interface FetchAdminControlsResponse_McpControls {
+  mcpEnabled?: boolean;
+  mcpAllowlist?: any;
+}
+
 export interface FetchUserInfoRequest {
 }
 
 export interface FetchUserInfoResponse {
   userSettings?: any;
+}
+
+export interface Field {
+  name?: string;
+  value?: GenaiValue;
+}
+
+export interface FigAmendRequest {
+  workspaceUri?: string;
+  message?: string;
+}
+
+export interface FigAmendResponse {
+  commitId?: string;
+}
+
+export interface FigCommitRequest {
+  workspaceUri?: string;
+  message?: string;
+}
+
+export interface FigCommitResponse {
+  commitId?: string;
+}
+
+export interface FigSyncRequest {
+  workspaceUri?: string;
+}
+
+export interface FigSyncResponse {
+}
+
+export interface FigUploadRequest {
+  workspaceUri?: string;
+  commitId?: string;
+}
+
+export interface FigUploadResponse {
+  clNumbers?: string[];
 }
 
 export interface FileAccessPermission {
@@ -3196,6 +3838,15 @@ export interface FileChange {
   unchangedCodeContextItems?: CodeContextItem[];
 }
 
+export interface FileCitation {
+  documentUri?: string;
+  fileName?: string;
+  source?: string;
+  customMetadata?: GenaiStruct;
+  pageNumber?: number;
+  mediaId?: string;
+}
+
 export interface FileComment {
   fileUri?: string;
   fileCommentInfos?: FileCommentInfo[];
@@ -3209,6 +3860,14 @@ export interface FileCommentInfo {
 export interface FileDiffComment {
   fileUri?: string;
   diffCommentInfos?: DiffCommentInfo[];
+}
+
+export interface FileDiffData {
+  additions?: number;
+  deletions?: number;
+  originalContents?: string;
+  modifiedContents?: string;
+  isArtifactFile?: boolean;
 }
 
 export interface FileLineRange {
@@ -3227,6 +3886,16 @@ export interface FilePermissionInteractionSpec {
   absolutePathUri?: string;
   isDirectory?: boolean;
   blockReason?: FilePermissionInteractionSpec_BlockReason;
+}
+
+export interface FileSearchCallContent {
+}
+
+export interface FileSearchResultContent {
+  result?: FileSearchResultContent_FileSearchResult[];
+}
+
+export interface FileSearchResultContent_FileSearchResult {
 }
 
 export interface FindingsStep {
@@ -3302,6 +3971,7 @@ export interface ForkConversationRequest {
   items?: TextOrScopeItem[];
   media?: Media[];
   agentScriptOverride?: AgentScriptItem;
+  referenceType?: CortexTrajectoryReferenceType;
 }
 
 export interface ForkConversationResponse {
@@ -3314,12 +3984,60 @@ export interface ForkConversationResponse {
 export interface ForkFromIdentifier {
   cascadeId?: string;
   stepIndex?: number;
+  referenceType?: CortexTrajectoryReferenceType;
+}
+
+export interface FunctionCallContent {
+  name?: string;
+  arguments?: GenaiStruct;
 }
 
 export interface FunctionProvider {
   name?: string;
   url?: string;
+  providerOriginConversationId?: string;
   protocol?: FunctionProvider_Protocol;
+  strictArgumentValidation?: boolean;
+  functionCallTimeoutSeconds?: number;
+}
+
+export interface FunctionResultContent {
+  name?: string;
+  isError?: boolean;
+  structResult?: GenaiStruct;
+  contentList?: FunctionResultSubcontentList;
+  stringResult?: string;
+}
+
+export interface FunctionResultSubcontent {
+  text?: TextContent;
+  image?: ImageContent;
+}
+
+export interface FunctionResultSubcontentList {
+  contents?: FunctionResultSubcontent[];
+}
+
+export interface GenaiListValue {
+  values?: GenaiValue[];
+}
+
+export interface GenaiStruct {
+  fields?: Field[];
+}
+
+export interface GenaiValue {
+  nullValue?: any;
+  numberValue?: number;
+  stringValue?: string;
+  boolValue?: boolean;
+  structValue?: GenaiStruct;
+  listValue?: GenaiListValue;
+  contentValue?: Content;
+}
+
+export interface GeneralError {
+  reason?: string;
 }
 
 export interface GenerateCommitMessageRequest {
@@ -3329,6 +4047,16 @@ export interface GenerateCommitMessageRequest {
 
 export interface GenerateCommitMessageResponse {
   commitMessage?: CommitMessageData;
+}
+
+export interface GenerateEnvironmentNameRequest {
+  items?: TextOrScopeItem[];
+  media?: Media[];
+  existingNames?: string[];
+}
+
+export interface GenerateEnvironmentNameResponse {
+  name?: string;
 }
 
 export interface GenerateImageToolConfig {
@@ -3349,12 +4077,19 @@ export interface GenerateSkillInstallationCLResponse {
 export interface GenericStepResult {
   result?: string;
   media?: Media[];
-  data?: any;
+  payload?: any;
   stepRenderInfo?: StepRenderInfo;
+  data?: GenericStepResult_DataEntry[];
+}
+
+export interface GenericStepResult_DataEntry {
+  key?: string;
+  value?: any;
 }
 
 export interface GetAgentScriptsRequest {
   workspaceUris?: string[];
+  activeProfile?: string;
 }
 
 export interface GetAgentScriptsResponse {
@@ -3405,6 +4140,7 @@ export interface GetAllCustomAgentConfigsResponse_ConfigMapEntry {
 
 export interface GetAllPluginsRequest {
   workspaceUris?: string[];
+  activeProfile?: string;
 }
 
 export interface GetAllPluginsResponse {
@@ -3413,6 +4149,8 @@ export interface GetAllPluginsResponse {
 
 export interface GetAllRulesRequest {
   workspaceUris?: string[];
+  activeProfile?: string;
+  enablePersonal?: boolean;
 }
 
 export interface GetAllRulesResponse {
@@ -3421,6 +4159,8 @@ export interface GetAllRulesResponse {
 
 export interface GetAllSkillsRequest {
   workspaceUris?: string[];
+  activeProfile?: string;
+  enablePersonal?: boolean;
 }
 
 export interface GetAllSkillsResponse {
@@ -3429,6 +4169,8 @@ export interface GetAllSkillsResponse {
 
 export interface GetAllWorkflowsRequest {
   workspaceUris?: string[];
+  activeProfile?: string;
+  enablePersonal?: boolean;
 }
 
 export interface GetAllWorkflowsResponse {
@@ -3441,6 +4183,13 @@ export interface GetArtifactSnapshotsRequest {
 
 export interface GetArtifactSnapshotsResponse {
   artifactSnapshots?: ArtifactSnapshot[];
+}
+
+export interface GetAuthStatusRequest {
+}
+
+export interface GetAuthStatusResponse {
+  authResult?: AuthResult;
 }
 
 export interface GetAvailableCascadePluginsRequest {
@@ -3460,6 +4209,15 @@ export interface GetAvailableModelsResponse {
   response?: any;
 }
 
+export interface GetBattleWorktreeDiffRequest {
+  armWorkspaceUri?: string;
+  parentWorkspaceUri?: string;
+}
+
+export interface GetBattleWorktreeDiffResponse {
+  fileChanges?: VcsFileChange[];
+}
+
 export interface GetBrowserOpenConversationRequest {
 }
 
@@ -3472,6 +4230,20 @@ export interface GetBrowserWhitelistFilePathRequest {
 
 export interface GetBrowserWhitelistFilePathResponse {
   path?: string;
+}
+
+export interface GetBuildWithGooglePluginsRequest {
+}
+
+export interface GetBuildWithGooglePluginsResponse {
+  plugins?: any[];
+}
+
+export interface GetCapabilitiesRequest {
+}
+
+export interface GetCapabilitiesResponse {
+  supportsHookResultProtoBytes?: boolean;
 }
 
 export interface GetCascadeMemoriesRequest {
@@ -3510,6 +4282,15 @@ export interface GetCascadePluginByIdResponse {
   plugin?: CascadePluginTemplate;
 }
 
+export interface GetCascadeTrajectoryExecutorMetadatasRequest {
+  cascadeId?: string;
+  executorMetadataOffset?: number;
+}
+
+export interface GetCascadeTrajectoryExecutorMetadatasResponse {
+  executorMetadata?: ExecutorMetadata[];
+}
+
 export interface GetCascadeTrajectoryGeneratorMetadataRequest {
   cascadeId?: string;
   generatorMetadataOffset?: number;
@@ -3524,6 +4305,7 @@ export interface GetCascadeTrajectoryRequest {
   cascadeId?: string;
   verbosity?: ClientTrajectoryVerbosity;
   trajectoryVerbosity?: JetskiCortexClientTrajectoryVerbosity;
+  disableRehydration?: boolean;
 }
 
 export interface GetCascadeTrajectoryResponse {
@@ -3531,6 +4313,7 @@ export interface GetCascadeTrajectoryResponse {
   status?: CascadeRunStatus;
   numTotalSteps?: number;
   numTotalGeneratorMetadata?: number;
+  numTotalExecutorMetadata?: number;
 }
 
 export interface GetCascadeTrajectoryStepsRequest {
@@ -3538,6 +4321,7 @@ export interface GetCascadeTrajectoryStepsRequest {
   stepOffset?: number;
   verbosity?: ClientTrajectoryVerbosity;
   trajectoryVerbosity?: JetskiCortexClientTrajectoryVerbosity;
+  disableRehydration?: boolean;
 }
 
 export interface GetCascadeTrajectoryStepsResponse {
@@ -3550,6 +4334,15 @@ export interface GetChangelogRequest {
 
 export interface GetChangelogResponse {
   path?: string;
+}
+
+export interface GetCodeActionDiffRequest {
+  cascadeId?: string;
+  stepIndex?: number;
+}
+
+export interface GetCodeActionDiffResponse {
+  diff?: DiffBlock;
 }
 
 export interface GetCodeFrequencyForRepoRequest {
@@ -3577,11 +4370,72 @@ export interface GetCommandModelConfigsResponse {
   clientModelConfigs?: ClientModelConfig[];
 }
 
+export interface GetCommitDetailsRequest {
+  workspaceUri?: string;
+  commitId?: string;
+}
+
+export interface GetCommitDetailsResponse {
+  changedFiles?: VcsFileChange[];
+  parentCommitIds?: string[];
+}
+
+export interface GetConversationMetadataRequest {
+  conversationId?: string;
+}
+
+export interface GetConversationMetadataResponse {
+}
+
 export interface GetDebugDiagnosticsRequest {
 }
 
 export interface GetDebugDiagnosticsResponse {
   languageServerDiagnostics?: LanguageServerDiagnostics;
+}
+
+export interface GetDefaultProjectDirRequest {
+}
+
+export interface GetDefaultProjectDirResponse {
+  defaultProjectDirUri?: string;
+}
+
+export interface GetGrantedScopesRequest {
+  isGcpTos?: boolean;
+}
+
+export interface GetGrantedScopesResponse {
+  scopes?: string[];
+}
+
+export interface GetInputCompletionRequest {
+  completionId?: string;
+  cascadeId?: string;
+  content?: string;
+  cursor?: number;
+}
+
+export interface GetInputCompletionResponse {
+  completionId?: string;
+  startOffset?: number;
+  endOffset?: number;
+  replacement?: string;
+}
+
+export interface GetJJWorktreesRequest {
+  repoUri?: string;
+}
+
+export interface GetJJWorktreesResponse {
+  worktrees?: JJWorktree[];
+}
+
+export interface GetKnowledgeItemsRequest {
+}
+
+export interface GetKnowledgeItemsResponse {
+  items?: KnowledgeItem[];
 }
 
 export interface GetLoadCodeAssistRequest {
@@ -3590,6 +4444,15 @@ export interface GetLoadCodeAssistRequest {
 
 export interface GetLoadCodeAssistResponse {
   response?: any;
+}
+
+export interface GetLocalUserInfoRequest {
+}
+
+export interface GetLocalUserInfoResponse {
+  username?: string;
+  homeDirUri?: string;
+  machineType?: string;
 }
 
 export interface GetMatchingContextScopeItemsRequest {
@@ -3636,6 +4499,13 @@ export interface GetMcpServerTemplatesRequest {
 
 export interface GetMcpServerTemplatesResponse {
   templates?: McpServerTemplate[];
+}
+
+export interface GetMendelFlagsRequest {
+}
+
+export interface GetMendelFlagsResponse {
+  experimentConfig?: ExperimentConfig;
 }
 
 export interface GetModelResponseRequest {
@@ -3701,6 +4571,13 @@ export interface GetRevisionArtifactResponse {
   patch?: string;
 }
 
+export interface GetServerConfigurationRequest {
+}
+
+export interface GetServerConfigurationResponse {
+  config?: LanguageServerConfig;
+}
+
 export interface GetSidecarEventsRequest {
   sidecarId?: string;
 }
@@ -3722,6 +4599,25 @@ export interface GetSkillMarketplaceLinkRequest {
 
 export interface GetSkillMarketplaceLinkResponse {
   marketplaceUrl?: string;
+}
+
+export interface GetSlashCommandsRequest {
+  cascadeConfig?: CascadeConfig;
+  cascadeId?: string;
+  workspaceUris?: string[];
+  activeProfile?: string;
+  enablePersonal?: boolean;
+}
+
+export interface GetSlashCommandsResponse {
+  commands?: SlashCommandDefinition[];
+}
+
+export interface GetStandaloneDirRequest {
+}
+
+export interface GetStandaloneDirResponse {
+  standaloneDir?: string;
 }
 
 export interface GetStaticExperimentStatusRequest {
@@ -3756,6 +4652,7 @@ export interface GetTermsOfServiceResponse {
 export interface GetTokenBaseRequest {
   cascadeConfig?: CascadeConfig;
   workspaceUris?: string[];
+  activeProfile?: string;
 }
 
 export interface GetTokenBaseResponse {
@@ -3772,6 +4669,25 @@ export interface GetTranscriptionRequest {
 
 export interface GetTranscriptionResponse {
   transcribedText?: string;
+}
+
+export interface GetTurnDiffRequest {
+  conversationId?: string;
+  stepIndex?: number;
+}
+
+export interface GetTurnDiffResponse {
+  fileDiffs?: GetTurnDiffResponse_FileDiffsEntry[];
+  totalAdditions?: number;
+  totalDeletions?: number;
+  userInput?: CortexStepUserInput;
+  turnStartIndex?: number;
+  turnEndIndexExclusive?: number;
+}
+
+export interface GetTurnDiffResponse_FileDiffsEntry {
+  key?: string;
+  value?: FileDiffData;
 }
 
 export interface GetUnleashDataRequest {
@@ -3848,6 +4764,24 @@ export interface GetUserTrajectoryResponse {
   trajectory?: Trajectory;
 }
 
+export interface GetVersionControlFileContentRequest {
+  uri?: string;
+  commitId?: string;
+  staged?: boolean;
+}
+
+export interface GetVersionControlFileContentResponse {
+  content?: Uint8Array;
+}
+
+export interface GetVersionControlStateRequest {
+  workspacePath?: string;
+}
+
+export interface GetVersionControlStateResponse {
+  state?: VcsWorkspaceState;
+}
+
 export interface GetWebDocsOptionsRequest {
 }
 
@@ -3876,6 +4810,7 @@ export interface GetWorkspaceInfosResponse {
   homeDirPath?: string;
   workspaceInfos?: WorkspaceInfo[];
   homeDirUri?: string;
+  geminiDirUri?: string;
 }
 
 export interface GetWorktreeDiffRequest {
@@ -3893,6 +4828,29 @@ export interface GitCommit {
   parentCommitHash?: string;
 }
 
+export interface GitCommitRequest {
+  workspaceUri?: string;
+  message?: string;
+}
+
+export interface GitCommitResponse {
+  commitId?: string;
+}
+
+export interface GitDiscardRequest {
+  workspaceUri?: string;
+  uris?: string[];
+}
+
+export interface GitDiscardResponse {
+}
+
+export interface GitFolder {
+  folderUri?: string;
+  defaultBranch?: string;
+  allowWrite?: boolean;
+}
+
 export interface GitRepoInfo {
   name?: string;
   owner?: string;
@@ -3901,6 +4859,76 @@ export interface GitRepoInfo {
   versionAlias?: string;
   scmProvider?: ScmProvider;
   baseGitUrl?: string;
+}
+
+export interface GitStageRequest {
+  workspaceUri?: string;
+  uris?: string[];
+}
+
+export interface GitStageResponse {
+}
+
+export interface GitUnstageRequest {
+  workspaceUri?: string;
+  uris?: string[];
+}
+
+export interface GitUnstageResponse {
+}
+
+export interface Google3 {
+  forkType?: Google3_ForkType;
+}
+
+export interface GoogleMapsCallContent {
+  arguments?: GoogleMapsCallContent_GoogleMapsCallArguments;
+}
+
+export interface GoogleMapsCallContent_GoogleMapsCallArguments {
+  queries?: string[];
+}
+
+export interface GoogleMapsResultContent {
+  result?: GoogleMapsResultContent_GoogleMapsResult[];
+}
+
+export interface GoogleMapsResultContent_GoogleMapsResult {
+  places?: GoogleMapsResultContent_GoogleMapsResult_Places[];
+  widgetContextToken?: string;
+}
+
+export interface GoogleMapsResultContent_GoogleMapsResult_Places {
+  placeId?: string;
+  name?: string;
+  url?: string;
+  reviewSnippets?: ReviewSnippet[];
+}
+
+export interface GoogleSearchCallContent {
+  arguments?: GoogleSearchCallContent_GoogleSearchCallArguments;
+  searchType?: GoogleSearch_SearchType;
+}
+
+export interface GoogleSearchCallContent_GoogleSearchCallArguments {
+  queries?: string[];
+}
+
+export interface GoogleSearchResultContent {
+  result?: GoogleSearchResultContent_GoogleSearchResult[];
+  isError?: boolean;
+}
+
+export interface GoogleSearchResultContent_GoogleSearchResult {
+  searchSuggestions?: string;
+}
+
+export interface GoogleSpecificConfig {
+  magicWorkspaceVcs?: VcsType;
+}
+
+export interface GoogleSpecificSettings {
+  google3ProjectCreated?: boolean;
 }
 
 export interface GrepSearchResult {
@@ -3919,6 +4947,7 @@ export interface GrepToolConfig {
   allowAccessGitignore?: boolean;
   useCodeSearch?: boolean;
   disableFallbackToLocalExecution?: boolean;
+  forceDisable?: boolean;
 }
 
 export interface Guideline {
@@ -3945,6 +4974,21 @@ export interface HandleScreenRecordingResponse {
   videoData?: Uint8Array;
 }
 
+export interface HasAuthTokenRequest {
+}
+
+export interface HasAuthTokenResponse {
+  hasToken?: boolean;
+  isGcpTos?: boolean;
+  projectId?: string;
+  location?: string;
+  wifProvider?: string;
+}
+
+export interface HeadlessAuthRequired {
+  authUrl?: string;
+}
+
 export interface HeartbeatRequest {
   previousErrorTraces?: ErrorTrace[];
   experimentConfig?: ExperimentConfig;
@@ -3957,6 +5001,13 @@ export interface HeartbeatResponse {
 export interface HeuristicPrompt {
   heuristic?: string;
   prompt?: string;
+}
+
+export interface ImageContent {
+  mimeType?: ImageContent_MimeType;
+  resolution?: MediaResolution;
+  data?: Uint8Array;
+  uri?: string;
 }
 
 export interface ImageData {
@@ -3987,10 +5038,28 @@ export interface ImportFromCursorResponse {
   problemFiles?: string[];
 }
 
+export interface ImportProjectFromUrlRequest {
+  blobId?: string;
+  signature?: string;
+  gcpGroupName?: string;
+}
+
+export interface ImportProjectFromUrlResponse {
+  projectName?: string;
+  projectRootUri?: string;
+  shouldDownloadFirebaseSkill?: boolean;
+  latestConversationId?: string;
+}
+
 export interface IndexStats {
   repositoryName?: string;
   fileCount?: bigint;
   codeContextItemCount?: bigint;
+}
+
+export interface IneligibleInfo {
+  reason?: string;
+  verificationUrl?: string;
 }
 
 export interface InitializeCascadePanelStateRequest {
@@ -4037,12 +5106,23 @@ export interface InternalSearchResults {
 export interface InternalSearchToolConfig {
   maxResults?: number;
   maxContentLength?: number;
+  forceDisable?: boolean;
 }
 
 export interface InvokeSubagentToolConfig {
   enabled?: boolean;
   fastModel?: Model;
   heavyModel?: Model;
+  maxNestingDepth?: number;
+  allowTaskMode?: boolean;
+  alwaysInheritModel?: boolean;
+}
+
+export interface IsProjectsEnabledInternallyRequest {
+}
+
+export interface IsProjectsEnabledInternallyResponse {
+  enabled?: boolean;
 }
 
 export interface Jetbox_stateUserSettings {
@@ -4057,6 +5137,61 @@ export interface Jetbox_stateUserSettings {
   enableTerminalSandbox?: boolean;
   disableDefaultCustomizations?: boolean;
   globalPermissionGrants?: PermissionGrantsConfig;
+  agentEnvironment?: AgentEnvironment;
+  verboseAgentChat?: boolean;
+  sandboxAllowNetwork?: boolean;
+  nonWorkspaceFileAccessPolicy?: AgentSettingPolicy;
+  internetAccessPolicy?: AgentSettingPolicy;
+  allowAgentAccessGitignoreFiles?: boolean;
+  themeMode?: ThemeMode;
+  customThemeSeedsLight?: CustomThemeSeeds;
+  customThemeSeedsDark?: CustomThemeSeeds;
+  browserJsExecutionPolicy?: BrowserJsExecutionPolicy;
+  maxClonedWorkspaces?: number;
+  maxClonesPerWorkspace?: number;
+  disableEagerCloning?: boolean;
+  gcpRegion?: string;
+  remoteControlEnabled?: boolean;
+  useAiCredits?: boolean;
+  activeProfile?: string;
+  conversationWidth?: ConversationWidth;
+  remoteControlHostname?: string;
+  queuedMessageDeliveryStrategy?: MessageDeliveryStrategy;
+  googleConfig?: GoogleSpecificConfig;
+  enableBusinessLogin?: boolean;
+  enableNotificationsForSpecialEvents?: boolean;
+  enablePersonalCustomizations?: boolean;
+  shellSetupScript?: string;
+  enableSoundsForSpecialEvents?: boolean;
+}
+
+export interface JetboxAppState {
+  postOnboarding?: PostOnboardingState;
+  seenNuxs?: SeenNuxUids;
+  sidebarWorkspacesMigrated?: boolean;
+  googleSettings?: GoogleSpecificSettings;
+  agentOnboardingCompleted?: AgentOnboardingState;
+  sidebarWorkspaces?: JetboxAppState_SidebarWorkspacesEntry[];
+  lastSelectedAgentModel?: Model;
+  customModelsConfig?: CustomModelsConfig;
+  agentEnvironment?: AgentEnvironment;
+  userConfigMigrated?: boolean;
+  migrateConvosIntoProjects?: MigrationStatus;
+  installationUuid?: string;
+  migrateInternalProjects?: MigrationStatus;
+  migrateRetroactiveProjects?: RetroactiveMigrationStatus;
+  optedOutBestOfNAutoTriggerAt?: bigint;
+  migrations?: JetboxAppState_MigrationsEntry[];
+}
+
+export interface JetboxAppState_MigrationsEntry {
+  key?: number;
+  value?: MigrationStatus;
+}
+
+export interface JetboxAppState_SidebarWorkspacesEntry {
+  key?: string;
+  value?: SidebarWorkspaceInfo;
 }
 
 export interface JetboxDeleteSummaryRequest {
@@ -4075,6 +5210,8 @@ export interface JetboxGetLatestVersionResponse {
 
 export interface JetboxWriteStateRequest {
   state?: State;
+  appState?: JetboxAppState;
+  userConfig?: UserConfig;
 }
 
 export interface JetboxWriteStateResponse {
@@ -4086,6 +5223,45 @@ export interface JetboxWriteSummaryRequest {
 }
 
 export interface JetboxWriteSummaryResponse {
+}
+
+export interface JjCommitRequest {
+  workspaceUri?: string;
+  message?: string;
+}
+
+export interface JjCommitResponse {
+  commitId?: string;
+}
+
+export interface JjSquashRequest {
+  workspaceUri?: string;
+  message?: string;
+}
+
+export interface JjSquashResponse {
+  commitId?: string;
+}
+
+export interface JjSyncRequest {
+  workspaceUri?: string;
+}
+
+export interface JjSyncResponse {
+}
+
+export interface JjUploadRequest {
+  workspaceUri?: string;
+  revset?: string;
+}
+
+export interface JjUploadResponse {
+  clNumbers?: string[];
+}
+
+export interface JJWorktree {
+  baseCommitDescription?: string;
+  uri?: string;
 }
 
 export interface KnowledgeBaseChunk {
@@ -4133,6 +5309,7 @@ export interface KnowledgeBaseScopeItem {
 export interface KnowledgeBaseSearchToolConfig {
   maxTokensPerKnowledgeBaseSearch?: number;
   promptFraction?: number;
+  forceDisable?: boolean;
 }
 
 export interface KnowledgeConfig {
@@ -4148,6 +5325,14 @@ export interface KnowledgeConfig {
   enableKiInsertion?: boolean;
 }
 
+export interface KnowledgeItem {
+  dirName?: string;
+  dirUri?: string;
+  metadataUri?: string;
+  metadataContents?: string;
+  artifactSourceUris?: string[];
+}
+
 export interface KnowledgeReference {
   filePath?: string;
   conversationId?: string;
@@ -4156,6 +5341,28 @@ export interface KnowledgeReference {
 
 export interface KnowledgeReferences {
   references?: KnowledgeReference[];
+}
+
+export interface Language_serverSidecarConfig {
+  enabled?: boolean;
+  allowAll?: boolean;
+  bypassUserConfig?: boolean;
+  bypassProjectCheck?: boolean;
+}
+
+export interface LanguageServerConfig {
+  sidecars?: Language_serverSidecarConfig;
+  devMode?: boolean;
+  isGoogleEnvironment?: boolean;
+  standalone?: boolean;
+  isJetski?: boolean;
+  workspaceId?: string;
+  appDataDir?: string;
+  runningInXbox?: boolean;
+  runningInActor?: boolean;
+  useLocalChrome?: boolean;
+  antigravityHub?: boolean;
+  maxNumTrackedWorkspaces?: number;
 }
 
 export interface LanguageServerDiagnostics {
@@ -4169,6 +5376,16 @@ export interface LatencyInfo {
   debounceLatencyMs?: bigint;
   rpcLatencyMs?: bigint;
   networkLatencyMs?: bigint;
+}
+
+export interface License {
+  userTier?: string;
+  tierDisplayName?: string;
+  projectId?: string;
+  location?: string;
+}
+
+export interface LicenseRequiredInfo {
 }
 
 export interface LineRangeTarget {
@@ -4199,6 +5416,24 @@ export interface ListDirectoryResult {
 }
 
 export interface ListDirToolConfig {
+  forceDisable?: boolean;
+}
+
+export interface ListGobReposRequest {
+  query?: string;
+  maxResults?: number;
+}
+
+export interface ListGobReposResponse {
+  repos?: string[];
+}
+
+export interface ListLicensesRequest {
+}
+
+export interface ListLicensesResponse {
+  licenses?: License[];
+  dataSharingDisclaimer?: string;
 }
 
 export interface ListMcpPromptsRequest {
@@ -4224,6 +5459,31 @@ export interface ListPagesResponse {
   pages?: BrowserPageMetadata[];
 }
 
+export interface ListProfilesRequest {
+  workspaceUris?: string[];
+}
+
+export interface ListProfilesResponse {
+  profiles?: ProfileItem[];
+}
+
+export interface ListSidecarLogFilesRequest {
+  sidecarId?: string;
+}
+
+export interface ListSidecarLogFilesResponse {
+  logFilenames?: string[];
+}
+
+export interface ListTerminalsRequest {
+  conversationId?: string;
+  projectId?: string;
+}
+
+export interface ListTerminalsResponse {
+  terminals?: TerminalInfo[];
+}
+
 export interface LoadReplayConversationRequest {
   workspaceName?: string;
   user?: string;
@@ -4231,6 +5491,14 @@ export interface LoadReplayConversationRequest {
 }
 
 export interface LoadReplayConversationResponse {
+}
+
+export interface LoadSharedTrajectoryRequest {
+  path?: string;
+}
+
+export interface LoadSharedTrajectoryResponse {
+  cascadeId?: string;
 }
 
 export interface LoadTrajectoryRequest {
@@ -4256,6 +5524,26 @@ export interface LogArtifactsConfig {
   hideUserImplicitSteps?: boolean;
 }
 
+export interface LoginRequest {
+  isGcpTos?: boolean;
+  additionalScopes?: string[];
+  enableBusinessLogin?: boolean;
+  wifLoginInfo?: WifLoginInfo;
+}
+
+export interface LoginResponse {
+  authResult?: AuthResult;
+}
+
+export interface LoginWithBrowserRequest {
+  isGcpTos?: boolean;
+  additionalScopes?: string[];
+}
+
+export interface LoginWithBrowserResponse {
+  authResult?: AuthResult;
+}
+
 export interface LookupResult {
   uri?: string;
   content?: string;
@@ -4279,6 +5567,15 @@ export interface LspReference {
 export interface ManageSidecarRequest {
   sidecarId?: string;
   action?: SidecarAction;
+  config?: SidecarConfig;
+  projectId?: string;
+  allProjects?: boolean;
+  argumentValues?: ManageSidecarRequest_ArgumentValuesEntry[];
+}
+
+export interface ManageSidecarRequest_ArgumentValuesEntry {
+  key?: string;
+  value?: string;
 }
 
 export interface ManageSidecarResponse {
@@ -4434,6 +5731,11 @@ export interface McpServerSpec {
   toolConfig?: McpServerSpec_ToolConfigEntry[];
   oauth?: McpOAuthConfig;
   authProviderType?: McpAuthProviderType;
+  pluginName?: string;
+  timeoutSeconds?: number;
+  strictArgumentValidation?: boolean;
+  omitFromSystemPrompt?: boolean;
+  forceAllToolsEager?: boolean;
 }
 
 export interface McpServerSpec_EnvEntry {
@@ -4476,13 +5778,36 @@ export interface McpServerTemplate_CommandsEntry {
   value?: McpServerCommand;
 }
 
+export interface McpServerToolCallContent {
+  name?: string;
+  serverName?: string;
+  arguments?: GenaiStruct;
+}
+
 export interface McpServerToolConfig {
   background?: McpToolBackgroundMode;
+  eager?: boolean;
+  taskOptions?: McpTaskOptions;
+}
+
+export interface McpServerToolResultContent {
+  name?: string;
+  serverName?: string;
+  structResult?: GenaiStruct;
+  contentList?: FunctionResultSubcontentList;
+  stringResult?: string;
+}
+
+export interface McpTaskOptions {
+  suppressCompletionNotification?: boolean;
+  displayName?: string;
+  description?: string;
 }
 
 export interface McpToolConfig {
   forceDisable?: boolean;
   maxOutputBytes?: number;
+  enableLazyLoad?: boolean;
 }
 
 export interface Media {
@@ -4516,6 +5841,7 @@ export interface MessageRenderDetails {
 export interface MetricsRecord {
   name?: string;
   value?: number;
+  valueBreakdown?: string;
   details?: MetricsRecord_DetailsEntry[];
   error?: string;
   trajectoryId?: string;
@@ -4571,6 +5897,8 @@ export interface ModelFeatures {
   supportsModelInfoOverride?: boolean;
   requiresLeadInGeneration?: boolean;
   requiresNoXmlToolExamples?: boolean;
+  supportsThoughtCirculation?: boolean;
+  supportsDeferredToolLoading?: boolean;
 }
 
 export interface ModelFeatures_SupportedMimeTypesEntry {
@@ -4600,6 +5928,10 @@ export interface ModelInfo {
   thinkingLevel?: number;
   displayName?: string;
   toolResponseKey?: string;
+  tokensPerImage?: number;
+  vertexModelId?: string;
+  modelProvider?: ModelProvider;
+  modelUrl?: string;
 }
 
 export interface ModelOrAlias {
@@ -4609,6 +5941,7 @@ export interface ModelOrAlias {
 
 export interface ModelOutputRetryConfig {
   maxRetries?: number;
+  retryOnlyOnInvalidArgs?: boolean;
   forbidToolUse?: boolean;
   forceToolName?: string;
 }
@@ -4697,6 +6030,16 @@ export interface NewConversationEvent {
   conversationId?: string;
 }
 
+export interface NewEnvironmentArgs {
+  name?: string;
+  environmentId?: string;
+}
+
+export interface NotebookBlob {
+  mimeType?: string;
+  data?: string;
+}
+
 export interface NotebookEditToolConfig {
   enabled?: boolean;
 }
@@ -4739,13 +6082,23 @@ export interface PathScopeItem_WorkspaceUrisToRelativePathsEntry {
 
 export interface PermissionConfig {
   enterpriseConfig?: EnterpriseToolConfig;
-  globalPermissionGrants?: PermissionGrantsConfig;
+  effectiveGrants?: PermissionGrantsConfig;
+  defaultGrants?: PermissionGrantsConfig;
+  allowAlwaysConfig?: AllowAlwaysConfig;
+  permissionsV2?: boolean;
 }
 
 export interface PermissionGrant {
   resource?: PermissionResource;
   allow?: boolean;
   scope?: PermissionScope;
+  userDenyInstruction?: string;
+  action?: string;
+  target?: string;
+}
+
+export interface PermissionGrants {
+  permissionGrants?: PermissionGrantsConfig;
 }
 
 export interface PermissionGrantsConfig {
@@ -4757,16 +6110,36 @@ export interface PermissionGrantsConfig {
 export interface PermissionInteraction {
   allow?: boolean;
   scope?: PermissionScope;
+  editedTarget?: string;
+  persistGrants?: PermissionGrantsConfig;
+  userDenyInstruction?: string;
   sandboxOverride?: boolean;
 }
 
 export interface PermissionInteractionSpec {
   resource?: PermissionResource;
+  persistSuggestionType?: PermissionInteractionSpec_PersistSuggestionType;
+  suggestedPersistPattern?: string;
+  reason?: string;
+  actionDescription?: string;
+  triggerSource?: PermissionInteractionSpec_TriggerSource;
+}
+
+export interface PermissionInteractionSpec_TriggerSource {
+  type?: PermissionInteractionSpec_TriggerSource_Type;
+  detail?: string;
 }
 
 export interface PermissionResource {
   action?: string;
   target?: string;
+}
+
+export interface PlaceCitation {
+  placeId?: string;
+  name?: string;
+  url?: string;
+  reviewSnippets?: ReviewSnippet[];
 }
 
 export interface PlanEntryDeltaSummary {
@@ -4846,6 +6219,15 @@ export interface Plugin {
   skills?: WorkflowSpec[];
   agents?: AgentCustomization[];
   mcpServers?: McpServerSpec[];
+  rules?: CortexMemory[];
+  hooksJson?: string;
+  disabled?: boolean;
+  description?: string;
+}
+
+export interface PluginDiscoveryConfig {
+  inheritUser?: boolean;
+  pluginsPaths?: CustomizationPath[];
 }
 
 export interface PluginItem {
@@ -4854,13 +6236,121 @@ export interface PluginItem {
   disabled?: boolean;
 }
 
+export interface PluginUserConfig {
+  enabled?: boolean;
+}
+
 export interface Point2 {
   x?: number;
   y?: number;
 }
 
+export interface PolicyGuardianConfig {
+  enabled?: boolean;
+  model?: Model;
+  failMode?: PolicyGuardianConfig_FailMode;
+}
+
 export interface PostOnboardingState {
   completedSteps?: PostOnboardingStepType[];
+}
+
+export interface ProfileConfig {
+  name?: string;
+  description?: string;
+  inherit?: ProfileInheritEntry[];
+  skills?: CustomizationSourceConfig;
+  agents?: CustomizationSourceConfig;
+  plugins?: CustomizationSourceConfig;
+  hooks?: CustomizationSourceConfig;
+  mcp?: CustomizationSourceConfig;
+  rules?: CustomizationSourceConfig;
+}
+
+export interface ProfileExcludeConfig {
+  skills?: string[];
+  agents?: string[];
+  plugins?: string[];
+  hooks?: string[];
+  mcp?: string[];
+  rules?: string[];
+}
+
+export interface ProfileInheritEntry {
+  path?: string;
+  exclude?: ProfileExcludeConfig;
+}
+
+export interface ProfileItem {
+  name?: string;
+  description?: string;
+  path?: string;
+  config?: ProfileConfig;
+  isDefault?: boolean;
+}
+
+export interface ProfilePathEntry {
+  path?: string;
+  includeOnly?: string[];
+  exclude?: string[];
+}
+
+export interface ProfilesConfig {
+  activeProfile?: string;
+  profilesPaths?: CustomizationPath[];
+  enablePersonal?: boolean;
+}
+
+export interface Project {
+  id?: string;
+  name?: string;
+  projectConversations?: ProjectConversations;
+  projectResources?: Resources;
+  environments?: Environments;
+  permissionGrants?: PermissionGrants;
+  settings?: ProjectSettings;
+  updatedAt?: any;
+  isWorkspaceOnly?: boolean;
+  archived?: boolean;
+}
+
+export interface ProjectConversation {
+  conversationId?: string;
+  environmentId?: string;
+}
+
+export interface ProjectConversations {
+  conversations?: ProjectConversation[];
+}
+
+export interface ProjectEnvironmentConfig {
+  projectId?: string;
+  environmentId?: string;
+  newEnvironmentArgs?: NewEnvironmentArgs;
+  defaultProjectEnvironment?: DefaultProjectEnvironment;
+}
+
+export interface ProjectEnvironmentInfo {
+  environmentId?: string;
+  workspaceUris?: string[];
+  warning?: string;
+}
+
+export interface ProjectRequiredInfo {
+}
+
+export interface Projects {
+  projects?: Project[];
+}
+
+export interface ProjectSettings {
+  fileAccessPolicy?: AgentSettingPolicy;
+  internetPolicy?: AgentSettingPolicy;
+  sandboxMode?: boolean;
+  autoExecutionPolicy?: CascadeCommandsAutoExecution;
+  artifactReviewMode?: ArtifactReviewMode;
+  enablePermissionedGithub?: boolean;
+  shellSetupScript?: string;
 }
 
 export interface PromptAnnotationRange {
@@ -4877,11 +6367,11 @@ export interface PromptCacheOptions {
 export interface PromptSection {
   title?: string;
   content?: string;
-  criteria?: SectionJudgeCriteria[];
-  dynamicContent?: string;
   tokenType?: TokenType;
   tokenSource?: TokenSource;
   templatedContent?: string;
+  criteria?: SectionJudgeCriteria[];
+  dynamicContent?: string;
   templatedDynamicContent?: string;
 }
 
@@ -4924,6 +6414,12 @@ export interface ProvideCompletionFeedbackRequest {
 export interface ProvideCompletionFeedbackResponse {
 }
 
+export interface QueryCorrectionSuggestion {
+  context?: string;
+  reason?: string;
+  suggestion?: string;
+}
+
 export interface QuotaInfo {
   remainingFraction?: number;
   resetTime?: any;
@@ -4963,6 +6459,19 @@ export interface ReadKnowledgeBaseItemToolConfig {
   knowledgeBaseItems?: KnowledgeBaseItem[];
 }
 
+export interface ReadProjectRequest {
+  id?: string;
+}
+
+export interface ReadProjectResponse {
+  project?: Project;
+  notFoundOnDisk?: boolean;
+}
+
+export interface ReadUrlContentToolConfig {
+  forceDisable?: boolean;
+}
+
 export interface RecipeScopeItem {
   recipeId?: string;
   title?: string;
@@ -4992,6 +6501,7 @@ export interface RecordAnalyticsEventRequest {
   eventName?: string;
   extra?: RecordAnalyticsEventRequest_ExtraEntry[];
   experiments?: RecordAnalyticsEventRequest_ExperimentsEntry[];
+  runtimeEnvironment?: RuntimeEnvironment;
 }
 
 export interface RecordAnalyticsEventRequest_ExperimentsEntry {
@@ -5168,6 +6678,14 @@ export interface RegisterGdmUserResponse {
   apiKey?: string;
 }
 
+export interface RegisterInteractionRequest {
+  interaction?: any;
+}
+
+export interface RegisterInteractionResponse {
+  message?: string;
+}
+
 export interface RelevantCodeContext {
   codeContextItem?: CodeContextItem;
   relevanceReason?: RelevanceReason;
@@ -5236,6 +6754,8 @@ export interface RepoInfo {
   repoPath?: string;
   branches?: BranchInfo[];
   scmType?: ScmType;
+  repoUri?: string;
+  abfsWorkspace?: boolean;
 }
 
 export interface Repository {
@@ -5286,11 +6806,54 @@ export interface ResetOnboardingRequest {
 export interface ResetOnboardingResponse {
 }
 
+export interface ResolveFolderRequest {
+  folderUri?: string;
+}
+
+export interface ResolveFolderResponse {
+  resourceType?: FolderType;
+  vcsType?: VcsType;
+}
+
 export interface ResolveOutstandingStepsRequest {
   cascadeId?: string;
 }
 
 export interface ResolveOutstandingStepsResponse {
+}
+
+export interface ResolveSidecarConfigRequest {
+  sidecarId?: string;
+  argumentValues?: ResolveSidecarConfigRequest_ArgumentValuesEntry[];
+}
+
+export interface ResolveSidecarConfigRequest_ArgumentValuesEntry {
+  key?: string;
+  value?: string;
+}
+
+export interface ResolveSidecarConfigResponse {
+  resolvedConfig?: SidecarConfig;
+}
+
+export interface ResolveWorkspaceUrlPreviewRequest {
+  url?: string;
+  documentId?: string;
+}
+
+export interface ResolveWorkspaceUrlPreviewResponse {
+  title?: string;
+  resourceType?: WorkspaceResourceType;
+}
+
+export interface Resource {
+  folderUri?: string;
+  google3?: Google3;
+  gitFolder?: GitFolder;
+}
+
+export interface Resources {
+  resources?: Resource[];
 }
 
 export interface RestartRequest {
@@ -5313,6 +6876,15 @@ export interface RetrieveContentStep_Reply {
   results?: LookupResult[];
 }
 
+export interface RetrieveUserQuotaSummaryRequest {
+  request?: any;
+  forceRefresh?: boolean;
+}
+
+export interface RetrieveUserQuotaSummaryResponse {
+  response?: any;
+}
+
 export interface RetryInfo {
   sherlogLink?: string;
   usage?: ModelUsageStats;
@@ -5332,10 +6904,20 @@ export interface RevertToCascadeStepRequest {
 export interface RevertToCascadeStepResponse {
 }
 
+export interface ReviewSnippet {
+  title?: string;
+  url?: string;
+  reviewId?: string;
+}
+
 export interface RuleScopeItem {
   rulePath?: string;
   ruleName?: string;
   description?: string;
+}
+
+export interface RulesDiscoveryConfig {
+  inheritUser?: boolean;
 }
 
 export interface RunCommandOutput {
@@ -5372,6 +6954,21 @@ export interface RunCommandToolConfig {
   enablePty?: boolean;
   enablePersistentMode?: boolean;
   enableMidtermOutputProcessor?: boolean;
+  enableTerminalSandbox?: boolean;
+  executionHost?: string;
+  enableTimeoutNotification?: boolean;
+  enableDaemonCommands?: boolean;
+  searchFallbackMode?: RunCommandToolConfig_SearchFallbackMode;
+}
+
+export interface RuntimeEnvironment {
+  host?: string;
+  binary?: string;
+  viewportWidthCohort?: string;
+  userCohort?: string;
+  os?: string;
+  environmentType?: string;
+  identityType?: string;
 }
 
 export interface SaveAgentScriptCommandSpecRequest {
@@ -5413,12 +7010,25 @@ export interface ScanSkillsConfigFileResponse {
   skills?: WorkflowSpec[];
 }
 
+export interface ScheduleToolConfig {
+  enabled?: boolean;
+  enableDaemon?: boolean;
+}
+
 export interface SearchCodeRequest {
   query?: string;
   workspaceUri?: string;
   maxResults?: number;
   linesContext?: number;
   cancelToken?: bigint;
+  isRegex?: boolean;
+  caseSensitivity?: CaseSensitivity;
+  wholeWord?: boolean;
+  targetPaths?: string[];
+  includeGlobs?: string[];
+  excludeGlobs?: string[];
+  maxColumns?: number;
+  filePattern?: string;
 }
 
 export interface SearchCodeResponse {
@@ -5432,6 +7042,8 @@ export interface SearchCodeResult {
   snippet?: string;
   matchStartCol?: number;
   matchEndCol?: number;
+  contextBefore?: string[];
+  contextAfter?: string[];
 }
 
 export interface SearchCodeResult_WorkspaceUrisToRelativePathsEntry {
@@ -5448,6 +7060,15 @@ export interface SearchConversationsResponse {
   results?: ConversationSearchResult[];
 }
 
+export interface SearchDriveFilesRequest {
+  query?: string;
+  pageSize?: number;
+}
+
+export interface SearchDriveFilesResponse {
+  files?: DriveFileResult[];
+}
+
 export interface SearchFilesRequest {
   query?: string;
   workspaceUri?: string;
@@ -5458,6 +7079,17 @@ export interface SearchFilesRequest {
 
 export interface SearchFilesResponse {
   results?: PathScopeItem[];
+}
+
+export interface SearchMarketplaceCustomizationsRequest {
+  query?: string;
+  pageSize?: number;
+  extensionTypes?: string[];
+}
+
+export interface SearchMarketplaceCustomizationsResponse {
+  extensions?: WorkflowSpec[];
+  hasMore?: boolean;
 }
 
 export interface SearchWebToolConfig {
@@ -5476,6 +7108,33 @@ export interface SectionOverrideConfig {
   content?: string;
 }
 
+export interface SeenNuxUids {
+  uids?: number[];
+}
+
+export interface SelectLicenseRequest {
+  userTier?: string;
+  projectId?: string;
+  location?: string;
+  tierDisplayName?: string;
+}
+
+export interface SelectLicenseResponse {
+  authResult?: AuthResult;
+}
+
+export interface SelfAssignLicenseRequest {
+  projectId?: string;
+  location?: string;
+}
+
+export interface SelfAssignLicenseResponse {
+  license?: License;
+  assigned?: boolean;
+  errorMessage?: string;
+  dataSharingDisclaimer?: string;
+}
+
 export interface SendActionToChatPanelRequest {
   actionType?: string;
   payload?: Uint8Array[];
@@ -5489,6 +7148,7 @@ export interface SendAgentMessageRequest {
   recipient?: string;
   senderId?: string;
   sourceMetadata?: SourceMetadata;
+  displayTitle?: string;
 }
 
 export interface SendAgentMessageResponse {
@@ -5511,6 +7171,15 @@ export interface SendAudioChunkRequest {
 export interface SendAudioChunkResponse {
 }
 
+export interface SendInputCompletionFeedbackRequest {
+  completionId?: string;
+  feedback?: CompletionFeedback;
+  durationMs?: bigint;
+}
+
+export interface SendInputCompletionFeedbackResponse {
+}
+
 export interface SendMessageEvent {
   recipientId?: string;
   content?: string;
@@ -5524,6 +7193,15 @@ export interface SendStepsToBackgroundRequest {
 export interface SendStepsToBackgroundResponse {
 }
 
+export interface SendTerminalInputRequest {
+  terminalId?: string;
+  input?: Uint8Array;
+  resize?: TerminalSize;
+}
+
+export interface SendTerminalInputResponse {
+}
+
 export interface SendUserCascadeMessageRequest {
   cascadeId?: string;
   items?: TextOrScopeItem[];
@@ -5534,13 +7212,19 @@ export interface SendUserCascadeMessageRequest {
   media?: Media[];
   cascadeConfig?: CascadeConfig;
   customAgentSpec?: CustomAgentSpec;
+  activeProfile?: string;
+  userIdentity?: UserIdentity;
   experimentConfig?: ExperimentConfig;
   blocking?: boolean;
   additionalSteps?: Step[];
   clientType?: ChatClientRequestStreamClientType;
   propagateError?: boolean;
   plannerResponse?: CortexStepPlannerResponse;
+  continueAfterInjection?: boolean;
   messageOrigin?: AgentMessageOrigin;
+  tags?: string[];
+  deliveryStrategy?: MessageDeliveryStrategy;
+  editorState?: EditorState;
 }
 
 export interface SendUserCascadeMessageResponse {
@@ -5583,6 +7267,7 @@ export interface SetUpCloudSqlAppConfig {
 
 export interface SetUpFirebaseAppConfig {
   firebaseProjectId?: string;
+  provisionedProducts?: FirebaseProduct[];
 }
 
 export interface SetupUniversitySandboxRequest {
@@ -5627,17 +7312,49 @@ export interface SidebarWorkspaceInfo {
   isHidden?: boolean;
 }
 
+export interface SidecarAgentPermissions {
+  workspaceUris?: string[];
+  accessGrants?: string[];
+}
+
+export interface SidecarArgumentDefinition {
+  key?: string;
+  description?: string;
+  stringArg?: SidecarArgumentDefinition_StringArgument;
+  workspaceArg?: SidecarArgumentDefinition_WorkspaceArgument;
+}
+
+export interface SidecarArgumentDefinition_StringArgument {
+  defaultValue?: string;
+  placeholder?: string;
+}
+
+export interface SidecarArgumentDefinition_WorkspaceArgument {
+}
+
 export interface SidecarCommandSource {
   sidecarId?: string;
   config?: SidecarConfig;
 }
 
 export interface SidecarConfig {
-  command?: string;
   restartPolicy?: string;
   args?: string[];
-  disabled?: boolean;
   description?: string;
+  hasWebUi?: boolean;
+  env?: SidecarConfig_EnvEntry[];
+  displayName?: string;
+  disabled?: boolean;
+  uiConfig?: SidecarUIConfig;
+  agentPermissions?: SidecarAgentPermissions;
+  arguments?: SidecarArgumentDefinition[];
+  command?: string;
+  builtin?: string;
+}
+
+export interface SidecarConfig_EnvEntry {
+  key?: string;
+  value?: string;
 }
 
 export interface SidecarEvent {
@@ -5650,6 +7367,7 @@ export interface SidecarEvent {
 export interface SidecarEventPayload {
   sendMessage?: SendMessageEvent;
   newConversation?: NewConversationEvent;
+  conversationMetadata?: ConversationMetadataEvent;
 }
 
 export interface SidecarStatusInfo {
@@ -5660,6 +7378,10 @@ export interface SidecarStatusInfo {
   startTimeMs?: bigint;
   webPort?: number;
   uiConfig?: SidecarUIConfig;
+  baseUrl?: string;
+  userConfig?: SidecarUserConfig;
+  errorSource?: SidecarErrorSource;
+  isBundled?: boolean;
 }
 
 export interface SidecarUIConfig {
@@ -5670,6 +7392,22 @@ export interface SidecarUIConfig {
 export interface SidecarUIView {
   url?: string;
   entrypoint?: SidecarUIEntrypoint;
+  path?: string;
+  title?: string;
+}
+
+export interface SidecarUserConfig {
+  enabled?: boolean;
+  argumentValues?: SidecarUserConfig_ArgumentValuesEntry[];
+  schemaVersion?: number;
+  resolvedPermissions?: SidecarAgentPermissions;
+  projectId?: string;
+  allProjects?: boolean;
+}
+
+export interface SidecarUserConfig_ArgumentValuesEntry {
+  key?: string;
+  value?: string;
 }
 
 export interface SignalExecutableIdleRequest {
@@ -5695,6 +7433,13 @@ export interface SkillMetadata {
 export interface SkillsConfig {
   inheritUser?: boolean;
   skillsPaths?: CustomizationPath[];
+  preloadSkillNames?: string[];
+}
+
+export interface SkillSearchToolConfig {
+  enabled?: boolean;
+  rpcTimeoutSeconds?: number;
+  includeExperimental?: boolean;
 }
 
 export interface SkipBrowserSubagentRequest {
@@ -5709,6 +7454,37 @@ export interface SkipOnboardingRequest {
 }
 
 export interface SkipOnboardingResponse {
+}
+
+export interface SlashCommandArgument {
+  name?: string;
+  description?: string;
+  required?: boolean;
+  defaultValue?: string;
+}
+
+export interface SlashCommandDefinition {
+  info?: SlashCommandInfo;
+  title?: string;
+  description?: string;
+  arguments?: SlashCommandArgument[];
+}
+
+export interface SlashCommandInfo {
+  name?: string;
+  modelFacingText?: string;
+  type?: SlashCommandType;
+  icon?: string;
+}
+
+export interface SlashCommandScopeItem {
+  info?: SlashCommandInfo;
+  argumentValues?: SlashCommandScopeItem_ArgumentValuesEntry[];
+}
+
+export interface SlashCommandScopeItem_ArgumentValuesEntry {
+  key?: string;
+  value?: string;
 }
 
 export interface Slice {
@@ -5731,6 +7507,15 @@ export interface SmartOpenBrowserRequest {
 export interface SmartOpenBrowserResponse {
 }
 
+export interface SnapshotMetadata {
+  user?: string;
+  workspaceId?: string;
+  snapshotVersion?: number;
+  workspaceType?: WorkspaceType;
+  clientId?: string;
+  artifactDirCommitHash?: string;
+}
+
 export interface SnippetWithWordCount {
   snippet?: string;
   wordCountBySplitter?: SnippetWithWordCount_WordCountBySplitterEntry[];
@@ -5748,10 +7533,19 @@ export interface SourceMetadata {
 
 export interface StartBattleModeRequest {
   request?: SendUserCascadeMessageRequest;
+  numForks?: number;
+  models?: Model[];
+  forkAtStepIndex?: number;
+  autoTriggered?: boolean;
+  agentScripts?: AgentScriptItem[];
+  agentPaths?: string[];
+  childrenConversationIds?: string[];
+  triggerTag?: string;
 }
 
 export interface StartBattleModeResponse {
   childrenConversationIds?: string[];
+  startStepIndex?: number;
 }
 
 export interface StartCascadeRequest {
@@ -5760,16 +7554,34 @@ export interface StartCascadeRequest {
   source?: CortexTrajectorySource;
   trajectoryType?: CortexTrajectoryType;
   agentScriptItem?: AgentScriptItem;
+  requestedModel?: Model;
   cascadeId?: string;
   workspaceUris?: string[];
   overrideWorkspaceUris?: string[];
   parentConversationId?: string;
+  citcWorkspaceDetails?: StartCascadeRequest_CitcWorkspaceDetailsEntry[];
   customAgentSpec?: CustomAgentSpec;
+  projectEnvConfig?: ProjectEnvironmentConfig;
+  tags?: string[];
+  activeProfile?: string;
+  agentPath?: string;
   experimentConfig?: ExperimentConfig;
+}
+
+export interface StartCascadeRequest_CitcWorkspaceDetails {
+  username?: string;
+  citcAlias?: string;
+  citcId?: bigint;
+}
+
+export interface StartCascadeRequest_CitcWorkspaceDetailsEntry {
+  key?: string;
+  value?: StartCascadeRequest_CitcWorkspaceDetails;
 }
 
 export interface StartCascadeResponse {
   cascadeId?: string;
+  projectEnvInfo?: ProjectEnvironmentInfo;
 }
 
 export interface StartScreenRecordingRequest {
@@ -5788,6 +7600,12 @@ export interface State {
   customModelsConfig?: CustomModelsConfig;
   seenNuxUids?: number[];
   themeMode?: ThemeMode;
+  projectStore?: Projects;
+  sidebarWorkspacesMigrated?: boolean;
+  customThemeSeedsLight?: CustomThemeSeeds;
+  customThemeSeedsDark?: CustomThemeSeeds;
+  google3ProjectCreated?: boolean;
+  agentOnboardingCompleted?: AgentOnboardingState;
 }
 
 export interface State_SidebarWorkspacesEntry {
@@ -5803,6 +7621,7 @@ export interface StatUriResponse {
   fileType?: FileType;
   modTime?: any;
   normalizedUri?: string;
+  size?: bigint;
 }
 
 export interface Status {
@@ -5816,34 +7635,29 @@ export interface Step {
   error?: CortexErrorDetails;
   permissions?: TrajectoryPermissions;
   taskDetails?: TaskDetails;
+  attachments?: any[];
   requestedInteraction?: RequestedInteraction;
   completedInteractions?: CompletedInteraction[];
   userAnnotations?: UserStepAnnotations;
   subtrajectory?: Trajectory;
   generic?: CortexStepGeneric;
   finish?: CortexStepFinish;
-  mquery?: CortexStepMquery;
   codeAction?: CortexStepCodeAction;
   gitCommit?: CortexStepGitCommit;
   grepSearch?: CortexStepGrepSearch;
-  compile?: CortexStepCompile;
-  viewCodeItem?: CortexStepViewCodeItem;
   errorMessage?: CortexStepErrorMessage;
   runCommand?: CortexStepRunCommand;
   find?: CortexStepFind;
   suggestedResponses?: CortexStepSuggestedResponses;
   commandStatus?: CortexStepCommandStatus;
   readUrlContent?: CortexStepReadUrlContent;
-  viewContentChunk?: CortexStepViewContentChunk;
   searchWeb?: CortexStepSearchWeb;
   mcpTool?: CortexStepMcpTool;
   clipboard?: CortexStepClipboard;
-  viewFileOutline?: CortexStepViewFileOutline;
   listResources?: CortexStepListResources;
   readResource?: CortexStepReadResource;
   lintDiff?: CortexStepLintDiff;
   openBrowserUrl?: CortexStepOpenBrowserUrl;
-  trajectorySearch?: CortexStepTrajectorySearch;
   executeBrowserJavascript?: CortexStepExecuteBrowserJavaScript;
   listBrowserPages?: CortexStepListBrowserPages;
   captureBrowserScreenshot?: CortexStepCaptureBrowserScreenshot;
@@ -5861,8 +7675,6 @@ export interface Step {
   browserListNetworkRequests?: CortexStepBrowserListNetworkRequests;
   browserGetNetworkRequest?: CortexStepBrowserGetNetworkRequest;
   browserPressKey?: CortexStepBrowserPressKey;
-  taskBoundary?: CortexStepTaskBoundary;
-  notifyUser?: CortexStepNotifyUser;
   codeAcknowledgement?: CortexStepCodeAcknowledgement;
   internalSearch?: CortexStepInternalSearch;
   browserSubagent?: CortexStepBrowserSubagent;
@@ -5881,10 +7693,11 @@ export interface Step {
   systemMessage?: CortexStepSystemMessage;
   wait?: CortexStepWait;
   kiInsertion?: CortexStepKIInsertion;
-  workspaceApi?: CortexStepWorkspaceAPI;
   invokeSubagent?: CortexStepInvokeSubagent;
   rpcAction?: CortexStepRPCAction;
   askQuestion?: CortexStepAskQuestion;
+  directoryRules?: CortexStepDirectoryRules;
+  toolSearch?: CortexStepToolSearch;
   executeNotebook?: CortexStepExecuteNotebook;
   readNotebook?: CortexStepReadNotebook;
   editNotebook?: CortexStepEditNotebook;
@@ -5918,6 +7731,15 @@ export interface Step {
   move?: CortexStepMove;
   ephemeralMessage?: CortexStepEphemeralMessage;
   dummy?: CortexStepDummy;
+  mquery?: CortexStepMquery;
+  compile?: CortexStepCompile;
+  viewCodeItem?: CortexStepViewCodeItem;
+  viewContentChunk?: CortexStepViewContentChunk;
+  viewFileOutline?: CortexStepViewFileOutline;
+  trajectorySearch?: CortexStepTrajectorySearch;
+  taskBoundary?: CortexStepTaskBoundary;
+  notifyUser?: CortexStepNotifyUser;
+  workspaceApi?: CortexStepWorkspaceAPI;
   planInput?: CortexStepPlanInput;
   fileBreakdown?: CortexStepFileBreakdown;
   writeToFile?: CortexStepWriteToFile;
@@ -5941,8 +7763,18 @@ export interface Step {
 
 export interface StepRenderInfo {
   title?: string;
+  titlePrefix?: string;
   markdown?: string;
   hidden?: boolean;
+  icon?: string;
+  aggregationKey?: string;
+  progress?: StepRenderInfo_StepProgress;
+}
+
+export interface StepRenderInfo_StepProgress {
+  progress?: number;
+  progressTotal?: number;
+  progressMessage?: string;
 }
 
 export interface StepStringConverterConfig {
@@ -5952,6 +7784,11 @@ export interface StepStringConverterConfig {
 export interface StringMatchRange {
   startOffset?: number;
   endOffsetExclusive?: number;
+}
+
+export interface StringReplacement {
+  original?: string;
+  replacement?: string;
 }
 
 export interface StructuredErrorPart {
@@ -5977,6 +7814,7 @@ export interface SubagentResult {
 export interface SubagentSnapshot {
   spec?: SubagentSpec;
   result?: SubagentResult;
+  killed?: boolean;
 }
 
 export interface SubagentSpec {
@@ -5984,9 +7822,12 @@ export interface SubagentSpec {
   role?: string;
   initialPrompt?: string;
   model?: Model;
+  modelTier?: ModelTier;
+  runAsTask?: boolean;
   inherit?: boolean;
   branch?: string;
   workspaceUri?: string;
+  share?: string;
 }
 
 export interface SuggestedResponseConfig {
@@ -6022,6 +7863,7 @@ export interface TaskDetails {
   progress?: string;
   description?: string;
   requiresInputApproval?: boolean;
+  isDaemon?: boolean;
 }
 
 export interface TaskEntryDeltaSummary {
@@ -6040,6 +7882,8 @@ export interface TaskSnapshot {
   description?: string;
   startTime?: any;
   stepIndex?: number;
+  logUri?: string;
+  isDaemon?: boolean;
 }
 
 export interface TeamConfig {
@@ -6084,6 +7928,14 @@ export interface TeamsFeaturesMetadata {
   hasAccess?: boolean;
 }
 
+export interface TerminalInfo {
+  terminalId?: string;
+  pid?: number;
+  title?: string;
+  conversationId?: string;
+  projectId?: string;
+}
+
 export interface TerminalScopeItem {
   processId?: string;
   name?: string;
@@ -6103,6 +7955,11 @@ export interface TerminalShellCommand {
   lastUpdatedTime?: any;
   status?: TerminalShellCommandStatus;
   source?: TerminalShellCommandSource;
+}
+
+export interface TerminalSize {
+  cols?: number;
+  rows?: number;
 }
 
 export interface TestFailure {
@@ -6130,12 +7987,27 @@ export interface TestTargetsStep_Args {
   targets?: string[];
   arguments?: string[];
   coverageFiles?: string[];
+  waitMsBeforeAsync?: bigint;
 }
 
 export interface TextBlock {
   content?: string;
   fileLineRange?: FileLineRange;
   label?: string;
+}
+
+export interface TextContent {
+  text?: string;
+  annotations?: TextContent_Annotation[];
+}
+
+export interface TextContent_Annotation {
+  startIndex?: number;
+  endIndex?: number;
+  urlCitation?: UrlCitation;
+  fileCitation?: FileCitation;
+  placeCitation?: PlaceCitation;
+  wordInfo?: WordInfo;
 }
 
 export interface TextData {
@@ -6158,9 +8030,27 @@ export interface ThirdPartyWebSearchConfig {
   provider?: ThirdPartyWebSearchProvider;
 }
 
+export interface ThoughtContent {
+  signature?: Uint8Array;
+  summary?: ThoughtSummaryContent[];
+}
+
+export interface ThoughtSummaryContent {
+  text?: TextContent;
+  image?: ImageContent;
+}
+
 export interface TimeRange {
   start?: any;
   end?: any;
+}
+
+export interface ToggleMcpServerRequest {
+  serverName?: string;
+  enabled?: boolean;
+}
+
+export interface ToggleMcpServerResponse {
 }
 
 export interface TokenBreakdown {
@@ -6172,6 +8062,18 @@ export interface TokenGroup {
   name?: string;
   children?: TokenGroup[];
   numTokens?: number;
+}
+
+export interface ToolCallContent {
+  id?: string;
+  signature?: Uint8Array;
+  functionCall?: FunctionCallContent;
+  codeExecutionCall?: CodeExecutionCallContent;
+  urlContextCall?: UrlContextCallContent;
+  mcpServerToolCall?: McpServerToolCallContent;
+  googleSearchCall?: GoogleSearchCallContent;
+  fileSearchCall?: FileSearchCallContent;
+  googleMapsCall?: GoogleMapsCallContent;
 }
 
 export interface ToolDescriptionOverrideMap {
@@ -6194,6 +8096,7 @@ export interface ToolOverrideConfig {
   argumentNameOverrides?: ToolOverrideConfig_ArgumentNameOverridesEntry[];
   descriptionOverride?: SectionOverrideConfig;
   argumentDescriptionOverrides?: ToolOverrideConfig_ArgumentDescriptionOverridesEntry[];
+  argumentValueOverrides?: ToolOverrideConfig_ArgumentValueOverridesEntry[];
 }
 
 export interface ToolOverrideConfig_ArgumentDescriptionOverridesEntry {
@@ -6204,6 +8107,23 @@ export interface ToolOverrideConfig_ArgumentDescriptionOverridesEntry {
 export interface ToolOverrideConfig_ArgumentNameOverridesEntry {
   key?: string;
   value?: string;
+}
+
+export interface ToolOverrideConfig_ArgumentValueOverridesEntry {
+  key?: string;
+  value?: ArgumentOverride;
+}
+
+export interface ToolResultContent {
+  callId?: string;
+  signature?: Uint8Array;
+  functionResult?: FunctionResultContent;
+  codeExecutionResult?: CodeExecutionResultContent;
+  urlContextResult?: UrlContextResultContent;
+  googleSearchResult?: GoogleSearchResultContent;
+  mcpServerToolResult?: McpServerToolResultContent;
+  fileSearchResult?: FileSearchResultContent;
+  googleMapsResult?: GoogleMapsResultContent;
 }
 
 export interface ToolSourceMetadata {
@@ -6234,6 +8154,12 @@ export interface TopUpStatus {
   topUpCriteriaMet?: boolean;
 }
 
+export interface TosErrorInfo {
+  message?: string;
+  appealUrl?: string;
+  appealLinkText?: string;
+}
+
 export interface Trajectory {
   trajectoryId?: string;
   cascadeId?: string;
@@ -6243,6 +8169,7 @@ export interface Trajectory {
   generatorMetadata?: CortexStepGeneratorMetadata[];
   executorMetadatas?: ExecutorMetadata[];
   source?: CortexTrajectorySource;
+  battleModeInfos?: BattleModeInfo[];
 }
 
 export interface TrajectoryConversionConfig {
@@ -6253,6 +8180,18 @@ export interface TrajectoryConversionConfig {
   disableStepId?: boolean;
   enableToolTimestamp?: boolean;
   useRawUserMessage?: boolean;
+  disableSystemMessageMerging?: boolean;
+  enableContextRole?: boolean;
+  maxTokensPerStep?: number;
+  discardLoopingPlannerResponses?: boolean;
+  discardErroredPlannerResponses?: boolean;
+  errorOnTruncationWithoutCheckpoint?: boolean;
+  raiseStepConversionError?: boolean;
+  maxTokensPerUserInputStep?: number;
+  useStructuredToolResponses?: boolean;
+  ignoreUserInputTimestamp?: boolean;
+  showModelSelectionChange?: boolean;
+  disableSystemMessageTag?: boolean;
 }
 
 export interface TrajectoryDescription {
@@ -6322,6 +8261,7 @@ export interface UpdateConversationAnnotationsRequest {
   cascadeId?: string;
   annotations?: ConversationAnnotations;
   mergeAnnotations?: boolean;
+  cascadeIds?: string[];
 }
 
 export interface UpdateConversationAnnotationsResponse {
@@ -6374,10 +8314,73 @@ export interface UpdatePRForWorktreeResponse {
   prUrl?: string;
 }
 
+export interface UpdateProjectRequest {
+  project?: Project;
+}
+
+export interface UpdateProjectResponse {
+}
+
+export interface UploadToDriveRequest {
+  fileUri?: string;
+}
+
+export interface UploadToDriveResponse {
+  webViewLink?: string;
+}
+
+export interface UrlArtifactPayload {
+  url?: string;
+  title?: string;
+}
+
+export interface UrlCitation {
+  url?: string;
+  title?: string;
+}
+
+export interface UrlContextCallContent {
+  arguments?: UrlContextCallContent_UrlContextCallArguments;
+}
+
+export interface UrlContextCallContent_UrlContextCallArguments {
+  urls?: string[];
+}
+
+export interface UrlContextResultContent {
+  result?: UrlContextResultContent_UrlContextResult[];
+  isError?: boolean;
+}
+
+export interface UrlContextResultContent_UrlContextResult {
+  url?: string;
+  status?: UrlContextResultContent_UrlContextResult_Status;
+}
+
 export interface UserActivityScopeItem {
   id?: string;
   branch?: string;
   current?: boolean;
+}
+
+export interface UserConfig {
+  sidecars?: UserConfig_SidecarsEntry[];
+  userSettings?: Jetbox_stateUserSettings;
+  plugins?: UserConfig_PluginsEntry[];
+}
+
+export interface UserConfig_PluginsEntry {
+  key?: string;
+  value?: PluginUserConfig;
+}
+
+export interface UserConfig_SidecarsEntry {
+  key?: string;
+  value?: SidecarUserConfig;
+}
+
+export interface UserIdentity {
+  username?: string;
 }
 
 export interface UserSettings {
@@ -6485,6 +8488,25 @@ export interface UserStepSnapshot {
   name?: string;
 }
 
+export interface ValidateProjectRequest {
+  projectId?: string;
+  location?: string;
+}
+
+export interface ValidateProjectResponse {
+  authResult?: AuthResult;
+}
+
+export interface ValidateTerminalSetupScriptRequest {
+  setupCommand?: string;
+  cwd?: string;
+}
+
+export interface ValidateTerminalSetupScriptResponse {
+  exitCode?: number;
+  output?: Uint8Array;
+}
+
 export interface ValidationState {
   uri?: string;
   lastAcknowledgedState?: string;
@@ -6492,10 +8514,105 @@ export interface ValidationState {
   lastStateFileNonexistent?: boolean;
 }
 
+export interface VcsCommit {
+  id?: string;
+  changeId?: string;
+  parentIds?: string[];
+  author?: VcsCommit_Author;
+  timestampMs?: bigint;
+  message?: VcsCommit_Message;
+  status?: VcsCommit_Status;
+  refs?: VcsCommit_Refs;
+  evolution?: VcsCommit_Evolution;
+}
+
+export interface VcsCommit_Author {
+  name?: string;
+  email?: string;
+  ldap?: string;
+}
+
+export interface VcsCommit_Evolution {
+  isObsolete?: boolean;
+  isOrphaned?: boolean;
+  isDivergent?: boolean;
+  successors?: string[];
+  precursors?: string[];
+}
+
+export interface VcsCommit_Message {
+  subject?: string;
+  description?: string;
+}
+
+export interface VcsCommit_Refs {
+  branches?: string[];
+  bookmarks?: string[];
+  tags?: string[];
+}
+
+export interface VcsCommit_Status {
+  isActive?: boolean;
+  isSubmitted?: boolean;
+  isDraft?: boolean;
+  isSecret?: boolean;
+  isEmpty?: boolean;
+  hasConflict?: boolean;
+}
+
+export interface VcsConflictFile {
+  path?: string;
+  yours?: VcsConflictFile_Side;
+  theirs?: VcsConflictFile_Side;
+  uri?: string;
+}
+
+export interface VcsConflictFile_Side {
+  label?: string;
+}
+
+export interface VcsConflictState {
+  inConflict?: boolean;
+  operation?: VcsConflictState_Operation;
+  conflicts?: VcsConflictFile[];
+}
+
+export interface VcsFileChange {
+  uri?: string;
+  operation?: VcsFileChange_Operation;
+  originalUri?: string;
+  contentHash?: string;
+}
+
+export interface VcsWorkspaceState {
+  vcsType?: VcsType;
+  currentRef?: string;
+  activeCommitId?: string;
+  commits?: VcsCommit[];
+  workingDirectoryChanges?: VcsFileChange[];
+  conflictState?: VcsConflictState;
+  stagedChanges?: VcsFileChange[];
+  branchChanges?: VcsFileChange[];
+  mergeBaseCommitId?: string;
+  targetBranch?: string;
+}
+
+export interface VerificationRequired {
+  verificationUrl?: string;
+}
+
+export interface VideoContent {
+  mimeType?: VideoContent_MimeType;
+  resolution?: MediaResolution;
+  data?: Uint8Array;
+  uri?: string;
+}
+
 export interface ViewCodeItemToolConfig {
   maxNumItems?: number;
   maxBytesPerItem?: number;
   allowAccessGitignore?: boolean;
+  forceDisable?: boolean;
 }
 
 export interface ViewFileToolConfig {
@@ -6505,9 +8622,11 @@ export interface ViewFileToolConfig {
   maxLinesPerView?: number;
   includeLineNumbers?: boolean;
   dirAllowlist?: string[];
+  maxBytesPerView?: number;
   maxTotalOutlineBytes?: number;
   maxBytesPerOutlineItem?: number;
   showFullFileBytes?: number;
+  forceDisable?: boolean;
 }
 
 export interface Viewport {
@@ -6515,6 +8634,17 @@ export interface Viewport {
   y?: number;
   width?: number;
   height?: number;
+}
+
+export interface WaitForConversationFullyIdleRequest {
+  conversationId?: string;
+  inactivityTimeoutSeconds?: number;
+  stabilizationDurationSeconds?: number;
+  returnOnExecutorError?: boolean;
+}
+
+export interface WaitForConversationFullyIdleResponse {
+  timedOut?: boolean;
 }
 
 export interface WebDocsOption {
@@ -6532,6 +8662,11 @@ export interface WellSupportedLanguagesResponse {
   languages?: Language[];
 }
 
+export interface WifLoginInfo {
+  providerName?: string;
+  email?: string;
+}
+
 export interface WordCount {
   wordCountMap?: WordCount_WordCountMapEntry[];
 }
@@ -6539,6 +8674,13 @@ export interface WordCount {
 export interface WordCount_WordCountMapEntry {
   key?: string;
   value?: bigint;
+}
+
+export interface WordInfo {
+  text?: string;
+  startOffset?: any;
+  endOffset?: any;
+  speaker?: string;
 }
 
 export interface WorkflowSpec {
@@ -6551,6 +8693,7 @@ export interface WorkflowSpec {
   scope?: CortexMemoryScope;
   baseDir?: string;
   disableModelInvocation?: boolean;
+  pluginName?: string;
 }
 
 export interface WorkingDirectoryInfo {
@@ -6593,4 +8736,8 @@ export interface WriteFileRequest {
 }
 
 export interface WriteFileResponse {
+}
+
+export interface WriteToFileToolConfig {
+  forceDisable?: boolean;
 }

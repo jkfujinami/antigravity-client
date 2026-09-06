@@ -22,6 +22,11 @@ export class UserConfig extends Message<UserConfig> {
    */
   userSettings?: UserSettings;
 
+  /**
+   * @generated from field: repeated exa.config_pb.UserConfig.PluginsEntry plugins = 3;
+   */
+  plugins: UserConfig_PluginsEntry[] = [];
+
   constructor(data?: PartialMessage<UserConfig>) {
     super();
     proto3.util.initPartial(data, this);
@@ -32,6 +37,7 @@ export class UserConfig extends Message<UserConfig> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "sidecars", kind: "message", T: UserConfig_SidecarsEntry, repeated: true },
     { no: 2, name: "user_settings", kind: "message", T: UserSettings },
+    { no: 3, name: "plugins", kind: "message", T: UserConfig_PluginsEntry, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserConfig {
@@ -91,6 +97,86 @@ export class UserConfig_SidecarsEntry extends Message<UserConfig_SidecarsEntry> 
 
   static equals(a: UserConfig_SidecarsEntry | PlainMessage<UserConfig_SidecarsEntry> | undefined, b: UserConfig_SidecarsEntry | PlainMessage<UserConfig_SidecarsEntry> | undefined): boolean {
     return proto3.util.equals(UserConfig_SidecarsEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.config_pb.UserConfig.PluginsEntry
+ */
+export class UserConfig_PluginsEntry extends Message<UserConfig_PluginsEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: exa.config_pb.PluginUserConfig value = 2;
+   */
+  value?: PluginUserConfig;
+
+  constructor(data?: PartialMessage<UserConfig_PluginsEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.config_pb.UserConfig.PluginsEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "message", T: PluginUserConfig },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserConfig_PluginsEntry {
+    return new UserConfig_PluginsEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserConfig_PluginsEntry {
+    return new UserConfig_PluginsEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserConfig_PluginsEntry {
+    return new UserConfig_PluginsEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserConfig_PluginsEntry | PlainMessage<UserConfig_PluginsEntry> | undefined, b: UserConfig_PluginsEntry | PlainMessage<UserConfig_PluginsEntry> | undefined): boolean {
+    return proto3.util.equals(UserConfig_PluginsEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.config_pb.PluginUserConfig
+ */
+export class PluginUserConfig extends Message<PluginUserConfig> {
+  /**
+   * @generated from field: bool enabled = 1;
+   */
+  enabled = false;
+
+  constructor(data?: PartialMessage<PluginUserConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.config_pb.PluginUserConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PluginUserConfig {
+    return new PluginUserConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PluginUserConfig {
+    return new PluginUserConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PluginUserConfig {
+    return new PluginUserConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PluginUserConfig | PlainMessage<PluginUserConfig> | undefined, b: PluginUserConfig | PlainMessage<PluginUserConfig> | undefined): boolean {
+    return proto3.util.equals(PluginUserConfig, a, b);
   }
 }
 

@@ -41,6 +41,12 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.GetCascadeModelConfigsResponse;
   }
 
+  async getStandaloneDir(input: T.LanguageServer.GetStandaloneDirRequest): Promise<T.LanguageServer.GetStandaloneDirResponse> {
+    const req = new (PB as any).GetStandaloneDirRequest(input as any);
+    const res = await this.client.getStandaloneDir(req);
+    return (res as any) as T.LanguageServer.GetStandaloneDirResponse;
+  }
+
   async recordEvent(input: T.LanguageServer.RecordEventRequest): Promise<T.LanguageServer.RecordEventResponse> {
     const req = new (PB as any).RecordEventRequest(input as any);
     const res = await this.client.recordEvent(req);
@@ -65,10 +71,22 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.GetSidecarEventsResponse;
   }
 
+  async listSidecarLogFiles(input: T.LanguageServer.ListSidecarLogFilesRequest): Promise<T.LanguageServer.ListSidecarLogFilesResponse> {
+    const req = new (PB as any).ListSidecarLogFilesRequest(input as any);
+    const res = await this.client.listSidecarLogFiles(req);
+    return (res as any) as T.LanguageServer.ListSidecarLogFilesResponse;
+  }
+
   async manageSidecar(input: T.LanguageServer.ManageSidecarRequest): Promise<T.LanguageServer.ManageSidecarResponse> {
     const req = new (PB as any).ManageSidecarRequest(input as any);
     const res = await this.client.manageSidecar(req);
     return (res as any) as T.LanguageServer.ManageSidecarResponse;
+  }
+
+  async resolveSidecarConfig(input: T.LanguageServer.ResolveSidecarConfigRequest): Promise<T.LanguageServer.ResolveSidecarConfigResponse> {
+    const req = new (PB as any).ResolveSidecarConfigRequest(input as any);
+    const res = await this.client.resolveSidecarConfig(req);
+    return (res as any) as T.LanguageServer.ResolveSidecarConfigResponse;
   }
 
   async registerGdmUser(input: T.LanguageServer.RegisterGdmUserRequest): Promise<T.LanguageServer.RegisterGdmUserResponse> {
@@ -137,10 +155,28 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.ReadFileResponse;
   }
 
+  async checkDevToolsActivePort(input: T.LanguageServer.CheckDevToolsActivePortRequest): Promise<T.LanguageServer.CheckDevToolsActivePortResponse> {
+    const req = new (PB as any).CheckDevToolsActivePortRequest(input as any);
+    const res = await this.client.checkDevToolsActivePort(req);
+    return (res as any) as T.LanguageServer.CheckDevToolsActivePortResponse;
+  }
+
   async writeFile(input: T.LanguageServer.WriteFileRequest): Promise<T.LanguageServer.WriteFileResponse> {
     const req = new (PB as any).WriteFileRequest(input as any);
     const res = await this.client.writeFile(req);
     return (res as any) as T.LanguageServer.WriteFileResponse;
+  }
+
+  async createDebugBundle(input: T.LanguageServer.CreateDebugBundleRequest): Promise<T.LanguageServer.CreateDebugBundleResponse> {
+    const req = new (PB as any).CreateDebugBundleRequest(input as any);
+    const res = await this.client.createDebugBundle(req);
+    return (res as any) as T.LanguageServer.CreateDebugBundleResponse;
+  }
+
+  async uploadToDrive(input: T.LanguageServer.UploadToDriveRequest): Promise<T.LanguageServer.UploadToDriveResponse> {
+    const req = new (PB as any).UploadToDriveRequest(input as any);
+    const res = await this.client.uploadToDrive(req);
+    return (res as any) as T.LanguageServer.UploadToDriveResponse;
   }
 
   async readDir(input: T.LanguageServer.ReadDirRequest): Promise<T.LanguageServer.ReadDirResponse> {
@@ -153,6 +189,12 @@ export class LanguageServerFacade {
     const req = new (PB as any).DeleteFileOrDirectoryRequest(input as any);
     const res = await this.client.deleteFileOrDirectory(req);
     return (res as any) as T.LanguageServer.DeleteFileOrDirectoryResponse;
+  }
+
+  async getKnowledgeItems(input: T.LanguageServer.GetKnowledgeItemsRequest): Promise<T.LanguageServer.GetKnowledgeItemsResponse> {
+    const req = new (PB as any).GetKnowledgeItemsRequest(input as any);
+    const res = await this.client.getKnowledgeItems(req);
+    return (res as any) as T.LanguageServer.GetKnowledgeItemsResponse;
   }
 
   async setBrowserOpenConversation(input: T.LanguageServer.SetBrowserOpenConversationRequest): Promise<T.LanguageServer.SetBrowserOpenConversationResponse> {
@@ -209,10 +251,34 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.GetRepoInfosResponse;
   }
 
+  async listGobRepos(input: T.LanguageServer.ListGobReposRequest): Promise<T.LanguageServer.ListGobReposResponse> {
+    const req = new (PB as any).ListGobReposRequest(input as any);
+    const res = await this.client.listGobRepos(req);
+    return (res as any) as T.LanguageServer.ListGobReposResponse;
+  }
+
   async getWorkspaceInfos(input: T.LanguageServer.GetWorkspaceInfosRequest): Promise<T.LanguageServer.GetWorkspaceInfosResponse> {
     const req = new (PB as any).GetWorkspaceInfosRequest(input as any);
     const res = await this.client.getWorkspaceInfos(req);
     return (res as any) as T.LanguageServer.GetWorkspaceInfosResponse;
+  }
+
+  async getLocalUserInfo(input: T.LanguageServer.GetLocalUserInfoRequest): Promise<T.LanguageServer.GetLocalUserInfoResponse> {
+    const req = new (PB as any).GetLocalUserInfoRequest(input as any);
+    const res = await this.client.getLocalUserInfo(req);
+    return (res as any) as T.LanguageServer.GetLocalUserInfoResponse;
+  }
+
+  async resolveWorkspaceUrlPreview(input: T.LanguageServer.ResolveWorkspaceUrlPreviewRequest): Promise<T.LanguageServer.ResolveWorkspaceUrlPreviewResponse> {
+    const req = new (PB as any).ResolveWorkspaceUrlPreviewRequest(input as any);
+    const res = await this.client.resolveWorkspaceUrlPreview(req);
+    return (res as any) as T.LanguageServer.ResolveWorkspaceUrlPreviewResponse;
+  }
+
+  async searchDriveFiles(input: T.LanguageServer.SearchDriveFilesRequest): Promise<T.LanguageServer.SearchDriveFilesResponse> {
+    const req = new (PB as any).SearchDriveFilesRequest(input as any);
+    const res = await this.client.searchDriveFiles(req);
+    return (res as any) as T.LanguageServer.SearchDriveFilesResponse;
   }
 
   async createWorktree(input: T.LanguageServer.CreateWorktreeRequest): Promise<T.LanguageServer.CreateWorktreeResponse> {
@@ -239,6 +305,12 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.GetWorktreeDiffResponse;
   }
 
+  async getBattleWorktreeDiff(input: T.LanguageServer.GetBattleWorktreeDiffRequest): Promise<T.LanguageServer.GetBattleWorktreeDiffResponse> {
+    const req = new (PB as any).GetBattleWorktreeDiffRequest(input as any);
+    const res = await this.client.getBattleWorktreeDiff(req);
+    return (res as any) as T.LanguageServer.GetBattleWorktreeDiffResponse;
+  }
+
   async createCitcWorkspace(input: T.LanguageServer.CreateCitcWorkspaceRequest): Promise<T.LanguageServer.CreateCitcWorkspaceResponse> {
     const req = new (PB as any).CreateCitcWorkspaceRequest(input as any);
     const res = await this.client.createCitcWorkspace(req);
@@ -257,10 +329,118 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.GetWorkingDirectoriesResponse;
   }
 
+  async getJJWorktrees(input: T.LanguageServer.GetJJWorktreesRequest): Promise<T.LanguageServer.GetJJWorktreesResponse> {
+    const req = new (PB as any).GetJJWorktreesRequest(input as any);
+    const res = await this.client.getJJWorktrees(req);
+    return (res as any) as T.LanguageServer.GetJJWorktreesResponse;
+  }
+
   async getRevisionArtifact(input: T.LanguageServer.GetRevisionArtifactRequest): Promise<T.LanguageServer.GetRevisionArtifactResponse> {
     const req = new (PB as any).GetRevisionArtifactRequest(input as any);
     const res = await this.client.getRevisionArtifact(req);
     return (res as any) as T.LanguageServer.GetRevisionArtifactResponse;
+  }
+
+  async getVersionControlState(input: T.LanguageServer.GetVersionControlStateRequest): Promise<T.LanguageServer.GetVersionControlStateResponse> {
+    const req = new (PB as any).GetVersionControlStateRequest(input as any);
+    const res = await this.client.getVersionControlState(req);
+    return (res as any) as T.LanguageServer.GetVersionControlStateResponse;
+  }
+
+  async getVersionControlFileContent(input: T.LanguageServer.GetVersionControlFileContentRequest): Promise<T.LanguageServer.GetVersionControlFileContentResponse> {
+    const req = new (PB as any).GetVersionControlFileContentRequest(input as any);
+    const res = await this.client.getVersionControlFileContent(req);
+    return (res as any) as T.LanguageServer.GetVersionControlFileContentResponse;
+  }
+
+  async getCommitDetails(input: T.LanguageServer.GetCommitDetailsRequest): Promise<T.LanguageServer.GetCommitDetailsResponse> {
+    const req = new (PB as any).GetCommitDetailsRequest(input as any);
+    const res = await this.client.getCommitDetails(req);
+    return (res as any) as T.LanguageServer.GetCommitDetailsResponse;
+  }
+
+  async checkoutCommit(input: T.LanguageServer.CheckoutCommitRequest): Promise<T.LanguageServer.CheckoutCommitResponse> {
+    const req = new (PB as any).CheckoutCommitRequest(input as any);
+    const res = await this.client.checkoutCommit(req);
+    return (res as any) as T.LanguageServer.CheckoutCommitResponse;
+  }
+
+  async discardFileChanges(input: T.LanguageServer.DiscardFileChangesRequest): Promise<T.LanguageServer.DiscardFileChangesResponse> {
+    const req = new (PB as any).DiscardFileChangesRequest(input as any);
+    const res = await this.client.discardFileChanges(req);
+    return (res as any) as T.LanguageServer.DiscardFileChangesResponse;
+  }
+
+  async figSync(input: T.LanguageServer.FigSyncRequest): Promise<T.LanguageServer.FigSyncResponse> {
+    const req = new (PB as any).FigSyncRequest(input as any);
+    const res = await this.client.figSync(req);
+    return (res as any) as T.LanguageServer.FigSyncResponse;
+  }
+
+  async figCommit(input: T.LanguageServer.FigCommitRequest): Promise<T.LanguageServer.FigCommitResponse> {
+    const req = new (PB as any).FigCommitRequest(input as any);
+    const res = await this.client.figCommit(req);
+    return (res as any) as T.LanguageServer.FigCommitResponse;
+  }
+
+  async figAmend(input: T.LanguageServer.FigAmendRequest): Promise<T.LanguageServer.FigAmendResponse> {
+    const req = new (PB as any).FigAmendRequest(input as any);
+    const res = await this.client.figAmend(req);
+    return (res as any) as T.LanguageServer.FigAmendResponse;
+  }
+
+  async figUpload(input: T.LanguageServer.FigUploadRequest): Promise<T.LanguageServer.FigUploadResponse> {
+    const req = new (PB as any).FigUploadRequest(input as any);
+    const res = await this.client.figUpload(req);
+    return (res as any) as T.LanguageServer.FigUploadResponse;
+  }
+
+  async jjSync(input: T.LanguageServer.JjSyncRequest): Promise<T.LanguageServer.JjSyncResponse> {
+    const req = new (PB as any).JjSyncRequest(input as any);
+    const res = await this.client.jjSync(req);
+    return (res as any) as T.LanguageServer.JjSyncResponse;
+  }
+
+  async jjCommit(input: T.LanguageServer.JjCommitRequest): Promise<T.LanguageServer.JjCommitResponse> {
+    const req = new (PB as any).JjCommitRequest(input as any);
+    const res = await this.client.jjCommit(req);
+    return (res as any) as T.LanguageServer.JjCommitResponse;
+  }
+
+  async jjSquash(input: T.LanguageServer.JjSquashRequest): Promise<T.LanguageServer.JjSquashResponse> {
+    const req = new (PB as any).JjSquashRequest(input as any);
+    const res = await this.client.jjSquash(req);
+    return (res as any) as T.LanguageServer.JjSquashResponse;
+  }
+
+  async jjUpload(input: T.LanguageServer.JjUploadRequest): Promise<T.LanguageServer.JjUploadResponse> {
+    const req = new (PB as any).JjUploadRequest(input as any);
+    const res = await this.client.jjUpload(req);
+    return (res as any) as T.LanguageServer.JjUploadResponse;
+  }
+
+  async gitStage(input: T.LanguageServer.GitStageRequest): Promise<T.LanguageServer.GitStageResponse> {
+    const req = new (PB as any).GitStageRequest(input as any);
+    const res = await this.client.gitStage(req);
+    return (res as any) as T.LanguageServer.GitStageResponse;
+  }
+
+  async gitUnstage(input: T.LanguageServer.GitUnstageRequest): Promise<T.LanguageServer.GitUnstageResponse> {
+    const req = new (PB as any).GitUnstageRequest(input as any);
+    const res = await this.client.gitUnstage(req);
+    return (res as any) as T.LanguageServer.GitUnstageResponse;
+  }
+
+  async gitCommit(input: T.LanguageServer.GitCommitRequest): Promise<T.LanguageServer.GitCommitResponse> {
+    const req = new (PB as any).GitCommitRequest(input as any);
+    const res = await this.client.gitCommit(req);
+    return (res as any) as T.LanguageServer.GitCommitResponse;
+  }
+
+  async gitDiscard(input: T.LanguageServer.GitDiscardRequest): Promise<T.LanguageServer.GitDiscardResponse> {
+    const req = new (PB as any).GitDiscardRequest(input as any);
+    const res = await this.client.gitDiscard(req);
+    return (res as any) as T.LanguageServer.GitDiscardResponse;
   }
 
   async generateCommitMessage(input: T.LanguageServer.GenerateCommitMessageRequest): Promise<T.LanguageServer.GenerateCommitMessageResponse> {
@@ -395,6 +575,24 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.AcceptTermsOfServiceResponse;
   }
 
+  async listLicenses(input: T.LanguageServer.ListLicensesRequest): Promise<T.LanguageServer.ListLicensesResponse> {
+    const req = new (PB as any).ListLicensesRequest(input as any);
+    const res = await this.client.listLicenses(req);
+    return (res as any) as T.LanguageServer.ListLicensesResponse;
+  }
+
+  async selectLicense(input: T.LanguageServer.SelectLicenseRequest): Promise<T.LanguageServer.SelectLicenseResponse> {
+    const req = new (PB as any).SelectLicenseRequest(input as any);
+    const res = await this.client.selectLicense(req);
+    return (res as any) as T.LanguageServer.SelectLicenseResponse;
+  }
+
+  async selfAssignLicense(input: T.LanguageServer.SelfAssignLicenseRequest): Promise<T.LanguageServer.SelfAssignLicenseResponse> {
+    const req = new (PB as any).SelfAssignLicenseRequest(input as any);
+    const res = await this.client.selfAssignLicense(req);
+    return (res as any) as T.LanguageServer.SelfAssignLicenseResponse;
+  }
+
   async getUserTrajectoryDebug(input: T.LanguageServer.GetUserTrajectoryDebugRequest): Promise<T.LanguageServer.GetUserTrajectoryDebugResponse> {
     const req = new (PB as any).GetUserTrajectoryDebugRequest(input as any);
     const res = await this.client.getUserTrajectoryDebug(req);
@@ -443,6 +641,18 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.StartCascadeResponse;
   }
 
+  async loadSharedTrajectory(input: T.LanguageServer.LoadSharedTrajectoryRequest): Promise<T.LanguageServer.LoadSharedTrajectoryResponse> {
+    const req = new (PB as any).LoadSharedTrajectoryRequest(input as any);
+    const res = await this.client.loadSharedTrajectory(req);
+    return (res as any) as T.LanguageServer.LoadSharedTrajectoryResponse;
+  }
+
+  async getSlashCommands(input: T.LanguageServer.GetSlashCommandsRequest): Promise<T.LanguageServer.GetSlashCommandsResponse> {
+    const req = new (PB as any).GetSlashCommandsRequest(input as any);
+    const res = await this.client.getSlashCommands(req);
+    return (res as any) as T.LanguageServer.GetSlashCommandsResponse;
+  }
+
   async startBattleMode(input: T.LanguageServer.StartBattleModeRequest): Promise<T.LanguageServer.StartBattleModeResponse> {
     const req = new (PB as any).StartBattleModeRequest(input as any);
     const res = await this.client.startBattleMode(req);
@@ -453,6 +663,12 @@ export class LanguageServerFacade {
     const req = new (PB as any).EndBattleModeRequest(input as any);
     const res = await this.client.endBattleMode(req);
     return (res as any) as T.LanguageServer.EndBattleModeResponse;
+  }
+
+  async eliminateBattleModeArm(input: T.LanguageServer.EliminateBattleModeArmRequest): Promise<T.LanguageServer.EliminateBattleModeArmResponse> {
+    const req = new (PB as any).EliminateBattleModeArmRequest(input as any);
+    const res = await this.client.eliminateBattleModeArm(req);
+    return (res as any) as T.LanguageServer.EliminateBattleModeArmResponse;
   }
 
   async setOrVerifyStaticConfig(input: T.LanguageServer.SetOrVerifyStaticConfigRequest): Promise<T.LanguageServer.SetOrVerifyStaticConfigResponse> {
@@ -509,10 +725,22 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.SendUserCascadeMessageResponse;
   }
 
+  async detectBattleModeAutoTrigger(input: T.LanguageServer.DetectBattleModeAutoTriggerRequest): Promise<T.LanguageServer.DetectBattleModeAutoTriggerResponse> {
+    const req = new (PB as any).DetectBattleModeAutoTriggerRequest(input as any);
+    const res = await this.client.detectBattleModeAutoTrigger(req);
+    return (res as any) as T.LanguageServer.DetectBattleModeAutoTriggerResponse;
+  }
+
   async signalExecutableIdle(input: T.LanguageServer.SignalExecutableIdleRequest): Promise<T.LanguageServer.SignalExecutableIdleResponse> {
     const req = new (PB as any).SignalExecutableIdleRequest(input as any);
     const res = await this.client.signalExecutableIdle(req);
     return (res as any) as T.LanguageServer.SignalExecutableIdleResponse;
+  }
+
+  async waitForConversationFullyIdle(input: T.LanguageServer.WaitForConversationFullyIdleRequest): Promise<T.LanguageServer.WaitForConversationFullyIdleResponse> {
+    const req = new (PB as any).WaitForConversationFullyIdleRequest(input as any);
+    const res = await this.client.waitForConversationFullyIdle(req);
+    return (res as any) as T.LanguageServer.WaitForConversationFullyIdleResponse;
   }
 
   async sendAllQueuedMessages(input: T.LanguageServer.SendAllQueuedMessagesRequest): Promise<T.LanguageServer.SendAllQueuedMessagesResponse> {
@@ -581,6 +809,24 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.DeleteCascadeTrajectoryResponse;
   }
 
+  async getConversationMetadata(input: T.LanguageServer.GetConversationMetadataRequest): Promise<T.LanguageServer.GetConversationMetadataResponse> {
+    const req = new (PB as any).GetConversationMetadataRequest(input as any);
+    const res = await this.client.getConversationMetadata(req);
+    return (res as any) as T.LanguageServer.GetConversationMetadataResponse;
+  }
+
+  async getTurnDiff(input: T.LanguageServer.GetTurnDiffRequest): Promise<T.LanguageServer.GetTurnDiffResponse> {
+    const req = new (PB as any).GetTurnDiffRequest(input as any);
+    const res = await this.client.getTurnDiff(req);
+    return (res as any) as T.LanguageServer.GetTurnDiffResponse;
+  }
+
+  async getCodeActionDiff(input: T.LanguageServer.GetCodeActionDiffRequest): Promise<T.LanguageServer.GetCodeActionDiffResponse> {
+    const req = new (PB as any).GetCodeActionDiffRequest(input as any);
+    const res = await this.client.getCodeActionDiff(req);
+    return (res as any) as T.LanguageServer.GetCodeActionDiffResponse;
+  }
+
   async initializeCascadePanelState(input: T.LanguageServer.InitializeCascadePanelStateRequest): Promise<T.LanguageServer.InitializeCascadePanelStateResponse> {
     const req = new (PB as any).InitializeCascadePanelStateRequest(input as any);
     const res = await this.client.initializeCascadePanelState(req);
@@ -611,6 +857,12 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.RefreshMcpServersResponse;
   }
 
+  async toggleMcpServer(input: T.LanguageServer.ToggleMcpServerRequest): Promise<T.LanguageServer.ToggleMcpServerResponse> {
+    const req = new (PB as any).ToggleMcpServerRequest(input as any);
+    const res = await this.client.toggleMcpServer(req);
+    return (res as any) as T.LanguageServer.ToggleMcpServerResponse;
+  }
+
   async getMcpServerStates(input: T.LanguageServer.GetMcpServerStatesRequest): Promise<T.LanguageServer.GetMcpServerStatesResponse> {
     const req = new (PB as any).GetMcpServerStatesRequest(input as any);
     const res = await this.client.getMcpServerStates(req);
@@ -627,6 +879,30 @@ export class LanguageServerFacade {
     const req = new (PB as any).DisconnectMcpOAuthRequest(input as any);
     const res = await this.client.disconnectMcpOAuth(req);
     return (res as any) as T.LanguageServer.DisconnectMcpOAuthResponse;
+  }
+
+  async createTerminal(input: T.LanguageServer.CreateTerminalRequest): Promise<T.LanguageServer.CreateTerminalResponse> {
+    const req = new (PB as any).CreateTerminalRequest(input as any);
+    const res = await this.client.createTerminal(req);
+    return (res as any) as T.LanguageServer.CreateTerminalResponse;
+  }
+
+  async sendTerminalInput(input: T.LanguageServer.SendTerminalInputRequest): Promise<T.LanguageServer.SendTerminalInputResponse> {
+    const req = new (PB as any).SendTerminalInputRequest(input as any);
+    const res = await this.client.sendTerminalInput(req);
+    return (res as any) as T.LanguageServer.SendTerminalInputResponse;
+  }
+
+  async closeTerminal(input: T.LanguageServer.CloseTerminalRequest): Promise<T.LanguageServer.CloseTerminalResponse> {
+    const req = new (PB as any).CloseTerminalRequest(input as any);
+    const res = await this.client.closeTerminal(req);
+    return (res as any) as T.LanguageServer.CloseTerminalResponse;
+  }
+
+  async listTerminals(input: T.LanguageServer.ListTerminalsRequest): Promise<T.LanguageServer.ListTerminalsResponse> {
+    const req = new (PB as any).ListTerminalsRequest(input as any);
+    const res = await this.client.listTerminals(req);
+    return (res as any) as T.LanguageServer.ListTerminalsResponse;
   }
 
   async getModelResponse(input: T.LanguageServer.GetModelResponseRequest): Promise<T.LanguageServer.GetModelResponseResponse> {
@@ -669,6 +945,18 @@ export class LanguageServerFacade {
     const req = new (PB as any).GetUnleashDataRequest(input as any);
     const res = await this.client.getUnleashData(req);
     return (res as any) as T.LanguageServer.GetUnleashDataResponse;
+  }
+
+  async getMendelFlags(input: T.LanguageServer.GetMendelFlagsRequest): Promise<T.LanguageServer.GetMendelFlagsResponse> {
+    const req = new (PB as any).GetMendelFlagsRequest(input as any);
+    const res = await this.client.getMendelFlags(req);
+    return (res as any) as T.LanguageServer.GetMendelFlagsResponse;
+  }
+
+  async isProjectsEnabledInternally(input: T.LanguageServer.IsProjectsEnabledInternallyRequest): Promise<T.LanguageServer.IsProjectsEnabledInternallyResponse> {
+    const req = new (PB as any).IsProjectsEnabledInternallyRequest(input as any);
+    const res = await this.client.isProjectsEnabledInternally(req);
+    return (res as any) as T.LanguageServer.IsProjectsEnabledInternallyResponse;
   }
 
   async getModelStatuses(input: T.LanguageServer.GetModelStatusesRequest): Promise<T.LanguageServer.GetModelStatusesResponse> {
@@ -717,6 +1005,12 @@ export class LanguageServerFacade {
     const req = new (PB as any).GenerateSkillInstallationCLRequest(input as any);
     const res = await this.client.generateSkillInstallationCL(req);
     return (res as any) as T.LanguageServer.GenerateSkillInstallationCLResponse;
+  }
+
+  async searchMarketplaceCustomizations(input: T.LanguageServer.SearchMarketplaceCustomizationsRequest): Promise<T.LanguageServer.SearchMarketplaceCustomizationsResponse> {
+    const req = new (PB as any).SearchMarketplaceCustomizationsRequest(input as any);
+    const res = await this.client.searchMarketplaceCustomizations(req);
+    return (res as any) as T.LanguageServer.SearchMarketplaceCustomizationsResponse;
   }
 
   async scanSkillsConfigFile(input: T.LanguageServer.ScanSkillsConfigFileRequest): Promise<T.LanguageServer.ScanSkillsConfigFileResponse> {
@@ -821,6 +1115,12 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.GetCascadeTrajectoryGeneratorMetadataResponse;
   }
 
+  async getCascadeTrajectoryExecutorMetadatas(input: T.LanguageServer.GetCascadeTrajectoryExecutorMetadatasRequest): Promise<T.LanguageServer.GetCascadeTrajectoryExecutorMetadatasResponse> {
+    const req = new (PB as any).GetCascadeTrajectoryExecutorMetadatasRequest(input as any);
+    const res = await this.client.getCascadeTrajectoryExecutorMetadatas(req);
+    return (res as any) as T.LanguageServer.GetCascadeTrajectoryExecutorMetadatasResponse;
+  }
+
   async getPatchAndCodeChange(input: T.LanguageServer.GetPatchAndCodeChangeRequest): Promise<T.LanguageServer.GetPatchAndCodeChangeResponse> {
     const req = new (PB as any).GetPatchAndCodeChangeRequest(input as any);
     const res = await this.client.getPatchAndCodeChange(req);
@@ -837,6 +1137,12 @@ export class LanguageServerFacade {
     const req = new (PB as any).LoadTrajectoryRequest(input as any);
     const res = await this.client.loadTrajectory(req);
     return (res as any) as T.LanguageServer.LoadTrajectoryResponse;
+  }
+
+  async importProjectFromUrl(input: T.LanguageServer.ImportProjectFromUrlRequest): Promise<T.LanguageServer.ImportProjectFromUrlResponse> {
+    const req = new (PB as any).ImportProjectFromUrlRequest(input as any);
+    const res = await this.client.importProjectFromUrl(req);
+    return (res as any) as T.LanguageServer.ImportProjectFromUrlResponse;
   }
 
   async getAvailableCascadePlugins(input: T.LanguageServer.GetAvailableCascadePluginsRequest): Promise<T.LanguageServer.GetAvailableCascadePluginsResponse> {
@@ -863,6 +1169,24 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.GetAllPluginsResponse;
   }
 
+  async getBuildWithGooglePlugins(input: T.LanguageServer.GetBuildWithGooglePluginsRequest): Promise<T.LanguageServer.GetBuildWithGooglePluginsResponse> {
+    const req = new (PB as any).GetBuildWithGooglePluginsRequest(input as any);
+    const res = await this.client.getBuildWithGooglePlugins(req);
+    return (res as any) as T.LanguageServer.GetBuildWithGooglePluginsResponse;
+  }
+
+  async downloadBuildWithGooglePlugin(input: T.LanguageServer.DownloadBuildWithGooglePluginRequest): Promise<T.LanguageServer.DownloadBuildWithGooglePluginResponse> {
+    const req = new (PB as any).DownloadBuildWithGooglePluginRequest(input as any);
+    const res = await this.client.downloadBuildWithGooglePlugin(req);
+    return (res as any) as T.LanguageServer.DownloadBuildWithGooglePluginResponse;
+  }
+
+  async deletePlugin(input: T.LanguageServer.DeletePluginRequest): Promise<T.LanguageServer.DeletePluginResponse> {
+    const req = new (PB as any).DeletePluginRequest(input as any);
+    const res = await this.client.deletePlugin(req);
+    return (res as any) as T.LanguageServer.DeletePluginResponse;
+  }
+
   async updateCustomization(input: T.LanguageServer.UpdateCustomizationRequest): Promise<T.LanguageServer.UpdateCustomizationResponse> {
     const req = new (PB as any).UpdateCustomizationRequest(input as any);
     const res = await this.client.updateCustomization(req);
@@ -873,6 +1197,12 @@ export class LanguageServerFacade {
     const req = new (PB as any).GetAgentScriptsRequest(input as any);
     const res = await this.client.getAgentScripts(req);
     return (res as any) as T.LanguageServer.GetAgentScriptsResponse;
+  }
+
+  async listProfiles(input: T.LanguageServer.ListProfilesRequest): Promise<T.LanguageServer.ListProfilesResponse> {
+    const req = new (PB as any).ListProfilesRequest(input as any);
+    const res = await this.client.listProfiles(req);
+    return (res as any) as T.LanguageServer.ListProfilesResponse;
   }
 
   async saveAgentScriptCommandSpec(input: T.LanguageServer.SaveAgentScriptCommandSpecRequest): Promise<T.LanguageServer.SaveAgentScriptCommandSpecResponse> {
@@ -893,12 +1223,6 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.ReplayGroundTruthTrajectoryResponse;
   }
 
-  async createReplayWorkspace(input: T.LanguageServer.CreateReplayWorkspaceRequest): Promise<T.LanguageServer.CreateReplayWorkspaceResponse> {
-    const req = new (PB as any).CreateReplayWorkspaceRequest(input as any);
-    const res = await this.client.createReplayWorkspace(req);
-    return (res as any) as T.LanguageServer.CreateReplayWorkspaceResponse;
-  }
-
   async loadReplayConversation(input: T.LanguageServer.LoadReplayConversationRequest): Promise<T.LanguageServer.LoadReplayConversationResponse> {
     const req = new (PB as any).LoadReplayConversationRequest(input as any);
     const res = await this.client.loadReplayConversation(req);
@@ -917,6 +1241,12 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.GetCascadeNuxesResponse;
   }
 
+  async registerInteraction(input: T.LanguageServer.RegisterInteractionRequest): Promise<T.LanguageServer.RegisterInteractionResponse> {
+    const req = new (PB as any).RegisterInteractionRequest(input as any);
+    const res = await this.client.registerInteraction(req);
+    return (res as any) as T.LanguageServer.RegisterInteractionResponse;
+  }
+
   async getTranscription(input: T.LanguageServer.GetTranscriptionRequest): Promise<T.LanguageServer.GetTranscriptionResponse> {
     const req = new (PB as any).GetTranscriptionRequest(input as any);
     const res = await this.client.getTranscription(req);
@@ -933,6 +1263,18 @@ export class LanguageServerFacade {
     const req = new (PB as any).EndAudioSessionRequest(input as any);
     const res = await this.client.endAudioSession(req);
     return (res as any) as T.LanguageServer.EndAudioSessionResponse;
+  }
+
+  async getInputCompletion(input: T.LanguageServer.GetInputCompletionRequest): Promise<T.LanguageServer.GetInputCompletionResponse> {
+    const req = new (PB as any).GetInputCompletionRequest(input as any);
+    const res = await this.client.getInputCompletion(req);
+    return (res as any) as T.LanguageServer.GetInputCompletionResponse;
+  }
+
+  async sendInputCompletionFeedback(input: T.LanguageServer.SendInputCompletionFeedbackRequest): Promise<T.LanguageServer.SendInputCompletionFeedbackResponse> {
+    const req = new (PB as any).SendInputCompletionFeedbackRequest(input as any);
+    const res = await this.client.sendInputCompletionFeedback(req);
+    return (res as any) as T.LanguageServer.SendInputCompletionFeedbackResponse;
   }
 
   async getStaticExperimentStatus(input: T.LanguageServer.GetStaticExperimentStatusRequest): Promise<T.LanguageServer.GetStaticExperimentStatusResponse> {
@@ -1067,6 +1409,12 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.RunCommandResponse;
   }
 
+  async validateTerminalSetupScript(input: T.LanguageServer.ValidateTerminalSetupScriptRequest): Promise<T.LanguageServer.ValidateTerminalSetupScriptResponse> {
+    const req = new (PB as any).ValidateTerminalSetupScriptRequest(input as any);
+    const res = await this.client.validateTerminalSetupScript(req);
+    return (res as any) as T.LanguageServer.ValidateTerminalSetupScriptResponse;
+  }
+
   async jetboxWriteState(input: T.LanguageServer.JetboxWriteStateRequest): Promise<T.LanguageServer.JetboxWriteStateResponse> {
     const req = new (PB as any).JetboxWriteStateRequest(input as any);
     const res = await this.client.jetboxWriteState(req);
@@ -1127,6 +1475,12 @@ export class LanguageServerFacade {
     return (res as any) as T.LanguageServer.SendAgentMessageResponse;
   }
 
+  async deleteAgentMessage(input: T.LanguageServer.DeleteAgentMessageRequest): Promise<T.LanguageServer.DeleteAgentMessageResponse> {
+    const req = new (PB as any).DeleteAgentMessageRequest(input as any);
+    const res = await this.client.deleteAgentMessage(req);
+    return (res as any) as T.LanguageServer.DeleteAgentMessageResponse;
+  }
+
   async getLoadCodeAssist(input: T.LanguageServer.GetLoadCodeAssistRequest): Promise<T.LanguageServer.GetLoadCodeAssistResponse> {
     const req = new (PB as any).GetLoadCodeAssistRequest(input as any);
     const res = await this.client.getLoadCodeAssist(req);
@@ -1137,6 +1491,144 @@ export class LanguageServerFacade {
     const req = new (PB as any).GetAvailableModelsRequest(input as any);
     const res = await this.client.getAvailableModels(req);
     return (res as any) as T.LanguageServer.GetAvailableModelsResponse;
+  }
+
+  async retrieveUserQuotaSummary(input: T.LanguageServer.RetrieveUserQuotaSummaryRequest): Promise<T.LanguageServer.RetrieveUserQuotaSummaryResponse> {
+    const req = new (PB as any).RetrieveUserQuotaSummaryRequest(input as any);
+    const res = await this.client.retrieveUserQuotaSummary(req);
+    return (res as any) as T.LanguageServer.RetrieveUserQuotaSummaryResponse;
+  }
+
+  async createProject(input: T.LanguageServer.CreateProjectRequest): Promise<T.LanguageServer.CreateProjectResponse> {
+    const req = new (PB as any).CreateProjectRequest(input as any);
+    const res = await this.client.createProject(req);
+    return (res as any) as T.LanguageServer.CreateProjectResponse;
+  }
+
+  async createMagicProject(input: T.LanguageServer.CreateMagicProjectRequest): Promise<T.LanguageServer.CreateMagicProjectResponse> {
+    const req = new (PB as any).CreateMagicProjectRequest(input as any);
+    const res = await this.client.createMagicProject(req);
+    return (res as any) as T.LanguageServer.CreateMagicProjectResponse;
+  }
+
+  async updateProject(input: T.LanguageServer.UpdateProjectRequest): Promise<T.LanguageServer.UpdateProjectResponse> {
+    const req = new (PB as any).UpdateProjectRequest(input as any);
+    const res = await this.client.updateProject(req);
+    return (res as any) as T.LanguageServer.UpdateProjectResponse;
+  }
+
+  async deleteProject(input: T.LanguageServer.DeleteProjectRequest): Promise<T.LanguageServer.DeleteProjectResponse> {
+    const req = new (PB as any).DeleteProjectRequest(input as any);
+    const res = await this.client.deleteProject(req);
+    return (res as any) as T.LanguageServer.DeleteProjectResponse;
+  }
+
+  async disassembleProject(input: T.LanguageServer.DisassembleProjectRequest): Promise<T.LanguageServer.DisassembleProjectResponse> {
+    const req = new (PB as any).DisassembleProjectRequest(input as any);
+    const res = await this.client.disassembleProject(req);
+    return (res as any) as T.LanguageServer.DisassembleProjectResponse;
+  }
+
+  async backupGeminiDir(input: T.LanguageServer.BackupGeminiDirRequest): Promise<T.LanguageServer.BackupGeminiDirResponse> {
+    const req = new (PB as any).BackupGeminiDirRequest(input as any);
+    const res = await this.client.backupGeminiDir(req);
+    return (res as any) as T.LanguageServer.BackupGeminiDirResponse;
+  }
+
+  async generateEnvironmentName(input: T.LanguageServer.GenerateEnvironmentNameRequest): Promise<T.LanguageServer.GenerateEnvironmentNameResponse> {
+    const req = new (PB as any).GenerateEnvironmentNameRequest(input as any);
+    const res = await this.client.generateEnvironmentName(req);
+    return (res as any) as T.LanguageServer.GenerateEnvironmentNameResponse;
+  }
+
+  async addEnvironmentToProject(input: T.LanguageServer.AddEnvironmentToProjectRequest): Promise<T.LanguageServer.AddEnvironmentToProjectResponse> {
+    const req = new (PB as any).AddEnvironmentToProjectRequest(input as any);
+    const res = await this.client.addEnvironmentToProject(req);
+    return (res as any) as T.LanguageServer.AddEnvironmentToProjectResponse;
+  }
+
+  async resolveFolder(input: T.LanguageServer.ResolveFolderRequest): Promise<T.LanguageServer.ResolveFolderResponse> {
+    const req = new (PB as any).ResolveFolderRequest(input as any);
+    const res = await this.client.resolveFolder(req);
+    return (res as any) as T.LanguageServer.ResolveFolderResponse;
+  }
+
+  async readProject(input: T.LanguageServer.ReadProjectRequest): Promise<T.LanguageServer.ReadProjectResponse> {
+    const req = new (PB as any).ReadProjectRequest(input as any);
+    const res = await this.client.readProject(req);
+    return (res as any) as T.LanguageServer.ReadProjectResponse;
+  }
+
+  async getDefaultProjectDir(input: T.LanguageServer.GetDefaultProjectDirRequest): Promise<T.LanguageServer.GetDefaultProjectDirResponse> {
+    const req = new (PB as any).GetDefaultProjectDirRequest(input as any);
+    const res = await this.client.getDefaultProjectDir(req);
+    return (res as any) as T.LanguageServer.GetDefaultProjectDirResponse;
+  }
+
+  async getAuthStatus(input: T.LanguageServer.GetAuthStatusRequest): Promise<T.LanguageServer.GetAuthStatusResponse> {
+    const req = new (PB as any).GetAuthStatusRequest(input as any);
+    const res = await this.client.getAuthStatus(req);
+    return (res as any) as T.LanguageServer.GetAuthStatusResponse;
+  }
+
+  async loginWithBrowser(input: T.LanguageServer.LoginWithBrowserRequest): Promise<T.LanguageServer.LoginWithBrowserResponse> {
+    const req = new (PB as any).LoginWithBrowserRequest(input as any);
+    const res = await this.client.loginWithBrowser(req);
+    return (res as any) as T.LanguageServer.LoginWithBrowserResponse;
+  }
+
+  async login(input: T.LanguageServer.LoginRequest): Promise<T.LanguageServer.LoginResponse> {
+    const req = new (PB as any).LoginRequest(input as any);
+    const res = await this.client.login(req);
+    return (res as any) as T.LanguageServer.LoginResponse;
+  }
+
+  async authLogout(input: T.LanguageServer.AuthLogoutRequest): Promise<T.LanguageServer.AuthLogoutResponse> {
+    const req = new (PB as any).AuthLogoutRequest(input as any);
+    const res = await this.client.authLogout(req);
+    return (res as any) as T.LanguageServer.AuthLogoutResponse;
+  }
+
+  async hasAuthToken(input: T.LanguageServer.HasAuthTokenRequest): Promise<T.LanguageServer.HasAuthTokenResponse> {
+    const req = new (PB as any).HasAuthTokenRequest(input as any);
+    const res = await this.client.hasAuthToken(req);
+    return (res as any) as T.LanguageServer.HasAuthTokenResponse;
+  }
+
+  async validateProject(input: T.LanguageServer.ValidateProjectRequest): Promise<T.LanguageServer.ValidateProjectResponse> {
+    const req = new (PB as any).ValidateProjectRequest(input as any);
+    const res = await this.client.validateProject(req);
+    return (res as any) as T.LanguageServer.ValidateProjectResponse;
+  }
+
+  async getGrantedScopes(input: T.LanguageServer.GetGrantedScopesRequest): Promise<T.LanguageServer.GetGrantedScopesResponse> {
+    const req = new (PB as any).GetGrantedScopesRequest(input as any);
+    const res = await this.client.getGrantedScopes(req);
+    return (res as any) as T.LanguageServer.GetGrantedScopesResponse;
+  }
+
+  async createScratchProjectFolder(input: T.LanguageServer.CreateScratchProjectFolderRequest): Promise<T.LanguageServer.CreateScratchProjectFolderResponse> {
+    const req = new (PB as any).CreateScratchProjectFolderRequest(input as any);
+    const res = await this.client.createScratchProjectFolder(req);
+    return (res as any) as T.LanguageServer.CreateScratchProjectFolderResponse;
+  }
+
+  async getServerConfiguration(input: T.LanguageServer.GetServerConfigurationRequest): Promise<T.LanguageServer.GetServerConfigurationResponse> {
+    const req = new (PB as any).GetServerConfigurationRequest(input as any);
+    const res = await this.client.getServerConfiguration(req);
+    return (res as any) as T.LanguageServer.GetServerConfigurationResponse;
+  }
+
+  async getCapabilities(input: T.LanguageServer.GetCapabilitiesRequest): Promise<T.LanguageServer.GetCapabilitiesResponse> {
+    const req = new (PB as any).GetCapabilitiesRequest(input as any);
+    const res = await this.client.getCapabilities(req);
+    return (res as any) as T.LanguageServer.GetCapabilitiesResponse;
+  }
+
+  async fetchAdminControls(input: T.LanguageServer.FetchAdminControlsRequest): Promise<T.LanguageServer.FetchAdminControlsResponse> {
+    const req = new (PB as any).FetchAdminControlsRequest(input as any);
+    const res = await this.client.fetchAdminControls(req);
+    return (res as any) as T.LanguageServer.FetchAdminControlsResponse;
   }
 
 }

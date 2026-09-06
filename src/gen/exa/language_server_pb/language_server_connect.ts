@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AcceptTermsOfServiceRequest, AcceptTermsOfServiceResponse, AcknowledgeCascadeCodeEditRequest, AcknowledgeCascadeCodeEditResponse, AcknowledgeCodeActionStepRequest, AcknowledgeCodeActionStepResponse, AddEnvironmentToProjectRequest, AddEnvironmentToProjectResponse, AddToBrowserWhitelistRequest, AddToBrowserWhitelistResponse, AddTrackedWorkspaceRequest, AddTrackedWorkspaceResponse, AuthLogoutRequest, AuthLogoutResponse, BrowserValidateCascadeOrCancelOverlayRequest, BrowserValidateCascadeOrCancelOverlayResponse, CancelCascadeInvocationRequest, CancelCascadeInvocationResponse, CancelCascadeStepsRequest, CancelCascadeStepsResponse, CaptureConsoleLogsRequest, CaptureConsoleLogsResponse, CaptureScreenshotRequest, CaptureScreenshotResponse, CheckDevToolsActivePortRequest, CheckDevToolsActivePortResponse, CheckoutWorktreeRequest, CheckoutWorktreeResponse, CloseTerminalRequest, CloseTerminalResponse, CompleteMcpOAuthRequest, CompleteMcpOAuthResponse, ConvertTrajectoryToMarkdownRequest, ConvertTrajectoryToMarkdownResponse, CopyBuiltinWorkflowToWorkspaceRequest, CopyBuiltinWorkflowToWorkspaceResponse, CreateCitcWorkspaceRequest, CreateCitcWorkspaceResponse, CreateCustomizationFileRequest, CreateCustomizationFileResponse, CreateProjectRequest, CreateProjectResponse, CreateScratchProjectFolderRequest, CreateScratchProjectFolderResponse, CreateTerminalRequest, CreateTerminalResponse, CreateTrajectoryShareRequest, CreateTrajectoryShareResponse, CreateWorktreeRequest, CreateWorktreeResponse, DeleteAgentMessageRequest, DeleteAgentMessageResponse, DeleteCascadeMemoryRequest, DeleteCascadeMemoryResponse, DeleteCascadeTrajectoryRequest, DeleteCascadeTrajectoryResponse, DeleteFileOrDirectoryRequest, DeleteFileOrDirectoryResponse, DeleteMediaArtifactRequest, DeleteMediaArtifactResponse, DeletePluginRequest, DeletePluginResponse, DeleteProjectRequest, DeleteProjectResponse, DeleteQueuedUserInputStepRequest, DeleteQueuedUserInputStepResponse, DeleteWorktreeRequest, DeleteWorktreeResponse, DetectBattleModeAutoTriggerRequest, DetectBattleModeAutoTriggerResponse, DisconnectMcpOAuthRequest, DisconnectMcpOAuthResponse, DownloadBuildWithGooglePluginRequest, DownloadBuildWithGooglePluginResponse, DumpFlightRecorderRequest, DumpFlightRecorderResponse, DumpPprofRequest, DumpPprofResponse, EliminateBattleModeArmRequest, EliminateBattleModeArmResponse, EndAudioSessionRequest, EndAudioSessionResponse, EndBattleModeRequest, EndBattleModeResponse, ExitRequest, ExitResponse, FetchUserInfoRequest, FetchUserInfoResponse, FigAmendRequest, FigAmendResponse, FigCommitRequest, FigCommitResponse, FigSyncRequest, FigSyncResponse, FigUploadRequest, FigUploadResponse, FocusUserPageRequest, FocusUserPageResponse, ForceBackgroundResearchRefreshRequest, ForceBackgroundResearchRefreshResponse, ForceStopCascadeTreeRequest, ForceStopCascadeTreeResponse, ForkConversationRequest, ForkConversationResponse, GenerateCommitMessageRequest, GenerateCommitMessageResponse, GenerateEnvironmentNameRequest, GenerateEnvironmentNameResponse, GenerateSkillInstallationCLRequest, GenerateSkillInstallationCLResponse, GetAgentScriptsRequest, GetAgentScriptsResponse, GetAgentTeamMetadataRequest, GetAgentTeamMetadataResponse, GetAllBrowserWhitelistedUrlsRequest, GetAllBrowserWhitelistedUrlsResponse, GetAllCascadeTrajectoriesRequest, GetAllCascadeTrajectoriesResponse, GetAllCustomAgentConfigsRequest, GetAllCustomAgentConfigsResponse, GetAllPluginsRequest, GetAllPluginsResponse, GetAllRulesRequest, GetAllRulesResponse, GetAllSkillsRequest, GetAllSkillsResponse, GetAllWorkflowsRequest, GetAllWorkflowsResponse, GetArtifactSnapshotsRequest, GetArtifactSnapshotsResponse, GetAuthStatusRequest, GetAuthStatusResponse, GetAvailableCascadePluginsRequest, GetAvailableCascadePluginsResponse, GetAvailableModelsRequest, GetAvailableModelsResponse, GetBrowserOpenConversationRequest, GetBrowserOpenConversationResponse, GetBrowserWhitelistFilePathRequest, GetBrowserWhitelistFilePathResponse, GetBuildWithGooglePluginsRequest, GetBuildWithGooglePluginsResponse, GetCascadeMemoriesRequest, GetCascadeMemoriesResponse, GetCascadeModelConfigDataRequest, GetCascadeModelConfigsRequest, GetCascadeModelConfigsResponse, GetCascadeNuxesRequest, GetCascadeNuxesResponse, GetCascadePluginByIdRequest, GetCascadePluginByIdResponse, GetCascadeTrajectoryExecutorMetadatasRequest, GetCascadeTrajectoryExecutorMetadatasResponse, GetCascadeTrajectoryGeneratorMetadataRequest, GetCascadeTrajectoryGeneratorMetadataResponse, GetCascadeTrajectoryRequest, GetCascadeTrajectoryResponse, GetCascadeTrajectoryStepsRequest, GetCascadeTrajectoryStepsResponse, GetChangelogRequest, GetChangelogResponse, GetCodeFrequencyForRepoRequest, GetCodeFrequencyForRepoResponse, GetCodeValidationStatesRequest, GetCodeValidationStatesResponse, GetCommandModelConfigsRequest, GetCommandModelConfigsResponse, GetCommitDetailsRequest, GetCommitDetailsResponse, GetConversationMetadataRequest, GetConversationMetadataResponse, GetDebugDiagnosticsRequest, GetDebugDiagnosticsResponse, GetDefaultProjectDirRequest, GetDefaultProjectDirResponse, GetGrantedScopesRequest, GetGrantedScopesResponse, GetKnowledgeItemsRequest, GetKnowledgeItemsResponse, GetLoadCodeAssistRequest, GetLoadCodeAssistResponse, GetLocalUserInfoRequest, GetLocalUserInfoResponse, GetMatchingContextScopeItemsRequest, GetMatchingContextScopeItemsResponse, GetMcpPromptRequest, GetMcpPromptResponse, GetMcpServerStatesRequest, GetMcpServerStatesResponse, GetMcpServerTemplatesRequest, GetMcpServerTemplatesResponse, GetMendelFlagsRequest, GetMendelFlagsResponse, GetModelResponseRequest, GetModelResponseResponse, GetModelStatusesRequest, GetModelStatusesResponse, GetPatchAndCodeChangeRequest, GetPatchAndCodeChangeResponse, GetProfileDataRequest, GetProfileDataResponse, GetRepoInfosRequest, GetRepoInfosResponse, GetRevertPreviewRequest, GetRevertPreviewResponse, GetRevisionArtifactRequest, GetRevisionArtifactResponse, GetServerConfigurationRequest, GetServerConfigurationResponse, GetSidecarEventsRequest, GetSidecarEventsResponse, GetSidecarLogsRequest, GetSidecarLogsResponse, GetSidecarsRequest, GetSidecarsResponse, GetSkillMarketplaceLinkRequest, GetSkillMarketplaceLinkResponse, GetSlashCommandsRequest, GetSlashCommandsResponse, GetStandaloneDirRequest, GetStandaloneDirResponse, GetStaticExperimentStatusRequest, GetStaticExperimentStatusResponse, GetStatusRequest, GetStatusResponse, GetTeamOrganizationalControlsRequest, GetTeamOrganizationalControlsResponse, GetTermsOfServiceRequest, GetTermsOfServiceResponse, GetTokenBaseRequest, GetTokenBaseResponse, GetTranscriptionRequest, GetTranscriptionResponse, GetTurnDiffRequest, GetTurnDiffResponse, GetUnleashDataRequest, GetUnleashDataResponse, GetUserAnalyticsSummaryRequest, GetUserAnalyticsSummaryResponse, GetUserMemoriesRequest, GetUserMemoriesResponse, GetUserSettingsRequest, GetUserSettingsResponse, GetUserStatusRequest, GetUserStatusResponse, GetUserTrajectoryDebugRequest, GetUserTrajectoryDebugResponse, GetUserTrajectoryDescriptionsRequest, GetUserTrajectoryDescriptionsResponse, GetUserTrajectoryRequest, GetUserTrajectoryResponse, GetVersionControlFileContentRequest, GetVersionControlFileContentResponse, GetVersionControlStateRequest, GetVersionControlStateResponse, GetWebDocsOptionsRequest, GetWebDocsOptionsResponse, GetWorkingDirectoriesRequest, GetWorkingDirectoriesResponse, GetWorkspaceEditStateRequest, GetWorkspaceEditStateResponse, GetWorkspaceInfosRequest, GetWorkspaceInfosResponse, GetWorktreeDiffRequest, GetWorktreeDiffResponse, GitCommitRequest, GitCommitResponse, GitDiscardRequest, GitDiscardResponse, GitStageRequest, GitStageResponse, GitUnstageRequest, GitUnstageResponse, HandleCascadeUserInteractionRequest, HandleCascadeUserInteractionResponse, HandleScreenRecordingRequest, HandleScreenRecordingResponse, HandleStreamingCommandRequest, HandleStreamingCommandResponse, HasAuthTokenRequest, HasAuthTokenResponse, HeartbeatRequest, HeartbeatResponse, ImportFromCursorRequest, ImportFromCursorResponse, ImportProjectFromUrlRequest, ImportProjectFromUrlResponse, InitializeCascadePanelStateRequest, InitializeCascadePanelStateResponse, InstallCascadePluginRequest, InstallCascadePluginResponse, IsProjectsEnabledInternallyRequest, IsProjectsEnabledInternallyResponse, JetboxDeleteSummaryRequest, JetboxDeleteSummaryResponse, JetboxGetLatestVersionRequest, JetboxGetLatestVersionResponse, JetboxSubscribeToGcertStateRequest, JetboxSubscribeToGcertStateResponse, JetboxSubscribeToOAuthStateRequest, JetboxSubscribeToOAuthStateResponse, JetboxSubscribeToStateRequest, JetboxSubscribeToStateResponse, JetboxSubscribeToSummariesRequest, JetboxSubscribeToSummariesResponse, JetboxWriteStateRequest, JetboxWriteStateResponse, JetboxWriteSummaryRequest, JetboxWriteSummaryResponse, ListCustomizationPathsByFileRequest, ListCustomizationPathsByFileResponse, ListMcpPromptsRequest, ListMcpPromptsResponse, ListMcpResourcesRequest, ListMcpResourcesResponse, ListPagesRequest, ListPagesResponse, ListProfilesRequest, ListProfilesResponse, ListSidecarLogFilesRequest, ListSidecarLogFilesResponse, ListTerminalsRequest, ListTerminalsResponse, LoadReplayConversationRequest, LoadReplayConversationResponse, LoadTrajectoryRequest, LoadTrajectoryResponse, LoginWithBrowserRequest, LoginWithBrowserResponse, ManageSidecarRequest, ManageSidecarResponse, MigrateApiKeyRequest, MigrateApiKeyResponse, OpenUrlRequest, OpenUrlResponse, ProjectUpdatesStreamRequest, ProjectUpdatesStreamResponse, ProvideCompletionFeedbackRequest, ProvideCompletionFeedbackResponse, ReadDirRequest, ReadDirResponse, ReadFileRequest, ReadFileResponse, ReadProjectRequest, ReadProjectResponse, ReconnectExtensionServerRequest, ReconnectExtensionServerResponse, RecordAnalyticsEventRequest, RecordAnalyticsEventResponse, RecordChatFeedbackRequest, RecordChatFeedbackResponse, RecordChatPanelSessionRequest, RecordChatPanelSessionResponse, RecordCommitMessageSaveRequest, RecordCommitMessageSaveResponse, RecordErrorRequest, RecordErrorResponse, RecordEventRequest, RecordEventResponse, RecordInteractiveCascadeFeedbackRequest, RecordInteractiveCascadeFeedbackResponse, RecordLintsRequest, RecordLintsResponse, RecordObservabilityDataRequest, RecordObservabilityDataResponse, RecordSearchDocOpenRequest, RecordSearchDocOpenResponse, RecordSearchResultsViewRequest, RecordSearchResultsViewResponse, RecordSidecarEventRequest, RecordSidecarEventResponse, RecordUserGrepRequest, RecordUserGrepResponse, RecordUserStepSnapshotRequest, RecordUserStepSnapshotResponse, RefreshContextForIdeActionRequest, RefreshContextForIdeActionResponse, RefreshMcpServersRequest, RefreshMcpServersResponse, RegisterGdmUserRequest, RegisterGdmUserResponse, RegisterInteractionRequest, RegisterInteractionResponse, RemoveTrackedWorkspaceRequest, RemoveTrackedWorkspaceResponse, ReplayGroundTruthTrajectoryRequest, ReplayGroundTruthTrajectoryResponse, ResetOnboardingRequest, ResetOnboardingResponse, ResolveFolderRequest, ResolveFolderResponse, ResolveOutstandingStepsRequest, ResolveOutstandingStepsResponse, ResolveWorkspaceUrlPreviewRequest, ResolveWorkspaceUrlPreviewResponse, RestartRequest, RestartResponse, RetrieveUserQuotaSummaryRequest, RetrieveUserQuotaSummaryResponse, RevertToCascadeStepRequest, RevertToCascadeStepResponse, RunCommandRequest, RunCommandResponse, SaveAgentScriptCommandSpecRequest, SaveAgentScriptCommandSpecResponse, SaveMediaAsArtifactRequest, SaveMediaAsArtifactResponse, SaveScreenRecordingRequest, SaveScreenRecordingResponse, ScanSkillsConfigFileRequest, ScanSkillsConfigFileResponse, SearchCodeRequest, SearchCodeResponse, SearchConversationsRequest, SearchConversationsResponse, SearchFilesRequest, SearchFilesResponse, SendActionToChatPanelRequest, SendActionToChatPanelResponse, SendAgentMessageRequest, SendAgentMessageResponse, SendAllQueuedMessagesRequest, SendAllQueuedMessagesResponse, SendAudioChunkRequest, SendAudioChunkResponse, SendStepsToBackgroundRequest, SendStepsToBackgroundResponse, SendTerminalInputRequest, SendTerminalInputResponse, SendUserCascadeMessageRequest, SendUserCascadeMessageResponse, SetBaseExperimentsRequest, SetBaseExperimentsResponse, SetBrowserOpenConversationRequest, SetBrowserOpenConversationResponse, SetCloudCodeURLRequest, SetCloudCodeURLResponse, SetOrVerifyStaticConfigRequest, SetOrVerifyStaticConfigResponse, SetupJetskiChatRequest, SetupJetskiChatResponse, SetupUniversitySandboxRequest, SetupUniversitySandboxResponse, SetUserInfoRequest, SetUserInfoResponse, SetUserSettingsRequest, SetUserSettingsResponse, SetWorkingDirectoriesRequest, SetWorkingDirectoriesResponse, ShouldEnableUnleashRequest, ShouldEnableUnleashResponse, SignalExecutableIdleRequest, SignalExecutableIdleResponse, SimulateSegFaultRequest, SimulateSegFaultResponse, SkipBrowserSubagentRequest, SkipBrowserSubagentResponse, SkipOnboardingRequest, SkipOnboardingResponse, SmartFocusConversationRequest, SmartFocusConversationResponse, SmartOpenBrowserRequest, SmartOpenBrowserResponse, StartAudioTranscriptionRequest, StartBattleModeRequest, StartBattleModeResponse, StartCascadeRequest, StartCascadeResponse, StartScreenRecordingRequest, StartScreenRecordingResponse, StatUriRequest, StatUriResponse, StreamAudioTranscriptionResponse, StreamTerminalOutputRequest, StreamTerminalOutputResponse, StreamTerminalShellCommandResponse, SubscribeToSidecarsRequest, SubscribeToSidecarsResponse, ToggleMcpServerRequest, ToggleMcpServerResponse, UpdateCascadeMemoryRequest, UpdateCascadeMemoryResponse, UpdateConversationAnnotationsRequest, UpdateConversationAnnotationsResponse, UpdateCustomizationPathsFileRequest, UpdateCustomizationPathsFileResponse, UpdateCustomizationRequest, UpdateCustomizationResponse, UpdateDevExperimentsRequest, UpdateDevExperimentsResponse, UpdateEnterpriseExperimentsFromUrlRequest, UpdateEnterpriseExperimentsFromUrlResponse, UpdatePRForWorktreeRequest, UpdatePRForWorktreeResponse, UpdateProjectRequest, UpdateProjectResponse, ValidateProjectRequest, ValidateProjectResponse, WaitForConversationFullyIdleRequest, WaitForConversationFullyIdleResponse, WatchDirectoryRequest, WatchDirectoryResponse, WatchVersionControlStateRequest, WatchVersionControlStateResponse, WellSupportedLanguagesRequest, WellSupportedLanguagesResponse, WriteFileRequest, WriteFileResponse } from "./language_server_pb.js";
+import { AcceptTermsOfServiceRequest, AcceptTermsOfServiceResponse, AcknowledgeCascadeCodeEditRequest, AcknowledgeCascadeCodeEditResponse, AcknowledgeCodeActionStepRequest, AcknowledgeCodeActionStepResponse, AddEnvironmentToProjectRequest, AddEnvironmentToProjectResponse, AddToBrowserWhitelistRequest, AddToBrowserWhitelistResponse, AddTrackedWorkspaceRequest, AddTrackedWorkspaceResponse, AuthLogoutRequest, AuthLogoutResponse, BackupGeminiDirRequest, BackupGeminiDirResponse, BrowserValidateCascadeOrCancelOverlayRequest, BrowserValidateCascadeOrCancelOverlayResponse, CancelCascadeInvocationRequest, CancelCascadeInvocationResponse, CancelCascadeStepsRequest, CancelCascadeStepsResponse, CaptureConsoleLogsRequest, CaptureConsoleLogsResponse, CaptureScreenshotRequest, CaptureScreenshotResponse, CheckDevToolsActivePortRequest, CheckDevToolsActivePortResponse, CheckoutCommitRequest, CheckoutCommitResponse, CheckoutWorktreeRequest, CheckoutWorktreeResponse, CloseTerminalRequest, CloseTerminalResponse, CompleteMcpOAuthRequest, CompleteMcpOAuthResponse, ConvertTrajectoryToMarkdownRequest, ConvertTrajectoryToMarkdownResponse, CopyBuiltinWorkflowToWorkspaceRequest, CopyBuiltinWorkflowToWorkspaceResponse, CreateCitcWorkspaceRequest, CreateCitcWorkspaceResponse, CreateCustomizationFileRequest, CreateCustomizationFileResponse, CreateDebugBundleRequest, CreateDebugBundleResponse, CreateMagicProjectRequest, CreateMagicProjectResponse, CreateProjectRequest, CreateProjectResponse, CreateScratchProjectFolderRequest, CreateScratchProjectFolderResponse, CreateTerminalRequest, CreateTerminalResponse, CreateTrajectoryShareRequest, CreateTrajectoryShareResponse, CreateWorktreeRequest, CreateWorktreeResponse, DeleteAgentMessageRequest, DeleteAgentMessageResponse, DeleteCascadeMemoryRequest, DeleteCascadeMemoryResponse, DeleteCascadeTrajectoryRequest, DeleteCascadeTrajectoryResponse, DeleteFileOrDirectoryRequest, DeleteFileOrDirectoryResponse, DeleteMediaArtifactRequest, DeleteMediaArtifactResponse, DeletePluginRequest, DeletePluginResponse, DeleteProjectRequest, DeleteProjectResponse, DeleteQueuedUserInputStepRequest, DeleteQueuedUserInputStepResponse, DeleteWorktreeRequest, DeleteWorktreeResponse, DetectBattleModeAutoTriggerRequest, DetectBattleModeAutoTriggerResponse, DisassembleProjectRequest, DisassembleProjectResponse, DiscardFileChangesRequest, DiscardFileChangesResponse, DisconnectMcpOAuthRequest, DisconnectMcpOAuthResponse, DownloadBuildWithGooglePluginRequest, DownloadBuildWithGooglePluginResponse, DumpFlightRecorderRequest, DumpFlightRecorderResponse, DumpPprofRequest, DumpPprofResponse, EliminateBattleModeArmRequest, EliminateBattleModeArmResponse, EndAudioSessionRequest, EndAudioSessionResponse, EndBattleModeRequest, EndBattleModeResponse, ExitRequest, ExitResponse, FetchAdminControlsRequest, FetchAdminControlsResponse, FetchUserInfoRequest, FetchUserInfoResponse, FigAmendRequest, FigAmendResponse, FigCommitRequest, FigCommitResponse, FigSyncRequest, FigSyncResponse, FigUploadRequest, FigUploadResponse, FocusUserPageRequest, FocusUserPageResponse, ForceBackgroundResearchRefreshRequest, ForceBackgroundResearchRefreshResponse, ForceStopCascadeTreeRequest, ForceStopCascadeTreeResponse, ForkConversationRequest, ForkConversationResponse, GenerateCommitMessageRequest, GenerateCommitMessageResponse, GenerateEnvironmentNameRequest, GenerateEnvironmentNameResponse, GenerateSkillInstallationCLRequest, GenerateSkillInstallationCLResponse, GetAgentScriptsRequest, GetAgentScriptsResponse, GetAgentTeamMetadataRequest, GetAgentTeamMetadataResponse, GetAllBrowserWhitelistedUrlsRequest, GetAllBrowserWhitelistedUrlsResponse, GetAllCascadeTrajectoriesRequest, GetAllCascadeTrajectoriesResponse, GetAllCustomAgentConfigsRequest, GetAllCustomAgentConfigsResponse, GetAllPluginsRequest, GetAllPluginsResponse, GetAllRulesRequest, GetAllRulesResponse, GetAllSkillsRequest, GetAllSkillsResponse, GetAllWorkflowsRequest, GetAllWorkflowsResponse, GetArtifactSnapshotsRequest, GetArtifactSnapshotsResponse, GetAuthStatusRequest, GetAuthStatusResponse, GetAvailableCascadePluginsRequest, GetAvailableCascadePluginsResponse, GetAvailableModelsRequest, GetAvailableModelsResponse, GetBattleWorktreeDiffRequest, GetBattleWorktreeDiffResponse, GetBrowserOpenConversationRequest, GetBrowserOpenConversationResponse, GetBrowserWhitelistFilePathRequest, GetBrowserWhitelistFilePathResponse, GetBuildWithGooglePluginsRequest, GetBuildWithGooglePluginsResponse, GetCapabilitiesRequest, GetCapabilitiesResponse, GetCascadeMemoriesRequest, GetCascadeMemoriesResponse, GetCascadeModelConfigDataRequest, GetCascadeModelConfigsRequest, GetCascadeModelConfigsResponse, GetCascadeNuxesRequest, GetCascadeNuxesResponse, GetCascadePluginByIdRequest, GetCascadePluginByIdResponse, GetCascadeTrajectoryExecutorMetadatasRequest, GetCascadeTrajectoryExecutorMetadatasResponse, GetCascadeTrajectoryGeneratorMetadataRequest, GetCascadeTrajectoryGeneratorMetadataResponse, GetCascadeTrajectoryRequest, GetCascadeTrajectoryResponse, GetCascadeTrajectoryStepsRequest, GetCascadeTrajectoryStepsResponse, GetChangelogRequest, GetChangelogResponse, GetCodeActionDiffRequest, GetCodeActionDiffResponse, GetCodeFrequencyForRepoRequest, GetCodeFrequencyForRepoResponse, GetCodeValidationStatesRequest, GetCodeValidationStatesResponse, GetCommandModelConfigsRequest, GetCommandModelConfigsResponse, GetCommitDetailsRequest, GetCommitDetailsResponse, GetConversationMetadataRequest, GetConversationMetadataResponse, GetDebugDiagnosticsRequest, GetDebugDiagnosticsResponse, GetDefaultProjectDirRequest, GetDefaultProjectDirResponse, GetGrantedScopesRequest, GetGrantedScopesResponse, GetInputCompletionRequest, GetInputCompletionResponse, GetJJWorktreesRequest, GetJJWorktreesResponse, GetKnowledgeItemsRequest, GetKnowledgeItemsResponse, GetLoadCodeAssistRequest, GetLoadCodeAssistResponse, GetLocalUserInfoRequest, GetLocalUserInfoResponse, GetMatchingContextScopeItemsRequest, GetMatchingContextScopeItemsResponse, GetMcpPromptRequest, GetMcpPromptResponse, GetMcpServerStatesRequest, GetMcpServerStatesResponse, GetMcpServerTemplatesRequest, GetMcpServerTemplatesResponse, GetMendelFlagsRequest, GetMendelFlagsResponse, GetModelResponseRequest, GetModelResponseResponse, GetModelStatusesRequest, GetModelStatusesResponse, GetPatchAndCodeChangeRequest, GetPatchAndCodeChangeResponse, GetProfileDataRequest, GetProfileDataResponse, GetRepoInfosRequest, GetRepoInfosResponse, GetRevertPreviewRequest, GetRevertPreviewResponse, GetRevisionArtifactRequest, GetRevisionArtifactResponse, GetServerConfigurationRequest, GetServerConfigurationResponse, GetSidecarEventsRequest, GetSidecarEventsResponse, GetSidecarLogsRequest, GetSidecarLogsResponse, GetSidecarsRequest, GetSidecarsResponse, GetSkillMarketplaceLinkRequest, GetSkillMarketplaceLinkResponse, GetSlashCommandsRequest, GetSlashCommandsResponse, GetStandaloneDirRequest, GetStandaloneDirResponse, GetStaticExperimentStatusRequest, GetStaticExperimentStatusResponse, GetStatusRequest, GetStatusResponse, GetTeamOrganizationalControlsRequest, GetTeamOrganizationalControlsResponse, GetTermsOfServiceRequest, GetTermsOfServiceResponse, GetTokenBaseRequest, GetTokenBaseResponse, GetTranscriptionRequest, GetTranscriptionResponse, GetTurnDiffRequest, GetTurnDiffResponse, GetUnleashDataRequest, GetUnleashDataResponse, GetUserAnalyticsSummaryRequest, GetUserAnalyticsSummaryResponse, GetUserMemoriesRequest, GetUserMemoriesResponse, GetUserSettingsRequest, GetUserSettingsResponse, GetUserStatusRequest, GetUserStatusResponse, GetUserTrajectoryDebugRequest, GetUserTrajectoryDebugResponse, GetUserTrajectoryDescriptionsRequest, GetUserTrajectoryDescriptionsResponse, GetUserTrajectoryRequest, GetUserTrajectoryResponse, GetVersionControlFileContentRequest, GetVersionControlFileContentResponse, GetVersionControlStateRequest, GetVersionControlStateResponse, GetWebDocsOptionsRequest, GetWebDocsOptionsResponse, GetWorkingDirectoriesRequest, GetWorkingDirectoriesResponse, GetWorkspaceEditStateRequest, GetWorkspaceEditStateResponse, GetWorkspaceInfosRequest, GetWorkspaceInfosResponse, GetWorktreeDiffRequest, GetWorktreeDiffResponse, GitCommitRequest, GitCommitResponse, GitDiscardRequest, GitDiscardResponse, GitStageRequest, GitStageResponse, GitUnstageRequest, GitUnstageResponse, HandleCascadeUserInteractionRequest, HandleCascadeUserInteractionResponse, HandleScreenRecordingRequest, HandleScreenRecordingResponse, HandleStreamingCommandRequest, HandleStreamingCommandResponse, HasAuthTokenRequest, HasAuthTokenResponse, HeartbeatRequest, HeartbeatResponse, ImportFromCursorRequest, ImportFromCursorResponse, ImportProjectFromUrlRequest, ImportProjectFromUrlResponse, InitializeCascadePanelStateRequest, InitializeCascadePanelStateResponse, InstallCascadePluginRequest, InstallCascadePluginResponse, IsProjectsEnabledInternallyRequest, IsProjectsEnabledInternallyResponse, JetboxDeleteSummaryRequest, JetboxDeleteSummaryResponse, JetboxGetLatestVersionRequest, JetboxGetLatestVersionResponse, JetboxSubscribeToGcertStateRequest, JetboxSubscribeToGcertStateResponse, JetboxSubscribeToOAuthStateRequest, JetboxSubscribeToOAuthStateResponse, JetboxSubscribeToStateRequest, JetboxSubscribeToStateResponse, JetboxSubscribeToSummariesRequest, JetboxSubscribeToSummariesResponse, JetboxWriteStateRequest, JetboxWriteStateResponse, JetboxWriteSummaryRequest, JetboxWriteSummaryResponse, JjCommitRequest, JjCommitResponse, JjSquashRequest, JjSquashResponse, JjSyncRequest, JjSyncResponse, JjUploadRequest, JjUploadResponse, ListCustomizationPathsByFileRequest, ListCustomizationPathsByFileResponse, ListGobReposRequest, ListGobReposResponse, ListLicensesRequest, ListLicensesResponse, ListMcpPromptsRequest, ListMcpPromptsResponse, ListMcpResourcesRequest, ListMcpResourcesResponse, ListPagesRequest, ListPagesResponse, ListProfilesRequest, ListProfilesResponse, ListSidecarLogFilesRequest, ListSidecarLogFilesResponse, ListTerminalsRequest, ListTerminalsResponse, LoadReplayConversationRequest, LoadReplayConversationResponse, LoadSharedTrajectoryRequest, LoadSharedTrajectoryResponse, LoadTrajectoryRequest, LoadTrajectoryResponse, LoginRequest, LoginResponse, LoginWithBrowserRequest, LoginWithBrowserResponse, ManageSidecarRequest, ManageSidecarResponse, MigrateApiKeyRequest, MigrateApiKeyResponse, OpenUrlRequest, OpenUrlResponse, ProjectUpdatesStreamRequest, ProjectUpdatesStreamResponse, ProvideCompletionFeedbackRequest, ProvideCompletionFeedbackResponse, ReadDirRequest, ReadDirResponse, ReadFileRequest, ReadFileResponse, ReadProjectRequest, ReadProjectResponse, ReconnectExtensionServerRequest, ReconnectExtensionServerResponse, RecordAnalyticsEventRequest, RecordAnalyticsEventResponse, RecordChatFeedbackRequest, RecordChatFeedbackResponse, RecordChatPanelSessionRequest, RecordChatPanelSessionResponse, RecordCommitMessageSaveRequest, RecordCommitMessageSaveResponse, RecordErrorRequest, RecordErrorResponse, RecordEventRequest, RecordEventResponse, RecordInteractiveCascadeFeedbackRequest, RecordInteractiveCascadeFeedbackResponse, RecordLintsRequest, RecordLintsResponse, RecordObservabilityDataRequest, RecordObservabilityDataResponse, RecordSearchDocOpenRequest, RecordSearchDocOpenResponse, RecordSearchResultsViewRequest, RecordSearchResultsViewResponse, RecordSidecarEventRequest, RecordSidecarEventResponse, RecordUserGrepRequest, RecordUserGrepResponse, RecordUserStepSnapshotRequest, RecordUserStepSnapshotResponse, RefreshContextForIdeActionRequest, RefreshContextForIdeActionResponse, RefreshMcpServersRequest, RefreshMcpServersResponse, RegisterGdmUserRequest, RegisterGdmUserResponse, RegisterInteractionRequest, RegisterInteractionResponse, RemoveTrackedWorkspaceRequest, RemoveTrackedWorkspaceResponse, ReplayGroundTruthTrajectoryRequest, ReplayGroundTruthTrajectoryResponse, ResetOnboardingRequest, ResetOnboardingResponse, ResolveFolderRequest, ResolveFolderResponse, ResolveOutstandingStepsRequest, ResolveOutstandingStepsResponse, ResolveSidecarConfigRequest, ResolveSidecarConfigResponse, ResolveWorkspaceUrlPreviewRequest, ResolveWorkspaceUrlPreviewResponse, RestartRequest, RestartResponse, RetrieveUserQuotaSummaryRequest, RetrieveUserQuotaSummaryResponse, RevertToCascadeStepRequest, RevertToCascadeStepResponse, RunCommandRequest, RunCommandResponse, SaveAgentScriptCommandSpecRequest, SaveAgentScriptCommandSpecResponse, SaveMediaAsArtifactRequest, SaveMediaAsArtifactResponse, SaveScreenRecordingRequest, SaveScreenRecordingResponse, ScanSkillsConfigFileRequest, ScanSkillsConfigFileResponse, SearchCodeRequest, SearchCodeResponse, SearchConversationsRequest, SearchConversationsResponse, SearchDriveFilesRequest, SearchDriveFilesResponse, SearchFilesRequest, SearchFilesResponse, SearchMarketplaceCustomizationsRequest, SearchMarketplaceCustomizationsResponse, SelectLicenseRequest, SelectLicenseResponse, SelfAssignLicenseRequest, SelfAssignLicenseResponse, SendActionToChatPanelRequest, SendActionToChatPanelResponse, SendAgentMessageRequest, SendAgentMessageResponse, SendAllQueuedMessagesRequest, SendAllQueuedMessagesResponse, SendAudioChunkRequest, SendAudioChunkResponse, SendInputCompletionFeedbackRequest, SendInputCompletionFeedbackResponse, SendStepsToBackgroundRequest, SendStepsToBackgroundResponse, SendTerminalInputRequest, SendTerminalInputResponse, SendUserCascadeMessageRequest, SendUserCascadeMessageResponse, SetBaseExperimentsRequest, SetBaseExperimentsResponse, SetBrowserOpenConversationRequest, SetBrowserOpenConversationResponse, SetCloudCodeURLRequest, SetCloudCodeURLResponse, SetOrVerifyStaticConfigRequest, SetOrVerifyStaticConfigResponse, SetupJetskiChatRequest, SetupJetskiChatResponse, SetupUniversitySandboxRequest, SetupUniversitySandboxResponse, SetUserInfoRequest, SetUserInfoResponse, SetUserSettingsRequest, SetUserSettingsResponse, SetWorkingDirectoriesRequest, SetWorkingDirectoriesResponse, ShouldEnableUnleashRequest, ShouldEnableUnleashResponse, SignalExecutableIdleRequest, SignalExecutableIdleResponse, SimulateSegFaultRequest, SimulateSegFaultResponse, SkipBrowserSubagentRequest, SkipBrowserSubagentResponse, SkipOnboardingRequest, SkipOnboardingResponse, SmartFocusConversationRequest, SmartFocusConversationResponse, SmartOpenBrowserRequest, SmartOpenBrowserResponse, StartAudioTranscriptionRequest, StartBattleModeRequest, StartBattleModeResponse, StartCascadeRequest, StartCascadeResponse, StartScreenRecordingRequest, StartScreenRecordingResponse, StatUriRequest, StatUriResponse, StreamAudioTranscriptionResponse, StreamSearchCodeResponse, StreamTerminalOutputRequest, StreamTerminalOutputResponse, StreamTerminalShellCommandResponse, SubscribeToSidecarsRequest, SubscribeToSidecarsResponse, ToggleMcpServerRequest, ToggleMcpServerResponse, UpdateCascadeMemoryRequest, UpdateCascadeMemoryResponse, UpdateConversationAnnotationsRequest, UpdateConversationAnnotationsResponse, UpdateCustomizationPathsFileRequest, UpdateCustomizationPathsFileResponse, UpdateCustomizationRequest, UpdateCustomizationResponse, UpdateDevExperimentsRequest, UpdateDevExperimentsResponse, UpdateEnterpriseExperimentsFromUrlRequest, UpdateEnterpriseExperimentsFromUrlResponse, UpdatePRForWorktreeRequest, UpdatePRForWorktreeResponse, UpdateProjectRequest, UpdateProjectResponse, UploadToDriveRequest, UploadToDriveResponse, ValidateProjectRequest, ValidateProjectResponse, ValidateTerminalSetupScriptRequest, ValidateTerminalSetupScriptResponse, WaitForConversationFullyIdleRequest, WaitForConversationFullyIdleResponse, WatchDirectoryRequest, WatchDirectoryResponse, WatchVersionControlStateRequest, WatchVersionControlStateResponse, WellSupportedLanguagesRequest, WellSupportedLanguagesResponse, WriteFileRequest, WriteFileResponse } from "./language_server_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 import { StreamReactiveUpdatesRequest, StreamReactiveUpdatesResponse } from "../reactive_component_pb/reactive_component_pb.js";
 import { CascadeModelConfigData, TerminalShellCommandStreamChunk } from "../codeium_common_pb/codeium_common_pb.js";
@@ -142,6 +142,15 @@ export const LanguageServerService = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.ResolveSidecarConfig
+     */
+    resolveSidecarConfig: {
+      name: "ResolveSidecarConfig",
+      I: ResolveSidecarConfigRequest,
+      O: ResolveSidecarConfigResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc exa.language_server_pb.LanguageServerService.RegisterGdmUser
      */
     registerGdmUser: {
@@ -268,6 +277,24 @@ export const LanguageServerService = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.CreateDebugBundle
+     */
+    createDebugBundle: {
+      name: "CreateDebugBundle",
+      I: CreateDebugBundleRequest,
+      O: CreateDebugBundleResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.UploadToDrive
+     */
+    uploadToDrive: {
+      name: "UploadToDrive",
+      I: UploadToDriveRequest,
+      O: UploadToDriveResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc exa.language_server_pb.LanguageServerService.ReadDir
      */
     readDir: {
@@ -385,6 +412,15 @@ export const LanguageServerService = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.ListGobRepos
+     */
+    listGobRepos: {
+      name: "ListGobRepos",
+      I: ListGobReposRequest,
+      O: ListGobReposResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc exa.language_server_pb.LanguageServerService.GetWorkspaceInfos
      */
     getWorkspaceInfos: {
@@ -409,6 +445,15 @@ export const LanguageServerService = {
       name: "ResolveWorkspaceUrlPreview",
       I: ResolveWorkspaceUrlPreviewRequest,
       O: ResolveWorkspaceUrlPreviewResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.SearchDriveFiles
+     */
+    searchDriveFiles: {
+      name: "SearchDriveFiles",
+      I: SearchDriveFilesRequest,
+      O: SearchDriveFilesResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -448,6 +493,15 @@ export const LanguageServerService = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.GetBattleWorktreeDiff
+     */
+    getBattleWorktreeDiff: {
+      name: "GetBattleWorktreeDiff",
+      I: GetBattleWorktreeDiffRequest,
+      O: GetBattleWorktreeDiffResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc exa.language_server_pb.LanguageServerService.CreateCitcWorkspace
      */
     createCitcWorkspace: {
@@ -472,6 +526,15 @@ export const LanguageServerService = {
       name: "GetWorkingDirectories",
       I: GetWorkingDirectoriesRequest,
       O: GetWorkingDirectoriesResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.GetJJWorktrees
+     */
+    getJJWorktrees: {
+      name: "GetJJWorktrees",
+      I: GetJJWorktreesRequest,
+      O: GetJJWorktreesResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -520,6 +583,24 @@ export const LanguageServerService = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.CheckoutCommit
+     */
+    checkoutCommit: {
+      name: "CheckoutCommit",
+      I: CheckoutCommitRequest,
+      O: CheckoutCommitResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.DiscardFileChanges
+     */
+    discardFileChanges: {
+      name: "DiscardFileChanges",
+      I: DiscardFileChangesRequest,
+      O: DiscardFileChangesResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc exa.language_server_pb.LanguageServerService.FigSync
      */
     figSync: {
@@ -553,6 +634,42 @@ export const LanguageServerService = {
       name: "FigUpload",
       I: FigUploadRequest,
       O: FigUploadResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.JjSync
+     */
+    jjSync: {
+      name: "JjSync",
+      I: JjSyncRequest,
+      O: JjSyncResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.JjCommit
+     */
+    jjCommit: {
+      name: "JjCommit",
+      I: JjCommitRequest,
+      O: JjCommitResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.JjSquash
+     */
+    jjSquash: {
+      name: "JjSquash",
+      I: JjSquashRequest,
+      O: JjSquashResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.JjUpload
+     */
+    jjUpload: {
+      name: "JjUpload",
+      I: JjUploadRequest,
+      O: JjUploadResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -790,6 +907,33 @@ export const LanguageServerService = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.ListLicenses
+     */
+    listLicenses: {
+      name: "ListLicenses",
+      I: ListLicensesRequest,
+      O: ListLicensesResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.SelectLicense
+     */
+    selectLicense: {
+      name: "SelectLicense",
+      I: SelectLicenseRequest,
+      O: SelectLicenseResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.SelfAssignLicense
+     */
+    selfAssignLicense: {
+      name: "SelfAssignLicense",
+      I: SelfAssignLicenseRequest,
+      O: SelfAssignLicenseResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc exa.language_server_pb.LanguageServerService.GetUserTrajectoryDebug
      */
     getUserTrajectoryDebug: {
@@ -868,6 +1012,15 @@ export const LanguageServerService = {
       name: "StartCascade",
       I: StartCascadeRequest,
       O: StartCascadeResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.LoadSharedTrajectory
+     */
+    loadSharedTrajectory: {
+      name: "LoadSharedTrajectory",
+      I: LoadSharedTrajectoryRequest,
+      O: LoadSharedTrajectoryResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -1129,6 +1282,15 @@ export const LanguageServerService = {
       name: "GetTurnDiff",
       I: GetTurnDiffRequest,
       O: GetTurnDiffResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.GetCodeActionDiff
+     */
+    getCodeActionDiff: {
+      name: "GetCodeActionDiff",
+      I: GetCodeActionDiffRequest,
+      O: GetCodeActionDiffResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -1453,6 +1615,15 @@ export const LanguageServerService = {
       name: "GenerateSkillInstallationCL",
       I: GenerateSkillInstallationCLRequest,
       O: GenerateSkillInstallationCLResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.SearchMarketplaceCustomizations
+     */
+    searchMarketplaceCustomizations: {
+      name: "SearchMarketplaceCustomizations",
+      I: SearchMarketplaceCustomizationsRequest,
+      O: SearchMarketplaceCustomizationsResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -1843,6 +2014,24 @@ export const LanguageServerService = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.GetInputCompletion
+     */
+    getInputCompletion: {
+      name: "GetInputCompletion",
+      I: GetInputCompletionRequest,
+      O: GetInputCompletionResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.SendInputCompletionFeedback
+     */
+    sendInputCompletionFeedback: {
+      name: "SendInputCompletionFeedback",
+      I: SendInputCompletionFeedbackRequest,
+      O: SendInputCompletionFeedbackResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc exa.language_server_pb.LanguageServerService.GetStaticExperimentStatus
      */
     getStaticExperimentStatus: {
@@ -2041,6 +2230,15 @@ export const LanguageServerService = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.ValidateTerminalSetupScript
+     */
+    validateTerminalSetupScript: {
+      name: "ValidateTerminalSetupScript",
+      I: ValidateTerminalSetupScriptRequest,
+      O: ValidateTerminalSetupScriptResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc exa.language_server_pb.LanguageServerService.JetboxWriteState
      */
     jetboxWriteState: {
@@ -2120,6 +2318,15 @@ export const LanguageServerService = {
       I: SearchCodeRequest,
       O: SearchCodeResponse,
       kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.StreamSearchCode
+     */
+    streamSearchCode: {
+      name: "StreamSearchCode",
+      I: SearchCodeRequest,
+      O: StreamSearchCodeResponse,
+      kind: MethodKind.ServerStreaming,
     },
     /**
      * @generated from rpc exa.language_server_pb.LanguageServerService.SearchConversations
@@ -2212,6 +2419,15 @@ export const LanguageServerService = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.CreateMagicProject
+     */
+    createMagicProject: {
+      name: "CreateMagicProject",
+      I: CreateMagicProjectRequest,
+      O: CreateMagicProjectResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc exa.language_server_pb.LanguageServerService.UpdateProject
      */
     updateProject: {
@@ -2227,6 +2443,24 @@ export const LanguageServerService = {
       name: "DeleteProject",
       I: DeleteProjectRequest,
       O: DeleteProjectResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.DisassembleProject
+     */
+    disassembleProject: {
+      name: "DisassembleProject",
+      I: DisassembleProjectRequest,
+      O: DisassembleProjectResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.BackupGeminiDir
+     */
+    backupGeminiDir: {
+      name: "BackupGeminiDir",
+      I: BackupGeminiDirRequest,
+      O: BackupGeminiDirResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -2302,6 +2536,15 @@ export const LanguageServerService = {
       kind: MethodKind.Unary,
     },
     /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.Login
+     */
+    login: {
+      name: "Login",
+      I: LoginRequest,
+      O: LoginResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
      * @generated from rpc exa.language_server_pb.LanguageServerService.AuthLogout
      */
     authLogout: {
@@ -2362,6 +2605,24 @@ export const LanguageServerService = {
       name: "GetServerConfiguration",
       I: GetServerConfigurationRequest,
       O: GetServerConfigurationResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.GetCapabilities
+     */
+    getCapabilities: {
+      name: "GetCapabilities",
+      I: GetCapabilitiesRequest,
+      O: GetCapabilitiesResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.language_server_pb.LanguageServerService.FetchAdminControls
+     */
+    fetchAdminControls: {
+      name: "FetchAdminControls",
+      I: FetchAdminControlsRequest,
+      O: FetchAdminControlsResponse,
       kind: MethodKind.Unary,
     },
   }

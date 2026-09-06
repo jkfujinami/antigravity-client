@@ -1,0 +1,961 @@
+📖 Old schema を解析中 (src/proto_generated のバンドルから)...
+   scanning: extension_formatted.old.js
+   scanning: chat_formatted.old.js
+   → 45 descriptors
+
+📖 New schema を解析中 (最新バンドルから)...
+  scanning: extension_formatted.js
+  scanning: chat_formatted.js
+   → 47 descriptors
+
+[1m════════════════════════════════════════════════════════════[0m
+[1m[36m  Proto Schema Diff Report[0m
+[1m════════════════════════════════════════════════════════════[0m
+
+[1m📦 Messages[0m
+  [32m[NEW][0m     exa.language_server_pb.RetrieveUserQuotaSummaryRequest
+  [32m[NEW][0m     exa.language_server_pb.RetrieveUserQuotaSummaryResponse
+  [32m[NEW][0m     exa.language_server_pb.DetectBattleModeAutoTriggerRequest
+  [32m[NEW][0m     exa.language_server_pb.DetectBattleModeAutoTriggerResponse
+  [32m[NEW][0m     exa.language_server_pb.EliminateBattleModeArmRequest
+  [32m[NEW][0m     exa.language_server_pb.EliminateBattleModeArmResponse
+  [32m[NEW][0m     exa.language_server_pb.IsProjectsEnabledInternallyRequest
+  [32m[NEW][0m     exa.language_server_pb.IsProjectsEnabledInternallyResponse
+  [32m[NEW][0m     exa.language_server_pb.SetupJetskiChatRequest
+  [32m[NEW][0m     exa.language_server_pb.SetupJetskiChatResponse
+  [32m[NEW][0m     exa.language_server_pb.GetVersionControlStateRequest
+  [32m[NEW][0m     exa.language_server_pb.GetVersionControlStateResponse
+  [32m[NEW][0m     exa.language_server_pb.CreateTerminalRequest
+  [32m[NEW][0m     exa.language_server_pb.CreateTerminalResponse
+  [32m[NEW][0m     exa.language_server_pb.TerminalSize
+  [32m[NEW][0m     exa.language_server_pb.StreamTerminalOutputRequest
+  [32m[NEW][0m     exa.language_server_pb.StreamTerminalOutputResponse
+  [32m[NEW][0m     exa.language_server_pb.SendTerminalInputRequest
+  [32m[NEW][0m     exa.language_server_pb.SendTerminalInputResponse
+  [32m[NEW][0m     exa.language_server_pb.CloseTerminalRequest
+  [32m[NEW][0m     exa.language_server_pb.CloseTerminalResponse
+  [32m[NEW][0m     exa.language_server_pb.ListTerminalsRequest
+  [32m[NEW][0m     exa.language_server_pb.ListTerminalsResponse
+  [32m[NEW][0m     exa.language_server_pb.TerminalInfo
+  [32m[NEW][0m     exa.language_server_pb.WatchVersionControlStateRequest
+  [32m[NEW][0m     exa.language_server_pb.WatchVersionControlStateResponse
+  [32m[NEW][0m     exa.language_server_pb.GetVersionControlFileContentRequest
+  [32m[NEW][0m     exa.language_server_pb.GetVersionControlFileContentResponse
+  [32m[NEW][0m     exa.language_server_pb.GetCommitDetailsRequest
+  [32m[NEW][0m     exa.language_server_pb.GetCommitDetailsResponse
+  [32m[NEW][0m     exa.language_server_pb.FigSyncRequest
+  [32m[NEW][0m     exa.language_server_pb.FigSyncResponse
+  [32m[NEW][0m     exa.language_server_pb.FigCommitRequest
+  [32m[NEW][0m     exa.language_server_pb.FigCommitResponse
+  [32m[NEW][0m     exa.language_server_pb.FigAmendRequest
+  [32m[NEW][0m     exa.language_server_pb.FigAmendResponse
+  [32m[NEW][0m     exa.language_server_pb.FigUploadRequest
+  [32m[NEW][0m     exa.language_server_pb.FigUploadResponse
+  [32m[NEW][0m     exa.language_server_pb.ListProfilesRequest
+  [32m[NEW][0m     exa.language_server_pb.ProfileItem
+  [32m[NEW][0m     exa.language_server_pb.ListProfilesResponse
+  [32m[NEW][0m     exa.language_server_pb.GitStageRequest
+  [32m[NEW][0m     exa.language_server_pb.GitStageResponse
+  [32m[NEW][0m     exa.language_server_pb.GitUnstageRequest
+  [32m[NEW][0m     exa.language_server_pb.GitUnstageResponse
+  [32m[NEW][0m     exa.language_server_pb.GitCommitRequest
+  [32m[NEW][0m     exa.language_server_pb.GitCommitResponse
+  [32m[NEW][0m     exa.language_server_pb.GitDiscardRequest
+  [32m[NEW][0m     exa.language_server_pb.GitDiscardResponse
+  [32m[NEW][0m     google.internal.cloud.code.v1internal.BattleModeAutoTriggerRequest
+  [32m[NEW][0m     google.internal.cloud.code.v1internal.BattleModeAutoTriggerResponse
+  [32m[NEW][0m     exa.codeium_common_pb.RuntimeEnvironment
+  [32m[NEW][0m     exa.codeium_common_pb.DynamicContextScopeItem
+  [32m[NEW][0m     exa.cortex_pb.DataAccessMetadata
+  [32m[NEW][0m     exa.cortex_pb.CommandAssessorConfig
+  [32m[NEW][0m     exa.cortex_pb.ScheduleToolConfig
+  [32m[NEW][0m     exa.cortex_pb.ProfilesConfig
+  [32m[NEW][0m     exa.cortex_pb.ProfilePathEntry
+  [32m[NEW][0m     exa.cortex_pb.CustomizationSourceConfig
+  [32m[NEW][0m     exa.cortex_pb.ProfileExcludeConfig
+  [32m[NEW][0m     exa.cortex_pb.ProfileInheritEntry
+  [32m[NEW][0m     exa.cortex_pb.ProfileConfig
+  [32m[NEW][0m     exa.cortex_pb.PluginDiscoveryConfig
+  [32m[NEW][0m     exa.cortex_pb.PolicyGuardianConfig
+  [32m[NEW][0m     exa.cortex_pb.CortexStepDirectoryRules
+  [32m[NEW][0m     exa.cortex_pb.AndroidConfig
+  [32m[NEW][0m     exa.cortex_pb.AccumulatedItemRenderInfo
+  [32m[NEW][0m     exa.cortex_pb.AccumulatedItem
+  [32m[NEW][0m     exa.cortex_pb.AccumulatedSection
+  [32m[NEW][0m     exa.cortex_pb.GoalState
+  [32m[NEW][0m     google.internal.cloud.code.v1internal.RetrieveUserQuotaRequest
+  [32m[NEW][0m     google.internal.cloud.code.v1internal.RetrieveUserQuotaResponse
+  [32m[NEW][0m     google.internal.cloud.code.v1internal.RetrieveUserQuotaResponse.BucketInfo
+  [32m[NEW][0m     google.internal.cloud.code.v1internal.RetrieveUserQuotaSummaryRequest
+  [32m[NEW][0m     google.internal.cloud.code.v1internal.QuotaSummaryBucket
+  [32m[NEW][0m     google.internal.cloud.code.v1internal.QuotaSummaryGroup
+  [32m[NEW][0m     google.internal.cloud.code.v1internal.RetrieveUserQuotaSummaryResponse
+  [32m[NEW][0m     exa.hooks_pb.HookSystemMessage
+  [32m[NEW][0m     exa.hooks_pb.HookSystemMessage.MetadataEntry
+  [32m[NEW][0m     exa.jetski_cortex_pb.AccumulatedSectionsUpdate
+  [32m[NEW][0m     exa.jetski_cortex_pb.BattleModeInfosUpdate
+  [32m[NEW][0m     exa.vcs_pb.VcsFileChange
+  [32m[NEW][0m     exa.vcs_pb.VcsConflictFile
+  [32m[NEW][0m     exa.vcs_pb.VcsConflictFile.Side
+  [32m[NEW][0m     exa.vcs_pb.VcsConflictState
+  [32m[NEW][0m     exa.vcs_pb.VcsCommit
+  [32m[NEW][0m     exa.vcs_pb.VcsCommit.Author
+  [32m[NEW][0m     exa.vcs_pb.VcsCommit.Message
+  [32m[NEW][0m     exa.vcs_pb.VcsCommit.Status
+  [32m[NEW][0m     exa.vcs_pb.VcsCommit.Refs
+  [32m[NEW][0m     exa.vcs_pb.VcsCommit.Evolution
+  [32m[NEW][0m     exa.vcs_pb.VcsWorkspaceState
+  [31m[REMOVED][0m exa.cortex_pb.ModelAliasResolutionPayload
+  [33m[CHANGED][0m exa.language_server_pb.LanguageServerConfig
+    [32m+ field 12: max_num_tracked_workspaces (5)[0m
+  [33m[CHANGED][0m exa.language_server_pb.RepoInfo
+    [32m+ field 5: repo_uri (9)[0m
+  [33m[CHANGED][0m exa.language_server_pb.CreateWorktreeRequest
+    [32m+ field 9: repo_uri (9)[0m
+  [33m[CHANGED][0m exa.language_server_pb.CreateCitcWorkspaceRequest
+    [33m~ field 6: type: exa.language_server_pb.VcsType → exa.vcs_pb.VcsType[0m
+  [33m[CHANGED][0m exa.language_server_pb.StartCascadeRequest
+    [32m+ field 18: tags (9)[0m
+    [32m+ field 19: active_profile (9)[0m
+  [33m[CHANGED][0m exa.language_server_pb.SendUserCascadeMessageRequest
+    [32m+ field 23: active_profile (9)[0m
+    [32m+ field 22: delivery_strategy (exa.cortex_pb.MessageDeliveryStrategy)[0m
+  [33m[CHANGED][0m exa.language_server_pb.StartBattleModeRequest
+    [32m+ field 5: auto_triggered (8)[0m
+    [32m+ field 6: agent_scripts (exa.cortex_pb.AgentScriptItem)[0m
+    [32m+ field 7: children_conversation_ids (9)[0m
+    [32m+ field 8: trigger_tag (9)[0m
+  [33m[CHANGED][0m exa.language_server_pb.GetAllWorkflowsRequest
+    [32m+ field 2: active_profile (9)[0m
+  [33m[CHANGED][0m exa.language_server_pb.GetAllRulesRequest
+    [32m+ field 2: active_profile (9)[0m
+  [33m[CHANGED][0m exa.language_server_pb.GetAllSkillsRequest
+    [32m+ field 2: active_profile (9)[0m
+  [33m[CHANGED][0m exa.language_server_pb.WatchDirectoryRequest
+    [32m+ field 3: uris (9)[0m
+    [31m- field 1: uri[0m
+    [31m- field 2: recursive[0m
+  [33m[CHANGED][0m exa.language_server_pb.RecordAnalyticsEventRequest
+    [32m+ field 5: runtime_environment (exa.codeium_common_pb.RuntimeEnvironment)[0m
+  [33m[CHANGED][0m exa.language_server_pb.GetAgentScriptsRequest
+    [32m+ field 2: active_profile (9)[0m
+  [33m[CHANGED][0m exa.language_server_pb.GetAllPluginsRequest
+    [32m+ field 2: active_profile (9)[0m
+  [33m[CHANGED][0m exa.language_server_pb.GetTokenBaseRequest
+    [32m+ field 3: active_profile (9)[0m
+  [33m[CHANGED][0m exa.language_server_pb.ResolveFolderResponse
+    [32m+ field 2: vcs_type (exa.vcs_pb.VcsType)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.NuxFilter
+    [32m+ field 4: user_tiers (9)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.BattleModeOverridesRequest
+    [32m+ field 2: auto_triggered (8)[0m
+    [32m+ field 3: trigger_tag (9)[0m
+  [33m[CHANGED][0m gemini_coder.Step
+    [32m+ field 156: directory_rules (exa.cortex_pb.CortexStepDirectoryRules)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.Metadata
+    [32m+ field 32: environment_type (9)[0m
+    [32m+ field 33: runtime_environment (exa.codeium_common_pb.RuntimeEnvironment)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ModelFeatures
+    [32m+ field 31: supports_deferred_tool_loading (8)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ModelInfo
+    [32m+ field 24: model_provider (exa.codeium_common_pb.ModelProvider)[0m
+    [32m+ field 25: model_url (9)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.SlashCommandInfo
+    [32m+ field 4: icon (9)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ContextScopeItem
+    [32m+ field 28: dynamic_context (exa.codeium_common_pb.DynamicContextScopeItem)[0m
+  [33m[CHANGED][0m exa.codeium_common_pb.ArtifactMetadata
+    [32m+ field 7: user_facing (8)[0m
+  [33m[CHANGED][0m exa.cortex_pb.AgentScriptItem
+    [32m+ field 14: disable_model_selection (8)[0m
+  [33m[CHANGED][0m exa.cortex_pb.SidecarUserConfig
+    [32m+ field 3: all_projects (8)[0m
+  [33m[CHANGED][0m exa.cortex_pb.SidecarConfig
+    [32m+ field 10: ui_config (exa.cortex_pb.SidecarUIConfig)[0m
+  [33m[CHANGED][0m exa.cortex_pb.SidecarStatusInfo
+    [32m+ field 11: is_bundled (8)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexTrajectoryMetadata
+    [32m+ field 20: tags (9)[0m
+  [33m[CHANGED][0m exa.cortex_pb.BattleModeInfo
+    [32m+ field 14: eliminated (8)[0m
+    [32m+ field 15: elimination_time (google.protobuf.Timestamp)[0m
+    [32m+ field 16: forked_from_history (8)[0m
+    [32m+ field 17: trigger_tag (9)[0m
+    [32m+ field 18: reference_conversation_id (9)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexStepGeneratorMetadata
+    [32m+ field 10: has_ever_used_non_google_model (8)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ChatModelMetadata
+    [32m+ field 21: model_display_name (9)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexStepMetadata
+    [32m+ field 35: model_api_content_id (9)[0m
+    [32m+ field 36: data_access (exa.cortex_pb.DataAccessMetadata)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexErrorDetails
+    [32m+ field 11: sherlog_link (9)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeExecutorConfig
+    [32m+ field 17: use_core_direct (8)[0m
+    [32m+ field 18: command_assessor_config (exa.cortex_pb.CommandAssessorConfig)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeConfig
+    [32m+ field 12: dynamic_workspace_uris (9)[0m
+  [33m[CHANGED][0m exa.cortex_pb.TrajectoryConversionConfig
+    [32m+ field 14: discard_looping_planner_responses (8)[0m
+    [32m+ field 15: error_on_truncation_without_checkpoint (8)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ViewFileToolConfig
+    [32m+ field 18: max_bytes_per_view (13)[0m
+  [33m[CHANGED][0m exa.cortex_pb.AntigravityBrowserToolConfig
+    [32m+ field 29: enable_ark (8)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadeToolConfig
+    [32m+ field 48: schedule (exa.cortex_pb.ScheduleToolConfig)[0m
+    [32m+ field 49: force_disable_tool_calling (8)[0m
+    [32m+ field 50: force_enable_send_message_tool (8)[0m
+  [33m[CHANGED][0m exa.cortex_pb.SkillsConfig
+    [32m+ field 4: preload_skill_names (9)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CustomizationDiscoveryConfig
+    [32m+ field 4: plugins (exa.cortex_pb.PluginDiscoveryConfig)[0m
+    [32m+ field 5: profiles (exa.cortex_pb.ProfilesConfig)[0m
+    [32m+ field 6: override_workspace_path (9)[0m
+  [33m[CHANGED][0m exa.cortex_pb.FunctionProvider
+    [32m+ field 5: strict_argument_validation (8)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CustomizationConfig
+    [32m+ field 20: strict_argument_validation (8)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ContextEngineConfig
+    [32m+ field 2: enable_tools (8)[0m
+    [32m+ field 3: rpc_timeout_seconds (5)[0m
+    [32m+ field 4: enable_reflection_agent (8)[0m
+    [32m+ field 5: reflection_agent_model (exa.codeium_common_pb.Model)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CascadePlannerConfig
+    [32m+ field 54: loop_error_model_message (9)[0m
+    [32m+ field 51: use_ai_credits (8)[0m
+    [32m+ field 52: policy_guardian_config (exa.cortex_pb.PolicyGuardianConfig)[0m
+    [32m+ field 53: supports_latex_rendering (8)[0m
+    [32m+ field 55: autonomous (8)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexStepCheckpoint
+    [32m+ field 26: accumulated_sections (exa.cortex_pb.AccumulatedSection)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CheckpointConfig
+    [32m+ field 30: checkpoint_prompt_override (9)[0m
+    [32m+ field 31: continuation_prompt_override (9)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexStepViewFile
+    [32m+ field 19: content_offset (13)[0m
+    [32m+ field 20: line_range_bytes (13)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexStepSetUpFirebase
+    [32m+ field 10: android_config (exa.cortex_pb.AndroidConfig)[0m
+    [32m+ field 11: platform (exa.cortex_pb.FirebasePlatform)[0m
+    [32m+ field 12: requested_products (exa.cortex_pb.FirebaseProduct)[0m
+  [33m[CHANGED][0m exa.cortex_pb.SetUpFirebaseAppConfig
+    [32m+ field 2: provisioned_products (exa.cortex_pb.FirebaseProduct)[0m
+  [33m[CHANGED][0m exa.cortex_pb.ExecutorMetadata
+    [32m+ field 13: has_ever_used_non_google_model (8)[0m
+    [32m+ field 14: before_snapshot (exa.cortex_pb.SnapshotMetadata)[0m
+    [32m+ field 15: after_snapshot (exa.cortex_pb.SnapshotMetadata)[0m
+  [33m[CHANGED][0m exa.cortex_pb.McpServerSpec
+    [32m+ field 18: timeout_seconds (5)[0m
+    [32m+ field 19: strict_argument_validation (8)[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexStepGenerateImage
+    [32m+ field 7: aspect_ratio (9)[0m
+  [33m[CHANGED][0m exa.cortex_pb.AgentMessage
+    [32m+ field 13: delivery_strategy (exa.cortex_pb.MessageDeliveryStrategy)[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.ModelDetails
+    [32m+ field 40: supports_deferred_tool_loading (8)[0m
+    [32m+ field 41: model_url (9)[0m
+  [33m[CHANGED][0m exa.hooks_pb.HookInjectedStep
+    [32m+ field 4: system_message (exa.hooks_pb.HookSystemMessage)[0m
+    [32m+ field 5: model_api_content_id (9)[0m
+  [33m[CHANGED][0m exa.hooks_pb.HookArgsCommon
+    [32m+ field 5: execution_id (9)[0m
+  [33m[CHANGED][0m exa.project_pb.Google3
+    [32m+ field 1: fork_type (exa.project_pb.Google3.ForkType)[0m
+  [33m[CHANGED][0m exa.api_server_pb.GetImageGenerationRequest
+    [32m+ field 9: aspect_ratio (9)[0m
+  [33m[CHANGED][0m exa.jetski_cortex_pb.CascadeState
+    [32m+ field 16: accumulated_sections (exa.cortex_pb.AccumulatedSection)[0m
+  [33m[CHANGED][0m exa.jetski_cortex_pb.AgentStateUpdate
+    [32m+ field 21: bookmarks (9)[0m
+    [32m+ field 22: accumulated_sections_update (exa.jetski_cortex_pb.AccumulatedSectionsUpdate)[0m
+  [33m[CHANGED][0m exa.jetski_cortex_pb.TrajectoryUpdate
+    [32m+ field 13: battle_mode_infos_update (exa.jetski_cortex_pb.BattleModeInfosUpdate)[0m
+  [33m[CHANGED][0m exa.jetski_cortex_pb.ConversationAnnotations
+    [32m+ field 14: active_profile (9)[0m
+  [33m[CHANGED][0m exa.jetski_cortex_pb.CascadeTrajectorySummary
+    [32m+ field 23: killed (8)[0m
+  [33m[CHANGED][0m jetbox_state_pb.UserSettings
+    [32m+ field 29: use_ai_credits (8)[0m
+    [32m+ field 30: active_profile (9)[0m
+    [32m+ field 31: conversation_width (jetbox_state_pb.ConversationWidth)[0m
+  [33m[CHANGED][0m jetbox_state_pb.JetboxAppState
+    [32m+ field 18: migrate_internal_projects (jetbox_state_pb.MigrationStatus)[0m
+    [32m+ field 19: migrate_retroactive_projects (jetbox_state_pb.RetroactiveMigrationStatus)[0m
+    [32m+ field 20: opted_out_best_of_n_auto_trigger_at (3)[0m
+  [33m[CHANGED][0m devtools.cider.agent.trajectory_steps.BuildTargetsStep.Args
+    [32m+ field 3: wait_ms_before_async (4)[0m
+  [33m[CHANGED][0m devtools.cider.agent.trajectory_steps.TestTargetsStep.Args
+    [32m+ field 4: wait_ms_before_async (4)[0m
+
+[1m📋 Enums[0m
+  [32m[NEW][0m     exa.language_server_pb.SetupChatState
+  [32m[NEW][0m     exa.cortex_pb.PolicyGuardianConfig.FailMode
+  [32m[NEW][0m     exa.cortex_pb.FirebasePlatform
+  [32m[NEW][0m     exa.cortex_pb.FirebaseProduct
+  [32m[NEW][0m     exa.cortex_pb.MessageDeliveryStrategy
+  [32m[NEW][0m     exa.cortex_pb.RenderLocation
+  [32m[NEW][0m     google.internal.cloud.code.v1internal.RetrieveUserQuotaResponse.TokenType
+  [32m[NEW][0m     exa.project_pb.Google3.ForkType
+  [32m[NEW][0m     jetbox_state_pb.ConversationWidth
+  [32m[NEW][0m     jetbox_state_pb.RetroactiveMigrationStatus
+  [32m[NEW][0m     exa.vcs_pb.VcsFileChange.Operation
+  [32m[NEW][0m     exa.vcs_pb.VcsConflictState.Operation
+  [32m[NEW][0m     exa.vcs_pb.VcsType
+  [33m[CHANGED][0m exa.language_server_pb.VcsType
+    [32m+ VCS_TYPE_GIT = 4[0m
+  [33m[CHANGED][0m exa.language_server_pb.MergeStrategy
+    [32m+ MERGE_STRATEGY_MERGE_WITH_CONFLICTS = 3[0m
+  [33m[CHANGED][0m exa.language_server_pb.EndBattleModeErrorType
+    [32m+ END_BATTLE_MODE_ERROR_TYPE_ALREADY_ELIMINATED = 6[0m
+  [33m[CHANGED][0m exa.cortex_pb.PromptSectionMetadata.PromptSectionSourceType
+    [32m+ PROMPT_SECTION_SOURCE_TYPE_TEMPLATE_OVERRIDE = 4[0m
+  [33m[CHANGED][0m exa.cortex_pb.BattleEndType
+    [32m+ BATTLE_END_TYPE_REFERENCE = 5[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexTrajectoryReferenceType
+    [32m+ CORTEX_TRAJECTORY_REFERENCE_TYPE_BATTLE_MODE_REFERENCE_BACKUP = 5[0m
+  [33m[CHANGED][0m exa.cortex_pb.CortexStepType
+    [32m+ CORTEX_STEP_TYPE_DIRECTORY_RULES = 139[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.IneligibleTier.IneligibleTierReasonCodes
+    [32m+ UNSUPPORTED_CLIENT = 12[0m
+
+[1m🔌 Services[0m
+  [33m[CHANGED][0m exa.language_server_pb.LanguageServerService
+    [32m+ rpc GetVersionControlState[0m
+    [32m+ rpc WatchVersionControlState[0m
+    [32m+ rpc GetVersionControlFileContent[0m
+    [32m+ rpc GetCommitDetails[0m
+    [32m+ rpc FigSync[0m
+    [32m+ rpc FigCommit[0m
+    [32m+ rpc FigAmend[0m
+    [32m+ rpc FigUpload[0m
+    [32m+ rpc GitStage[0m
+    [32m+ rpc GitUnstage[0m
+    [32m+ rpc GitCommit[0m
+    [32m+ rpc GitDiscard[0m
+    [32m+ rpc EliminateBattleModeArm[0m
+    [32m+ rpc DetectBattleModeAutoTrigger[0m
+    [32m+ rpc CreateTerminal[0m
+    [32m+ rpc StreamTerminalOutput[0m
+    [32m+ rpc SendTerminalInput[0m
+    [32m+ rpc CloseTerminal[0m
+    [32m+ rpc ListTerminals[0m
+    [32m+ rpc IsProjectsEnabledInternally[0m
+    [32m+ rpc ListProfiles[0m
+    [32m+ rpc RetrieveUserQuotaSummary[0m
+    [32m+ rpc SetupJetskiChat[0m
+  [33m[CHANGED][0m google.internal.cloud.code.v1internal.JetskiService
+    [32m+ rpc BattleModeAutoTrigger[0m
+
+[2m────────────────────────────────────────[0m
+[2mMessages: +92 -1 ~70[0m
+[2mEnums:    +13 -0 ~8[0m
+[2mServices: +0 -0 ~2[0m
+
+[1m════════════════════════════════════════════════════════════[0m
+[1m[35m  SDK Impact Analysis[0m
+[1m════════════════════════════════════════════════════════════[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "code_action" (no=10)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "code_action" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "git_commit" (no=11)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "git_commit" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "grep_search" (no=13)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "grep_search" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "view_code_item" (no=22)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "view_code_item" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "error_message" (no=24)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "error_message" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "run_command" (no=28)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "run_command" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "suggested_responses" (no=36)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "suggested_responses" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "command_status" (no=37)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "command_status" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "read_url_content" (no=40)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "read_url_content" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "view_content_chunk" (no=41)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "view_content_chunk" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "search_web" (no=42)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "search_web" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "mcp_tool" (no=47)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "mcp_tool" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "view_file_outline" (no=58)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "view_file_outline" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "list_resources" (no=62)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "list_resources" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "read_resource" (no=63)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "read_resource" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "lint_diff" (no=64)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "lint_diff" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "open_browser_url" (no=67)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "open_browser_url" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "trajectory_search" (no=72)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "trajectory_search" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "execute_browser_javascript" (no=73)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "execute_browser_javascript" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "list_browser_pages" (no=74)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "list_browser_pages" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "capture_browser_screenshot" (no=75)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "capture_browser_screenshot" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "click_browser_pixel" (no=76)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "click_browser_pixel" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "capture_browser_console_logs" (no=78)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "capture_browser_console_logs" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "read_browser_page" (no=79)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "read_browser_page" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_get_dom" (no=80)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_get_dom" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "code_search" (no=85)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "code_search" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_input" (no=86)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_input" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_move_mouse" (no=87)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_move_mouse" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_select_option" (no=88)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_select_option" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_scroll_up" (no=89)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_scroll_up" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_scroll_down" (no=90)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_scroll_down" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_click_element" (no=91)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_click_element" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_list_network_requests" (no=137)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_list_network_requests" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_get_network_request" (no=138)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_get_network_request" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_press_key" (no=92)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_press_key" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "task_boundary" (no=93)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "task_boundary" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "notify_user" (no=94)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "notify_user" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "code_acknowledgement" (no=95)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "code_acknowledgement" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "internal_search" (no=96)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "internal_search" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_subagent" (no=97)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_subagent" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "knowledge_generation" (no=102)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "knowledge_generation" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "generate_image" (no=104)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "generate_image" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_scroll" (no=101)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_scroll" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_resize_window" (no=109)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_resize_window" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_drag_pixel_to_pixel" (no=110)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_drag_pixel_to_pixel" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_mouse_wheel" (no=125)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_mouse_wheel" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_mouse_up" (no=134)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_mouse_up" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_mouse_down" (no=135)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_mouse_down" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "browser_refresh_page" (no=139)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "browser_refresh_page" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "conversation_history" (no=111)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "conversation_history" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "knowledge_artifacts" (no=112)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "knowledge_artifacts" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "send_command_input" (no=113)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "send_command_input" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "system_message" (no=114)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "system_message" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "ki_insertion" (no=129)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "ki_insertion" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "workspace_api" (no=136)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "workspace_api" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "invoke_subagent" (no=143)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "invoke_subagent" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "rpc_action" (no=152)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "rpc_action" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "ask_question" (no=154)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "ask_question" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "directory_rules" (no=156)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "directory_rules" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "execute_notebook" (no=150)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "execute_notebook" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "read_notebook" (no=144)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "read_notebook" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "edit_notebook" (no=141)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "edit_notebook" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "compile_applet" (no=106)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "compile_applet" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "install_applet_dependencies" (no=107)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "install_applet_dependencies" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "install_applet_package" (no=108)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "install_applet_package" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "restart_dev_server" (no=123)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "restart_dev_server" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "lint_applet" (no=126)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "lint_applet" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "shell_exec" (no=127)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "shell_exec" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "write_blob" (no=142)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "write_blob" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "set_up_firebase" (no=121)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "set_up_firebase" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "deploy_firebase" (no=124)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "deploy_firebase" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "set_up_cloudsql" (no=149)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "set_up_cloudsql" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "cloudsql_update_schema" (no=151)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "cloudsql_update_schema" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "cloudsql_execute_sql" (no=153)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "cloudsql_execute_sql" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "agency_tool_call" (no=116)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "agency_tool_call" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "build_cleaner" (no=118)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "build_cleaner" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "blaze_build_targets" (no=119)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "blaze_build_targets" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "blaze_test_targets" (no=120)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "blaze_test_targets" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "moma" (no=122)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "moma" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "retrieve_content" (no=130)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "retrieve_content" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "critique" (no=131)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "critique" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "findings" (no=132)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "findings" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "user_input" (no=19)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "user_input" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "planner_response" (no=20)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "planner_response" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "view_file" (no=14)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "view_file" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "list_directory" (no=15)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "list_directory" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "delete_directory" (no=105)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "delete_directory" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "file_change" (no=98)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "file_change" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "ephemeral_message" (no=103)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "ephemeral_message" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "plan_input" (no=8)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "plan_input" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "file_breakdown" (no=21)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "file_breakdown" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "write_to_file" (no=23)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "write_to_file" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "propose_code" (no=32)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "propose_code" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "search_knowledge_base" (no=35)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "search_knowledge_base" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "lookup_knowledge_base" (no=39)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "lookup_knowledge_base" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "manager_feedback" (no=48)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "manager_feedback" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "tool_call_proposal" (no=49)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "tool_call_proposal" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "tool_call_choice" (no=50)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "tool_call_choice" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "trajectory_choice" (no=52)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "trajectory_choice" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "check_deploy_status" (no=59)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "check_deploy_status" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "post_pr_review" (no=60)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "post_pr_review" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "find_all_references" (no=65)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "find_all_references" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "brain_update" (no=66)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "brain_update" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "read_terminal" (no=77)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "read_terminal" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "run_extension_code" (no=68)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "run_extension_code" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "proposal_feedback" (no=71)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "proposal_feedback" を追加[0m
+
+  🟡 MEDIUM Step.step oneof に未分類ケース "retrieve_memory" (no=43)
+    [2mFile: types.ts (STEP_CATEGORY_MAP)[0m
+    [2mAction: STEP_CATEGORY_MAP に "retrieve_memory" を追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "deploy"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "run_command"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "open_browser_url"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "run_extension_code"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "execute_browser_javascript"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "capture_browser_screenshot"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "click_browser_pixel"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "browser_action"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "open_browser_setup"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "confirm_browser_setup"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "send_command_input"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "read_url_content"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "file_permission"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "elicitation"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "permission"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "ask_question"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟡 MEDIUM RequestedInteraction に新ケース "approval_interaction"
+    [2mFile: cascade.ts (buildApprovalRequest)[0m
+    [2mAction: switch 文に新ケースを追加[0m
+
+  🟢 LOW gemini_coder.Step に新フィールド "directory_rules" (no=156)
+    [2mFile: types.ts, cascade.ts[0m
+    [2mAction: 新フィールドの利用を検討[0m
+
+  🟢 LOW exa.jetski_cortex_pb.CascadeState に新フィールド "accumulated_sections" (no=16)
+    [2mFile: cascade.ts[0m
+    [2mAction: 新フィールドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "GetVersionControlState"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "WatchVersionControlState"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "GetVersionControlFileContent"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "GetCommitDetails"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "FigSync"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "FigCommit"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "FigAmend"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "FigUpload"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "GitStage"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "GitUnstage"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "GitCommit"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "GitDiscard"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "EliminateBattleModeArm"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "DetectBattleModeAutoTrigger"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "CreateTerminal"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "StreamTerminalOutput"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "SendTerminalInput"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "CloseTerminal"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "ListTerminals"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "IsProjectsEnabledInternally"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "ListProfiles"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "RetrieveUserQuotaSummary"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW exa.language_server_pb.LanguageServerService に新 RPC "SetupJetskiChat"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+  🟢 LOW google.internal.cloud.code.v1internal.JetskiService に新 RPC "BattleModeAutoTrigger"
+    [2mFile: cascade.ts / client.ts[0m
+    [2mAction: 新メソッドの利用を検討[0m
+
+[33m  ⚡ 124 件の MEDIUM 影響を確認してください[0m
+

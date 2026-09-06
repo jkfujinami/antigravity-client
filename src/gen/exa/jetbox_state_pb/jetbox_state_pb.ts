@@ -6,6 +6,8 @@
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
 import { AgentSettingPolicy, ArtifactReviewMode, BrowserJsExecutionPolicy, CascadeCommandsAutoExecution, Model, ModelInfo, PermissionGrantsConfig, PlanningMode } from "../codeium_common_pb/codeium_common_pb.js";
+import { MessageDeliveryStrategy } from "../cortex_pb/cortex_pb.js";
+import { VcsType } from "../vcs_pb/vcs_pb.js";
 import { Project } from "../project_pb/project_pb.js";
 
 /**
@@ -175,6 +177,38 @@ proto3.util.setEnumType(AgentOnboardingState, "jetbox_state_pb.AgentOnboardingSt
 ]);
 
 /**
+ * @generated from enum jetbox_state_pb.MigrationID
+ */
+export enum MigrationID {
+  /**
+   * @generated from enum value: MIGRATION_ID_UNSPECIFIED = 0;
+   */
+  MIGRATION_ID_UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: MIGRATION_ID_SIDECAR_USER_CONFIG_BYPASS = 1;
+   */
+  MIGRATION_ID_SIDECAR_USER_CONFIG_BYPASS = 1,
+
+  /**
+   * @generated from enum value: MIGRATION_ID_POPULATE_PROJECT_UPDATED_AT = 2;
+   */
+  MIGRATION_ID_POPULATE_PROJECT_UPDATED_AT = 2,
+
+  /**
+   * @generated from enum value: MIGRATION_ID_SANITY_CHECK_PROJECT_URIS = 3;
+   */
+  MIGRATION_ID_SANITY_CHECK_PROJECT_URIS = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(MigrationID)
+proto3.util.setEnumType(MigrationID, "jetbox_state_pb.MigrationID", [
+  { no: 0, name: "MIGRATION_ID_UNSPECIFIED" },
+  { no: 1, name: "MIGRATION_ID_SIDECAR_USER_CONFIG_BYPASS" },
+  { no: 2, name: "MIGRATION_ID_POPULATE_PROJECT_UPDATED_AT" },
+  { no: 3, name: "MIGRATION_ID_SANITY_CHECK_PROJECT_URIS" },
+]);
+
+/**
  * @generated from enum jetbox_state_pb.MigrationStatus
  */
 export enum MigrationStatus {
@@ -192,12 +226,18 @@ export enum MigrationStatus {
    * @generated from enum value: MIGRATION_STATUS_COMPLETED = 2;
    */
   COMPLETED = 2,
+
+  /**
+   * @generated from enum value: MIGRATION_STATUS_FAILED = 3;
+   */
+  FAILED = 3,
 }
 // Retrieve enum metadata with: proto3.getEnumType(MigrationStatus)
 proto3.util.setEnumType(MigrationStatus, "jetbox_state_pb.MigrationStatus", [
   { no: 0, name: "MIGRATION_STATUS_UNSPECIFIED" },
   { no: 1, name: "MIGRATION_STATUS_STARTED" },
   { no: 2, name: "MIGRATION_STATUS_COMPLETED" },
+  { no: 3, name: "MIGRATION_STATUS_FAILED" },
 ]);
 
 /**
@@ -418,6 +458,46 @@ export class UserSettings extends Message<UserSettings> {
    */
   conversationWidth = ConversationWidth.UNSPECIFIED;
 
+  /**
+   * @generated from field: string remote_control_hostname = 33;
+   */
+  remoteControlHostname = "";
+
+  /**
+   * @generated from field: exa.cortex_pb.MessageDeliveryStrategy queued_message_delivery_strategy = 34;
+   */
+  queuedMessageDeliveryStrategy = MessageDeliveryStrategy.UNSPECIFIED;
+
+  /**
+   * @generated from field: jetbox_state_pb.GoogleSpecificConfig google_config = 35;
+   */
+  googleConfig?: GoogleSpecificConfig;
+
+  /**
+   * @generated from field: bool enable_business_login = 36;
+   */
+  enableBusinessLogin = false;
+
+  /**
+   * @generated from field: bool enable_notifications_for_special_events = 37;
+   */
+  enableNotificationsForSpecialEvents = false;
+
+  /**
+   * @generated from field: bool enable_personal_customizations = 38;
+   */
+  enablePersonalCustomizations = false;
+
+  /**
+   * @generated from field: string shell_setup_script = 39;
+   */
+  shellSetupScript = "";
+
+  /**
+   * @generated from field: bool enable_sounds_for_special_events = 40;
+   */
+  enableSoundsForSpecialEvents = false;
+
   constructor(data?: PartialMessage<UserSettings>) {
     super();
     proto3.util.initPartial(data, this);
@@ -455,6 +535,14 @@ export class UserSettings extends Message<UserSettings> {
     { no: 29, name: "use_ai_credits", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 30, name: "active_profile", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 31, name: "conversation_width", kind: "enum", T: proto3.getEnumType(ConversationWidth) },
+    { no: 33, name: "remote_control_hostname", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 34, name: "queued_message_delivery_strategy", kind: "enum", T: proto3.getEnumType(MessageDeliveryStrategy) },
+    { no: 35, name: "google_config", kind: "message", T: GoogleSpecificConfig },
+    { no: 36, name: "enable_business_login", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 37, name: "enable_notifications_for_special_events", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 38, name: "enable_personal_customizations", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 39, name: "shell_setup_script", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 40, name: "enable_sounds_for_special_events", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserSettings {
@@ -653,6 +741,43 @@ export class CustomThemeSeeds extends Message<CustomThemeSeeds> {
 }
 
 /**
+ * @generated from message jetbox_state_pb.GoogleSpecificConfig
+ */
+export class GoogleSpecificConfig extends Message<GoogleSpecificConfig> {
+  /**
+   * @generated from field: exa.vcs_pb.VcsType magic_workspace_vcs = 1;
+   */
+  magicWorkspaceVcs = VcsType.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<GoogleSpecificConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "jetbox_state_pb.GoogleSpecificConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "magic_workspace_vcs", kind: "enum", T: proto3.getEnumType(VcsType) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GoogleSpecificConfig {
+    return new GoogleSpecificConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GoogleSpecificConfig {
+    return new GoogleSpecificConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GoogleSpecificConfig {
+    return new GoogleSpecificConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GoogleSpecificConfig | PlainMessage<GoogleSpecificConfig> | undefined, b: GoogleSpecificConfig | PlainMessage<GoogleSpecificConfig> | undefined): boolean {
+    return proto3.util.equals(GoogleSpecificConfig, a, b);
+  }
+}
+
+/**
  * @generated from message jetbox_state_pb.GoogleSpecificSettings
  */
 export class GoogleSpecificSettings extends Message<GoogleSpecificSettings> {
@@ -805,6 +930,11 @@ export class JetboxAppState extends Message<JetboxAppState> {
    */
   optedOutBestOfNAutoTriggerAt = protoInt64.zero;
 
+  /**
+   * @generated from field: repeated jetbox_state_pb.JetboxAppState.MigrationsEntry migrations = 21;
+   */
+  migrations: JetboxAppState_MigrationsEntry[] = [];
+
   constructor(data?: PartialMessage<JetboxAppState>) {
     super();
     proto3.util.initPartial(data, this);
@@ -828,6 +958,7 @@ export class JetboxAppState extends Message<JetboxAppState> {
     { no: 18, name: "migrate_internal_projects", kind: "enum", T: proto3.getEnumType(MigrationStatus) },
     { no: 19, name: "migrate_retroactive_projects", kind: "enum", T: proto3.getEnumType(RetroactiveMigrationStatus) },
     { no: 20, name: "opted_out_best_of_n_auto_trigger_at", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 21, name: "migrations", kind: "message", T: JetboxAppState_MigrationsEntry, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxAppState {
@@ -887,6 +1018,49 @@ export class JetboxAppState_SidebarWorkspacesEntry extends Message<JetboxAppStat
 
   static equals(a: JetboxAppState_SidebarWorkspacesEntry | PlainMessage<JetboxAppState_SidebarWorkspacesEntry> | undefined, b: JetboxAppState_SidebarWorkspacesEntry | PlainMessage<JetboxAppState_SidebarWorkspacesEntry> | undefined): boolean {
     return proto3.util.equals(JetboxAppState_SidebarWorkspacesEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message jetbox_state_pb.JetboxAppState.MigrationsEntry
+ */
+export class JetboxAppState_MigrationsEntry extends Message<JetboxAppState_MigrationsEntry> {
+  /**
+   * @generated from field: int32 key = 1;
+   */
+  key = 0;
+
+  /**
+   * @generated from field: jetbox_state_pb.MigrationStatus value = 2;
+   */
+  value = MigrationStatus.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<JetboxAppState_MigrationsEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "jetbox_state_pb.JetboxAppState.MigrationsEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "value", kind: "enum", T: proto3.getEnumType(MigrationStatus) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JetboxAppState_MigrationsEntry {
+    return new JetboxAppState_MigrationsEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JetboxAppState_MigrationsEntry {
+    return new JetboxAppState_MigrationsEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JetboxAppState_MigrationsEntry {
+    return new JetboxAppState_MigrationsEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JetboxAppState_MigrationsEntry | PlainMessage<JetboxAppState_MigrationsEntry> | undefined, b: JetboxAppState_MigrationsEntry | PlainMessage<JetboxAppState_MigrationsEntry> | undefined): boolean {
+    return proto3.util.equals(JetboxAppState_MigrationsEntry, a, b);
   }
 }
 
