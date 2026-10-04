@@ -1,0 +1,178 @@
+syntax = "proto3";
+package exa.agent_manager_pb;
+
+import "exa/codeium_common_pb/codeium_common.proto";
+import "exa/jetski_cortex_pb/jetski_cortex.proto";
+import "exa/language_server_pb/language_server.proto";
+import "google/protobuf/timestamp.proto";
+
+enum WindowVisibility {
+  WINDOW_VISIBILITY_UNSPECIFIED = 0;
+  WINDOW_VISIBILITY_SHADOW = 1;
+  WINDOW_VISIBILITY_MATERIALIZED = 2;
+}
+
+enum AgentManagerWindowState {
+  AGENT_MANAGER_WINDOW_STATE_UNSPECIFIED = 0;
+  AGENT_MANAGER_WINDOW_STATE_UNINITIALIZED = 1;
+  AGENT_MANAGER_WINDOW_STATE_MATERIALIZED = 2;
+}
+
+enum WindowMode {
+  WINDOW_MODE_UNSPECIFIED = 0;
+  WINDOW_MODE_FULLSCREEN = 1;
+  WINDOW_MODE_MAXIMIZED = 2;
+  WINDOW_MODE_NORMAL = 3;
+}
+
+enum ManagerOnboardingState {
+  MANAGER_ONBOARDING_STATE_UNSPECIFIED = 0;
+  MANAGER_ONBOARDING_STATE_INCOMPLETE = 1;
+  MANAGER_ONBOARDING_STATE_COMPLETED = 2;
+}
+
+enum ConversationSortField {
+  CONVERSATION_SORT_FIELD_UNSPECIFIED = 0;
+  CONVERSATION_SORT_FIELD_CREATED_AT = 1;
+  CONVERSATION_SORT_FIELD_LAST_UPDATED_AT = 2;
+}
+
+enum ConversationGrouping {
+  CONVERSATION_GROUPING_UNSPECIFIED = 0;
+  CONVERSATION_GROUPING_NONE = 1;
+  CONVERSATION_GROUPING_UNREAD = 2;
+}
+
+enum SectionType {
+  SECTION_TYPE_UNSPECIFIED = 0;
+  SECTION_TYPE_WORKSPACE = 1;
+  SECTION_TYPE_NEXUS = 2;
+}
+
+message WindowPosition {
+  int32 width = 1;
+  int32 height = 2;
+  int32 x = 3;
+  int32 y = 4;
+  exa.agent_manager_pb.WindowMode window_mode = 5;
+}
+
+message PostOnboarding {
+  repeated string completed_steps = 1;
+}
+
+message ZoomState {
+  int32 zoom_level = 1;
+}
+
+message ManagerInboxState {
+  exa.agent_manager_pb.ConversationSortField sort_field = 1;
+  exa.agent_manager_pb.ConversationGrouping grouping = 2;
+}
+
+message WorkspaceSectionDisplayState {
+  bool is_collapsed = 1;
+  bool only_show_first_few_convos = 2;
+  int32 sidebar_order = 3;
+}
+
+message SidebarWorkspace {
+  string uri = 4;
+  exa.agent_manager_pb.WorkspaceSectionDisplayState display_state = 5;
+}
+
+message SectionDisplayState {
+  bool is_collapsed = 1;
+}
+
+message SidebarSection {
+  string uri = 1;
+  exa.agent_manager_pb.SectionDisplayState display_state = 2;
+  string label = 3;
+  string detail = 4;
+  repeated exa.agent_manager_pb.Conversation conversations = 5;
+  oneof section_kind {
+    exa.agent_manager_pb.WorkspaceSection workspace_section = 7;
+    exa.agent_manager_pb.StandaloneSection standalone_section = 8;
+    exa.agent_manager_pb.ProjectSection project_section = 9;
+  }
+}
+
+message WorkspaceSection {
+  string workspace_uri = 1;
+  repeated string folder_uris = 2;
+}
+
+message StandaloneSection {
+}
+
+message ProjectSection {
+}
+
+message AgentManagerInitState {
+  message ConversationLastViewedTimesEntry {
+    string key = 1;
+    google.protobuf.Timestamp value = 2;
+  }
+
+  message ArtifactMetadataMapEntry {
+    string key = 1;
+    exa.codeium_common_pb.ArtifactMetadata value = 2;
+  }
+
+  message RecentlyUpdatedMapEntry {
+    string key = 1;
+    bool value = 2;
+  }
+
+  message SeenNuxIdsEntry {
+    uint32 key = 1;
+    bool value = 2;
+  }
+
+  exa.codeium_common_pb.UserStatus user_status = 19;
+  exa.jetski_cortex_pb.CascadeTrajectorySummaries trajectory_summaries = 1;
+  exa.agent_manager_pb.WindowPosition agent_manager_window_position = 5;
+  exa.language_server_pb.OAuthTokenInfo oauth_token_info = 6;
+  exa.agent_manager_pb.PostOnboarding post_onboarding = 7;
+  exa.agent_manager_pb.ManagerOnboardingState manager_onboarding_state = 8;
+  exa.agent_manager_pb.ZoomState zoom_state = 9;
+  repeated exa.agent_manager_pb.AgentManagerInitState.ConversationLastViewedTimesEntry conversation_last_viewed_times = 10;
+  exa.agent_manager_pb.ManagerInboxState inbox_state = 11;
+  string current_reserved_scratch_workspace_uri = 12;
+  repeated string sidebar_workspace_uris = 13;
+  repeated exa.agent_manager_pb.SidebarWorkspace sidebar_workspaces = 14;
+  exa.agent_manager_pb.WorkspaceSectionDisplayState scratch_display_state = 15;
+  repeated exa.agent_manager_pb.AgentManagerInitState.ArtifactMetadataMapEntry artifact_metadata_map = 16;
+  repeated exa.agent_manager_pb.AgentManagerInitState.RecentlyUpdatedMapEntry recently_updated_map = 17;
+  repeated exa.agent_manager_pb.AgentManagerInitState.SeenNuxIdsEntry seen_nux_ids = 18;
+}
+
+message UserSettingsState {
+  message UserSettingsByAuthorityEntry {
+    string key = 1;
+    exa.codeium_common_pb.UserSettings value = 2;
+  }
+
+  repeated exa.agent_manager_pb.UserSettingsState.UserSettingsByAuthorityEntry user_settings_by_authority = 1;
+}
+
+message SidebarState {
+  repeated exa.agent_manager_pb.SidebarSection sidebar_sections = 3;
+  exa.agent_manager_pb.Playground playground = 4;
+}
+
+message Conversation {
+  string conversation_id = 1;
+  string summary = 2;
+}
+
+message Playground {
+  repeated exa.agent_manager_pb.PlaygroundSection sections = 4;
+}
+
+message PlaygroundSection {
+  string uri = 1;
+  exa.agent_manager_pb.Conversation conversation = 2;
+  exa.agent_manager_pb.WorkspaceSection workspace_section = 3;
+}

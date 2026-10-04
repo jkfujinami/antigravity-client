@@ -1,0 +1,320 @@
+
+## Cascade / Agent core  (58)
+   AcknowledgeCascadeCodeEdit  [unary]
+   AcknowledgeCodeActionStep  [unary]
+   BrowserValidateCascadeOrCancelOverlay  [unary]
+   CancelCascadeInvocation  [unary]
+   CancelCascadeSteps  [unary]
+   ConvertTrajectoryToMarkdown  [unary]
+   CreateTrajectoryShare  [unary]
+   DeleteAgentMessage  [unary]
+   DeleteCascadeMemory  [unary]
+   DeleteCascadeTrajectory  [unary]
+   DeleteQueuedUserInputStep  [unary]
+   DetectBattleModeAutoTrigger  [unary]
+   EliminateBattleModeArm  [unary]
+   EndBattleMode  [unary]
+   ForceStopCascadeTree  [unary]
+   GetAgentScripts  [unary]
+   GetAgentTeamMetadata  [unary]
+   GetAllCascadeTrajectories  [unary]
+   GetAllCustomAgentConfigs  [unary]
+   GetAvailableCascadePlugins  [unary]
+🆕 GetBattleWorktreeDiff  [unary]
+   GetCascadeMemories  [unary]
+   GetCascadeModelConfigData  [unary]
+   GetCascadeModelConfigs  [unary]
+   GetCascadeNuxes  [unary]
+   GetCascadePluginById  [unary]
+   GetCascadeTrajectory  [unary]
+   GetCascadeTrajectoryExecutorMetadatas  [unary]
+   GetCascadeTrajectoryGeneratorMetadata  [unary]
+   GetCascadeTrajectorySteps  [unary]
+   GetTurnDiff  [unary]
+   GetUserTrajectory  [unary]
+   GetUserTrajectoryDebug  [unary]
+   GetUserTrajectoryDescriptions  [unary]
+   HandleCascadeUserInteraction  [unary]
+   InitializeCascadePanelState  [unary]
+   InstallCascadePlugin  [unary]
+🆕 LoadSharedTrajectory  [unary]
+   LoadTrajectory  [unary]
+   RecordInteractiveCascadeFeedback  [unary]
+   RecordUserStepSnapshot  [unary]
+   ReplayGroundTruthTrajectory  [unary]
+   RequestAgentStatePageUpdate  [unary]
+   ResolveOutstandingSteps  [unary]
+   RevertToCascadeStep  [unary]
+   SaveAgentScriptCommandSpec  [unary]
+   SendAgentMessage  [unary]
+   SendStepsToBackground  [unary]
+   SendUserCascadeMessage  [unary]
+   SkipBrowserSubagent  [unary]
+   StartBattleMode  [unary]
+   StartCascade  [unary]
+   StreamAgentStateUpdates  [→stream]
+   StreamCascadePanelReactiveUpdates  [→stream]
+   StreamCascadeReactiveUpdates  [→stream]
+   StreamCascadeSummariesReactiveUpdates  [→stream]
+   StreamUserTrajectoryReactiveUpdates  [→stream]
+   UpdateCascadeMemory  [unary]
+
+## Chat / Messaging  (20)
+   ForkConversation  [unary]
+   GenerateCommitMessage  [unary]
+   GetBrowserOpenConversation  [unary]
+   GetConversationMetadata  [unary]
+   GetMcpPrompt  [unary]
+   ListMcpPrompts  [unary]
+   LoadReplayConversation  [unary]
+   ProvideCompletionFeedback  [unary]
+   RecordChatFeedback  [unary]
+   RecordChatPanelSession  [unary]
+   RecordCommitMessageSave  [unary]
+   SearchConversations  [unary]
+   SendActionToChatPanel  [unary]
+   SendAllQueuedMessages  [unary]
+🆕 SendInputCompletionFeedback  [unary]
+   SetBrowserOpenConversation  [unary]
+   SetupJetskiChat  [→stream]
+   SmartFocusConversation  [unary]
+   UpdateConversationAnnotations  [unary]
+   WaitForConversationFullyIdle  [unary]
+
+## Model / Inference  (5)
+   GetAvailableModels  [unary]
+   GetCommandModelConfigs  [unary]
+🆕 GetInputCompletion  [unary]
+   GetModelResponse  [unary]
+   GetModelStatuses  [unary]
+
+## Terminal / Command  (11)
+   CloseTerminal  [unary]
+   CreateTerminal  [unary]
+   GetSlashCommands  [unary]
+   HandleStreamingCommand  [→stream]
+   ListTerminals  [unary]
+   RunCommand  [unary]
+   SendTerminalInput  [unary]
+   SignalExecutableIdle  [unary]
+   StreamTerminalOutput  [→stream]
+   StreamTerminalShellCommand  [←cstream]
+🆕 ValidateTerminalSetupScript  [unary]
+
+## Git / VCS / JJ  (27)
+🆕 CheckoutCommit  [unary]
+   CheckoutWorktree  [unary]
+   CreateWorktree  [unary]
+   DeleteWorktree  [unary]
+   FigAmend  [unary]
+   FigCommit  [unary]
+   FigSync  [unary]
+   FigUpload  [unary]
+🆕 GetCodeActionDiff  [unary]
+   GetCodeFrequencyForRepo  [unary]
+   GetCommitDetails  [unary]
+🆕 GetJJWorktrees  [unary]
+   GetRepoInfos  [unary]
+   GetVersionControlFileContent  [unary]
+   GetVersionControlState  [unary]
+   GetWorktreeDiff  [unary]
+   GitCommit  [unary]
+   GitDiscard  [unary]
+   GitStage  [unary]
+   GitUnstage  [unary]
+🆕 JjCommit  [unary]
+🆕 JjSquash  [unary]
+🆕 JjSync  [unary]
+🆕 JjUpload  [unary]
+🆕 ListGobRepos  [unary]
+   UpdatePRForWorktree  [unary]
+   WatchVersionControlState  [→stream]
+
+## File / Workspace  (22)
+   AddTrackedWorkspace  [unary]
+   CopyBuiltinWorkflowToWorkspace  [unary]
+   CreateCitcWorkspace  [unary]
+   CreateCustomizationFile  [unary]
+   CreateScratchProjectFolder  [unary]
+   DeleteFileOrDirectory  [unary]
+🆕 DiscardFileChanges  [unary]
+   GetBrowserWhitelistFilePath  [unary]
+   GetWorkspaceEditState  [unary]
+   GetWorkspaceInfos  [unary]
+   ListCustomizationPathsByFile  [unary]
+   ListSidecarLogFiles  [unary]
+   ReadFile  [unary]
+   RemoveTrackedWorkspace  [unary]
+   ResolveFolder  [unary]
+   ResolveWorkspaceUrlPreview  [unary]
+   ScanSkillsConfigFile  [unary]
+🆕 SearchDriveFiles  [unary]
+   SearchFiles  [unary]
+   UpdateCustomizationPathsFile  [unary]
+   WatchDirectory  [→stream]
+   WriteFile  [unary]
+
+## Browser  (8)
+   AddToBrowserWhitelist  [unary]
+   CaptureScreenshot  [unary]
+   GetAllBrowserWhitelistedUrls  [unary]
+   ImportProjectFromUrl  [unary]
+   LoginWithBrowser  [unary]
+   OpenUrl  [unary]
+   SmartOpenBrowser  [unary]
+   UpdateEnterpriseExperimentsFromUrl  [unary]
+
+## Search / Index / Knowledge  (11)
+   GetAllRules  [unary]
+   GetKnowledgeItems  [unary]
+   GetMatchingContextScopeItems  [unary]
+   RecordSearchDocOpen  [unary]
+   RecordSearchResultsView  [unary]
+   RecordUserGrep  [unary]
+   RefreshContextForIdeAction  [unary]
+   RetrieveUserQuotaSummary  [unary]
+   SearchCode  [unary]
+🆕 SearchMarketplaceCustomizations  [unary]
+🆕 StreamSearchCode  [→stream]
+
+## Auth / User / License / Admin  (27)
+   AcceptTermsOfService  [unary]
+   AuthLogout  [unary]
+   CompleteMcpOAuth  [unary]
+   DisconnectMcpOAuth  [unary]
+🆕 FetchAdminControls  [unary]
+   FetchUserInfo  [unary]
+   FocusUserPage  [unary]
+   GetAuthStatus  [unary]
+   GetLocalUserInfo  [unary]
+   GetStaticExperimentStatus  [unary]
+   GetStatus  [unary]
+   GetTermsOfService  [unary]
+   GetUserAnalyticsSummary  [unary]
+   GetUserMemories  [unary]
+   GetUserSettings  [unary]
+   GetUserStatus  [unary]
+   HasAuthToken  [unary]
+   JetboxSubscribeToOAuthState  [→stream]
+🆕 ListLicenses  [unary]
+🆕 Login  [unary]
+   RegisterGdmUser  [unary]
+   ResetOnboarding  [unary]
+🆕 SelectLicense  [unary]
+🆕 SelfAssignLicense  [unary]
+   SetUserInfo  [unary]
+   SetUserSettings  [unary]
+   SkipOnboarding  [unary]
+
+## MCP / Plugins / Tools  (18)
+   CheckDevToolsActivePort  [unary]
+   DeletePlugin  [unary]
+   DownloadBuildWithGooglePlugin  [unary]
+   GetAllPlugins  [unary]
+   GetBuildWithGooglePlugins  [unary]
+   GetMcpServerStates  [unary]
+   GetMcpServerTemplates  [unary]
+   GetSidecarEvents  [unary]
+   GetSidecarLogs  [→stream]
+   GetSidecars  [unary]
+   ListMcpResources  [unary]
+   ManageSidecar  [unary]
+   ReconnectExtensionServer  [unary]
+   RecordSidecarEvent  [unary]
+   RefreshMcpServers  [unary]
+🆕 ResolveSidecarConfig  [unary]
+   SubscribeToSidecars  [→stream]
+   ToggleMcpServer  [unary]
+
+## Drive / Cloud / Project  (15)
+   AddEnvironmentToProject  [unary]
+🆕 BackupGeminiDir  [unary]
+🆕 CreateDebugBundle  [unary]
+🆕 CreateMagicProject  [unary]
+   CreateProject  [unary]
+   DeleteProject  [unary]
+🆕 DisassembleProject  [unary]
+   GetDefaultProjectDir  [unary]
+   IsProjectsEnabledInternally  [unary]
+   ProjectUpdatesStream  [→stream]
+   ReadProject  [unary]
+   SetCloudCodeURL  [unary]
+   UpdateProject  [unary]
+🆕 UploadToDrive  [unary]
+   ValidateProject  [unary]
+
+## Config / Settings / Flags  (6)
+   GetMendelFlags  [unary]
+   GetServerConfiguration  [unary]
+   GetWebDocsOptions  [unary]
+   SetBaseExperiments  [unary]
+   SetOrVerifyStaticConfig  [unary]
+   UpdateDevExperiments  [unary]
+
+## Telemetry / Debug / Misc  (12)
+   CaptureConsoleLogs  [unary]
+   DumpFlightRecorder  [unary]
+   DumpPprof  [unary]
+   GetDebugDiagnostics  [unary]
+   HandleScreenRecording  [unary]
+   RecordAnalyticsEvent  [unary]
+   RecordError  [unary]
+   RecordEvent  [unary]
+   RecordLints  [unary]
+   RecordObservabilityData  [unary]
+   SaveScreenRecording  [unary]
+   StartScreenRecording  [unary]
+
+## (uncategorized)  (50)
+   DeleteMediaArtifact
+   EndAudioSession
+   Exit
+   ForceBackgroundResearchRefresh
+   GenerateEnvironmentName
+   GenerateSkillInstallationCL
+   GetAllSkills
+   GetAllWorkflows
+   GetArtifactSnapshots
+🆕 GetCapabilities
+   GetChangelog
+   GetCodeValidationStates
+   GetGrantedScopes
+   GetLoadCodeAssist
+   GetPatchAndCodeChange
+   GetProfileData
+   GetRevertPreview
+   GetRevisionArtifact
+   GetSkillMarketplaceLink
+   GetStandaloneDir
+   GetTeamOrganizationalControls
+   GetTokenBase
+   GetTranscription
+   GetUnleashData
+   GetWorkingDirectories
+   Heartbeat
+   ImportFromCursor
+   JetboxDeleteSummary
+   JetboxGetLatestVersion
+   JetboxSubscribeToGcertState
+   JetboxSubscribeToState
+   JetboxSubscribeToSummaries
+   JetboxWriteState
+   JetboxWriteSummary
+   ListPages
+   ListProfiles
+   MigrateApiKey
+   ReadDir
+   RegisterInteraction
+   Restart
+   SaveMediaAsArtifact
+   SendAudioChunk
+   SetupUniversitySandbox
+   SetWorkingDirectories
+   ShouldEnableUnleash
+   SimulateSegFault
+   StatUri
+   StreamAudioTranscription
+   UpdateCustomization
+   WellSupportedLanguages
+
+TOTAL 290 methods, 29 new

@@ -4,11 +4,101 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Duration, Message, proto3 } from "@bufbuild/protobuf";
+import { Duration, Message, proto3, protoInt64 } from "@bufbuild/protobuf";
 
 /**
- * Describes when the clients can retry a failed request.
- *
+ * @generated from message google.rpc.ErrorInfo
+ */
+export class ErrorInfo extends Message<ErrorInfo> {
+  /**
+   * @generated from field: string reason = 1;
+   */
+  reason = "";
+
+  /**
+   * @generated from field: string domain = 2;
+   */
+  domain = "";
+
+  /**
+   * @generated from field: repeated google.rpc.ErrorInfo.MetadataEntry metadata = 3;
+   */
+  metadata: ErrorInfo_MetadataEntry[] = [];
+
+  constructor(data?: PartialMessage<ErrorInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.rpc.ErrorInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "reason", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "metadata", kind: "message", T: ErrorInfo_MetadataEntry, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ErrorInfo {
+    return new ErrorInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ErrorInfo {
+    return new ErrorInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ErrorInfo {
+    return new ErrorInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ErrorInfo | PlainMessage<ErrorInfo> | undefined, b: ErrorInfo | PlainMessage<ErrorInfo> | undefined): boolean {
+    return proto3.util.equals(ErrorInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message google.rpc.ErrorInfo.MetadataEntry
+ */
+export class ErrorInfo_MetadataEntry extends Message<ErrorInfo_MetadataEntry> {
+  /**
+   * @generated from field: string key = 1;
+   */
+  key = "";
+
+  /**
+   * @generated from field: string value = 2;
+   */
+  value = "";
+
+  constructor(data?: PartialMessage<ErrorInfo_MetadataEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "google.rpc.ErrorInfo.MetadataEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ErrorInfo_MetadataEntry {
+    return new ErrorInfo_MetadataEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ErrorInfo_MetadataEntry {
+    return new ErrorInfo_MetadataEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ErrorInfo_MetadataEntry {
+    return new ErrorInfo_MetadataEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ErrorInfo_MetadataEntry | PlainMessage<ErrorInfo_MetadataEntry> | undefined, b: ErrorInfo_MetadataEntry | PlainMessage<ErrorInfo_MetadataEntry> | undefined): boolean {
+    return proto3.util.equals(ErrorInfo_MetadataEntry, a, b);
+  }
+}
+
+/**
  * @generated from message google.rpc.RetryInfo
  */
 export class RetryInfo extends Message<RetryInfo> {
@@ -46,8 +136,6 @@ export class RetryInfo extends Message<RetryInfo> {
 }
 
 /**
- * Describes additional debugging info.
- *
  * @generated from message google.rpc.DebugInfo
  */
 export class DebugInfo extends Message<DebugInfo> {
@@ -91,8 +179,6 @@ export class DebugInfo extends Message<DebugInfo> {
 }
 
 /**
- * Describes how a quota check failed.
- *
  * @generated from message google.rpc.QuotaFailure
  */
 export class QuotaFailure extends Message<QuotaFailure> {
@@ -143,6 +229,36 @@ export class QuotaFailure_Violation extends Message<QuotaFailure_Violation> {
    */
   description = "";
 
+  /**
+   * @generated from field: string api_service = 3;
+   */
+  apiService = "";
+
+  /**
+   * @generated from field: string quota_metric = 4;
+   */
+  quotaMetric = "";
+
+  /**
+   * @generated from field: string quota_id = 5;
+   */
+  quotaId = "";
+
+  /**
+   * @generated from field: repeated google.rpc.QuotaFailure.Violation.QuotaDimensionsEntry quota_dimensions = 6;
+   */
+  quotaDimensions: QuotaFailure_Violation_QuotaDimensionsEntry[] = [];
+
+  /**
+   * @generated from field: int64 quota_value = 7;
+   */
+  quotaValue = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 future_quota_value = 8;
+   */
+  futureQuotaValue = protoInt64.zero;
+
   constructor(data?: PartialMessage<QuotaFailure_Violation>) {
     super();
     proto3.util.initPartial(data, this);
@@ -153,6 +269,12 @@ export class QuotaFailure_Violation extends Message<QuotaFailure_Violation> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "subject", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "api_service", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "quota_metric", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "quota_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "quota_dimensions", kind: "message", T: QuotaFailure_Violation_QuotaDimensionsEntry, repeated: true },
+    { no: 7, name: "quota_value", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 8, name: "future_quota_value", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QuotaFailure_Violation {
@@ -173,59 +295,49 @@ export class QuotaFailure_Violation extends Message<QuotaFailure_Violation> {
 }
 
 /**
- * Describes the cause of the error with structured details.
- *
- * @generated from message google.rpc.ErrorInfo
+ * @generated from message google.rpc.QuotaFailure.Violation.QuotaDimensionsEntry
  */
-export class ErrorInfo extends Message<ErrorInfo> {
+export class QuotaFailure_Violation_QuotaDimensionsEntry extends Message<QuotaFailure_Violation_QuotaDimensionsEntry> {
   /**
-   * @generated from field: string reason = 1;
+   * @generated from field: string key = 1;
    */
-  reason = "";
+  key = "";
 
   /**
-   * @generated from field: string domain = 2;
+   * @generated from field: string value = 2;
    */
-  domain = "";
+  value = "";
 
-  /**
-   * @generated from field: map<string, string> metadata = 3;
-   */
-  metadata: { [key: string]: string } = {};
-
-  constructor(data?: PartialMessage<ErrorInfo>) {
+  constructor(data?: PartialMessage<QuotaFailure_Violation_QuotaDimensionsEntry>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "google.rpc.ErrorInfo";
+  static readonly typeName = "google.rpc.QuotaFailure.Violation.QuotaDimensionsEntry";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "reason", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "metadata", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "scalar", T: 9 /* ScalarType.STRING */} },
+    { no: 1, name: "key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ErrorInfo {
-    return new ErrorInfo().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): QuotaFailure_Violation_QuotaDimensionsEntry {
+    return new QuotaFailure_Violation_QuotaDimensionsEntry().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ErrorInfo {
-    return new ErrorInfo().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): QuotaFailure_Violation_QuotaDimensionsEntry {
+    return new QuotaFailure_Violation_QuotaDimensionsEntry().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ErrorInfo {
-    return new ErrorInfo().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): QuotaFailure_Violation_QuotaDimensionsEntry {
+    return new QuotaFailure_Violation_QuotaDimensionsEntry().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ErrorInfo | PlainMessage<ErrorInfo> | undefined, b: ErrorInfo | PlainMessage<ErrorInfo> | undefined): boolean {
-    return proto3.util.equals(ErrorInfo, a, b);
+  static equals(a: QuotaFailure_Violation_QuotaDimensionsEntry | PlainMessage<QuotaFailure_Violation_QuotaDimensionsEntry> | undefined, b: QuotaFailure_Violation_QuotaDimensionsEntry | PlainMessage<QuotaFailure_Violation_QuotaDimensionsEntry> | undefined): boolean {
+    return proto3.util.equals(QuotaFailure_Violation_QuotaDimensionsEntry, a, b);
   }
 }
 
 /**
- * Describes what preconditions have failed.
- *
  * @generated from message google.rpc.PreconditionFailure
  */
 export class PreconditionFailure extends Message<PreconditionFailure> {
@@ -312,8 +424,6 @@ export class PreconditionFailure_Violation extends Message<PreconditionFailure_V
 }
 
 /**
- * Describes violations in a client request.
- *
  * @generated from message google.rpc.BadRequest
  */
 export class BadRequest extends Message<BadRequest> {
@@ -364,6 +474,16 @@ export class BadRequest_FieldViolation extends Message<BadRequest_FieldViolation
    */
   description = "";
 
+  /**
+   * @generated from field: string reason = 3;
+   */
+  reason = "";
+
+  /**
+   * @generated from field: google.rpc.LocalizedMessage localized_message = 4;
+   */
+  localizedMessage?: LocalizedMessage;
+
   constructor(data?: PartialMessage<BadRequest_FieldViolation>) {
     super();
     proto3.util.initPartial(data, this);
@@ -374,6 +494,8 @@ export class BadRequest_FieldViolation extends Message<BadRequest_FieldViolation
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "field", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "reason", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "localized_message", kind: "message", T: LocalizedMessage },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BadRequest_FieldViolation {
@@ -394,8 +516,6 @@ export class BadRequest_FieldViolation extends Message<BadRequest_FieldViolation
 }
 
 /**
- * Contains metadata about the request that clients can attach.
- *
  * @generated from message google.rpc.RequestInfo
  */
 export class RequestInfo extends Message<RequestInfo> {
@@ -439,8 +559,6 @@ export class RequestInfo extends Message<RequestInfo> {
 }
 
 /**
- * Describes the resource that is being accessed.
- *
  * @generated from message google.rpc.ResourceInfo
  */
 export class ResourceInfo extends Message<ResourceInfo> {
@@ -496,8 +614,6 @@ export class ResourceInfo extends Message<ResourceInfo> {
 }
 
 /**
- * Provides links to documentation or for performing an out-of-band action.
- *
  * @generated from message google.rpc.Help
  */
 export class Help extends Message<Help> {
@@ -578,8 +694,6 @@ export class Help_Link extends Message<Help_Link> {
 }
 
 /**
- * Provides a localized error message.
- *
  * @generated from message google.rpc.LocalizedMessage
  */
 export class LocalizedMessage extends Message<LocalizedMessage> {

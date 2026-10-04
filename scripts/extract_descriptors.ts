@@ -82,6 +82,8 @@ function collectAllDescriptors(): Map<string, InstanceType<typeof FileDescriptor
         for (const d of extracted) {
             const name = d.proto.name;
             if (name && d.proto.package) {
+                // "status.proto" は "google/rpc/status.proto" と重複し import を壊すためスキップ
+                if (name === "status.proto") continue;
                 // 重複時はメッセージ数が多い方を採用
                 const existing = allDescriptors.get(name);
                 if (!existing || d.proto.messageType.length > existing.messageType.length) {

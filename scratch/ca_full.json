@@ -1,0 +1,158 @@
+{
+ "messagePrompts": [
+  {
+   "source": "CHAT_MESSAGE_SOURCE_USER",
+   "prompt": "<USER_REQUEST>\nSay: PONG\n</USER_REQUEST>\n<ADDITIONAL_METADATA>\nThe current local time is: 2026-09-06T15:29:50+09:00.\n\nThe user's current state is as follows:\nBrowser State:\n  Page FE46147137B3DCB98DAB91257DD6D710 () - about:blank [ACTIVE]\n    Viewport: 1200x967, Page Height: 967\n  Page 64472728D9741503EBE1F878ACBAA16C (Upgraded - Wappalyzer) - https://www.wappalyzer.com/upgraded/?utm_source=upgraded&utm_medium=extension&ut...\n    Viewport: 1200x967, Page Height: 8130\n</ADDITIONAL_METADATA>\n<USER_SETTINGS_CHANGE>\nThe user changed setting `Model Selection` from None to Gemini 3.6 Flash (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.\n</USER_SETTINGS_CHANGE>",
+   "numTokens": 267,
+   "promptCacheOptions": {
+    "type": "CACHE_CONTROL_TYPE_EPHEMERAL"
+   }
+  },
+  {
+   "source": "CHAT_MESSAGE_SOURCE_SYSTEM",
+   "prompt": "PONG",
+   "stepIdx": 1,
+   "thinkingSignature": "EvACCu0CARFNMg8fiyWNX+KXGRH/i8o2IcYpnf8smyaJS+5vS1fbi+5LdxBvrdi69WDwWhZxVGBVwsKAP0vzF5mrJvUsRd/ktctm0EGFN7R6uAXZladt8E52CM0vE9EEkEbfczPVoAmEZJvFO9WLGmJEhQZISqnP/ecfGG6YYr/AJhJD5+xx86aazOiw/kyl7JAF9kqmjlUxdbyjrl4UlPe4ZDVLWL3KJQmdP/44L/i+ne6zi/KCV1vYrioEpCndrVAnK4Gd4L3HuyXEy1dnlQR1MM+FRlIDf9NabKaVbphGpxxDhMgdRuIbBoKVsGBflYtVmZrs6phTpPtPRA3nOv0aL5+/3gNIfIyn6ZrM+gzBROjDSlE0304iWakPeRZNuFb47HH3D+h2pGvtR3T7me1/VzXx/YKTTkVjwRia+tIx9ynh2aOBG1Rt2c2qZyvz09DzY4juBesNMBevH/9wQKHZZjI+TexWop4Id/BW3lECc0s="
+  }
+ ],
+ "model": "MODEL_PLACEHOLDER_M71",
+ "usage": {
+  "model": "MODEL_PLACEHOLDER_M71",
+  "inputTokens": "1869",
+  "outputTokens": "67",
+  "apiProvider": "API_PROVIDER_GOOGLE_GEMINI",
+  "responseHeader": [
+   {
+    "key": "sessionID",
+    "value": "-3750763034362895579"
+   }
+  ],
+  "thinkingOutputTokens": "65",
+  "responseOutputTokens": "2",
+  "responseId": "XgidarKqOv_YrfcPto27gAE"
+ },
+ "toolChoice": {
+  "optionName": "auto"
+ },
+ "tools": [
+  {
+   "name": "schedule",
+   "description": "Schedule a one-shot timer or a recurring cron job that sends notifications in the background.\n\n**NOTE**: This tool call returns immediately and does not pause execution. To wait for the timer to fire, you must stop calling tools to end your turn.\n\nModes:\n1. **One-shot timer**: Set a timer for a specified duration that will notify you with your Prompt when it expires. You can control early termination behavior using TimerCondition:\n\n- 'never' (default): The timer will always fire after the specified duration, unless explicitly cancelled.\nUsage: Use when setting unconditional timers that should always fire after DurationSeconds, unless explicitly cancelled.\n- 'any': The timer will be cancelled early if ANY message from any sender is received before the duration.\nUsage: Useful when multiple background tasks are running and you want to wait for any update, but with some guarantee that you won't be idle forever in case they are all stuck.\n- <sender-id>: The timer will be cancelled early if a message is received from that specific sender ID.\nUsage: Use when you're waiting for an update from a specific subagent or task, but want to set some limit on how long to wait.\n\nNOTE: You cannot have multiple concurrently active timers that would early terminate on the same sender ID.\nFor example, if you already have a liveness timer set with \"any\", you cannot set another timer with \"any\" or any other condition.\nIf you already have a timer set with early termination on \"task-123\", you cannot set another timer with \"task-123\" or \"any\".\nYou should rely on the existing timer, or cancel and replace it if needed.\n\nExamples:\n\nScenario: User asks explicitly for a reminder in 10 minutes.\nArgs: DurationSeconds=600, Prompt=\"Remind the user\", TimerCondition=\"never\"\nComments: TimerCondition=\"never\" is appropriate since this timer is unrelated to other ongoing tasks.\n\nScenario: You just ran a command as \"task-123\" and you want to remind yourself to check on it in 5 minutes if it hasn't finished already in case it's stuck somewhere.\nArgs: DurationSeconds=300, Prompt=\"Check on the command status\", TimerCondition=\"task-123\"\nComments: TimerCondition=\"task-123\" is appropriate since the timer is not needed if the command finishes ahead of time.\n\nScenario: You just spawned 10 subagents, and you want to check in on progress after 5 minutes if you haven't heard back from any of them.\nArgs: DurationSeconds=300, Prompt=\"Check in on the subagents' progress\", TimerCondition=\"any\"\nComments: TimerCondition=\"any\" is appropriate since you are not waiting for any specific subagent.\n\nScenario: You are running a command that you're sure will terminate, and you want to wait for it to finish.\nArgs: N/A\nComments: A timer is not needed at all in this scenario and will wastefully generate extra messages. Stop calling tools to end your turn instead.\n\n2. **Recurring cron**: Set CronExpression to a standard 5-field cron expression (e.g., '*/5 * * * *' for every 5 minutes). Each time the cron triggers, a notification with your Prompt is sent. The cron runs as a background task. Optionally set MaxIterations to limit the number of triggers.\n\nExamples:\n- Poll deployment status every 5 minutes: CronExpression=\"*/5 * * * *\", Prompt=\"Check deployment status and report progress\"\n- Run a health check every hour, up to 3 times: CronExpression=\"0 * * * *\", MaxIterations=3, Prompt=\"Run the health check script and report results\"\n\nGeneral Reminders:\n- You must specify exactly one of DurationSeconds or CronExpression.\n- Always provide a Prompt describing what the notification should say.\n- Never run a background 'sleep' command to set a timer, use this tool instead.\n- To cancel a running timer or cron schedule, use the manage_task tool with the task ID returned by this tool.",
+   "jsonSchemaString": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"properties\":{\"DurationSeconds\":{\"type\":\"string\",\"description\":\"The number of seconds to wait. Use for one-shot timers. Mutually exclusive with CronExpression.\"},\"CronExpression\":{\"type\":\"string\",\"description\":\"A standard cron expression (5 fields: minute hour day-of-month month day-of-week). Use for recurring schedules. Mutually exclusive with DurationSeconds. Example: '*/5 * * * *' for every 5 minutes.\"},\"MaxIterations\":{\"type\":\"string\",\"description\":\"Optional. Maximum number of times the cron schedule will fire before stopping. Only applicable when CronExpression is set. Defaults to unlimited.\"},\"TimerCondition\":{\"type\":\"string\",\"description\":\"Optional. Controls when a one-shot timer should early terminate upon receiving a message. Options: 'never' (default, timer unconditionally waits until expiry), 'any' (timer cancels if any message is received), or a specific sender ID (timer cancels only if a message is received from that specific subagent conversation ID or background task ID). Only applicable when DurationSeconds is set.\"},\"Prompt\":{\"type\":\"string\",\"description\":\"The message content to include in the notification when the timer fires or cron triggers. This is sent to the agent as a high-priority message.\"},\"toolSummary\":{\"type\":\"string\",\"description\":\"Brief 2-5 word noun phrase describing what this tool call is about. Capitalize like a sentence. Some examples: 'Directory analysis', 'Web search', 'File edit', 'Command execution', 'Semantic search'.\"},\"toolAction\":{\"type\":\"string\",\"description\":\"Brief 2-5 word summary of what this tool is doing. Capitalize like a sentence. Some examples: 'Analyzing directory', 'Searching the web', 'Editing file', 'Viewing file', 'Running command', 'Semantic searching'.\"}},\"additionalProperties\":false,\"type\":\"object\",\"required\":[\"Prompt\",\"toolSummary\",\"toolAction\"]}",
+   "originalName": "schedule"
+  },
+  {
+   "name": "send_message",
+   "description": "Send a message to another agent. This tool can be used to communicate with subagents, peer agents, etc. Do not use this tool to communicate with the user.",
+   "jsonSchemaString": "{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"properties\":{\"Recipient\":{\"type\":\"string\",\"description\":\"The recipient ID to send the message to, e.g. a subagent conversation ID.\"},\"Message\":{\"type\":\"string\",\"description\":\"The message content.\"},\"toolSummary\":{\"type\":\"string\",\"description\":\"Brief 2-5 word noun phrase describing what this tool call is about. Capitalize like a sentence. Some examples: 'Directory analysis', 'Web search', 'File edit', 'Command execution', 'Semantic search'.\"},\"toolAction\":{\"type\":\"string\",\"description\":\"Brief 2-5 word summary of what this tool is doing. Capitalize like a sentence. Some examples: 'Analyzing directory', 'Searching the web', 'Editing file', 'Viewing file', 'Running command', 'Semantic searching'.\"}},\"additionalProperties\":false,\"type\":\"object\",\"required\":[\"Recipient\",\"Message\",\"toolSummary\",\"toolAction\"]}",
+   "originalName": "send_message"
+  }
+ ],
+ "chatStartMetadata": {
+  "checkpointIndex": -1,
+  "createdAt": "2026-09-06T06:29:50.525173Z",
+  "cacheBreakpoints": [
+   {
+    "options": {
+     "type": "CACHE_CONTROL_TYPE_EPHEMERAL"
+    },
+    "contentChecksum": "9438936c"
+   }
+  ],
+  "systemPromptCache": {
+   "options": {
+    "type": "CACHE_CONTROL_TYPE_EPHEMERAL"
+   },
+   "contentChecksum": "8da185d3"
+  },
+  "timeSinceLastInvocation": "0s",
+  "contextWindowMetadata": {
+   "estimatedTokensUsed": 267,
+   "tokenBreakdown": {
+    "groups": [
+     {
+      "name": "Chat Messages",
+      "type": "TOKEN_TYPE_CHAT_MESSAGES",
+      "numTokens": 267,
+      "children": [
+       {
+        "name": "0: USER_INPUT",
+        "numTokens": 267
+       }
+      ]
+     }
+    ],
+    "totalTokens": 267
+   }
+  }
+ },
+ "messageMetadata": [
+  {},
+  {
+   "segmentIndex": 1
+  }
+ ],
+ "timeToFirstToken": "0.988678417s",
+ "streamingDuration": "0.041737791s",
+ "completionConfig": {
+  "numCompletions": "1",
+  "maxTokens": "65536",
+  "maxNewlines": "200",
+  "temperature": 1,
+  "firstTemperature": 0.4,
+  "topK": "50",
+  "topP": 1,
+  "stopPatterns": [
+   "<|user|>",
+   "<|bot|>",
+   "<|context_request|>",
+   "<|endoftext|>",
+   "<|end_of_turn|>"
+  ],
+  "fimEotProbThreshold": 1
+ },
+ "retryInfos": [
+  {
+   "usage": {
+    "model": "MODEL_PLACEHOLDER_M71",
+    "inputTokens": "1869",
+    "outputTokens": "67",
+    "apiProvider": "API_PROVIDER_GOOGLE_GEMINI",
+    "responseHeader": [
+     {
+      "key": "sessionID",
+      "value": "-3750763034362895579"
+     }
+    ],
+    "thinkingOutputTokens": "65",
+    "responseOutputTokens": "2",
+    "responseId": "XgidarKqOv_YrfcPto27gAE"
+   },
+   "traceId": "1ba5fa30918325d5"
+  }
+ ],
+ "responseModel": "gemini-3.6-flash",
+ "customMetadata": [
+  {
+   "key": "last_step_index",
+   "value": "0"
+  },
+  {
+   "key": "model_enum",
+   "value": "MODEL_PLACEHOLDER_M71"
+  },
+  {
+   "key": "trajectory_id",
+   "value": "be79255b-6463-479c-86ff-d55d14d27e4f"
+  },
+  {
+   "key": "used_claude",
+   "value": "false"
+  },
+  {
+   "key": "used_claude_conservative",
+   "value": "false"
+  }
+ ],
+ "modelDisplayName": "Gemini 3.6 Flash (High)"
+}

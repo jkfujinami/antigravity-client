@@ -8,13 +8,13 @@ async function main() {
     console.log("🔌 Connecting to Antigravity Language Server...");
     try {
         const client = await AntigravityClient.connect();
-        
+
         console.log("📡 Fetching Available Models...");
         const response = await client.languageServer.getAvailableModels({});
-        
+
         const models = (response as any).models || (response.response as any)?.models || [];
         console.log(`🤖 Found ${models.length} Models:`);
-        
+
         models.forEach((m: any) => {
             const details = m.value;
             const modelEnumName = details ? (Model[details.model] || `Unknown(${details.model})`) : "Unknown";
@@ -25,12 +25,14 @@ async function main() {
         console.log("📡 Fetching User Model Configurations...");
         const userStatus = await client.getUserStatus();
         const configs = userStatus.userStatus?.cascadeModelConfigData?.clientModelConfigs || [];
-        
+
         if (configs.length > 0) {
             console.log(`✨ Found ${configs.length} Model Configs:`);
             configs.forEach(c => {
-                const modelName = (c.modelOrAlias as any)?.model || "Unknown";
-                console.log(` - Model: ${modelName}, Label: ${c.label}, Recommended: ${c.isRecommended}`);
+                const choice = c.modelOrAlias?.choice;
+                const enumName = choice?.case === "model" ? (Model[choice.value] || `Model(${choice.value})`) : (choice?.case ?? "Unknown");
+                const modelIdentifier = c.modelId || enumName;
+                console.log(` - Model: ${modelIdentifier} [Enum: ${enumName}], Label: ${c.label}, Recommended: ${c.isRecommended}`);
             });
         }
         console.log("--------------------------------------------------");

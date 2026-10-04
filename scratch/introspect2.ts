@@ -1,0 +1,8 @@
+import { StreamReactiveUpdatesResponse, StreamReactiveUpdatesRequest } from "../src/gen/exa/reactive_component_pb/reactive_component_pb.js";
+import { StreamAgentStateUpdatesRequest, StreamAgentStateUpdatesResponse } from "../src/gen/exa/jetski_cortex_pb/jetski_cortex_pb.js";
+const SCALAR:Record<number,string>={1:"double",2:"float",3:"int64",4:"uint64",5:"int32",6:"fixed64",7:"fixed32",8:"bool",9:"string",12:"bytes",13:"uint32",14:"enum",15:"sfixed32",16:"sfixed64",17:"sint32",18:"sint64"};
+function ts(f:any){if(f.kind==="scalar")return SCALAR[f.T]||`s${f.T}`;if(f.kind==="enum")return `enum ${f.T?.typeName?.split(".").pop()}`;if(f.kind==="message")return f.T?.typeName?.split(".").pop();if(f.kind==="map")return `map<${SCALAR[f.K]},${f.V?.T?.typeName?.split(".").pop()||SCALAR[f.V?.T]}>`;return f.kind;}
+function dump(C:any,ind:string,depth:number,seen:Set<string>){if(!C?.fields)return;for(const f of C.fields.list()){console.log(`${ind}${f.no} ${f.name}: ${ts(f)}${f.repeated?"[]":""}${f.oneof?` (oneof ${f.oneof.name})`:""}`);if(f.kind==="message"&&depth>0){const tn=f.T?.typeName;if(tn&&!seen.has(tn)){seen.add(tn);dump(f.T,ind+"    ",depth-1,seen);}else if(tn)console.log(`${ind}    … ${tn.split(".").pop()} (see above)`);}}}
+for(const [name,C,d] of [["StreamReactiveUpdatesRequest",StreamReactiveUpdatesRequest,0],["StreamReactiveUpdatesResponse",StreamReactiveUpdatesResponse,3],["StreamAgentStateUpdatesRequest",StreamAgentStateUpdatesRequest,1],["StreamAgentStateUpdatesResponse",StreamAgentStateUpdatesResponse,3]] as any){
+  console.log(`\n===== ${name} =====`);dump(C,"  ",d,new Set([ (C as any).typeName ]));
+}

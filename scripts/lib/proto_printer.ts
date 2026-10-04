@@ -148,8 +148,10 @@ export function renderProtoFile(
                             const typeFile = typeToFile.get(fqn);
                             const typePkg = fqn.substring(0, fqn.lastIndexOf("."));
                             
-                            if (typeFile && typeFile !== filename) {
-                                importFiles.add(typeFile);
+                            if (typeFile) {
+                                if (typeFile !== filename) {
+                                    importFiles.add(typeFile);
+                                }
                             } else if (typePkg.startsWith("google.protobuf")) {
                                 const base = fqn.split(".")[2];
                                 const snake = base.replace(/[A-Z]/g, (letter: string) => `_${letter.toLowerCase()}`).replace(/^_/, '');
@@ -180,8 +182,10 @@ export function renderProtoFile(
                         const typeFile = typeToFile.get(fqn);
                         const typePkg = fqn.substring(0, fqn.lastIndexOf("."));
                         
-                        if (typeFile && typeFile !== filename) {
-                            importFiles.add(typeFile);
+                        if (typeFile) {
+                            if (typeFile !== filename) {
+                                importFiles.add(typeFile);
+                            }
                         } else if (typePkg.startsWith("google.protobuf")) {
                             const base = fqn.split(".")[2];
                             const snake = base.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`).replace(/^_/, '');
@@ -314,6 +318,7 @@ function renderField(
  */
 export function shouldSkip(pkg: string): boolean {
     if (pkg.startsWith("google.internal.")) return false;
+    if (pkg.startsWith("google.rpc")) return false;
     if (pkg.startsWith("google.")) return true;
     if (pkg === "pb") return true;
     return false;

@@ -5,13 +5,13 @@
 
 import { Step } from "../gen/exa/gemini_coder/proto/trajectory_pb.js";
 
-/**
- * Helper that derives the Value type from a Step case at the type level.
+/** 
+ * Step 型から動的に Value 型を抽出するヘルパー 
  */
 type StepValue<T extends string> = Extract<NonNullable<Step["step"]>, { case: T }>["value"];
 
 /**
- * All event constants available on Cascade.
+ * Cascade で利用可能な全イベント定数
  */
 export const CascadeEvents = {
     // Basic Events
@@ -151,7 +151,7 @@ export const CascadeEvents = {
 } as const;
 
 /**
- * Event name -> payload type mapping
+ * イベント名とペイロードの型マッピング
  */
 export interface CascadeEventPayloads {
     "text": { delta: string; fullText: string; stepIndex: number };

@@ -7,29 +7,20 @@ import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialM
 import { Any, Message, proto3 } from "@bufbuild/protobuf";
 
 /**
- * The `Status` type defines a logical error model that is suitable for
- * different programming environments, including REST APIs and RPC APIs.
- *
  * @generated from message google.rpc.Status
  */
 export class Status extends Message<Status> {
   /**
-   * The status code, which should be an enum value of google.rpc.Code.
-   *
    * @generated from field: int32 code = 1;
    */
   code = 0;
 
   /**
-   * A developer-facing error message, which should be in English.
-   *
    * @generated from field: string message = 2;
    */
   message = "";
 
   /**
-   * A list of messages that carry the error details.
-   *
    * @generated from field: repeated google.protobuf.Any details = 3;
    */
   details: Any[] = [];

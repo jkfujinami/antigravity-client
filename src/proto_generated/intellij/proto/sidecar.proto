@@ -1,0 +1,98 @@
+syntax = "proto3";
+package antigravity.sidecar.v1;
+
+import "google/protobuf/empty.proto";
+
+message ProjectInfo {
+  string path = 1;
+  string name = 2;
+}
+
+message ThemeData {
+  message ColorsEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  string theme_name = 1;
+  string ui_theme = 2;
+  repeated antigravity.sidecar.v1.ThemeData.ColorsEntry colors = 3;
+  repeated antigravity.sidecar.v1.TextMateThemingRule token_colors = 4;
+}
+
+message TextMateThemingRule {
+  string name = 1;
+  repeated string scope = 2;
+  antigravity.sidecar.v1.TokenColorizationSetting settings = 3;
+}
+
+message TokenColorizationSetting {
+  string foreground = 1;
+  string background = 2;
+  string font_style = 3;
+}
+
+message OpenEditorRequest {
+  antigravity.sidecar.v1.ProjectInfo project = 1;
+  oneof focus_option {
+    string file_path = 2;
+  }
+}
+
+message OpenDiffViewRequest {
+  string file_path = 1;
+  string original_content = 2;
+  string new_content = 3;
+}
+
+message ClientEvent {
+}
+
+message ServerEvent {
+  oneof payload {
+    antigravity.sidecar.v1.OpenAgentManagerEvent open_agent_manager = 1;
+    antigravity.sidecar.v1.SendThemeEvent send_theme = 2;
+    antigravity.sidecar.v1.EditorMetricEvent editor_metric = 3;
+    antigravity.sidecar.v1.RecentProjectsEvent recent_projects = 4;
+  }
+}
+
+message OpenAgentManagerEvent {
+  antigravity.sidecar.v1.ProjectInfo current_project = 1;
+  repeated antigravity.sidecar.v1.ProjectInfo available_projects = 2;
+}
+
+message SendThemeEvent {
+  antigravity.sidecar.v1.ThemeData theme_data = 1;
+}
+
+message EditorMetricEvent {
+  message EventMetadataEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  string event_name = 1;
+  repeated antigravity.sidecar.v1.EditorMetricEvent.EventMetadataEntry event_metadata = 2;
+}
+
+message RecentProjectsEvent {
+  repeated antigravity.sidecar.v1.ProjectInfo projects = 1;
+}
+
+message ApplyInlineDiffsRequest {
+  repeated antigravity.sidecar.v1.InlineDiff diffs = 1;
+}
+
+message InlineDiff {
+  string file_path = 1;
+  string before = 2;
+  string after = 3;
+}
+
+service SidecarService {
+  rpc OpenEditor(antigravity.sidecar.v1.OpenEditorRequest) returns (google.protobuf.Empty);
+  rpc OpenDiffView(antigravity.sidecar.v1.OpenDiffViewRequest) returns (google.protobuf.Empty);
+  rpc ApplyInlineDiffs(antigravity.sidecar.v1.ApplyInlineDiffsRequest) returns (google.protobuf.Empty);
+  rpc EventStream(stream antigravity.sidecar.v1.ClientEvent) returns (stream antigravity.sidecar.v1.ServerEvent);
+}
